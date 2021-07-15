@@ -1,5 +1,5 @@
-**The Great Khan Expanded** is a mod for Stellaris (initiated by [Kinneyj47](https://steamcommunity.com/profiles/76561198167006924)), focusing on a better mid-game Marauder event (with all the consequences). It's also open source, so feel free to contribute! For more see the [workshop desc](/description.bbcode) (_[life](https://steamcommunity.com/sharedfiles/filedetails/?id=2508704523)_).
- 
+**The Great Khan Expanded** is a mod for Stellaris (initiated by [Kinneyj47](https://steamcommunity.com/profiles/76561198167006924)), focusing on a better mid-game Marauder event (with all the consequences). It's also open source, so feel free to contribute! For more see the [workshop desc](/mod/workshop_description.bbcode) (_[life](https://steamcommunity.com/sharedfiles/filedetails/?id=2508704523)_).
+
 ## How to contribute
 Have an idea? Great! Head over to our [discord](https://discordapp.com/channels/378985949373399040/445225961722478602) to discuss it. You can also check out the issues page on [Github](../../../The-Great-Khan-Expanded/issues) and see if there is already talked about this!
 
