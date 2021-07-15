@@ -1,0 +1,528 @@
+# #####################################
+#                                     #
+#   Radial Effect / Aura components   #
+#                                     #
+#   Edit by St@rk43                   #
+#                                     #
+# #####################################
+
+#################################################### Variables #########################
+
+@shipAuraRange = 80
+@stationSmallAuraRange = 70
+@stationMediumAuraRange = 90
+@stationLargeAuraRange = 110
+
+@cost0 = 0
+
+# ###################### #
+# UPDATED Reworked Auras #
+# ###################### #
+
+#Offensive
+utility_component_template = {
+	key = "SHIP_AURA_SHIELD_DAMPENER_1"
+	size = medium
+	icon = "GFX_ship_part_aura_shield_dampener"
+	icon_frame = 1
+	power = 0
+
+	size_restriction = { galleon marauder_galleon }
+	component_set = "ship_aura_components"
+
+	hostile_aura = {
+		name = "aura_shield_dampener"
+		radius = @shipAuraRange
+		apply_on = ships
+
+		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+			id = hostile_shield_dampener
+			priority = 1
+		}
+
+		modifier = {
+			ship_shield_mult = -0.20
+		}
+
+		graphics = {
+			area_effect = {
+				entity = "circle_area_entity"
+				dynamic_scale = yes
+			}
+			ship_effect = {
+				entity = "ship_aura_negative_entity"
+				dynamic_scale = no
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 2
+			is_ai = yes
+			is_preferred_weapons = weapon_type_energy
+		}
+	}
+}
+
+utility_component_template = {
+	key = "SHIP_AURA_QUANTUM_DESTABILIZER_1"
+	size = medium
+	icon = "GFX_ship_part_aura_quantum_destabilizer"
+	icon_frame = 1
+	power = 0
+
+	size_restriction = { galleon marauder_galleon }
+	component_set = "ship_aura_components"
+
+	hostile_aura = {
+		name = "aura_quantum_destabilizer"
+		radius = @shipAuraRange
+		apply_on = ships
+
+		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+			id = hostile_quantum_destabilizer
+			priority = 10
+		}
+
+		modifier = {
+			ship_fire_rate_mult = -0.10
+		}
+
+		graphics = {
+			area_effect = {
+				entity = "circle_area_entity"
+				dynamic_scale = yes
+			}
+			ship_effect = {
+				entity = "ship_aura_negative_entity"
+				dynamic_scale = no
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 10
+	}
+}
+
+utility_component_template = {
+	key = "SHIP_AURA_SUBSPACE_SNARE_1"
+	size = medium
+	icon = "GFX_ship_part_aura_snare"
+	icon_frame = 1
+	power = 0
+
+	size_restriction = { galleon marauder_galleon }
+	component_set = "ship_aura_components"
+
+	hostile_aura = {
+		name = "aura_ship_subspace_snare"
+		radius = @shipAuraRange
+		apply_on = fleets
+
+		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+			id = hostile_snare_aura
+			priority = 1
+		}
+
+		modifier = {
+			ship_emergency_ftl_min_days_mult = 1
+			ship_disengage_chance_mult = -0.20
+		}
+
+		graphics = {
+			area_effect = {
+				entity = "circle_area_entity"
+				dynamic_scale = yes
+			}
+			ship_effect = {
+				entity = "ship_aura_negative_entity"
+				dynamic_scale = no
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 10
+	}
+}
+
+#Defensive
+utility_component_template = {
+	key = "SHIP_AURA_INSPIRING_PRESENCE_1"
+	size = medium
+	icon = "GFX_ship_part_aura_nanobot"
+	icon_frame = 1
+	power = 0
+
+	size_restriction = { titan galleon marauder_galleon }
+	component_set = "ship_aura_components"
+
+	friendly_aura = {
+		name = "aura_inspiring_presence"
+		radius = @shipAuraRange
+		apply_on = ships
+
+		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+			id = friendly_inspiring_presence
+			priority = 20
+		}
+
+		modifier = {
+			ship_fire_rate_mult = 0.05
+		}
+
+		graphics = {
+			area_effect = {
+				entity = "circle_area_entity"
+				dynamic_scale = yes
+			}
+			ship_effect = {
+				entity = "ship_aura_positive_entity"
+				dynamic_scale = no
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 10
+	}
+}
+
+# For Galeon
+utility_component_template = {
+	key = "SHIP_AURA_TARGETING_GRID_1"
+	size = medium
+	icon = "GFX_ship_part_aura_nanobot"
+	icon_frame = 1
+	power = 0
+
+	size_restriction = { titan galleon marauder_galleon }
+	component_set = "ship_aura_components"
+
+	friendly_aura = {
+		name = "aura_targeting_grid"
+		radius = @shipAuraRange
+		apply_on = ships
+
+		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+			id = friendly_targeting_grid
+			priority = 20
+		}
+
+		modifier = {
+			ship_tracking_add = 10
+		}
+
+		graphics = {
+			area_effect = {
+				entity = "circle_area_entity"
+				dynamic_scale = yes
+			}
+			ship_effect = {
+				entity = "ship_aura_positive_entity"
+				dynamic_scale = no
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 2.0
+			is_ai = yes
+			is_preferred_weapons = weapon_type_kinetic
+		}
+	}
+}
+
+# For Playable Pirate Station
+utility_component_template = {
+	key = "SHIP_AURA_TARGETING_GRID_2"
+	size = medium
+	icon = "GFX_ship_part_aura_nanobot"
+	icon_frame = 1
+	power = 0
+
+	size_restriction = { playable_pirate_station }
+	component_set = "station_medium_aura_components"
+
+	friendly_aura = {
+		name = "aura_targeting_grid"
+		radius = @shipAuraRange
+		apply_on = ships
+
+		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+			id = friendly_targeting_grid
+			priority = 20
+		}
+
+		modifier = {
+			ship_tracking_add = 10
+		}
+
+		graphics = {
+			area_effect = {
+				entity = "circle_area_entity"
+				dynamic_scale = yes
+			}
+			ship_effect = {
+				entity = "ship_aura_positive_entity"
+				dynamic_scale = no
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 2.0
+			is_ai = yes
+			is_preferred_weapons = weapon_type_kinetic
+		}
+	}
+}
+
+
+utility_component_template = {
+	key = "SHIP_AURA_NANOBOT_CLOUD_1"
+	size = medium
+	icon = "GFX_ship_part_aura_nanobot"
+	icon_frame = 1
+	power = 0
+
+	size_restriction = { titan galleon marauder_galleon }
+	component_set = "ship_aura_components"
+
+	friendly_aura = {
+		name = "aura_nanobot_cloud"
+		radius = @shipAuraRange
+		apply_on = ships
+
+		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+			id = friendly_nanobot_cloud
+			priority = 20
+		}
+
+		modifier = {
+			ship_hull_regen_add_static = 1
+			ship_armor_regen_add_static = 3
+		}
+
+		graphics = {
+			area_effect = {
+				entity = "circle_area_entity"
+				dynamic_scale = yes
+			}
+			ship_effect = {
+				entity = "ship_aura_positive_entity"
+				dynamic_scale = no
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 10
+	}
+}
+
+# #####################
+#  OLD Returned Auras
+# #####################
+
+utility_component_template = {
+	key = "STATION_SMALL_AURA_MINEFIELD_1"
+	size = medium
+	icon = "GFX_ship_part_aura_minefield"
+	icon_frame = 1
+	power = 0
+
+	resources = {
+		category = ship_components
+		cost = {
+			alloys = @cost0
+		}
+	}
+
+	component_set = "station_small_aura_components"
+	#class_restriction = { pirate_station playable_pirate_station shipclass_pirate_enclave_station }
+
+	hostile_aura = {
+		name = "aura_minefield"
+		radius = @stationSmallAuraRange
+		apply_on = ships
+
+		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+			id = hostile_minefield_aura
+			priority = 1
+		}
+
+		damage_per_day = {
+			accuracy = 0.4
+			damage = { min = 5 max = 15 }
+			shield_damage = 2.0
+			shield_penetration = 0.0
+			armor_penetration = 0.75
+		}
+
+		graphics = {
+			area_effect = {
+				entity = "circle_area_entity"
+				dynamic_scale = yes
+			}
+
+			area_effect = {
+				entity = "mine_field_small_entity"
+				dynamic_scale = no
+			}
+			 ship_effect = {
+				 entity = "ship_aura_minefield_entity"
+				 dynamic_scale = no
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 10
+	}
+
+	#ai_weight = {
+	#	weight = 10
+	#	modifier = {
+	#		weight = 101
+	#		has_country_flag = aggressive
+	#	}
+	#}
+}
+
+utility_component_template = {
+	key = "STATION_MEDIUM_AURA_MINEFIELD_1"
+	size = medium
+	icon = "GFX_ship_part_aura_minefield"
+	icon_frame = 1
+	power = 0
+
+	resources = {
+		category = ship_components
+		cost = {
+			alloys = @cost0
+		}
+	}
+
+	component_set = "station_medium_aura_components"
+	#class_restriction = { pirate_station playable_pirate_station shipclass_pirate_enclave_station }
+
+	hostile_aura = {
+		name = "aura_minefield"
+		radius = @stationMediumAuraRange
+		apply_on = ships
+
+		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+			id = hostile_minefield_aura
+			priority = 1
+		}
+
+		damage_per_day = {
+			accuracy = 0.3
+			damage = { min = 15 max = 25 }
+			shield_damage = 3.0
+			shield_penetration = 0.0
+			armor_penetration = 0.75
+		}
+
+		graphics = {
+			area_effect = {
+				entity = "circle_area_entity"
+				dynamic_scale = yes
+			}
+
+			area_effect = {
+				entity = "mine_field_small_entity"
+				dynamic_scale = no
+			}
+			 ship_effect = {
+				 entity = "ship_aura_minefield_entity"
+				 dynamic_scale = no
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 10
+	}
+
+	#ai_weight = {
+	#	weight = 10
+	#	modifier = {
+	#		weight = 101
+	#		has_country_flag = aggressive
+	#	}
+	#}
+}
+
+utility_component_template = {
+	key = "PS_STATION_LARGE_AURA_MINEFIELD_1"
+	size = medium
+	icon = "GFX_ship_part_aura_minefield"
+	icon_frame = 1
+	power = 0
+
+	resources = {
+		category = ship_components
+		cost = {
+			alloys = @cost0
+		}
+	}
+
+	component_set = "station_large_aura_components"
+	#class_restriction = { shipclass_pirate_enclave_station }
+
+	hostile_aura = {
+		name = "aura_minefield"
+		radius = @stationLargeAuraRange
+		apply_on = ships
+
+		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+			id = hostile_minefield_aura
+			priority = 1
+		}
+
+		damage_per_day = {
+			accuracy = 0.2
+			damage = { min = 25 max = 45 }
+			shield_damage = 5.0
+			shield_penetration = 0.0
+			armor_penetration = 0.75
+		}
+
+		graphics = {
+			area_effect = {
+				entity = "circle_area_entity"
+				dynamic_scale = yes
+			}
+
+			area_effect = {
+				entity = "mine_field_small_entity"
+				dynamic_scale = no
+			}
+			 ship_effect = {
+				 entity = "ship_aura_minefield_entity"
+				 dynamic_scale = no
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 10
+	}
+
+	#ai_weight = {
+	#	weight = 10
+	#	modifier = {
+	#		weight = 101
+	#		has_country_flag = aggressive
+	#	}
+	#}
+}

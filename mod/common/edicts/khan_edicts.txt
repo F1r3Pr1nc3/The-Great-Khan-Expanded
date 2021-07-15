@@ -1,0 +1,36 @@
+#################
+# Menue as edict: only as fallback
+#################
+force_khan_spawn = {
+	icon = "GFX_diplomacy_status_is_satrapy"
+	length = 1
+	edict_cap_usage = 0
+	resources = {
+		category = edicts
+		cost = { influence = 0 }
+	}
+	potential = {
+		NOR = {
+			has_global_flag = dmm_installed
+			has_global_flag = modmenu_installed
+			# has_global_flag = z_modmenu_installed
+		}
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = "CrisisManagerMenu.7000.7138.C.tooltip"
+			NOT = { has_global_flag = marauder_crisis_ongoing }
+		}
+	}
+	effect = {
+		set_country_flag = CmtFlagIndividual
+		country_event = {
+			# id = khan.999
+			id = CrisisManagerMenu.4831
+		}
+	}
+	ai_weight = {
+		weight = 0
+		# modifier = { factor = 0 }
+	}
+}

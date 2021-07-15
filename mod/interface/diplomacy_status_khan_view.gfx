@@ -1,0 +1,10 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_diplomacy_status_is_machinesmith"
+		texturefile = "gfx/interface/icons/diplomacy/diplomacy_issatrapy.dds"
+	}
+	spriteType = {
+		name = "GFX_diplomacy_status_is_fabricator_satrapy"
+		texturefile = "gfx/interface/icons/diplomacy/diplomacy_issatrapy.dds"
+	}
+}

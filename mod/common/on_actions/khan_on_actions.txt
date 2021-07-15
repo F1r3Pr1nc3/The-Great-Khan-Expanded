@@ -1,0 +1,25 @@
+on_game_start = {
+	events = {
+		khan.300
+	}
+}
+on_single_player_save_game_load = {
+	events = {
+		khan.300
+	}
+}
+
+# No scope, like on_game_start
+on_yearly_pulse_country = {
+	events = {
+		khan.529
+	}
+}
+
+# This = subject
+# From = subject's overlord
+on_becoming_subject = {
+	events = {
+		khan.529
+	}
+}

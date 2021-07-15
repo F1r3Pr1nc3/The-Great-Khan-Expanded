@@ -1,0 +1,307 @@
+wg_independence = {
+	casus_belli = cb_subject
+
+	hide_if_no_cb = yes
+	set_defender_wargoal = wg_assert_overlordship
+
+	potential = {
+		always = yes
+	}
+	possible = {
+		custom_tooltip = {
+			fail_text = cannot_use_against_emperor
+			OR = {
+				from = { is_galactic_emperor = no }
+				is_galactic_community_member = no
+			}
+		}
+		custom_tooltip = {
+			fail_text = pax_galactica_active
+			NAND = {
+				is_active_resolution = resolution_emperor_pax_galactica
+				is_galactic_community_member = yes
+				from = { is_galactic_community_member = yes }
+			}
+		}
+	}
+
+	allowed_peace_offers = {
+		status_quo
+		surrender
+		demand_surrender
+	}
+
+	on_status_quo = {
+		custom_tooltip = wg_independence_status_quo
+		hidden_effect = {
+			set_subject_of = {
+				who = none
+			}
+		}
+	}
+
+	on_accept = {
+		custom_tooltip = wg_independence_accept
+		hidden_effect = {
+			set_subject_of = {
+				who = none
+			}
+			every_system_within_border = {
+				limit = {
+					from = { has_claim = prev }
+				}
+				remove_claims = { who = from }
+			}
+		}
+	}
+
+	on_wargoal_set = {
+		every_system_within_border = {
+			limit = {
+				NOT = { from = { has_claim = prev } }
+			}
+			add_claims = { who = from }
+		}
+
+		if = {
+			limit = { from = { is_country_type = awakened_marauders } }
+			set_subject_of = { who = none }
+			set_country_flag = rebelling_satrapy
+			remove_modifier = "satrapy_of_horde"
+			from = {
+				set_faction_hostility = {
+					target = root
+					set_hostile = yes
+					set_neutral = no
+					set_friendly = no
+				}
+			}
+			set_faction_hostility = {
+				target = from
+				set_hostile = yes
+				set_neutral = no
+				set_friendly = no
+			}
+			# fromfrom = { # war scope seems only work for on_accept
+			if = {
+				limit = {
+					any_war = {
+						is_war_participant = { who = root side = attackers }
+						# any_war_participant = {
+						any_attacker = {
+							NOT = { is_same_empire = root }
+							prev = { using_war_goal = { type = wg_independence owner = prev } }
+						}
+					}
+				}
+				random_war = {
+					limit = {
+						is_war_participant = { who = root side = attackers }
+						# any_war_participant = {
+						any_attacker = {
+							prev = { using_war_goal = { type = wg_independence owner = prev } }
+						}
+					}
+					# every_war_participant = {
+					every_attacker = {
+						limit = {
+							is_subject = yes
+							from = { is_overlord_to = prev }
+							# prev = {
+							# 	is_war_participant = { who = prev side = attackers }
+							# 	# using_war_goal = { type = wg_independence owner = prev }
+							# }
+						}
+						if = {
+							limit = { has_modifier = "satrapy_of_horde" }
+							set_country_flag = rebelling_satrapy
+							remove_modifier = "satrapy_of_horde"
+						}
+
+						set_subject_of = { who = none }
+						from = {
+							set_faction_hostility = {
+								target = root
+								set_hostile = yes
+								set_neutral = no
+								set_friendly = no
+							}
+						}
+						set_faction_hostility = {
+							target = from
+							set_hostile = yes
+							set_neutral = no
+							set_friendly = no
+						}
+					}
+				}
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 100
+	}
+}
+
+# Final uprising against Awakended Fallen Empire
+# TODO lacks a valid icon?
+wg_ae_uprising = {
+	casus_belli = cb_event
+	hide_if_no_cb = yes
+	set_defender_wargoal = wg_ae_domination
+	potential = { always = yes }
+	possible = { always = yes }
+	allowed_peace_offers = {
+		status_quo
+		surrender
+		demand_surrender
+	}
+	on_status_quo = {
+		custom_tooltip = wg_independence_status_quo
+		hidden_effect = {
+			set_subject_of = { who = none }
+		}
+	}
+	on_accept = {
+		custom_tooltip = wg_independence_accept
+		hidden_effect = {
+			set_subject_of = { who = none }
+			every_system_within_border = {
+				limit = {
+					from = { has_claim = prev }
+				}
+				remove_claims = { who = from }
+			}
+		}
+	}
+	on_wargoal_set = {
+		every_system_within_border = {
+			limit = {
+				NOT = {
+					from = { has_claim = prev }
+				}
+			}
+			add_claims = { who = from }
+		}
+	}
+	ai_weight = { weight = 100 }
+}
+
+wg_war_in_heaven = {
+	casus_belli = cb_event
+
+	total_war = yes
+
+	allowed_peace_offers = {
+		status_quo
+	}
+
+	surrender_acceptance = -1000
+	war_exhaustion = 0.25
+
+	set_defender_wargoal = wg_war_in_heaven
+
+	potential = {
+		always = no # event only
+	}
+	possible = {
+		always = yes
+	}
+
+	on_accept  = {
+		hidden_effect = {
+			if = {
+				limit = { is_country_type = awakened_fallen_empire }
+				save_event_target_as = WarInHeavenFEOne
+				remove_global_flag = war_in_heaven_ongoing
+				set_global_flag = war_in_heaven_ended
+				every_playable_country = {
+					country_event = { id = war_in_heaven.5 }
+				}
+				observer_event = { id = observer.77 }
+				from = {
+					if = {
+						limit = {
+							any_war = {
+								NOT = { is_war_participant = { who = root } }
+								any_war_participant = {
+									prev = {
+										using_war_goal = {
+											type = wg_war_in_heaven
+											owner = prev
+										}
+									}
+								}
+							}
+						}
+						every_war = { #End War in Heaven
+							limit = {
+								NOT = { is_war_participant = { who = root } }
+								any_war_participant = {
+									prev = {
+										using_war_goal = {
+											type = wg_war_in_heaven
+											owner = prev
+										}
+									}
+								}
+							}
+							end_war_effect = yes
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = { is_country_type = awakened_marauders }
+				from = {
+					add_threat = { who = root amount = 0.5 }
+				}
+				# TODO
+				# save_event_target_as = WarInHeavenFEOne
+				# every_playable_country = {
+				# 	country_event = { id = war_in_heaven.5 }
+				# }
+				if = {
+					limit = { from = { has_been_declared_crisis = no } }
+					from = {
+						set_subject_of = {
+							who = event_target:raider_khanate
+							subject_type = satrapy
+						}
+					}
+				}
+			}
+		}
+	}
+
+	on_status_quo = {
+		hidden_effect = {
+			save_event_target_as = WarInHeavenFEOne
+			from = { save_event_target_as = WarInHeavenFETwo }
+			every_playable_country = {
+				country_event = { id = war_in_heaven.6 }
+			}
+			observer_event = { id = observer.78 }
+			if = {
+				limit = {
+					is_country_type = awakened_marauders
+					exists = last_created_country
+					last_created_country = {
+						has_country_flag = released_empire
+					}
+				}
+				last_created_country = {
+					set_subject_of = {
+						who = root
+						subject_type = satrapy
+					}
+				}
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 100
+	}
+}

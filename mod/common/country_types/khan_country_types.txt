@@ -1,0 +1,182 @@
+awakened_marauders = {
+	attack_unarmed_orbital_stations = yes
+	scaled_difficulty_bonuses = 1
+	has_difficulty_bonuses = yes
+	destroys_starbases = yes
+	counts_for_victory = yes
+	share_survey_data = no
+	relations = yes
+	custom_diplomacy = yes
+	mid_game_crisis = yes
+	enforces_borders = no
+	needs_survey = no
+	# diplomatic_wars = yes
+	has_complete_sensor = yes
+	can_have_their_comms_shared = yes
+	can_use_invalid_technology = yes
+	custom_starbase = starbase_marauder
+	uses_special_buildables = yes
+	observable = yes
+	faction = {
+		hostile = yes
+		needs_border_access = no
+		generate_borders = yes
+		needs_colony = no
+	}
+	ai = {
+		enabled = yes
+		declare_war = yes
+		min_navy_for_wars = 0
+		min_assault_armies_for_wars = 6
+		colonizer = no
+		internal_policies = no
+		modification = no
+		# construction = no
+		# starbase_upgrade = no
+		limited_construction = yes
+		# tech = no
+		espionage = no
+		modules = {
+			horde_military_minister_module
+			horde_interior_minister_module
+			foreign_minister_module
+		}
+		army_data = {
+			assault_army = {
+				fraction = {
+					factor = 10
+					modifier = {
+						factor = 0
+						OR = {
+							has_technology = tech_telepathy
+							has_technology = tech_gene_seed_purification
+							# has_authority = auth_machine_intelligence
+							# AND = {
+							# 	OR = {
+							# 		has_ethic = ethic_militarist
+							# 		has_ethic = ethic_fanatic_militarist
+							# 	}
+							# 	has_technology = tech_gene_banks
+							# }
+							# AND = {
+							# 	has_ai_personality_behaviour = slaver
+							# 	has_technology = tech_neural_implants
+							# }
+							# AND = {
+							# 	has_ai_personality_behaviour = robot_liberator
+							# 	has_technology = tech_droid_workers
+							# }
+						}
+					}
+				}
+			}
+			gene_warrior_army = {
+				fraction = {
+					factor = 75
+					modifier = {
+						factor = 0
+						NOR = {
+							has_ethic = ethic_fanatic_xenophile
+							has_technology = tech_gene_seed_purification
+						}
+					}
+				}
+			}
+			psionic_army = {
+				fraction = {
+					factor = 75
+					modifier = {
+						factor = 0
+						OR = {
+							has_authority = auth_machine_intelligence
+							NOT = { has_technology = tech_telepathy }
+							NOT = { has_ethic = ethic_fanatic_spiritualist }
+							has_technology = tech_gene_seed_purification
+						}
+					}
+				}
+			}
+			# xenomorph_army = {
+			# 	fraction = {
+			# 		factor = 75
+			# 		modifier = {
+			# 			factor = 0
+			# 			NOT = { has_ethic = ethic_fanatic_xenophobe }
+			# 		}
+			# 	}
+			# }
+			# robotic_army = {
+			# 	fraction = {
+			# 		factor = 75
+			# 		modifier = {
+			# 			factor = 0
+			# 			NOT = { has_ethic = ethic_fanatic_materialist }
+			# 		}
+			# 	}
+			# }
+			# machine_assault_2 = {
+			# 	fraction = {
+			# 		factor = 50
+			# 		modifier = {
+			# 			factor = 0
+			# 			NOT = { has_authority = auth_machine_intelligence }
+			# 		}
+			# 	}
+			# }
+			# machine_assault_3 = {
+			# 	fraction = {
+			# 		factor = 25
+			# 		modifier = {
+			# 			factor = 0
+			# 			NOT = { has_authority = auth_machine_intelligence }
+			# 		}
+			# 	}
+			# }
+		}
+	}
+	modules = {
+		tiered_technology_module = {
+			tier = 3
+			rare = no
+		}
+		standard_event_module = {  }
+		exclusive_diplomacy_module = {
+			can_receive = {
+				action_declare_war
+				action_offer_peace
+				action_make_rival
+				action_end_rivalry
+				action_offer_trade_deal
+				action_cancel_trade_deal
+				action_insult
+			}
+			can_send = {
+				action_declare_war
+				action_make_rival
+				action_end_rivalry
+				action_offer_peace
+				action_offer_trade_deal
+				action_cancel_trade_deal
+				action_open_borders
+				action_close_borders
+			}
+		}
+	}
+	resources = {
+		category = country_base
+		produces = {
+			energy = 3000
+			minerals = 250
+			food = 100
+			alloys = 100
+			consumer_goods = 200
+			rare_crystals = 10
+			exotic_gases = 10
+			volatile_motes = 10
+			sr_dark_matter = 2
+			sr_living_metal = 2
+			sr_zro = 2
+			influence = 3
+		}
+	}
+}

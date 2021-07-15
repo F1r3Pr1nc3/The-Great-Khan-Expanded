@@ -1,0 +1,13 @@
+﻿l_german:
+ ##################################################
+ ##################################################
+ #####                                        #####
+ #####    Crisis Manager                      #####
+ #####                                        #####
+ #####    Names of Configuration Templates    #####
+ #####                                        #####
+ ##################################################
+ ##################################################
+ CrisisManagerTemplateList.desc:0 "There is yet only a custom template for The Great Khan Expanded.\n$CmtWarn0$: You can make more templates on your own (and share them)."
+ CrisisManagerTemplate_T001.title:0 "The Great Khan Expanded"
+ CrisisManagerTemplate_T001.tooltip:1 "Greetings! There are only few fitting and increasing changes to the Default Template."
