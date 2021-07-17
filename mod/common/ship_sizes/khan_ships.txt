@@ -33,7 +33,7 @@ npc_galleon_01 = {
 		is_country_type = awakened_marauders
 	}
 	class = shipclass_military
-	is_designable = yes
+	is_designable = yes # TODO?
 	takes_name_from_ship_design = yes
 	auto_upgrade = yes
 	# default_behavior = artillery

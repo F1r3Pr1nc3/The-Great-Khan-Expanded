@@ -1,5 +1,6 @@
 awakened_marauders = {
 	attack_unarmed_orbital_stations = yes
+	always_valid_target_aggressive = yes
 	scaled_difficulty_bonuses = 1
 	has_difficulty_bonuses = yes
 	destroys_starbases = yes

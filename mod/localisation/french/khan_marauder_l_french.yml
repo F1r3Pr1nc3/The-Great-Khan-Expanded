@@ -1,4 +1,6 @@
 ﻿l_french:
+ war_goal_wg_marauder_expansion:0 "The Great Expansion"
+ war_goal_wg_marauder_uprising:0 "The Great Uprising"
  great_khan_integrate_announcement:0 "This is the Great Khan speaking, while the current situation has proven to be a beneficial structure, it is now time to begin integrating the galaxy into one nation. I take this step warily, but for the greater good. This will later be viewed as the greatest day in galactic history, the day in which all sentient life looked to the sky and saw hope. I will begin integrating states one at a time, to better ease the logistical burden."
  great_khan_integrate_response:0 "This isn't good..."
  great_khan_integrate_choice:0 "The Great Khan has begun integrating their subjects into his empire. This has obviously caused unrest, it is believe that if one state rebelled, the others would join. It would not be a united front, the galaxy has grown wary of centralized power, but we would not be alone."
@@ -6,7 +8,7 @@
  marauder_uprising_stall:0 "We need more time to prepare."
  pick_great_khan:0 "The Khan has lead us well so far."
  pick_fe:0 "The old ones have our support."
- pick_indep:0 "We declare our independence!"
+ pick_indep:0 "$marauder.554.a$" # "We declare our independence!"
  FE_war_choice:0 "The Choice"
  FE_war_choice_desc:0 "The Great Khan has declared war on one of the Elder Races in an attempt to take their technology. Interestingly, the elder race has reached out to the Great Khan's subjects, offering us the chance to serve them instead. Both sides have promised great gifts for those who side with them, and destruction for those who side against them. Alternatively we could declare our complete independence in the chaos."
  great_khan_fe_war:0 "This is the Great Khan speaking, we has taken great strides in making the galaxy safe for all sentient beings. However, the elder races still sit in isolation, with their technology, we could forge a utopia among the stars. The elder races have refused to share this technology with us, and tragically the horde must war again. You will not be required to take part in the fighting, but those who do will find themselves well rewarded."

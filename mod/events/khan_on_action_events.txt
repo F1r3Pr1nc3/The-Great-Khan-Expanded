@@ -130,7 +130,12 @@ planet_event = {
 					owner = root.owner
 				}
 			}
-			last_created_ship = { reduce_hp_percent = 99 } # TODO NEEDS TEST
+			# TODO NEEDS TEST
+			last_created_fleet = {
+				random_owned_ship = {
+					reduce_hp_percent = 98 set_disabled = no
+				}
+			}
 		}
 	}
 	option = {

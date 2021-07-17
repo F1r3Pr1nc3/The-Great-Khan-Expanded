@@ -7,4 +7,8 @@ spriteTypes = {
 		name = "GFX_diplomacy_status_is_fabricator_satrapy"
 		texturefile = "gfx/interface/icons/diplomacy/diplomacy_issatrapy.dds"
 	}
+	spriteType = {
+		name = "GFX_diplomacy_status_is_war_satrapy"
+		texturefile = "gfx/interface/icons/diplomacy/diplomacy_issatrapy.dds" # diplomacy_isprotectorate
+	}
 }

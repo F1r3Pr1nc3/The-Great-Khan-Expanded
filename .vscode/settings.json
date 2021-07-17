@@ -1,3 +1,8 @@
 {
 	"hoi4ModUtilities.modFile": "d:\\GOG Games\\Settings\\Khan.git\\TheGreatKhanExpanded.mod"
+	"cSpell.enableFiletypes": [
+		"!python",
+		"!text",
+		"wikitext"
+	]
 }

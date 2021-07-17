@@ -23,3 +23,17 @@ on_becoming_subject = {
 		khan.529
 	}
 }
+
+# This = Ship
+# From = Disabler Ship
+on_ship_disabled = {
+	events = {
+		khan.304
+	}
+}
+# This = Ship
+on_ship_enabled = {
+	events = {
+		khan.305
+	}
+}

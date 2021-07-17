@@ -11,14 +11,12 @@
 
 entity = {
 	name = "pirate_01_starbase_marauder_construction_entity"
-	# clone = "space_station_entity"
 	clone = "station_generic_01_entity"
 	scale = 8.0
 }
 
 entity = {
 	name = "madd_01_starbase_marauder_construction_entity"
-	# clone = "space_station_entity"
 	clone = "station_generic_01_entity"
 	scale = 8.0
 }

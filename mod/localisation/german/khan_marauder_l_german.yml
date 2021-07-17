@@ -1,4 +1,6 @@
 ﻿l_german:
+ war_goal_wg_marauder_expansion:0 "Die Große Expansion"
+ war_goal_wg_marauder_uprising:0 "Der Große Aufstand"
  great_khan_integrate_announcement:0 "Hier spricht der Großkhan, während sich die gegenwärtige Situation als vorteilhaft erwiesen hat, ist es jetzt an der Zeit, die Galaxie in eine Nation zu integrieren. Ich gehe diesen Schritt vorsichtig, aber zum Wohle der Allgemeinheit. Dies wird später als der größte Tag in der galaktischen Geschichte angesehen werden, der Tag, an dem alles fühlende Leben zum Himmel blickte und Hoffnung sah. Ich werde beginnen, die Staaten nacheinander zu integrieren, um die logistische Belastung besser zu entlasten."
  great_khan_integrate_response:0 "Das ist nicht gut..."
  great_khan_integrate_choice:0 "Der Großkhan hat begonnen, ihre Untertanen in sein Reich zu integrieren. Dies hat offensichtlich für Unruhe gesorgt, es wird angenommen, dass, wenn ein Staat rebelliert, die anderen sich anschließen würden. Es wäre keine vereinte Front, die Galaxie ist gegenüber einer zentralisierten Macht misstrauisch geworden, aber wir wären nicht allein."
@@ -6,7 +8,7 @@
  marauder_uprising_stall:0 "Wir brauchen mehr Zeit, um uns vorzubereiten."
  pick_great_khan:0 "Der Khan hat uns bisher gut geführt."
  pick_fe:0 "Die Alten haben unsere Unterstützung."
- pick_indep:0 "Wir erklären unsere Unabhängigkeit!"
+ pick_indep:0 "$marauder.554.a$" # "Wir erklären unsere Unabhängigkeit!"
  FE_war_choice:0 "Die Wahl"
  FE_war_choice_desc:0 "Der Großkhan hat einer der Älteren Rassen den Krieg erklärt, um ihre Technologie zu stehlen. Interessanterweise hat sich die ältere Rasse an die Untertanen des Großkhans gewandt und uns die Möglichkeit geboten, ihnen stattdessen zu dienen. Beide Seiten haben denen, die auf ihrer Seite stehen, große Geschenke versprochen und denen, die sich gegen sie stellen, Zerstörung. Alternativ könnten wir im Chaos unsere völlige Unabhängigkeit erklären."
  great_khan_fe_war:0 "Hier spricht der Großkhan, wir haben große Schritte unternommen, um die Galaxis für alle Lebewesen sicher zu machen. Die älteren Rassen sitzen jedoch immer noch isoliert da, mit ihrer Technologie könnten wir eine Utopie unter den Sternen schmieden. Die älteren Rassen haben sich geweigert, diese Technologie mit uns zu teilen, und tragischerweise muss die Horde wieder Krieg führen. Ihr müsst nicht an den Kämpfen teilnehmen, aber diejenigen, die es tun, werden belohnt."
