@@ -3,7 +3,7 @@ satrapy = {
 	can_expand = yes
 	can_be_integrated = no
 	joins_overlord_wars = no
-	calls_overlord_to_war = yes
+	calls_overlord_to_war = no
 	can_do_diplomacy = yes
 	gets_sensor = no
 	diplo_threat = 0.75
@@ -40,7 +40,6 @@ machinesmith = {
 	calls_overlord_to_war = no
 	can_do_diplomacy = yes
 	research_sharing = yes
-	tech_cost_mult = -0.5
 	gets_sensor = no
 	diplo_threat = 0.75
 	intel_from_being_subject = 10
@@ -118,6 +117,7 @@ war_satrapy = {
 	can_switch_to = { satrapy }
 	gets_sensor = yes
 	gets_access = yes
+	tech_cost_mult = -0.5
 	diplo_threat = 1.5
 	intel_from_being_subject = 30
 	intel_from_being_overlord = 40
@@ -131,7 +131,7 @@ war_satrapy = {
 		has_ethic = ethic_fanatic_militarist
 		tech_unlocked_ratio = {
 			who = from
-			ratio < 0.9
+			ratio < 0.8
 		}
 	}
 	effect = {

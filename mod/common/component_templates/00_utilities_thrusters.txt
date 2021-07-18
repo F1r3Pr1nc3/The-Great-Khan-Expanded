@@ -888,7 +888,6 @@ utility_component_template = {
 	}
 }
 
-
 utility_component_template = {
 	key = "COLOSSUS_SHIP_THRUSTER_5"
 	size = small
@@ -912,9 +911,9 @@ utility_component_template = {
 
 	ai_weight = {
 		weight = 5
-
 		modifier = {
 			factor = 0.0
 			no_resource_for_component = { RESOURCE = sr_dark_matter }
+		}
 	}
 }

@@ -183,6 +183,226 @@ wg_ae_uprising = {
 	ai_weight = { weight = 100 }
 }
 
+wg_marauder_expansion = {
+	casus_belli = cb_satrapy_subjugation
+	# set_defender_wargoal =
+	hide_if_no_cb = yes
+	release_occupied_systems_on_status_quo = yes
+
+	total_war = no
+
+	galactic_empire_joins_defender = {
+		from = { is_galactic_emperor = yes }
+		imperial_authority >= 100
+	}
+
+	allowed_peace_offers = {
+		status_quo
+		surrender
+		demand_surrender
+	}
+
+	surrender_acceptance = -100
+	war_exhaustion = 0.5
+
+	cede_claims = occupied_only
+
+	potential = {
+		has_global_flag = marauder_crisis_ongoing
+		is_country_type_with_subjects = yes
+		NOT = { is_in_federation_with = FROM }
+		is_subject = yes
+		has_total_war_cb = no
+		exists = event_target:raider_khanate
+		NOR = {
+			has_valid_civic = civic_inwards_perfection
+			has_authority = auth_corporate
+		}
+		NAND = {
+			is_galactic_emperor = yes
+			from = { is_galactic_community_member = yes }
+		}
+	}
+
+	possible = {
+		event_target:raider_khanate = {
+			is_overlord_to = ROOT
+			NOR = {
+				is_overlord_to = FROM
+				is_same_empire = FROM
+			}
+		}
+		NOT = { has_authority = auth_machine_intelligence }
+
+		custom_tooltip = {
+			fail_text = cannot_subjugate_empire_member
+			NAND = {
+				has_galactic_emperor = yes
+				is_galactic_community_member = no
+				from = { is_galactic_community_member = yes }
+			}
+		}
+		custom_tooltip = {
+			fail_text = "cannot_use_against_custodian"
+			from = { is_galactic_custodian = no }
+		}
+		custom_tooltip = {
+			fail_text = "cannot_use_against_emperor"
+			from = { is_galactic_emperor = no }
+		}
+		custom_tooltip = {
+			fail_text = "cannot_use_against_btc"
+			from = { has_been_declared_crisis = no }
+		}
+	}
+
+	on_accept = {
+		hidden_effect = {
+			from = {
+				add_threat = {
+					who = root
+					amount = 0.5
+				}
+			}
+		}
+		if = {
+			limit = { from = { has_been_declared_crisis = no } }
+			from = {
+				country_event = { id = marauder.550 } # Submit to Khan
+				# set_subject_of = {
+				# 	who = event_target:raider_khanate
+				# 	subject_type = satrapy
+				# }
+			}
+		}
+	}
+
+	on_wargoal_set = {
+		event_target:raider_khanate = {
+			if = {
+				limit = { is_at_war_with = FROM }
+				if = {
+					limit = {
+						any_war = {
+							is_war_participant = { who = FROM }
+							any_war_participant = {
+								PREV = {
+									using_war_goal = {
+										type = wg_war_in_heaven
+										owner = PREV
+									}
+								}
+							}
+						}
+					}
+					random_war = { #End War in Heaven
+						limit = {
+							is_war_participant = { who = FROM }
+							any_war_participant = {
+								PREV = {
+									using_war_goal = {
+										type = wg_war_in_heaven
+										owner = PREV
+									}
+								}
+							}
+						}
+						end_war_effect = yes
+					}
+					join_war = ROOT
+				} else_if = {
+					limit = {
+						any_war = {
+							is_war_participant = { who = FROM }
+							is_war_participant = { who = PREV }
+							any_war_participant = {
+								PREV = {
+									using_war_goal = {
+										type = wg_marauder_expansion
+										owner = PREV
+									}
+								}
+							}
+						}
+					}
+					random_war = { # Join existing war
+						limit = {
+							is_war_participant = { who = FROM }
+							is_war_participant = { who = PREV }
+							any_war_participant = {
+								PREV = {
+									using_war_goal = {
+										type = wg_marauder_expansion
+										owner = PREV
+									}
+								}
+							}
+						}
+						ROOT = {
+							join_war_on_side = { war = PREV side = attacker }
+						}
+					}
+				} else = {
+					join_war = ROOT
+				}
+			}
+			every_subject = {
+				limit = {
+					is_subject_type = war_satrapy
+					NOT = { is_at_war_with = FROM }
+				}
+				join_war = PREV
+			}
+		}
+	}
+
+	on_status_quo = {
+		if = {
+			limit = { exists = event_target:raider_khanate }
+			hidden_effect = {
+				from = {
+					add_threat = { who = root amount = 0.5 }
+					# Can't war for a year
+					set_timed_country_flag = { flag = rebellion_cooldown days = @b1_time }
+					change_variable = { which = "planets_lost_to_marauder" value = -3 }
+					set_faction_hostility = {
+						target = event_target:raider_khanate
+						set_hostile = no
+						set_neutral = yes
+						set_friendly = no
+					}
+				}
+			}
+			event_target:raider_khanate = {
+				set_faction_hostility = {
+					target = from
+					set_hostile = no
+					set_neutral = yes
+					set_friendly = no
+				}
+			}
+			if = {
+				limit = {
+					exists = last_created_country
+					last_created_country = {
+						has_country_flag = released_empire
+					}
+				}
+				last_created_country = {
+					set_subject_of = {
+						who = event_target:raider_khanate
+						subject_type = satrapy
+					}
+				}
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 100
+	}
+}
+
 wg_war_in_heaven = {
 	casus_belli = cb_event
 
@@ -276,6 +496,12 @@ wg_war_in_heaven = {
 					# Can't war for a year
 					set_timed_country_flag = { flag = rebellion_cooldown days = @b1_time }
 					change_variable = { which = "planets_lost_to_marauder" value = -3 }
+					set_faction_hostility = {
+						target = prev
+						set_hostile = no
+						set_neutral = yes
+						set_friendly = no
+					}
 				}
 				set_faction_hostility = {
 					target = from

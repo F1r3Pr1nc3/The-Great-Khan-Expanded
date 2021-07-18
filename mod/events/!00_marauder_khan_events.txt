@@ -241,6 +241,31 @@ event = {
 	}
 }
 
+# Raiders Hit Planet (Slaves)
+planet_event = {
+	id = marauder.105
+	title = "marauder.104.name"
+	desc = "marauder.105.desc"
+	picture = GFX_evt_surrender
+	show_sound = event_planetary_riot
+	location = root
+	is_triggered_only = yes
+	pre_triggers = { has_owner = yes }
+	trigger = { is_colony = yes }
+	immediate = {
+		while = {
+			count = 4
+			limit = { num_pops > 2 }
+			random_owned_pop = {
+				limit = { NOT = { is_same_species = fromfrom } }
+				kill_pop = yes
+			}
+		}
+	}
+	option = { name = marauder.105.a }
+}
+
+
 #######################################
 ###  Main Effect of Khan Awakening  ###
 #######################################
@@ -826,7 +851,7 @@ country_event = {
 			ROOT = {
 				declare_war = {
 					target = PREV
-					name = "war_goal_wg_marauder_expansion"
+					name = "NAME_Expansion"
 					attacker_war_goal = "wg_war_in_heaven"
 				}
 				set_faction_hostility = {
@@ -838,8 +863,12 @@ country_event = {
 					who = PREV
 				}
 			}
+			if = {
+				limit = { has_origin = "origin_khan_successor" }
+				change_variable = { which = "planets_lost_to_marauder" value = 3 }
+			}
 		}
-		country_event = { id = khan.529 days = 360 } # Drums of War
+		# country_event = { id = khan.529 days = 360 } # Drums of War init
 	}
 }
 
@@ -855,7 +884,17 @@ country_event = {
 	# From = country, planet owner
 	# FromFrom = planet
 	trigger = {
-		is_country_type = awakened_marauders
+		has_global_flag = marauder_crisis_ongoing
+		exists = event_target:raider_khanate
+		OR = {
+			AND = {
+				exists = from
+				is_subject = yes
+				from = { is_overlord_to = event_target:raider_khanate }
+				NOT = { has_country_flag = rebellion_cooldown }
+			}
+			is_same_empire = event_target:raider_khanate # is_country_type = awakened_marauders
+		}
 	}
 
 	immediate = {
@@ -1056,6 +1095,18 @@ country_event = {
 	}
 }
 
+# Great Khan Defeated First Time
+country_event = {
+	id = marauder.506
+	title = "marauder.506.name"
+	desc = "marauder.506.desc"
+	picture = GFX_evt_sabotaged_ship
+	show_sound = event_ship_explosion
+	is_triggered_only = yes
+	location = event_target:khan_death_system
+	option = { name = marauder.506.a }
+}
+
 ### Return of Khan
 country_event = {
 	id = marauder.507
@@ -1070,6 +1121,43 @@ country_event = {
 		}
 		observer_event = { id = observer.15 }
 	}
+}
+
+# Return of the Great Khan
+country_event = {
+	id = marauder.508
+	title = "greatkhan_diplo_header"
+	desc = {
+		trigger = {
+			OR = {
+				is_subject_type = satrapy
+				has_country_flag = rebelling_satrapy
+			}
+		}
+		text = "marauder.508.desc.1"
+	}
+	desc = {
+		trigger = {
+			NOR = {
+				is_subject_type = satrapy
+				has_country_flag = rebelling_satrapy
+				is_homicidal = yes
+			}
+		}
+		text = "marauder.508.desc.2"
+	}
+	desc = {
+		trigger = { is_homicidal = yes }
+		text = "marauder.508.desc.3"
+	}
+	diplomatic = yes
+	picture_event_data = {
+		portrait = event_target:raider_khanate
+		room = "ethic_spaceship_room"
+	}
+	location = event_target:marauder_rally_point
+	is_triggered_only = yes
+	option = { name = marauder.508.a }
 }
 
 ### Khan Defeated in Combat And Die
@@ -1147,6 +1235,18 @@ country_event = {
 			country_event = { id = marauder.600 days = @CmtConstKhanLifespan_6e random = @CmtConstKhanLifespan_6f }
 		} else = { country_event = { id = marauder.600 days = @CmtConstKhanLifespan_3e random = @CmtConstKhanLifespan_3f } }
 	}
+}
+
+# Great Khan Dies
+country_event = {
+	id = marauder.510
+	title = "marauder.510.name"
+	desc = "marauder.510.desc"
+	picture = GFX_evt_space_funeral
+	show_sound = event_airlock
+	is_triggered_only = yes
+	location = event_target:khan_death_system
+	option = { name = marauder.510.a }
 }
 
 ### Sudden Death of Khan (on_monthly_pulse)
@@ -1352,14 +1452,60 @@ country_event = {
 		}
 	}
 	immediate = {
-		# Legacy vanilla
+
+		# Create fallback rally_point
+		if = {
+			limit = {
+				exists = event_target:marauder_rally_point
+				NOR = {
+					exists = event_target:marauder_rally_point.solar_system.owner
+					exists = event_target:marauder_rally_point.solar_system.starbase
+				}
+			}
+			event_target:marauder_rally_point = {
+				solar_system = { system_event = { id = khan.301 } }
+			}
+		}
+		else_if = {
+			limit = {
+				NOR = {
+					exists = event_target:marauder_rally_point.solar_system
+					exists = event_target:marauder_rally_point.solar_system.owner
+					event_target:marauder_rally_point = { is_owned_by = ROOT }
+				}
+			}
+			random_system_within_border = {
+				weights = {
+					base = 1
+					modifier = { add = 1 starbase = { has_starbase_size >= starbase_starhold } }
+					modifier = { add = 1 any_system_planet = { is_colony = yes is_owned_by = ROOT } }
+					modifier = { add = 1 any_system_planet = { has_planet_flag = marauder_rally_point } }
+					modifier = { add = 1 any_system_planet = { has_planet_flag = CmtFlagMarauderExpRallyPoint } }
+					modifier = { add = 1 CmtTriggerMarauderCapitalSystem = yes }
+					modifier = { add = 1 is_capital_system = yes }
+				}
+				random_system_planet = {
+					weights = {
+						base = 1
+						modifier = { add = 1 has_planet_flag = raid_source }
+						modifier = { add = 1 is_colony = yes }
+						modifier = { add = 1 is_capital = yes }
+					}
+					save_global_event_target_as = marauder_rally_point
+					set_planet_flag = marauder_rally_point
+				}
+				system_event = { id = khan.301 }
+			}
+		}
+
+		# Legacy
 		create_marauder_constructors = yes
 		if = {
 			limit = { num_armies < 40 }
 			create_marauder_armies = yes
 		}
 		# If at fleet cap
-		if = { limit = { fleet_power < 100000 }
+		if = { limit = { fleet_power < 150000 }
 			create_marauder_fleet = yes
 		}
 		# country_event = { id = marauder.520 days = 340 }
@@ -1409,7 +1555,7 @@ country_event = {
 			PREV = {
 				declare_war = {
 					target = PREV
-					name = "war_goal_wg_marauder_expansion"
+					name = "NAME_Expansion"
 					attacker_war_goal = "wg_war_in_heaven"
 				}
 				set_faction_hostility = {
@@ -1713,9 +1859,12 @@ country_event = {
 	force_open = yes
 	diplomatic = yes
 	trigger = {
-		from = { CmtTriggerIsKhanCountry = yes }
+		FROM = { CmtTriggerIsKhanCountry = yes }
 		NOT = { has_country_flag = marauder_diplomacy_engaged }
-		# NOT = { has_global_flag = great_khan_dead }
+		# NOR = {
+		# 	has_country_flag = marauder_diplomacy_engaged
+		# 	has_global_flag = great_khan_dead
+		# }
 	}
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
@@ -1886,7 +2035,10 @@ country_event = {
 		hidden_effect = {
 			if = {
 				limit = {
-					has_ethic = ethic_fanatic_militarist
+					OR = {
+						is_militarist = yes
+						has_militarist_government = yes
+					}
 					OR = {
 						relative_power = {
 							who = event_target:raider_khanate
@@ -1895,6 +2047,7 @@ country_event = {
 						}
 						has_origin = "origin_khan_successor"
 					}
+					tech_unlocked_ratio = { who = from ratio < 0.7 }
 				}
 				set_subject_of = {
 					who = event_target:raider_khanate
@@ -1978,7 +2131,7 @@ country_event = {
 			}
 			declare_war = {
 				target = event_target:raider_khanate
-				name = "Rebellion"
+				name = "NAME_Rebellion"
 				attacker_war_goal = "wg_war_in_heaven"
 			}
 			event_target:raider_khanate = {
@@ -2095,10 +2248,11 @@ country_event = {
 			limit = { is_overlord = yes }
 			every_subject = {
 				country_event = { id = marauder.553 days = 10 }
-				set_subject_of = {
-					who = event_target:raider_khanate
-					subject_type = satrapy
-				}
+				country_event = { id = marauder.551 }
+				# set_subject_of = {
+				# 	who = event_target:raider_khanate
+				# 	subject_type = satrapy
+				# }
 				add_modifier = { modifier = "satrapy_of_horde" days = -1 }
 				event_target:raider_khanate = {
 					set_faction_hostility = {
@@ -2218,6 +2372,7 @@ country_event = {
 		if = { # Khan Extended
 			limit = {
 				any_war = {
+					is_war_participant = ROOT
 					any_war_participant = {
 						prev = {
 							using_war_goal = {
@@ -2230,6 +2385,7 @@ country_event = {
 			}
 			every_war = { #End War in Heaven
 				limit = {
+					is_war_participant = ROOT
 					any_war_participant = {
 						prev = {
 							using_war_goal = {
@@ -2979,7 +3135,7 @@ country_event = {
 				clear_variable = "planets_lost_to_marauder"
 				declare_war = {
 					target = event_target:raider_khanate
-					name = "war_goal_wg_marauder_uprising"
+					name = "NAME_Rebellion"
 					attacker_war_goal = "wg_independence"
 				}
 				set_country_flag = rebelling_satrapy
@@ -3543,7 +3699,7 @@ system_event = {
 	is_triggered_only = yes
 	immediate = {
 		if = {
-			limit = { NOT = { starbase = { has_starbase_size = starbase_citadel } } }
+			limit = { NOR = { exists = starbase starbase = { has_starbase_size = starbase_citadel } } }
 			# space_owner = {
 			# 	if = {
 			# 		limit = { graphical_culture = pirate_01 }
@@ -3754,26 +3910,24 @@ ship_event = {
 }
 
 
-### Drums of War - Khan Expanding (Cycle)
-# Scope = Khan / subject
+### Drums of War - Khan Expanding (Cycle) on_action yearly/on_becoming_subject
+# This = Khan / subject
 country_event = {
 	id = khan.529
 	hide_window = yes
 	is_triggered_only = yes
-
+	# From = subject's overlord (on_becoming_subject)
 	trigger = {
 		has_global_flag = marauder_crisis_ongoing
-		exists = event_target:raider_khanate
-		# CmtTriggerExistKhanCountry = yes
+		exists = event_target:raider_khanate # CmtTriggerExistKhanCountry = yes
 		OR = {
 			AND = {
-				exists = from
+				exists = FROM
 				is_subject = yes
-				from = { is_overlord_to = event_target:raider_khanate }
+				FROM = { is_overlord_to = ROOT }
 				NOT = { has_country_flag = rebellion_cooldown }
 			}
-			is_same_empire = event_target:raider_khanate
-			# CmtTriggerIsKhanCountry = yes
+			is_same_empire = event_target:raider_khanate # CmtTriggerIsKhanCountry = yes
 		}
 	}
 
@@ -3804,7 +3958,7 @@ country_event = {
 						}
 					}
 				}
-				every_neighbor_country = {
+				random_neighbor_country = {
 					limit = {
 						CmtTriggerIsPlayableEmpire = yes
 						NOR = {
@@ -3813,6 +3967,14 @@ country_event = {
 							is_same_empire = PREV
 						}
 					}
+					weights = {
+						base = 1
+						modifier = { add = 3 relative_power = { who = PREV category = fleet value < equivalent } }
+						modifier = { add = 1 relative_power = { who = PREV category = fleet value = equivalent } }
+						modifier = { add = 3 opinion_level = { who = PREV level < neutral } }
+						modifier = { add = 1 opinion_level = { who = PREV level = neutral } }
+						modifier = { add = 2 has_federation = no }
+					}
 					set_faction_hostility = {
 						target = PREV
 						set_hostile = yes
@@ -3820,38 +3982,57 @@ country_event = {
 					PREV = {
 						declare_war = {
 							target = PREV
-							name = "war_goal_wg_marauder_expansion"
+							name = "NAME_Expansion"
 							attacker_war_goal = "wg_war_in_heaven"
 						}
 						set_faction_hostility = {
 							target = PREV
 							set_hostile = yes
 						}
+					}
+					if = {
+						limit = { has_origin = "origin_khan_successor" }
+						change_variable = { which = "planets_lost_to_marauder" value = 3 }
 					}
 				}
-				random_country = {
-					limit = {
-						has_communications = PREV
-						CmtTriggerIsPlayableEmpire = yes
-						NOR = {
-							PREV = { is_overlord_to = PREV }
-							is_at_war_with = PREV
-							is_same_empire = PREV
+				if = {
+					limit = { count_war = { count < 6 } }
+					random_country = {
+						limit = {
+							has_communications = PREV
+							CmtTriggerIsPlayableEmpire = yes
+							NOR = {
+								PREV = { is_overlord_to = PREV }
+								is_at_war_with = PREV
+								is_same_empire = PREV
+							}
 						}
-					}
-					set_faction_hostility = {
-						target = PREV
-						set_hostile = yes
-					}
-					PREV = {
-						declare_war = {
-							target = PREV
-							name = "war_goal_wg_marauder_expansion"
-							attacker_war_goal = "wg_war_in_heaven"
+						weights = {
+							base = 1
+							modifier = { add = 3 relative_power = { who = PREV category = fleet value < equivalent } }
+							modifier = { add = 1 relative_power = { who = PREV category = fleet value = equivalent } }
+							modifier = { add = 3 opinion_level = { who = PREV level < neutral } }
+							modifier = { add = 1 opinion_level = { who = PREV level = neutral } }
+							modifier = { add = 2 has_federation = no }
 						}
 						set_faction_hostility = {
 							target = PREV
 							set_hostile = yes
+						}
+						PREV = {
+							declare_war = {
+								target = PREV
+								name = "NAME_Expansion"
+								attacker_war_goal = "wg_war_in_heaven"
+							}
+							set_faction_hostility = {
+								target = PREV
+								set_hostile = yes
+							}
+						}
+						if = {
+							limit = { has_origin = "origin_khan_successor" }
+							change_variable = { which = "planets_lost_to_marauder" value = 3 }
 						}
 					}
 				}
@@ -3893,7 +4074,7 @@ country_event = {
 			}
 			declare_war = {
 				target = event_target:raider_khanate
-				name = "Rebellion"
+				name = "NAME_Rebellion"
 				attacker_war_goal = "wg_war_in_heaven"
 			}
 			event_target:raider_khanate = {
@@ -4125,53 +4306,69 @@ country_event = {
 			limit = { num_armies < 40 }
 			create_marauder_armies = yes
 		}
-		random_planet_within_border = {
-			create_fleet = {
-				effect = {
-					set_owner = ROOT
-					while = {
-						count = 2
+		random_system_within_border = {
+			weights = {
+				base = 1
+				modifier = { add = 1 starbase = { has_starbase_size >= starbase_starhold } }
+				modifier = { add = 1 any_system_planet = { is_colony = yes is_owned_by = ROOT } }
+				modifier = { add = 1 any_system_planet = { has_planet_flag = marauder_rally_point } }
+				modifier = { add = 1 CmtTriggerMarauderCapitalSystem = yes }
+				modifier = { add = 1 is_capital_system = yes }
+			}
+			random_system_planet = {
+				weights = {
+					base = 1
+					modifier = { add = 1 has_planet_flag = raid_source }
+					modifier = { add = 1 is_colony = yes }
+					modifier = { add = 1 is_capital = yes }
+				}
+				create_fleet = {
+					effect = {
+						set_owner = ROOT
 						while = {
-							count = 10
-							create_ship = {
-								name = random
-								design = "NAME_Outrider_4"
-								# graphical_culture = ROOT
+							count = 2
+							while = {
+								count = 10
+								create_ship = {
+									name = random
+									design = "NAME_Outrider_4"
+									# graphical_culture = ROOT
+								}
+							}
+							while = {
+								count = 5
+								create_ship = {
+									name = random
+									design = "NAME_Lancer_4"
+									# graphical_culture = ROOT
+								}
+							}
+							while = {
+								count = 3
+								create_ship = {
+									name = random
+									design = "NAME_Void_Champion_4"
+									# graphical_culture = ROOT
+								}
+							}
+							while = {
+								count = 1
+								create_ship = {
+									name = random
+									design = "NAME_Ancestral_Glory_4"
+									# graphical_culture = ROOT
+								}
 							}
 						}
-						while = {
-							count = 5
-							create_ship = {
-								name = random
-								design = "NAME_Lancer_4"
-								# graphical_culture = ROOT
-							}
+						set_location = {
+							target = PREV
+							distance = 20
+							angle = random
 						}
-						while = {
-							count = 3
-							create_ship = {
-								name = random
-								design = "NAME_Void_Champion_4"
-								# graphical_culture = ROOT
-							}
-						}
-						while = {
-							count = 1
-							create_ship = {
-								name = random
-								design = "NAME_Ancestral_Glory_4"
-								# graphical_culture = ROOT
-							}
-						}
+						set_aggro_range = 500
+						set_fleet_stance = aggressive
+						set_aggro_range_measure_from = self
 					}
-					set_location = {
-						target = PREV
-						distance = 20
-						angle = random
-					}
-					set_aggro_range = 500
-					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
 				}
 			}
 		}
@@ -4187,7 +4384,7 @@ country_event = {
 			country_event = { id = khan.868 days = 180 }
 			break = yes
 		}
-		remove_country_flag = has_machinesmith
+		# remove_country_flag = has_machinesmith
 	}
 }
 
@@ -4214,50 +4411,66 @@ country_event = {
 			country_event = { id = khan.870 days = 180 }
 			break = yes
 		}
-		random_planet_within_border = {
-			create_fleet = {
-				effect = {
-					set_owner = ROOT
-					while = {
-						count = 20
-						create_ship = {
-							name = random
-							design = "NAME_Outrider_4"
-							# graphical_culture = ROOT
+		random_system_within_border = {
+			weights = {
+				base = 1
+				modifier = { add = 1 starbase = { has_starbase_size >= starbase_starhold } }
+				modifier = { add = 1 any_system_planet = { is_colony = yes is_owned_by = ROOT } }
+				modifier = { add = 1 any_system_planet = { has_planet_flag = marauder_rally_point } }
+				modifier = { add = 1 CmtTriggerMarauderCapitalSystem = yes }
+				modifier = { add = 1 is_capital_system = yes }
+			}
+			random_system_planet = {
+				weights = {
+					base = 1
+					modifier = { add = 1 has_planet_flag = raid_source }
+					modifier = { add = 1 is_colony = yes }
+					modifier = { add = 1 is_capital = yes }
+				}
+				create_fleet = {
+					effect = {
+						set_owner = ROOT
+						while = {
+							count = 20
+							create_ship = {
+								name = random
+								design = "NAME_Outrider_4"
+								# graphical_culture = ROOT
+							}
 						}
-					}
-					while = {
-						count = 10
-						create_ship = {
-							name = random
-							design = "NAME_Lancer_4"
-							# graphical_culture = ROOT
+						while = {
+							count = 10
+							create_ship = {
+								name = random
+								design = "NAME_Lancer_4"
+								# graphical_culture = ROOT
+							}
 						}
-					}
-					while = {
-						count = 5
-						create_ship = {
-							name = random
-							design = "NAME_Void_Champion_4"
-							# graphical_culture = ROOT
+						while = {
+							count = 5
+							create_ship = {
+								name = random
+								design = "NAME_Void_Champion_4"
+								# graphical_culture = ROOT
+							}
 						}
-					}
-					while = {
-						count = 2
-						create_ship = {
-							name = random
-							design = "NAME_Ancestral_Glory_4"
-							# graphical_culture = ROOT
+						while = {
+							count = 2
+							create_ship = {
+								name = random
+								design = "NAME_Ancestral_Glory_4"
+								# graphical_culture = ROOT
+							}
 						}
+						set_location = {
+							target = PREV
+							distance = 20
+							angle = random
+						}
+						set_aggro_range = 500
+						set_fleet_stance = aggressive
+						set_aggro_range_measure_from = self
 					}
-					set_location = {
-						target = PREV
-						distance = 20
-						angle = random
-					}
-					set_aggro_range = 500
-					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
 				}
 			}
 		}
