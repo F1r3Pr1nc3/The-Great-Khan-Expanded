@@ -434,7 +434,7 @@
 #
 
 ### Multiple Great Khans
-	@CmtT001_ConstKhanMultiple = 3
+	@CmtT001_ConstKhanMultiple = 2
 		### No Khan = 1, Single Khan = 2 (Default), Multiple Khans = 3
 		### N/A = 4, Great Great Khan = 5 (Beta)
 
@@ -445,7 +445,7 @@
 		### 999 means Template Unique Value (Beta Feature), set in ''common\scripted_variables\Cmt-xxx_Unique_scripted_variables.txt''.
 
 ### Khan to Reign at Earliest
-	@CmtT001_ConstKhanEarliestMgpy = 0
+	@CmtT001_ConstKhanEarliestMgpy = 10
 		### Set x of ''Mid-Game Start Year + x years''.
 		### x must be -999, -100, -75, -50, -25, 0, 10, 25, 50, 75 or 999. (Default = 10)
 		### Exception: -999 means 'at anytime'
@@ -478,7 +478,7 @@
 		### (0, 510, 511: Not Applicable)
 
 ### Lifespan of Khan
-	@CmtT001_ConstKhanLifespan = 4
+	@CmtT001_ConstKhanLifespan = 5
 		### Critical = 1, Fleeting = 2, Standard Lifespan = 3 (Default)
 		### Enduring = 4, Venerable = 5, Immortality = 6
 

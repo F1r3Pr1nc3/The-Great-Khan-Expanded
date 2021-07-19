@@ -216,22 +216,26 @@ event = {
 				NOT = { graphical_culture = madd_01 }
 			}
 			set_graphical_culture = madd_01
-			## if is_designable
+			## if is_designable Error: referring to a non-existent ship design
+			# add_global_ship_design = "NAME_Outrider"
 			# if = {
 			# 	limit = { NOT = { has_existing_ship_design = "NAME_Outrider" } }
 			# 	create_ship_design = { design = "NAME_Outrider" }
 			# 	add_ship_design = last_created_design
 			# }
+			# add_global_ship_design = "NAME_Lancer"
 			# if = {
 			# 	limit = { NOT = { has_existing_ship_design = "NAME_Lancer" } }
 			# 	create_ship_design = { design = "NAME_Lancer" }
 			# 	add_ship_design = last_created_design
 			# }
+			# add_global_ship_design = "NAME_Void_Champion"
 			# if = {
 			# 	limit = { NOT = { has_existing_ship_design = "NAME_Void_Champion" } }
 			# 	create_ship_design = { design = "NAME_Void_Champion" }
 			# 	add_ship_design = last_created_design
 			# }
+			# add_global_ship_design = "NAME_Ancestral_Glory"
 			# if = {
 			# 	limit = { NOT = { has_existing_ship_design = "NAME_Ancestral_Glory" } }
 			# 	create_ship_design = { design = "NAME_Ancestral_Glory" }
@@ -1092,6 +1096,18 @@ country_event = {
 				}
 			}
 		}
+		# Back to the fold
+		every_owned_fleet = {
+			limit = {
+				NOR = { is_ship_class = shipclass_starbase is_ship_class = shipclass_military_station }
+				exists = solar_system
+				NAND = {
+					exists = space_owner
+					space_owner = { is_same_empire = ROOT }
+				}
+			}
+			set_mia = yes
+		}
 	}
 }
 
@@ -1452,7 +1468,6 @@ country_event = {
 		}
 	}
 	immediate = {
-
 		# Create fallback rally_point
 		if = {
 			limit = {
@@ -1505,7 +1520,7 @@ country_event = {
 			create_marauder_armies = yes
 		}
 		# If at fleet cap
-		if = { limit = { fleet_power < 150000 }
+		if = { limit = { fleet_power < 200000 }
 			create_marauder_fleet = yes
 		}
 		# country_event = { id = marauder.520 days = 340 }
@@ -1538,35 +1553,7 @@ country_event = {
 			}
 		}
 		# Try to expand the war
-		random_neighbor_country = {
-			limit = {
-				CmtTriggerIsPlayableEmpire = yes
-				NOR = {
-					has_country_flag = rebellion_cooldown
-					PREV = { is_overlord_to = PREV }
-					is_at_war_with = PREV
-					is_same_empire = PREV
-				}
-			}
-			set_faction_hostility = {
-				target = ROOT
-				set_hostile = yes
-			}
-			PREV = {
-				declare_war = {
-					target = PREV
-					name = "NAME_Expansion"
-					attacker_war_goal = "wg_war_in_heaven"
-				}
-				set_faction_hostility = {
-					target = PREV
-					set_hostile = yes
-					set_neutral = no
-					set_friendly = no
-				}
-			}
-		}
-
+		country_event = { id = khan.529 }
 	}
 }
 
@@ -1875,6 +1862,7 @@ country_event = {
 	# Submit? Extended subject offer
 	option = {
 		name = marauder_deal_start
+		sound = advisor_clicking_respons_13
 		trigger = {
 			NOR = {
 				from = { is_overlord_to = prev }
@@ -1905,6 +1893,7 @@ country_event = {
 	option = {
 		# Submit? Already rebelled
 		name = marauder_deal_start
+		sound = no_tut_advior_05
 		trigger = {
 			has_country_flag = rebelling_satrapy
 			has_technology = tech_mass_drivers_4
@@ -1918,6 +1907,7 @@ country_event = {
 	option = {
 		# Submit?
 		name = marauder.550.a
+		sound = advisor_clicking_respons_13
 		trigger = {
 			NOR = {
 				from = { is_overlord_to = prev }
@@ -1936,6 +1926,7 @@ country_event = {
 	option = {
 		# Submit? Already rebelled
 		name = marauder.550.a
+		sound = no_tut_advior_05
 		trigger = { has_country_flag = rebelling_satrapy }
 		response_text = marauder.550.a.2.response
 		is_dialog_only = yes
@@ -1971,6 +1962,7 @@ country_event = {
 	option = {
 		# Rebel?
 		name = marauder_fabricator_rebel
+		sound = no_tut_advior_01
 		trigger = { is_subject_type = fabricator_satrapy }
 		hidden_effect = {
 			country_event = { id = khan.751 }
@@ -1980,6 +1972,7 @@ country_event = {
 	option = {
 		# Rebel?
 		name = marauder.550.d
+		sound = no_tut_advior_01
 		trigger = {
 			OR = {
 				is_subject_type = machinesmith
@@ -2064,6 +2057,7 @@ country_event = {
 	}
 	option = {
 		name = marauder.551.b
+		sound = no_tut_advior_07
 		response_text = marauder.551.b.response
 		default_hide_option = yes
 	}
@@ -2118,6 +2112,7 @@ country_event = {
 	}
 	option = {
 		name = marauder.554.a
+		sound = no_tut_advior_02
 		response_text = marauder.554.a.response
 		set_subject_of = { who = none }
 		hidden_effect = {
@@ -2151,6 +2146,7 @@ country_event = {
 	}
 	option = {
 		name = marauder.554.b
+		sound = no_tut_advior_07
 		response_text = marauder.554.b.response
 		# default_hide_option = yes
 	}
@@ -3699,7 +3695,12 @@ system_event = {
 	is_triggered_only = yes
 	immediate = {
 		if = {
-			limit = { NOR = { exists = starbase starbase = { has_starbase_size = starbase_citadel } } }
+			limit = {
+				NAND = {
+					exists = starbase
+					starbase = { has_starbase_size = starbase_citadel }
+				}
+			}
 			# space_owner = {
 			# 	if = {
 			# 		limit = { graphical_culture = pirate_01 }
@@ -3910,7 +3911,7 @@ ship_event = {
 }
 
 
-### Drums of War - Khan Expanding (Cycle) on_action yearly/on_becoming_subject
+### Drums of War - Khan Expanding War (Cycle) on_action yearly/on_becoming_subject MTTH 360
 # This = Khan / subject
 country_event = {
 	id = khan.529
@@ -3996,7 +3997,12 @@ country_event = {
 					}
 				}
 				if = {
-					limit = { count_war = { count < 6 } }
+					limit = {
+						count_war = { count < 6 }
+						# every_war = {
+						# 	limit = { count_war_participants = { limit = { <triggers> } side = defender count < 4
+						# }
+					}
 					random_country = {
 						limit = {
 							has_communications = PREV
@@ -4061,6 +4067,7 @@ country_event = {
 	}
 	option = {
 		name = marauder_fabricator_disloyal
+		sound = no_tut_advior_02
 		response_text = khan.751.a.response
 		set_subject_of = { who = none }
 		hidden_effect = {
@@ -4092,6 +4099,7 @@ country_event = {
 	}
 	option = {
 		name = marauder_fabricator_loyal
+		sound = no_tut_advior_07
 		response_text = marauder.554.b.response
 	}
 }
@@ -4269,6 +4277,8 @@ country_event = {
 	}
 	option = {
 		name = marauder_fabricator_deal_accept
+		custom_tooltip = "SUBJECT_DESC_fabricator_satrapy"
+		sound = placeholder_sfx
 		response_text = marauder_fabricator_good
 		country_event = { id = marauder.559 } # Submit to Khan
 		set_subject_of = {
@@ -4278,9 +4288,11 @@ country_event = {
 		hidden_effect = {
 			country_event = { id = khan.798 days = @CmtConstKhanLifespan_5e random = @CmtConstKhanLifespan_2f }
 		}
+		ai_chance = { factor = 5 }
 	}
 	option = {
 		name = marauder_fabricator_deal_refuse
+		sound = no_tut_advior_07
 		response_text = marauder_deal_refuse
 	}
 }
@@ -4384,11 +4396,13 @@ country_event = {
 			country_event = { id = khan.868 days = 180 }
 			break = yes
 		}
-		# remove_country_flag = has_machinesmith
+		remove_country_flag = has_machinesmith
+		country_event = { id = marauder.520 days = 180 } # Regular Cycle
 	}
 }
 
-# This = Marauder (machinesmith Reinforcement Cycle)
+# great_khan has won (End-Game - machinesmith Reinforcement Cycle)
+# This = Marauder
 country_event = {
 	id = khan.870
 	hide_window = yes
@@ -4478,8 +4492,8 @@ country_event = {
 	}
 }
 
-# great_khan has won
-# This = Marauder (Reinforcement Cycle)
+# great_khan has won (End-Game Reinforcement Cycle)
+# This = Marauder
 country_event = {
 	id = khan.869
 	hide_window = yes
@@ -4529,6 +4543,8 @@ country_event = {
 	}
 	option = {
 		name = marauder_deal_response
+		custom_tooltip = "SUBJECT_DESC_machinesmith"
+		sound = placeholder_sfx
 		trigger = { has_been_declared_crisis = no }
 		response_text = marauder_deal_accept
 		country_event = { id = marauder.559 } # Submit to Khan
@@ -4541,15 +4557,17 @@ country_event = {
 				set_country_flag = has_machinesmith
 				country_event = { id = khan.868 } # (Reinforcement Cycle)
 			}
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_mass_drivers_4 }
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_lasers_4 }
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_ship_armor_4 }
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_shields_4 }
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_starbase_5 } # Citadel
 		}
-		give_tech_no_error_effect = { MESSAGE = no TECH = tech_mass_drivers_4 }
-		give_tech_no_error_effect = { MESSAGE = no TECH = tech_lasers_4 }
-		give_tech_no_error_effect = { MESSAGE = no TECH = tech_ship_armor_4 }
-		give_tech_no_error_effect = { MESSAGE = no TECH = tech_shields_4 }
-		give_tech_no_error_effect = { MESSAGE = no TECH = tech_starbase_5 } # Citadel
+		ai_chance = { factor = 5 }
 	}
 	option = {
 		name = marauder_deal_bad_response
+		sound = no_tut_advior_07
 		response_text = marauder_deal_refuse
 	}
 }
@@ -4572,6 +4590,8 @@ country_event = {
 	}
 	option = {
 		name = marauder_deal_reason
+		custom_tooltip = "SUBJECT_DESC_machinesmith"
+		sound = placeholder_sfx
 		trigger = {
 			has_technology = tech_mass_drivers_4
 			has_technology = tech_lasers_4
@@ -4581,10 +4601,12 @@ country_event = {
 		hidden_effect = {
 			country_event = { id = khan.997 }
 		}
-		ai_chance = { factor = 50 }
+		ai_chance = { factor = 5 }
 	}
 	option = {
 		name = marauder_fabricator_deal_reason
+		custom_tooltip = "SUBJECT_DESC_fabricator_satrapy"
+		sound = placeholder_sfx
 		trigger = {
 			has_monthly_income = {
 				resource = alloys

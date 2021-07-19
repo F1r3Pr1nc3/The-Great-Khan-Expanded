@@ -3,12 +3,29 @@ cb_satrapy_subjugation = {
 	show_notification = no
 	potential = {
 		has_global_flag = marauder_crisis_ongoing
-		is_country_type_with_subjects = yes
-		NOT = { is_in_federation_with = FROM }
-		is_subject = yes
 		exists = event_target:raider_khanate
+		# OR = {
+		# 	AND = {
+		is_subject = yes # is_country_type_with_subjects = yes
+		event_target:raider_khanate = { is_overlord_to = PREV }
+		# 	has_total_war_cb = no
+		# 	}
+		# 	is_country_type = awakened_marauders types do not allow CBs
+		# }
+		# NOT = { is_in_federation_with = FROM }
 	}
 	is_valid = {
+		NOR = {
+			is_in_federation_with = FROM
+			is_overlord_to = FROM
+			has_valid_civic = civic_inwards_perfection
+			has_authority = auth_machine_intelligence
+			# has_authority = auth_corporate
+		}
+		# NOT = { is_in_federation_with = FROM }
+		# NOT = { is_overlord_to = FROM }
+		# NOT = { has_authority = auth_machine_intelligence }
+		# OR = {
 		event_target:raider_khanate = {
 			is_overlord_to = ROOT
 			NOR = {
@@ -16,6 +33,7 @@ cb_satrapy_subjugation = {
 				is_same_empire = FROM
 			}
 		}
-		NOT = { has_authority = auth_machine_intelligence }
+			# is_country_type = awakened_marauders
+		# }
 	}
 }

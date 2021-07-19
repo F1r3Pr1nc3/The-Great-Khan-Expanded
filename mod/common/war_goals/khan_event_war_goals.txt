@@ -183,13 +183,13 @@ wg_ae_uprising = {
 	ai_weight = { weight = 100 }
 }
 
+# wg_subjugation wg_absorption (swarm)
 wg_marauder_expansion = {
 	casus_belli = cb_satrapy_subjugation
-	# set_defender_wargoal =
+	set_defender_wargoal = wg_end_threat
 	hide_if_no_cb = yes
 	release_occupied_systems_on_status_quo = yes
-
-	total_war = no
+	total_war = yes
 
 	galactic_empire_joins_defender = {
 		from = { is_galactic_emperor = yes }
@@ -209,15 +209,16 @@ wg_marauder_expansion = {
 
 	potential = {
 		has_global_flag = marauder_crisis_ongoing
-		is_country_type_with_subjects = yes
-		NOT = { is_in_federation_with = FROM }
-		is_subject = yes
-		has_total_war_cb = no
 		exists = event_target:raider_khanate
-		NOR = {
-			has_valid_civic = civic_inwards_perfection
-			has_authority = auth_corporate
-		}
+		# OR = {
+		# 	AND = {
+		is_subject = yes # is_country_type_with_subjects = yes
+		event_target:raider_khanate = { is_overlord_to = PREV }
+		# 	has_total_war_cb = no
+		# 	}
+		# 	is_country_type = awakened_marauders types do not allow CBs
+		# }
+		# NOT = { is_in_federation_with = FROM }
 		NAND = {
 			is_galactic_emperor = yes
 			from = { is_galactic_community_member = yes }
@@ -225,6 +226,14 @@ wg_marauder_expansion = {
 	}
 
 	possible = {
+		NOR = {
+			is_in_federation_with = FROM
+			is_overlord_to = FROM
+			has_valid_civic = civic_inwards_perfection
+			has_authority = auth_machine_intelligence
+			# has_authority = auth_corporate
+		}
+		# OR = {
 		event_target:raider_khanate = {
 			is_overlord_to = ROOT
 			NOR = {
@@ -232,7 +241,8 @@ wg_marauder_expansion = {
 				is_same_empire = FROM
 			}
 		}
-		NOT = { has_authority = auth_machine_intelligence }
+		# 	is_country_type = awakened_marauders
+		# }
 
 		custom_tooltip = {
 			fail_text = cannot_subjugate_empire_member
@@ -278,6 +288,7 @@ wg_marauder_expansion = {
 	}
 
 	on_wargoal_set = {
+		# log="[FromFrom.GetName]" not exists
 		event_target:raider_khanate = {
 			if = {
 				limit = { is_at_war_with = FROM }
@@ -285,6 +296,56 @@ wg_marauder_expansion = {
 					limit = {
 						any_war = {
 							is_war_participant = { who = FROM }
+							is_war_participant = { who = PREV }
+							any_war_participant = {
+								PREV = {
+									using_war_goal = {
+										type = wg_marauder_expansion
+										owner = PREV
+									}
+								}
+							}
+						}
+					}
+					random_war = { # Join existing war!
+						limit = {
+							is_war_participant = { who = FROM }
+							NOT = { is_war_participant = { who = ROOT } }
+							any_war_participant = {
+								PREV = {
+									using_war_goal = {
+										type = wg_marauder_expansion
+										owner = PREV
+									}
+								}
+							}
+						}
+						ROOT = {
+							random_war = { # Leave existing war? (Hack)
+								limit = {
+									is_war_participant = { who = FROM }
+									any_war_participant = {
+										PREV = {
+											using_war_goal = {
+												type = wg_marauder_expansion
+												owner = PREV
+											}
+										}
+									}
+								}
+								end_war_effect = yes
+							}
+							end_truce = FROM
+							join_war_on_side = { war = PREV side = event_target:raider_khanate }
+							break = yes
+							# join_war = PREV
+						}
+					}
+				} else_if = {
+					limit = {
+						any_war = {
+							is_war_participant = { who = FROM }
+							is_war_participant = { who = PREV }
 							any_war_participant = {
 								PREV = {
 									using_war_goal = {
@@ -298,6 +359,7 @@ wg_marauder_expansion = {
 					random_war = { #End War in Heaven
 						limit = {
 							is_war_participant = { who = FROM }
+							is_war_participant = { who = PREV }
 							any_war_participant = {
 								PREV = {
 									using_war_goal = {
@@ -309,40 +371,10 @@ wg_marauder_expansion = {
 						}
 						end_war_effect = yes
 					}
+					end_truce = FROM
 					join_war = ROOT
-				} else_if = {
-					limit = {
-						any_war = {
-							is_war_participant = { who = FROM }
-							is_war_participant = { who = PREV }
-							any_war_participant = {
-								PREV = {
-									using_war_goal = {
-										type = wg_marauder_expansion
-										owner = PREV
-									}
-								}
-							}
-						}
-					}
-					random_war = { # Join existing war
-						limit = {
-							is_war_participant = { who = FROM }
-							is_war_participant = { who = PREV }
-							any_war_participant = {
-								PREV = {
-									using_war_goal = {
-										type = wg_marauder_expansion
-										owner = PREV
-									}
-								}
-							}
-						}
-						ROOT = {
-							join_war_on_side = { war = PREV side = attacker }
-						}
-					}
 				} else = {
+					end_truce = FROM
 					join_war = ROOT
 				}
 			}
@@ -351,6 +383,7 @@ wg_marauder_expansion = {
 					is_subject_type = war_satrapy
 					NOT = { is_at_war_with = FROM }
 				}
+				end_truce = FROM
 				join_war = PREV
 			}
 		}

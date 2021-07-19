@@ -122,18 +122,18 @@ planet_event = {
 				create_starbase = {
 					size = starbase_marauder
 					owner = root.owner
-					# effect = {  }
+					effect = {
+						fleet = {
+							every_owned_ship = {
+								reduce_hp_percent = 98 set_disabled = no
+							}
+						}
+					}
 				}
 			} else = {
 				create_starbase = {
 					size = starbase_outpost
 					owner = root.owner
-				}
-			}
-			# TODO NEEDS TEST
-			last_created_fleet = {
-				random_owned_ship = {
-					reduce_hp_percent = 98 set_disabled = no
 				}
 			}
 		}

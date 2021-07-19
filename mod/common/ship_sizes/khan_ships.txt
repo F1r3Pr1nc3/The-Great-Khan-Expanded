@@ -29,19 +29,19 @@ npc_galleon_01 = {
 	text_icon = military_size_16
 	combat_disengage_chance = 1.25
 	is_civilian = no
+	# auto_upgrade = yes
 	potential_country = {
 		is_country_type = awakened_marauders
 	}
 	class = shipclass_military
-	is_designable = yes # TODO?
-	takes_name_from_ship_design = yes
-	auto_upgrade = yes
 	# default_behavior = artillery
-	required_component_set = "power_core"
-	required_component_set = "sensor_components"
-	required_component_set = "ftl_components"
-	required_component_set = "thruster_components"
-	required_component_set = "combat_computers"
+	# is_designable = yes # TODO?
+	takes_name_from_ship_design = yes
+	# required_component_set = "power_core"
+	# required_component_set = "sensor_components"
+	# required_component_set = "ftl_components"
+	# required_component_set = "thruster_components"
+	# required_component_set = "combat_computers"
 
 	prerequisites = { "tech_titans" }
 

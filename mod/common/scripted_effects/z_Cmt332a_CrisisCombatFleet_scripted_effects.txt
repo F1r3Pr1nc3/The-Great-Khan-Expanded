@@ -59,6 +59,7 @@ CmtEffectCreateFleet_Khan1stFleet = {	### Exception: Leader = event_target:great
 				design = "NAME_Glorious_Might"
 				graphical_culture = "npf_01_dirty"
 				prefix = no
+				upgradable = yes
 			}
 			CmtFleetSetAuxParam_KhanCombat = yes
 			assign_leader = event_target:great_khan
@@ -109,6 +110,7 @@ CmtEffectCreateFleet_Khan2ndFleet = {	### Exception: Leader = exiled_khan
 				design = "NAME_Glorious_Might"
 				graphical_culture = "npf_01_dirty"
 				prefix = no
+				upgradable = yes
 			}
 			CmtFleetSetAuxParam_KhanCombat = yes
 			set_leader = exiled_khan

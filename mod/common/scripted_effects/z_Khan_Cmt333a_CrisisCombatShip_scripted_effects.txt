@@ -29,6 +29,7 @@ CmtEffectCreateShip_Outrider = {
 		name = random
 		design = "NAME_Outrider"
 		prefix = no
+		upgradable = yes
 		# graphical_culture = prev.owner
 	}
 }
@@ -38,6 +39,7 @@ CmtEffectCreateShip_Lancer = {
 		name = random
 		design = "NAME_Lancer"
 		prefix = no
+		upgradable = yes
 		# graphical_culture = prev.owner
 	}
 }
@@ -47,6 +49,7 @@ CmtEffectCreateShip_VoidChampion = {
 		name = random
 		design = "NAME_Void_Champion"
 		prefix = no
+		upgradable = yes
 		# graphical_culture = prev.owner
 	}
 }
@@ -56,6 +59,7 @@ CmtEffectCreateShip_AncestralGlory = {
 		name = random
 		design = "NAME_Ancestral_Glory"
 		prefix = no
+		upgradable = yes
 		# graphical_culture = prev.owner
 	}
 }

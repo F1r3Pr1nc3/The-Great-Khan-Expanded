@@ -1,6 +1,6 @@
 awakened_marauders = {
 	attack_unarmed_orbital_stations = yes
-	always_valid_target_aggressive = yes
+	# always_valid_target_aggressive = yes
 	scaled_difficulty_bonuses = 1
 	has_difficulty_bonuses = yes
 	destroys_starbases = yes
@@ -33,9 +33,9 @@ awakened_marauders = {
 		internal_policies = no
 		modification = no
 		# construction = no
-		# starbase_upgrade = no
+		starbase_upgrade = no
 		limited_construction = yes
-		# tech = no
+		tech = no
 		espionage = no
 		modules = {
 			horde_military_minister_module
@@ -145,19 +145,19 @@ awakened_marauders = {
 			can_receive = {
 				action_declare_war
 				action_offer_peace
-				action_make_rival
-				action_end_rivalry
-				action_offer_trade_deal
-				action_cancel_trade_deal
+				# action_make_rival
+				# action_end_rivalry
+				# action_offer_trade_deal
+				# action_cancel_trade_deal
 				action_insult
 			}
 			can_send = {
 				action_declare_war
-				action_make_rival
-				action_end_rivalry
 				action_offer_peace
-				action_offer_trade_deal
-				action_cancel_trade_deal
+				# action_make_rival
+				# action_end_rivalry
+				# action_offer_trade_deal
+				# action_cancel_trade_deal
 				action_open_borders
 				action_close_borders
 			}

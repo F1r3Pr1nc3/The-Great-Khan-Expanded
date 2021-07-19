@@ -30,7 +30,7 @@
 # @speed_fast = 140
 # @speed_very_fast = 160
 
-# Marauder Corvette
+# Marauder Raider
 marauder_corvette = {
 	graphical_culture = { "pirate_01" }
 	entity = pirate_01_pirate_corvette_entity
@@ -50,7 +50,7 @@ marauder_corvette = {
 	num_target_locators = 0
 	# is_space_station = no
 	is_civilian = no
-	can_have_federation_design = no
+	# can_have_federation_design = no
 	icon_frame = 2
 	base_buildtime = 30
 	components_add_to_cost = no
@@ -68,7 +68,7 @@ marauder_corvette = {
 	required_component_set = "ftl_components"
 	required_component_set = "thruster_components"
 	required_component_set = "combat_computers"
-	enable_default_design = no
+	# enable_default_design = no
 	auto_upgrade = yes
 	resources = {
 		category = ships
@@ -82,7 +82,7 @@ marauder_corvette = {
 	}
 }
 
-# Marauder Destroyer
+# Marauder Frigate
 marauder_destroyer = {
 	graphical_culture = { "pirate_01" }
 	entity = pirate_01_pirate_destroyer_entity
@@ -106,7 +106,7 @@ marauder_destroyer = {
 	base_buildtime = 60
 	# is_space_station = no
 	is_civilian = no
-	can_have_federation_design = no
+	# can_have_federation_design = no
 	components_add_to_cost = no
 	# default_behavior = line
 
@@ -116,7 +116,7 @@ marauder_destroyer = {
 	class = shipclass_military
 	construction_type = starbase_shipyard
 	# is_designable = no
-	enable_default_design = no
+	# enable_default_design = no
 	auto_upgrade = yes
 
 	default_behavior = picket
@@ -163,7 +163,7 @@ marauder_cruiser = {
 	base_buildtime = 120
 	# is_space_station = no
 	is_civilian = no
-	can_have_federation_design = no
+	# can_have_federation_design = no
 	components_add_to_cost = no
 	# default_behavior = line
 
@@ -173,7 +173,7 @@ marauder_cruiser = {
 	class = shipclass_military
 	construction_type = starbase_shipyard
 	# is_designable = no
-	enable_default_design = no
+	# enable_default_design = no
 	# use_shipnames_from = cruiser
 
 	default_behavior = line
@@ -221,14 +221,14 @@ marauder_galleon = {
 	icon_frame = 5
 	text_icon = military_size_8
 	is_civilian = no
-	can_have_federation_design = no
+	# can_have_federation_design = no
 	potential_country = {
 		is_country_type = awakened_marauders
 	}
 	class = shipclass_military
 	construction_type = starbase_shipyard
 	# is_designable = no
-	enable_default_design = no
+	# enable_default_design = no
 	auto_upgrade = yes
 
 	# default_behavior = artillery
@@ -338,7 +338,7 @@ marauder_void_dwelling = {
 		is_country_type = awakened_marauders
 	}
 	class = shipclass_military_station
-	# is_designable = no
+	is_designable = no
 	enable_default_design = no
 	auto_upgrade = yes
 }
