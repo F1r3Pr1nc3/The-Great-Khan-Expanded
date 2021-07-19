@@ -122,7 +122,8 @@ war_satrapy = {
 	intel_from_being_subject = 30
 	intel_from_being_overlord = 40
 	subject_tax_rate = {
-		# minerals = 0.1
+		minerals = 0.1
+		energy = 0.05
 	}
 	potential = {
 		CmtTriggerIsPlayableEmpire = yes

@@ -728,6 +728,19 @@ country_event = {
 		else = {
 			event_target:marauder_rally_point = { CmtEffectCreateAdmiralty_KhanStarterPack = yes }
 		}
+		### Compat. replace hack for CM
+		event_target:great_khan.fleet = {
+			create_ship = {
+				design = "NAME_Glorious_Might"
+				graphical_culture = "npf_01_dirty"
+				prefix = no
+				upgradable = yes
+			}
+			random_owned_ship = {
+				limit = { is_ship_size = marauder_galleon }
+				delete_ship = this
+			}
+		}
 		country_event = { id = marauder.78 days = 20 }		## Mercenaries Join the Great Khan
 		country_event = { id = marauder.520 days = 180 }	## Reinforcement Cycle
 
@@ -1135,6 +1148,16 @@ country_event = {
 			limit = { is_ai = no }
 			country_event = { id = marauder.508 }
 		}
+		### Compat. hack for CM
+		event_target:great_khan.fleet = {
+			create_ship = {
+				name = "NAME_JuukTidir"
+				design = "NAME_Glorious_Might"
+				graphical_culture = "npf_01_dirty"
+				prefix = no
+				upgradable = yes
+			}
+		}
 		observer_event = { id = observer.15 }
 	}
 }
@@ -1461,10 +1484,11 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
+		has_global_flag = marauder_crisis_started
 		CmtTriggerIsKhanCountry = yes
 		NOR = {
-			has_country_flag = has_machinesmith
 			has_global_flag = great_khan_wins
+			has_country_flag = has_machinesmith
 		}
 	}
 	immediate = {
@@ -1480,8 +1504,7 @@ country_event = {
 			event_target:marauder_rally_point = {
 				solar_system = { system_event = { id = khan.301 } }
 			}
-		}
-		else_if = {
+		} else_if = {
 			limit = {
 				NOR = {
 					exists = event_target:marauder_rally_point.solar_system
@@ -1513,16 +1536,14 @@ country_event = {
 			}
 		}
 
-		# Legacy
 		create_marauder_constructors = yes
-		if = {
-			limit = { num_armies < 40 }
+		if = { limit = { num_armies < 40 }
 			create_marauder_armies = yes
 		}
-		# If at fleet cap
 		if = { limit = { fleet_power < 200000 }
 			create_marauder_fleet = yes
 		}
+
 		# country_event = { id = marauder.520 days = 340 }
 		event_target:CmtGlobalVar = {
 			if = {
@@ -1548,7 +1569,7 @@ country_event = {
 				}
 				CmtEffectKhanIncreasementReinforcementCycle = yes				## required: PREV = ROOT
 				ROOT = {
-					country_event = { id = marauder.520 days = 34 }
+					country_event = { id = marauder.520 days = 32 }
 				}
 			}
 		}
@@ -1910,6 +1931,7 @@ country_event = {
 		sound = advisor_clicking_respons_13
 		trigger = {
 			NOR = {
+				has_been_declared_crisis = yes
 				from = { is_overlord_to = prev }
 				# is_subject_type = machinesmith
 				# is_subject_type = satrapy
@@ -2000,6 +2022,7 @@ country_event = {
 	option = {
 		name = marauder.20.e
 		default_hide_option = yes
+		ai_chance = { factor = 0 }
 	}
 }
 
@@ -2013,6 +2036,7 @@ country_event = {
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
+	trigger = { has_been_declared_crisis = no }
 	force_open = yes
 	diplomatic = yes
 	immediate = { set_country_flag = marauder_diplomacy_engaged }
@@ -2021,45 +2045,52 @@ country_event = {
 	}
 	option = {
 		name = marauder.551.a
+		sound = advisor_clicking_respons_01
 		trigger = { has_been_declared_crisis = no }
 		response_text = marauder.551.a.response
 		country_event = { id = marauder.559 } # Submit to Khan
-
 		hidden_effect = {
-			if = {
-				limit = {
-					OR = {
-						is_militarist = yes
-						has_militarist_government = yes
-					}
-					OR = {
-						relative_power = {
-							who = event_target:raider_khanate
-							category = all
-							value > inferior
-						}
-						has_origin = "origin_khan_successor"
-					}
-					tech_unlocked_ratio = { who = from ratio < 0.7 }
-				}
-				set_subject_of = {
-					who = event_target:raider_khanate
-					subject_type = war_satrapy
-				}
-			}
-			else = {
-				set_subject_of = {
-					who = event_target:raider_khanate
-					subject_type = satrapy
-				}
+			set_subject_of = {
+				who = event_target:raider_khanate
+				subject_type = satrapy
 			}
 		}
+	}
+	option = {
+		name = marauder.551.a
+		sound = full_tut_advisor_01
+		trigger = {
+			has_been_declared_crisis = no
+			OR = {
+				is_militarist = yes
+				has_militarist_government = yes
+			}
+			OR = {
+				relative_power = {
+					who = event_target:raider_khanate
+					category = all
+					value > inferior
+				}
+				has_origin = "origin_khan_successor"
+			}
+			tech_unlocked_ratio = { who = from ratio < 0.7 }
+		}
+		response_text = marauder.551.a.response
+		country_event = { id = marauder.559 } # Submit to Khan
+		hidden_effect = {
+			set_subject_of = {
+				who = event_target:raider_khanate
+				subject_type = war_satrapy
+			}
+		}
+		ai_chance = { factor = 5 }
 	}
 	option = {
 		name = marauder.551.b
 		sound = no_tut_advior_07
 		response_text = marauder.551.b.response
 		default_hide_option = yes
+		ai_chance = { factor = 0 }
 	}
 }
 
@@ -2148,7 +2179,7 @@ country_event = {
 		name = marauder.554.b
 		sound = no_tut_advior_07
 		response_text = marauder.554.b.response
-		# default_hide_option = yes
+		ai_chance = { factor = 0 }
 	}
 }
 
@@ -3014,7 +3045,6 @@ country_event = {
 					modifier = { add = 1 is_colony = yes }
 					modifier = { add = 2 is_capital = yes }
 				}
-				# CmtEffectCreateAdmiralty_KhanStarterPack = yes
 				prev = {
 				# 	while = {
 				# 		count = 2
@@ -3575,12 +3605,13 @@ country_event = {
 		set_country_flag = marauder_diplomacy_engaged
 		# For every non AI!?
 		event_target:raider_khanate = {
-			if = {
-				limit = { has_country_flag = has_machinesmith }
-				country_event = { id = khan.870 } # Reinforcement
-			} else = {
-				country_event = { id = khan.869 } # Reinforcement
-			}
+			country_event = { id = khan.870 }
+			# if = {
+			# 	limit = { has_country_flag = has_machinesmith }
+			# 	country_event = { id = khan.870 } # Improved Reinforcement
+			# } else = {
+			# 	country_event = { id = khan.869 } # Regular Reinforcement
+			# }
 		}
 	}
 	after = {
@@ -4101,6 +4132,7 @@ country_event = {
 		name = marauder_fabricator_loyal
 		sound = no_tut_advior_07
 		response_text = marauder.554.b.response
+		ai_chance = { factor = 0 }
 	}
 }
 
@@ -4294,120 +4326,169 @@ country_event = {
 		name = marauder_fabricator_deal_refuse
 		sound = no_tut_advior_07
 		response_text = marauder_deal_refuse
+		ai_chance = { factor = 0 }
 	}
 }
 
 # Need a flag to determine if the horde has a machinesmith, and if, then set this as the new reinforcement cycle
+# This = Marauder
 country_event = {
 	id = khan.868
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
+		has_global_flag = marauder_crisis_started
 		CmtTriggerIsKhanCountry = yes
-		has_country_flag = has_machinesmith
+		# has_country_flag = has_machinesmith
 	}
 	immediate = {
 		country_event = { id = khan.299 } # end check
 		create_marauder_constructors = yes
+		if = {
+			limit = { num_armies < 40 }
+			create_marauder_armies = yes
+		}
 		if = {
 			limit = { fleet_power > 300000 }
 			country_event = { id = khan.868 days = 180 }
 			break = yes
 		}
 		if = {
-			limit = { num_armies < 40 }
-			create_marauder_armies = yes
-		}
-		random_system_within_border = {
-			weights = {
-				base = 1
-				modifier = { add = 1 starbase = { has_starbase_size >= starbase_starhold } }
-				modifier = { add = 1 any_system_planet = { is_colony = yes is_owned_by = ROOT } }
-				modifier = { add = 1 any_system_planet = { has_planet_flag = marauder_rally_point } }
-				modifier = { add = 1 CmtTriggerMarauderCapitalSystem = yes }
-				modifier = { add = 1 is_capital_system = yes }
-			}
-			random_system_planet = {
+			limit = { has_country_flag = has_machinesmith }
+			random_system_within_border = {
 				weights = {
 					base = 1
-					modifier = { add = 1 has_planet_flag = raid_source }
-					modifier = { add = 1 is_colony = yes }
-					modifier = { add = 1 is_capital = yes }
+					modifier = { add = 1 starbase = { has_starbase_size >= starbase_starhold } }
+					modifier = { add = 1 any_system_planet = { is_colony = yes is_owned_by = ROOT } }
+					modifier = { add = 1 any_system_planet = { has_planet_flag = marauder_rally_point } }
+					modifier = { add = 1 CmtTriggerMarauderCapitalSystem = yes }
+					modifier = { add = 1 is_capital_system = yes }
 				}
-				create_fleet = {
-					effect = {
-						set_owner = ROOT
-						while = {
-							count = 2
+				random_system_planet = {
+					weights = {
+						base = 1
+						modifier = { add = 1 has_planet_flag = raid_source }
+						modifier = { add = 1 is_colony = yes }
+						modifier = { add = 1 is_capital = yes }
+					}
+					create_fleet = {
+						effect = {
+							set_owner = ROOT
 							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_Outrider_4"
-									# graphical_culture = ROOT
+								count = 2
+								while = {
+									count = 10
+									create_ship = {
+										name = random
+										design = "NAME_Outrider_4"
+										# graphical_culture = ROOT
+									}
+								}
+								while = {
+									count = 5
+									create_ship = {
+										name = random
+										design = "NAME_Lancer_4"
+										# graphical_culture = ROOT
+									}
+								}
+								while = {
+									count = 3
+									create_ship = {
+										name = random
+										design = "NAME_Void_Champion_4"
+										# graphical_culture = ROOT
+									}
+								}
+								while = {
+									count = 1
+									create_ship = {
+										name = random
+										design = "NAME_Ancestral_Glory_4"
+										# graphical_culture = ROOT
+									}
 								}
 							}
-							while = {
-								count = 5
-								create_ship = {
-									name = random
-									design = "NAME_Lancer_4"
-									# graphical_culture = ROOT
-								}
+							set_location = {
+								target = PREV
+								distance = 20
+								angle = random
 							}
-							while = {
-								count = 3
-								create_ship = {
-									name = random
-									design = "NAME_Void_Champion_4"
-									# graphical_culture = ROOT
-								}
-							}
-							while = {
-								count = 1
-								create_ship = {
-									name = random
-									design = "NAME_Ancestral_Glory_4"
-									# graphical_culture = ROOT
-								}
-							}
+							set_aggro_range = 500
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = self
 						}
-						set_location = {
-							target = PREV
-							distance = 20
-							angle = random
-						}
-						set_aggro_range = 500
-						set_fleet_stance = aggressive
-						set_aggro_range_measure_from = self
 					}
 				}
 			}
-		}
-		random_subject = {
-			limit = { is_subject_type = machinesmith }
-			ROOT = {
-				if = {
-					limit = { can_copy_random_tech_from = { who = PREV } }
-					copy_random_tech_from = { who = PREV }
+			random_subject = {
+				limit = {
+					is_subject_type = machinesmith
+					NOT = { has_country_flag = rebelling_satrapy }
 				}
+				ROOT = {
+					if = {
+						limit = { can_copy_random_tech_from = { who = PREV } }
+						copy_random_tech_from = { who = PREV }
+					}
+				}
+				log = "machinesmith sold"
+				country_event = { id = khan.868 days = 180 } # Improved Cycle
+				break = yes
 			}
-			log = "machinesmith sold"
-			country_event = { id = khan.868 days = 180 }
-			break = yes
+			remove_country_flag = has_machinesmith # Regular Cycle
+			country_event = { id = marauder.520 days = 220 }
+		} else = {
+			country_event = { id = marauder.520 days = 60 }
 		}
-		remove_country_flag = has_machinesmith
-		country_event = { id = marauder.520 days = 180 } # Regular Cycle
 	}
 }
 
-# great_khan has won (End-Game - machinesmith Reinforcement Cycle)
+# Don't start a second cycle as this could lead to uncontrollable loops!?
+# great_khan has won (End-Game Regular Reinforcement Cycle)
+# This = Marauder
+# country_event = {
+# 	id = khan.869
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		has_global_flag = marauder_crisis_started
+# 		has_global_flag = great_khan_wins
+# 	}
+# 	immediate = {
+# 		if = {
+# 			limit = { has_country_flag = has_machinesmith }
+# 			country_event = { id = khan.870 } # Improved Reinforcement
+# 		} else = {
+# 			if = {
+# 				limit = { # Make sure home system still owned
+# 					any_planet_within_border = { has_planet_flag = marauder_rally_point }
+# 				}
+# 				create_marauder_constructors = yes
+# 				if = {
+# 					limit = { num_armies < 40 }
+# 					create_marauder_armies = yes
+# 				}
+# 				# If at fleet cap, check again later
+# 				if = {
+# 					limit = { fleet_power < 450000 }
+# 					# create_marauder_fleet = yes
+# 					event_target:marauder_rally_point = { CmtEffectCreateAdmiralty_KhanReinforcement = yes }
+# 				}
+# 			}
+# 			country_event = { id = khan.869 days = 340 }
+# 		}
+# 	}
+# }
+
+# great_khan has won (End-Game - improved Reinforcement Cycle)
 # This = Marauder
 country_event = {
 	id = khan.870
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
+		has_global_flag = marauder_crisis_started
 		CmtTriggerIsKhanCountry = yes
 		OR = {
 			has_country_flag = has_machinesmith
@@ -4415,113 +4496,147 @@ country_event = {
 		}
 	}
 	immediate = {
-		create_marauder_constructors = yes
+		# Create fallback rally_point
 		if = {
-			limit = { num_armies < 40 }
-			create_marauder_armies = yes
-		}
-		if = {
-			limit = { fleet_power > 550000 }
-			country_event = { id = khan.870 days = 180 }
-			break = yes
-		}
-		random_system_within_border = {
-			weights = {
-				base = 1
-				modifier = { add = 1 starbase = { has_starbase_size >= starbase_starhold } }
-				modifier = { add = 1 any_system_planet = { is_colony = yes is_owned_by = ROOT } }
-				modifier = { add = 1 any_system_planet = { has_planet_flag = marauder_rally_point } }
-				modifier = { add = 1 CmtTriggerMarauderCapitalSystem = yes }
-				modifier = { add = 1 is_capital_system = yes }
+			limit = {
+				exists = event_target:marauder_rally_point
+				NOR = {
+					exists = event_target:marauder_rally_point.solar_system.owner
+					exists = event_target:marauder_rally_point.solar_system.starbase
+				}
 			}
-			random_system_planet = {
+			event_target:marauder_rally_point = {
+				solar_system = { system_event = { id = khan.301 } }
+			}
+		} else_if = {
+			limit = {
+				NOR = {
+					exists = event_target:marauder_rally_point.solar_system
+					exists = event_target:marauder_rally_point.solar_system.owner
+					event_target:marauder_rally_point = { is_owned_by = ROOT }
+				}
+			}
+			random_system_within_border = {
 				weights = {
 					base = 1
-					modifier = { add = 1 has_planet_flag = raid_source }
-					modifier = { add = 1 is_colony = yes }
-					modifier = { add = 1 is_capital = yes }
+					modifier = { add = 1 starbase = { has_starbase_size >= starbase_starhold } }
+					modifier = { add = 1 any_system_planet = { is_colony = yes is_owned_by = ROOT } }
+					modifier = { add = 1 any_system_planet = { has_planet_flag = marauder_rally_point } }
+					modifier = { add = 1 any_system_planet = { has_planet_flag = CmtFlagMarauderExpRallyPoint } }
+					modifier = { add = 1 CmtTriggerMarauderCapitalSystem = yes }
+					modifier = { add = 1 is_capital_system = yes }
 				}
-				create_fleet = {
-					effect = {
-						set_owner = ROOT
-						while = {
-							count = 20
-							create_ship = {
-								name = random
-								design = "NAME_Outrider_4"
-								# graphical_culture = ROOT
+				random_system_planet = {
+					weights = {
+						base = 1
+						modifier = { add = 1 has_planet_flag = raid_source }
+						modifier = { add = 1 is_colony = yes }
+						modifier = { add = 1 is_capital = yes }
+					}
+					save_global_event_target_as = marauder_rally_point
+					set_planet_flag = marauder_rally_point
+				}
+				system_event = { id = khan.301 }
+			}
+		} #end fallback rally_point
+
+		create_marauder_constructors = yes
+		if = { limit = { num_armies < 50 }
+			create_marauder_armies = yes
+		}
+
+		if = {
+			limit = { has_country_flag = has_machinesmith }
+			if = { # at fleet cap, check again later
+				limit = { fleet_power < 550000 }
+				random_system_within_border = {
+					weights = {
+						base = 1
+						modifier = { add = 1 starbase = { has_starbase_size >= starbase_starhold } }
+						modifier = { add = 1 any_system_planet = { is_colony = yes is_owned_by = ROOT } }
+						modifier = { add = 1 any_system_planet = { has_planet_flag = marauder_rally_point } }
+						modifier = { add = 1 CmtTriggerMarauderCapitalSystem = yes }
+						modifier = { add = 1 is_capital_system = yes }
+					}
+					random_system_planet = {
+						weights = {
+							base = 1
+							modifier = { add = 1 has_planet_flag = raid_source }
+							modifier = { add = 1 is_colony = yes }
+							modifier = { add = 1 is_capital = yes }
+						}
+						create_fleet = {
+							effect = {
+								set_owner = ROOT
+								while = {
+									count = 20
+									create_ship = {
+										name = random
+										design = "NAME_Outrider_4"
+										# graphical_culture = ROOT
+									}
+								}
+								while = {
+									count = 10
+									create_ship = {
+										name = random
+										design = "NAME_Lancer_4"
+										# graphical_culture = ROOT
+									}
+								}
+								while = {
+									count = 5
+									create_ship = {
+										name = random
+										design = "NAME_Void_Champion_4"
+										# graphical_culture = ROOT
+									}
+								}
+								while = {
+									count = 2
+									create_ship = {
+										name = random
+										design = "NAME_Ancestral_Glory_4"
+										# graphical_culture = ROOT
+									}
+								}
+								set_location = {
+									target = PREV
+									distance = 20
+									angle = random
+								}
+								set_aggro_range = 500
+								set_fleet_stance = aggressive
+								set_aggro_range_measure_from = self
 							}
 						}
-						while = {
-							count = 10
-							create_ship = {
-								name = random
-								design = "NAME_Lancer_4"
-								# graphical_culture = ROOT
-							}
-						}
-						while = {
-							count = 5
-							create_ship = {
-								name = random
-								design = "NAME_Void_Champion_4"
-								# graphical_culture = ROOT
-							}
-						}
-						while = {
-							count = 2
-							create_ship = {
-								name = random
-								design = "NAME_Ancestral_Glory_4"
-								# graphical_culture = ROOT
-							}
-						}
-						set_location = {
-							target = PREV
-							distance = 20
-							angle = random
-						}
-						set_aggro_range = 500
-						set_fleet_stance = aggressive
-						set_aggro_range_measure_from = self
 					}
 				}
 			}
-		}
-		country_event = { id = khan.870 days = 180 }
-	}
-}
-
-# great_khan has won (End-Game Reinforcement Cycle)
-# This = Marauder
-country_event = {
-	id = khan.869
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		has_global_flag = marauder_crisis_started
-		has_global_flag = great_khan_wins
-		NOT = { has_country_flag = has_machinesmith }
-	}
-	immediate = {
-		if = {
-			limit = { # Make sure home system still owned
-				any_planet_within_border = { has_planet_flag = marauder_rally_point }
-			}
-			country_event = { id = khan.299 }
-			create_marauder_constructors = yes
-			if = {
-				limit = { num_armies < 40 }
-				create_marauder_armies = yes
-			}
-			# If at fleet cap, check again later
-			if = {
+		} else = {
+			if = { # at fleet cap, check again later
 				limit = { fleet_power < 450000 }
 				# create_marauder_fleet = yes
-				event_target:marauder_rally_point = { CmtEffectCreateAdmiralty_Khan2ndFleetSet = yes }
+				event_target:marauder_rally_point = { CmtEffectCreateAdmiralty_KhanReinforcement = yes }
 			}
 		}
-		country_event = { id = khan.869 days = 340 }
+		random_subject = {
+			limit = {
+				is_subject_type = machinesmith
+				NOT = { has_country_flag = rebelling_satrapy }
+			}
+			ROOT = {
+				if = {
+					limit = { can_copy_random_tech_from = { who = PREV } }
+					copy_random_tech_from = { who = PREV }
+				}
+			}
+			log = "Improved Machinesmith sold"
+			country_event = { id = khan.870 days = 180 } # Improved Cycle
+			break = yes
+		}
+		remove_country_flag = has_machinesmith # Regular Cycle
+		country_event = { id = khan.870 days = 180 }
 	}
 }
 
@@ -4569,6 +4684,7 @@ country_event = {
 		name = marauder_deal_bad_response
 		sound = no_tut_advior_07
 		response_text = marauder_deal_refuse
+		ai_chance = { factor = 0 }
 	}
 }
 
