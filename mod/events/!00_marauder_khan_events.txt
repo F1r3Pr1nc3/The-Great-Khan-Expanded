@@ -1116,7 +1116,7 @@ country_event = {
 				exists = solar_system
 				NAND = {
 					exists = space_owner
-					space_owner = { is_same_empire = ROOT }
+					is_owned_by = ROOT
 				}
 			}
 			set_mia = yes
@@ -3753,6 +3753,13 @@ system_event = {
 				owner = event_target:raider_khanate
 				effect = {
 					starbase_event = { id = khan.302 days = 2 } # workaround
+					while = {
+						count = 6
+						create_ship = {
+							name = random
+							design = "NAME_Warrior_Freehold"
+						}
+					}
 				}
 			}
 			# starbase = {
@@ -4447,39 +4454,40 @@ country_event = {
 # Don't start a second cycle as this could lead to uncontrollable loops!?
 # great_khan has won (End-Game Regular Reinforcement Cycle)
 # This = Marauder
-# country_event = {
-# 	id = khan.869
-# 	hide_window = yes
-# 	is_triggered_only = yes
-# 	trigger = {
-# 		has_global_flag = marauder_crisis_started
-# 		has_global_flag = great_khan_wins
-# 	}
-# 	immediate = {
-# 		if = {
-# 			limit = { has_country_flag = has_machinesmith }
-# 			country_event = { id = khan.870 } # Improved Reinforcement
-# 		} else = {
-# 			if = {
-# 				limit = { # Make sure home system still owned
-# 					any_planet_within_border = { has_planet_flag = marauder_rally_point }
-# 				}
-# 				create_marauder_constructors = yes
-# 				if = {
-# 					limit = { num_armies < 40 }
-# 					create_marauder_armies = yes
-# 				}
-# 				# If at fleet cap, check again later
-# 				if = {
-# 					limit = { fleet_power < 450000 }
-# 					# create_marauder_fleet = yes
-# 					event_target:marauder_rally_point = { CmtEffectCreateAdmiralty_KhanReinforcement = yes }
-# 				}
-# 			}
-# 			country_event = { id = khan.869 days = 340 }
-# 		}
-# 	}
-# }
+country_event = {
+	id = khan.869
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_global_flag = marauder_crisis_started
+		has_global_flag = great_khan_wins
+	}
+	immediate = {
+		if = {
+			limit = { has_country_flag = has_machinesmith }
+			country_event = { id = khan.870 } # Improved Reinforcement
+		} else = {
+			if = {
+				limit = { # Make sure home system still owned
+					any_planet_within_border = { has_planet_flag = marauder_rally_point }
+				}
+				create_marauder_constructors = yes
+				if = {
+					limit = { num_armies < 50 }
+					create_marauder_armies = yes
+				}
+				# If at fleet cap, check again later
+				if = {
+					limit = { fleet_power < 450000 }
+					# create_marauder_fleet = yes
+					event_target:marauder_rally_point = { CmtEffectCreateAdmiralty_KhanReinforcement = yes }
+				}
+			}
+			# country_event = { id = khan.869 days = 340 }
+			country_event = { id = khan.870 days = 180 }
+		}
+	}
+}
 
 # great_khan has won (End-Game - improved Reinforcement Cycle)
 # This = Marauder
@@ -4618,6 +4626,21 @@ country_event = {
 				limit = { fleet_power < 450000 }
 				# create_marauder_fleet = yes
 				event_target:marauder_rally_point = { CmtEffectCreateAdmiralty_KhanReinforcement = yes }
+			}
+		}
+
+		every_subject = {
+			limit = {
+				NOT = { has_country_flag = rebelling_satrapy }
+				can_copy_random_tech_from = { who = PREV }
+			}
+			# Share knowledge with the horde
+			copy_random_tech_from = { who = PREV }
+			ROOT = {
+				if = {
+					limit = { can_copy_random_tech_from = { who = PREV } }
+					copy_random_tech_from = { who = PREV }
+				}
 			}
 		}
 		random_subject = {

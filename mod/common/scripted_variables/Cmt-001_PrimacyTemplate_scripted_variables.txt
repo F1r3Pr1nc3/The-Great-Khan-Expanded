@@ -434,12 +434,12 @@
 #
 
 ### Multiple Great Khans
-	@CmtT001_ConstKhanMultiple = 2
+	@CmtT001_ConstKhanMultiple = 3
 		### No Khan = 1, Single Khan = 2 (Default), Multiple Khans = 3
 		### N/A = 4, Great Great Khan = 5 (Beta)
 
 ### Interval of Khan Reigning
-	@CmtT001_ConstKhanInterval = 0
+	@CmtT001_ConstKhanInterval = 10
 		### Set in years
 		### It must be 0, 10, 25, 50, 75, 100 or 999 (Default = 0).
 		### 999 means Template Unique Value (Beta Feature), set in ''common\scripted_variables\Cmt-xxx_Unique_scripted_variables.txt''.
@@ -470,7 +470,7 @@
 		### High = 4, Do Vengeance at Any Cost = 5
 
 ### Resurgence of Khan
-	@CmtT001_ConstKhanResurgence = 3
+	@CmtT001_ConstKhanResurgence = 1
 		### Set the one of followings (Default = 1)
 		### -1: Never
 		### 1 ~ 509: Once, Twice, Thrice, ...
@@ -483,7 +483,7 @@
 		### Enduring = 4, Venerable = 5, Immortality = 6
 
 ### Latent Strength of Horde in Adversity
-	@CmtT001_ConstReinforceCycle_Khan = 1
+	@CmtT001_ConstReinforceCycle_Khan = 2
 		### Disable = 1 (Default), Weak = 2, Middle = 3, Strong = 4
 
 ### Future of Horde
