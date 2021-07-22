@@ -2039,6 +2039,7 @@ country_event = {
 					check_variable = { which = CmtVarLgateDessanuGift value < 1 }
 					check_variable = { which = CmtVarLgateDessanuGift value > 6 }
 				}
+			}
 		}
 	}
 	picture = GFX_evt_l-gateway

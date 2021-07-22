@@ -357,116 +357,187 @@ country_event = {
 		set_global_flag = marauder_crisis_started
 		set_global_flag = marauder_crisis_ongoing
 		save_global_event_target_as = raider_khanate
+
+		if = { limit = { NOT = { exists = event_target:marauder_country_1 } }
+			random_country = { limit = { has_country_flag = marauder_1 }
+				save_global_event_target_as = marauder_country_1
+			}
+		}
+		if = { limit = { NOT = { exists = event_target:marauder_country_2 } }
+			random_country = { limit = { has_country_flag = marauder_2 }
+				save_global_event_target_as = marauder_country_2
+			}
+		}
+		if = { limit = { NOT = { exists = event_target:marauder_country_3 } }
+			random_country = { limit = { has_country_flag = marauder_3 }
+				save_global_event_target_as = marauder_country_3
+			}
+		}
+
 		### Rally Point of Fleets 1/3: Set Event Targets; Set Owner Species to Target
-		random_country = {
-			limit = { has_country_flag = marauder_1 }
-			owner_species = { save_global_event_target_as = CmtTargetSpecies_Marauder1 }
-			if = {
-				limit = {
-					any_system_within_border = { has_star_flag = marauder_capital_1 }
+		if = { limit = { exists = event_target:marauder_country_1 }
+			event_target:marauder_country_1 = {
+				owner_species = { save_global_event_target_as = CmtTargetSpecies_Marauder1 }
+				if = {
+					limit = { any_system_within_border = { has_star_flag = marauder_capital_1 } }
+					random_system_within_border = {
+						limit = { has_star_flag = marauder_capital_1 }
+						if = {
+							limit = { any_system_planet = { has_planet_flag = raid_source } }
+							random_system_planet = {
+								limit = { has_planet_flag = raid_source }
+								save_global_event_target_as = CmtTargetMarauderRallyPoint1
+							}
+						}
+						else = {
+							## Backup Code: raid_source NOT Found in Capital System
+							random_system_planet = {
+								limit = { is_star = no is_colony = yes }
+								save_global_event_target_as = CmtTargetMarauderRallyPoint1
+							}
+							log = "Backup Code for CmtTargetMarauderRallyPoint1 - 1 Processed"
+						}
+					}
 				}
-				random_system_within_border = {
-					limit = { has_star_flag = marauder_capital_1 }
+				else = {
+					## Backup Code: Capital System NOT Found
+					random_planet_within_border = {
+						limit = { is_star = no is_colony = yes }
+						save_global_event_target_as = CmtTargetMarauderRallyPoint1
+					}
+					log = "Backup Code for CmtTargetMarauderRallyPoint1 - 2 Processed"
+					# Recover former capital
 					if = {
 						limit = {
-							any_system_planet = { has_planet_flag = raid_source }
+							any_system_within_border = {
+								any_neighbor_system = {
+									has_owner = no
+									has_star_flag = marauder_capital_1
+								}
+							}
 						}
-						random_system_planet = {
-							limit = { has_planet_flag = raid_source }
-							save_global_event_target_as = CmtTargetMarauderRallyPoint1
+						random_system_within_border = {
+							random_neighbor_system = {
+								limit = {
+									has_owner = no
+									has_star_flag = marauder_capital_1
+								}
+								event_target:marauder_country_1 = { save_event_target_as = marauder_starbase_owner }
+								create_marauder_starbase = yes
+							}
 						}
 					}
-					else = {
-						## Backup Code: raid_source NOT Found in Capital System
-						random_system_planet = {
-							limit = { is_star = no is_colony = yes }
-							save_global_event_target_as = CmtTargetMarauderRallyPoint1
-						}
-						log = "Backup Code for CmtTargetMarauderRallyPoint1 - 1 Processed"
-					}
 				}
-			}
-			else = {
-				## Backup Code: Capital System NOT Found
-				random_planet_within_border = {
-					limit = { is_star = no is_colony = yes }
-					save_global_event_target_as = CmtTargetMarauderRallyPoint1
-				}
-				log = "Backup Code for CmtTargetMarauderRallyPoint1 - 2 Processed"
 			}
 		}
-		random_country = {
-			limit = { has_country_flag = marauder_2 }
-			owner_species = { save_global_event_target_as = CmtTargetSpecies_Marauder2 }
-			if = {
-				limit = {
-					any_system_within_border = { has_star_flag = marauder_capital_2 }
+		if = { limit = { exists = event_target:marauder_country_2 }
+			event_target:marauder_country_2 = {
+				owner_species = { save_global_event_target_as = CmtTargetSpecies_Marauder2 }
+				if = {
+					limit = { any_system_within_border = { has_star_flag = marauder_capital_2 } }
+					random_system_within_border = {
+						limit = { has_star_flag = marauder_capital_2 }
+						if = {
+							limit = { any_system_planet = { has_planet_flag = raid_source } }
+							random_system_planet = {
+								limit = { has_planet_flag = raid_source }
+								save_global_event_target_as = CmtTargetMarauderRallyPoint2
+							}
+						}
+						else = {
+							## Backup Code: raid_source NOT found in Capital System
+							random_system_planet = {
+								limit = { is_star = no is_colony = yes }
+								save_global_event_target_as = CmtTargetMarauderRallyPoint2
+							}
+							log = "Backup Code for CmtTargetMarauderRallyPoint2 - 1 Processed"
+						}
+					}
 				}
-				random_system_within_border = {
-					limit = { has_star_flag = marauder_capital_2 }
+				else = {
+					## Backup Code: Capital System NOT Found
+					random_planet_within_border = {
+						limit = { is_star = no is_colony = yes }
+						save_global_event_target_as = CmtTargetMarauderRallyPoint2
+					}
+					log = "Backup Code for CmtTargetMarauderRallyPoint2 - 2 Processed"
+					# Recover former capital
 					if = {
 						limit = {
-							any_system_planet = { has_planet_flag = raid_source }
+							any_system_within_border = {
+								any_neighbor_system = {
+									has_owner = no
+									has_star_flag = marauder_capital_2
+								}
+							}
 						}
-						random_system_planet = {
-							limit = { has_planet_flag = raid_source }
-							save_global_event_target_as = CmtTargetMarauderRallyPoint2
+						random_system_within_border = {
+							random_neighbor_system = {
+								limit = {
+									has_owner = no
+									has_star_flag = marauder_capital_2
+								}
+								event_target:marauder_country_2 = { save_event_target_as = marauder_starbase_owner }
+								create_marauder_starbase = yes
+							}
 						}
 					}
-					else = {
-						## Backup Code: raid_source NOT found in Capital System
-						random_system_planet = {
-							limit = { is_star = no is_colony = yes }
-							save_global_event_target_as = CmtTargetMarauderRallyPoint2
-						}
-						log = "Backup Code for CmtTargetMarauderRallyPoint2 - 1 Processed"
-					}
 				}
-			}
-			else = {
-				## Backup Code: Capital System NOT Found
-				random_planet_within_border = {
-					limit = { is_star = no is_colony = yes }
-					save_global_event_target_as = CmtTargetMarauderRallyPoint2
-				}
-				log = "Backup Code for CmtTargetMarauderRallyPoint2 - 2 Processed"
 			}
 		}
-		random_country = {
-			limit = { has_country_flag = marauder_3 }
-			owner_species = { save_global_event_target_as = CmtTargetSpecies_Marauder3 }
-			if = {
-				limit = {
-					any_system_within_border = { has_star_flag = marauder_capital_3 }
-				}
-				random_system_within_border = {
-					limit = { has_star_flag = marauder_capital_3 }
-					if = {
-						limit = {
-							any_system_planet = { has_planet_flag = raid_source }
+		if = { limit = { exists = event_target:marauder_country_3 }
+			event_target:marauder_country_3 = {
+				owner_species = { save_global_event_target_as = CmtTargetSpecies_Marauder3 }
+				if = {
+					limit = { any_system_within_border = { has_star_flag = marauder_capital_3 } }
+					random_system_within_border = {
+						limit = { has_star_flag = marauder_capital_3 }
+						if = {
+							limit = { any_system_planet = { has_planet_flag = raid_source } }
+							random_system_planet = {
+								limit = { has_planet_flag = raid_source }
+								save_global_event_target_as = CmtTargetMarauderRallyPoint3
+							}
 						}
-						random_system_planet = {
-							limit = { has_planet_flag = raid_source }
-							save_global_event_target_as = CmtTargetMarauderRallyPoint3
+						else = {
+							## Backup Code: raid_source NOT Found in Capital System
+							random_system_planet = {
+								limit = { is_star = no is_colony = yes }
+								save_global_event_target_as = CmtTargetMarauderRallyPoint3
+							}
+							log = "Backup Code for CmtTargetMarauderRallyPoint3 - 1 Processed"
+							# Recover former capital
+							if = {
+								limit = {
+									any_system_within_border = {
+										any_neighbor_system = {
+											has_owner = no
+											has_star_flag = marauder_capital_3
+										}
+									}
+								}
+								random_system_within_border = {
+									random_neighbor_system = {
+										limit = {
+											has_owner = no
+											has_star_flag = marauder_capital_3
+										}
+										event_target:marauder_country_3 = { save_event_target_as = marauder_starbase_owner }
+										create_marauder_starbase = yes
+									}
+								}
+							}
 						}
 					}
-					else = {
-						## Backup Code: raid_source NOT Found in Capital System
-						random_system_planet = {
-							limit = { is_star = no is_colony = yes }
-							save_global_event_target_as = CmtTargetMarauderRallyPoint3
-						}
-						log = "Backup Code for CmtTargetMarauderRallyPoint3 - 1 Processed"
+				}
+				else = {
+					## Backup Code: Capital System NOT Found
+					random_planet_within_border = {
+						limit = { is_star = no is_colony = yes }
+						save_global_event_target_as = CmtTargetMarauderRallyPoint3
 					}
+					log = "Backup Code for CmtTargetMarauderRallyPoint3 - 2 Processed"
 				}
-			}
-			else = {
-				## Backup Code: Capital System NOT Found
-				random_planet_within_border = {
-					limit = { is_star = no is_colony = yes }
-					save_global_event_target_as = CmtTargetMarauderRallyPoint3
-				}
-				log = "Backup Code for CmtTargetMarauderRallyPoint3 - 2 Processed"
 			}
 		}
 		### Rally Point of Fleets 2/3: Set Event Targets, Flags
@@ -1088,7 +1159,7 @@ country_event = {
 				exile_leader_as = exiled_khan
 			}
 		}
-		every_country = {
+		every_playable_country = {
 			limit = { is_ai = no }
 			country_event = { id = marauder.506 }
 		}
@@ -1144,7 +1215,7 @@ country_event = {
 
 	immediate = {
 		event_target:marauder_rally_point = { CmtEffectCreateAdmiralty_Khan2ndFleetSet = yes }
-		every_country = {
+		every_playable_country = {
 			limit = { is_ai = no }
 			country_event = { id = marauder.508 }
 		}
@@ -1251,7 +1322,7 @@ country_event = {
 			}
 		}
 		fromfrom = { solar_system = { save_event_target_as = khan_death_system } }
-		every_country = {
+		every_playable_country = {
 			limit = { is_ai = no }
 			country_event = { id = marauder.510 }
 		}
@@ -1368,7 +1439,7 @@ country_event = {
 			event_target:great_khan = { kill_leader = { show_notification = no } }
 		}
 
-		every_country = {
+		every_playable_country = {
 			limit = { is_ai = no }
 			country_event = { id = marauder.513 }
 		}
@@ -1453,7 +1524,7 @@ country_event = {
 			event_target:great_khan = { kill_leader = { show_notification = no } }
 		}
 
-		every_country = {
+		every_playable_country = {
 			limit = { is_ai = no }
 			country_event = { id = marauder.513 }
 		}
@@ -2618,7 +2689,7 @@ country_event = {
 		create_fourth_diadochi = yes
 		set_diadochi_claims = yes
 		observer_event = { id = observer.20 }
-		every_country = {
+		every_playable_country = {
 			limit = { is_ai = no }
 			country_event = { id = marauder.620 }
 		}
@@ -2663,7 +2734,7 @@ country_event = {
 			set_variable = { which = "planets_lost_to_marauder" value = 1 }
 		}
 		observer_event = { id = observer.22 }
-		every_country = {
+		every_playable_country = {
 			limit = { is_ai = no }
 			country_event = { id = marauder.640 } # Notify
 		}
@@ -2842,7 +2913,7 @@ country_event = {
 			country_event = { id = marauder.670 days = 10 } # Notify
 		}
 		observer_event = { id = observer.21 }
-		every_country = {
+		every_playable_country = {
 			limit = { is_ai = no }
 			country_event = { id = marauder.630 } # Notify
 		}
