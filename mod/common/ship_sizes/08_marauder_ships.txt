@@ -61,14 +61,14 @@ marauder_corvette = {
 	class = shipclass_military
 	construction_type = starbase_shipyard
 	# use_shipnames_from = corvette
-	# is_designable = no
 	default_behavior = swarm
 	required_component_set = "power_core"
 	required_component_set = "sensor_components"
 	required_component_set = "ftl_components"
 	required_component_set = "thruster_components"
 	required_component_set = "combat_computers"
-	# enable_default_design = no
+	is_designable = yes
+	enable_default_design = yes
 	auto_upgrade = yes
 	resources = {
 		category = ships
@@ -115,8 +115,8 @@ marauder_destroyer = {
 	}
 	class = shipclass_military
 	construction_type = starbase_shipyard
-	# is_designable = no
-	# enable_default_design = no
+	is_designable = yes
+	enable_default_design = yes
 	auto_upgrade = yes
 
 	default_behavior = picket
@@ -172,8 +172,8 @@ marauder_cruiser = {
 	}
 	class = shipclass_military
 	construction_type = starbase_shipyard
-	# is_designable = no
-	# enable_default_design = no
+	is_designable = yes
+	enable_default_design = yes
 	# use_shipnames_from = cruiser
 
 	default_behavior = line
@@ -227,8 +227,8 @@ marauder_galleon = {
 	}
 	class = shipclass_military
 	construction_type = starbase_shipyard
-	# is_designable = no
-	# enable_default_design = no
+	is_designable = yes
+	enable_default_design = yes
 	auto_upgrade = yes
 
 	# default_behavior = artillery

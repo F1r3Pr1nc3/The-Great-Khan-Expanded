@@ -47,7 +47,6 @@ ship_section_template = {
 	aux_utility_slots = 2
 }
 
-
 ### Marauder Destroyer
 ship_section_template = {
 	key = "MARAUDER_DESTROYER_MID_L1S2"

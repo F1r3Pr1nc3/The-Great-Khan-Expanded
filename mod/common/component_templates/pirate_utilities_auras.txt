@@ -285,7 +285,6 @@ utility_component_template = {
 	}
 }
 
-
 utility_component_template = {
 	key = "SHIP_AURA_NANOBOT_CLOUD_1"
 	size = medium

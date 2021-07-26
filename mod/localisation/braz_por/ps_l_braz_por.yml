@@ -70,7 +70,6 @@
  anomaly.2552.desc:0 "Science Officer [Root.GetLeaderName] has successfully restored power to the automated shipyard over [From.From.From.GetName]. The facility immediately resumed its interrupted construction order, using what materials it had on hand to build an advanced frigate of unknown design.\n\nUnfortunately, the ancient facility broke down completely afterwards and has been deemed beyond repair. We have sent a crew to the new ship and pressed it into service with our fleet."
  anomaly.2553.desc:0 "Unfortunately, after the launch of an ancient facility broke down completely afterwards and has been deemed beyond repair. \n\nBut not so bad! In the process we have been found drawings of new ships: Raiders, Frigates, Pirate Cruisers and asteroid outposts!"
 
-
  ####################################
  # Modifiers
  ####################################
@@ -112,7 +111,6 @@
  trait_radioactive_desc:0 "§LThis species has lived in an irradiated environment for an extended period of time. Although they have adapted it has caused problems with lifespan and reproduction.§!"
  trait_cockroach_repugnant:0 "Garbage Eaters"
  trait_cockroach_repugnant_desc:0 "§LThe cockroaches feeding habits are repulsive to most civilized species. But there are advantages to not being a picky eater!§!"
-
 
  ####################################
  # Corvette
@@ -282,7 +280,6 @@
  NEW_PIRATE_STATION_SECTION:1 "Pirate Lair"
  PIRATE_HIDEOUT_SECTION:1 "Pirate Hideout"
 
-
  LIGHT_PIRATE_STATION_SECTION:1 "Little asteroid"
  MEDIUM_PIRATE_HIDEOUT_SECTION:1 "Medium asteroid"
 
@@ -299,7 +296,6 @@
 
  HEAVY_MISSILE_MILITARY_STATION_SECTION: "Heavy Missile Section"
  PDSMALL_MILITARY_STATION_SECTION: "Defensive Station Section"
-
 
  # ###################################
  # Species Specific Engineering
@@ -339,7 +335,6 @@
  ############################### Spaseport Technology part
  tech_pirate_yard:0 "Standardized Pirate Patterns"
  tech_pirate_yard_desc:1 "Establishing new standards for the modeling and construction of pirate ships greatly improves the efficiency of the production pipeline.\n\n"
-
 
  ####################################
  # Possible plays to build
@@ -421,7 +416,6 @@
  ##################
 
  # ################################# Border Beacons #########################################
-
 
  #################################
  #   AGGRESSIVE Ship Computers   #

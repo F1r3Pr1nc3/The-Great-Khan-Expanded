@@ -72,7 +72,6 @@
 @colossus_cost4 = 240
 @colossus_cost5 = 300
 
-
 #############
 # THRUSTERS #
 #############
@@ -403,7 +402,6 @@ utility_component_template = {
 	}
 }
 
-
 ### 3
 
 utility_component_template = {
@@ -703,7 +701,6 @@ utility_component_template = {
 		weight = 4
 	}
 }
-
 
 utility_component_template = {
 	key = "COLOSSUS_SHIP_THRUSTER_4"

@@ -61,7 +61,6 @@ namespace = marauder
 @CmtConstKhanLifespan_6e =   360		### Time-Lag of Post-Death Process (days = 1e)
 @CmtConstKhanLifespan_6f =   360		### Time-Lag of Post-Death Process (random = 1f)
 
-
 ### Mercenaries Leave (join the Great Khan)
 # Scope = recruiter
 country_event = {
@@ -268,7 +267,6 @@ planet_event = {
 	}
 	option = { name = marauder.105.a }
 }
-
 
 #######################################
 ###  Main Effect of Khan Awakening  ###
@@ -1586,7 +1584,7 @@ country_event = {
 			random_system_within_border = {
 				weights = {
 					base = 1
-					modifier = { add = 1 starbase = { has_starbase_size >= starbase_starhold } }
+					modifier = { add = 1 exists = starbase starbase = { has_starbase_size >= starbase_starhold } }
 					modifier = { add = 1 any_system_planet = { is_colony = yes is_owned_by = ROOT } }
 					modifier = { add = 1 any_system_planet = { has_planet_flag = marauder_rally_point } }
 					modifier = { add = 1 any_system_planet = { has_planet_flag = CmtFlagMarauderExpRallyPoint } }
@@ -2158,7 +2156,7 @@ country_event = {
 	}
 	option = {
 		name = marauder.551.b
-		sound = no_tut_advior_07
+		# sound = no_tut_advior_07
 		response_text = marauder.551.b.response
 		default_hide_option = yes
 		ai_chance = { factor = 0 }
@@ -2248,7 +2246,7 @@ country_event = {
 	}
 	option = {
 		name = marauder.554.b
-		sound = no_tut_advior_07
+		# sound = no_tut_advior_07
 		response_text = marauder.554.b.response
 		ai_chance = { factor = 0 }
 	}
@@ -2791,7 +2789,6 @@ country_event = {
 		destroy_country = yes
 	}
 }
-
 
 # The Old Ways (HIDDEN)
 country_event = {
@@ -4019,7 +4016,6 @@ ship_event = {
 	}
 }
 
-
 ### Drums of War - Khan Expanding War (Cycle) on_action yearly/on_becoming_subject MTTH 360
 # This = Khan / subject
 country_event = {
@@ -4208,7 +4204,7 @@ country_event = {
 	}
 	option = {
 		name = marauder_fabricator_loyal
-		sound = no_tut_advior_07
+		# sound = no_tut_advior_07
 		response_text = marauder.554.b.response
 		ai_chance = { factor = 0 }
 	}
@@ -4402,7 +4398,7 @@ country_event = {
 	}
 	option = {
 		name = marauder_fabricator_deal_refuse
-		sound = no_tut_advior_07
+		# sound = no_tut_advior_07
 		response_text = marauder_deal_refuse
 		ai_chance = { factor = 0 }
 	}
@@ -4436,7 +4432,7 @@ country_event = {
 			random_system_within_border = {
 				weights = {
 					base = 1
-					modifier = { add = 1 starbase = { has_starbase_size >= starbase_starhold } }
+					modifier = { add = 1 exists = starbase starbase = { has_starbase_size >= starbase_starhold } }
 					modifier = { add = 1 any_system_planet = { is_colony = yes is_owned_by = ROOT } }
 					modifier = { add = 1 any_system_planet = { has_planet_flag = marauder_rally_point } }
 					modifier = { add = 1 CmtTriggerMarauderCapitalSystem = yes }
@@ -4598,7 +4594,7 @@ country_event = {
 			random_system_within_border = {
 				weights = {
 					base = 1
-					modifier = { add = 1 starbase = { has_starbase_size >= starbase_starhold } }
+					modifier = { add = 1 exists = starbase starbase = { has_starbase_size >= starbase_starhold } }
 					modifier = { add = 1 any_system_planet = { is_colony = yes is_owned_by = ROOT } }
 					modifier = { add = 1 any_system_planet = { has_planet_flag = marauder_rally_point } }
 					modifier = { add = 1 any_system_planet = { has_planet_flag = CmtFlagMarauderExpRallyPoint } }
@@ -4631,7 +4627,7 @@ country_event = {
 				random_system_within_border = {
 					weights = {
 						base = 1
-						modifier = { add = 1 starbase = { has_starbase_size >= starbase_starhold } }
+						modifier = { add = 1 exists = starbase starbase = { has_starbase_size >= starbase_starhold } }
 						modifier = { add = 1 any_system_planet = { is_colony = yes is_owned_by = ROOT } }
 						modifier = { add = 1 any_system_planet = { has_planet_flag = marauder_rally_point } }
 						modifier = { add = 1 CmtTriggerMarauderCapitalSystem = yes }
@@ -4753,7 +4749,7 @@ country_event = {
 	option = {
 		name = marauder_deal_response
 		custom_tooltip = "SUBJECT_DESC_machinesmith"
-		sound = placeholder_sfx
+		# sound = placeholder_sfx
 		trigger = { has_been_declared_crisis = no }
 		response_text = marauder_deal_accept
 		country_event = { id = marauder.559 } # Submit to Khan
@@ -4776,7 +4772,7 @@ country_event = {
 	}
 	option = {
 		name = marauder_deal_bad_response
-		sound = no_tut_advior_07
+		# sound = no_tut_advior_07
 		response_text = marauder_deal_refuse
 		ai_chance = { factor = 0 }
 	}
@@ -4801,7 +4797,7 @@ country_event = {
 	option = {
 		name = marauder_deal_reason
 		custom_tooltip = "SUBJECT_DESC_machinesmith"
-		sound = placeholder_sfx
+		# sound = placeholder_sfx
 		trigger = {
 			has_technology = tech_mass_drivers_4
 			has_technology = tech_lasers_4
@@ -4816,7 +4812,7 @@ country_event = {
 	option = {
 		name = marauder_fabricator_deal_reason
 		custom_tooltip = "SUBJECT_DESC_fabricator_satrapy"
-		sound = placeholder_sfx
+		# sound = placeholder_sfx
 		trigger = {
 			has_monthly_income = {
 				resource = alloys
