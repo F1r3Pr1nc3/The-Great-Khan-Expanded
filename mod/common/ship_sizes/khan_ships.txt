@@ -1,5 +1,9 @@
 #reloadable with 'reload stats'
 # This file is where you start when you want to configure something new, then go to sections
+
+@build_block_radius_starbase = 20
+@starbase_formation_priority = 1
+
 npc_galleon_01 = {
 	is_space_object = yes
 	graphical_culture = {  "pirate_01" "npf_01_dirty" "npf_01" }
@@ -80,7 +84,7 @@ npc_galleon_01 = {
 }
 
 starbase_marauder = {
-	graphical_culture = { "madd_01" "pirate_01" }
+	graphical_culture = { "pirate_01" "madd_01" }
 	# entity = starbase_marauder_entity
 	graphical_culture = no
 	max_speed = 0
@@ -106,14 +110,23 @@ starbase_marauder = {
 	is_civilian = no
 	components_add_to_cost = no
 	is_listed = no
-	can_disable = no
+	can_disable = no # they get not repaired and not destroyed!?
+	flip_control_on_disable = yes
 	enable_default_design = no	#if yes, countries will have an auto-generated design at start
+	prerequisites = { "tech_starbase_3" }
 	class = shipclass_starbase
 	required_component_set = "power_core"
 	required_component_set = "sensor_components"
 	required_component_set = "combat_computers"
-	build_block_radius = 20
-	formation_priority = 1
+
+	build_block_radius = @build_block_radius_starbase
+	formation_priority = @starbase_formation_priority
+	potential_country = {
+		OR = {
+			is_country_type = awakened_marauders
+			is_country_type = dormant_marauders
+		}
+	}
 	icon_frame = -1
 	text_icon = military_size_station
 }
