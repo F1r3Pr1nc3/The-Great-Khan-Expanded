@@ -61,6 +61,8 @@
  pick_indep:0 "我们宣布我们独立！"
  war_goal_wg_ae_uprising:0 "起义"
  war_goal_wg_ae_uprising_desc:0 "发动战争是为了确保我们独立于银河帝国"
+ war_goal_wg_great_expansion:0 "$war_goal_wg_path_destruction$"
+ war_goal_wg_great_expansion_desc:0 "$war_goal_wg_path_destruction_desc$"
  war_goal_wg_marauder_expansion:0 "大扩张"
  war_goal_wg_marauder_expansion_desc:0 "$war_goal_wg_subjugation_desc$"
  war_goal_wg_marauder_uprising:0 "大起义"

@@ -55,6 +55,8 @@
  war_goal_wg_marauder_expansion:0 "The Great Expansion" # war_goal_wg_scion
  war_goal_wg_ae_uprising:0 "Uprising"
  war_goal_wg_ae_uprising_desc:0 "War is waged to secure our independence against the great empires of the galaxy"
+ war_goal_wg_great_expansion:0 "$war_goal_wg_path_destruction$" # war_goal_wg_bring_into_the_fold
+ war_goal_wg_great_expansion_desc:0 "$war_goal_wg_path_destruction_desc$" # war_goal_wg_bring_into_the_fold_desc
  MARAUDER_CORVETTE_MID_S3:0 "Ankhdagch"
  MARAUDER_CORVETTE_MID_M1S1:0 "$pirate_corvette$"
  MARAUDER_DESTROYER_MID_L1S2:0 "Torgoor Khiisen"

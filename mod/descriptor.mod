@@ -1,8 +1,12 @@
-version="1.1.7"
+version="1.1.9"
 tags={
 	"Events"
 	"Crisis"
 	"Gameplay"
+}
+dependencies={
+	"Marauders Remodeled"
+	"Crisis Manager - Mid-Game Edition (3.0.¢)"
 }
 name="The Great Khan Expanded [3.0]"
 supported_version="3.0.*"

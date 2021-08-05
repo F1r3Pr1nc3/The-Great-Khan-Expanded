@@ -1,6 +1,8 @@
 # Replaced graphical_culture = "pirate_01"
 # Not really necessary, as vanilla graphical_culture gets ignored if invalid
 create_dyn_marauder_fleet = {
+	# default: OUTRIDER = 18 LANCER = 12 CHAMPION = 6 GLORY = 1
+
 	while = {
 		# count = @\[ $AMOUNT|3$ * 6 ]
 		count = $OUTRIDER|18$
@@ -56,7 +58,17 @@ create_1st_khan_fleet = {
 				graphical_culture = "npf_01" #_dirty
 			}
 			assign_leader = last_created_leader
-			create_dyn_marauder_fleet = { GLORY = 0 }
+			if = {
+				limit = {
+					OR = {
+						has_global_flag = expanded_spaceborne_installed
+						event_target:CmtGlobalVar = { check_variable = { which = CmtVarFleetPower_Khan value > 1.74 } }
+					}
+				}
+				create_dyn_marauder_fleet = { OUTRIDER = 36 LANCER = 24 CHAMPION = 12 }
+			} else = {
+				create_dyn_marauder_fleet = { GLORY = 0 }
+			}
 			set_location = {
 				target = event_target:marauder_rally_point
 				distance = 45
@@ -86,7 +98,18 @@ create_2nd_khan_fleet = {
 				graphical_culture = "npf_01_dirty"
 			}
 			set_leader = exiled_khan
-			create_dyn_marauder_fleet = yes
+			if = {
+				limit = {
+					OR = {
+						has_global_flag = expanded_spaceborne_installed
+						event_target:CmtGlobalVar = { check_variable = { which = CmtVarFleetPower_Khan value > 1.74 } }
+					}
+				}
+				create_dyn_marauder_fleet = { OUTRIDER = 36 LANCER = 24 CHAMPION = 12 }
+			} else = {
+				create_dyn_marauder_fleet = yes
+			}
+
 			set_location = {
 				target = event_target:marauder_rally_point
 				distance = 45
@@ -120,7 +143,18 @@ create_marauder_fleet = {
 	create_fleet = {
 		effect = {
 			set_owner = event_target:raider_khanate
-			create_dyn_marauder_fleet = { OUTRIDER = 16 LANCER = 8 }
+			if = {
+				limit = {
+					OR = {
+						has_global_flag = expanded_spaceborne_installed
+						event_target:CmtGlobalVar = { check_variable = { which = CmtVarFleetPower_Khan value > 1.74 } }
+					}
+				}
+				create_dyn_marauder_fleet = { OUTRIDER = 32 LANCER = 16 CHAMPION = 12 }
+			} else = {
+				create_dyn_marauder_fleet = { OUTRIDER = 16 LANCER = 8 }
+			}
+
 			assign_leader = last_created_leader
 			set_location = {
 				target = event_target:marauder_rally_point
@@ -151,7 +185,17 @@ create_small_marauder_auxiliaries = {
 		effect = {
 			set_owner = event_target:raider_khanate
 			set_fleet_flag = horde_auxuliaries
-			create_dyn_marauder_fleet = { OUTRIDER = 10 LANCER = 4 CHAMPION = 2 GLORY = 0 }
+			if = {
+				limit = {
+					OR = {
+						has_global_flag = expanded_spaceborne_installed
+						event_target:CmtGlobalVar = { check_variable = { which = CmtVarFleetPower_Khan value > 1.74 } }
+					}
+				}
+				create_dyn_marauder_fleet = { OUTRIDER = 20 LANCER = 8 CHAMPION = 4 GLORY = 0 }
+			} else = {
+				create_dyn_marauder_fleet = { OUTRIDER = 10 LANCER = 4 CHAMPION = 2 GLORY = 0 }
+			}
 			assign_leader = last_created_leader
 			set_location = {
 				target = root
@@ -184,7 +228,17 @@ create_medium_marauder_auxiliaries = {
 		effect = {
 			set_owner = event_target:raider_khanate
 			set_fleet_flag = horde_auxuliaries
-			create_dyn_marauder_fleet = yes
+			if = {
+				limit = {
+					OR = {
+						has_global_flag = expanded_spaceborne_installed
+						event_target:CmtGlobalVar = { check_variable = { which = CmtVarFleetPower_Khan value > 1.74 } }
+					}
+				}
+				create_dyn_marauder_fleet = { OUTRIDER = 32 LANCER = 16 CHAMPION = 12 }
+			} else = {
+				create_dyn_marauder_fleet = yes
+			}
 			assign_leader = last_created_leader
 			set_location = {
 				target = root
@@ -217,7 +271,17 @@ create_large_marauder_auxiliaries = {
 		effect = {
 			set_owner = event_target:raider_khanate
 			set_fleet_flag = horde_auxuliaries
-			create_dyn_marauder_fleet = { OUTRIDER = 22 LANCER = 12 CHAMPION = 8 }
+			if = {
+				limit = {
+					OR = {
+						has_global_flag = expanded_spaceborne_installed
+						event_target:CmtGlobalVar = { check_variable = { which = CmtVarFleetPower_Khan value > 1.74 } }
+					}
+				}
+				create_dyn_marauder_fleet = { OUTRIDER = 44 LANCER = 24 CHAMPION = 16 }
+			} else = {
+				create_dyn_marauder_fleet = { OUTRIDER = 22 LANCER = 12 CHAMPION = 8 }
+			}
 			assign_leader = last_created_leader
 			set_location = {
 				target = root
@@ -249,7 +313,17 @@ create_very_large_marauder_auxiliaries = {
 		effect = {
 			set_owner = event_target:raider_khanate
 			set_fleet_flag = horde_auxuliaries
-			create_dyn_marauder_fleet = { OUTRIDER = 26 LANCER = 18 CHAMPION = 12 }
+			if = {
+				limit = {
+					OR = {
+						has_global_flag = expanded_spaceborne_installed
+						event_target:CmtGlobalVar = { check_variable = { which = CmtVarFleetPower_Khan value > 1.74 } }
+					}
+				}
+				create_dyn_marauder_fleet = { OUTRIDER = 52 LANCER = 36 CHAMPION = 24 }
+			} else = {
+				create_dyn_marauder_fleet = { OUTRIDER = 26 LANCER = 18 CHAMPION = 12 }
+			}
 			assign_leader = last_created_leader
 			set_location = {
 				target = root
@@ -285,7 +359,17 @@ create_marauder_successor_fleet = {
 	create_fleet = {
 		effect = {
 			set_owner = prev
-			create_dyn_marauder_fleet = { OUTRIDER = 16 LANCER = 8 }
+			if = {
+				limit = {
+					OR = {
+						has_global_flag = expanded_spaceborne_installed
+						event_target:CmtGlobalVar = { check_variable = { which = CmtVarFleetPower_Khan value > 1.74 } }
+					}
+				}
+				create_dyn_marauder_fleet = { OUTRIDER = 32 LANCER = 16 CHAMPION = 12 }
+			} else = {
+				create_dyn_marauder_fleet = { OUTRIDER = 16 LANCER = 8 }
+			}
 			assign_leader = last_created_leader
 			set_location = {
 				target = event_target:fleet_position

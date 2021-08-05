@@ -61,6 +61,8 @@
  pick_indep:0 "$marauder.554.a$"
  war_goal_wg_ae_uprising:0 "Aufstand"
  war_goal_wg_ae_uprising_desc:0 "Es wird Krieg geführt, um unsere Unabhängigkeit gegen die großen Imperien der Galaxis zu sichern."
+ war_goal_wg_great_expansion:0 "$war_goal_wg_path_destruction$"
+ war_goal_wg_great_expansion_desc:0 "$war_goal_wg_path_destruction_desc$"
  war_goal_wg_marauder_expansion:0 "Die Große Expansion"
  war_goal_wg_marauder_expansion_desc:0 "$war_goal_wg_subjugation_desc$"
  war_goal_wg_marauder_uprising:0 "Der Große Aufstand"

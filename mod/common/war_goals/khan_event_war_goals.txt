@@ -203,7 +203,7 @@ wg_marauder_expansion = {
 	}
 
 	surrender_acceptance = -100
-	war_exhaustion = 0.5
+	war_exhaustion = 0.75
 
 	cede_claims = occupied_only
 
@@ -272,6 +272,12 @@ wg_marauder_expansion = {
 				add_threat = {
 					who = root
 					amount = 0.5
+				}
+				every_system_within_border = {
+					limit = {
+						root = { has_claim = prev }
+					}
+					remove_claims = { who = root }
 				}
 			}
 		}
@@ -349,7 +355,7 @@ wg_marauder_expansion = {
 							any_war_participant = {
 								PREV = {
 									using_war_goal = {
-										type = wg_war_in_heaven
+										type = wg_great_expansion
 										owner = PREV
 									}
 								}
@@ -363,7 +369,7 @@ wg_marauder_expansion = {
 							any_war_participant = {
 								PREV = {
 									using_war_goal = {
-										type = wg_war_in_heaven
+										type = wg_great_expansion
 										owner = PREV
 									}
 								}
@@ -438,21 +444,15 @@ wg_marauder_expansion = {
 
 wg_war_in_heaven = {
 	casus_belli = cb_event
-
 	total_war = yes
-
-	allowed_peace_offers = { status_quo }
-
+	allowed_peace_offers = {
+		status_quo
+	}
 	surrender_acceptance = -1000
 	war_exhaustion = 0.25
-
 	set_defender_wargoal = wg_war_in_heaven
-
-	potential = {
-		always = no # event only
-	}
+	potential = { always = no } # event only
 	possible = { always = yes }
-
 	on_accept  = {
 		hidden_effect = {
 			if = {
@@ -510,7 +510,6 @@ wg_war_in_heaven = {
 				# every_playable_country = {
 				# 	country_event = { id = war_in_heaven.5 }
 				# }
-
 			}
 		}
 	}
@@ -529,19 +528,19 @@ wg_war_in_heaven = {
 					# Can't war for a year
 					set_timed_country_flag = { flag = rebellion_cooldown days = @b1_time }
 					change_variable = { which = "planets_lost_to_marauder" value = -3 }
-					set_faction_hostility = {
-						target = prev
-						set_hostile = no
-						set_neutral = yes
-						set_friendly = no
-					}
+					# set_faction_hostility = {
+					# 	target = prev
+					# 	set_hostile = no
+					# 	set_neutral = yes
+					# 	set_friendly = no
+					# }
 				}
-				set_faction_hostility = {
-					target = from
-					set_hostile = no
-					set_neutral = yes
-					set_friendly = no
-				}
+				# set_faction_hostility = {
+				# 	target = from
+				# 	set_hostile = no
+				# 	set_neutral = yes
+				# 	set_friendly = no
+				# }
 				if = {
 					limit = {
 						exists = last_created_country
@@ -560,6 +559,98 @@ wg_war_in_heaven = {
 				}
 				observer_event = { id = observer.78 }
 			}
+		}
+	}
+
+	ai_weight = { weight = 100 }
+}
+
+wg_great_expansion = {
+	casus_belli = cb_event
+	total_war = yes
+	allowed_peace_offers = {
+		status_quo
+		surrender
+		demand_surrender
+	}
+	surrender_acceptance = -200
+	war_exhaustion = 0.5
+	# set_defender_wargoal = wg_great_expansion
+	potential = { always = no } # event only
+	possible = { always = yes }
+	on_accept  = {
+		hidden_effect = {
+			if = {
+				limit = { is_country_type = awakened_marauders }
+				from = {
+					add_threat = { who = root amount = 0.5 }
+					if = {
+						limit = { has_been_declared_crisis = no }
+						country_event = { id = marauder.550 } # Submit to Khan
+					}
+				}
+				# TODO notify
+				# save_event_target_as = WarInHeavenFEOne
+				# every_playable_country = {
+				# 	country_event = { id = war_in_heaven.5 }
+				# }
+			}
+			from = {
+				add_threat = { who = root amount = 0.5 }
+				every_system_within_border = {
+					limit = { root = { has_claim = prev } }
+					remove_claims = { who = root }
+				}
+			}
+		}
+	}
+
+	on_status_quo = {
+		# custom_tooltip =
+		hidden_effect = {
+			# save_event_target_as = WarInHeavenFEOne
+			# from = { save_event_target_as = WarInHeavenFETwo }
+			if = {
+				limit = { is_country_type = awakened_marauders }
+				# TODO also for any_war_participant !?
+				from = {
+					add_threat = { who = root amount = 0.5 }
+					# Can't war for a year
+					set_timed_country_flag = { flag = rebellion_cooldown days = @b1_time }
+					change_variable = { which = "planets_lost_to_marauder" value = -3 }
+					# set_faction_hostility = {
+					# 	target = prev
+					# 	set_hostile = no
+					# 	set_neutral = yes
+					# 	set_friendly = no
+					# }
+				}
+				# set_faction_hostility = {
+				# 	target = from
+				# 	set_hostile = no
+				# 	set_neutral = yes
+				# 	set_friendly = no
+				# }
+				if = {
+					limit = {
+						exists = last_created_country
+						last_created_country = { has_country_flag = released_empire }
+					}
+					last_created_country = {
+						set_subject_of = {
+							who = root
+							subject_type = satrapy
+						}
+					}
+				}
+			}
+			# TODO notify
+			# else = {
+			# 	every_playable_country = {
+			# 		country_event = { id = war_in_heaven.6 }
+			# 	}
+			# 	observer_event = { id = observer.78 }
+			# }
 		}
 	}
 
