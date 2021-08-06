@@ -52,9 +52,9 @@ create_1st_khan_fleet = {
 		effect = {
 			set_owner = event_target:raider_khanate
 			create_ship = {
-				name = "NAME_Glorious_Might"
-				# design = "NAME_Glorious_Might"
-				random_existing_design = npc_galleon_01
+				# name = "NAME_JuukTidir"
+				design = "NAME_JuukTidir"
+				# random_existing_design = npc_galleon_01
 				graphical_culture = "npf_01" #_dirty
 			}
 			assign_leader = last_created_leader
@@ -92,9 +92,9 @@ create_2nd_khan_fleet = {
 		effect = {
 			set_owner = event_target:raider_khanate
 			create_ship = {
-				name = "NAME_JuukTidir"
-				# design = "NAME_Glorious_Might"
-				random_existing_design = npc_galleon_01
+				# name = "NAME_Glorious_Might"
+				design = "NAME_Glorious_Might"
+				# random_existing_design = npc_galleon_01
 				graphical_culture = "npf_01_dirty"
 			}
 			set_leader = exiled_khan

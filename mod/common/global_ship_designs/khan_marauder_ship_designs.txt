@@ -325,9 +325,9 @@ ship_design = {
 	required_component = "TITAN_ANTIMATTER_REACTOR"
 }
 
-# Khan Galleon
+# Khan Galleon 1
 ship_design = {
-	name = "NAME_Glorious_Might"
+	name = "NAME_JuukTidir"
 	ship_size = npc_galleon_01
 	is_event_design = yes
 	is_special_buildable = yes
@@ -452,22 +452,22 @@ ship_design = {
 			slot = "LARGE_UTILITY_14"
 			template = "LARGE_SHIELD_3"
 		}
-		component = {
-			slot = "LARGE_UTILITY_15"
-			template = "LARGE_SHIELD_3"
-		}
-		component = {
-			slot = "LARGE_UTILITY_16"
-			template = "LARGE_SHIELD_3"
-		}
-		component = {
-			slot = "LARGE_UTILITY_19"
-			template = "LARGE_ARMOR_3"
-		}
-		component = {
-			slot = "LARGE_UTILITY_20"
-			template = "LARGE_ARMOR_3"
-		}
+		# component = {
+		# 	slot = "LARGE_UTILITY_15"
+		# 	template = "LARGE_SHIELD_3"
+		# }
+		# component = {
+		# 	slot = "LARGE_UTILITY_16"
+		# 	template = "LARGE_SHIELD_3"
+		# }
+		# component = {
+		# 	slot = "LARGE_UTILITY_19"
+		# 	template = "LARGE_ARMOR_3"
+		# }
+		# component = {
+		# 	slot = "LARGE_UTILITY_20"
+		# 	template = "LARGE_ARMOR_3"
+		# }
 		# component = {
 		# 	slot = "LARGE_UTILITY_21"
 		# 	template = "LARGE_ARMOR_3"
@@ -497,9 +497,196 @@ ship_design = {
 			template = "AUTO_REPAIR"
 		}
 	}
-	required_component = "JUMP_DRIVE_1"
-	required_component = "SHIP_THRUSTER_4"
-	required_component = "SENSOR_3"
+	required_component = "SENSOR_2"
+	required_component = "HYPER_DRIVE_3"
+	required_component = "SHIP_THRUSTER_3"
 	required_component = "COMBAT_COMPUTER_LINE_SAPIENT"
 	required_component = "TITAN_ANTIMATTER_REACTOR"
+}
+
+# Khan Galleon 2
+ship_design = {
+	name = "NAME_Glorious_Might"
+	ship_size = npc_galleon_01
+	is_event_design = yes
+	is_special_buildable = yes
+	use_design_name = yes
+	# hide_size = yes
+	section = {
+		template = "MARAUDER_WARSHIP_TEMP"
+		slot = "mid"
+		component = {
+			slot = "LARGE_GUN_01"
+			template = "LARGE_MASS_DRIVER_4"
+		}
+		component = {
+			slot = "LARGE_GUN_02"
+			template = "LARGE_MASS_DRIVER_3"
+		}
+		component = {
+			slot = "SMALL_GUN_01"
+			template = "AUTOCANNON_3"
+		}
+		component = {
+			slot = "SMALL_GUN_02"
+			template = "AUTOCANNON_2"
+		}
+		component = {
+			slot = "SMALL_GUN_03"
+			template = "AUTOCANNON_2"
+		}
+		component = {
+			slot = "TORPEDO_01"
+			template = "MISSILE_3"
+		}
+		component = {
+			slot = "TORPEDO_02"
+			template = "MISSILE_4"
+		}
+		component = {
+			slot = "LARGE_GUN_03"
+			template = "LARGE_XRAY_LASER"
+		}
+		component = {
+			slot = "LARGE_GUN_04"
+			template = "LARGE_UV_LASER"
+		}
+		component = {
+			slot = "LARGE_GUN_05"
+			template = "LARGE_UV_LASER"
+		}
+		component = {
+			slot = "LARGE_GUN_06"
+			template = "ENERGY_TORPEDO_2"
+		}
+		component = {
+			slot = "LARGE_GUN_07"
+			template = "LARGE_MASS_DRIVER_4"
+		}
+		component = {
+			slot = "SMALL_GUN_08"
+			template = "FLAK_BATTERY_2"
+		}
+		component = {
+			slot = "SMALL_GUN_09"
+			template = "FLAK_BATTERY_2"
+		}
+		component = {
+			slot = "SMALL_GUN_10"
+			template = "FLAK_BATTERY_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_1"
+			template = "LARGE_ARMOR_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_2"
+			template = "LARGE_ARMOR_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_3"
+			template = "LARGE_ARMOR_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_4"
+			template = "LARGE_ARMOR_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_5"
+			template = "LARGE_ARMOR_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_6"
+			template = "LARGE_ARMOR_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_7"
+			template = "LARGE_SHIELD_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_8"
+			template = "LARGE_SHIELD_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_9"
+			template = "LARGE_SHIELD_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_10"
+			template = "LARGE_SHIELD_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_11"
+			template = "LARGE_SHIELD_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_12"
+			template = "LARGE_SHIELD_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_13"
+			template = "LARGE_SHIELD_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_14"
+			template = "LARGE_SHIELD_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_15"
+			template = "LARGE_SHIELD_4"
+		}
+		component = {
+			slot = "LARGE_UTILITY_16"
+			template = "LARGE_SHIELD_4"
+		}
+		component = {
+			slot = "LARGE_UTILITY_17"
+			template = "LARGE_SHIELD_4"
+		}
+		component = {
+			slot = "LARGE_UTILITY_18"
+			template = "LARGE_SHIELD_4"
+		}
+		component = {
+			slot = "LARGE_UTILITY_19"
+			template = "LARGE_ARMOR_4"
+		}
+		component = {
+			slot = "LARGE_UTILITY_20"
+			template = "LARGE_ARMOR_4"
+		}
+		component = {
+			slot = "LARGE_UTILITY_21"
+			template = "LARGE_ARMOR_4"
+		}
+		component = {
+			slot = "LARGE_UTILITY_22"
+			template = "LARGE_ARMOR_4"
+		}
+		component = {
+			slot = "AUX_UTILITY_1"
+			template = "SHIELD_BOOSTER"
+		}
+		component = {
+			slot = "AUX_UTILITY_2"
+			template = "SHIELD_BOOSTER"
+		}
+		component = {
+			slot = "AUX_UTILITY_3"
+			template = "SHIELD_BOOSTER"
+		}
+		component = {
+			slot = "AUX_UTILITY_4"
+			template = "AUTO_REPAIR"
+		}
+		component = {
+			slot = "AUX_UTILITY_5"
+			template = "AUTO_REPAIR"
+		}
+	}
+	required_component = "SENSOR_3"
+	required_component = "JUMP_DRIVE_1"
+	required_component = "SHIP_THRUSTER_4"
+	required_component = "COMBAT_COMPUTER_ARTILLERY_SAPIENT"
+	required_component = "TITAN_ZERO_POINT_REACTOR"
 }

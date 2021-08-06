@@ -84,6 +84,8 @@ country_event = {
 					set_owner = event_target:raider_khanate
 				}
 				# delete_fleet = this
+				remove_auto_move_target = yes
+				clear_fleet_actions = this
 				set_mia = yes
 				set_owner = event_target:raider_khanate
 			}
@@ -113,6 +115,8 @@ country_event = {
 					set_owner = event_target:raider_khanate
 				}
 				# delete_fleet = this
+				remove_auto_move_target = yes
+				clear_fleet_actions = this
 				set_mia = yes
 				set_owner = event_target:raider_khanate
 			}
@@ -142,6 +146,8 @@ country_event = {
 					set_owner = event_target:raider_khanate
 				}
 				# delete_fleet = this
+				remove_auto_move_target = yes
+				clear_fleet_actions = this
 				set_mia = yes
 				set_owner = event_target:raider_khanate
 			}
@@ -263,15 +269,58 @@ planet_event = {
 	trigger = { is_colony = yes }
 	immediate = {
 		while = {
-			count = 4
-			limit = { num_pops > 2 }
+			count = 5
+			limit = { num_pops > 1 }
 			random_owned_pop = {
-				limit = { NOT = { is_same_species = fromfrom } }
+				limit = {
+					is_robot_pop = no
+					is_sapient = yes
+				}
+				weights = {
+					base = 3
+					modifier = { add = -3 is_same_species = fromfrom }
+					modifier = { add = 1 OR = { is_pop_category = slave is_pop_category = purge } }
+					modifier = { add = 1 is_unemployed = yes }
+					# modifier = { add = 1 prev = { count_owned_pop = { limit = { is_same_species = prevprev } count > 5 } } }
+					# modifier = { add = 1 NOT = { ideal_planet_class = prev } }
+					# modifier = { add = 3 species_can_be_necrophaged = no }
+				}
 				kill_pop = yes
 			}
 		}
 	}
 	option = { name = marauder.105.a }
+}
+
+# Raiders Hit Planet (Servitor Machines)
+planet_event = {
+	id = marauder.107
+	title = "marauder.104.name"
+	desc = "marauder.107.desc"
+	picture = GFX_evt_burning_settlement
+	show_sound = event_planetary_riot
+	location = root
+	is_triggered_only = yes
+	option = {
+		name = marauder.107.a
+		while = {
+			count = 5
+			limit = { num_pops > 1 }
+			random_owned_pop = {
+				limit = {
+					is_robot_pop = no
+					is_sapient = yes
+				}
+				weights = {
+					base = 3
+					modifier = { add = -3 is_same_species = fromfrom }
+					modifier = { add = 1 OR = { is_pop_category = slave is_pop_category = purge } }
+					modifier = { add = 1 is_unemployed = yes }
+				}
+				kill_pop = yes
+			}
+		}
+	}
 }
 
 #######################################
@@ -806,7 +855,7 @@ country_event = {
 		### Compat. replace hack for CM
 		event_target:great_khan.fleet = {
 			create_ship = {
-				design = "NAME_Glorious_Might"
+				design = "NAME_JuukTidir"
 				graphical_culture = "npf_01_dirty"
 				prefix = no
 				upgradable = yes
@@ -982,12 +1031,13 @@ country_event = {
 ##############################
 
 ### Horde Conquers Planet
+# From = country, planet owner
+# FromFrom = planet
 country_event = {
 	id = marauder.503
 	hide_window = yes
 	is_triggered_only = yes
-	# From = country, planet owner
-	# FromFrom = planet
+
 	trigger = {
 		has_global_flag = marauder_crisis_ongoing
 		exists = event_target:raider_khanate
@@ -1005,21 +1055,101 @@ country_event = {
 	immediate = {
 		from = {
 			change_variable = { which = "planets_lost_to_marauder" value = 1 }
+			if = { limit = { prev = { can_copy_random_tech_from = { who = prev } } }
+				prev = { copy_random_tech_from = { who = prev } }
+			}
 			if = {
 				limit = { fromfrom.solar_system = { is_capital_system = yes } }
 				change_variable = { which = "planets_lost_to_marauder" value = 1 }
+				if = { limit = { prev = { can_copy_random_tech_from = { who = prev } } }
+					prev = { copy_random_tech_from = { who = prev } }
+				}
 				if = {
 					limit = { fromfrom = { is_capital = yes } }
-					change_variable = { which = "planets_lost_to_marauder" value = 1 }
+					change_variable = { which = "planets_lost_to_marauder" value = 3 }
+					if = { limit = { prev = { can_copy_random_tech_from = { who = prev } } }
+						prev = { copy_random_tech_from = { who = prev } }
+					}
 				}
 			}
-			country_event = { id = marauder.504 } # notify
+			country_event = { id = marauder.504 } # Notify
 			set_country_flag = former_owner@fromfrom
 		}
 		fromfrom = {
+			if = {
+				limit = { num_pops > 20 }
+				owner = { change_variable = { which = "planets_lost_to_marauder" value = 1 } }
+				while = {
+					count = 6
+					limit = { num_pops > 20 }
+					random_owned_pop = {
+						limit = { species_can_be_necrophaged = yes }
+						weights = {
+							base = 3
+							modifier = { add = -3 is_same_species = root }
+							modifier = { add = 1 OR = { is_pop_category = slave is_pop_category = purge } }
+							modifier = { add = 1 is_unemployed = yes }
+							modifier = { add = -2 ideal_planet_class = prev }
+							modifier = { add = 1 prevprev = { count_owned_pop = { limit = { is_same_species = prevprev } count < 4 } } }
+						}
+						kill_pop = yes
+					}
+				}
+			}
 			save_event_target_as = conquered_planet
 			set_owner = ROOT
-			event_target:CmtGlobalVar = { set_variable = { which = CmtVarTemp value = 6 } }
+
+			### Create Marauder Pops
+			planet_event = { id = marauder.105 } # (Slaves)
+			set_variable = { which = CmtVarTemp value = 4 }
+			if = {
+				limit = { free_housing < 2 }
+				change_variable = { which = CmtVarTemp value = 4 }
+			} else_if = {
+				limit = { free_housing < 6 free_housing > 1 }
+				change_variable = { which = CmtVarTemp value = 8 }
+			} else_if = {
+				limit = { free_housing > 5 }
+				change_variable = { which = CmtVarTemp value = 12 }
+			}
+			set_variable = { which = CmtVarTemp4 value = CmtVarTemp }
+			divide_variable = { which = CmtVarTemp4 value = 4 }
+
+			if = {
+				limit = { exists = event_target:CmtTargetSpecies_Marauder1 }
+				while = {
+					limit = { check_variable = { which = CmtVarTemp4 value > 0.5 } }
+					create_pop = { species = event_target:CmtTargetSpecies_Marauder1 }
+					change_variable = { which = CmtVarTemp4 value = -1 }
+					change_variable = { which = CmtVarTemp value = -1 }
+				}
+			}
+			if = {
+				limit = { exists = event_target:CmtTargetSpecies_Marauder2 }
+				while = {
+					limit = { check_variable = { which = CmtVarTemp4 value > 0.5 } }
+					create_pop = { species = event_target:CmtTargetSpecies_Marauder2 }
+					change_variable = { which = CmtVarTemp4 value = -1 }
+					change_variable = { which = CmtVarTemp value = -1 }
+				}
+			}
+			if = {
+				limit = { exists = event_target:CmtTargetSpecies_Marauder3 }
+				while = {
+					limit = { check_variable = { which = CmtVarTemp4 value > 0.5 } }
+					create_pop = { species = event_target:CmtTargetSpecies_Marauder3 }
+					change_variable = { which = CmtVarTemp4 value = -1 }
+					change_variable = { which = CmtVarTemp value = -1 }
+				}
+			}
+			while = { # rest
+				limit = { check_variable = { which = CmtVarTemp value > 0.5 } }
+				create_pop = { species =  ROOT.species }
+				change_variable = { which = CmtVarTemp value = -1 }
+			}
+
+			### Create Defense Armies
+			set_variable = { which = CmtVarTemp value = 8 }
 			if = {
 				limit = { exists = event_target:CmtTargetSpecies_Marauder1 }
 				while = {
@@ -1029,7 +1159,7 @@ country_event = {
 						species = event_target:CmtTargetSpecies_Marauder1
 						type = "defense_army"
 					}
-					event_target:CmtGlobalVar = { change_variable = { which = CmtVarTemp value = -1 } }
+					change_variable = { which = CmtVarTemp value = -1 }
 				}
 			}
 			if = {
@@ -1041,7 +1171,7 @@ country_event = {
 						species = event_target:CmtTargetSpecies_Marauder2
 						type = "defense_army"
 					}
-					event_target:CmtGlobalVar = { change_variable = { which = CmtVarTemp value = -1 } }
+					change_variable = { which = CmtVarTemp value = -1 }
 				}
 			}
 			if = {
@@ -1053,69 +1183,23 @@ country_event = {
 						species = event_target:CmtTargetSpecies_Marauder3
 						type = "defense_army"
 					}
-					event_target:CmtGlobalVar = { change_variable = { which = CmtVarTemp value = -1 } }
+					change_variable = { which = CmtVarTemp value = -1 }
 				}
 			}
-			while = {
-				limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarTemp value > 0.5 } } }
+			while = { # rest
+				limit = { check_variable = { which = CmtVarTemp value > 0.5 } }
 				create_army = {
 					owner = ROOT
 					species = ROOT.species
 					type = "defense_army"
 				}
-				event_target:CmtGlobalVar = { change_variable = { which = CmtVarTemp value = -1 } }
+				change_variable = { which = CmtVarTemp value = -1 }
 			}
 
-			if = {
-				limit = { free_housing < 1 }
-				random_owned_pop = { kill_pop = yes }
-			}
-			if = {
-				limit = { free_housing < 2 }
-				while = { count = 4 random_owned_pop = { kill_pop = yes } }
-				if = {
-					limit = { exists = event_target:CmtTargetSpecies_Marauder1 }
-					create_pop = { species = event_target:CmtTargetSpecies_Marauder1 }
-				}
-				if = {
-					limit = { exists = event_target:CmtTargetSpecies_Marauder2 }
-					create_pop = { species = event_target:CmtTargetSpecies_Marauder2 }
-				}
-				if = {
-					limit = { exists = event_target:CmtTargetSpecies_Marauder3 }
-					create_pop = { species = event_target:CmtTargetSpecies_Marauder3 }
-				}
-			} else_if = {
-				limit = { free_housing < 6 }
-				while = { count = 3 random_owned_pop = { kill_pop = yes } }
-				create_pop = { species = ROOT.species }
-				if = {
-					limit = { exists = event_target:CmtTargetSpecies_Marauder1 }
-					create_pop = { species = event_target:CmtTargetSpecies_Marauder1 }
-				}
-				if = {
-					limit = { exists = event_target:CmtTargetSpecies_Marauder2 }
-					create_pop = { species = event_target:CmtTargetSpecies_Marauder2 }
-				}
-				if = {
-					limit = { exists = event_target:CmtTargetSpecies_Marauder3 }
-					create_pop = { species = event_target:CmtTargetSpecies_Marauder3 }
-				}
-			} else = {
-				if = {
-					limit = { exists = event_target:CmtTargetSpecies_Marauder1 }
-					while = { count = 2 create_pop = { species = event_target:CmtTargetSpecies_Marauder1 } }
-				} else = { while = { count = 2 create_pop = { species = ROOT.species } } }
-				if = {
-					limit = { exists = event_target:CmtTargetSpecies_Marauder2 }
-					while = { count = 2 create_pop = { species = event_target:CmtTargetSpecies_Marauder2 } }
-				} else = { while = { count = 2 create_pop = { species = ROOT.species } } }
-				if = {
-					limit = { exists = event_target:CmtTargetSpecies_Marauder3 }
-					while = { count = 2 create_pop = { species = event_target:CmtTargetSpecies_Marauder3 } }
-				} else = { while = { count = 2 create_pop = { species = ROOT.species } } }
-			}
+			clear_variable = CmtVarTemp
+			clear_variable = CmtVarTemp4
 
+			# Flip Starbase ownership or create a new one
 			solar_system = {
 				if = {
 					limit = {
@@ -1123,17 +1207,13 @@ country_event = {
 						starbase = { fleet = { NOT = { is_owned_by = ROOT } } }
 					}
 					starbase = { set_owner = ROOT }
+					# FIXME: needs possible workaround? As starbase from horde gets not conquered? See Fix id = khan.304-305
 				} else = {
 					create_starbase = {
-						size = starbase_marauder
+						size = "starbase_marauder"
 						owner = ROOT
 					}
 				}
-				# # FIXME needs workaround?
-				# random_ship_in_system = {
-				# 	limit = { is_ship_class = shipclass_starbase }
-				# 	set_disable_at_health = -1
-				# }
 			}
 		}
 	}
@@ -1207,6 +1287,8 @@ country_event = {
 					is_owned_by = ROOT
 				}
 			}
+			remove_auto_move_target = yes
+			clear_fleet_actions = this
 			set_mia = yes
 		}
 	}
@@ -1239,7 +1321,7 @@ country_event = {
 		### Compat. hack for CM
 		event_target:great_khan.fleet = {
 			create_ship = {
-				name = "NAME_JuukTidir"
+				# name = "NAME_Glorious_Might"
 				design = "NAME_Glorious_Might"
 				graphical_culture = "npf_01_dirty"
 				prefix = no
@@ -1364,7 +1446,7 @@ country_event = {
 	}
 }
 
-# Great Khan Dies
+# Great Khan Dies (Notify)
 country_event = {
 	id = marauder.510
 	title = "marauder.510.name"
@@ -1462,6 +1544,7 @@ country_event = {
 		}
 		observer_event = { id = observer.17 }
 
+		add_relic = r_khans_throne
 		if = {
 			limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 1 } } }
 			country_event = { id = marauder.600 days = @CmtConstKhanLifespan_1e random = @CmtConstKhanLifespan_1f }
@@ -1481,7 +1564,7 @@ country_event = {
 	}
 }
 
-### Great Khan Dies
+### Great Khan Dies (Notify)
 country_event = {
 	id = marauder.513
 	title = "marauder.510.name"
@@ -1547,6 +1630,7 @@ country_event = {
 		}
 		observer_event = { id = observer.17 }
 
+		add_relic = r_khans_throne
 		if = {
 			limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 1 } } }
 			country_event = { id = marauder.600 days = @CmtConstKhanLifespan_1e random = @CmtConstKhanLifespan_1f }
@@ -1955,7 +2039,10 @@ country_event = {
 	force_open = yes
 	diplomatic = yes
 	trigger = {
-		FROM = { CmtTriggerIsKhanCountry = yes }
+		OR = {
+			NOT = { exists = FROM }
+			FROM = { CmtTriggerIsKhanCountry = yes }
+		}
 		NOT = { has_country_flag = marauder_diplomacy_engaged }
 		# NOR = {
 		# 	has_country_flag = marauder_diplomacy_engaged
@@ -1963,6 +2050,10 @@ country_event = {
 		# }
 	}
 	immediate = {
+		if = {
+			limit = { NOT = { exists = from } }
+			log_error="Not exists From Scope on marauder.550"
+		}
 		set_country_flag = marauder_diplomacy_engaged
 	}
 	after = {
@@ -2339,8 +2430,8 @@ country_event = {
 		}
 	}
 	immediate = {
-		country_event = { id = marauder.550 } # Submit to Khan
-		# country_event = { id = marauder.559 } # Submit to Khan
+		# country_event = { id = marauder.550 } # Submit to Khan
+		country_event = { id = marauder.559 } # Submit to Khan
 		# set_subject_of = {
 		# 	who = event_target:raider_khanate
 		# 	subject_type = satrapy
@@ -2370,8 +2461,6 @@ country_event = {
 				event_target:raider_khanate = {
 					# set_faction_hostility = {
 					# 	target = PREV
-					# 	set_hostile = no
-					# 	set_neutral = no
 					# 	set_friendly = yes
 					# }
 					copy_random_tech_from = { who = PREV area = engineering }
@@ -2393,12 +2482,13 @@ country_event = {
 		}
 		country_event = { id = marauder.553 days = 10 }
 		add_modifier = { modifier = "satrapy_of_horde" days = -1 }
+		if = { limit = { NOT = { is_variable_set = "planets_lost_to_marauder" } }
+			set_variable = { which = "planets_lost_to_marauder" value = 6 }
+		}
 		divide_variable = { which = "planets_lost_to_marauder" value = 2 }
 		event_target:raider_khanate = {
 			# set_faction_hostility = {
 			# 	target = ROOT
-			# 	set_hostile = no
-			# 	set_neutral = no
 			# 	set_friendly = yes
 			# }
 			copy_random_tech_from = { who = PREV area = physics }
@@ -2496,7 +2586,7 @@ country_event = {
 					}
 				}
 			}
-			every_war = { #End War in Heaven
+			every_war = { # End Expansion War
 				limit = {
 					is_war_participant = ROOT
 					any_war_participant = {
@@ -2907,7 +2997,11 @@ country_event = {
 							# has_owner = yes
 							# NOR = { is_owned_by = ROOT is_owned_by = event_target:restored_marauders }
 						}
-						prev = { set_mia = yes }
+						prev = {
+							remove_auto_move_target = yes
+							clear_fleet_actions = this
+							set_mia = yes
+						}
 					}
 				}
 			}
@@ -3032,7 +3126,11 @@ country_event = {
 							has_owner = yes
 							NOR = { is_owned_by = ROOT is_owned_by = event_target:new_khanate }
 						}
-						prev = { set_mia = yes }
+						prev = {
+							remove_auto_move_target = yes
+							clear_fleet_actions = this
+							set_mia = yes
+						}
 					}
 				}
 			}
@@ -3760,7 +3858,7 @@ country_event = {
 			limit = { count_federation = { count = 1 } }
 			# random_federation = { save_event_target_as = last_federation
 			set_variable = { which = last_federation value = 1 }
-			log="only one federation"
+			# log="only one federation"
 		} else = { set_variable = { which = last_federation value = 0 } }
 		if = {
 			limit = {
@@ -3938,16 +4036,16 @@ country_event = {
 	immediate = {
 		random_owned_species = {
 			limit = {
-				is_robotic = no
-				NOT = { is_archetype = PRESAPIENT }
-				capital_scope = { habitability = { who = PREV value >= 0.6 } }
+				species_can_be_necrophaged = yes
+				NOT = { is_archetype = LITHOID }
 			}
 			weights = {
 				base = 1
-				modifier = { add = 1 count_species_pop = { count > 5 } }
-				modifier = { add = 2 count_species_pop = { count > 10 } }
-				modifier = { add = 2 count_species_pop = { count > 17 } }
+				modifier = { add = 1 prev = { count_owned_pop = { count > 5 limit = { is_same_species = prevprev } } } }
+				modifier = { add = 2 prev = { count_owned_pop = { count > 10 limit = { is_same_species = prevprev } } } }
+				modifier = { add = 3 prev = { count_owned_pop = { count > 17 limit = { is_same_species = prevprev } } } }
 				modifier = { add = 3 is_same_species = root.owner_species }
+				modifier = { add = 2 prev = { capital_scope = { habitability = { who = PREV value > 0.6 } } } }
 				modifier = {
 					add = 4
 					root = { any_owned_planet = {
@@ -4089,10 +4187,11 @@ country_event = {
 		event_target:raider_khanate = {
 			if = {
 				limit = {
-					any_country = {
+					any_playable_country = {
 						has_communications = PREV
 						CmtTriggerIsPlayableEmpire = yes
 						NOR = {
+							has_truce = PREV
 							PREV = { is_overlord_to = PREV }
 							is_at_war_with = PREV
 							is_same_empire = PREV
@@ -4103,6 +4202,7 @@ country_event = {
 					limit = {
 						CmtTriggerIsPlayableEmpire = yes
 						NOR = {
+							has_truce = PREV
 							PREV = { is_overlord_to = PREV }
 							is_at_war_with = PREV
 							is_same_empire = PREV
@@ -4244,7 +4344,11 @@ country_event = {
 								has_owner = yes
 								NOR = { is_owned_by = ROOT is_owned_by = ROOT }
 							}
-							prev = { set_mia = yes }
+							prev = {
+								remove_auto_move_target = yes
+								clear_fleet_actions = this
+								set_mia = yes
+							}
 						}
 					}
 				}
@@ -4363,17 +4467,17 @@ country_event = {
 			}
 		}
 		### Dynamic Empire fleet_power
-		set_variable = { which = successor_fleet_power value = 46000 }
+		set_variable = { which = successor_fleet_power value = 40000 }
 		every_playable_country = {
 			limit = {
 				NOT = { is_variable_set = successor_fleet_power }
-				fleet_power > 46000
+				fleet_power > 40000
 			}
 			if = {
 				limit = {
 					any_owned_planet = { has_planet_flag = fallen_empire_world }
 				}
-				set_variable = { which = successor_fleet_power value = 222000 }
+				set_variable = { which = successor_fleet_power value = 220000 }
 			} else = {
 				export_trigger_value_to_variable = {
 					trigger = fleet_power variable = successor_fleet_power

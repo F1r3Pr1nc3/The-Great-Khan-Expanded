@@ -39,13 +39,13 @@ npc_galleon_01 = {
 	}
 	class = shipclass_military
 	# default_behavior = artillery
-	# is_designable = yes # TODO?
+	is_designable = yes # TODO?
 	takes_name_from_ship_design = yes
-	# required_component_set = "power_core"
-	# required_component_set = "sensor_components"
-	# required_component_set = "ftl_components"
-	# required_component_set = "thruster_components"
-	# required_component_set = "combat_computers"
+	required_component_set = "power_core"
+	required_component_set = "sensor_components"
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "combat_computers"
 
 	prerequisites = { "tech_titans" }
 

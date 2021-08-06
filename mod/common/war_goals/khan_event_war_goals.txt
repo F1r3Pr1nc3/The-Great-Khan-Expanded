@@ -60,20 +60,20 @@ wg_independence = {
 			set_subject_of = { who = none }
 			set_country_flag = rebelling_satrapy
 			remove_modifier = "satrapy_of_horde"
-			from = {
-				set_faction_hostility = {
-					target = root
-					set_hostile = yes
-					set_neutral = no
-					set_friendly = no
-				}
-			}
-			set_faction_hostility = {
-				target = from
-				set_hostile = yes
-				set_neutral = no
-				set_friendly = no
-			}
+			# from = {
+			# 	set_faction_hostility = {
+			# 		target = root
+			# 		set_hostile = yes
+			# 		# set_neutral = no
+			# 		# set_friendly = no
+			# 	}
+			# }
+			# set_faction_hostility = {
+			# 	target = from
+			# 	set_hostile = yes
+			# 	# set_neutral = no
+			# 	# set_friendly = no
+			# }
 			# fromfrom = { # war scope seems only work for on_accept
 			if = {
 				limit = {
@@ -111,20 +111,20 @@ wg_independence = {
 						}
 
 						set_subject_of = { who = none }
-						from = {
-							set_faction_hostility = {
-								target = root
-								set_hostile = yes
-								set_neutral = no
-								set_friendly = no
-							}
-						}
-						set_faction_hostility = {
-							target = from
-							set_hostile = yes
-							set_neutral = no
-							set_friendly = no
-						}
+						# from = {
+						# 	set_faction_hostility = {
+						# 		target = root
+						# 		set_hostile = yes
+						# 		# set_neutral = no
+						# 		# set_friendly = no
+						# 	}
+						# }
+						# set_faction_hostility = {
+						# 	target = from
+						# 	set_hostile = yes
+						# 	# set_neutral = no
+						# 	# set_friendly = no
+						# }
 					}
 				}
 			}
@@ -189,7 +189,7 @@ wg_marauder_expansion = {
 	set_defender_wargoal = wg_end_threat
 	hide_if_no_cb = yes
 	release_occupied_systems_on_status_quo = yes
-	total_war = yes
+	total_war = no
 
 	galactic_empire_joins_defender = {
 		from = { is_galactic_emperor = yes }
@@ -284,7 +284,8 @@ wg_marauder_expansion = {
 		if = {
 			limit = { from = { has_been_declared_crisis = no } }
 			from = {
-				country_event = { id = marauder.550 } # Submit to Khan
+				# country_event = { id = marauder.550 } # Submit to Khan
+				country_event = { id = marauder.559 } # Submit to Khan
 				# set_subject_of = {
 				# 	who = event_target:raider_khanate
 				# 	subject_type = satrapy
@@ -404,22 +405,22 @@ wg_marauder_expansion = {
 					# Can't war for a year
 					set_timed_country_flag = { flag = rebellion_cooldown days = @b1_time }
 					change_variable = { which = "planets_lost_to_marauder" value = -3 }
-					set_faction_hostility = {
-						target = event_target:raider_khanate
-						set_hostile = no
-						set_neutral = yes
-						set_friendly = no
-					}
+					# set_faction_hostility = {
+					# 	target = event_target:raider_khanate
+					# 	set_hostile = no
+					# 	set_neutral = yes
+					# 	set_friendly = no
+					# }
 				}
 			}
-			event_target:raider_khanate = {
-				set_faction_hostility = {
-					target = from
-					set_hostile = no
-					set_neutral = yes
-					set_friendly = no
-				}
-			}
+			# event_target:raider_khanate = {
+			# 	set_faction_hostility = {
+			# 		target = from
+			# 		set_hostile = no
+			# 		set_neutral = yes
+			# 		set_friendly = no
+			# 	}
+			# }
 			if = {
 				limit = {
 					exists = last_created_country
@@ -453,7 +454,7 @@ wg_war_in_heaven = {
 	set_defender_wargoal = wg_war_in_heaven
 	potential = { always = no } # event only
 	possible = { always = yes }
-	on_accept  = {
+	on_accept = {
 		hidden_effect = {
 			if = {
 				limit = { is_country_type = awakened_fallen_empire }
@@ -502,7 +503,12 @@ wg_war_in_heaven = {
 					add_threat = { who = root amount = 0.5 }
 					if = {
 						limit = { has_been_declared_crisis = no }
-						country_event = { id = marauder.550 } # Submit to Khan
+						# country_event = { id = marauder.550 } # Submit to Khan
+						country_event = { id = marauder.559 } # Submit to Khan
+						# set_subject_of = {
+						# 	who = event_target:raider_khanate
+						# 	subject_type = satrapy
+						# }
 					}
 				}
 				# TODO notify
@@ -548,12 +554,13 @@ wg_war_in_heaven = {
 					}
 					last_created_country = {
 						set_subject_of = {
-							who = root
+							who = event_target:raider_khanate
 							subject_type = satrapy
 						}
 					}
 				}
-			} else = {
+			} else_if = {
+				limit = { is_country_type = awakened_fallen_empire }
 				every_playable_country = {
 					country_event = { id = war_in_heaven.6 }
 				}
@@ -568,39 +575,43 @@ wg_war_in_heaven = {
 wg_great_expansion = {
 	casus_belli = cb_event
 	total_war = yes
+	release_occupied_systems_on_status_quo = yes
 	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
+		status_quo # otherwise the defender is fully inhalited
 	}
-	surrender_acceptance = -200
+	surrender_acceptance = -500
 	war_exhaustion = 0.5
 	# set_defender_wargoal = wg_great_expansion
-	potential = { always = no } # event only
+	# potential = { always = no } # event only
+	potential = {
+		has_global_flag = marauder_crisis_ongoing
+		is_country_type = awakened_marauders
+	}
 	possible = { always = yes }
-	on_accept  = {
+	on_accept = {
 		hidden_effect = {
-			if = {
-				limit = { is_country_type = awakened_marauders }
-				from = {
-					add_threat = { who = root amount = 0.5 }
-					if = {
-						limit = { has_been_declared_crisis = no }
-						country_event = { id = marauder.550 } # Submit to Khan
-					}
-				}
-				# TODO notify
-				# save_event_target_as = WarInHeavenFEOne
-				# every_playable_country = {
-				# 	country_event = { id = war_in_heaven.5 }
-				# }
-			}
 			from = {
 				add_threat = { who = root amount = 0.5 }
 				every_system_within_border = {
 					limit = { root = { has_claim = prev } }
 					remove_claims = { who = root }
 				}
+			}
+			# TODO notify
+			# save_event_target_as = WarInHeavenFEOne
+			# every_playable_country = {
+			# 	country_event = { id = war_in_heaven.5 }
+			# }
+		}
+		if = {
+			limit = { from = { has_been_declared_crisis = no } }
+			from = {
+				# country_event = { id = marauder.550 } # Submit to Khan
+				country_event = { id = marauder.559 } # Submit to Khan
+				# set_subject_of = {
+				# 	who = event_target:raider_khanate
+				# 	subject_type = satrapy
+				# }
 			}
 		}
 	}
@@ -638,7 +649,7 @@ wg_great_expansion = {
 					}
 					last_created_country = {
 						set_subject_of = {
-							who = root
+							who = event_target:raider_khanate
 							subject_type = satrapy
 						}
 					}

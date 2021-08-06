@@ -16,6 +16,10 @@ spriteTypes = {
 		texturefile = "gfx/interface/icons/diplomacy/diplomacy_issatrapy.dds"
 	}
 	spriteType = {
+		name = "GFX_wg_great_expansion"
+		texturefile = "gfx/interface/icons/diplomacy/diplomacy_issatrapy.dds"
+	}
+	spriteType = {
 		name = "GFX_wg_ae_uprising"
 		texturefile = "gfx/interface/icons/diplomacy/diplomacy_force_ideology.dds"
 	}
