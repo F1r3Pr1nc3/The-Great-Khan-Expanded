@@ -582,11 +582,11 @@ wg_great_expansion = {
 	surrender_acceptance = -500
 	war_exhaustion = 0.5
 	# set_defender_wargoal = wg_great_expansion
-	# potential = { always = no } # event only
-	potential = {
-		has_global_flag = marauder_crisis_ongoing
-		is_country_type = awakened_marauders
-	}
+	# potential = { # needs something other than cb_event
+	# 	has_global_flag = marauder_crisis_ongoing
+	# 	is_country_type = awakened_marauders
+	# }
+	potential = { always = no } # event only
 	possible = { always = yes }
 	on_accept = {
 		hidden_effect = {
