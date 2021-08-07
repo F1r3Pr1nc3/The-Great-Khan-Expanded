@@ -877,8 +877,7 @@ country_event = {
 			limit = {
 				CmtTriggerIsPlayableEmpire = no
 				OR = {
-					is_country_type = fallen_empire
-					is_country_type = awakened_fallen_empire
+					is_fallen_empire = yes
 					is_country_type = enclave
 					is_country_type = caravaneer_home
 					is_country_type = caravaneer_fleet
@@ -2210,6 +2209,38 @@ country_event = {
 	# 		country_event = { id = khan.801 }
 	# 	}
 	# }
+
+	# Satrapy: Extended subject offer?
+	option = {
+		name = marauder_deal_start
+		sound = advisor_clicking_respons_13
+		trigger = {
+			from = { is_overlord_to = prev }
+			NOR = {
+				is_subject_type = machinesmith
+				is_subject_type = fabricator_satrapy
+				has_country_flag = rebelling_satrapy
+				is_homicidal = yes
+			}
+			OR = {
+				AND = {
+					has_technology = tech_mass_drivers_4
+					has_technology = tech_lasers_4
+					has_technology = tech_ship_armor_4
+					has_technology = tech_shields_4
+				}
+				has_monthly_income = {
+					resource = alloys
+					value > 100
+				}
+			}
+		}
+		hidden_effect = {
+			country_event = { id = khan.998 }
+		}
+		ai_chance = { factor = 5 }
+	}
+
 	option = {
 		name = marauder.20.e
 		default_hide_option = yes
@@ -2239,7 +2270,7 @@ country_event = {
 		sound = advisor_clicking_respons_01
 		trigger = { has_been_declared_crisis = no }
 		response_text = marauder.551.a.response
-		country_event = { id = marauder.559 } # Submit to Khan
+		country_event = { id = marauder.559 } # Pre-Submit to Khan
 		hidden_effect = {
 			set_subject_of = {
 				who = event_target:raider_khanate
@@ -2267,7 +2298,7 @@ country_event = {
 			tech_unlocked_ratio = { who = from ratio < 0.7 }
 		}
 		response_text = marauder.551.a.response
-		country_event = { id = marauder.559 } # Submit to Khan
+		country_event = { id = marauder.559 } # Pre-Submit to Khan
 		hidden_effect = {
 			set_subject_of = {
 				who = event_target:raider_khanate
@@ -2448,15 +2479,15 @@ country_event = {
 	}
 	immediate = {
 		# country_event = { id = marauder.550 } # Submit to Khan
-		country_event = { id = marauder.559 } # Submit to Khan
-		# set_subject_of = {
-		# 	who = event_target:raider_khanate
-		# 	subject_type = satrapy
-		# }
+		country_event = { id = marauder.559 } # Pre-Submit to Khan
+		set_subject_of = {
+			who = event_target:raider_khanate
+			subject_type = satrapy
+		}
 	}
 }
 
-# Submit to Khan
+# Submit to Khan (Pre-Helper)
 # used also for marauder.555 and marauder.551
 # This = new subject
 country_event = {
@@ -2465,8 +2496,30 @@ country_event = {
 	hide_window = yes
 	# trigger = {}
 	immediate = {
-		if = {
-			limit = { is_overlord = yes }
+		## If has_federation give Horde malus back
+		set_variable = { which = "inc_lost_to_marauder" value = 1 }
+		if = { limit = { has_federation = yes }
+			change_variable = { which = "inc_lost_to_marauder" value = 1 }
+			if = { limit = { is_federation_leader = yes }
+				change_variable = { which = "inc_lost_to_marauder" value = 1 }
+			}
+			federation = {
+				every_member = {
+					change_variable = { which = "planets_lost_to_marauder" value = { scope = prev variable = "inc_lost_to_marauder" } }
+				}
+			}
+		}
+
+		if = { limit = { num_defensive_pacts > 0 }
+			# TODO: use export_trigger_value_to_variable  (currently not possible 3.0.3)
+			every_playable_country = {
+				limit = { has_defensive_pact = prev }
+				change_variable = { which = "planets_lost_to_marauder" value = 1 }
+				change_variable = { which = "planets_lost_to_marauder" value = { scope = prev variable = "inc_lost_to_marauder" } }
+			}
+		}
+
+		if = { limit = { is_overlord = yes }
 			every_subject = {
 				country_event = { id = marauder.553 days = 10 }
 				country_event = { id = marauder.551 }
@@ -2475,6 +2528,7 @@ country_event = {
 				# 	subject_type = satrapy
 				# }
 				add_modifier = { modifier = "satrapy_of_horde" days = -1 }
+				change_variable = { which = "planets_lost_to_marauder" value = 1 }
 				event_target:raider_khanate = {
 					# set_faction_hostility = {
 					# 	target = PREV
@@ -2484,7 +2538,12 @@ country_event = {
 					add_resource = { influence = 20 }
 				}
 			}
+		} else_if = { limit = { is_subject = yes exists = overlord }
+			overlord = { # much less likely
+				change_variable = { which = "planets_lost_to_marauder" value = 2 }
+			}
 		}
+
 		# Can't rebel for a year after submitting.
 		set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
 		save_event_target_as = new_satrapy
@@ -2511,6 +2570,7 @@ country_event = {
 			copy_random_tech_from = { who = PREV area = physics }
 			add_resource = { influence = 100 }
 		}
+		clear_variable = "inc_lost_to_marauder"
 	}
 }
 
@@ -2818,8 +2878,8 @@ country_event = {
 		destroy_country = yes
 		# Cleanup temp vars
 		every_playable_country = {
-			limit = { is_variable_set = successor_fleet_power }
-			clear_variable = successor_fleet_power
+			limit = { is_variable_set = "successor_fleet_power" }
+			clear_variable = "successor_fleet_power"
 		}
 	}
 }
@@ -4500,20 +4560,20 @@ country_event = {
 			}
 		}
 		### Dynamic Empire fleet_power
-		set_variable = { which = successor_fleet_power value = 40000 }
+		set_variable = { which = "successor_fleet_power" value = 40000 }
 		every_playable_country = {
 			limit = {
-				NOT = { is_variable_set = successor_fleet_power }
+				NOT = { is_variable_set = "successor_fleet_power" }
 				fleet_power > 40000
 			}
 			if = {
 				limit = {
 					any_owned_planet = { has_planet_flag = fallen_empire_world }
 				}
-				set_variable = { which = successor_fleet_power value = 220000 }
+				set_variable = { which = "successor_fleet_power" value = 220000 }
 			} else = {
 				export_trigger_value_to_variable = {
-					trigger = fleet_power variable = successor_fleet_power
+					trigger = fleet_power variable = "successor_fleet_power"
 				}
 			}
 		}
@@ -4522,14 +4582,14 @@ country_event = {
 				count = 5
 				limit = {
 					any_playable_country = {
-						is_variable_set = successor_fleet_power
+						is_variable_set = "successor_fleet_power"
 						check_variable = {
-							which = successor_fleet_power
-							value = { scope = prev variable > successor_fleet_power }
+							which = "successor_fleet_power"
+							value = { scope = prev variable > "successor_fleet_power" }
 						}
 					}
 				}
-				change_variable = { which = successor_fleet_power value = 20000 }
+				change_variable = { which = "successor_fleet_power" value = 20000 }
 				# own old to get the right design!?
 				prev = { CmtEffectCreateFleet_KhanStandard = yes } # create_marauder_successor_fleet = yes
 				last_created_leader = { set_owner = ROOT }
@@ -4797,7 +4857,7 @@ country_event = {
 		custom_tooltip = "SUBJECT_DESC_fabricator_satrapy"
 		sound = placeholder_sfx
 		response_text = marauder_fabricator_good
-		country_event = { id = marauder.559 } # Submit to Khan
+		country_event = { id = marauder.559 } # Pre-Submit to Khan
 		set_subject_of = {
 			who = event_target:raider_khanate
 			subject_type = fabricator_satrapy
@@ -5163,7 +5223,7 @@ country_event = {
 		# sound = placeholder_sfx
 		trigger = { has_been_declared_crisis = no }
 		response_text = marauder_deal_accept
-		country_event = { id = marauder.559 } # Submit to Khan
+		country_event = { id = marauder.559 } # Pre-Submit to Khan
 		set_subject_of = {
 			who = event_target:raider_khanate
 			subject_type = machinesmith

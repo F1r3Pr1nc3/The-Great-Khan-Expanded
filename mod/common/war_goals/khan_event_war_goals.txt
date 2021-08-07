@@ -285,11 +285,11 @@ wg_marauder_expansion = {
 			limit = { from = { has_been_declared_crisis = no } }
 			from = {
 				# country_event = { id = marauder.550 } # Submit to Khan
-				country_event = { id = marauder.559 } # Submit to Khan
-				# set_subject_of = {
-				# 	who = event_target:raider_khanate
-				# 	subject_type = satrapy
-				# }
+				country_event = { id = marauder.559 } # Pre-Submit to Khan
+				set_subject_of = {
+					who = event_target:raider_khanate
+					subject_type = satrapy
+				}
 			}
 		}
 	}
@@ -504,11 +504,11 @@ wg_war_in_heaven = {
 					if = {
 						limit = { has_been_declared_crisis = no }
 						# country_event = { id = marauder.550 } # Submit to Khan
-						country_event = { id = marauder.559 } # Submit to Khan
-						# set_subject_of = {
-						# 	who = event_target:raider_khanate
-						# 	subject_type = satrapy
-						# }
+						country_event = { id = marauder.559 } # Pre-Submit to Khan
+						set_subject_of = {
+							who = event_target:raider_khanate
+							subject_type = satrapy
+						}
 					}
 				}
 				# TODO notify
@@ -607,11 +607,11 @@ wg_great_expansion = {
 			limit = { from = { has_been_declared_crisis = no } }
 			from = {
 				# country_event = { id = marauder.550 } # Submit to Khan
-				country_event = { id = marauder.559 } # Submit to Khan
-				# set_subject_of = {
-				# 	who = event_target:raider_khanate
-				# 	subject_type = satrapy
-				# }
+				country_event = { id = marauder.559 } # Pre-Submit to Khan
+				set_subject_of = {
+					who = event_target:raider_khanate
+					subject_type = satrapy
+				}
 			}
 		}
 	}
