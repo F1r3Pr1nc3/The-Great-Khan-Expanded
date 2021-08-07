@@ -20,7 +20,7 @@ awakened_marauders = {
 	# uses_special_buildables = yes
 	observable = yes
 	faction = {
-		# hostile = yes
+		hostile = yes # no for diplomatic_wars?
 		needs_border_access = no
 		generate_borders = yes
 		needs_colony = no
@@ -36,13 +36,13 @@ awakened_marauders = {
 		modification = no
 		starbase_upgrade = no
 		construction = yes # TEST
-		limited_construction = yes
-		tech = no
+		# limited_construction = yes # only used at fallen_empire
+		tech = yes
 		espionage = no
 		modules = {
 			horde_military_minister_module
 			horde_interior_minister_module
-			foreign_minister_module
+			# foreign_minister_module
 		}
 		army_data = {
 			assault_army = {

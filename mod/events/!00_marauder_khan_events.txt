@@ -992,38 +992,38 @@ country_event = {
 			country_event = { id = marauder.77 days = 20 }
 		}
 
-		every_neighbor_country = {
-			limit = {
-				CmtTriggerIsPlayableEmpire = yes
-				NOR = {
-					is_at_war_with = PREV # is needed for some kind of alliance
-					is_same_empire = PREV
-				}
-			}
-			# set_faction_hostility = {
-			# 	target = ROOT
-			# 	set_hostile = yes
-			# }
-			ROOT = {
-				declare_war = {
-					target = PREV
-					name = "NAME_Expansion"
-					attacker_war_goal = "wg_great_expansion"
-				}
-				# set_faction_hostility = {
-				# 	target = PREV
-				# 	set_hostile = yes
-				# }
-				add_opinion_modifier = {
-					modifier = opinion_first_contact_war
-					who = PREV
-				}
-			}
-			if = {
-				limit = { has_origin = "origin_khan_successor" }
-				change_variable = { which = "planets_lost_to_marauder" value = 3 }
-			}
-		}
+		# every_neighbor_country = {
+		# 	limit = {
+		# 		CmtTriggerIsPlayableEmpire = yes
+		# 		NOR = {
+		# 			is_at_war_with = PREV # is needed for some kind of alliance
+		# 			is_same_empire = PREV
+		# 		}
+		# 	}
+		# 	# set_faction_hostility = {
+		# 	# 	target = ROOT
+		# 	# 	set_hostile = yes
+		# 	# }
+		# 	ROOT = {
+		# 		declare_war = {
+		# 			target = PREV
+		# 			name = "NAME_Expansion"
+		# 			attacker_war_goal = "wg_great_expansion"
+		# 		}
+		# 		# set_faction_hostility = {
+		# 		# 	target = PREV
+		# 		# 	set_hostile = yes
+		# 		# }
+		# 		add_opinion_modifier = {
+		# 			modifier = opinion_first_contact_war
+		# 			who = PREV
+		# 		}
+		# 	}
+		# 	if = {
+		# 		limit = { has_origin = "origin_khan_successor" }
+		# 		change_variable = { which = "planets_lost_to_marauder" value = 3 }
+		# 	}
+		# }
 		# country_event = { id = khan.529 days = 360 } # Drums of War init
 	}
 }
@@ -1291,16 +1291,12 @@ country_event = {
 		# Back to the fold
 		every_owned_fleet = {
 			limit = {
-				NOR = { is_ship_class = shipclass_starbase is_ship_class = shipclass_military_station }
 				exists = solar_system
-				NAND = {
-					exists = space_owner
-					is_owned_by = ROOT
-				}
+				# NOR = { is_ship_class = shipclass_starbase is_ship_class = shipclass_military_station is_ship_class = shipclass_transport }
+				is_civilian = no
+				any_owned_ship = { is_ship_class = shipclass_military }
 			}
-			remove_auto_move_target = yes
-			clear_fleet_actions = this
-			set_mia = yes
+			fleet_event = { id = khan.611 }
 		}
 	}
 }
@@ -1470,12 +1466,13 @@ country_event = {
 }
 
 ### Sudden Death of Khan (on_monthly_pulse)
+# Great Khan dies for other reasons
 event = {
 	id = marauder.511
 	hide_window = yes
 	is_triggered_only = yes
-
 	trigger = {
+		has_global_flag = marauder_crisis_started
 		any_country = {
 			CmtTriggerIsKhanCountry = yes
 			NOT = { has_country_flag = CmtFlagKhanNoDieCountry }
@@ -1667,7 +1664,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		has_global_flag = marauder_crisis_started
+		has_global_flag = marauder_crisis_ongoing
 		CmtTriggerIsKhanCountry = yes
 		NOR = {
 			has_global_flag = great_khan_wins
@@ -1679,9 +1676,12 @@ country_event = {
 		if = {
 			limit = {
 				exists = event_target:marauder_rally_point
-				NOR = {
-					exists = event_target:marauder_rally_point.solar_system.owner
-					exists = event_target:marauder_rally_point.solar_system.starbase
+				event_target:marauder_rally_point = {
+					OR = { has_owner = no is_owned_by = ROOT }
+					solar_system = {
+						OR = { has_owner = no is_owned_by = ROOT }
+						NOR = { exists = starbase  starbase = { has_starbase_size = starbase_citadel } }
+					}
 				}
 			}
 			event_target:marauder_rally_point = {
@@ -1690,15 +1690,16 @@ country_event = {
 		} else_if = {
 			limit = {
 				NOR = {
-					exists = event_target:marauder_rally_point.solar_system
+					exists = event_target:marauder_rally_point
 					exists = event_target:marauder_rally_point.solar_system.owner
 					event_target:marauder_rally_point = { is_owned_by = ROOT }
 				}
 			}
 			random_system_within_border = {
+				limit = { exists = starbase }
 				weights = {
 					base = 1
-					modifier = { add = 1 exists = starbase starbase = { has_starbase_size >= starbase_starhold } }
+					modifier = { add = 1 starbase = { has_starbase_size >= starbase_starhold } }
 					modifier = { add = 1 any_system_planet = { is_colony = yes is_owned_by = ROOT } }
 					modifier = { add = 1 any_system_planet = { has_planet_flag = marauder_rally_point } }
 					modifier = { add = 1 any_system_planet = { has_planet_flag = CmtFlagMarauderExpRallyPoint } }
@@ -1731,10 +1732,9 @@ country_event = {
 		event_target:CmtGlobalVar = {
 			if = {
 				limit = {
-					NOR = {
-						check_variable = { which = CmtVarReinforceCycle_Khan value = 2 }
-						check_variable = { which = CmtVarReinforceCycle_Khan value = 3 }
-						check_variable = { which = CmtVarReinforceCycle_Khan value = 4 }
+					OR = {
+						check_variable = { which = CmtVarReinforceCycle_Khan value < 2 }
+						check_variable = { which = CmtVarReinforceCycle_Khan value > 4 }
 					}
 				}
 				CmtEffectKhanReinforceOnCapital = yes
@@ -1756,8 +1756,9 @@ country_event = {
 				}
 			}
 		}
-		# Try to expand the war
-		country_event = { id = khan.529 }
+		# Try to expand the war?
+		# TODO?
+		# country_event = { id = khan.529 }
 	}
 }
 
@@ -1765,16 +1766,17 @@ country_event = {
 ###  Awakening for Vengeance: on_ship_destroyed_victim  ###
 ###########################################################
 
+# Horde Triggered Through Destruction of Stations
 country_event = {
 	id = marauder.525
 	hide_window = yes
 	is_triggered_only = yes
 
 	trigger = {
+		NOT = { has_global_flag = marauder_crisis_ongoing }
 		is_country_type = dormant_marauders
 		fromfrom = { is_ship_size = marauder_void_dwelling }
-		from = { CmtTriggerIsPlayableEmpire = yes }
-
+		# from = { CmtTriggerIsPlayableEmpire = yes } why only? Horde not cares
 		NOT = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanVengeance value = 1 } } }
 		OR = {
 			count_owned_ship = {
@@ -2412,7 +2414,7 @@ country_event = {
 	id = marauder.555
 	hide_window = yes
 	trigger = {
-		has_global_flag = marauder_crisis_started
+		has_global_flag = marauder_crisis_ongoing
 		NOT = { has_global_flag = great_khan_dead }
 		has_been_declared_crisis = no
 		NOT = { has_country_flag = rebellion_cooldown }
@@ -3058,30 +3060,7 @@ country_event = {
 					assign_leader = leader
 				}
 			}
-			if = {
-				limit = {
-					exists = solar_system
-					is_civilian = no any_owned_ship = { is_ship_class = shipclass_military }
-				}
-				solar_system = {
-					if = {
-						limit = {
-							exists = space_owner
-							space_owner = {
-								NOR = { is_same_empire = ROOT is_same_empire = event_target:restored_marauders }
-							}
-							# Maybe error
-							# has_owner = yes
-							# NOR = { is_owned_by = ROOT is_owned_by = event_target:restored_marauders }
-						}
-						prev = {
-							remove_auto_move_target = yes
-							clear_fleet_actions = this
-							set_mia = yes
-						}
-					}
-				}
-			}
+			fleet_event = { id = khan.611 }
 		}
 		event_target:restored_marauders = {
 			copy_techs_from = { target = ROOT }
@@ -3192,25 +3171,7 @@ country_event = {
 					assign_leader = leader
 				}
 			}
-			if = {
-				limit = {
-					exists = solar_system
-					is_civilian = no any_owned_ship = { is_ship_class = shipclass_military }
-				}
-				solar_system = {
-					if = {
-						limit = {
-							has_owner = yes
-							NOR = { is_owned_by = ROOT is_owned_by = event_target:new_khanate }
-						}
-						prev = {
-							remove_auto_move_target = yes
-							clear_fleet_actions = this
-							set_mia = yes
-						}
-					}
-				}
-			}
+			fleet_event = { id = khan.611 }
 		}
 
 		# needs to be last (as the country gets destroyed without planet)
@@ -3903,7 +3864,7 @@ country_event = {
 	picture = GFX_evt_khan_throne_room
 	show_sound = event_radio_chatter
 	trigger = {
-		has_global_flag = marauder_crisis_started
+		has_global_flag = marauder_crisis_ongoing
 		NOT = { has_country_flag = marauder_diplomacy_engaged }
 	}
 	immediate = {
@@ -3927,7 +3888,7 @@ country_event = {
 	is_triggered_only = yes
 	hide_window = yes
 	trigger = {
-		has_global_flag = marauder_crisis_started
+		has_global_flag = marauder_crisis_ongoing
 		NOT = { has_global_flag = great_khan_wins }
 		is_overlord = yes
 	}
@@ -3993,6 +3954,7 @@ country_event = {
 			clear_variable = exists_federation
 			break = yes
 		}
+		# TODO something like id = origin.50
 	}
 }
 
@@ -4424,25 +4386,7 @@ country_event = {
 					if = {
 						limit = { NOT = { is_ship_class = shipclass_transport } }
 						assign_leader = leader
-					}
-				}
-				if = {
-					limit = {
-						exists = solar_system
-						is_civilian = no any_owned_ship = { is_ship_class = shipclass_military }
-					}
-					solar_system = {
-						if = {
-							limit = {
-								has_owner = yes
-								NOR = { is_owned_by = ROOT is_owned_by = ROOT }
-							}
-							prev = {
-								remove_auto_move_target = yes
-								clear_fleet_actions = this
-								set_mia = yes
-							}
-						}
+						fleet_event = { id = khan.611 }
 					}
 				}
 			}
@@ -4622,6 +4566,41 @@ country_event = {
 		# }
 		# # last_created_leader = { set_owner = prev }
 		# last_created_fleet = { set_owner = prev assign_leader = last_created_leader }
+	}
+}
+
+# Back to the fold
+# via marauder.610, 609, 604, 505
+fleet_event = {
+	id = khan.611
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		exists = solar_system
+		is_civilian = no
+		any_owned_ship = { is_ship_class = shipclass_military }
+	}
+	immediate = {
+		solar_system = {
+			if = {
+				limit = {
+					# exists = space_owner
+					# space_owner = {
+					# 	NOR = { is_same_empire = ROOT is_same_empire = event_target:restored_marauders }
+					# }
+					NAND = {
+						has_owner = yes
+						exists = starbase
+						is_owned_by = ROOT.owner
+					}
+				}
+				prev = {
+					remove_auto_move_target = yes
+					clear_fleet_actions = this
+					set_mia = yes
+				}
+			}
+		}
 	}
 }
 
@@ -4882,7 +4861,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		has_global_flag = marauder_crisis_started
+		has_global_flag = marauder_crisis_ongoing
 		CmtTriggerIsKhanCountry = yes
 		# has_country_flag = has_machinesmith
 	}
@@ -4901,9 +4880,10 @@ country_event = {
 		if = {
 			limit = { has_country_flag = has_machinesmith }
 			random_system_within_border = {
+				limit = { exists = starbase }
 				weights = {
 					base = 1
-					modifier = { add = 1 exists = starbase starbase = { has_starbase_size >= starbase_starhold } }
+					modifier = { add = 1 starbase = { has_starbase_size >= starbase_starhold } }
 					modifier = { add = 1 any_system_planet = { is_colony = yes is_owned_by = ROOT } }
 					modifier = { add = 1 any_system_planet = { has_planet_flag = marauder_rally_point } }
 					modifier = { add = 1 CmtTriggerMarauderCapitalSystem = yes }
@@ -4978,10 +4958,10 @@ country_event = {
 					}
 				}
 				log = "machinesmith sold"
-				country_event = { id = khan.868 days = 180 } # Improved Cycle
+				country_event = { id = khan.868 days = 180 } # Improved cycle
 				break = yes
 			}
-			remove_country_flag = has_machinesmith # Regular Cycle
+			remove_country_flag = has_machinesmith # Regular cycle
 			country_event = { id = marauder.520 days = 220 }
 		} else = {
 			country_event = { id = marauder.520 days = 60 }
@@ -4997,7 +4977,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		has_global_flag = marauder_crisis_started
+		has_global_flag = marauder_crisis_ongoing
 		has_global_flag = great_khan_wins
 	}
 	immediate = {
@@ -5034,7 +5014,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		has_global_flag = marauder_crisis_started
+		has_global_flag = marauder_crisis_ongoing
 		CmtTriggerIsKhanCountry = yes
 		OR = {
 			has_country_flag = has_machinesmith
@@ -5046,9 +5026,12 @@ country_event = {
 		if = {
 			limit = {
 				exists = event_target:marauder_rally_point
-				NOR = {
-					exists = event_target:marauder_rally_point.solar_system.owner
-					exists = event_target:marauder_rally_point.solar_system.starbase
+				event_target:marauder_rally_point = {
+					OR = { has_owner = no is_owned_by = ROOT }
+					solar_system = {
+						OR = { has_owner = no is_owned_by = ROOT }
+						NOT = { exists = starbase }
+					}
 				}
 			}
 			event_target:marauder_rally_point = {
@@ -5057,15 +5040,16 @@ country_event = {
 		} else_if = {
 			limit = {
 				NOR = {
-					exists = event_target:marauder_rally_point.solar_system
+					exists = event_target:marauder_rally_point
 					exists = event_target:marauder_rally_point.solar_system.owner
 					event_target:marauder_rally_point = { is_owned_by = ROOT }
 				}
 			}
 			random_system_within_border = {
+				limit = { exists = starbase }
 				weights = {
 					base = 1
-					modifier = { add = 1 exists = starbase starbase = { has_starbase_size >= starbase_starhold } }
+					modifier = { add = 1 starbase = { has_starbase_size >= starbase_starhold } }
 					modifier = { add = 1 any_system_planet = { is_colony = yes is_owned_by = ROOT } }
 					modifier = { add = 1 any_system_planet = { has_planet_flag = marauder_rally_point } }
 					modifier = { add = 1 any_system_planet = { has_planet_flag = CmtFlagMarauderExpRallyPoint } }
@@ -5096,9 +5080,10 @@ country_event = {
 			if = { # at fleet cap, check again later
 				limit = { fleet_power < 550000 }
 				random_system_within_border = {
+					limit = { exists = starbase }
 					weights = {
 						base = 1
-						modifier = { add = 1 exists = starbase starbase = { has_starbase_size >= starbase_starhold } }
+						modifier = { add = 1 starbase = { has_starbase_size >= starbase_starhold } }
 						modifier = { add = 1 any_system_planet = { is_colony = yes is_owned_by = ROOT } }
 						modifier = { add = 1 any_system_planet = { has_planet_flag = marauder_rally_point } }
 						modifier = { add = 1 CmtTriggerMarauderCapitalSystem = yes }
