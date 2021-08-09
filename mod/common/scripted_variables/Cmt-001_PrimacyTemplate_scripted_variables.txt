@@ -483,7 +483,7 @@
 		### Enduring = 4, Venerable = 5, Immortality = 6
 
 ### Latent Strength of Horde in Adversity
-	@CmtT001_ConstReinforceCycle_Khan = 2
+	@CmtT001_ConstReinforceCycle_Khan = 1
 		### Disable = 1 (Default), Weak = 2, Middle = 3, Strong = 4
 
 ### Future of Horde

@@ -84,10 +84,8 @@ country_event = {
 					set_owner = event_target:raider_khanate
 				}
 				# delete_fleet = this
-				remove_auto_move_target = yes
-				clear_fleet_actions = this
-				set_mia = yes
 				set_owner = event_target:raider_khanate
+				fleet_event = { id = khan.611 days = -1 }
 			}
 			every_owned_leader = {
 				limit = { has_leader_flag = hired_merc_leader_1 }
@@ -115,10 +113,8 @@ country_event = {
 					set_owner = event_target:raider_khanate
 				}
 				# delete_fleet = this
-				remove_auto_move_target = yes
-				clear_fleet_actions = this
-				set_mia = yes
 				set_owner = event_target:raider_khanate
+				fleet_event = { id = khan.611 days = -1 }
 			}
 			every_owned_leader = {
 				limit = { has_leader_flag = hired_merc_leader_2 }
@@ -146,10 +142,8 @@ country_event = {
 					set_owner = event_target:raider_khanate
 				}
 				# delete_fleet = this
-				remove_auto_move_target = yes
-				clear_fleet_actions = this
-				set_mia = yes
 				set_owner = event_target:raider_khanate
+				fleet_event = { id = khan.611 days = -1 }
 			}
 			every_owned_leader = {
 				limit = { has_leader_flag = hired_merc_leader_3 }
@@ -1293,10 +1287,17 @@ country_event = {
 			limit = {
 				exists = solar_system
 				# NOR = { is_ship_class = shipclass_starbase is_ship_class = shipclass_military_station is_ship_class = shipclass_transport }
-				is_civilian = no
-				any_owned_ship = { is_ship_class = shipclass_military }
+				# is_civilian = no
+				is_mobile = yes
+				any_owned_ship = {
+					OR = {
+						is_ship_class = shipclass_military
+						is_ship_class = shipclass_transport
+					}
+				}
+				NOT = { is_within_borders_of = ROOT.owner }
 			}
-			fleet_event = { id = khan.611 }
+			fleet_event = { id = khan.611 days = -1 }
 		}
 	}
 }
@@ -1677,10 +1678,19 @@ country_event = {
 			limit = {
 				exists = event_target:marauder_rally_point
 				event_target:marauder_rally_point = {
-					OR = { has_owner = no is_owned_by = ROOT }
+					OR = { has_owner = no is_owned_by = ROOT is_controlled_by = ROOT }
 					solar_system = {
 						OR = { has_owner = no is_owned_by = ROOT }
-						NOR = { exists = starbase  starbase = { has_starbase_size = starbase_citadel } }
+						NAND = {
+							exists = starbase
+							starbase = { has_starbase_size = starbase_citadel }
+						}
+						NOT = { any_fleet_in_system = {
+							OR = {
+								is_in_combat = yes
+								owner = { is_hostile = root }
+							}
+						} }
 					}
 				}
 			}
@@ -1692,7 +1702,7 @@ country_event = {
 				NOR = {
 					exists = event_target:marauder_rally_point
 					exists = event_target:marauder_rally_point.solar_system.owner
-					event_target:marauder_rally_point = { is_owned_by = ROOT }
+					event_target:marauder_rally_point.solar_system = { is_owned_by = ROOT }
 				}
 			}
 			random_system_within_border = {
@@ -1740,7 +1750,7 @@ country_event = {
 				CmtEffectKhanReinforceOnCapital = yes
 				ROOT = {
 					country_event = { id = marauder.520 days = 340 }
-					country_event = { id = khan.299 }
+					country_event = { id = khan.299 } # end check
 				}
 			} else = {
 				if = {
@@ -1751,8 +1761,9 @@ country_event = {
 					change_variable = { which = CmtVarKhanReinforcementCounter value = -10 }
 				}
 				CmtEffectKhanIncreasementReinforcementCycle = yes				## required: PREV = ROOT
+				 # TODO: somehow to fast
 				ROOT = {
-					country_event = { id = marauder.520 days = 32 }
+					country_event = { id = marauder.520 days = 64 }
 				}
 			}
 		}
@@ -3059,8 +3070,8 @@ country_event = {
 					limit = { NOT = { is_ship_class = shipclass_transport } }
 					assign_leader = leader
 				}
+				fleet_event = { id = khan.611 days = -1 }
 			}
-			fleet_event = { id = khan.611 }
 		}
 		event_target:restored_marauders = {
 			copy_techs_from = { target = ROOT }
@@ -3170,8 +3181,8 @@ country_event = {
 					limit = { NOT = { is_ship_class = shipclass_transport } }
 					assign_leader = leader
 				}
+				fleet_event = { id = khan.611 days = -1 }
 			}
-			fleet_event = { id = khan.611 }
 		}
 
 		# needs to be last (as the country gets destroyed without planet)
@@ -3976,6 +3987,7 @@ event = {
 	}
 }
 
+# Create Citadel
 system_event = {
 	id = khan.301
 	hide_window = yes
@@ -3996,6 +4008,7 @@ system_event = {
 			# 		set_variable = { which = has_pirate_01 value = 1 }
 			# 	}
 			# }
+			log="create starbase_citadel"
 			create_starbase = {
 				size = "starbase_citadel"
 				# module = "shipyard"
@@ -4020,7 +4033,7 @@ system_event = {
 			}
 			# starbase = {
 			# 	set_starbase_size = starbase_citadel
-			# 	starbase_event = { id = khan.302 days = 1 } # workaround
+			# 	starbase_event = { id = khan.302 days = 2 } # workaround
 			# }
 		}
 		closest_system = {
@@ -4042,13 +4055,14 @@ system_event = {
 				# module = missile_battery
 				# building = defense_grid
 				effect = {
-					starbase_event = { id = khan.302 days = 1 } # workaround
+					starbase_event = { id = khan.302 days = 2 } # workaround
 				}
 			}
 		}
 	}
 }
 
+# Upgrate starbase
 starbase_event = {
 	id = khan.302
 	hide_window = yes
@@ -4071,6 +4085,9 @@ starbase_event = {
 				design = "NAME_Warrior_Freehold"
 			}
 		}
+		fleet = {
+			every_owned_ship = { reduce_hp_percent = 98 }
+		}
 		# fleet = {
 		# 	every_owned_ship = { set_disable_at_health = -1 } # needed as they get not conquered
 		# }
@@ -4084,6 +4101,7 @@ starbase_event = {
 	}
 }
 
+# Get marauder_species
 country_event = {
 	id = khan.303
 	hide_window = yes
@@ -4120,7 +4138,7 @@ country_event = {
 
 # This = Ship
 # From = Disabler Ship
-# Marauder starbase on disabled  (HIDDEN)
+# on_disabled Marauder starbase (HIDDEN)
 ship_event = {
 	id = khan.304
 	hide_window = yes
@@ -4162,7 +4180,7 @@ ship_event = {
 	}
 }
 
-# Marauder station on enabled - destroy (HIDDEN)
+# on_enabled Marauder station - destroy (HIDDEN)
 ship_event = {
 	id = khan.305
 	hide_window = yes
@@ -4386,8 +4404,8 @@ country_event = {
 					if = {
 						limit = { NOT = { is_ship_class = shipclass_transport } }
 						assign_leader = leader
-						fleet_event = { id = khan.611 }
 					}
+					fleet_event = { id = khan.611 days = -1 }
 				}
 			}
 			PREV = {
@@ -4570,34 +4588,48 @@ country_event = {
 }
 
 # Back to the fold
-# via marauder.610, 609, 604, 505
+# via marauder.610, 609, 604, 505, 77
 fleet_event = {
 	id = khan.611
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
 		exists = solar_system
-		is_civilian = no
-		any_owned_ship = { is_ship_class = shipclass_military }
+		# is_civilian = no
+		is_mobile = yes
+		any_owned_ship = {
+			OR = {
+				is_ship_class = shipclass_military
+				is_ship_class = shipclass_transport
+			}
+		}
+		# NOT = { is_within_borders_of = ROOT.owner }
 	}
 	immediate = {
 		solar_system = {
 			if = {
 				limit = {
-					# exists = space_owner
-					# space_owner = {
-					# 	NOR = { is_same_empire = ROOT is_same_empire = event_target:restored_marauders }
-					# }
 					NAND = {
-						has_owner = yes
+						has_owner = yes # exists = space_owner
 						exists = starbase
-						is_owned_by = ROOT.owner
+						is_owned_by = ROOT.owner # space_owner = { is_same_empire = ROOT.owner }
 					}
 				}
 				prev = {
-					remove_auto_move_target = yes
-					clear_fleet_actions = this
-					set_mia = yes
+					if = { limit = { exists = event_target:marauder_rally_point }
+						if = { limit = { is_in_combat = yes }
+							log="auto_move_to_planet [This.GetName]"
+							auto_move_to_planet = { target = event_target:marauder_rally_point clear_auto_move_on_arrival = yes }
+						} else = {
+							remove_auto_move_target = yes
+							clear_fleet_actions = this
+							log="set_mia [This.GetName]"
+							set_mia = yes
+						}
+					} else = {
+						log="order_forced_return [This.GetName]"
+						order_forced_return = yes
+					}
 				}
 			}
 		}
@@ -5027,10 +5059,19 @@ country_event = {
 			limit = {
 				exists = event_target:marauder_rally_point
 				event_target:marauder_rally_point = {
-					OR = { has_owner = no is_owned_by = ROOT }
+					OR = { has_owner = no is_owned_by = ROOT is_controlled_by = ROOT }
 					solar_system = {
 						OR = { has_owner = no is_owned_by = ROOT }
-						NOT = { exists = starbase }
+						NAND = {
+							exists = starbase
+							starbase = { has_starbase_size = starbase_citadel }
+						}
+						NOT = { any_fleet_in_system = {
+							OR = {
+								is_in_combat = yes
+								owner = { is_hostile = root }
+							}
+						} }
 					}
 				}
 			}
@@ -5042,7 +5083,7 @@ country_event = {
 				NOR = {
 					exists = event_target:marauder_rally_point
 					exists = event_target:marauder_rally_point.solar_system.owner
-					event_target:marauder_rally_point = { is_owned_by = ROOT }
+					event_target:marauder_rally_point.solar_system = { is_owned_by = ROOT }
 				}
 			}
 			random_system_within_border = {
