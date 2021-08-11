@@ -982,7 +982,7 @@ country_event = {
 			country_event = { id = marauder.77 days = 20 }
 		}
 
-		# every_neighbor_country = {
+		# random_neighbor_country = {
 		# 	limit = {
 		# 		CmtTriggerIsPlayableEmpire = yes
 		# 		NOR = {
@@ -3651,11 +3651,9 @@ country_event = {
 }
 
 
-# (Because of the logic of the former original author Kinneyj47,
-# the numerical order is upside down in relation to the events)
-
+# The numerical order is upside down in relation to the events happen (Because of the logic of the initial author Kinneyj47)
 # Final Uprising (290-299)
-# Without FE awakening
+# Without FE Awakening
 country_event = {
 	id = khan.290
 	title = "war_goal_wg_marauder_uprising" # "emperor.101.name" # "The Uprising"
@@ -3739,7 +3737,7 @@ country_event = {
 	# after = {}
 }
 
-# TODO: SOME BROKEN ASS SHIT GOING ON HERE
+# TODO: SOME BROKEN ASS SHIT GOING ON HERE (by Kinneyj47)
 # This = EVERY default empire choose your side
 country_event = {
 	id = khan.291 # Similar id = war_in_heaven.4
@@ -3946,13 +3944,14 @@ country_event = {
 		# 	name = "war_goal_wg_marauder_uprising"
 		# 	attacker_war_goal = "wg_independence"
 		# }
-		# 3 => war_in_heaven.7 Galactic Emperor
-		# MTTH = war_in_heaven.12 Find a leader (special if not .7)
-			# .12 => war_in_heaven.13 set_global_flag = war_in_heaven_seeking_league_leader
-			# .13 => war_in_heaven.19
-		# MTTH = war_in_heaven.14 AI will try to join the League
-		# .14/.19 => war_in_heaven.15 join_alliance (create)
-		# MTTH = war_in_heaven.16 declar war
+		# Vanilla war_in_heaven.xx short docu
+		# .3 => .7 Galactic Emperor
+		# MTTH = .12 Find a leader (special if not .7)
+		# 	.12 => .13 set_global_flag = war_in_heaven_seeking_league_leader
+		# 	.13 => .19
+		# MTTH = .14 AI will try to join the League
+		# .14/.19 => .15 join_alliance (create)
+		# MTTH = .16 declar war
 		# .22 nofify declined
 		add_opinion_modifier = { who = event_target:raider_khanate modifier = opinion_war_in_heaven_enemy }
 		# FE via MTTH war_in_heaven.12
@@ -3978,7 +3977,7 @@ country_event = {
 	# after = {}
 }
 
-# FE awakening
+# FE Awakening
 # Assume at this point that the Great Khan is neutral to the empires
 # This = Marauder
 country_event = {
@@ -4133,8 +4132,11 @@ country_event = {
 		exists = event_target:raider_khanate
 	}
 	immediate = {
-		set_variable = { which = CmtVarKhanRemainingLive value = 4 }
-		### Unify All Marauders
+		if = { # Give new Life for longer War
+			limit = { check_variable = { which = CmtVarKhanRemainingLive value < 3 } }
+			set_variable = { which = CmtVarKhanRemainingLive value = 3 }
+		}
+		### Unify All Marauders (Final War)
 		event_target:CmtGlobalVar = { set_variable = { which = CmtVarKhanMultiple value = 5 } }
 		every_country = {
 			limit = { is_country_type = dormant_marauders }
@@ -4174,7 +4176,7 @@ country_event = {
 					any_country = { is_fallen_empire = yes }
 				}
 			}
-			50 = { # FE awakening
+			50 = { # FE Awakening
 				event_target:raider_khanate = {
 					country_event = { id = khan.295 }
 				}
@@ -4320,11 +4322,21 @@ country_event = {
 				# days = @CmtConstKhanLifespan_5d
 				# random = @CmtConstKhanLifespan_2d
 			}
-		} else = {
-			clear_variable = exists_federation
-			break = yes
 		}
+		clear_variable = exists_federation
 		# TODO something like id = origin.50
+
+		# Subject hostile fallback (if possible something is going wrong)
+		random_subject = {
+			limit = { PREV = { is_hostile = PREV } }
+			weights = { base = 1 modifier = { add = 2 is_ai = no } }
+			PREV = {
+				set_faction_hostility = {
+					target = PREV
+					set_friendly = yes
+				}
+			}
+		}
 	}
 }
 
