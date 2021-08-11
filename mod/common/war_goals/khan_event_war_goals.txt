@@ -402,9 +402,10 @@ wg_marauder_expansion = {
 			hidden_effect = {
 				from = {
 					add_threat = { who = root amount = 0.5 }
+					country_event = { id = marauder.555 } # Check submit
 					# Can't war for a year
 					set_timed_country_flag = { flag = rebellion_cooldown days = @b1_time }
-					change_variable = { which = "planets_lost_to_marauder" value = -3 }
+					change_variable = { which = "planets_lost_to_marauder" value = -2 }
 					# set_faction_hostility = {
 					# 	target = event_target:raider_khanate
 					# 	set_hostile = no
@@ -499,6 +500,9 @@ wg_war_in_heaven = {
 			}
 			else_if = {
 				limit = { is_country_type = awakened_marauders }
+				remove_global_flag = war_in_heaven_started
+				remove_global_flag = war_in_heaven_ongoing
+				remove_global_flag = war_in_heaven_debug
 				from = {
 					add_threat = { who = root amount = 0.5 }
 					if = {
@@ -508,6 +512,35 @@ wg_war_in_heaven = {
 						set_subject_of = {
 							who = event_target:raider_khanate
 							subject_type = satrapy
+						}
+					}
+					if = {
+						limit = {
+							any_war = {
+								NOT = { is_war_participant = { who = root } }
+								any_war_participant = {
+									prev = {
+										using_war_goal = {
+											type = wg_war_in_heaven
+											owner = prev
+										}
+									}
+								}
+							}
+						}
+						every_war = { #End War in Heaven
+							limit = {
+								NOT = { is_war_participant = { who = root } }
+								any_war_participant = {
+									prev = {
+										using_war_goal = {
+											type = wg_war_in_heaven
+											owner = prev
+										}
+									}
+								}
+							}
+							end_war_effect = yes
 						}
 					}
 				}
@@ -531,9 +564,10 @@ wg_war_in_heaven = {
 				# TODO also for any_war_participant !?
 				from = {
 					add_threat = { who = root amount = 0.5 }
+					country_event = { id = marauder.555 } # Check submit
 					# Can't war for a year
 					set_timed_country_flag = { flag = rebellion_cooldown days = @b1_time }
-					change_variable = { which = "planets_lost_to_marauder" value = -3 }
+					change_variable = { which = "planets_lost_to_marauder" value = -2 }
 					# set_faction_hostility = {
 					# 	target = prev
 					# 	set_hostile = no
@@ -626,9 +660,10 @@ wg_great_expansion = {
 				# TODO also for any_war_participant !?
 				from = {
 					add_threat = { who = root amount = 0.5 }
+					country_event = { id = marauder.555 } # Check submit
 					# Can't war for a year
 					set_timed_country_flag = { flag = rebellion_cooldown days = @b1_time }
-					change_variable = { which = "planets_lost_to_marauder" value = -3 }
+					change_variable = { which = "planets_lost_to_marauder" value = -2 }
 					# set_faction_hostility = {
 					# 	target = prev
 					# 	set_hostile = no

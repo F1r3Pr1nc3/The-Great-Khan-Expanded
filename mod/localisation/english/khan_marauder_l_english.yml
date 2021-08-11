@@ -6,7 +6,7 @@
  marauder_uprising_stall:0 "We need more time to prepare."
  pick_great_khan:0 "The Khan has lead us well so far."
  pick_fe:0 "The old ones have our support."
- pick_indep:0 "$marauder.554.a$" # "We declare our independence!"
+ pick_indep:0 "$marauder.554.a$"
  FE_war_choice:0 "The Choice"
  FE_war_choice_desc:0 "$leader_trait_great_khan$ has declared war on one of the Elder Races in an attempt to take their technology. Interestingly, the elder race has reached out to the $RT_GREAT_KHAN$'s subjects, offering us the chance to serve them instead. Both sides have promised great gifts for those who side with them, and destruction for those who side against them. Alternatively we could declare our complete independence in the chaos."
  great_khan_fe_war:0 "This is the $RT_GREAT_KHAN$ speaking, we has taken great strides in making the galaxy safe for all sentient beings. However, the elder races still sit in isolation, with their technology, we could forge a utopia among the stars. The elder races have refused to share this technology with us, and tragically the horde must war again. You will not be required to take part in the fighting, but those who do will find themselves well rewarded."
@@ -28,7 +28,6 @@
  marauder_fabricator_rebel:0 "We no longer wish to support your conquest"
  marauder_fabricator_disloyal:0 "We will no longer serve"
  marauder_fabricator_loyal:0 "We will continue production"
-
  marauder_deal_start:0 "We seek an alternate arrangement with the Horde"
  marauder_deal:0 "The satrapy system was created for a reason, it will provide an ideal transition towards a galactic community, why would I alter it?"
  marauder_deal_reason:0 "How about access to our advanced technology?"
@@ -37,13 +36,13 @@
  marauder_deal_accept:0 "You have saved many lives by giving us access to this technology, it will be used for the good of the galaxy."
  marauder_deal_bad_response:0 "No, we will not share our technology with you."
  marauder_deal_refuse:0 "A pity, no matter, you will become a satrap or perish."
- edict_force_khan_spawn:0 "$RT_GREAT_KHAN$ Spawn Settings" # Force $RT_GREAT_KHAN$ Spawn
+ edict_force_khan_spawn:0 "$RT_GREAT_KHAN$ Spawn Settings"
  edict_force_khan_spawn_desc:0 "Activate this edict to spawn the Khan (either by force or in ordinary way)."
  force_khan_option:0 "Force the Khan to spawn 1 year after the mid-game start date."
  normal_khan:0 "Let the Khan spawn randomly."
  # khan.999.name:0 "$RT_GREAT_KHAN$ Spawn Settings"
  # khan.999.desc:0 "You can choose to either force the $RT_GREAT_KHAN$ to spawn roughly 1 year after the mid-game start date, or to let the Khan spawn randomly. Just activate the edict again if you change your mind."
-# Subjects
+ ### Subjects
  SUBJECT_machinesmith:0 "Machinesmith $SUBJECT_satrapy$"
  SUBJECT_DESC_machinesmith:0 "This type of subject provides advanced technology to their Overlord ($RT_GREAT_KHAN$) in exchange for independence."
  SUBJECT_fabricator_satrapy:0 "Fabricator $SUBJECT_satrapy$"

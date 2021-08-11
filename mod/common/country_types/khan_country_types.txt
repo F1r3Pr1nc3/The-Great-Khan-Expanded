@@ -42,7 +42,7 @@ awakened_marauders = {
 		modules = {
 			horde_military_minister_module
 			horde_interior_minister_module
-			# foreign_minister_module
+			foreign_minister_module
 		}
 		army_data = {
 			assault_army = {
@@ -143,6 +143,7 @@ awakened_marauders = {
 		gate_builders
 	}
 	modules = {
+		basic_technology_module = {}
 		tiered_technology_module = {
 			tier = 3
 			rare = no
@@ -169,6 +170,7 @@ awakened_marauders = {
 				action_close_borders
 			}
 		}
+		standard_expansion_module = {}
 	}
 	resources = {
 		category = country_base
