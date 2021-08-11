@@ -1228,7 +1228,7 @@ country_event = {
 ###  Death of Khan  ###
 #######################
 
-### Khan Defeated in Combat But NOT Die
+### Khan Defeated in Combat but NOT Die
 country_event = {
 	id = marauder.505
 	hide_window = yes
@@ -1243,14 +1243,13 @@ country_event = {
 		}
 		check_variable = { which = CmtVarKhanRemainingLive value > -0.5 }		## Not CmtGlobalVar
 		OR = {
-			NOT = { has_country_flag = CmtFlagKhanDefeatCountry }
+			NOT = { has_country_flag = great_khan_defeated_once }
 			check_variable = { which = CmtVarKhanRemainingLive value > 0.5 }	## Not CmtGlobalVar
 		}
 	}
 
 	immediate = {
-		set_global_flag = great_khan_defeated_once
-		set_country_flag = CmtFlagKhanDefeatCountry
+		set_country_flag = great_khan_defeated_once # set_global_flag
 		change_variable = { which = CmtVarKhanRemainingLive value = -1 }		## Not CmtGlobalVar
 
 		from = { save_event_target_as = khan_destroyer }
@@ -1377,7 +1376,7 @@ country_event = {
 	option = { name = marauder.508.a }
 }
 
-### Khan Defeated in Combat And Die
+### Khan Defeated in Combat and die
 country_event = {
 	id = marauder.509
 	hide_window = yes
@@ -1394,7 +1393,7 @@ country_event = {
 		OR = {
 			check_variable = { which = CmtVarKhanRemainingLive value < -0.5 }		## Not CmtGlobalVar
 			AND = {
-				has_country_flag = CmtFlagKhanDefeatCountry
+				has_country_flag = great_khan_defeated_once # CmtFlagKhanDefeatCountry
 				check_variable = { which = CmtVarKhanRemainingLive value < 0.5 }	## Not CmtGlobalVar
 			}
 		}
@@ -2576,10 +2575,10 @@ country_event = {
 				add_modifier = { modifier = "satrapy_of_horde" days = -1 }
 				change_variable = { which = "planets_lost_to_marauder" value = 1 }
 				event_target:raider_khanate = {
-					# set_faction_hostility = {
-					# 	target = PREV
-					# 	set_friendly = yes
-					# }
+					set_faction_hostility = {
+						target = PREV
+						set_friendly = yes
+					}
 					copy_random_tech_from = { who = PREV area = engineering }
 					add_resource = { influence = 20 }
 				}
@@ -2609,10 +2608,10 @@ country_event = {
 		}
 		divide_variable = { which = "planets_lost_to_marauder" value = 2 }
 		event_target:raider_khanate = {
-			# set_faction_hostility = {
-			# 	target = ROOT
-			# 	set_friendly = yes
-			# }
+			set_faction_hostility = {
+				target = ROOT
+				set_friendly = yes
+			}
 			copy_random_tech_from = { who = PREV area = physics }
 			add_resource = { influence = 100 }
 		}
@@ -2889,14 +2888,22 @@ country_event = {
 			# Four Diadochi
 			assign_first_diadochi_planets = yes
 			assign_second_diadochi_planets = yes
+			assign_third_diadochi_planets = yes
+			assign_fourth_diadochi_planets = yes
+			assign_diadochi_systems = yes
 			create_first_diadochi = yes
 			create_second_diadochi = yes
-		} # else # Two Diadochi (Marauder small)
-		assign_third_diadochi_planets = yes
-		assign_fourth_diadochi_planets = yes
-		assign_diadochi_systems = yes
-		create_third_diadochi = yes
-		create_fourth_diadochi = yes
+			create_third_diadochi = yes
+			create_fourth_diadochi = yes
+		}
+		# Two Diadochi (Marauder small)
+		else = {
+			assign_third_diadochi_planets = yes
+			assign_fourth_diadochi_planets = yes
+			assign_diadochi_systems = yes
+			create_third_diadochi = yes
+			create_fourth_diadochi = yes
+		}
 		set_diadochi_claims = yes
 		observer_event = { id = observer.20 }
 		every_playable_country = {
@@ -4126,6 +4133,7 @@ country_event = {
 		exists = event_target:raider_khanate
 	}
 	immediate = {
+		set_variable = { which = CmtVarKhanRemainingLive value = 4 }
 		### Unify All Marauders
 		event_target:CmtGlobalVar = { set_variable = { which = CmtVarKhanMultiple value = 5 } }
 		every_country = {
@@ -5579,22 +5587,7 @@ country_event = {
 						is_at_war = yes
 					}
 				}
-				if = {
-					limit = {
-						any_war = {
-							is_war_participant = { who = root }
-							any_war_participant = {
-								prev = {
-									using_war_goal = {
-										type = wg_war_in_heaven
-										owner = prev
-									}
-								}
-							}
-						}
-					}
-					join_war = root
-				}
+				join_war = root
 			}
 		}
 
