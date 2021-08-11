@@ -1815,7 +1815,7 @@ country_event = {
 		NOT = { has_global_flag = marauder_crisis_ongoing }
 		is_country_type = dormant_marauders
 		fromfrom = { is_ship_size = marauder_void_dwelling }
-		# from = { CmtTriggerIsPlayableEmpire = yes } why only? Horde not cares
+		from = { CmtTriggerIsPlayableEmpire = yes } # there are some unpredictable possiblities
 		NOT = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanVengeance value = 1 } } }
 		OR = {
 			count_owned_ship = {
@@ -1836,7 +1836,7 @@ country_event = {
 	immediate = {
 		from = { save_event_target_as = awakened_horde }
 		random_list = {
-			5 = {
+			2 = {
 				modifier = {		## 9.9%
 					factor = 5.5
 					event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanVengeance value = 3 } }
@@ -4172,7 +4172,7 @@ country_event = {
 			50 = { # Final immediately
 				country_event = { id = khan.294 }
 				modifier = {
-					factor = 0.01
+					factor = 0.05
 					any_country = { is_fallen_empire = yes }
 				}
 			}
@@ -4328,7 +4328,10 @@ country_event = {
 
 		# Subject hostile fallback (if possible something is going wrong)
 		random_subject = {
-			limit = { PREV = { is_hostile = PREV } }
+			limit = {
+				NOT = { has_country_flag = rebelling_satrapy }
+				PREV = { is_hostile = PREV }
+			}
 			weights = { base = 1 modifier = { add = 2 is_ai = no } }
 			PREV = {
 				set_faction_hostility = {

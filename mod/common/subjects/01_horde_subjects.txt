@@ -129,7 +129,7 @@ war_satrapy = {
 		CmtTriggerIsPlayableEmpire = yes
 		has_been_declared_crisis = no
 		from = { is_country_type = awakened_marauders }
-		has_ethic = ethic_fanatic_militarist
+		is_militarist = yes
 		tech_unlocked_ratio = {
 			who = from
 			ratio < 0.8
