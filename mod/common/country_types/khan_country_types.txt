@@ -92,8 +92,10 @@ awakened_marauders = {
 						factor = 0
 						OR = {
 							has_authority = auth_machine_intelligence
-							NOT = { has_technology = tech_telepathy }
-							NOT = { has_ethic = ethic_fanatic_spiritualist }
+							NOR = {
+								has_technology = tech_telepathy
+								has_ethic = ethic_fanatic_spiritualist
+							}
 							has_technology = tech_gene_seed_purification
 						}
 					}

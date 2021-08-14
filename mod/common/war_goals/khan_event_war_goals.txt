@@ -398,7 +398,13 @@ wg_marauder_expansion = {
 
 	on_status_quo = {
 		if = {
-			limit = { exists = event_target:raider_khanate }
+			limit = {
+				exists = event_target:raider_khanate
+				OR = {
+					is_same_empire = event_target:raider_khanate
+					event_target:raider_khanate = { is_overlord_to = PREV }
+				}
+			}
 			hidden_effect = {
 				from = {
 					add_threat = { who = root amount = 0.5 }
@@ -417,9 +423,9 @@ wg_marauder_expansion = {
 			# event_target:raider_khanate = {
 			# 	set_faction_hostility = {
 			# 		target = from
-			# 		set_hostile = no
+			# 		# set_hostile = no
 			# 		set_neutral = yes
-			# 		set_friendly = no
+			# 		# set_friendly = no
 			# 	}
 			# }
 			if = {
@@ -450,12 +456,13 @@ wg_war_in_heaven = {
 	allowed_peace_offers = {
 		status_quo
 	}
-	surrender_acceptance = -1000
+	surrender_acceptance = -900
 	war_exhaustion = 0.25
 	set_defender_wargoal = wg_war_in_heaven
 	potential = { always = no } # event only
 	possible = { always = yes }
 	on_accept = {
+		# This is effectively unused as this is total war; surrender is highly unlikely
 		hidden_effect = {
 			if = {
 				limit = { is_country_type = awakened_fallen_empire }
@@ -500,9 +507,6 @@ wg_war_in_heaven = {
 			}
 			else_if = {
 				limit = { is_country_type = awakened_marauders }
-				remove_global_flag = war_in_heaven_started
-				remove_global_flag = war_in_heaven_ongoing
-				remove_global_flag = war_in_heaven_debug
 				from = {
 					add_threat = { who = root amount = 0.5 }
 					if = {
@@ -544,6 +548,9 @@ wg_war_in_heaven = {
 						}
 					}
 				}
+				remove_global_flag = war_in_heaven_started
+				remove_global_flag = war_in_heaven_ongoing
+				remove_global_flag = war_in_heaven_debug
 				# TODO notify
 				# save_event_target_as = WarInHeavenFEOne
 				# every_playable_country = {
@@ -556,9 +563,9 @@ wg_war_in_heaven = {
 	on_status_quo = {
 		# custom_tooltip =
 		hidden_effect = {
+			# TODO This seems to be fired twice, once for each direction (country A, country B; then again for country B, country A). We should figure out some way to stably choose only one.
 			save_event_target_as = WarInHeavenFEOne
 			from = { save_event_target_as = WarInHeavenFETwo }
-
 			if = {
 				limit = { is_country_type = awakened_marauders }
 				# TODO also for any_war_participant !?
@@ -577,9 +584,9 @@ wg_war_in_heaven = {
 				}
 				# set_faction_hostility = {
 				# 	target = from
-				# 	set_hostile = no
+				# 	# set_hostile = no
 				# 	set_neutral = yes
-				# 	set_friendly = no
+				# 	# set_friendly = no
 				# }
 				if = {
 					limit = {
@@ -593,8 +600,69 @@ wg_war_in_heaven = {
 						}
 					}
 				}
+				every_war = { #End War in Heaven
+					limit = {
+						OR = {
+							AND = {
+								NOT = { is_war_participant = { who = root } }
+								is_war_participant = { who = from }
+							}
+							AND = {
+								is_war_participant = { who = root }
+								NOT = { is_war_participant = { who = from } }
+							}
+						}
+						any_war_participant = {
+							has_federation = yes
+							federation = { has_federation_flag = non_aligned_league }
+							prev = {
+								using_war_goal = {
+									type = wg_war_in_heaven
+									owner = prev
+								}
+							}
+						}
+					}
+					end_war_effect = yes
+				}
+				remove_global_flag = war_in_heaven_started
+				remove_global_flag = war_in_heaven_ongoing
+				remove_global_flag = war_in_heaven_debug
 			} else_if = {
-				limit = { is_country_type = awakened_fallen_empire }
+				limit = {
+					is_country_type = awakened_fallen_empire
+					# from = { is_country_type = awakened_fallen_empire }
+				}
+				# Don't remove global flags here; there may be other WiHs
+				# Let the followup event clear the flag if there are no more WiH wars found.
+				# On both AE's reaching status quo, cancel all the non-aligned league wars too
+				every_war = { #End War in Heaven
+					limit = {
+						OR = {
+							AND = {
+								NOT = { is_war_participant = { who = root } }
+								is_war_participant = { who = from }
+							}
+							AND = {
+								is_war_participant = { who = root }
+								NOT = { is_war_participant = { who = from } }
+							}
+						}
+						any_war_participant = {
+							has_federation = yes
+							federation = { has_federation_flag = non_aligned_league }
+							prev = {
+								using_war_goal = {
+									type = wg_war_in_heaven
+									owner = prev
+								}
+							}
+						}
+					}
+					end_war_effect = yes
+				}
+				# Need delay before checking whether to clear WiH flags; stalemate hasn't ended the war until this effect block finishes
+				# country_event = { id = war_in_heaven.106 days = 2 }
 				every_playable_country = {
 					country_event = { id = war_in_heaven.6 }
 				}
