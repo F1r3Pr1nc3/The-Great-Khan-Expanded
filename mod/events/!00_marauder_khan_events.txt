@@ -3425,11 +3425,11 @@ country_event = {
 			type = dormant_marauders
 			civics = { civic = civic_anarcho_tribalism civic = random }
 			origin = "origin_khan_successor"
-			# flag = {
-			# 	icon = { category = "pirate" file = "flag_pirate_5.dds" }
-			# 	background = { category = "backgrounds" file = "00_solid.dds" }
-			# 	colors = { "black" "black" "null" "null" }
-			# }
+			flag = {
+				icon = { category = "pirate" file = "flag_pirate_13.dds" } # flag_pirate_5.dds
+				background = { category = "backgrounds" file = "00_solid.dds" }
+				colors = { "black" "black" "null" "null" }
+			}
 			ethos = {
 				ethic = ethic_fanatic_militarist
 				ethic = ethic_xenophobe
