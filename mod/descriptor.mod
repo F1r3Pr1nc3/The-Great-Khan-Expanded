@@ -5,7 +5,7 @@ tags={
 	"Gameplay"
 }
 dependencies={
-	"Marauders Remodeled"
+	"Marauders but Cooler"
 	"Crisis Manager - Mid-Game Edition (3.0.¢)"
 }
 name="The Great Khan Expanded [3.0]"
