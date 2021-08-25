@@ -42,10 +42,7 @@ hegemonic_imperialists = {
 			is_country_type = awakened_marauders
 			CmtTriggerIsPlayableEmpire = yes
 		}
-		NOR = {
-			has_ethic = "ethic_pacifist"
-			has_ethic = "ethic_fanatic_pacifist"
-		}
+		is_pacifist = no
 		OR = {
 			has_ethic = "ethic_militarist"
 			has_ethic = "ethic_fanatic_militarist"

@@ -1040,7 +1040,7 @@ country_event = {
 			country_add_ethic = "ethic_fanatic_militarist"
 		}
 		if = {
-			limit = { NOR = { has_ethic = "ethic_fanatic_spiritualist" has_ethic = "ethic_spiritualist" } }
+			limit = { is_spiritualist = no }
 			country_add_ethic = "ethic_spiritualist"
 		}
 
@@ -1202,7 +1202,7 @@ country_event = {
 			limit = {
 				CmtTriggerIsPlayableEmpire = no
 				OR = {
-					is_fallen_empire = yes
+					is_country_type = fallen_empire # is_fallen_empire = yes
 					is_country_type = enclave
 					is_country_type = caravaneer_home
 					is_country_type = caravaneer_fleet
@@ -1220,17 +1220,17 @@ country_event = {
 				OR = {
 					is_hostile = prev
 					prev = { is_hostile = prev }
-					prev = { NOT = { is_neutral_to = prev } }
+					# prev = { NOT = { is_neutral_to = prev } }
 				}
-				prev = { NOT = { is_friendly_to = prev } }
+				# prev = { NOR = { is_friendly_to = prev is_neutral_to = prev } }
 			}
 			establish_communications_no_message = ROOT
 			PREV = {
 				set_faction_hostility = {
 					target = PREV
 					# set_hostile = no
-					# set_neutral = no
-					set_friendly = yes
+					set_neutral = yes
+					# set_friendly = yes
 				}
 			}
 		}
@@ -3067,7 +3067,7 @@ country_event = {
 			remove_global_flag = war_in_heaven_ongoing
 			remove_global_flag = war_in_heaven_debug
 			clear_global_event_target = FirstSleeper
-			clear_global_event_target = great_khan
+			# clear_global_event_target = great_khan
 			clear_global_event_target = great_khan_ruler
 			# clear_global_event_target = raider_khanate
 		}
@@ -3481,8 +3481,10 @@ country_event = {
 			}
 			destroy_fleet = this
 		}
-		event_target:great_khan.fleet = {
-			delete_fleet = this
+		if = {
+			limit = { exists = event_target:great_khan exists = event_target:great_khan.fleet }
+			event_target:great_khan.fleet = { delete_fleet = this }
+			clear_global_event_target = great_khan
 		}
 		every_system_within_border = {
 			limit = { exists = starbase }
@@ -4839,7 +4841,7 @@ country_event = {
 	}
 	immediate = {
 		if = {
-			limit = { count_federation = { count = 1 } }
+			limit = { count_federation = { count > 0 } }
 			# random_federation = { save_event_target_as = exists_federation
 			set_variable = { which = exists_federation value = 1 }
 			# log="only one federation"
@@ -4847,17 +4849,18 @@ country_event = {
 
 		set_variable = { which = inc_fleet_power value = 0 }
 		every_playable_country = {
-			limit = { is_subject = no fleet_power > 20000 }
+			limit = { is_subject = no fleet_power > 12000 }
 			export_trigger_value_to_variable = { trigger = fleet_power variable = inc_fleet_power }
 			prev = { change_variable = { which = inc_fleet_power value = prev } }
 			clear_variable = inc_fleet_power
 		}
-		change_variable = { which = inc_fleet_power value = -40000 }
+		change_variable = { which = inc_fleet_power value = -48000 }
 		# log="Check inc_fleet_power [This.inc_fleet_power]"
 		export_trigger_value_to_variable = { trigger = fleet_power variable = khan_fleet_power }
 
 		if = {
 			limit = {
+				galaxy_percentage > 0.4
 				OR = {
 					check_variable = { which = khan_fleet_power value > inc_fleet_power }
 					count_playable_country = {
@@ -4865,7 +4868,7 @@ country_event = {
 							# CmtTriggerIsPlayableEmpire = yes
 							has_been_declared_crisis = no
 							is_subject = no
-							fleet_power > 20000
+							fleet_power > 26000
 							OR = {
 								check_variable = { which = exists_federation value = 0 }
 								AND = {
@@ -4877,7 +4880,7 @@ country_event = {
 								}
 							}
 						}
-						count < 3
+						count < 2
 					}
 				}
 			}
@@ -5670,7 +5673,10 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		has_origin = "origin_khan_successor"
+		OR = {
+			has_origin = "origin_khan_successor"
+			is_country_type = awakened_marauders
+		}
 	}
 	immediate = {
 		# TODO: Capital habitat? Special deposits? Flavor difference between khan, diadochi and fed?
@@ -5955,8 +5961,21 @@ country_event = {
 		NOT = { has_country_flag = rebelling_satrapy }
 		is_subject = yes
 		is_subject_type = fabricator_satrapy
+		exists = event_target:raider_khanate
 	}
 	immediate = {
+		if = {
+			limit = {
+				event_target:raider_khanate = { fleet_power > 250000 }
+			}
+			event_target:raider_khanate = {
+				country_event = { id = khan.798 days = 180 }
+				set_variable = { which = marauder_habitat_count value = 1 }
+				country_event = { id = khan.612 days = 7 }
+			}
+			break = yes
+		}
+
 		create_fleet = {
 			name = "NAME_Thalassocracy_fleet"
 			effect = {
@@ -6309,6 +6328,8 @@ country_event = {
 				}
 			}
 			country_event = { id = khan.870 days = 180 }
+			set_variable = { which = marauder_habitat_count value = 1 }
+			country_event = { id = khan.612 days = 7 }
 			break = yes
 		}
 		create_marauder_constructors = yes
