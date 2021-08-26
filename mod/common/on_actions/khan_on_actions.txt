@@ -24,6 +24,40 @@ on_becoming_subject = {
 	}
 }
 
+# This = starbase being destroyed
+# From = fleet that destroyed the starbase
+on_starbase_destroyed = {
+	events = {
+		marauder.527 # increase counter
+	}
+}
+
+# Planet has taken damage from orbital bombardment - Damage is applied daily
+# This = Planet
+# From = Bombarder
+on_planet_bombarded = {
+	events = {
+		marauder.528 # increase counter
+	}
+}
+# Planet has reached 0 pops from orbital bombardment
+# This = Planet
+# From = Bombarder
+on_planet_zero_pops = {
+	events = {
+		marauder.528 # increase counter
+	}
+}
+
+# Planet has reached 0 pops from collateral damage
+# This = Planet
+# From = Army owner
+on_planet_zero_pops_ground_combat = {
+	events = {
+		marauder.528 # increase counter
+	}
+}
+
 # This = Ship
 # From = Disabler Ship
 on_ship_disabled = {

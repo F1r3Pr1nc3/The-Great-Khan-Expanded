@@ -1359,6 +1359,7 @@ country_event = {
 ##############################
 
 ### Horde Conquers Planet
+# This = country, leader attacker
 # From = country, planet owner
 # FromFrom = planet
 country_event = {
@@ -1369,16 +1370,22 @@ country_event = {
 	trigger = {
 		has_global_flag = marauder_crisis_ongoing
 		exists = event_target:raider_khanate
+		exists = from
 		OR = {
-			AND = {
-				exists = from
-				is_subject = yes
-				from = { is_overlord_to = event_target:raider_khanate }
-				NOT = { has_country_flag = rebellion_cooldown }
-			}
 			CmtTriggerIsKhanCountry = yes
+			AND = {  # Khan Subject
+				is_subject = yes
+				event_target:raider_khanate = { is_overlord_to = root }
+				NOT = { has_country_flag = rebellion_cooldown }
+				exists = from
+				NAND = {
+					from = { is_subject = yes }
+					event_target:raider_khanate = { is_overlord_to = from }
+				}
+			}
 			#is_same_empire = event_target:raider_khanate # is_country_type = awakened_marauders
 		}
+		# from = { CmtTriggerIsEmpire = yes }
 	}
 
 	immediate = {
@@ -2157,6 +2164,7 @@ country_event = {
 	}
 }
 
+
 ###########################################################
 ###  Awakening for Vengeance: on_ship_destroyed_victim  ###
 ###########################################################
@@ -2212,6 +2220,132 @@ country_event = {
 				}
 			}
 		}
+	}
+}
+
+### Horde Clearing System (for evaluation marauder.555)
+# This = starbase being destroyed
+# From = fleet that destroyed the starbase
+starbase_event = {
+	id = marauder.527
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_global_flag = marauder_crisis_ongoing
+		exists = event_target:raider_khanate
+		exists = from
+		exists = owner
+		from.owner = {
+			OR = {
+				CmtTriggerIsKhanCountry = yes
+				AND = { # Khan Subject
+					is_subject = yes
+					event_target:raider_khanate = { is_overlord_to = prev }
+					NOT = { has_country_flag = rebellion_cooldown }
+					exists = from
+					NAND = {
+						from = { is_subject = yes }
+						event_target:raider_khanate = { is_overlord_to = from }
+					}
+				}
+			}
+		}
+	}
+
+	immediate = {
+		## Change loss by value
+		owner = {
+			change_variable = { which = "planets_lost_to_marauder" value = 0.25 }
+			if = {
+				limit = {
+					root = { has_starbase_size > starbase_starport }
+				}
+				change_variable = { which = "planets_lost_to_marauder" value = 0.25 }
+			}
+			if = {
+				limit = {
+					OR = {
+						solar_system = { is_capital_system = yes }
+						root = { has_starbase_size > starbase_starhold }
+					}
+				}
+				change_variable = { which = "planets_lost_to_marauder" value = 0.5 }
+				if = {
+					limit = {
+						root = { has_starbase_size > starbase_starfortress }
+					}
+					change_variable = { which = "planets_lost_to_marauder" value = 0.25 }
+				}
+			}
+			log = "marauder.527 system lost_to_marauder for [This.GetName]"
+		}
+	}
+}
+
+# Vanilla Fix
+### Horde Clearing Planet (for evaluation marauder.555)
+# Planet has reached 0 pops from orbital bombardment or collateral damage
+# This = Planet
+# From = Bombarder
+planet_event = {
+	id = marauder.528
+	hide_window = yes
+	is_triggered_only = yes
+
+	pre_triggers = {
+		has_owner = yes
+		has_ground_combat = no
+	}
+
+	trigger = {
+		has_global_flag = marauder_crisis_ongoing
+		NOT = { has_planet_flag = planet_raided }
+		exists = event_target:raider_khanate
+		exists = from
+		exists = owner
+		owner = { CmtTriggerIsEmpire = yes }
+		count_armies = { count = 0 }
+		OR = {
+			planet_devastation > 99
+			num_pops < 2
+		}
+		from = {
+			OR = {
+				CmtTriggerIsKhanCountry = yes
+				AND = { # Khan Subject
+					is_subject = yes
+					event_target:raider_khanate = { is_overlord_to = prev }
+					NOT = { has_country_flag = rebellion_cooldown }
+					exists = from
+					NAND = {
+						from = { is_subject = yes }
+						event_target:raider_khanate = { is_overlord_to = from }
+					}
+				}
+			}
+		}
+	}
+
+	immediate = {
+		set_timed_planet_flag = { flag = planet_raided days = 300 }
+		if = {
+			limit = { num_pops < 2 }
+			owner = {
+				change_variable = { which = "planets_lost_to_marauder" value = 1 }
+			}
+			destroy_colony = yes
+		} else = {
+			from = {
+				country_event = {
+					id = marauder.503
+					days = 1
+					scopes = { from = root.owner fromfrom = root }
+				}
+			}
+		}
+
+		log = "marauder.528 planets_lost_to_marauder increased for [This.Owner.GetName]"
 	}
 }
 
@@ -2901,6 +3035,8 @@ country_event = {
 		}
 	}
 	immediate = {
+		# variable = "planets_lost_to_marauder" is increades on .503, .527 and .528
+
 		# country_event = { id = marauder.550 } # Submit to Khan
 		country_event = { id = marauder.559 } # Pre-Submit to Khan
 		set_subject_of = {
