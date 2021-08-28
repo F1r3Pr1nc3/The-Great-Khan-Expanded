@@ -397,7 +397,7 @@ create_first_diadochi = {
 			species = event_target:marauder_species
 			type = default
 			authority = auth_imperial
-			civics = { civic = civic_diadochi civic = random }
+			civics = { civic = civic_diadochi civic = random civic = random }
 			origin = "origin_khan_successor"
 			ethos = {
 				ethic = ethic_fanatic_militarist
@@ -461,7 +461,7 @@ create_second_diadochi = {
 			species = event_target:marauder_species
 			type = default
 			authority = auth_imperial
-			civics = { civic = civic_diadochi civic = random }
+			civics = { civic = civic_diadochi civic = random civic = random }
 			origin = "origin_khan_successor"
 			ethos = {
 				ethic = ethic_fanatic_militarist
@@ -525,7 +525,7 @@ create_third_diadochi = {
 			species = event_target:marauder_species
 			type = default
 			authority = auth_imperial
-			civics = { civic = civic_diadochi civic = random }
+			civics = { civic = civic_diadochi civic = random civic = random }
 			origin = "origin_khan_successor"
 			ethos = {
 				ethic = ethic_fanatic_militarist
@@ -589,7 +589,7 @@ create_fourth_diadochi = {
 			species = event_target:marauder_species
 			type = default
 			authority = auth_imperial
-			civics = { civic = civic_diadochi civic = random }
+			civics = { civic = civic_diadochi civic = random civic = random }
 			origin = "origin_khan_successor"
 			ethos = {
 				ethic = ethic_fanatic_militarist

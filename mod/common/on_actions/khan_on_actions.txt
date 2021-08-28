@@ -9,12 +9,19 @@ on_single_player_save_game_load = {
 	}
 }
 
+# # No scope, like on_game_start
+# on_yearly_pulse = {
+# 	events = {
+# 		khan.299
+# 	}
+# }
+
 # No scope, like on_game_start
-on_yearly_pulse_country = {
-	events = {
-		khan.529
-	}
-}
+# on_yearly_pulse_country = {
+# 	events = {
+# 		khan.529
+# 	}
+# }
 
 # This = subject
 # From = subject's overlord
