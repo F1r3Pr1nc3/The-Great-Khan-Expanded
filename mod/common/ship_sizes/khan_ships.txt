@@ -6,9 +6,11 @@
 
 npc_galleon_01 = {
 	is_space_object = yes
-	graphical_culture = {  "pirate_01" "npf_01_dirty" "npf_01" }
-	# entity = pirate_01_marauder_galleon_khan_entity
-	entity = "npf_01_dirty_npc_galleon_01_entity"
+	graphical_culture = no
+	# graphical_culture = {  "pirate_01" "npf_01_dirty" "npf_01" }
+	# entity = "npf_01_dirty_npc_galleon_01_entity"
+	# entity = pirate_01_galleon_entity
+	entity = npc_warship_01_entity
 	formation_priority = 40
 	graphical_culture = yes # default no
 	max_speed = @speed_slow

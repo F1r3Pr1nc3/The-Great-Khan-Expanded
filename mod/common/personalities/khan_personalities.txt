@@ -44,12 +44,9 @@ hegemonic_imperialists = {
 		}
 		is_pacifist = no
 		OR = {
-			has_ethic = "ethic_militarist"
-			has_ethic = "ethic_fanatic_militarist"
-			has_ethic = "ethic_authoritarian"
-			has_ethic = "ethic_fanatic_authoritarian"
-			has_ethic = "ethic_xenophobe"
-			has_ethic = "ethic_fanatic_xenophobe"
+			is_militarist = yes
+			is_authoritarian = yes
+			is_xenophobe = yes
 		}
 	}
 	weight_modifier = {
