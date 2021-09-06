@@ -1,6 +1,6 @@
 ﻿l_german:
  CmtDescApocalypseColossus:0 "DLC ''Apocalypse'' ist erforderlich, um Colossus zu erstellen."
- CmtDescEgsy:0 "$CmtWarn0$: EGSY meint ''EndgameStart Jahr''"
+ CmtDescEgsy:0 "$CmtWarn0$: EGSY meint ''EndGame-StartJahr''"
  CmtDescExceptMechFe:0 "$CmtWarn1$\n$personality_fallen_empire_machine$ ($fallen_machine_empire$) entspricht nicht dieser Konfiguration."
  CmtDescForOnlyEndgame:0 "$CmtWarn2$: Diese Konfiguration wird nur auf grundlegende 3 Endgame-Krisen angewendet."
  CmtDescHomicidal:0 "''Homicidal empires'' bedeutet fanatische Reiniger, verschlingender Schwarm und entschlossene Kammerjäger."
