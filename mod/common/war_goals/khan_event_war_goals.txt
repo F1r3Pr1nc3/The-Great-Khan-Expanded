@@ -98,7 +98,8 @@ wg_independence = {
 					every_attacker = {
 						limit = {
 							is_subject = yes
-							from = { is_overlord_to = prev }
+							# from = { is_overlord_to = prev } not working for Khan
+							overlord = { is_same_empire = from }
 							# prev = {
 							# 	is_war_participant = { who = prev side = attackers }
 							# 	# using_war_goal = { type = wg_independence owner = prev }
@@ -209,11 +210,11 @@ wg_marauder_expansion = {
 
 	potential = {
 		has_global_flag = marauder_crisis_ongoing
-		exists = event_target:raider_khanate
+		# exists = event_target:raider_khanate
 		# OR = {
 		# 	AND = {
-		is_subject = yes # is_country_type_with_subjects = yes
-		event_target:raider_khanate = { is_overlord_to = PREV }
+		# is_country_type_with_subjects = yes
+		is_subject_of_khan = yes
 		# 	has_total_war_cb = no
 		# 	}
 		# 	is_country_type = awakened_marauders types do not allow CBs
@@ -233,16 +234,11 @@ wg_marauder_expansion = {
 			has_authority = auth_machine_intelligence
 			# has_authority = auth_corporate
 		}
-		# OR = {
+		FROM = { is_subject_of_khan = no }
 		event_target:raider_khanate = {
-			is_overlord_to = ROOT
-			NOR = {
-				is_overlord_to = FROM
-				is_same_empire = FROM
-			}
+			is_country_type = awakened_marauders
+			NOT = { is_same_empire = FROM }
 		}
-		# 	is_country_type = awakened_marauders
-		# }
 
 		custom_tooltip = {
 			fail_text = cannot_subjugate_empire_member
@@ -402,7 +398,7 @@ wg_marauder_expansion = {
 				exists = event_target:raider_khanate
 				OR = {
 					is_same_empire = event_target:raider_khanate
-					event_target:raider_khanate = { is_overlord_to = PREV }
+					is_subject_of_khan = yes
 				}
 			}
 			hidden_effect = {
