@@ -492,10 +492,10 @@ ship_design = {
 			slot = "AUX_UTILITY_4"
 			template = "AUTO_REPAIR"
 		}
-		component = {
-			slot = "AUX_UTILITY_5"
-			template = "AUTO_REPAIR"
-		}
+		# component = {
+		# 	slot = "AUX_UTILITY_5"
+		# 	template = "AUTO_REPAIR"
+		# }
 	}
 	required_component = "SENSOR_2"
 	required_component = "HYPER_DRIVE_3"

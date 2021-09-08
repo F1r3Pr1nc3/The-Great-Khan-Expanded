@@ -1581,16 +1581,17 @@ country_event = {
 			fleet = { num_ships = 0 }
 			leader = { has_leader_flag = great_khan }
 		}
-		check_variable = { which = CmtVarKhanRemainingLive value > -0.5 }		## Not CmtGlobalVar
+		check_variable = { which = CmtVarKhanRemainingLive value > -0.5 }	## Not CmtGlobalVar
 		OR = {
-			NOT = { has_country_flag = great_khan_defeated_once }
+			NOT = { has_country_flag = great_khan_defeated_once } # CmtFlagKhanDefeatCountry
 			check_variable = { which = CmtVarKhanRemainingLive value > 0.5 }	## Not CmtGlobalVar
 		}
 	}
 
 	immediate = {
-		set_country_flag = great_khan_defeated_once # set_global_flag
-		change_variable = { which = CmtVarKhanRemainingLive value = -1 }		## Not CmtGlobalVar
+		# set_global_flag not needed
+		set_country_flag = great_khan_defeated_once # CmtFlagKhanDefeatCountry
+		change_variable = { which = CmtVarKhanRemainingLive value = -1 } ## Not CmtGlobalVar
 
 		from = {
 			save_event_target_as = khan_destroyer
@@ -1609,19 +1610,11 @@ country_event = {
 		}
 		observer_event = { id = observer.14 }
 
-		if = {
-			limit = { has_global_flag = CmtFlagDebugMode }
+		if = { limit = { has_global_flag = CmtFlagDebugMode }
 			country_event = { id = marauder.523 days = 5 }
 		} else = {
-			if = { limit = { exists = event_target:global_event_country }
-				event_target:global_event_country = {
-					country_event = { id = marauder.523 days = 180 random = 160 }
-				}
-			} else = {
-				random_country = {
-					limit = { is_country_type = global_event }
-					country_event = { id = marauder.523 days = 180 random = 160 }
-				}
+			event_target:global_event_country = {
+				country_event = { id = marauder.523 days = 180 random = 160 }
 			}
 		}
 		# Back to the fold
@@ -1734,7 +1727,7 @@ country_event = {
 			leader = { has_leader_flag = great_khan }
 		}
 		OR = {
-			check_variable = { which = CmtVarKhanRemainingLive value < -0.5 }		## Not CmtGlobalVar
+			check_variable = { which = CmtVarKhanRemainingLive value < -0.5 }	## Not CmtGlobalVar
 			AND = {
 				has_country_flag = great_khan_defeated_once # CmtFlagKhanDefeatCountry
 				check_variable = { which = CmtVarKhanRemainingLive value < 0.5 }	## Not CmtGlobalVar
@@ -1745,7 +1738,7 @@ country_event = {
 	immediate = {
 		set_global_flag = great_khan_dead
 		set_country_flag = khan_dead_event_fine
-		set_variable = { which = CmtVarKhanRemainingLive value = 0 }		## Not CmtGlobalVar
+		set_variable = { which = CmtVarKhanRemainingLive value = 0 }	## Not CmtGlobalVar
 
 		if = {
 			limit = { exists = event_target:great_khan_ruler }
@@ -2014,13 +2007,14 @@ country_event = {
 		#NOT = { has_country_flag = has_machinesmith }
 	}
 	immediate = {
-		country_event = { id = khan.306 } # Create fallback rally_point
+		country_event = { id = khan.306 } # Check/Create fallback rally_point
 		if = {
 			limit = { exists = event_target:marauder_rally_point }
 			### Khan Expanded
 			if = {
 				limit = { NOT = { has_country_flag = KhanReinforcement_Cycle } }
 				country_event = { id = khan.299 } # end check
+				set_country_flag = KhanReinforcement_Cycle
 			} else = { remove_country_flag = KhanReinforcement_Cycle }
 
 			if = {
@@ -2110,18 +2104,15 @@ country_event = {
 						}
 						CmtEffectKhanReinforceOnCapital = yes
 						ROOT = {
+							remove_country_flag = KhanReinforcement_Cycle
 							country_event = { id = marauder.520 days = 340 }
 						}
 					} else = {
 						if = {
-							limit = {
-								check_variable = { which = CmtVarKhanReinforcementCounter value > 9.5 }
-							}
+							limit = { check_variable = { which = CmtVarKhanReinforcementCounter value > 9.5 } }
 							CmtEffectKhanReinforceOnCapital = yes
 							change_variable = { which = CmtVarKhanReinforcementCounter value = -10 }
-							ROOT = { set_country_flag = KhanReinforcement_Cycle }
-						} #else = {
-							# ROOT = { set_country_flag = KhanReinforcement_Cycle } }
+						} #else = { ROOT = { set_country_flag = KhanReinforcement_Cycle } }
 						CmtEffectKhanIncreasementReinforcementCycle = yes ## required: PREV = ROOT
 						ROOT = { # TODO: days somehow dyn.
 							country_event = { id = marauder.520 days = 100 }
@@ -3135,6 +3126,7 @@ fleet_event = {
 				exists = space_owner
 				space_owner = {
 					is_subject_of_khan = yes
+					NOT = { has_country_flag = rebelling_satrapy }
 					prev.owner = { is_same_empire = prev.overlord }
 				}
 			}
@@ -5086,7 +5078,7 @@ country_event = {
 			}
 			# has_defensive_pact = root
 			every_playable_country = {
-				if = { limit = { is_ai = no NOT = { has_active_event = { khan.289 } } }
+				if = { limit = { is_ai = no NOT = { has_active_event = { khan.298 } } }
 					country_event = { id = khan.298 }
 				}
 			}
@@ -6369,7 +6361,7 @@ country_event = {
 		# has_country_flag = has_machinesmith
 	}
 	immediate = {
-		country_event = { id = khan.306 } # Create fallback rally_point
+		country_event = { id = khan.306 } # Check/Create fallback rally_point
 		create_marauder_constructors = yes
 		if = {
 			limit = { num_armies < 40 }
@@ -6515,7 +6507,7 @@ country_event = {
 		}
 	}
 	immediate = {
-		country_event = { id = khan.306 } # Create fallback rally_point
+		country_event = { id = khan.306 } # Check/Create fallback rally_point
 		# log="khan.870 Cycle"
 		if = {
 			limit = {

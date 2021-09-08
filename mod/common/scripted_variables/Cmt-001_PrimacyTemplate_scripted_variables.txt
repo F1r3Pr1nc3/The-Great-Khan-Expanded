@@ -482,7 +482,7 @@
 		### Critical = 1, Fleeting = 2, Standard Lifespan = 3 (Default)
 		### Enduring = 4, Venerable = 5, Immortality = 6
 
-### Latent Strength of Horde in Adversity
+### Latent Strength of Horde in Adversity (SEEMS a bit BETA)
 	@CmtT001_ConstReinforceCycle_Khan = 2
 		### Disable = 1 (Default), Weak = 2, Middle = 3, Strong = 4
 
