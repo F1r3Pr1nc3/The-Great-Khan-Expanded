@@ -219,7 +219,7 @@ wg_marauder_expansion = {
 		# 	}
 		# 	is_country_type = awakened_marauders types do not allow CBs
 		# }
-		# NOT = { is_in_federation_with = FROM }
+		# NOT = { is_in_federation_with = from }
 		NAND = {
 			is_galactic_emperor = yes
 			from = { is_galactic_community_member = yes }
@@ -228,16 +228,16 @@ wg_marauder_expansion = {
 
 	possible = {
 		NOR = {
-			is_in_federation_with = FROM
-			is_overlord_to = FROM
+			is_in_federation_with = from
+			is_overlord_to = from
 			has_valid_civic = civic_inwards_perfection
 			has_authority = auth_machine_intelligence
 			# has_authority = auth_corporate
 		}
-		FROM = { is_subject_of_khan = no }
+		from = { is_subject_of_khan = no }
 		event_target:raider_khanate = {
 			is_country_type = awakened_marauders
-			NOT = { is_same_empire = FROM }
+			NOT = { is_same_empire = from }
 		}
 
 		custom_tooltip = {
@@ -294,17 +294,17 @@ wg_marauder_expansion = {
 		# log="[FromFrom.GetName]" not exists
 		event_target:raider_khanate = {
 			if = {
-				limit = { is_at_war_with = FROM }
+				limit = { is_at_war_with = from }
 				if = {
 					limit = {
 						any_war = {
-							is_war_participant = { who = FROM }
-							is_war_participant = { who = PREV }
+							is_war_participant = { who = from }
+							is_war_participant = { who = prev }
 							any_war_participant = {
-								PREV = {
+								prev = {
 									using_war_goal = {
 										type = wg_marauder_expansion
-										owner = PREV
+										owner = prev
 									}
 								}
 							}
@@ -312,48 +312,48 @@ wg_marauder_expansion = {
 					}
 					random_war = { # Join existing war!
 						limit = {
-							is_war_participant = { who = FROM }
-							NOT = { is_war_participant = { who = ROOT } }
+							is_war_participant = { who = from }
+							NOT = { is_war_participant = { who = root } }
 							any_war_participant = {
-								PREV = {
+								prev = {
 									using_war_goal = {
 										type = wg_marauder_expansion
-										owner = PREV
+										owner = prev
 									}
 								}
 							}
 						}
-						ROOT = {
+						root = {
 							random_war = { # Leave existing war? (Hack)
 								limit = {
-									is_war_participant = { who = FROM }
+									is_war_participant = { who = from }
 									any_war_participant = {
-										PREV = {
+										prev = {
 											using_war_goal = {
 												type = wg_marauder_expansion
-												owner = PREV
+												owner = prev
 											}
 										}
 									}
 								}
 								end_war_effect = yes
 							}
-							end_truce = FROM
-							join_war_on_side = { war = PREV side = event_target:raider_khanate }
+							end_truce = from
+							join_war_on_side = { war = prev side = event_target:raider_khanate }
 							break = yes
-							# join_war = PREV
+							# join_war = prev
 						}
 					}
 				} else_if = {
 					limit = {
 						any_war = {
-							is_war_participant = { who = FROM }
-							is_war_participant = { who = PREV }
+							is_war_participant = { who = from }
+							is_war_participant = { who = prev }
 							any_war_participant = {
-								PREV = {
+								prev = {
 									using_war_goal = {
 										type = wg_great_expansion
-										owner = PREV
+										owner = prev
 									}
 								}
 							}
@@ -361,33 +361,33 @@ wg_marauder_expansion = {
 					}
 					random_war = { #End War in Heaven
 						limit = {
-							is_war_participant = { who = FROM }
-							is_war_participant = { who = PREV }
+							is_war_participant = { who = from }
+							is_war_participant = { who = prev }
 							any_war_participant = {
-								PREV = {
+								prev = {
 									using_war_goal = {
 										type = wg_great_expansion
-										owner = PREV
+										owner = prev
 									}
 								}
 							}
 						}
 						end_war_effect = yes
 					}
-					end_truce = FROM
-					join_war = ROOT
+					end_truce = from
+					join_war = root
 				} else = {
-					end_truce = FROM
-					join_war = ROOT
+					end_truce = from
+					join_war = root
 				}
 			}
 			every_subject = {
 				limit = {
 					is_subject_type = war_satrapy
-					NOT = { is_at_war_with = FROM }
+					NOT = { is_at_war_with = from }
 				}
-				end_truce = FROM
-				join_war = PREV
+				end_truce = from
+				join_war = prev
 			}
 		}
 	}

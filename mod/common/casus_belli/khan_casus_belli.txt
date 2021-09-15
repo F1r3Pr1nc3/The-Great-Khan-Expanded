@@ -12,21 +12,21 @@ cb_satrapy_subjugation = {
 		# 	}
 		# 	is_country_type = awakened_marauders types do not allow CBs
 		# }
-		# NOT = { is_in_federation_with = FROM }
+		# NOT = { is_in_federation_with = from }
 	}
 	is_valid = {
-		exists = FROM
+		exists = from
 		NOR = {
-			is_in_federation_with = FROM
-			is_overlord_to = FROM
+			is_in_federation_with = from
+			is_overlord_to = from
 			has_valid_civic = civic_inwards_perfection
 			has_authority = auth_machine_intelligence
 			# has_authority = auth_corporate
 		}
-		FROM = { is_subject_of_khan = no }
+		from = { is_subject_of_khan = no }
 		event_target:raider_khanate = {
 			is_country_type = awakened_marauders
-			NOT = { is_same_empire = FROM }
+			NOT = { is_same_empire = from }
 		}
 	}
 }

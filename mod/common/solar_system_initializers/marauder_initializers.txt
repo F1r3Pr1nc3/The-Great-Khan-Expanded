@@ -2131,31 +2131,23 @@ marauder_3_1 = {
 				civics = { civic = civic_anarcho_tribalism civic = civic_warrior_culture civic = civic_barbaric_despoilers }
 				origin = "origin_void_dwellers"
 				flag = {
-					background= {
-						category = "backgrounds"
-						file = "00_solid.dds"
-					}
-					colors={
-						"black"
-						"black"
-						"null"
-						"null"
-					}
+					background= { category = "backgrounds" file = "00_solid.dds" }
+					colors={ "black" "black" "null" "null" }
 				}
 				ethos = {
 					ethic = ethic_fanatic_spiritualist
 					ethic = ethic_xenophobe
 				}
 				ignore_initial_colony_error = yes
-			}
-			last_created_country = {
-				set_graphical_culture = madd_01
-				save_global_event_target_as = marauder_country_3
-				set_country_flag = marauder_3
-				set_name = random
-				create_ship_design = { design = "NAME_Marauder_Starbase" }
-				add_ship_design = last_created_design
-				set_custom_capital_location = prev
+				effect = {
+					set_graphical_culture = madd_01
+					save_global_event_target_as = marauder_country_3
+					set_country_flag = marauder_3
+					set_name = random
+					create_ship_design = { design = "NAME_Marauder_Starbase" }
+					add_ship_design = last_created_design
+					set_custom_capital_location = prev
+				}
 			}
 
 			create_fleet = {

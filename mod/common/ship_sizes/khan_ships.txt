@@ -32,7 +32,7 @@ npc_galleon_01 = {
 	num_target_locators = 0
 	is_space_station = no
 	icon_frame = 6
-	text_icon = military_size_16
+	icon = ship_size_military_16
 	combat_disengage_chance = 1.25
 	is_civilian = no
 	# auto_upgrade = yes
@@ -130,5 +130,5 @@ starbase_marauder = {
 		}
 	}
 	icon_frame = -1
-	text_icon = military_size_station
+	icon = ship_size_military_station
 }
