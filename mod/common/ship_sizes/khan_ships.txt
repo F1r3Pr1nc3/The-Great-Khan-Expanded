@@ -31,7 +31,7 @@ npc_galleon_01 = {
 	section_slots = { "mid" = { locator = "part1" } }
 	num_target_locators = 0
 	is_space_station = no
-	icon_frame = 6
+	# icon_frame = 6
 	icon = ship_size_military_16
 	combat_disengage_chance = 1.25
 	is_civilian = no
