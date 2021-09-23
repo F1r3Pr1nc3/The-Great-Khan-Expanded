@@ -1,4 +1,4 @@
-version="1.4.1"
+version="1.4.3"
 tags={
 	"Events"
 	"Crisis"
@@ -6,6 +6,7 @@ tags={
 }
 dependencies={
 	"Marauders but Cooler"
+	"Marauders Remodeled"
 }
 name="The Great Khan Expanded [3.1.☠]"
 supported_version="3.1.*"

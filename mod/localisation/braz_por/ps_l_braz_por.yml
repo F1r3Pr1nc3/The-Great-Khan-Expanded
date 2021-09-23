@@ -383,22 +383,22 @@
 
  # Temporary unused
  seekers_of_luck.1.name:0 "Asteroid Station built"
- seekers_of_luck.1.desc:0 "Asteroid station in the system §H[From.solar_system.GetName]§! is built, but since it was built in the system within our borders, none of the pirates wanted to populate it. Now it's just an asteroid with guns."
+ seekers_of_luck.1.desc:0 "Asteroid station in the system §H[From.System.GetName]§! is built, but since it was built in the system within our borders, none of the pirates wanted to populate it. Now it's just an asteroid with guns."
 
  seekers_of_luck.2.name:0 "Asteroid Station built"
- seekers_of_luck.2.desc:0 "The asteroid station in the system §H[From.solar_system.GetName]§! is built. We selected the maximum design available for us. The station will be controlled by us. The difference in price will be returned or debited from the account."
+ seekers_of_luck.2.desc:0 "The asteroid station in the system §H[From.System.GetName]§! is built. We selected the maximum design available for us. The station will be controlled by us. The difference in price will be returned or debited from the account."
  seekers_of_luck.2.a:0 "Additional fee will be taken: -[this.StationAdditionalpayment] (Refund: [this.RefundPayment])"
  seekers_of_luck.2.b:0 "Refund:+[this.StationAdditionalpayment] (Refund: [this.RefundPayment])"
  seekers_of_luck.2.c:0 "No additional fee is needed."
 
  seekers_of_luck.3.name:0 "Empty Pirate Hideout built"
- seekers_of_luck.3.desc:0 "Empty Pirate Hideout in the system §H[From.solar_system.GetName]§! built. We selected the maximum design available for us. In a month or two, the station will be populated by pirates.\n§HThey will attack everyone, including us, it's time to take the building ship from here!§!\nThe difference in price will be returned or debited from the account."
+ seekers_of_luck.3.desc:0 "Empty Pirate Hideout in the system §H[From.System.GetName]§! built. We selected the maximum design available for us. In a month or two, the station will be populated by pirates.\n§HThey will attack everyone, including us, it's time to take the building ship from here!§!\nThe difference in price will be returned or debited from the account."
  seekers_of_luck.3.a:0 "Additional fee will be taken: -[this.StationAdditionalpayment] (Refund: [this.RefundPayment])"
  seekers_of_luck.3.b:0 "Refund:+[this.StationAdditionalpayment] (Refund: [this.RefundPayment])"
  seekers_of_luck.3.c:0 "No additional fee is needed."
 
  seekers_of_luck.4.name:0 "Reinforsment arrived"
- seekers_of_luck.4.desc:0 "Pirate arrived in System §H[From.solar_system.GetName]§! and occupied asteroid station. System has become dangerous for us"
+ seekers_of_luck.4.desc:0 "Pirate arrived in System §H[From.System.GetName]§! and occupied asteroid station. System has become dangerous for us"
 
  ######################
  #   COMPONENT SETS   #

@@ -1816,34 +1816,36 @@ event = {
 				CmtTriggerIsKhanCountry = yes
 				NOT = { has_country_flag = CmtFlagKhanNoDieCountry }
 			}
-			random_list = {
-				2 = {
-					event_target:raider_khanate = { country_event = { id = marauder.512 } }
-					modifier = {
-						factor = 0
-						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 6 } }
+			event_target:CmtGlobalVar = {
+				random_list = {
+					2 = {
+						event_target:raider_khanate = { country_event = { id = marauder.512 } }
+						modifier = {
+							factor = 0
+							check_variable = { which = CmtVarKhanLifespan value = 6 }
+						}
 					}
-				}
-				98 = {
-					modifier = {
-						factor = @CmtConstKhanLifespan_1b
-						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 1 } }
-					}
-					modifier = {
-						factor = @CmtConstKhanLifespan_2b
-						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 2 } }
-					}
-					modifier = {
-						factor = @CmtConstKhanLifespan_3b
-						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 3 } }
-					}
-					modifier = {
-						factor = @CmtConstKhanLifespan_4b
-						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 4 } }
-					}
-					modifier = {
-						factor = @CmtConstKhanLifespan_5b
-						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 5 } }
+					98 = {
+						modifier = {
+							factor = @CmtConstKhanLifespan_1b
+							check_variable = { which = CmtVarKhanLifespan value = 1 }
+						}
+						modifier = {
+							factor = @CmtConstKhanLifespan_2b
+							check_variable = { which = CmtVarKhanLifespan value = 2 }
+						}
+						modifier = {
+							factor = @CmtConstKhanLifespan_3b
+							check_variable = { which = CmtVarKhanLifespan value = 3 }
+						}
+						modifier = {
+							factor = @CmtConstKhanLifespan_4b
+							check_variable = { which = CmtVarKhanLifespan value = 4 }
+						}
+						modifier = {
+							factor = @CmtConstKhanLifespan_5b
+							check_variable = { which = CmtVarKhanLifespan value = 5 }
+						}
 					}
 				}
 			}
@@ -2319,7 +2321,7 @@ planet_event = {
 		set_timed_planet_flag = { flag = planet_raided days = 300 }
 		if = {
 			limit = {
-				CmtTriggerIsPlayableEmpire = yes
+				planet_owner = { CmtTriggerIsPlayableEmpire = yes }
 				num_pops < 2
 			}
 			owner = {
@@ -2556,9 +2558,7 @@ country_event = {
 		# 	has_global_flag = great_khan_dead
 		# }
 	}
-	immediate = {
-		set_country_flag = marauder_diplomacy_engaged
-	}
+	immediate = { set_country_flag = marauder_diplomacy_engaged }
 	after = {
 		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
 	}
@@ -3218,7 +3218,7 @@ country_event = {
 				# any_war = { is_war_participant = root }
 			}
 			every_war = { # End Expansion War
-				limit = { is_war_participant = root }
+				# limit = { is_war_participant = { who = root side = attackers } }
 				end_war_effect = yes
 			}
 		} # End Khan Extended
@@ -3439,9 +3439,7 @@ country_event = {
 			clear_variable = "successor_fleet_power"
 		}
 	}
-	after = {
-		destroy_country = yes
-	}
+	after = { destroy_country = yes }
 }
 
 # The New Khanate (HIDDEN)
@@ -3463,7 +3461,7 @@ country_event = {
 			}
 			origin = "origin_khan_successor"
 			# flag = {
-			# 	icon = { category = "pirate" file =  }
+			# 	icon = { category = "pirate" file = }
 			# 	background = { category = "backgrounds" file = "triangle_split.dds" }
 			# 	colors = { "red" "black" "null" "null" }
 			# }
@@ -3721,9 +3719,7 @@ country_event = {
 				NOT = { exists = event_target:new_khanate }
 				last_created_country = { has_origin = "origin_khan_successor" }
 			}
-			last_created_country = {
-				save_event_target_as = new_khanate
-			}
+			last_created_country = { save_event_target_as = new_khanate }
 		}
 		if = { limit = { NOT = { exists = event_target:new_khanate } }
 			break = yes
@@ -4442,6 +4438,11 @@ country_event = {
 				}
 			}
 			set_subject_of = { who = none }
+			set_faction_hostility = {
+				target = from
+				# set_friendly = no
+				set_hostile = yes
+			}
 			set_country_flag = rebelling_satrapy # if choosen Horde gets removed
 		}
 		if = { limit = { has_modifier = "satrapy_of_horde" }
@@ -4475,6 +4476,11 @@ country_event = {
 		hidden_effect = {
 			if = { limit = { has_country_flag = rebelling_satrapy }
 				remove_country_flag = rebelling_satrapy
+				set_faction_hostility = {
+					target = event_target:raider_khanate
+					# set_hostile = no
+					set_friendly = yes
+				}
 			}
 			set_country_flag = war_in_heaven_picked_side
 			set_country_flag = war_in_heaven_league_leader_declined
@@ -4656,19 +4662,23 @@ country_event = {
 		name = war_in_heaven.4.d
 		trigger = { is_subject = yes }
 		if = {
-			limit = { overlord = { is_same_value = event_target:FirstSleeper } }
+			limit = { overlord = { is_same_empire = event_target:FirstSleeper } }
 			join_war = event_target:FirstSleeper
 		}
 		else_if = {
-			limit = { overlord = { is_same_value = from } }
+			limit = { overlord = { is_same_empire = from } }
 			join_war = from
+		}
+		ai_chance = {
+			factor = 100
+			modifier = { factor = 0 is_subject = no }
 		}
 	}
 	option = {		## For ZoFE
 		name = war_in_heaven.4.e
 		trigger = { is_zofe_ae = yes }
 		ai_chance = {
-			factor = 100
+			factor = 10
 			modifier = {
 				factor = 0.5
 				fleet_power < 25000
@@ -4713,11 +4723,18 @@ country_event = {
 				join_war = root
 			}
 		}
+		ai_chance = {
+			factor = 20
+			modifier = { factor = 0 is_zofe_ae = no }
+		}
 	}
 	option = {
 		name = war_in_heaven.4.f
 		trigger = { is_zofe_fe = yes }
-		ai_chance = { factor = 500 }
+		ai_chance = {
+			factor = 50
+			modifier = { factor = 0 is_zofe_fe = no }
+		}
 	}
 	# after = {}
 }
@@ -4768,7 +4785,10 @@ country_event = {
 		remove_global_flag = war_in_heaven_nonaligned_league
 		remove_global_flag = war_in_heaven_seeking_league_leader
 		every_playable_country = {
-			limit = { CmtTriggerIsPlayableEmpire = yes }
+			limit = {
+				CmtTriggerIsPlayableEmpire = yes
+				NOT = { is_same_empire = root }
+			}
 			country_event = { id = khan.291  days = @CmtConstKhanLifespan_1f }
 		}
 		set_global_flag = war_in_heaven_debug
@@ -5037,7 +5057,7 @@ country_event = {
 			clear_variable = inc_fleet_power
 		}
 		change_variable = { which = inc_fleet_power value = -48000 }
-		log="Check great_khan_wins: global fleet_power \[This.inc_fleet_power]"
+		log="Check great_khan_wins: global fleet_power \\[This.inc_fleet_power]"
 		export_trigger_value_to_variable = { trigger = fleet_power variable = khan_fleet_power }
 
 		# Since 3.1 - sum subject galaxy_percentage to Khan
@@ -5049,7 +5069,7 @@ country_event = {
 			# prev = { change_variable = { which = khan_galaxy_pct value = prev.khan_galaxy_pct } }
 			prev = { change_variable = { which = khan_galaxy_pct value = prev.trigger:galaxy_percentage } }
 		}
-		log="Check great_khan_wins: galaxy_percentage \[This.khan_galaxy_pct]"
+		log="Check great_khan_wins: galaxy_percentage \\[This.khan_galaxy_pct]"
 
 		if = {
 			limit = {
@@ -5126,6 +5146,34 @@ event = {
 				# set_variable = { which = CmtVarFleetPower_Khan value = 2 }
 				set_variable = { which = CmtVarCrisisPower_Midgame value = 4 }
 				CmtEffectDifficulty_MidgameVeryHard = yes
+			}
+		}
+		if = { # Workaraound bugfix (unknown reason on saveload): Khan fights own subjects (seems since 3.1)
+			limit = {
+				has_global_flag = marauder_crisis_ongoing
+				exists = event_target:raider_khanate
+				exists = event_target:raider_khanate.overlord # event_target:raider_khanate = { is_overlord = yes }
+			}
+			event_target:raider_khanate = {
+				every_subject = {
+					limit = {
+						is_subject_of_khan = yes
+						NOT = { has_country_flag = rebelling_satrapy }
+						prev = { is_hostile = prev }
+					}
+					set_faction_hostility = {
+						target = prev
+						set_hostile = no
+						set_friendly = yes
+					}
+					prev = {
+						set_faction_hostility = {
+							target = prev
+							set_hostile = no
+							set_friendly = yes
+						}
+					}
+				}
 			}
 		}
 	}
@@ -5928,7 +5976,7 @@ country_event = {
 					modifier = {
 						add = 3
 						# Prefer to place with existing planets
-						any_system_planet = { colonizeable_planet = yes }
+						any_system_planet = { colonizable_planet = yes }
 					}
 					modifier = { add = 1 starbase = { has_starbase_size >= starbase_starhold } }
 					modifier = { add = 3
@@ -5946,8 +5994,7 @@ country_event = {
 						}
 					}
 				}
-				system_event = { id = khan.622 days = 7
-				random = 14 }
+				system_event = { id = khan.622 days = 7 random = 14 }
 			}
 		}
 	}
@@ -6207,13 +6254,13 @@ country_event = {
 		capital_scope = {
 			create_fleet = {
 				effect = {
-					set_owner = prev
+					set_owner = root
 					random_list = {
 						99 = {
 							while = { count = 2 CmtEffectCreateShip_KhanArmy = { TYPE = "machine_assault_3" } }
 							modifier = {
 								factor = 0
-								prev = {
+								root = {
 									NOR = {
 										has_authority = auth_machine_intelligence
 										has_technology = tech_biomechanics
@@ -6225,7 +6272,7 @@ country_event = {
 							while = { count = 2 CmtEffectCreateShip_KhanArmy = { TYPE = "gene_warrior_army" } }
 							modifier = {
 								factor = 0
-								prev = {
+								root = {
 									OR = {
 										has_authority = auth_machine_intelligence
 										NOT = { has_technology = tech_gene_seed_purification }
@@ -6237,7 +6284,7 @@ country_event = {
 							while = { count = 3 CmtEffectCreateShip_KhanArmy = { TYPE = "psionic_army" } }
 							modifier = {
 								factor = 0
-								prev = {
+								root = {
 									OR = {
 										has_authority = auth_machine_intelligence
 										NOT = { has_technology = tech_telepathy }
@@ -6249,7 +6296,7 @@ country_event = {
 							while = { count = 5 CmtEffectCreateShip_KhanArmy = { TYPE = "machine_assault_2" } }
 							modifier = {
 								factor = 0
-								prev = {
+								root = {
 									NOR = {
 										has_authority = auth_machine_intelligence
 										has_technology = tech_adaptive_combat_algorithms
@@ -6261,7 +6308,7 @@ country_event = {
 							while = { count = 5 CmtEffectCreateShip_KhanArmy = { TYPE = "clone_army" } }
 							modifier = {
 								factor = 0
-								prev = {
+								root = {
 									OR = {
 										has_authority = auth_machine_intelligence
 										NOT = { has_technology = tech_gene_banks }
@@ -6273,7 +6320,7 @@ country_event = {
 						# 	while = { count = 5 CmtEffectCreateShip_KhanArmy = { TYPE = "slave_army" } }
 						# 	modifier = {
 						# 		factor = 0
-						# 		prev = {
+						# 		root = {
 						# 			OR = {
 						# 				has_authority = auth_machine_intelligence
 						# 				NOT = { has_policy_flag = slavery_allowed }
@@ -6748,7 +6795,7 @@ country_event = {
 		}
 	}
 	option = {
-		name = CrisisManagerMenu.7136a.name # TODO find something better
+		name = NEGOTIATE # TODO find something better
 		default_hide_option = yes
 		ai_chance = { factor = 0 }
 	}

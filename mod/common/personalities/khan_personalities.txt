@@ -40,7 +40,9 @@ hegemonic_imperialists = {
 	allow = {
 		OR = {
 			is_country_type = awakened_marauders
-			CmtTriggerIsPlayableEmpire = yes
+			is_country_type = default
+			is_ai = no
+			# CmtTriggerIsPlayableEmpire = yes
 		}
 		is_pacifist = no
 		OR = {
