@@ -501,14 +501,44 @@ country_event = {
 
 	immediate = {
 		if = {
-			limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanMultiple value = 5 } } }
+			limit = {
+				event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanMultiple value = 5 } }
+				OR = {
+					NOT = { has_global_flag = great_khan_wins }
+					AND = {
+						num_marauder_empires_to_spawn > 2
+						exists = event_target:CmtTargetMarauderRallyPoint1
+						exists = event_target:CmtTargetMarauderRallyPoint2
+						exists = event_target:CmtTargetMarauderRallyPoint3
+					}
+					AND = {
+						num_marauder_empires_to_spawn > 1
+						exists = event_target:CmtTargetMarauderRallyPoint1
+						exists = event_target:CmtTargetMarauderRallyPoint2
+					}
+					AND = {
+						num_marauder_empires_to_spawn > 0
+						exists = event_target:CmtTargetMarauderRallyPoint1
+					}
+				}
+			}
 			every_planet_within_border = {
 				limit = { has_planet_flag = CmtFlagMarauderExpRallyPoint }
-				switch = {
-					trigger = is_same_value
-					event_target:CmtTargetMarauderRallyPoint1 = { CmtEffectCreateAdmiralty_KhanMercenaries1 = yes }
-					event_target:CmtTargetMarauderRallyPoint2 = { CmtEffectCreateAdmiralty_KhanMercenaries2 = yes }
-					event_target:CmtTargetMarauderRallyPoint3 = { CmtEffectCreateAdmiralty_KhanMercenaries3 = yes }
+				# switch = {
+				# 	trigger = is_same_value
+				# 	event_target:CmtTargetMarauderRallyPoint1 = { CmtEffectCreateAdmiralty_KhanMercenaries1 = yes }
+				# 	event_target:CmtTargetMarauderRallyPoint2 = { CmtEffectCreateAdmiralty_KhanMercenaries2 = yes }
+				# 	event_target:CmtTargetMarauderRallyPoint3 = { CmtEffectCreateAdmiralty_KhanMercenaries3 = yes }
+				# }
+				if = {
+					limit = { exists = event_target:CmtTargetMarauderRallyPoint1 is_same_value = event_target:CmtTargetMarauderRallyPoint1 }
+					CmtEffectCreateAdmiralty_KhanMercenaries1 = yes
+				} else_if = {
+					limit = { exists = event_target:CmtTargetMarauderRallyPoint2 is_same_value = event_target:CmtTargetMarauderRallyPoint2 }
+					CmtEffectCreateAdmiralty_KhanMercenaries2 = yes
+				} else_if = {
+					limit = { exists = event_target:CmtTargetMarauderRallyPoint3 is_same_value = event_target:CmtTargetMarauderRallyPoint3 }
+					CmtEffectCreateAdmiralty_KhanMercenaries3 = yes
 				}
 			}
 		} else = {
@@ -519,25 +549,26 @@ country_event = {
 				marauder_3 = { event_target:marauder_rally_point = { CmtEffectCreateAdmiralty_KhanMercenaries3 = yes } }
 			}
 		}
+
 		event_target:marauder_rally_point = {
 			solar_system = { system_event = { id = khan.301 } }
 		}
 		set_country_flag = declared_crisis
 	}
 
-	after = {
-		hidden_effect = {
-			if = { limit = { exists = event_target:CmtTargetMarauderRallyPoint1 }
-				clear_global_event_target = CmtTargetMarauderRallyPoint1
-			}
-			if = { limit = { exists = event_target:CmtTargetMarauderRallyPoint2 }
-				clear_global_event_target = CmtTargetMarauderRallyPoint2
-			}
-			if = { limit = { exists = event_target:CmtTargetMarauderRallyPoint3 }
-				clear_global_event_target = CmtTargetMarauderRallyPoint3
-			}
-		}
-	}
+	# after = {
+	# 	hidden_effect = {
+	# 		if = { limit = { exists = event_target:CmtTargetMarauderRallyPoint1 }
+	# 			clear_global_event_target = CmtTargetMarauderRallyPoint1
+	# 		}
+	# 		if = { limit = { exists = event_target:CmtTargetMarauderRallyPoint2 }
+	# 			clear_global_event_target = CmtTargetMarauderRallyPoint2
+	# 		}
+	# 		if = { limit = { exists = event_target:CmtTargetMarauderRallyPoint3 }
+	# 			clear_global_event_target = CmtTargetMarauderRallyPoint3
+	# 		}
+	# 	}
+	# }
 }
 
 ### Start Marauder pirate01 -> madd_01 Gfxculture Override
@@ -657,6 +688,7 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
+		num_marauder_empires_to_spawn > 0
 		CmtTriggerNowInKhanCrisis = no
 		CmtTriggerHasPotentialKhanAwaking = yes
 	}
@@ -742,12 +774,12 @@ country_event = {
 				save_global_event_target_as = marauder_country_1
 			}
 		}
-		if = { limit = { NOT = { exists = event_target:marauder_country_2 } }
+		if = { limit = { num_marauder_empires_to_spawn > 1 NOT = { exists = event_target:marauder_country_2 } }
 			random_country = { limit = { has_country_flag = marauder_2 }
 				save_global_event_target_as = marauder_country_2
 			}
 		}
-		if = { limit = { NOT = { exists = event_target:marauder_country_3 } }
+		if = { limit = { num_marauder_empires_to_spawn > 2 NOT = { exists = event_target:marauder_country_3 } }
 			random_country = { limit = { has_country_flag = marauder_3 }
 				save_global_event_target_as = marauder_country_3
 			}
@@ -769,18 +801,28 @@ country_event = {
 							}
 						} else = {	## Backup Code: raid_source NOT Found in Capital System
 							random_system_planet = {
-								limit = { is_star = no is_colony = yes }
+								limit = { is_planet = this }
+								weights = {
+									base = 1
+									modifier = { add = 2 is_colony = yes }
+									modifier = { add = 1 is_colonizable = yes }
+								}
 								save_global_event_target_as = CmtTargetMarauderRallyPoint1
 							}
-							# log = "Backup Code for CmtTargetMarauderRallyPoint1 - 1 Processed"
+							log = "Backup Code for CmtTargetMarauderRallyPoint1 - 1 Processed"
 						}
 					}
 				} else = {	## Backup Code: Capital System NOT Found
 					random_planet_within_border = {
-						limit = { is_star = no is_colony = yes }
+						limit = { is_planet = this }
+						weights = {
+							base = 1
+							modifier = { add = 2 is_colony = yes }
+							modifier = { add = 1 is_colonizable = yes }
+						}
 						save_global_event_target_as = CmtTargetMarauderRallyPoint1
 					}
-					# log = "Backup Code for CmtTargetMarauderRallyPoint1 - 2 Processed"
+					log = "Backup Code for CmtTargetMarauderRallyPoint1 - 2 Processed"
 					# Recover former capital
 					if = {
 						limit = {
@@ -820,19 +862,29 @@ country_event = {
 							}
 						} else = {	## Backup Code: raid_source NOT found in Capital System
 							random_system_planet = {
-								limit = { is_star = no is_colony = yes }
+								limit = { is_planet = this }
+								weights = {
+									base = 1
+									modifier = { add = 2 is_colony = yes }
+									modifier = { add = 1 is_colonizable = yes }
+								}
 								save_global_event_target_as = CmtTargetMarauderRallyPoint2
 							}
-							# log = "Backup Code for CmtTargetMarauderRallyPoint2 - 1 Processed"
+							log = "Backup Code for CmtTargetMarauderRallyPoint2 - 1 Processed"
 						}
 					}
 				} else = {
 					## Backup Code: Capital System NOT Found
 					random_planet_within_border = {
-						limit = { is_star = no is_colony = yes }
+						limit = { is_planet = this }
+						weights = {
+							base = 1
+							modifier = { add = 2 is_colony = yes }
+							modifier = { add = 1 is_colonizable = yes }
+						}
 						save_global_event_target_as = CmtTargetMarauderRallyPoint2
 					}
-					# log = "Backup Code for CmtTargetMarauderRallyPoint2 - 2 Processed"
+					log = "Backup Code for CmtTargetMarauderRallyPoint2 - 2 Processed"
 					# Recover former capital
 					if = {
 						limit = {
@@ -872,18 +924,28 @@ country_event = {
 							}
 						} else = {	## Backup Code: raid_source NOT Found in Capital System
 							random_system_planet = {
-								limit = { is_star = no is_colony = yes }
+								limit = { is_planet = this }
+								weights = {
+									base = 1
+									modifier = { add = 2 is_colony = yes }
+									modifier = { add = 1 is_colonizable = yes }
+								}
 								save_global_event_target_as = CmtTargetMarauderRallyPoint3
 							}
-							# log = "Backup Code for CmtTargetMarauderRallyPoint3 - 1 Processed"
+							log = "Backup Code for CmtTargetMarauderRallyPoint3 - 1 Processed"
 						}
 					}
 				} else = {	## Backup Code: Capital System NOT Found
 					random_planet_within_border = {
-						limit = { is_star = no is_colony = yes }
+						limit = { is_planet = this }
+						weights = {
+							base = 1
+							modifier = { add = 2 is_colony = yes }
+							modifier = { add = 1 is_colonizable = yes }
+						}
 						save_global_event_target_as = CmtTargetMarauderRallyPoint3
 					}
-					# log = "Backup Code for CmtTargetMarauderRallyPoint3 - 2 Processed"
+					log = "Backup Code for CmtTargetMarauderRallyPoint3 - 2 Processed"
 					# Recover former capital
 					if = {
 						limit = {
@@ -1187,7 +1249,7 @@ country_event = {
 			}
 		}
 		country_event = { id = marauder.78 days = 20 }		## Mercenaries Join
-		country_event = { id = marauder.520 days = 180 }	## Reinforcement cycle
+		country_event = { id = marauder.520 days = 210 }	## Reinforcement cycle
 		event_target:CmtGlobalVar = { set_variable = { which = CmtVarKhanReinforcementCounter value = 10 } }
 
 		### Should not attack: the Khan is not that bad!
@@ -1608,7 +1670,7 @@ country_event = {
 			country_event = { id = marauder.523 days = 5 }
 		} else = {
 			event_target:global_event_country = {
-				country_event = { id = marauder.523 days = 180 random = 160 }
+				country_event = { id = marauder.523 days = 210 random = 160 }
 			}
 		}
 		# Back to the fold
@@ -2024,41 +2086,7 @@ country_event = {
 					create_fleet = {
 						effect = {
 							set_owner = root
-							while = {
-								count = 2
-								while = {
-									count = 10
-									create_ship = {
-										name = random
-										design = "NAME_Outrider_4"
-										# graphical_culture = root
-									}
-								}
-								while = {
-									count = 5
-									create_ship = {
-										name = random
-										design = "NAME_Lancer_4"
-										# graphical_culture = root
-									}
-								}
-								while = {
-									count = 3
-									create_ship = {
-										name = random
-										design = "NAME_Void_Champion_4"
-										# graphical_culture = root
-									}
-								}
-								while = {
-									count = 1
-									create_ship = {
-										name = random
-										design = "NAME_Ancestral_Glory_4"
-										# graphical_culture = root
-									}
-								}
-							}
+							create_dyn_marauder_fleet = { OUTRIDER = 20 LANCER = 10 CHAMPION = 6 VARIANT = "_4" }
 							set_location = {
 								target = prev
 								distance = 20
@@ -2083,11 +2111,11 @@ country_event = {
 						}
 					}
 					log = "machinesmith sold"
-					country_event = { id = marauder.520 days = 180 } # Improved cycle
+					country_event = { id = marauder.520 days = 360 } # Improved cycle
 					break = yes
 				}
 				remove_country_flag = has_machinesmith # Regular cycle
-				country_event = { id = marauder.520 days = 220 }
+				country_event = { id = marauder.520 days = 330 }
 			}
 			else = {
 				event_target:CmtGlobalVar = {
@@ -2130,7 +2158,7 @@ country_event = {
 				# country_event = { id = khan.529 }
 			}
 		} else = {
-			country_event = { id = marauder.520 days = 180 }
+			country_event = { id = marauder.520 days = 210 }
 		}
 	}
 }
@@ -2869,6 +2897,11 @@ country_event = {
 			set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
 
 			if = {
+				limit = { has_federation = yes is_in_federation_with = event_target:raider_khanate }
+				leave_alliance = { override_requirements = yes }
+			}
+
+			if = {
 				limit = { is_ai = yes }
 				event_target:raider_khanate = {
 					random_owned_fleet = {
@@ -2891,7 +2924,10 @@ country_event = {
 					}
 				}
 			}
-
+			every_war = { # End War
+				limit = { is_war_participant = { who = event_target:raider_khanate } }
+				remove_war_participant = prev
+			}
 			declare_war = {
 				target = event_target:raider_khanate
 				name = "NAME_Rebellion"
@@ -3140,7 +3176,7 @@ fleet_event = {
 			# 			}
 			# 		}
 			# 	}
-			fleet_event = { id = marauder.560 days = 400 random = 400 }
+			fleet_event = { id = marauder.560 days = 600 random = 300 }
 			if = {
 				limit = {
 					solar_system = {
@@ -3219,7 +3255,12 @@ country_event = {
 			}
 			every_war = { # End Expansion War
 				# limit = { is_war_participant = { who = root side = attackers } }
-				end_war_effect = yes
+				limit = { is_scope_type = war } # TODO because of strange error log unknown Invalid Scope type for effect 'every_war_participant'. Current Scope: country Supported Scopes: war
+				# end_war_effect = yes
+				every_war_participant = {
+					limit = { NOT = { is_same_empire = root } } # don't break the loop
+					prev = { remove_war_participant = prev }
+				}
 			}
 		} # End Khan Extended
 
@@ -3358,6 +3399,19 @@ country_event = {
 					limit = { check_variable = { which = CmtVarKhanInterval value >= @CmtConstKhanInterval_T0 } }
 					set_timed_global_flag = { flag = CmtFlagNowInKhanInterval days = @CmtConstTUnq_ConstKhanInterval }
 				} ### Do nothing on < @CmtConstKhanInterval_T0
+			}
+		}
+	}
+	after = {
+		hidden_effect = {
+			if = { limit = { exists = event_target:CmtTargetMarauderRallyPoint1 }
+				clear_global_event_target = CmtTargetMarauderRallyPoint1
+			}
+			if = { limit = { exists = event_target:CmtTargetMarauderRallyPoint2 }
+				clear_global_event_target = CmtTargetMarauderRallyPoint2
+			}
+			if = { limit = { exists = event_target:CmtTargetMarauderRallyPoint3 }
+				clear_global_event_target = CmtTargetMarauderRallyPoint3
 			}
 		}
 	}
@@ -3989,7 +4043,7 @@ country_event = {
 		ai_chance = { factor = 100 }
 		join_alliance = {
 			who = event_target:new_khanate
-			name = NAME_Galactic_Horde
+			name = "NAME_Galactic_Horde"
 			override_requirements = yes
 		}
 	}
@@ -4065,8 +4119,8 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		CmtTriggerIsKhanCountry = yes
 		has_global_flag = war_in_heaven_ongoing
+		CmtTriggerIsKhanCountry = yes
 		NOR = {
 			has_global_flag = war_in_heaven_nonaligned_league
 			has_global_flag = war_in_heaven_seeking_league_leader
@@ -4115,6 +4169,7 @@ country_event = {
 					any_member = {
 						is_federation_leader = yes
 						is_homicidal = no
+						has_been_declared_crisis = no
 						NOR = {
 							has_country_flag = war_in_heaven_league_leader_declined
 							any_country = {
@@ -4134,6 +4189,7 @@ country_event = {
 							any_member = {
 								is_federation_leader = yes
 								is_homicidal = no
+								has_been_declared_crisis = no
 								NOR = {
 									has_country_flag = war_in_heaven_league_leader_declined
 									any_country = {
@@ -4151,6 +4207,7 @@ country_event = {
 					any_member = {
 						is_federation_leader = yes
 						is_homicidal = no
+						has_been_declared_crisis = no
 						NOR = {
 							has_country_flag = war_in_heaven_league_leader_declined
 							any_country = {
@@ -4170,6 +4227,7 @@ country_event = {
 							any_member = {
 								is_federation_leader = yes
 								is_homicidal = no
+								has_been_declared_crisis = no
 								NOR = {
 									has_country_flag = war_in_heaven_league_leader_declined
 									any_country = {
@@ -4185,6 +4243,7 @@ country_event = {
 					limit = {
 						is_federation_leader = yes
 						is_homicidal = no
+						has_been_declared_crisis = no
 						NOR = {
 							has_country_flag = war_in_heaven_league_leader_declined
 							any_country = {
@@ -4386,6 +4445,10 @@ country_event = {
 				# }
 				set_country_flag = rebelling_satrapy
 				add_opinion_modifier = { modifier = opinion_traitor_to_empire who = prev }
+				if = {
+					limit = { has_federation = yes is_in_federation_with = event_target:raider_khanate }
+					leave_alliance = { override_requirements = yes }
+				}
 				set_faction_hostility = {
 					target = prev
 					set_hostile = yes
@@ -4467,6 +4530,9 @@ country_event = {
 				opinion_level = { who = event_target:raider_khanate level <= poor }
 			}
 		}
+		if = { limit = { has_federation = yes }
+			leave_alliance = { override_requirements = yes }
+		}
 		join_war = event_target:raider_khanate
 		join_alliance = {
 			who = event_target:raider_khanate
@@ -4476,9 +4542,10 @@ country_event = {
 		hidden_effect = {
 			if = { limit = { has_country_flag = rebelling_satrapy }
 				remove_country_flag = rebelling_satrapy
+				set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
 				set_faction_hostility = {
 					target = event_target:raider_khanate
-					# set_hostile = no
+					set_hostile = no
 					set_friendly = yes
 				}
 			}
@@ -4491,6 +4558,29 @@ country_event = {
 				add_opinion_modifier = { who = root modifier = opinion_war_in_heaven_ally }
 				copy_random_tech_from = { who = prev }
 				prev = { copy_random_tech_from = { who = prev } }
+			}
+			if = {
+				limit = {
+					exists = federation
+					federation = { NOT = { has_federation_flag = great_galactic_horde } }
+				}
+				federation = {
+					set_federation_flag = great_galactic_horde
+					if = {
+						limit = {
+							NOT = { has_federation_type = military_federation }
+							OR = {
+								prev = { is_ai = yes any_federation_ally = { count < 1 is_ai = no } }
+								has_federations_dlc = yes
+							}
+						}
+						set_federation_type = military_federation
+					}
+					if = { limit = { has_federation_perk = cohesion_join_1 }
+						add_cohesion = 50
+					} else = { add_cohesion = 100 }
+					add_federation_experience = 4200 # level 3 with some breathing room
+				}
 			}
 		}
 	}
@@ -4917,6 +5007,8 @@ country_event = {
 			### Unify All Marauders (Final War)
 			set_variable = { which = CmtVarKhanMultiple value = 5 }
 		}
+		save_event_target_as = new_khanate
+
 		every_country = {
 			limit = { is_country_type = dormant_marauders }
 			switch = {
@@ -4924,16 +5016,18 @@ country_event = {
 				marauder_1 = { every_playable_country = {
 					limit = { CmtTriggerCountryHiringMarauder1 = yes }
 					set_country_flag = CmtFlagHiringMarauder1
-				} }
+				} root = { set_country_flag = marauder_1 } }
 				marauder_2 = { every_playable_country = {
 					limit = { CmtTriggerCountryHiringMarauder2 = yes }
 					set_country_flag = CmtFlagHiringMarauder2
-				} }
+				} root = { set_country_flag = marauder_2 } }
 				marauder_3 = { every_playable_country = {
 					limit = { CmtTriggerCountryHiringMarauder3 = yes }
 					set_country_flag = CmtFlagHiringMarauder3
-				} }
+				} root = { set_country_flag = marauder_3 } }
 			}
+			country_event = { id = marauder.609 }
+			destroy_country = yes
 		}
 		every_playable_country = {
 			limit = {
@@ -4945,6 +5039,7 @@ country_event = {
 			}
 			country_event = { id = marauder.77 days = 18 }
 		}
+
 		country_event = { id = marauder.78 days = 21 }	## Mercenaries Join the Great Khan
 
 		locked_random_list = {
@@ -6093,7 +6188,7 @@ system_event = {
 			}
 			from = {
 				change_variable = { which = marauder_habitat_count value = -1 }
-				country_event = { id = khan.612 days = 180 }
+				country_event = { id = khan.612 days = 390 }  # Build Habitas
 			}
 		}
 	}
@@ -6147,6 +6242,11 @@ country_event = {
 			set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
 
 			if = {
+				limit = { has_federation = yes is_in_federation_with = event_target:raider_khanate }
+				leave_alliance = { override_requirements = yes }
+			}
+
+			if = {
 				limit = { is_ai = yes }
 				event_target:raider_khanate = {
 					random_owned_fleet = {
@@ -6169,7 +6269,10 @@ country_event = {
 					}
 				}
 			}
-
+			every_war = { # End War
+				limit = { is_war_participant = { who = event_target:raider_khanate } }
+				remove_war_participant = prev
+			}
 			declare_war = {
 				target = event_target:raider_khanate
 				name = "NAME_Rebellion"
@@ -6214,9 +6317,9 @@ country_event = {
 				event_target:raider_khanate = { fleet_power > 250000 }
 			}
 			event_target:raider_khanate = {
-				country_event = { id = khan.798 days = 180 }
+				country_event = { id = khan.798 days = 210 }
 				set_variable = { which = marauder_habitat_count value = 1 }
-				country_event = { id = khan.612 days = 7 }
+				country_event = { id = khan.612 days = 7 } # Build Habitas
 			}
 			break = yes
 		}
@@ -6430,7 +6533,7 @@ country_event = {
 					fleet_power > 300000
 				}
 			}
-			country_event = { id = khan.868 days = 180 }
+			country_event = { id = khan.868 days = 210 }
 			break = yes
 		}
 		country_event = { id = khan.299 } # end check
@@ -6440,41 +6543,7 @@ country_event = {
 				create_fleet = {
 					effect = {
 						set_owner = root
-						while = {
-							count = 2
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_Outrider_4"
-									# graphical_culture = root
-								}
-							}
-							while = {
-								count = 5
-								create_ship = {
-									name = random
-									design = "NAME_Lancer_4"
-									# graphical_culture = root
-								}
-							}
-							while = {
-								count = 3
-								create_ship = {
-									name = random
-									design = "NAME_Void_Champion_4"
-									# graphical_culture = root
-								}
-							}
-							while = {
-								count = 1
-								create_ship = {
-									name = random
-									design = "NAME_Ancestral_Glory_4"
-									# graphical_culture = root
-								}
-							}
-						}
+						create_dyn_marauder_fleet = { OUTRIDER = 20 LANCER = 10 CHAMPION = 6 VARIANT = "_4" }
 						set_location = {
 							target = prev
 							distance = 20
@@ -6498,11 +6567,11 @@ country_event = {
 					}
 				}
 				log = "machinesmith sold"
-				country_event = { id = khan.868 days = 180 } # Improved cycle
+				country_event = { id = khan.868 days = 270 } # Improved cycle
 				break = yes
 			}
 			remove_country_flag = has_machinesmith # Regular cycle
-			country_event = { id = marauder.520 days = 220 }
+			country_event = { id = marauder.520 days = 330 }
 		} else = {
 			country_event = { id = marauder.520 days = 96 }
 		}
@@ -6543,7 +6612,7 @@ country_event = {
 				}
 			}
 			# country_event = { id = khan.869 days = 340 }
-			country_event = { id = khan.870 days = 180 }
+			country_event = { id = khan.870 days = 210 }
 		}
 	}
 }
@@ -6567,60 +6636,47 @@ country_event = {
 		# log="khan.870 Cycle"
 		if = {
 			limit = {
+				count_owned_fleet = {
+					count < 10
+					limit = { is_civilian = yes is_ship_class = shipclass_constructor }
+				}
+			}
+			create_marauder_constructors = yes
+		}
+
+		if = {
+			limit = {
 				OR = {
 					NOT = { exists = event_target:marauder_rally_point }
 					fleet_power > 550000
 				}
 			}
-			country_event = { id = khan.870 days = 180 }
+			country_event = { id = khan.870 days = 210 }
 			set_variable = { which = marauder_habitat_count value = 1 }
-			country_event = { id = khan.612 days = 7 }
+			country_event = { id = khan.612 days = 7 } # Build Habitas
 			break = yes
 		}
-		create_marauder_constructors = yes
 		if = { limit = { num_armies < 50 }
 			create_marauder_armies = yes
 		}
 		if = {
-			limit = { fleet_power < 400000 }
+			limit = {
+				OR = {
+					fleet_power < 400000
+					AND = {
+						has_country_flag = marauder_1
+						has_country_flag = marauder_2
+						has_country_flag = marauder_3
+					}
+				}
+			}
 			if = { # at fleet cap, check again later
 				limit = { has_country_flag = has_machinesmith }
 				event_target:marauder_rally_point = {
 					create_fleet = {
 						effect = {
 							set_owner = root
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_Outrider_4"
-									# graphical_culture = root
-								}
-							}
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_Lancer_4"
-									# graphical_culture = root
-								}
-							}
-							while = {
-								count = 5
-								create_ship = {
-									name = random
-									design = "NAME_Void_Champion_4"
-									# graphical_culture = root
-								}
-							}
-							while = {
-								count = 2
-								create_ship = {
-									name = random
-									design = "NAME_Ancestral_Glory_4"
-									# graphical_culture = root
-								}
-							}
+							create_dyn_marauder_fleet = { OUTRIDER = 20 LANCER = 10 CHAMPION = 6 GLORY = 2 VARIANT = "_4" }
 							set_location = {
 								target = prev
 								distance = 20
@@ -6675,6 +6731,66 @@ country_event = {
 			}
 		}
 
+		if = { ## Unlimited Multiple Marauder (Khan can have multiple marauder_flags)
+			limit = {
+				OR = {
+					has_global_flag = great_khan_wins
+					event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanMultiple value = 5 } }
+				}
+			}
+			every_planet_within_border = {
+				limit = { has_planet_flag = CmtFlagMarauderExpRallyPoint }
+				if = {
+					limit = {
+						prev = { has_country_flag = marauder_1 }
+						OR = {
+							AND = {
+								exists = event_target:CmtTargetMarauderRallyPoint1
+								is_same_value = event_target:CmtTargetMarauderRallyPoint1
+							}
+							AND = {
+								exists = event_target:marauder_rally_point
+								is_same_value = event_target:marauder_rally_point
+							}
+						}
+					}
+					CmtEffectCreateAdmiralty_KhanMercenaries1 = yes
+				}
+				if = {
+					limit = {
+						prev = { has_country_flag = marauder_2 }
+						OR = {
+							AND = {
+								exists = event_target:CmtTargetMarauderRallyPoint2
+								is_same_value = event_target:CmtTargetMarauderRallyPoint2
+							}
+							AND = {
+								exists = event_target:marauder_rally_point
+								is_same_value = event_target:marauder_rally_point
+							}
+						}
+					}
+					CmtEffectCreateAdmiralty_KhanMercenaries2 = yes
+				}
+				if = {
+					limit = {
+						prev = { has_country_flag = marauder_3 }
+						OR = {
+							AND = {
+								exists = event_target:CmtTargetMarauderRallyPoint3
+								is_same_value = event_target:CmtTargetMarauderRallyPoint3
+							}
+							AND = {
+								exists = event_target:marauder_rally_point
+								is_same_value = event_target:marauder_rally_point
+							}
+						}
+					}
+					CmtEffectCreateAdmiralty_KhanMercenaries3 = yes
+				}
+			}
+		}
+
 		### Check machinesmith;
 		random_subject = {
 			limit = {
@@ -6691,11 +6807,11 @@ country_event = {
 				}
 			}
 			log = "Improved Machinesmith sold"
-			country_event = { id = khan.870 days = 180 } # Improved cycle
+			country_event = { id = khan.870 days = 210 } # Improved cycle
 			break = yes
 		}
 		remove_country_flag = has_machinesmith # Regular cycle
-		country_event = { id = khan.870 days = 180 }
+		country_event = { id = khan.870 days = 210 }
 	}
 }
 

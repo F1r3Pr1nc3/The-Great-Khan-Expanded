@@ -496,7 +496,11 @@ wg_war_in_heaven = {
 									}
 								}
 							}
-							end_war_effect = yes
+							# end_war_effect = yes
+							every_war_participant = {
+								limit = { NOT = { is_same_empire = prevprev } } # don't break the loop
+								prev = { remove_war_participant = prev }
+							}
 						}
 					}
 				}
@@ -540,7 +544,11 @@ wg_war_in_heaven = {
 									}
 								}
 							}
-							end_war_effect = yes
+							# end_war_effect = yes
+							every_war_participant = {
+								limit = { NOT = { is_same_empire = prevprev } } # don't break the loop
+								prev = { remove_war_participant = prev }
+							}
 						}
 					}
 				}
@@ -619,7 +627,11 @@ wg_war_in_heaven = {
 							}
 						}
 					}
-					end_war_effect = yes
+					# end_war_effect = yes
+					every_war_participant = {
+						limit = { NOT = { is_same_empire = prevprev } } # don't break the loop
+						prev = { remove_war_participant = prev }
+					}
 				}
 				remove_global_flag = war_in_heaven_started
 				remove_global_flag = war_in_heaven_ongoing
@@ -655,7 +667,11 @@ wg_war_in_heaven = {
 							}
 						}
 					}
-					end_war_effect = yes
+					# end_war_effect = yes
+					every_war_participant = {
+						limit = { NOT = { is_same_empire = prevprev } } # don't break the loop
+						prev = { remove_war_participant = prev }
+					}
 				}
 				# Need delay before checking whether to clear WiH flags; stalemate hasn't ended the war until this effect block finishes
 				# country_event = { id = war_in_heaven.106 days = 2 }
