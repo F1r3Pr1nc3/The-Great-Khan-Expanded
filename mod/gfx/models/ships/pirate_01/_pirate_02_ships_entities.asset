@@ -162,6 +162,7 @@ entity = {
 # 	name = "madd_01_pirate_base_entity"
 # 	clone = "pirate_01_pirate_base_entity"
 # }
+
 entity = {
 	name = "npf_01_dirty_npc_galleon_01_entity"
 	pdxmesh = "locator_mesh"
@@ -170,19 +171,11 @@ entity = {
 	###! POSITION = { +L/-R +Up/-Down +Rear/-Front } ###
 	locator = {
 		name = "part1"
-		position = {
-			0
-			0
-			0
-		}
+		position = { 0 0 0 }
 	}
 	locator = {
 		name = "explosion"
-		position = {
-			0
-			-15
-			-50
-		}
+		position = { 0 -15 -50 }
 	}
 	cull_radius = 10
 	default_state = "idle"

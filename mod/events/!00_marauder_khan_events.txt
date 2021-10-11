@@ -2784,7 +2784,7 @@ starbase_event = {
 								}
 							}
 							# Flip Starbase ownership (create new one)
-							system_event = { id = khan.310 days = 2 }
+							system_event = { id = khan.310 days = 1 }
 						}
 					}
 					if = {
@@ -2845,12 +2845,10 @@ planet_event = {
 		set_timed_planet_flag = { flag = planet_raided days = 300 }
 		if = {
 			limit = {
-				planet_owner = { CmtTriggerIsPlayableEmpire = yes }
+				owner = { CmtTriggerIsPlayableEmpire = yes }
 				num_pops < 2
 			}
-			owner = {
-				change_variable = { which = "planets_lost_to_marauder" value = 1 }
-			}
+			owner = { change_variable = { which = "planets_lost_to_marauder" value = 1 } }
 			destroy_colony = yes
 		} else = {
 			from = {
@@ -6335,12 +6333,13 @@ system_event = {
 		# system_owner does not exists
 		log="test khan.310 \\[former_starbase_owner.GetName] or \\[FromFrom.Owner.GetName]"
 		if = { limit = { exists = starbase has_owner = yes }
-			if = { limit = { NOT = { has_star_flag = starbase_destroyed } }
-				system_event = { id = khan.310 days = 2 scopes = { fromfrom = fromfrom } }
-				set_timed_star_flag = { flag = starbase_destroyed days = 6 }
-				log="khan.310 exists = starbase \\[former_starbase_owner.GetName] or \\[FromFrom.Owner.GetName]"
-			}
-			break = yes
+			delete_fleet = starbase.fleet
+			# if = { limit = { NOT = { has_star_flag = starbase_destroyed } }
+			# 	system_event = { id = khan.310 days = 1 scopes = { fromfrom = fromfrom } }
+			# 	set_timed_star_flag = { flag = starbase_destroyed days = 5 }
+			# 	log="khan.310 exists = starbase \\[former_starbase_owner.GetName] or \\[FromFrom.Owner.GetName]"
+			# }
+			# break = yes
 		}
 		if = {
 			limit = {
@@ -6352,8 +6351,8 @@ system_event = {
 			create_starbase = {
 				size = "starbase_starfortress"
 				owner = event_target:former_starbase_owner # from.owner
-				graphical_culture = event_target:former_starbase_owner
 				effect = {
+					# set_graphical_culture = event_target:former_starbase_owner
 					starbase_event = { id = khan.302 days = 20 } # workaround
 				}
 			}
