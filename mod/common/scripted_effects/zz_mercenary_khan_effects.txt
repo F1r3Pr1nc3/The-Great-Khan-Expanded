@@ -1,5 +1,5 @@
 # Replaced graphical_culture = "pirate_01"
-# Not really necessary, as vanilla graphical_culture gets ignored if invalid
+# Not really necessary, as vanilla graphical_culture gets ignored if invalid.
 create_dyn_marauder_fleet = {
 	# default: OUTRIDER = 18 LANCER = 12 CHAMPION = 6 GLORY = 1
 
@@ -55,7 +55,7 @@ create_1st_khan_fleet = {
 				# name = "NAME_JuukTidir"
 				design = "NAME_JuukTidir"
 				# random_existing_design = npc_galleon_01
-				graphical_culture = "npf_01" #_dirty
+				graphical_culture = "npf_01" # _dirty
 			}
 			assign_leader = last_created_leader
 			if = {

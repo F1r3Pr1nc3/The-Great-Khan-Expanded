@@ -38,7 +38,7 @@ event = {
 							any_fleet_in_system = {
 								exists = owner
 								owner = {
-									NOT = { is_same_value = prevprevprev.owner }
+									NOT = { is_same_empire = prevprevprev.owner }
 									OR = {
 										is_hostile = prevprevprev.owner
 										is_at_war_with = prevprevprev.owner
@@ -49,7 +49,7 @@ event = {
 								exists = owner
 								NOT = { is_same_value = prevprev }
 								owner = {
-									NOT = { is_same_value = prevprevprev.owner }
+									NOT = { is_same_empire = prevprevprev.owner }
 									OR = {
 										is_country_type_with_subjects = yes
 										is_country_type = awakened_marauders
@@ -78,7 +78,7 @@ event = {
 							any_fleet_in_system = {
 								exists = owner
 								owner = {
-									NOT = { is_same_value = prevprevprev.owner }
+									NOT = { is_same_empire = prevprevprev.owner }
 									OR = {
 										is_hostile = prevprevprev.owner
 										is_at_war_with = prevprevprev.owner
@@ -88,7 +88,7 @@ event = {
 							any_system_planet = {
 								exists = owner
 								owner = {
-									NOT = { is_same_value = prevprev.owner }
+									NOT = { is_same_empire = prevprev.owner }
 									OR = {
 										is_country_type_with_subjects = yes
 										is_country_type = awakened_marauders

@@ -1,19 +1,19 @@
 
-###########################################
-###########################################
-#####                                 #####
-#####    Crisis Manager               #####
-#####                                 #####
-#####    Scripted Effects for Khan    #####
-#####                                 #####
-###########################################
-###########################################
+#########################################
+#########################################
+#####								#####
+#####	Crisis Manager				#####
+#####								#####
+#####	Scripted Effects for Khan	#####
+#####								#####
+#########################################
+#########################################
 
 ###################
-###  Constants  ###
+### Constants	###
 ###################
 
-### Reinforcement Cycle of Khan Fleets on Capital
+### Reinforcement Cycle of Khan Fleets on Capital.
 @CmtConstReinforceCycle_Khan1a =  1.0		## if disabled or x > Ta
 @CmtConstReinforceCycle_Khan2a =  1.0		## if x < Ta
 @CmtConstReinforceCycle_Khan2b =  1.2		## if x < Tb
@@ -28,8 +28,8 @@
 @CmtConstReinforceCycle_Khan4c =  7.5		## if x < Tc
 @CmtConstReinforceCycle_Khan4d = 10.0 		## if x < Td
 
-### Threshold Navy Sizes for Reinforcement Cycle
-#CmtConstReinforceCycle_KhanT0 = 386		## Standard, Never Change
+### Threshold Navy Sizes for Reinforcement Cycle.
+# CmtConstReinforceCycle_KhanT0 = 386		## Standard, Never Change
 @CmtConstReinforceCycle_KhanTa = 309
 @CmtConstReinforceCycle_KhanTb = 232
 @CmtConstReinforceCycle_KhanTc = 154
@@ -54,9 +54,9 @@
 #	Reinforce 2	: {  -,  -,  -, -} =  26 - 180
 #
 
-#################
-###  Scripts  ###
-#################
+###############
+### Scripts ###
+###############
 
 ## Scope: root = Country (Khan) this = event_target:CmtGlobalVar
 CmtEffectKhanReinforceOnCapital = {
@@ -120,7 +120,7 @@ CmtEffectKhanIncreasementReinforcementCycle = {		## Scope: this = Strage of Vari
 			}
 		}		## Current: CmtVarTemp = regularized military ship number of Khan
 
-		### Increment of Counter, Call Next Cycle
+		### Increment of Counter, Call Next Cycle.
 		if = {
 			limit = { check_variable = { which = CmtVarReinforceCycle_Khan value = 2 } }
 			if = {
@@ -168,5 +168,5 @@ CmtEffectKhanIncreasementReinforcementCycle = {		## Scope: this = Strage of Vari
 			} else = { prev = { change_variable = { which = CmtVarKhanReinforcementCounter value = @CmtConstReinforceCycle_Khan1a } } }
 		} else = { prev = { change_variable = { which = CmtVarKhanReinforcementCounter value = @CmtConstReinforceCycle_Khan1a } } }
 	}
-			#log = "Cycle = [This.GetValue.CmtVarKhanReinforcementCounter], Ships = [CmtGlobalVar.GetValue.CmtVarTemp], This = [This.GetName]"
+			# log = "Cycle = [This.GetValue.CmtVarKhanReinforcementCounter], Ships = [CmtGlobalVar.GetValue.CmtVarTemp], This = [This.GetName]"
 }

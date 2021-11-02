@@ -1,4 +1,4 @@
-#          Standard event_ship_designs_anomalies sections added for fixing errors           #
+#		  Standard event_ship_designs_anomalies sections added for fixing errors			#
 
 # Automated Shipyard Raider
 ship_design = {

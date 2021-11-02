@@ -1,25 +1,25 @@
-# #####################################
-#                                     #
-#   Radial Effect / Aura components   #
-#                                     #
-#   Edit by St@rk43                   #
-#                                     #
-# #####################################
+#####################################
+#									#
+#	Radial Effect / Aura components	#
+#									#
+#	Edit by St@rk43					#
+#									#
+#####################################
 
-#################################################### Variables #########################
+#################### Variables ####################
 
-@shipAuraRange = 80
-@stationSmallAuraRange = 70
-@stationMediumAuraRange = 90
-@stationLargeAuraRange = 110
+@shipAuraRange =			80
+@stationSmallAuraRange =	70
+@stationMediumAuraRange =	90
+@stationLargeAuraRange =	110
 
 @cost0 = 0
 
-# ###################### #
-# UPDATED Reworked Auras #
-# ###################### #
+# ######################### #
+#	UPDATED Reworked Auras	#
+# ######################### #
 
-#Offensive
+# Offensive
 utility_component_template = {
 	key = "SHIP_AURA_SHIELD_DAMPENER_1"
 	size = medium
@@ -35,7 +35,7 @@ utility_component_template = {
 		radius = @shipAuraRange
 		apply_on = ships
 
-		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+		stack_info = {			# A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
 			id = hostile_shield_dampener
 			priority = 1
 		}
@@ -81,7 +81,7 @@ utility_component_template = {
 		radius = @shipAuraRange
 		apply_on = ships
 
-		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+		stack_info = {			# A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
 			id = hostile_quantum_destabilizer
 			priority = 10
 		}
@@ -122,7 +122,7 @@ utility_component_template = {
 		radius = @shipAuraRange
 		apply_on = fleets
 
-		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+		stack_info = {			# A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
 			id = hostile_snare_aura
 			priority = 1
 		}
@@ -149,7 +149,7 @@ utility_component_template = {
 	}
 }
 
-#Defensive
+# Defensive
 utility_component_template = {
 	key = "SHIP_AURA_INSPIRING_PRESENCE_1"
 	size = medium
@@ -165,7 +165,7 @@ utility_component_template = {
 		radius = @shipAuraRange
 		apply_on = ships
 
-		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+		stack_info = {			# A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
 			id = friendly_inspiring_presence
 			priority = 20
 		}
@@ -207,7 +207,7 @@ utility_component_template = {
 		radius = @shipAuraRange
 		apply_on = ships
 
-		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+		stack_info = {			# A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
 			id = friendly_targeting_grid
 			priority = 20
 		}
@@ -254,7 +254,7 @@ utility_component_template = {
 		radius = @shipAuraRange
 		apply_on = ships
 
-		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+		stack_info = {			# A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
 			id = friendly_targeting_grid
 			priority = 20
 		}
@@ -300,7 +300,7 @@ utility_component_template = {
 		radius = @shipAuraRange
 		apply_on = ships
 
-		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+		stack_info = {			# A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
 			id = friendly_nanobot_cloud
 			priority = 20
 		}
@@ -328,7 +328,7 @@ utility_component_template = {
 }
 
 # #####################
-#  OLD Returned Auras
+# OLD Returned Auras
 # #####################
 
 utility_component_template = {
@@ -346,14 +346,14 @@ utility_component_template = {
 	}
 
 	component_set = "station_small_aura_components"
-	#class_restriction = { pirate_station playable_pirate_station shipclass_pirate_enclave_station }
+	# class_restriction = { pirate_station playable_pirate_station shipclass_pirate_enclave_station }
 
 	hostile_aura = {
 		name = "aura_minefield"
 		radius = @stationSmallAuraRange
 		apply_on = ships
 
-		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+		stack_info = {			# A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
 			id = hostile_minefield_aura
 			priority = 1
 		}
@@ -387,7 +387,7 @@ utility_component_template = {
 		weight = 10
 	}
 
-	#ai_weight = {
+	# ai_weight = {
 	#	weight = 10
 	#	modifier = {
 	#		weight = 101
@@ -411,14 +411,14 @@ utility_component_template = {
 	}
 
 	component_set = "station_medium_aura_components"
-	#class_restriction = { pirate_station playable_pirate_station shipclass_pirate_enclave_station }
+	# class_restriction = { pirate_station playable_pirate_station shipclass_pirate_enclave_station }
 
 	hostile_aura = {
 		name = "aura_minefield"
 		radius = @stationMediumAuraRange
 		apply_on = ships
 
-		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+		stack_info = {			# A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
 			id = hostile_minefield_aura
 			priority = 1
 		}
@@ -452,7 +452,7 @@ utility_component_template = {
 		weight = 10
 	}
 
-	#ai_weight = {
+	# ai_weight = {
 	#	weight = 10
 	#	modifier = {
 	#		weight = 101
@@ -476,14 +476,14 @@ utility_component_template = {
 	}
 
 	component_set = "station_large_aura_components"
-	#class_restriction = { shipclass_pirate_enclave_station }
+	# class_restriction = { shipclass_pirate_enclave_station }
 
 	hostile_aura = {
 		name = "aura_minefield"
 		radius = @stationLargeAuraRange
 		apply_on = ships
 
-		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+		stack_info = {			# A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
 			id = hostile_minefield_aura
 			priority = 1
 		}
@@ -517,7 +517,7 @@ utility_component_template = {
 		weight = 10
 	}
 
-	#ai_weight = {
+	# ai_weight = {
 	#	weight = 10
 	#	modifier = {
 	#		weight = 101

@@ -11,7 +11,7 @@ is_fallen_empire = {
 
 has_total_war_cb = {
 	OR = {
-		#attacker checks
+		# attacker checks
 		AND = {
 			OR = {
 				is_country_type_with_subjects = yes
@@ -33,7 +33,7 @@ has_total_war_cb = {
 				}
 			}
 		}
-		#end threat checks
+		# end threat checks
 		AND = {
 			CmtTriggerIsPlayableEmpire = yes
 			NOR = {
@@ -56,7 +56,7 @@ has_total_war_cb = {
 	}
 }
 
-# Workaround: as is_overlord_to is not working for Khan
+# Workaround: as is_overlord_to is not working for Khan.
 # This = Satrapy
 is_subject_of_khan = {
 	is_subject = yes

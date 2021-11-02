@@ -135,7 +135,7 @@ wg_independence = {
 	ai_weight = { weight = 100 }
 }
 
-# Final uprising against Awakended Fallen Empire
+# Final uprising against Awakended Fallen Empire.
 # TODO lacks a valid icon?
 wg_ae_uprising = {
 	casus_belli = cb_event
@@ -359,7 +359,7 @@ wg_marauder_expansion = {
 							}
 						}
 					}
-					random_war = { #End War in Heaven
+					random_war = { # End War in Heaven
 						limit = {
 							is_war_participant = { who = from }
 							is_war_participant = { who = prev }
@@ -405,7 +405,7 @@ wg_marauder_expansion = {
 				from = {
 					add_threat = { who = root amount = 0.5 }
 					country_event = { id = marauder.555 } # Check submit
-					# Can't war for a year
+					# Can't war for a year.
 					set_timed_country_flag = { flag = rebellion_cooldown days = @b1_time }
 					change_variable = { which = "planets_lost_to_marauder" value = -2 }
 					# set_faction_hostility = {
@@ -458,7 +458,7 @@ wg_war_in_heaven = {
 	potential = { always = no } # event only
 	possible = { always = yes }
 	on_accept = {
-		# This is effectively unused as this is total war; surrender is highly unlikely
+		# This is effectively unused as this is total war; surrender is highly unlikely.
 		hidden_effect = {
 			if = {
 				limit = { is_country_type = awakened_fallen_empire }
@@ -484,7 +484,7 @@ wg_war_in_heaven = {
 								}
 							}
 						}
-						every_war = { #End War in Heaven
+						every_war = { # End War in Heaven
 							limit = {
 								NOT = { is_war_participant = { who = root } }
 								any_war_participant = {
@@ -532,7 +532,7 @@ wg_war_in_heaven = {
 								}
 							}
 						}
-						every_war = { #End War in Heaven
+						every_war = { # End War in Heaven
 							limit = {
 								NOT = { is_war_participant = { who = root } }
 								any_war_participant = {
@@ -576,7 +576,7 @@ wg_war_in_heaven = {
 				from = {
 					add_threat = { who = root amount = 0.5 }
 					country_event = { id = marauder.555 } # Check submit
-					# Can't war for a year
+					# Can't war for a year.
 					set_timed_country_flag = { flag = rebellion_cooldown days = @b1_time }
 					change_variable = { which = "planets_lost_to_marauder" value = -2 }
 					# set_faction_hostility = {
@@ -604,7 +604,7 @@ wg_war_in_heaven = {
 						}
 					}
 				}
-				every_war = { #End War in Heaven
+				every_war = { # End War in Heaven
 					limit = {
 						OR = {
 							AND = {
@@ -641,10 +641,10 @@ wg_war_in_heaven = {
 					is_country_type = awakened_fallen_empire
 					# from = { is_country_type = awakened_fallen_empire }
 				}
-				# Don't remove global flags here; there may be other WiHs
+				# Don't remove global flags here; there may be other WiHs.
 				# Let the followup event clear the flag if there are no more WiH wars found.
-				# On both AE's reaching status quo, cancel all the non-aligned league wars too
-				every_war = { #End War in Heaven
+				# On both AE's reaching status quo, cancel all the non-aligned league wars too.
+				every_war = { # End War in Heaven
 					limit = {
 						OR = {
 							AND = {
@@ -673,7 +673,7 @@ wg_war_in_heaven = {
 						prev = { remove_war_participant = prev }
 					}
 				}
-				# Need delay before checking whether to clear WiH flags; stalemate hasn't ended the war until this effect block finishes
+				# Need delay before checking whether to clear WiH flags; stalemate hasn't ended the war until this effect block finishes.
 				# country_event = { id = war_in_heaven.106 days = 2 }
 				every_playable_country = {
 					country_event = { id = war_in_heaven.6 }
@@ -741,7 +741,7 @@ wg_great_expansion = {
 				from = {
 					add_threat = { who = root amount = 0.5 }
 					country_event = { id = marauder.555 } # Check submit
-					# Can't war for a year
+					# Can't war for a year.
 					set_timed_country_flag = { flag = rebellion_cooldown days = @b1_time }
 					change_variable = { which = "planets_lost_to_marauder" value = -2 }
 					# set_faction_hostility = {
