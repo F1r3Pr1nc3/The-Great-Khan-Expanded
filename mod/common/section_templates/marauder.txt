@@ -492,11 +492,10 @@ ship_section_template = {
 ## Marauder Warship
 ship_section_template = {
 	key = "MARAUDER_WARSHIP_TEMP"
-	ship_size = npc_galleon_01
-	# ship_size = npc_warship_01
+	ship_size = npc_galleon_01 # npc_warship_01
 	fits_on_slot = mid
 	should_draw_components = yes
-	# entity = "npc_warship_01_hull_entity"
+	# entity = "npc_warship_01_hull_entity" # not working
 	entity = "npf_01_dirty_npc_warship_01_hull_entity"
 	icon = "GFX_ship_part_core_mid"
 	component_slot = {

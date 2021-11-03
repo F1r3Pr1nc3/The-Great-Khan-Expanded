@@ -1,14 +1,14 @@
 namespace = marauder
 
-#############################################
-#############################################
-#####			 Marauder				#####
-#####	Khan (Horde Crisis) Events		#####
-#####	Vanilla by Henrik Thyrwall		#####
-#####	Replaced by Crisis Manager		#####
-#####									#####
-#############################################
-#############################################
+#########################################
+#########################################
+#####			 Marauder			#####
+#####	Khan (Horde Crisis) Events	#####
+#####	Vanilla by Henrik Thyrwall	#####
+#####	Replaced by Crisis Manager	#####
+#####								#####
+#########################################
+#########################################
 #
 # Check all events: has_country_flag = marauder_x (x = 1 - 3)
 #
@@ -18,48 +18,48 @@ namespace = marauder
 ###################
 
 ### Critical (Lifespan of Khan, debug code)
-@CmtConstKhanLifespan_1a =	 1		### Minimun Lifespan / day
-@CmtConstKhanLifespan_1b =  0.025		### Probability of Death (2%/month for 1)
+@CmtConstKhanLifespan_1a =	1		### Minimun Lifespan / day
+@CmtConstKhanLifespan_1b =	0.025	### Probability of Death (2%/month for 1)
 @CmtConstKhanLifespan_1c =	35		### Maximun Lifespan / day (days = 1c)
-@CmtConstKhanLifespan_1d =	 5		### Maximun Lifespan / day (random = 1d)
-@CmtConstKhanLifespan_1e =	 8		### Time-Lag of Post-Death Process (days = 1e)
-@CmtConstKhanLifespan_1f =	 4		### Time-Lag of Post-Death Process (random = 1f)
+@CmtConstKhanLifespan_1d =	5		### Maximun Lifespan / day (random = 1d)
+@CmtConstKhanLifespan_1e =	8		### Time-Lag of Post-Death Process (days = 1e)
+@CmtConstKhanLifespan_1f =	4		### Time-Lag of Post-Death Process (random = 1f)
 
 ### Fleeting (Lifespan of Khan)
-@CmtConstKhanLifespan_2a =  4320		### Minimun Lifespan / day
-@CmtConstKhanLifespan_2b =  0.75		### Probability of Death (2%/month for 1)
-@CmtConstKhanLifespan_2c =  7200		### Maximun Lifespan / day (days = 1c)
-@CmtConstKhanLifespan_2d =  2880		### Maximun Lifespan / day (random = 1d)
+@CmtConstKhanLifespan_2a =	4320	### Minimun Lifespan / day
+@CmtConstKhanLifespan_2b =	0.75	### Probability of Death (2%/month for 1)
+@CmtConstKhanLifespan_2c =	7200	### Maximun Lifespan / day (days = 1c)
+@CmtConstKhanLifespan_2d =	2880	### Maximun Lifespan / day (random = 1d)
 @CmtConstKhanLifespan_2e =	90		### Time-Lag of Post-Death Process (days = 1e)
 @CmtConstKhanLifespan_2f =	60		### Time-Lag of Post-Death Process (random = 1f)
 
 ### Standard (Lifespan of Khan)
-@CmtConstKhanLifespan_3a =  7200		### Minimun Lifespan / day
-@CmtConstKhanLifespan_3b =  1.00		### Probability of Death (2%/month for 1)
-@CmtConstKhanLifespan_3c = 10800		### Maximun Lifespan / day (days = 1c)
-@CmtConstKhanLifespan_3d =  5000		### Maximun Lifespan / day (random = 1d)
-@CmtConstKhanLifespan_3e =   200		### Time-Lag of Post-Death Process (days = 1e)
-@CmtConstKhanLifespan_3f =   100		### Time-Lag of Post-Death Process (random = 1f)
+@CmtConstKhanLifespan_3a =	7200	### Minimun Lifespan / day
+@CmtConstKhanLifespan_3b =	1.00	### Probability of Death (2%/month for 1)
+@CmtConstKhanLifespan_3c =	10800	### Maximun Lifespan / day (days = 1c)
+@CmtConstKhanLifespan_3d =	5000	### Maximun Lifespan / day (random = 1d)
+@CmtConstKhanLifespan_3e =	200		### Time-Lag of Post-Death Process (days = 1e)
+@CmtConstKhanLifespan_3f =	100		### Time-Lag of Post-Death Process (random = 1f)
 
 ### Enduring (Lifespan of Khan)
-@CmtConstKhanLifespan_4a = 10800		### Minimun Lifespan / day
-@CmtConstKhanLifespan_4b =  3.00		### Probability of Death (2%/month for 1)
-@CmtConstKhanLifespan_4c = 16200		### Maximun Lifespan / day (days = 1c)
-@CmtConstKhanLifespan_4d =  5400		### Maximun Lifespan / day (random = 1d)
-@CmtConstKhanLifespan_4e =   270		### Time-Lag of Post-Death Process (days = 1e)
-@CmtConstKhanLifespan_4f =   180		### Time-Lag of Post-Death Process (random = 1f)
+@CmtConstKhanLifespan_4a =	10800	### Minimun Lifespan / day
+@CmtConstKhanLifespan_4b =	3.00	### Probability of Death (2%/month for 1)
+@CmtConstKhanLifespan_4c =	16200	### Maximun Lifespan / day (days = 1c)
+@CmtConstKhanLifespan_4d =	5400	### Maximun Lifespan / day (random = 1d)
+@CmtConstKhanLifespan_4e =	270		### Time-Lag of Post-Death Process (days = 1e)
+@CmtConstKhanLifespan_4f =	180		### Time-Lag of Post-Death Process (random = 1f)
 
 ### Venerable (Lifespan of Khan)
-@CmtConstKhanLifespan_5a = 18000		### Minimun Lifespan / day
-@CmtConstKhanLifespan_5b =  5.00		### Probability of Death (2%/month for 1)
-@CmtConstKhanLifespan_5c = 27000		### Maximun Lifespan / day (days = 1c)
-@CmtConstKhanLifespan_5d =  9000		### Maximun Lifespan / day (random = 1d)
-@CmtConstKhanLifespan_5e =   360		### Time-Lag of Post-Death Process (days = 1e)
-@CmtConstKhanLifespan_5f =   360		### Time-Lag of Post-Death Process (random = 1f)
+@CmtConstKhanLifespan_5a =	18000	### Minimun Lifespan / day
+@CmtConstKhanLifespan_5b =	5.00	### Probability of Death (2%/month for 1)
+@CmtConstKhanLifespan_5c =	27000	### Maximun Lifespan / day (days = 1c)
+@CmtConstKhanLifespan_5d =	9000	### Maximun Lifespan / day (random = 1d)
+@CmtConstKhanLifespan_5e =	360		### Time-Lag of Post-Death Process (days = 1e)
+@CmtConstKhanLifespan_5f =	360		### Time-Lag of Post-Death Process (random = 1f)
 
 ### Immortality (Lifespan of Khan): Directly Written in Event/Effect
-@CmtConstKhanLifespan_6e =   360		### Time-Lag of Post-Death Process (days = 1e)
-@CmtConstKhanLifespan_6f =   360		### Time-Lag of Post-Death Process (random = 1f)
+@CmtConstKhanLifespan_6e =	360		### Time-Lag of Post-Death Process (days = 1e)
+@CmtConstKhanLifespan_6f =	360		### Time-Lag of Post-Death Process (random = 1f)
 
 ### on actions
 # on_leader_fired = marauder.70
@@ -1046,8 +1046,12 @@ country_event = {
 
 	trigger = {
 		num_marauder_empires_to_spawn > 0
+		# is_crises_allowed = yes
+		NOT = { has_global_flag = great_khan_wins }
 		CmtTriggerNowInKhanCrisis = no
 		CmtTriggerHasPotentialKhanAwaking = yes
+		NOT = { has_global_flag = war_in_heaven_started }
+		crisis_happened_and_defeated = no
 	}
 	# trigger = {
 	# 	OR = {
@@ -1423,6 +1427,17 @@ country_event = {
 			}
 		}
 
+		if = {
+			limit = {
+				has_origin = "origin_khan_successor"
+				has_federation = yes
+			}
+			leave_alliance = {
+				override_requirements = yes
+				apply_opinion_penalty = yes
+			}
+		}
+
 		### Modify Country
 		set_country_type = awakened_marauders
 		set_name = random
@@ -1496,11 +1511,7 @@ country_event = {
 			}
 			set_timed_global_flag = { flag = khan_no_die days = @CmtConstKhanLifespan_1a }
 			set_timed_country_flag = { flag = CmtFlagKhanNoDieCountry days = @CmtConstKhanLifespan_1a }
-			country_event = {
-				id = marauder.514
-				days = @CmtConstKhanLifespan_1c
-				random = @CmtConstKhanLifespan_1d
-			}
+			country_event = { id = marauder.514 days = @CmtConstKhanLifespan_1c random = @CmtConstKhanLifespan_1d }
 		}
 		else_if = {
 			limit = {
@@ -1510,11 +1521,7 @@ country_event = {
 			}
 			set_timed_global_flag = { flag = khan_no_die days = @CmtConstKhanLifespan_2a }
 			set_timed_country_flag = { flag = CmtFlagKhanNoDieCountry days = @CmtConstKhanLifespan_2a }
-			country_event = {
-				id = marauder.514
-				days = @CmtConstKhanLifespan_2c
-				random = @CmtConstKhanLifespan_2d
-			}
+			country_event = { id = marauder.514 days = @CmtConstKhanLifespan_2c random = @CmtConstKhanLifespan_2d }
 		}
 		else_if = {
 			limit = {
@@ -1524,11 +1531,7 @@ country_event = {
 			}
 			set_timed_global_flag = { flag = khan_no_die days = @CmtConstKhanLifespan_4a }
 			set_timed_country_flag = { flag = CmtFlagKhanNoDieCountry days = @CmtConstKhanLifespan_4a }
-			country_event = {
-				id = marauder.514
-				days = @CmtConstKhanLifespan_4c
-				random = @CmtConstKhanLifespan_4d
-			}
+			country_event = { id = marauder.514 days = @CmtConstKhanLifespan_4c random = @CmtConstKhanLifespan_4d }
 		}
 		else_if = {
 			limit = {
@@ -1538,11 +1541,7 @@ country_event = {
 			}
 			set_timed_global_flag = { flag = khan_no_die days = @CmtConstKhanLifespan_5a }
 			set_timed_country_flag = { flag = CmtFlagKhanNoDieCountry days = @CmtConstKhanLifespan_5a }
-			country_event = {
-				id = marauder.514
-				days = @CmtConstKhanLifespan_5c
-				random = @CmtConstKhanLifespan_5d
-			}
+			country_event = { id = marauder.514 days = @CmtConstKhanLifespan_5c random = @CmtConstKhanLifespan_5d }
 		}
 		else_if = {
 			limit = {
@@ -1556,11 +1555,7 @@ country_event = {
 		else = {
 			set_timed_global_flag = { flag = khan_no_die days = @CmtConstKhanLifespan_3a }
 			set_timed_country_flag = { flag = CmtFlagKhanNoDieCountry days = @CmtConstKhanLifespan_3a }
-			country_event = {
-				id = marauder.514
-				days = @CmtConstKhanLifespan_3c
-				random = @CmtConstKhanLifespan_3d
-			}
+			country_event = { id = marauder.514 days = @CmtConstKhanLifespan_3c random = @CmtConstKhanLifespan_3d }
 		}
 		CmtEffectTransferKhanRemainingLive = yes
 
@@ -3827,7 +3822,11 @@ country_event = {
 						}
 						modifier = {
 							factor = 6
-							event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathKhanate value = 4 } }
+							OR = {
+								event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathKhanate value = 4 } }
+								has_country_flag = diadochi
+								has_country_flag = new_khanate_flag
+							}
 						}
 						# Stays united in New Khanate.
 						country_event = { id = marauder.602 }
@@ -3870,6 +3869,10 @@ country_event = {
 							factor = 0 # Can only happens if Horde owns planets.
 							num_owned_planets < 1
 						}
+						modifier = {
+							factor = 6
+							has_origin = "origin_khan_successor"
+						}
 					}
 					10 = {
 						# Turns into Democratic Federation
@@ -3883,6 +3886,10 @@ country_event = {
 						modifier = {
 							factor = 0 # Can only happens if Horde owns planets.
 							num_owned_planets < 1
+						}
+						modifier = {
+							factor = 6
+							has_origin = "origin_khan_successor"
 						}
 						country_event = { id = marauder.603 }
 					}
@@ -4038,6 +4045,7 @@ country_event = {
 				ethic = ethic_xenophobe
 			}
 			ignore_initial_colony_error = yes
+			exclude_day_zero_contact = root
 			effect = {
 				set_name = random
 				set_country_flag = new_khanate_flag
@@ -4107,6 +4115,7 @@ country_event = {
 				ethic = ethic_xenophile
 			}
 			ignore_initial_colony_error = yes
+			exclude_day_zero_contact = root
 			effect = {
 				set_country_flag = democratic_khanate_flag
 				save_event_target_as = new_khanate
@@ -4166,6 +4175,8 @@ country_event = {
 				ethic = ethic_xenophobe
 			}
 			ignore_initial_colony_error = yes
+			day_zero_contact = no
+			exclude_day_zero_contact = root
 			effect = {
 				save_event_target_as = restored_marauders
 				set_country_flag = restored_marauders_flag
@@ -4751,10 +4762,7 @@ country_event = {
 				}
 			}
 		}
-		set_timed_global_flag = {
-			flag = war_in_heaven_ongoing
-			days = @CmtConstKhanLifespan_2e
-		}
+		set_timed_global_flag = { flag = war_in_heaven_ongoing days = @CmtConstKhanLifespan_2e }
 		country_event = { id = khan.212 days = 16 } # Create NAL
 	}
 }
@@ -5016,9 +5024,7 @@ country_event = {
 
 	# mean_time_to_happen = { months = 3 }
 
-	immediate = {
-		set_global_flag = war_in_heaven_nonaligned_league_war
-	}
+	immediate = { set_global_flag = war_in_heaven_nonaligned_league_war }
 
 	option = {
 		name = war_in_heaven.16.a
@@ -5116,9 +5122,7 @@ country_event = {
 			}
 			add_opinion_modifier = { who = from modifier = opinion_war_in_heaven_enemy }
 		}
-		ai_chance = {
-			factor = 2
-		}
+		ai_chance = { factor = 2 }
 	}
 	option = {
 		name = marauder_uprising_stall
@@ -5674,11 +5678,7 @@ country_event = {
 				prev = {
 					set_timed_country_flag = { flag = CmtFlagKhanNoDieCountry days = @CmtConstKhanLifespan_4a }
 					set_timed_country_flag = { flag = khan_dead_age days = @CmtConstKhanLifespan_4a }
-					country_event = {
-						id = marauder.514
-						days = @CmtConstKhanLifespan_5c
-						random = @CmtConstKhanLifespan_5d
-					}
+					country_event = { id = marauder.514 days = @CmtConstKhanLifespan_5c random = @CmtConstKhanLifespan_5d }
 				}
 			}
 			### Unify All Marauders (Final War)
@@ -5961,25 +5961,44 @@ event = {
 			limit = {
 				has_global_flag = marauder_crisis_ongoing
 				exists = event_target:raider_khanate
-				exists = event_target:raider_khanate.overlord # event_target:raider_khanate = { is_overlord = yes }
 			}
 			event_target:raider_khanate = {
-				every_subject = {
-					limit = {
-						is_subject_of_khan = yes
-						NOT = { has_country_flag = rebelling_satrapy }
-						prev = { is_hostile = prev }
-					}
-					set_faction_hostility = {
-						target = prev
-						set_hostile = no
-						set_friendly = yes
-					}
-					prev = {
+				if = { limit = { is_overlord = yes }
+					every_subject = {
+						limit = {
+							is_subject_of_khan = yes
+							NOT = { has_country_flag = rebelling_satrapy }
+							prev = { is_hostile = prev }
+						}
 						set_faction_hostility = {
 							target = prev
 							set_hostile = no
 							set_friendly = yes
+						}
+						prev = {
+							set_faction_hostility = {
+								target = prev
+								set_hostile = no
+								set_friendly = yes
+							}
+						}
+					}
+				}
+				if = {
+					limit = {
+						has_origin = "origin_khan_successor"
+						NOT = { has_global_flag = great_khan_wins }
+					}
+					if = {
+						limit = { has_global_flag = war_in_heaven_ongoing }
+						# Dissolve Marauders again
+						country_event = { id = marauder.600 days = 5 }
+					}
+					else_if = {
+						limit = { has_federation = yes }
+						leave_alliance = {
+							override_requirements = yes
+							apply_opinion_penalty = yes
 						}
 					}
 				}
@@ -6231,6 +6250,7 @@ ship_event = {
 					}
 				}
 			}
+			log="destroy starbase_marauder"
 			fleet = { every_owned_ship = { destroy_ship = this } }
 			destroy_fleet = fleet
 		}
@@ -6327,7 +6347,7 @@ system_event = {
 	}
 	immediate = {
 		# system_owner does not exists
-		log="test khan.310 \\[former_starbase_owner.GetName] or \\[FromFrom.Owner.GetName]"
+		# log="test khan.310 \\[former_starbase_owner.GetName] or \\[FromFrom.Owner.GetName]"
 		if = { limit = { exists = starbase has_owner = yes }
 			delete_fleet = starbase.fleet
 			# if = { limit = { NOT = { has_star_flag = starbase_destroyed } }
@@ -6372,9 +6392,7 @@ system_event = {
 				create_ship = {
 					name = random
 					design = "NAME_Warrior_Freehold"
-					effect = {
-						reduce_hp_percent = 95
-					}
+					effect = { reduce_hp_percent = 95 }
 				}
 			}
 		}

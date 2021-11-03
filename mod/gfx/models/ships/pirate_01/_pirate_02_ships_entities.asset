@@ -164,38 +164,41 @@ entity = {
 # }
 
 entity = {
+	name = "npf_01_dirty_npc_galleon_01_hull_entity"
+	clone = "npf_01_dirty_npc_warship_01_hull_entity"
+	scale = 2.0
+}
+
+entity = {
+	name = "npf_01_npc_galleon_01_entity"
+	pdxmesh = "locator_mesh"
+	game_data = { size = 16 }
+	scale = 0.75
+	###! POSITION = { +L/-R +Up/-Down +Rear/-Front } ###
+	locator = { name = "part1" position = { 0 0 0 } }
+	locator = { name = "explosion" position = { 0 -15 -50 } }
+	cull_radius = 10
+	default_state = "idle"
+	state = { name = "idle" state_time = 5 }
+	state = { name = "moving" state_time = 5 }
+	state = { name = "death" state_time = 8.9 looping = no
+		event = { time = 8.8 node = "explosion" particle = "dreadnought_explosion_particle" keep_particle = yes }
+	}
+}
+
+entity = {
 	name = "npf_01_dirty_npc_galleon_01_entity"
 	pdxmesh = "locator_mesh"
 	game_data = { size = 16 }
 	scale = 0.75
 	###! POSITION = { +L/-R +Up/-Down +Rear/-Front } ###
-	locator = {
-		name = "part1"
-		position = { 0 0 0 }
-	}
-	locator = {
-		name = "explosion"
-		position = { 0 -15 -50 }
-	}
+	locator = { name = "part1" position = { 0 0 0 } }
+	locator = { name = "explosion" position = { 0 -15 -50 } }
 	cull_radius = 10
 	default_state = "idle"
-	state = {
-		name = "idle"
-		state_time = 5
-	}
-	state = {
-		name = "moving"
-		state_time = 5
-	}
-	state = {
-		name = "death"
-		state_time = 8.9
-		looping = no
-		event = {
-			time = 8.8
-			node = "explosion"
-			particle = "dreadnought_explosion_particle"
-			keep_particle = yes
-		}
+	state = { name = "idle" state_time = 5 }
+	state = { name = "moving" state_time = 5 }
+	state = { name = "death" state_time = 8.9 looping = no
+		event = { time = 8.8 node = "explosion" particle = "dreadnought_explosion_particle" keep_particle = yes }
 	}
 }

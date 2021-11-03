@@ -5,10 +5,11 @@
 @starbase_formation_priority = 1
 
 npc_galleon_01 = {
+	graphical_culture = { "npf_01_dirty" "npf_01" } # "pirate_01" "madd_01"
 	is_space_object = yes
-	graphical_culture = { "pirate_01" "npf_01_dirty" "npf_01" }
-	graphical_culture = yes # default no
-	entity = npc_warship_01_entity
+	graphical_culture = yes # default no vanilla yes
+	# entity = npc_warship_01_entity
+	# entity = npf_01_dirty_npc_warship_01_entity
 	formation_priority = 40
 	max_speed = @speed_slow
 	acceleration = 0.3
@@ -26,6 +27,7 @@ npc_galleon_01 = {
 	size_multiplier = 8
 	fleet_slot_size = 4
 	section_slots = { "mid" = { locator = "part1" } }
+	is_designable = no # TODO?
 	num_target_locators = 0
 	is_space_station = no
 	# icon_frame = 6
@@ -38,7 +40,6 @@ npc_galleon_01 = {
 	}
 	class = shipclass_military
 	# default_behavior = artillery
-	is_designable = yes # TODO?
 	takes_name_from_ship_design = yes
 	required_component_set = "power_core"
 	required_component_set = "sensor_components"
