@@ -3771,23 +3771,37 @@ country_event = {
 					prev = { remove_war_participant = prev }
 				}
 			}
+			# End subject wars
+			every_subject = {
+				limit = { is_at_war = yes }
+				every_war = {
+					limit = {
+						is_scope_type = war # TODO because of strange error
+						OR = {
+							using_war_goal = { type = wg_marauder_expansion owner = prev }
+							using_war_goal = { type = wg_great_expansion owner = prev }
+						}
+					}
+					remove_war_participant = prev
+				}
+			}
 		} # End Khan Extended
 
 		if = {
-			limit = { num_owned_planets < 1 }
-			country_event = { id = marauder.604 } # Reverts to old ways
+			limit = { num_owned_planets < 1 } # If Horde owns no planet.
+			country_event = { id = marauder.604 } # Reverts to old ways.
 		} else = {
 			if = {
 				limit = {
 					OR = {
-						NOR = {
-							num_owned_planets < 6
-							event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathSplinter value = 1 } }
+						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathKhanate value != 1 } }
+						AND = {
+							num_owned_planets > 6
+							event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathSplinter value != 1 } }
 						}
-						NOT = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathKhanate value = 1 } } }
-						NOR = {
-							count_country = { limit = { is_subject_type = satrapy } count < 2 }
-							event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathDemocratic value = 1 } }
+						AND = {
+							count_country = { limit = { is_subject_of_khan = yes } count > 1 }
+							event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathDemocratic value != 1 } }
 						}
 					}
 				}
@@ -3796,7 +3810,7 @@ country_event = {
 						modifier = {
 							factor = 0
 							OR = {
-								num_owned_planets < 6
+								num_owned_planets < 7
 								event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathSplinter value = 1 } }
 							}
 						}
@@ -3808,8 +3822,11 @@ country_event = {
 							factor = 0.334
 							event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathSplinter value = 3 } }
 						}
-						# Fractures into Diadochi
-						country_event = { id = marauder.601 }
+						modifier = {
+							factor = 2
+							num_owned_planets > 11
+						}
+						country_event = { id = marauder.601 } # Fractures into Diadochi
 					}
 					10 = {
 						modifier = {
@@ -3818,40 +3835,46 @@ country_event = {
 						}
 						modifier = {
 							factor = 2
-							event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathKhanate value = 3 } }
-						}
-						modifier = {
-							factor = 6
 							OR = {
-								event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathKhanate value = 4 } }
+								event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathKhanate value = 3 } }
 								has_country_flag = diadochi
 								has_country_flag = new_khanate_flag
 							}
 						}
-						# Stays united in New Khanate.
-						country_event = { id = marauder.602 }
 						modifier = {
-							factor = 0 # Can only happens if Horde owns planets.
-							num_owned_planets < 1
+							factor = 6
+							event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathKhanate value = 4 } }
 						}
+						modifier = {
+							factor = 0.1
+							num_owned_planets > 15
+						}
+						country_event = { id = marauder.602 } # Stays united in New Khanate.
 					}
 					10 = {
 						modifier = {
-							factor = 0
+							factor = 0 # Can only happen if there are enough Satrapies.
 							OR = {
-								count_country = { limit = { is_subject_type = satrapy } count < 2 }
+								count_country = { limit = { is_subject_of_khan = yes } count < 2 }
 								event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathDemocratic value = 1 } }
 							}
 						}
 						modifier = {
 							factor = 2
-							event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathDemocratic value = 3 } }
+							OR = {
+								event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathDemocratic value = 3 } }
+								has_origin = "origin_khan_successor"
+							}
 						}
 						modifier = {
 							factor = 6
 							event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathDemocratic value = 4 } }
 						}
-						country_event = { id = marauder.603 }
+						modifier = {
+							factor = 0.1
+							num_owned_planets > 15
+						}
+						country_event = { id = marauder.603 } # Turns into Democratic Federation
 					}
 				}
 			} else = {
@@ -3859,39 +3882,38 @@ country_event = {
 					60 = {
 						modifier = {
 							factor = 0
-							num_owned_planets < 6
+							num_owned_planets < 7
 						}
-						country_event = { id = marauder.601 }
+						modifier = {
+							factor = 2
+							num_owned_planets > 11
+						}
+						country_event = { id = marauder.601 } # Fractures into Diadochi
 					}
 					10 = {
-						country_event = { id = marauder.602 }
 						modifier = {
-							factor = 0 # Can only happens if Horde owns planets.
-							num_owned_planets < 1
+							factor = 0
+							num_owned_planets > 15
 						}
 						modifier = {
-							factor = 6
+							factor = 2
 							has_origin = "origin_khan_successor"
 						}
+						country_event = { id = marauder.602 } # Stays united in New Khanate.
 					}
 					10 = {
-						# Turns into Democratic Federation
 						modifier = {
 							factor = 0 # Can only happen if there are enough Satrapies.
-							count_country = {
-								limit = { is_subject_type = satrapy }
-								count < 2
+							OR = {
+								num_owned_planets > 15
+								count_country = { limit = { is_subject_of_khan = yes } count < 2 }
 							}
 						}
 						modifier = {
-							factor = 0 # Can only happens if Horde owns planets.
-							num_owned_planets < 1
-						}
-						modifier = {
-							factor = 6
+							factor = 2
 							has_origin = "origin_khan_successor"
 						}
-						country_event = { id = marauder.603 }
+						country_event = { id = marauder.603 } # Turns into Democratic Federation
 					}
 				}
 			}
@@ -5646,7 +5668,10 @@ country_event = {
 		set_global_flag = sleepers_awake_rival_waking
 
 		every_subject = {
-			limit = { is_ai = no NOT = { has_active_event = { khan.293 } } }
+			limit = {
+				is_ai = no
+				NOT = { has_active_event = { khan.293 } }
+			}
 			country_event = { id = khan.293 } # Notify only
 		}
 		country_event = { id = khan.292 days = @CmtConstKhanLifespan_4f random = @CmtConstKhanLifespan_2f }
