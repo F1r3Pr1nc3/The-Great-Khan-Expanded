@@ -4,11 +4,11 @@
 # @corvette_combat_rotation = 0.08
 # @corvette_collision_radius = 2.0
 
-# @destroyer_combat_speed = 1.0	 # picket ships, should stay with the battleships
+# @destroyer_combat_speed = 1.0		# picket ships, should stay with the battleships
 # @destroyer_combat_rotation = 0.05
 # @destroyer_collision_radius = 2.5
 
-# @cruiser_combat_speed = 1.25	 # assault ships
+# @cruiser_combat_speed = 1.25		# assault ships
 # @cruiser_combat_rotation = 0.025
 # @cruiser_collision_radius = 3
 

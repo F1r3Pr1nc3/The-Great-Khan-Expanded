@@ -2316,7 +2316,7 @@ country_event = {
 }
 
 ##################
-### Uprising	###
+###- Uprising -###
 ##################
 
 ### Chain of Uprising

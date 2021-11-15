@@ -20,7 +20,7 @@ awakened_marauders = {
 	# uses_special_buildables = yes
 	observable = yes
 	faction = {
-		hostile = yes # no for diplomatic_wars?
+		hostile = yes # no: for diplomatic_wars?
 		needs_border_access = no
 		generate_borders = yes
 		needs_colony = no
@@ -150,7 +150,7 @@ awakened_marauders = {
 			tier = 3
 			rare = no
 		}
-		standard_event_module = {  }
+		standard_event_module = { }
 		exclusive_diplomacy_module = {
 			can_receive = {
 				action_declare_war

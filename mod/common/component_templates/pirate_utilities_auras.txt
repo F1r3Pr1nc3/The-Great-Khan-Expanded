@@ -376,9 +376,9 @@ utility_component_template = {
 				entity = "mine_field_small_entity"
 				dynamic_scale = no
 			}
-			 ship_effect = {
-				 entity = "ship_aura_minefield_entity"
-				 dynamic_scale = no
+			ship_effect = {
+				entity = "ship_aura_minefield_entity"
+				dynamic_scale = no
 			}
 		}
 	}
@@ -441,9 +441,9 @@ utility_component_template = {
 				entity = "mine_field_small_entity"
 				dynamic_scale = no
 			}
-			 ship_effect = {
-				 entity = "ship_aura_minefield_entity"
-				 dynamic_scale = no
+			ship_effect = {
+				entity = "ship_aura_minefield_entity"
+				dynamic_scale = no
 			}
 		}
 	}
@@ -506,9 +506,9 @@ utility_component_template = {
 				entity = "mine_field_small_entity"
 				dynamic_scale = no
 			}
-			 ship_effect = {
-				 entity = "ship_aura_minefield_entity"
-				 dynamic_scale = no
+			ship_effect = {
+				entity = "ship_aura_minefield_entity"
+				dynamic_scale = no
 			}
 		}
 	}

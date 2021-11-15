@@ -109,7 +109,7 @@ fabricator_satrapy = {
 
 war_satrapy = {
 	can_expand = yes
-	can_be_integrated = yes
+	can_be_integrated = no
 	joins_overlord_wars = yes
 	calls_overlord_to_war = yes
 	can_do_diplomacy = yes

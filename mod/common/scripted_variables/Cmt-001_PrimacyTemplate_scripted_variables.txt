@@ -13,7 +13,7 @@
 #	How to use: See ''ReadMe_for_making_template.txt''
 
 ################################
-### Activation of Template	###
+###- Activation of Template -###
 ################################
 
 ### Activate Template
@@ -22,14 +22,14 @@
 	@CmtT001_ConstActivatedEventSleeper = no		## for events of Fallen Empire Awaking except Guarians of Galaxy
 	@CmtT001_ConstActivatedPowerEndgame = no		## for military power of End-Game Crisis
 	@CmtT001_ConstActivatedPowerMidgame = yes		## for military power of Khan and Gray Tempest
-		### Yes: this template is activated for specified parameters.
-		### No : this template is ignored for specified parameters.
+		### yes: this template is activated for specified parameters.
+		### no : this template is ignored for specified parameters.
 		### * No configurations exist for military power of Fallen/Awakened Empires.
 
 ### Call on Game Start
 	@CmtT001_ConstCallOnGameStart = no
 		### yes: Crisis Maneger menu is opened automatically on game start. (Default)
-		### No : Crisis Maneger menu is NOT opened automatically on game start.
+		### no : Crisis Maneger menu is NOT opened automatically on game start.
 
 ### The version of Crisis Manager. This template corresponds to:
 	@CmtT001_ConstVersionInfo = 1.11
@@ -69,7 +69,7 @@
 
 ### Equalization of Probability
 	@CmtT001_ConstEqualizingProbability = 1
-		### No = 1 (Default), Weak = 2, Strong = 3, Completely = 4
+		### no = 1 (Default), Weak = 2, Strong = 3, Completely = 4
 
 ### Progress Speed of Opening Event Chain.
 	@CmtT001_ConstOpeningEventSpeed = 3
@@ -82,7 +82,7 @@
 		### no : Disable Submarine Crisis (Default)
 
 #########################################################
-### Configurations for Expansion of Crisis Factions	###
+###- Configurations for Expansion of Crisis Factions -###
 #########################################################
 #
 #	Required for activating: Crisis Manager - End-Game Edition
@@ -139,7 +139,7 @@
 ### Advanced Configurations: Prethoryn Scourge
 	@CmtT001_ConstForbiddenPrethoryn = no
 		### yes: Forbid to happen
-		### no:  Allow to happen (Default)
+		### no:		Allow to happen (Default)
 
 	@CmtT001_ConstPrethorynNonRimAttack = no
 		### yes: Their invasion may begin from inside of the galaxy. (Acrobatic Charge)
@@ -176,18 +176,18 @@
 ### Advanced Configurations: Extradimensional Invasion
 	@CmtT001_ConstForbiddenExds = no
 		### yes: Forbid to happen
-		### no:  Allow to happen (Default)
+		### no:		Allow to happen (Default)
 
 	@CmtT001_ConstNoJumpButExds = no
 		### yes: Spawnable without empire has Jump Drive
 		### no : Any empires must have Jump Drive for spawning, (Default)
 
-### Extradimensional Chasers 1:  A condision for the summon of Aberrant and Vehement.
+### Extradimensional Chasers 1:		A condision for the summon of Aberrant and Vehement.
 	@CmtT001_ConstExdsChaserCondition = 3
 		### Never Opened = 1, Severe = 2, Standard = 3 (Default)
 		### Probability Scaling = 4, Anytime OK = 5, Avenger = 6
 
-### Extradimensional Chasers 2:  Location of the summon of Aberrant and Vehement.
+### Extradimensional Chasers 2:		Location of the summon of Aberrant and Vehement.
 	@CmtT001_ConstExdsChaserAnywhere = no
 		### yes: Spawn anywhere in the galaxy
 		### no : Spawn only inside border of Unbidden (Default)
@@ -216,7 +216,7 @@
 ### Advanced Configurations: Contingency Protocol
 	@CmtT001_ConstForbiddenContingency = no
 		### yes: Forbid to happen
-		### no:  Allow to happen (Default)
+		### no:		Allow to happen (Default)
 
 ### Strength of Ghost Signal
 	@CmtT001_ConstGhostStrength = 3
@@ -277,7 +277,7 @@
 ### Term of Convenant End of Cycle.
 	@CmtT001_ConstForcedEocCrisisTerm = no
 		### yes: Term of the convenant conforms to ''Progress Speed of Opening Event Chain''
-		### no:  Term of the convenant is 50 years (Default)
+		### no:		Term of the convenant is 50 years (Default)
 
 ### * Don't forget ''Guardians of Galaxy'' and/or ''Crisis Power''
 
@@ -328,12 +328,12 @@
 		### 999 means Template Unique Value (Beta Feature), set in ''common\scripted_variables\Cmt-xxx_Unique_scripted_variables.txt''.
 
 ### Awakenable Sleepers
-	@CmtT001_ConstSleeperForbidMaterialist  = no		## Keepers of Knowledge
+	@CmtT001_ConstSleeperForbidMaterialist		= no		## Keepers of Knowledge
 	@CmtT001_ConstSleeperForbidSpiritualist = no		## Holy Guardians
 	@CmtT001_ConstSleeperForbidXenophile	= no		## Enigmatic Observers
 	@CmtT001_ConstSleeperForbidXenophobe	= no		## Militant Isolationists
 		### yes: Forbid to Standardly Awaken
-		### no:  Allow to Standardly Awaken (Default)
+		### no:		Allow to Standardly Awaken (Default)
 
 ### Punishment for Holy-Cracker
 	@CmtT001_ConstSleeperHolyClacker = 3
@@ -360,14 +360,14 @@
 ### Awakenable Ancient Rival
 	@CmtT001_ConstHeavenForbidIndependently = no
 		### yes: Set Independently from Standard Awakening (Activate Following 4 Options)
-		### no:  Confilm to Standard Awakening (Ignore Following 4 Options, Default)
+		### no:		Confilm to Standard Awakening (Ignore Following 4 Options, Default)
 
-	@CmtT001_ConstHeavenForbidMaterialist   = no		### Keepers of Knowledge
-	@CmtT001_ConstHeavenForbidSpiritualist  = no		### Holy Guardians
-	@CmtT001_ConstHeavenForbidXenophile	 = no		### Enigmatic Observers
-	@CmtT001_ConstHeavenForbidXenophobe	 = no		### Militant Isolationists
+	@CmtT001_ConstHeavenForbidMaterialist		= no		### Keepers of Knowledge
+	@CmtT001_ConstHeavenForbidSpiritualist		= no		### Holy Guardians
+	@CmtT001_ConstHeavenForbidXenophile		= no		### Enigmatic Observers
+	@CmtT001_ConstHeavenForbidXenophobe		= no		### Militant Isolationists
 		### yes: Forbid to Awaken as Ancient Rival
-		### no:  Allow to Awaken as Ancient Rival (Default)
+		### no:		Allow to Awaken as Ancient Rival (Default)
 
 ### Indomitable Rival
 	@CmtT001_ConstHeavenIndomitableRival = 1
@@ -517,11 +517,11 @@
 
 ### What Lurks Beyond L-Gates
 	@CmtT001_ConstLgateForbidSilence = yes		## Eerie Silence
-	@CmtT001_ConstLgateForbidLdrake  = no		## L-Drake
+	@CmtT001_ConstLgateForbidLdrake		= no		## L-Drake
 	@CmtT001_ConstLgateForbidDessanu = no		## Dessanu
 	@CmtT001_ConstLgateForbidGraygoo = no		## Gray Tempest
 		### yes: Forbid to happen
-		### no:  Allow to happen (Default)
+		### no:		Allow to happen (Default)
 
 ### Algorithm to Activate L-Gate (Common Setting)
 	@CmtT001_ConstLgateCycleCommon = 3
@@ -530,7 +530,7 @@
 
 ### Algorithm to Activate L-Gate (Individually Settings)
 	@CmtT001_ConstLgateCycleSilence = 4		## Eerie Silence
-	@CmtT001_ConstLgateCycleLdrake  = 5		## L-Drake
+	@CmtT001_ConstLgateCycleLdrake		= 5		## L-Drake
 	@CmtT001_ConstLgateCycleDessanu = 5		## Dessanu
 	@CmtT001_ConstLgateCycleGraygoo = 5		## Gray Tempest
 		### Only One = 1, After Crisis = 2 (For Only Gray Tempest)
@@ -562,7 +562,7 @@
 		### Can Terraformed for Any L-Cluster = 6
 
 ######################
-### Crisis Power	###
+###- Crisis Power -###
 ######################
 #
 #	Required for activating: Crisis Manager - End-Game Edition and/or Mid-Game Edition
@@ -577,64 +577,64 @@
 
 ### Common information for ''Individual Configurations''
 	### - '@CmtT001_ConstCrisisStrength' must be set zero(0) for using following configurations.
-	###	 > If it is NOT zero(0), all of following configurations are ignored.
+	###		> If it is NOT zero(0), all of following configurations are ignored.
 	### - To set same parameter for all crisis
-	###	 > Input scale factor to '@CmtT001_Const****_Common'.
-	###	 > In this case, '@CmtT001_Const****_<name of faction>' are ignored.
-	###	 > 0(Zero) or negative number can NOT be inputted.
+	###		> Input scale factor to '@CmtT001_Const****_Common'.
+	###		> In this case, '@CmtT001_Const****_<name of faction>' are ignored.
+	###		> 0(Zero) or negative number can NOT be inputted.
 	### - To set parameter individually for each crisis
-	###	 > Input 0(Zero) to '@CmtT001_Const****_Common'.
-	###	 > Input scale factor to '@CmtT001_Const****_<name of crisis faction>'
+	###		> Input 0(Zero) to '@CmtT001_Const****_Common'.
+	###		> Input scale factor to '@CmtT001_Const****_<name of crisis faction>'
 	### - All factors must be positive number that is multiple of 0.25.
 	### - Caution
-	###	 > Immoderate factor makes heavy load on CPU and GPU
-	###	   because these configurations modify the number of ships.
-	###	 > Also factors grater than 3 can be inputted if you endure processing load excessive.
+	###		> Immoderate factor makes heavy load on CPU and GPU
+	###			because these configurations modify the number of ships.
+	###		> Also factors grater than 3 can be inputted if you endure processing load excessive.
 	###
 
 ### Individual Configurations of Crisis Power.
 ### Fleet Power
-	@CmtT001_ConstFleetPower_Common			 = 1.00		## This value must be set to zero(0) if you set the value individually for each crisis.
-	@CmtT001_ConstFleetPower_Prethoryn		  = 1.0
-	@CmtT001_ConstFleetPower_Sentinel		   = 1.00
-	@CmtT001_ConstFleetPower_Unbidden		   = 1.00
-	@CmtT001_ConstFleetPower_Aberrant		   = 1.00
-	@CmtT001_ConstFleetPower_Vehement		   = 1.00
+	@CmtT001_ConstFleetPower_Common				= 1.00		## This value must be set to zero(0) if you set the value individually for each crisis.
+	@CmtT001_ConstFleetPower_Prethoryn				= 1.0
+	@CmtT001_ConstFleetPower_Sentinel				= 1.00
+	@CmtT001_ConstFleetPower_Unbidden				= 1.00
+	@CmtT001_ConstFleetPower_Aberrant				= 1.00
+	@CmtT001_ConstFleetPower_Vehement				= 1.00
 	@CmtT001_ConstFleetPower_Contingency		= 1.00
-	@CmtT001_ConstFleetPower_Cybrex			 = 1.00
-	@CmtT001_ConstFleetPower_ForcedEoc		  = 1.00		## Forced End of Cycle
-	@CmtT001_ConstFleetPower_Khan			   = 1.25
+	@CmtT001_ConstFleetPower_Cybrex				= 1.00
+	@CmtT001_ConstFleetPower_ForcedEoc				= 1.00		## Forced End of Cycle
+	@CmtT001_ConstFleetPower_Khan					= 1.25
 	@CmtT001_ConstFleetPower_Graygoo			= 1.0		## Gray Tempest
 	@CmtT001_ConstFleetPower_Dessanu			= 1.00
 
 ### Army Power
-	@CmtT001_ConstArmyPower_Common			  = 1.0		## This value must be set to zero(0) if you set the value individually for each crisis.
-	@CmtT001_ConstArmyPower_Prethoryn		   = 1.00
-	@CmtT001_ConstArmyPower_Contingency		 = 1.00
+	@CmtT001_ConstArmyPower_Common					= 1.0		## This value must be set to zero(0) if you set the value individually for each crisis.
+	@CmtT001_ConstArmyPower_Prethoryn				= 1.00
+	@CmtT001_ConstArmyPower_Contingency			= 1.00
 	@CmtT001_ConstArmyPower_Khan				= 1.25
 
 ### Number of Combat Fleets
-	@CmtT001_ConstCombatFleetNumber_Common	  = 1.0		## This value must be set to zero(0) if you set the value individually for each crisis.
-	@CmtT001_ConstCombatFleetNumber_Prethoryn   = 1.00
+	@CmtT001_ConstCombatFleetNumber_Common			= 1.0		## This value must be set to zero(0) if you set the value individually for each crisis.
+	@CmtT001_ConstCombatFleetNumber_Prethoryn		= 1.00
 	@CmtT001_ConstCombatFleetNumber_Sentinel	= 1.00
 	@CmtT001_ConstCombatFleetNumber_Unbidden	= 1.00
 	@CmtT001_ConstCombatFleetNumber_Aberrant	= 1.00
 	@CmtT001_ConstCombatFleetNumber_Vehement	= 1.00
 	@CmtT001_ConstCombatFleetNumber_Contingency = 1.00
-	@CmtT001_ConstCombatFleetNumber_Cybrex	  = 1.25
+	@CmtT001_ConstCombatFleetNumber_Cybrex			= 1.25
 	@CmtT001_ConstCombatFleetNumber_Khan		= 1.25
-	@CmtT001_ConstCombatFleetNumber_Graygoo	 = 1.00		## Gray Tempest
-	@CmtT001_ConstCombatFleetNumber_Dessanu	 = 1.25
+	@CmtT001_ConstCombatFleetNumber_Graygoo		= 1.00		## Gray Tempest
+	@CmtT001_ConstCombatFleetNumber_Dessanu		= 1.25
 
 ### Number of Army Fleets
-	@CmtT001_ConstArmyNumber_Common			 = 1.0		## This value must be set to zero(0) if you set the value individually for each crisis.
-	@CmtT001_ConstArmyNumber_Prethoryn		  = 1.00
+	@CmtT001_ConstArmyNumber_Common				= 1.0		## This value must be set to zero(0) if you set the value individually for each crisis.
+	@CmtT001_ConstArmyNumber_Prethoryn				= 1.00
 	@CmtT001_ConstArmyNumber_Contingency		= 1.00
-	@CmtT001_ConstArmyNumber_Khan			   = 1.25
+	@CmtT001_ConstArmyNumber_Khan					= 1.25
 
 ### Number of Auxiliary Ships/Fleets (Constructor, Colonizer)
-	@CmtT001_ConstConstructorNumber_Common	  = 0		## This value must be set to zero(0) if you set the value individually for each crisis.
-	@CmtT001_ConstConstructorNumber_Prethoryn   = 1.25
+	@CmtT001_ConstConstructorNumber_Common			= 0		## This value must be set to zero(0) if you set the value individually for each crisis.
+	@CmtT001_ConstConstructorNumber_Prethoryn		= 1.25
 	@CmtT001_ConstConstructorNumber_Unbidden	= 1.25
 	@CmtT001_ConstConstructorNumber_Aberrant	= 1.25
 	@CmtT001_ConstConstructorNumber_Vehement	= 1.25

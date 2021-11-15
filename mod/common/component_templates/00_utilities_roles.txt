@@ -154,7 +154,7 @@ utility_component_template = {
 	component_set = "combat_computers"
 	ship_behavior = "platform"
 	upgrades_to = "COMBAT_COMPUTER_PLATFORM_BASIC"
-	ship_modifier = {  }
+	ship_modifier = {}
 	ai_weight = { weight = 1 }
 }
 
@@ -244,7 +244,7 @@ utility_component_template = {
 				has_global_flag = ghost_signal_4_flag
 				has_global_flag = ghost_signal_3_flag
 				has_global_flag = ghost_signal_2_flag
-				has_global_flag = ghost_signal_1_flag
+				# has_global_flag = ghost_signal_1_flag
 			}
 		}
 	}
@@ -411,7 +411,7 @@ utility_component_template = {
 				has_global_flag = ghost_signal_4_flag
 				has_global_flag = ghost_signal_3_flag
 				has_global_flag = ghost_signal_2_flag
-				has_global_flag = ghost_signal_1_flag
+				# has_global_flag = ghost_signal_1_flag
 			}
 		}
 	}
@@ -586,7 +586,7 @@ utility_component_template = {
 				has_global_flag = ghost_signal_4_flag
 				has_global_flag = ghost_signal_3_flag
 				has_global_flag = ghost_signal_2_flag
-				has_global_flag = ghost_signal_1_flag
+				# has_global_flag = ghost_signal_1_flag
 			}
 		}
 	}
@@ -782,7 +782,7 @@ utility_component_template = {
 				has_global_flag = ghost_signal_4_flag
 				has_global_flag = ghost_signal_3_flag
 				has_global_flag = ghost_signal_2_flag
-				has_global_flag = ghost_signal_1_flag
+				# has_global_flag = ghost_signal_1_flag
 			}
 		}
 	}
@@ -979,7 +979,7 @@ utility_component_template = {
 				has_global_flag = ghost_signal_4_flag
 				has_global_flag = ghost_signal_3_flag
 				has_global_flag = ghost_signal_2_flag
-				has_global_flag = ghost_signal_1_flag
+				# has_global_flag = ghost_signal_1_flag
 			}
 		}
 	}
@@ -1122,7 +1122,7 @@ utility_component_template = {
 				has_global_flag = ghost_signal_4_flag
 				has_global_flag = ghost_signal_3_flag
 				has_global_flag = ghost_signal_2_flag
-				has_global_flag = ghost_signal_1_flag
+				# has_global_flag = ghost_signal_1_flag
 			}
 		}
 	}

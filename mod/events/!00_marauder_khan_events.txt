@@ -2,7 +2,7 @@ namespace = marauder
 
 #########################################
 #########################################
-#####			 Marauder			#####
+#####				Marauder		#####
 #####	Khan (Horde Crisis) Events	#####
 #####	Vanilla by Henrik Thyrwall	#####
 #####	Replaced by Crisis Manager	#####
@@ -14,7 +14,7 @@ namespace = marauder
 #
 
 ###################
-### Constants	###
+###- Constants -###
 ###################
 
 ### Critical (Lifespan of Khan, debug code)
@@ -498,7 +498,7 @@ country_event = {
 }
 
 #######################
-### Reinforcements	###
+###- Reinforcements -###
 #######################
 
 ### Mercenaries Join Great Khan (HIDDEN)
@@ -852,7 +852,7 @@ planet_event = {
 						}
 					}
 				}
-				 # Nothing found, return home
+					# Nothing found, return home
 				if = {
 					limit = {
 						exists = event_target:raiding_fleet
@@ -1872,7 +1872,7 @@ country_event = {
 			}
 			while = { # rest
 				limit = { check_variable = { which = CmtVarTemp value > 0.5 } }
-				create_pop = { species =  root }
+				create_pop = { species =		root }
 				change_variable = { which = CmtVarTemp value = -1 }
 			}
 
@@ -2025,7 +2025,7 @@ country_event = {
 }
 
 #######################
-### Death of Khan	###
+###- Death of Khan -###
 #######################
 
 ### Khan Defeated in Combat but NOT Die.
@@ -4196,7 +4196,7 @@ country_event = {
 					}
 					every_owned_leader = {
 						# limit = { leader_class = ruler }
-						set_owner = prev
+						set_owner = prevprev
 					}
 				}
 			}
@@ -5063,7 +5063,7 @@ country_event = {
 # Final Uprising (290-299)
 # Without FE Awakening
 # This = EVERY default empire choose your side
-# From  = Khan
+# From		= Khan
 country_event = {
 	id = khan.290
 	title = "war_goal_wg_marauder_uprising" # "emperor.101.name" # "The Uprising"
@@ -6838,7 +6838,7 @@ country_event = {
 		# TODO: Capital habitat? Special deposits? Flavor difference between khan, diadochi and fed?
 		# Place increasingly many habitats depending on game year, late game Khan should be scary too! (I really should scale the initial crisis strength too...)
 		if = { # Because we loop
-			limit = { NOT = { is_variable_set =  marauder_habitat_count } }
+			limit = { NOT = { is_variable_set =		marauder_habitat_count } }
 			set_variable = { which = marauder_habitat_count value = 0 }
 			every_system_within_border = {
 				prev = { change_variable = { which = marauder_habitat_count value = 1 } }
@@ -7003,7 +7003,7 @@ system_event = {
 			}
 			from = {
 				change_variable = { which = marauder_habitat_count value = -1 }
-				country_event = { id = khan.612 days = 390 }  # Build Habitas
+				country_event = { id = khan.612 days = 390 }		# Build Habitas
 			}
 		}
 	}
@@ -7783,4 +7783,62 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = { country_event = { id = khan.216 } }
+}
+
+# Khan asked to defend subject member (on_war_beginning)
+# This = every country in the war.
+# From = War
+country_event = {
+	id = khan.901 # similar emperor.370
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		has_global_flag = marauder_crisis_ongoing
+		is_war_leader = no
+		is_subject_of_khan = yes
+		exists = from
+		is_war_participant = { war = from side = defenders }
+		exists = event_target:raider_khanate
+		from = {
+			NOR = {
+				any_war_participant = { is_same_empire = event_target:raider_khanate }
+				any_attacker = { is_subject_of_khan = yes }
+			}
+		}
+	}
+
+	immediate = {
+		save_event_target_as = victim_country
+		from = {
+			random_attacker = {
+				limit = { is_war_leader = yes }
+				save_event_target_as = attacking_country
+			}
+		}
+		event_target:raider_khanate = {
+			if = {
+				limit = { NOT = { is_hostile = event_target:attacking_country } }
+				set_faction_hostility = {
+					target = event_target:attacking_country
+					set_hostile = yes
+				}
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					event_target:victim_country = {
+						is_subject_type = war_satrapy
+					}
+					NOT = { any_playable_country = {
+						is_same_empire = event_target:attacking_country
+					} }
+				}
+			}
+			event_target:raider_khanate = {
+				country_event = { id = emperor.371 days = 10 }
+			}
+		}
+	}
 }
