@@ -79,9 +79,9 @@ CmtEffectTransferKhanPostDeath = {
 	}
 }
 
-###############
-### L-Gate	###
-###############
+################
+###- L-Gate -###
+################
 
 CmtEffectTransferLgateCycle = {
 	event_target:CmtGlobalVar = {
