@@ -139,11 +139,12 @@ awakened_marauders = {
 			# }
 		}
 	}
-	targets = {
-		default
-		gray_goo
-		gate_builders
-	}
+	# mainly ignors others
+	# targets = {
+	# 	default
+	# 	gray_goo
+	# 	gate_builders
+	# }
 	modules = {
 		basic_technology_module = {}
 		tiered_technology_module = {

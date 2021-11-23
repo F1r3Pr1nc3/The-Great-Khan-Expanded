@@ -1427,14 +1427,35 @@ country_event = {
 			}
 		}
 
-		if = {
-			limit = {
-				has_origin = "origin_khan_successor"
-				has_federation = yes
+		### Only for 2nd awakening.
+		if = { limit = { has_origin = "origin_khan_successor" }
+			if = { limit = { has_federation = yes }
+				leave_alliance = {
+					override_requirements = yes
+					apply_opinion_penalty = yes
+				}
 			}
-			leave_alliance = {
-				override_requirements = yes
-				apply_opinion_penalty = yes
+			if = { limit = { is_galactic_community_member = yes }
+				remove_from_galactic_community = yes
+			}
+			if = { limit = { is_subject = yes }
+				set_subject_of = { who = none }
+			}
+			else_if = { limit = { is_overlord = yes }
+				every_subject = {
+					limit = { NOT = { is_at_war_with = overlord } }
+					set_subject_of = {
+						who = root
+						subject_type = satrapy
+					}
+					# set_subject_of = { who = none }
+				}
+			}
+		} else = {
+			species = {
+				modify_species = {
+					add_trait = trait_conformists
+				}
 			}
 		}
 
@@ -1448,13 +1469,20 @@ country_event = {
 		}
 		change_government = {
 			authority = auth_dictatorial
-			civics = { civic = civic_great_khans_vision civic = civic_slaver_guilds }
+			civics = {
+				civic = civic_great_khans_vision
+				civic = civic_slaver_guilds
+				civic = civic_shared_burden
+			}
 			remove_invalid_civics = yes
 		}
 		# force_add_civic = civic_slaver_guilds
 		force_add_civic = civic_barbaric_despoilers
 		force_add_civic = civic_fanatic_purifiers
-		add_resource = { energy = 20000 }
+		add_resource = {
+			energy = 20000
+			unity = 200000
+		}
 
 		if = {
 			limit = { has_ethic = "ethic_xenophobe" }
@@ -1484,6 +1512,17 @@ country_event = {
 			add_ship_design = last_created_design
 		}
 
+		if = {
+			limit = { NOT = { has_tradition = tr_harmony_adopt } }
+			add_tradition = tr_harmony_adopt
+			add_tradition = tr_harmony_the_greater_good
+			add_tradition = tr_harmony_mind_and_body
+			add_tradition = tr_harmony_kinship
+			add_tradition = tr_harmony_utopian_dream
+			add_tradition = tr_harmony_harmonious_directives
+			add_tradition = tr_harmony_finish
+		}
+
 		### Ruler Khan
 		create_leader = {
 			class = ruler
@@ -1493,7 +1532,11 @@ country_event = {
 			event_leader = yes
 			leader_age_min = 22
 			leader_age_max = 40
-			traits = { trait = leader_trait_ruler_great_khan trait = leader_trait_eager }
+			traits = {
+				trait = leader_trait_ruler_great_khan
+				trait = leader_trait_ruler_chosen
+				trait = leader_trait_eager
+			}
 			effect = {
 				set_leader_flag = great_khan
 				save_global_event_target_as = great_khan_ruler
@@ -1567,8 +1610,9 @@ country_event = {
 			event_leader = yes
 			traits = {
 				trait = leader_trait_great_khan
-				trait = leader_trait_eager
+				trait = leader_trait_admiral_chosen
 				trait = leader_trait_fleet_logistician
+				trait = leader_trait_eager
 			}
 			effect = {
 				set_leader_flag = great_khan
@@ -4682,8 +4726,9 @@ country_event = {
 				event_leader = yes
 				traits = {
 					trait = leader_trait_great_khan
-					trait = leader_trait_eager
+					trait = leader_trait_admiral_chosen
 					trait = leader_trait_fleet_logistician
+					trait = leader_trait_eager
 				}
 				effect = {
 					set_leader_flag = great_khan
@@ -6113,16 +6158,16 @@ starbase_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		set_starbase_module = { slot = 0 module = "shipyard" }
 		set_starbase_module = { slot = 1 module = "shipyard" }
 		set_starbase_module = { slot = 2 module = "shipyard" }
 		set_starbase_module = { slot = 3 module = "gun_battery" }
 		set_starbase_module = { slot = 4 module = "gun_battery" }
 		set_starbase_module = { slot = 5 module = "missile_battery" }
-		set_starbase_building = { slot = 0 building = "crew_quarters" }
+		set_starbase_module = { slot = 6 module = "shipyard" }
 		set_starbase_building = { slot = 1 building = "resource_silo" }
 		set_starbase_building = { slot = 2 building = "listening_post" }
-		set_starbase_building = { slot = 3 building = "target_uplink_computer" }
+		set_starbase_building = { slot = 3 building = "crew_quarters" }
+		set_starbase_building = { slot = 4 building = "target_uplink_computer" }
 		while = {
 			count = 4
 			create_ship = {
@@ -6945,26 +6990,28 @@ system_event = {
 		from = {
 			check_variable = { which = marauder_habitat_count value > 0 }
 		}
+		NOT = { has_star_flag = ring_world_built }
 	}
 	immediate = {
 		# log = "---Attempting habitat construction in \\[This.GetName]"
 		random_system_planet = {
 			limit = {
-				is_star = no
+				# is_star = no
 				is_moon = no
-				is_asteroid = no
+				# is_asteroid = no
 				NOR = {
 					has_planet_flag = megastructure
 					has_planet_flag = has_megastructure
-					solar_system = { has_star_flag = ring_world_built }
-					is_planet_class = pc_ringworld_habitable
-					is_planet_class = pc_ringworld_habitable_damaged
-					is_planet_class = pc_ringworld_tech
-					is_planet_class = pc_ringworld_tech_damaged
-					is_planet_class = pc_ringworld_seam
-					is_planet_class = pc_ringworld_seam_damaged
-					is_planet_class = pc_habitat
+					# is_planet_class = pc_ringworld_habitable
+					# is_planet_class = pc_ringworld_habitable_damaged
+					# is_planet_class = pc_ringworld_tech
+					# is_planet_class = pc_ringworld_tech_damaged
+					# is_planet_class = pc_ringworld_seam
+					# is_planet_class = pc_ringworld_seam_damaged
+					# is_planet_class = pc_habitat
 				}
+				is_ringworld = no
+				is_a_planet = yes
 			}
 			# log = "--- Habitat build site chosen on planet \\[This.GetName], proceeding..."
 			prev = {
@@ -7028,7 +7075,7 @@ system_event = {
 			}
 			from = {
 				change_variable = { which = marauder_habitat_count value = -1 }
-				country_event = { id = khan.612 days = 390 }		# Build Habitas
+				country_event = { id = khan.612 days = 480 }		# Build Habitas
 			}
 		}
 	}
@@ -7796,19 +7843,19 @@ country_event = {
 # 	}
 # }
 
-# Temporary dummy events (for save, remove on 12.21)
-country_event = {
-	id = khan.12
-	hide_window = yes
-	is_triggered_only = yes
-	immediate = { country_event = { id = khan.212 } }
-}
-country_event = {
-	id = khan.16
-	hide_window = yes
-	is_triggered_only = yes
-	immediate = { country_event = { id = khan.216 } }
-}
+# # Temporary dummy events (for save, removed at 3.2)
+# country_event = {
+# 	id = khan.12
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	immediate = { country_event = { id = khan.212 } }
+# }
+# country_event = {
+# 	id = khan.16
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	immediate = { country_event = { id = khan.216 } }
+# }
 
 # Khan asked to defend subject member (on_war_beginning)
 # This = every country in the war.
