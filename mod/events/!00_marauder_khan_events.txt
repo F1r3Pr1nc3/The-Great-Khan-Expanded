@@ -627,7 +627,7 @@ planet_event = {
 		has_ground_combat = no
 	}
 	trigger = {
-		planet_devastation >= 15
+		planet_devastation > 15
 		from = { is_country_type = marauder_raiders }
 		owner = { CmtTriggerIsEmpire = yes }
 		NOT = { has_planet_flag = planet_raided }
@@ -2861,7 +2861,7 @@ planet_event = {
 		# owner = { CmtTriggerIsEmpire = yes }
 		count_planet_army = { count = 0 }
 		OR = {
-			planet_devastation > 99
+			planet_devastation > 90
 			num_pops < 2
 		}
 		from = {
@@ -3829,6 +3829,21 @@ country_event = {
 					remove_war_participant = prev
 				}
 			}
+			# Compensatory allowance for victims (some kind of compensation for damage done)
+			every_playable_country = {
+				limit = { is_variable_set = "planets_lost_to_marauder" }
+				# multiply_variable = { which = "planets_lost_to_marauder" value = 35 }
+				round_variable = "planets_lost_to_marauder"
+				while = {
+					count = planets_lost_to_marauder
+					add_resource = {
+						influence = 35
+						alloys = 50
+					}
+				}
+				clear_variable = "planets_lost_to_marauder"
+			}
+
 		} # End Khan Extended
 
 		if = {
@@ -4079,8 +4094,8 @@ country_event = {
 			limit = { is_variable_set = "successor_fleet_power" }
 			clear_variable = "successor_fleet_power"
 		}
+		destroy_country = yes
 	}
-	after = { destroy_country = yes }
 }
 
 # The New Khanate (HIDDEN)
@@ -4372,21 +4387,24 @@ country_event = {
 		if = {
 			limit = { NOT = { has_global_flag = marauder_crisis_ongoing } }
 			# Drag military fleets except for one (or two)
-			random_owned_fleet = {
+			# random_owned_fleet = { pre 3.1
+			ordered_owned_fleet = {
 				limit = {
 					is_mobile = yes
 					exists = leader
 					is_civilian = no any_owned_ship = { is_ship_class = shipclass_military }
 				}
-				weights = {
-					base = 1
-					# modifier = { add = 1 num_ships > 5 }
-					# modifier = { add = 2 num_ships > 10 }
-					# modifier = { add = 3 num_ships > 20 }
-					modifier = { add = 1 fleet_power > 5500 }
-					modifier = { add = 2 fleet_power > 11000 }
-					modifier = { add = 3 fleet_power > 22000 }
-				}
+				position = 1
+				order_by = trigger:fleet_power
+				# weights = { pre 3.1
+				# 	base = 1
+				# 	# modifier = { add = 1 num_ships > 5 }
+				# 	# modifier = { add = 2 num_ships > 10 }
+				# 	# modifier = { add = 3 num_ships > 20 }
+				# 	modifier = { add = 1 fleet_power > 5500 }
+				# 	modifier = { add = 2 fleet_power > 11000 }
+				# 	modifier = { add = 3 fleet_power > 22000 }
+				# }
 				set_owner = event_target:new_khanate
 				leader = { set_owner = event_target:new_khanate }
 			}
@@ -4454,15 +4472,14 @@ country_event = {
 			# Just to keep the initial conquered planets in line while they stabilize.
 			add_modifier = { modifier = "revolt_suppressed" days = 600 }
 		}
-
 		event_target:new_khanate = {
 			add_resource = {
-				minerals = 20000
-				energy = 40000
-				alloys = 20000
+				minerals =		20000
+				energy =		40000
+				alloys =		20000
+				food =			20000
+				influence = 	1000
 				consumer_goods = 20000
-				food = 20000
-				influence = 1000
 			}
 			copy_techs_from = { target = root }
 			if = {
@@ -4539,7 +4556,8 @@ country_event = {
 				set_owner = event_target:new_khanate
 			}
 
-			if = { limit = { CmtTriggerIsMarauder = no }
+			if = {
+				limit = { CmtTriggerIsMarauder = no }
 				add_100_unity_per_year_passed = yes
 				country_event = { id = game_start.6 days = 6 random = 4 }	# advanced_empire
 				country_event = { id = game_start.9 days = 12 random = 8 }	# empire_init_create_ships civil
@@ -4598,6 +4616,39 @@ country_event = {
 					}
 				}
 				country_event = { id = khan.612 days = 7 } # Build Habitas
+
+				### Do automatic claims if planet has belonged to an empire
+				# TODO also former systems?
+				every_owned_planet = {
+					limit = {
+						any_playable_country = { has_country_flag = former_owner@prev }
+					}
+					random_playable_country = {
+						limit = { has_country_flag = former_owner@prev }
+						prev.solar_system = {
+							add_claims = { who = prev num_of_claims = 3 show_notification = no }
+						}
+						if = { limit = { NOT = { has_global_flag = marauder_crisis_ongoing } }
+							remove_country_flag = former_owner@prev
+						}
+					}
+				}
+				every_planet_within_border = {
+					limit = {
+						has_owner = no
+						colonizable_planet = yes
+						any_playable_country = { has_country_flag = former_owner@prev }
+					}
+					random_playable_country = {
+						limit = { has_country_flag = former_owner@prev }
+						prev.solar_system = {
+							add_claims = { who = prev num_of_claims = 2 show_notification = no }
+						}
+						if = { limit = { NOT = { has_global_flag = marauder_crisis_ongoing } }
+							remove_country_flag = former_owner@prev
+						}
+					}
+				}
 			}
 		}
 		# Establish Communications
@@ -6628,7 +6679,8 @@ country_event = {
 		from = {
 			if = {
 				limit = { NOT = { has_global_flag = marauder_crisis_ongoing } }
-				random_owned_fleet = {
+				# random_owned_fleet = { pre 3.1
+				ordered_owned_fleet = {
 					limit = {
 						is_mobile = yes
 						exists = leader
@@ -6636,15 +6688,17 @@ country_event = {
 						solar_system = { is_owned_by = root }
 						is_civilian = no any_owned_ship = { is_ship_class = shipclass_military }
 					}
-					weights = {
-						base = 1
-						# modifier = { add = 1 num_ships > 5 }
-						# modifier = { add = 2 num_ships > 10 }
-						# modifier = { add = 3 num_ships > 20 }
-						modifier = { add = 1 fleet_power > 5500 }
-						modifier = { add = 2 fleet_power > 11000 }
-						modifier = { add = 3 fleet_power > 22000 }
-					}
+					position = 1
+					order_by = trigger:fleet_power
+					# weights = { pre 3.1
+					# 	base = 1
+					# 	# modifier = { add = 1 num_ships > 5 }
+					# 	# modifier = { add = 2 num_ships > 10 }
+					# 	# modifier = { add = 3 num_ships > 20 }
+					# 	modifier = { add = 1 fleet_power > 5500 }
+					# 	modifier = { add = 2 fleet_power > 11000 }
+					# 	modifier = { add = 3 fleet_power > 22000 }
+					# }
 					set_owner = root
 					leader = { set_owner = root }
 				}
@@ -6915,25 +6969,25 @@ country_event = {
 			}
 			if = {
 				limit = { years_passed < 110 }
-				# Two habitats base + every 7 systems.
-				divide_variable = { which = marauder_habitat_count value = 8 }
+				# Two habitats base + every 8 systems.
+				divide_variable = { which = marauder_habitat_count value = 9 }
 				change_variable = { which = marauder_habitat_count value = 1 }
 			}
 			else_if = {
 				limit = { years_passed < 160 }
-				# Three habitats base + every 6 systems.
-				divide_variable = { which = marauder_habitat_count value = 7 }
+				# Three habitats base + every 7 systems.
+				divide_variable = { which = marauder_habitat_count value = 8 }
 				change_variable = { which = marauder_habitat_count value = 2 }
 			}
 			else_if = {
 				limit = { years_passed < 220 }
-				# Four habitats base + every 5 systems.
-				divide_variable = { which = marauder_habitat_count value = 6 }
+				# Four habitats base + every 6 systems.
+				divide_variable = { which = marauder_habitat_count value = 7 }
 				change_variable = { which = marauder_habitat_count value = 3 }
 			}
 			else = {
-				# Five habitats base + every 4 systems.
-				divide_variable = { which = marauder_habitat_count value = 5 }
+				# Five habitats base + every 5 systems.
+				divide_variable = { which = marauder_habitat_count value = 6 }
 				change_variable = { which = marauder_habitat_count value = 4 }
 			}
 		}
@@ -6953,11 +7007,7 @@ country_event = {
 				}
 				weights = {
 					base = 1
-					modifier = {
-						add = 3
-						# Prefer to place with existing planets.
-						any_system_planet = { colonizable_planet = yes }
-					}
+					modifier = { add = 3 any_system_planet = { colonizable_planet = yes } } # Prefer to place with existing planets.
 					modifier = { add = 1 starbase = { has_starbase_size >= starbase_starhold } }
 					modifier = { add = 3
 						any_system_planet = {

@@ -139,7 +139,7 @@ awakened_marauders = {
 			# }
 		}
 	}
-	# mainly ignors others
+	# prior
 	# targets = {
 	# 	default
 	# 	gray_goo
@@ -156,21 +156,22 @@ awakened_marauders = {
 			can_receive = {
 				action_declare_war
 				action_offer_peace
-				# action_make_rival
-				# action_end_rivalry
-				# action_offer_trade_deal
-				# action_cancel_trade_deal
+				action_make_rival
+				action_end_rivalry
+				action_offer_trade_deal
+				action_cancel_trade_deal
 				action_insult
 			}
 			can_send = {
 				action_declare_war
 				action_offer_peace
-				# action_make_rival
-				# action_end_rivalry
-				# action_offer_trade_deal
-				# action_cancel_trade_deal
-				action_open_borders
-				action_close_borders
+				action_make_rival
+				action_end_rivalry
+				action_offer_trade_deal
+				action_cancel_trade_deal
+				# action_open_borders
+				# action_close_borders
+				action_insult
 			}
 		}
 		standard_expansion_module = {}

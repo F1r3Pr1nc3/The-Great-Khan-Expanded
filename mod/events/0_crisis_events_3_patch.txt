@@ -14,7 +14,7 @@ planet_event = {
 	trigger = {
 		exists = owner
 		owner = { is_country_type = awakened_marauders }
-		planet_devastation > 99
+		planet_devastation > 90
 		count_planet_army = { count < 1 }
 		NOR = { is_planet_class = pc_ai is_planet_class = pc_cybrex }
 		from = { is_country_type = cybrex_empire }
