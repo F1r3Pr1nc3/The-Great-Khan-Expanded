@@ -3837,7 +3837,7 @@ country_event = {
 				while = {
 					count = planets_lost_to_marauder
 					add_resource = {
-						influence = 35
+						influence = 30
 						alloys = 50
 					}
 				}
@@ -4626,7 +4626,7 @@ country_event = {
 					random_playable_country = {
 						limit = { has_country_flag = former_owner@prev }
 						prev.solar_system = {
-							add_claims = { who = prev num_of_claims = 3 show_notification = no }
+							add_claims = { who = prev num_of_claims = 2 show_notification = no }
 						}
 						if = { limit = { NOT = { has_global_flag = marauder_crisis_ongoing } }
 							remove_country_flag = former_owner@prev
@@ -4642,7 +4642,7 @@ country_event = {
 					random_playable_country = {
 						limit = { has_country_flag = former_owner@prev }
 						prev.solar_system = {
-							add_claims = { who = prev num_of_claims = 2 show_notification = no }
+							add_claims = { who = prev num_of_claims = 1 show_notification = no }
 						}
 						if = { limit = { NOT = { has_global_flag = marauder_crisis_ongoing } }
 							remove_country_flag = former_owner@prev
@@ -7066,7 +7066,12 @@ system_event = {
 			# log = "--- Habitat build site chosen on planet \\[This.GetName], proceeding..."
 			prev = {
 				# spawn marauder habitat
-				spawn_megastructure = { type = "habitat_0" planet = prev }
+				spawn_megastructure = {
+					type = "habitat_0"
+					planet = prev
+					owner = from # space_owner
+					graphical_culture = mammalian_01
+				}
 				# populate marauder habitat
 				random_system_planet = {
 					limit = {
@@ -7091,7 +7096,7 @@ system_event = {
 							ethos = { ethic = "ethic_militarist" } # ethic = "ethic_egalitarian"
 						}
 					}
-					set_owner = space_owner
+					# set_owner = space_owner
 					set_controller = space_owner
 					add_building = building_hab_major_capital	# 3 jobs
 					# add_building = building_foundry_1			# 2
