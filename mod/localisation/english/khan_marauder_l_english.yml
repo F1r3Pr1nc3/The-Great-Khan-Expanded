@@ -78,3 +78,4 @@
  npc_galleon_01_plural:0 "$RT_KHAN$ $npc_warship_01_plural$"
  casus_belli_cb_satrapy_subjugation:0 "$president_hegemony_cb_1$"
  casus_belli_cb_satrapy_subjugation_desc:0 "$president_hegemony_cb_1_desc$"
+ khan.710.a.tooltip: "Now ruled the $gov_marauder_clans$ as the new $RT_GREAT_KHAN$ to write a new glorious galactic story.\n$food_policy_rationing_desc$"

@@ -1,8 +1,9 @@
-version="1.5.4"
+version="1.5.5"
 tags={
 	"Events"
 	"Crisis"
 	"Gameplay"
+	"Marauder"
 }
 dependencies={
 	"Marauders but Cooler"

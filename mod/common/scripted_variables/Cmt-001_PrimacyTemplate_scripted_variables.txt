@@ -90,7 +90,7 @@
 #
 
 ### Crises - Total War
-	@CmtT001_ConstTotalWarPriority = 2
+	@CmtT001_ConstTotalWarPriority = 3
 		### Disabled = 1 or { Disable ''Crisis Manager - Total War Pack'' } (Vanilla)
 		### Enabled, Combatant Has Priority of Dominion = 2 (Default, ''Total War Pack'' is required.)
 		### Enabled, Former Owner Has Priority of Dominion = 3 (''Total War Pack'' is required.)
@@ -102,12 +102,12 @@
 		### Fully Enabled for Crisis Factions = 3 (Default, ''Total War Pack'' is required.)
 
 ### Occupy Planets
-	@CmtT001_ConstPlanetOccupy = 1
+	@CmtT001_ConstPlanetOccupy = 2
 		### Same as Vanilla = 1 (Default), Win Ground Combat = 2, Annihilate Armies = 3
 		### Only Orbital Bombardment = 4, N/A = 5, Short Orbital Bombardment = 6, Instant Orbital Bombardment = 7
 
 ### Purge Speed
-	@CmtT001_ConstPurgeSpeed = 1
+	@CmtT001_ConstPurgeSpeed = 2
 		### Same as Vanilla = 1 (Default), 1 Pop Killed Every Year = 2, 1 Pop Killed Every 3 Months = 3, 1 Pop Killed Every Month = 4
 		### 1 Pop Killed Every 10 Days = 5, 1 Pop Killed Every 3 Days = 6, All Pops Killed Immediately = 7
 
@@ -146,11 +146,11 @@
 		### no : Their invasion begin from surely rim of the galaxy. (Default)
 
 ### Wounded Queen
-	@CmtT001_ConstPrethorynQueen = 2
+	@CmtT001_ConstPrethorynQueen = 3
 		### Never Found = 1. Long MTTH = 2 (Default), Short MTTH = 3, Very Short = 4
 
 ### Sentinels Rising
-	@CmtT001_ConstSentinelRise = 3
+	@CmtT001_ConstSentinelRise = 4
 		### Never Rise = 1. Delay = 2, Standardly = 3 (Default), Early = 4, Waiting for Scramble = 5
 
 ### Anatomy Files
@@ -200,7 +200,7 @@
 		### Exception: 999 means 'No Reinforcement on Starbases Built'
 
 ### Unstable Portals
-	@CmtT001_ConstExdsPortalStability = 1
+	@CmtT001_ConstExdsPortalStability = 3
 		### Set the number of anchors (Default = 1)
 		### It must be 1, 3, 5, 10, 25, 50, 100, 250, 500 or 9999.
 		### Exception: 9999 means ''Never Stabilized''
@@ -224,12 +224,12 @@
 		### Strong = 4, Typhoon = 5
 
 ### Progress Speed of Pre-Terror Events
-	@CmtT001_ConstSynthTerrorEventSpeed = 3
+	@CmtT001_ConstSynthTerrorEventSpeed = 4
 		### No Terror Happens = 1, Slow = 2, Middle (Default) = 3
 		### Fast = 4, Zero-day Attack = 5
 
 ### Frequency of Terror
-	@CmtT001_ConstFreqTerror = 2
+	@CmtT001_ConstFreqTerror = 3
 		### Low = 1, Middle = 2 (Default), High = 3
 		### Very High = 4, Ordinary Event = 5
 
@@ -314,7 +314,7 @@
 		### Short = 4, As Soon as Condition Satisfied = 5
 
 ### Fleet Power of Young for Awakening.
-	@CmtT001_ConstSleeperFleetPowerYoung = 70
+	@CmtT001_ConstSleeperFleetPowerYoung = 90
 		### Set Fleet Power in ** k. For example, ''10'' means 10 k
 		### It must be -1, 15, 25, 35, 50, 70, 90, 140, 210, 350 or 999 (Default = 70).
 		### Exception: -1 means ''Unlimited''
@@ -354,8 +354,8 @@
 
 ### Ancient Rival for War in Heaven.
 	@CmtT001_ConstHeavenAncientRival = 4
-		### Completely Random = 1. Opposite Ethics Prefered = 2, Opposite Ethics Has Priority = 3
-		### Opposite Ethics Highly Prefered = 4 (Default), Limited to Opposite Etics = 5
+		### Completely Random = 1. Opposite Ethics Preferred = 2, Opposite Ethics Has Priority = 3
+		### Opposite Ethics Highly Preferred = 4 (Default), Limited to Opposite Etics = 5
 
 ### Awakenable Ancient Rival
 	@CmtT001_ConstHeavenForbidIndependently = no
@@ -452,7 +452,7 @@
 		### 999 means Template Unique Value (Beta Feature), set in ''common\scripted_variables\Cmt-xxx_Unique_scripted_variables.txt''.
 
 ### Last Chance of Khan Reigning.
-	@CmtT001_ConstKhanLatestEgpy = 50
+	@CmtT001_ConstKhanLatestEgpy = 25
 		### Set x of ''End-Game Start Year + x years''.
 		### x must be -999, -100, -75, -50, -25, 0, 25, 50, 75, 100 or 999. (Default = 0)
 		### Exception: 999 means ''Chance Never Terminate''
@@ -470,7 +470,7 @@
 		### High = 4, Do Vengeance at Any Cost = 5
 
 ### Resurgence of Khan
-	@CmtT001_ConstKhanResurgence = 1
+	@CmtT001_ConstKhanResurgence = 2
 		### Set the one of followings (Default = 1)
 		### -1: Never
 		### 1 ~ 509: Once, Twice, Thrice, ...
@@ -482,7 +482,7 @@
 		### Critical = 1, Fleeting = 2, Standard Lifespan = 3 (Default)
 		### Enduring = 4, Venerable = 5, Immortality = 6
 
-### Latent Strength of Horde in Adversity (SEEMS a bit BETA)
+### Latent Strength of Horde in Adversity (SEEMS a bit BETA).
 	@CmtT001_ConstReinforceCycle_Khan = 1
 		### Disable = 1 (Default), Weak = 2, Middle = 3, Strong = 4
 
@@ -594,47 +594,47 @@
 
 ### Individual Configurations of Crisis Power.
 ### Fleet Power
-	@CmtT001_ConstFleetPower_Common				= 1.00		## This value must be set to zero(0) if you set the value individually for each crisis.
-	@CmtT001_ConstFleetPower_Prethoryn				= 1.0
-	@CmtT001_ConstFleetPower_Sentinel				= 1.00
-	@CmtT001_ConstFleetPower_Unbidden				= 1.00
-	@CmtT001_ConstFleetPower_Aberrant				= 1.00
-	@CmtT001_ConstFleetPower_Vehement				= 1.00
-	@CmtT001_ConstFleetPower_Contingency		= 1.00
-	@CmtT001_ConstFleetPower_Cybrex				= 1.00
-	@CmtT001_ConstFleetPower_ForcedEoc				= 1.00		## Forced End of Cycle
-	@CmtT001_ConstFleetPower_Khan					= 1.25
-	@CmtT001_ConstFleetPower_Graygoo			= 1.0		## Gray Tempest
-	@CmtT001_ConstFleetPower_Dessanu			= 1.00
+	@CmtT001_ConstFleetPower_Common				= 1.0	## This value must be set to zero(0) if you set the value individually for each crisis.
+	@CmtT001_ConstFleetPower_Prethoryn			= 1.0
+	@CmtT001_ConstFleetPower_Sentinel			= 1.0
+	@CmtT001_ConstFleetPower_Unbidden			= 1.0
+	@CmtT001_ConstFleetPower_Aberrant			= 1.0
+	@CmtT001_ConstFleetPower_Vehement			= 1.0
+	@CmtT001_ConstFleetPower_Contingency		= 1.0
+	@CmtT001_ConstFleetPower_Cybrex				= 1.0
+	@CmtT001_ConstFleetPower_ForcedEoc			= 1.0	## Forced End of the Cycle.
+	@CmtT001_ConstFleetPower_Khan				= 1.25
+	@CmtT001_ConstFleetPower_Graygoo			= 1.0	## Gray Tempest
+	@CmtT001_ConstFleetPower_Dessanu			= 1.0
 
 ### Army Power
-	@CmtT001_ConstArmyPower_Common					= 1.0		## This value must be set to zero(0) if you set the value individually for each crisis.
-	@CmtT001_ConstArmyPower_Prethoryn				= 1.00
-	@CmtT001_ConstArmyPower_Contingency			= 1.00
+	@CmtT001_ConstArmyPower_Common				= 1.25	## This value must be set to zero(0) if you set the value individually for each crisis.
+	@CmtT001_ConstArmyPower_Prethoryn			= 1.25
+	@CmtT001_ConstArmyPower_Contingency			= 1.25
 	@CmtT001_ConstArmyPower_Khan				= 1.25
 
 ### Number of Combat Fleets
-	@CmtT001_ConstCombatFleetNumber_Common			= 1.0		## This value must be set to zero(0) if you set the value individually for each crisis.
-	@CmtT001_ConstCombatFleetNumber_Prethoryn		= 1.00
-	@CmtT001_ConstCombatFleetNumber_Sentinel	= 1.00
-	@CmtT001_ConstCombatFleetNumber_Unbidden	= 1.00
-	@CmtT001_ConstCombatFleetNumber_Aberrant	= 1.00
-	@CmtT001_ConstCombatFleetNumber_Vehement	= 1.00
-	@CmtT001_ConstCombatFleetNumber_Contingency = 1.00
-	@CmtT001_ConstCombatFleetNumber_Cybrex			= 1.25
+	@CmtT001_ConstCombatFleetNumber_Common		= 0		## This value must be set to zero(0) if you set the value individually for each crisis.
+	@CmtT001_ConstCombatFleetNumber_Prethoryn	= 1.0
+	@CmtT001_ConstCombatFleetNumber_Sentinel	= 1.0
+	@CmtT001_ConstCombatFleetNumber_Unbidden	= 1.0
+	@CmtT001_ConstCombatFleetNumber_Aberrant	= 1.0
+	@CmtT001_ConstCombatFleetNumber_Vehement	= 1.0
+	@CmtT001_ConstCombatFleetNumber_Contingency = 1.0
+	@CmtT001_ConstCombatFleetNumber_Cybrex		= 1.25
 	@CmtT001_ConstCombatFleetNumber_Khan		= 1.25
-	@CmtT001_ConstCombatFleetNumber_Graygoo		= 1.00		## Gray Tempest
+	@CmtT001_ConstCombatFleetNumber_Graygoo		= 1.0	## Gray Tempest
 	@CmtT001_ConstCombatFleetNumber_Dessanu		= 1.25
 
 ### Number of Army Fleets
-	@CmtT001_ConstArmyNumber_Common				= 1.0		## This value must be set to zero(0) if you set the value individually for each crisis.
-	@CmtT001_ConstArmyNumber_Prethoryn				= 1.00
-	@CmtT001_ConstArmyNumber_Contingency		= 1.00
-	@CmtT001_ConstArmyNumber_Khan					= 1.25
+	@CmtT001_ConstArmyNumber_Common				= 1.0	## This value must be set to zero(0) if you set the value individually for each crisis.
+	@CmtT001_ConstArmyNumber_Prethoryn			= 1.0
+	@CmtT001_ConstArmyNumber_Contingency		= 1.0
+	@CmtT001_ConstArmyNumber_Khan				= 1.0
 
 ### Number of Auxiliary Ships/Fleets (Constructor, Colonizer)
-	@CmtT001_ConstConstructorNumber_Common			= 0		## This value must be set to zero(0) if you set the value individually for each crisis.
-	@CmtT001_ConstConstructorNumber_Prethoryn		= 1.25
+	@CmtT001_ConstConstructorNumber_Common		= 0		## This value must be set to zero(0) if you set the value individually for each crisis.
+	@CmtT001_ConstConstructorNumber_Prethoryn	= 1.25
 	@CmtT001_ConstConstructorNumber_Unbidden	= 1.25
 	@CmtT001_ConstConstructorNumber_Aberrant	= 1.25
 	@CmtT001_ConstConstructorNumber_Vehement	= 1.25

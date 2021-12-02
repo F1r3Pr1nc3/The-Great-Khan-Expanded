@@ -1524,26 +1524,41 @@ country_event = {
 		}
 
 		### Ruler Khan
-		create_leader = {
-			class = ruler
-			species = owner_species
-			name = random
-			skill = 10
-			event_leader = yes
-			leader_age_min = 22
-			leader_age_max = 40
-			traits = {
-				trait = leader_trait_ruler_great_khan
-				trait = leader_trait_ruler_chosen
-				trait = leader_trait_eager
+
+		if = {
+			limit = { NOT = { exists = ruler } }
+			create_leader = {
+				class = ruler
+				species = owner_species
+				name = random
+				skill = 10
+				event_leader = yes
+				leader_age_min = 22
+				leader_age_max = 40
+				traits = {
+					trait = leader_trait_ruler_great_khan
+					trait = leader_trait_ruler_chosen
+					trait = leader_trait_eager
+				}
+				effect = {
+					set_leader_flag = great_khan
+					save_global_event_target_as = great_khan_ruler
+					recruitable = no
+					# prev = { assign_leader = prev }
+				}
 			}
-			effect = {
+			assign_leader = last_created_leader
+		} else = {
+			ruler = {
+				add_ruler_trait = leader_trait_ruler_great_khan
+				# add_ruler_trait = leader_trait_ruler_chosen
+				# add_trait = leader_trait_eager
+				add_skill = 2
 				set_leader_flag = great_khan
 				save_global_event_target_as = great_khan_ruler
-				# prev = { assign_leader = prev }
+				recruitable = no
 			}
 		}
-		assign_leader = last_created_leader
 
 		### Lifespan, Remaining Live of Khan.
 		if = {
@@ -1603,20 +1618,41 @@ country_event = {
 		CmtEffectTransferKhanRemainingLive = yes
 
 		### Admiral Khan
-		clone_leader = {
-			target = event_target:great_khan_ruler
-			class = admiral
-			skill = 10
-			event_leader = yes
-			traits = {
-				trait = leader_trait_great_khan
-				trait = leader_trait_admiral_chosen
-				trait = leader_trait_fleet_logistician
-				trait = leader_trait_eager
+		if = { limit = { is_ai = yes }
+			clone_leader = {
+				target = event_target:great_khan_ruler
+				class = admiral
+				skill = 10
+				event_leader = yes
+				traits = {
+					trait = leader_trait_great_khan
+					trait = leader_trait_admiral_chosen
+					trait = leader_trait_fleet_logistician
+					trait = leader_trait_eager
+				}
+				effect = {
+					set_leader_flag = great_khan
+					save_global_event_target_as = great_khan
+					recruitable = no
+				}
 			}
-			effect = {
-				set_leader_flag = great_khan
-				save_global_event_target_as = great_khan
+		} else = {
+			clone_leader = {
+				target = event_target:great_khan_ruler
+				class = admiral
+				skill = 5
+				event_leader = yes
+				traits = {
+					trait = leader_trait_great_khan
+					# trait = leader_trait_admiral_chosen
+					trait = leader_trait_fleet_logistician
+					# trait = leader_trait_eager
+				}
+				effect = {
+					set_leader_flag = great_khan
+					save_global_event_target_as = great_khan
+					recruitable = no
+				}
 			}
 		}
 
@@ -2072,7 +2108,7 @@ country_event = {
 ###- Death of Khan -###
 #######################
 
-### Khan Defeated in Combat but NOT Die.
+### Khan Defeated in Combat but NOT Die. (on_ship_destroyed_victim)
 country_event = {
 	id = marauder.505
 	hide_window = yes
@@ -2093,6 +2129,7 @@ country_event = {
 	}
 
 	immediate = {
+		set_global_flag = great_khan_dead
 		# set_global_flag not needed
 		set_country_flag = great_khan_defeated_once # CmtFlagKhanDefeatCountry
 		change_variable = { which = CmtVarKhanRemainingLive value = -1 } ## Not CmtGlobalVar
@@ -2158,12 +2195,13 @@ country_event = {
 	id = marauder.507
 	hide_window = yes
 	is_triggered_only = yes
-
+	trigger = { has_global_flag = great_khan_dead }
 	immediate = {
+		remove_global_flag = great_khan_dead
 		event_target:marauder_rally_point = { CmtEffectCreateAdmiralty_Khan2ndFleetSet = yes }
 		every_playable_country = {
 			limit = { is_ai = no }
-			country_event = { id = marauder.508 }
+			country_event = { id = marauder.508 } # Notify
 		}
 		### Compat. hack for CM
 		event_target:great_khan.fleet = {
@@ -2227,7 +2265,7 @@ country_event = {
 		CmtTriggerIsKhanCountry = yes
 		fromfrom = {
 			exists = leader
-			fleet = { num_ships = 0 }
+			fleet = { num_ships < 1 }
 			leader = { has_leader_flag = great_khan }
 		}
 		OR = {
@@ -2257,21 +2295,25 @@ country_event = {
 			save_event_target_as = khan_destroyer
 			set_country_flag = no_khan_do
 			if = { limit = { CmtTriggerIsPlayableEmpire = yes } # is_ai = no
-				country_event = { id = marauder.710 days = 10 random = 8 }
-			}
-			if = {
-				limit = { can_copy_random_tech_from = { who = root } }
-				copy_random_tech_from = { who = root }
-			}
-			if = {
-				limit = { root = { num_owned_relics > 0 } }
-				steal_relic = { target = root relic = random }
+				country_event = { id = marauder.710 days = 7 } # max days = 8
+				if = {
+					limit = { root = { has_relic = r_khans_throne } }
+					root = { remove_relic = r_khans_throne }
+				}
+				if = {
+					limit = { can_copy_random_tech_from = { who = root } }
+					copy_random_tech_from = { who = root }
+				}
+				if = {
+					limit = { root = { num_owned_relics > 0 } }
+					steal_relic = { target = root relic = random }
+				}
 			}
 		}
 		fromfrom = { solar_system = { save_event_target_as = khan_death_system } }
 		every_playable_country = {
 			limit = { is_ai = no }
-			country_event = { id = marauder.510 }
+			country_event = { id = marauder.510 } # Notify
 		}
 		observer_event = { id = observer.16 }
 
@@ -2303,7 +2345,95 @@ country_event = {
 	show_sound = event_airlock
 	is_triggered_only = yes
 	location = event_target:khan_death_system
-	option = { name = marauder.510.a }
+	# immediate = {}
+
+	option = { ### Become the Khan Crisis
+		name = great_khan_wins_response
+		custom_tooltip = khan.710.a.tooltip
+		trigger = {
+			hidden_trigger = {
+				exists = event_target:raider_khanate
+				exists = event_target:khan_destroyer
+				has_country_flag = no_khan_do
+				host_has_dlc = "Apocalypse"
+				is_ai = no
+			}
+			is_robot_empire = no
+			# has_federation = no
+			# is_galactic_emperor = no
+			has_been_declared_crisis = no
+			is_gestalt = no
+			# OR = {
+			# 	is_militarist = yes
+			# 	is_authoritarian = yes
+			# }
+		}
+		# TODO if Multiplayer redundant to crisis.4099
+		# every_playable_country = {
+		# 	limit = { is_ai = no }
+		# 	country_event = { id = khan. } # Notify about the new Khan
+		# }
+		hidden_effect = {
+			save_event_target_as = new_khanate
+			remove_global_flag = marauder_crisis_ongoing
+			remove_global_flag = great_khan_wins
+			set_global_flag = khan_no_die # TODO immortal? otherwise needs set_player somewhere
+			set_country_flag = declared_crisis
+			country_event = { id = crisis.4099 days = 9 }
+			set_country_type = dormant_marauders # Hack for trigger?
+			set_country_flag = new_khanate_flag
+			set_origin = "origin_khan_successor"
+			event_target:raider_khanate = {
+				every_subject = {
+					limit = { has_modifier = "satrapy_of_horde" }
+					country_event = { id = marauder.671 } # Do it immediately as raider_khanate should exists
+					set_subject_of = { who = none }
+					remove_modifier = "satrapy_of_horde"
+				}
+				# inheritance old flag
+				switch = {
+					trigger = has_country_flag
+					marauder_1 = {
+						prev = { set_country_flag = marauder_1 save_global_event_target_as = marauder_country_1 }
+					}
+					marauder_2 = {
+						prev = { set_country_flag = marauder_2 save_global_event_target_as = marauder_country_2 }
+					}
+					marauder_3 = {
+						prev = { set_country_flag = marauder_3 save_global_event_target_as = marauder_country_3 }
+					}
+				}
+				country_event = { id = marauder.609 } # take all?
+				# set_country_type = dormant_marauders
+				destroy_country = yes
+			}
+			# NOT = { any_country = { is_country_type = awakened_marauders } }
+			if = { # to be sure (as we could decline?)
+				limit = { NOT = { has_relic = r_khans_throne } }
+				add_relic = r_khans_throne
+			}
+			country_event = { id = marauder.500 days = 3 } # TODO BETA FOR NOT AI
+		}
+		ai_chance = { factor = 0 }
+	}
+	option = {
+		# name = great_khan_integrate_response # "This isn't good..."
+		name = marauder.510.a
+		custom_tooltip = marauder.122.a # "good job"
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = event_target:raider_khanate
+					exists = event_target:khan_destroyer
+					has_country_flag = no_khan_do
+					is_robot_empire = no
+					has_been_declared_crisis = no
+					is_gestalt = no
+				}
+				add_resource = { influence = 100 }
+			}
+		}
+	}
 }
 
 ### Sudden Death of Khan (on_monthly_pulse)
@@ -2314,37 +2444,38 @@ event = {
 	is_triggered_only = yes
 	trigger = {
 		has_global_flag = marauder_crisis_started
+		NOR = {
+			has_global_flag = khan_no_die
+			has_global_flag = great_khan_dead
+		}
 		exists = event_target:raider_khanate
 		event_target:raider_khanate = {
 			CmtTriggerIsKhanCountry = yes
 			NOT = { has_country_flag = CmtFlagKhanNoDieCountry }
 		}
-		# any_country = {
-		# 	CmtTriggerIsKhanCountry = yes
-		# 	NOT = { has_country_flag = CmtFlagKhanNoDieCountry }
-		# }
 	}
-
 	immediate = {
 		if = {
 			limit = {
 				exists = event_target:great_khan
 				OR = {
 					NOT = { exists = event_target:great_khan.fleet }
-					event_target:great_khan.fleet = { num_ships = 0 }
+					event_target:great_khan.fleet = { num_ships < 1 }
 				}
 			}
 			if = { # Put him on a fleet.
 				limit = {
-					any_owned_fleet = {
-						exists = solar_system
-						is_mobile = yes
-						is_in_combat = no
-						NOR = {
-							exists = leader
-							has_fleet_flag = satrapy_garrison_fleet
+					event_target:raider_khanate = {
+						any_owned_fleet = {
+							exists = solar_system
+							is_mobile = yes
+							is_in_combat = no
+							NOR = {
+								exists = leader
+								has_fleet_flag = satrapy_garrison_fleet
+							}
+							fleet_power > 20000
 						}
-						fleet_power > 20000
 					}
 				}
 				event_target:raider_khanate = {
@@ -2377,7 +2508,7 @@ event = {
 		}
 		if = {
 			limit = {
-				NOR = {
+				NAND = {
 					exists = event_target:great_khan
 					exists = event_target:great_khan.fleet
 					# exists = exiled_khan
@@ -2693,6 +2824,57 @@ country_event = {
 			every_playable_country = {
 				limit = { CmtTriggerIsPlayableEmpire = yes }
 				country_event = { id = marauder.524 }
+			}
+		}
+	}
+}
+
+# Great Khan Dies
+country_event = {
+	id = marauder.524
+	title = "marauder.524.name"
+	desc = {
+		text = marauder.524.a.desc
+		trigger = {
+			NAND = {
+				exists = event_target:khan_destroyer
+				is_same_empire = event_target:khan_destroyer
+			}
+		}
+	}
+	desc = {
+		text = marauder.524.b.desc
+		trigger = {
+			exists = event_target:khan_destroyer
+			is_same_empire = event_target:khan_destroyer
+		}
+	}
+	picture = GFX_evt_space_funeral
+	show_sound = event_airlock
+	is_triggered_only = yes
+	option = {
+		name = marauder.524.a
+		trigger = {
+			NAND = {
+				exists = event_target:khan_destroyer
+				is_same_empire = event_target:khan_destroyer
+			}
+		}
+	}
+	option = {
+		name = marauder.524.b
+		trigger = {
+			exists = event_target:khan_destroyer
+			is_same_empire = event_target:khan_destroyer
+		}
+		add_relic = r_khans_throne
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = event_target:great_khan
+					event_target:great_khan = { has_relic = r_khans_throne }
+				}
+				event_target:great_khan = { remove_relic = r_khans_throne }
 			}
 		}
 	}
@@ -3022,11 +3204,11 @@ country_event = {
 		text = "marauder.550.i.desc"
 	}
 	desc = {
-		trigger = { is_subject_type = satrapy }
+		trigger = { is_subject = yes is_subject_type = satrapy }
 		text = "marauder.550.j.desc"
 	}
 	desc = {
-		trigger = { is_subject_type = satrapy }
+		trigger = { is_subject = yes is_subject_type = satrapy }
 		text = "marauder.550.k.desc"
 	}
 	desc = {
@@ -3111,10 +3293,6 @@ country_event = {
 			from = { CmtTriggerIsKhanCountry = yes }
 		}
 		NOT = { has_country_flag = marauder_diplomacy_engaged }
-		# NOR = {
-		# 	has_country_flag = marauder_diplomacy_engaged
-		# 	has_global_flag = great_khan_dead
-		# }
 	}
 	immediate = { set_country_flag = marauder_diplomacy_engaged }
 	after = {
@@ -4202,6 +4380,42 @@ country_event = {
 				save_event_target_as = new_khanate
 			}
 		}
+
+		# Give khan_destroyer opportunity to join new federation
+		if = {
+			limit = { NOT = { exists = event_target:khan_destroyer } }
+			random_playable_country = {
+				limit = {
+					has_country_flag = no_khan_do
+					CmtTriggerIsPlayableEmpire = yes
+					is_subject_of_khan = no
+				}
+				save_event_target_as = khan_destroyer
+			}
+		}
+		if = {
+			limit = {
+				exists = event_target:khan_destroyer
+				NOT = {
+					has_active_event = {
+						marauder.660
+						marauder.661
+					}
+				}
+				is_ai = yes
+				is_subject_of_khan = no
+			}
+			event_target:khan_destroyer = { country_event = { id = marauder.661 } }
+		}
+
+		every_playable_country = {
+			limit = {
+				is_ai = no
+				is_subject_of_khan = no
+			}
+			country_event = { id = marauder.661 }
+		}
+
 		every_subject = {
 			set_subject_of = { who = none }
 			if = {
@@ -4211,18 +4425,15 @@ country_event = {
 			country_event = { id = marauder.660 }
 		}
 		every_country = {
-			limit = { has_modifier = "satrapy_of_horde" }
+			limit = {
+				has_modifier = "satrapy_of_horde"
+				NOT = { has_active_event = { marauder.660 } }
+			}
 			country_event = { id = marauder.660 days = 2 }
 			remove_modifier = "satrapy_of_horde"
 		}
+
 		observer_event = { id = observer.23 }
-		every_playable_country = {
-			limit = {
-				is_ai = no
-				NOT = { is_subject_type = satrapy }
-			}
-			country_event = { id = marauder.661 }
-		}
 		country_event = { id = marauder.609 }
 		destroy_country = yes
 	}
@@ -4386,6 +4597,7 @@ country_event = {
 		}
 		if = {
 			limit = { NOT = { has_global_flag = marauder_crisis_ongoing } }
+			every_owned_fleet = { set_event_locked = yes }
 			# Drag military fleets except for one (or two)
 			# random_owned_fleet = { pre 3.1
 			ordered_owned_fleet = {
@@ -4453,6 +4665,7 @@ country_event = {
 		}
 		every_owned_fleet = {
 			set_owner = event_target:new_khanate
+			set_event_locked = no
 			# recruit leader
 			if = {
 				limit = { exists = leader }
@@ -4611,8 +4824,10 @@ country_event = {
 							# Own old to get the right design!?
 							CmtEffectCreateFleet_KhanStandard = { DIADOCHI = yes } # create_marauder_successor_fleet = yes
 						}
-						last_created_leader = { set_owner = prev }
-						last_created_fleet = { set_owner = prev assign_leader = last_created_leader }
+						last_created_leader = {
+							set_owner = prevprev
+							last_created_fleet = { set_owner = prevprevprev assign_leader = prev }
+						}
 					}
 				}
 				country_event = { id = khan.612 days = 7 } # Build Habitas
@@ -4671,6 +4886,7 @@ country_event = {
 		NOT = { has_country_flag = marauder_diplomacy_engaged }
 	}
 	immediate = {
+		set_country_flag = marauder_diplomacy_engaged
 		if = {
 			limit = { is_subject = yes }
 			set_subject_of = { who = none }
@@ -4695,6 +4911,80 @@ country_event = {
 	}
 }
 
+# The New Galactic Horde (Non-Satrapy)
+country_event = {
+	id = marauder.661
+	title = "marauder.660.name"
+	desc = "marauder.661.desc"
+	picture = GFX_evt_arguing_senate
+	show_sound = event_conversation
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = marauder_diplomacy_engaged }
+	}
+	immediate = {
+		set_country_flag = marauder_diplomacy_engaged
+	}
+	# Opportunity Khan Destroyer marauder.710
+	option = {
+		name = marauder.660.a
+		trigger = {
+			hidden_trigger = {
+				OR = {
+					has_country_flag = no_khan_do
+					is_same_empire = event_target:khan_destroyer
+				}
+			}
+		}
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 0
+				OR = {
+					is_robot_empire = yes
+					is_militarist = yes
+					has_federation = yes
+					is_galactic_emperor = yes
+					has_been_declared_crisis = yes
+				}
+			}
+		}
+		join_alliance = {
+			who = event_target:new_khanate
+			name = "NAME_Galactic_Horde"
+			override_requirements = yes
+		}
+	}
+	option = { name = marauder.661.a }
+	after = {
+		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
+	}
+}
+
+# Horde Diplomacy after Great Khan's death (on_custom_diplomacy)
+country_event = {
+	id = marauder.665
+	title = "TRANSMISSION"
+	desc = "marauder.665.a.desc"
+	picture_event_data = { room = no_video_feed_room }
+	is_triggered_only = yes
+	force_open = yes
+	diplomatic = yes
+	trigger = {
+		from = { is_country_type = awakened_marauders }
+		has_global_flag = great_khan_dead
+		NOT = { has_country_flag = marauder_diplomacy_engaged }
+	}
+	immediate = { set_country_flag = marauder_diplomacy_engaged }
+	after = {
+		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
+	}
+	option = {
+		name = marauder.665.a
+		default_hide_option = yes
+	}
+}
+
 # Satrapy No Longer
 country_event = {
 	id = marauder.670
@@ -4707,6 +4997,7 @@ country_event = {
 		NOT = { has_country_flag = marauder_diplomacy_engaged }
 	}
 	immediate = {
+		set_country_flag = marauder_diplomacy_engaged
 		if = {
 			limit = { is_subject = yes }
 			set_subject_of = { who = none }
@@ -4722,6 +5013,64 @@ country_event = {
 	}
 }
 
+# Garrison Station Scuttled
+country_event = {
+	id = marauder.671
+	title = "marauder.671.name"
+	desc = "marauder.671.desc"
+	picture = GFX_evt_large_explosion
+	show_sound = event_ship_explosion
+	is_triggered_only = yes
+	immediate = {
+		if = { # to be sure (normally there should be nothing - used by khan.710)
+			limit = { exists = event_target:raider_khanate }
+			event_target:raider_khanate = {
+				every_owned_fleet = {
+					limit = {
+						OR = {
+							has_fleet_flag = satrapy_garrison
+							has_fleet_flag = satrapy_garrison_fleet
+							has_fleet_flag = horde_auxuliaries
+						}
+						exists = solar_system
+						is_within_borders_of = root
+					}
+					# delete_fleet = this
+					set_owner = root
+					if = { limit = { exists = leader }
+						leader = { set_owner = root }
+					}
+				}
+			}
+		}
+	}
+	option = { name = marauder.671.a }
+}
+
+# Great Khan's Throne
+# This = khan_destroyer (from marauder.509)
+country_event = {
+	id = marauder.710
+	title = "marauder.710.name"
+	desc = "marauder.710.desc"
+	picture = GFX_evt_space_walk
+	show_sound = event_ship_thrusters
+	is_triggered_only = yes
+	# immediate = {}
+	option = {
+		name = EXCELLENT
+		trigger = {
+			hidden_trigger = {
+				OR = {
+					is_ai = no
+					is_robot_empire = no
+				}
+			}
+		}
+		add_relic = r_khans_throne
+	}
+}
+
 # on_leader_death - make extra sure that flag is set
 country_event = {
 	id = marauder.711
@@ -4732,11 +5081,7 @@ country_event = {
 	}
 	immediate = {
 
-		if = { limit = { has_country_flag = khan_dead_event_fine }
-			remove_country_flag = khan_dead_event_fine
-		}
-
-		if = {
+		if = { # immortal fallback
 			limit = {
 				OR = {
 					has_country_flag = CmtFlagKhanNoDieCountry
@@ -4745,69 +5090,144 @@ country_event = {
 				exists = event_target:great_khan_ruler
 				NOT = { exists = event_target:great_khan }
 			}
-			event_target:great_khan_ruler = {
-				kill_leader = { show_notification = no }
+			if = { limit = { has_country_flag = khan_dead_event_fine }
+				remove_country_flag = khan_dead_event_fine
 			}
-			### New Ruler Khan
-			create_leader = {
-				class = ruler
-				species = owner_species
-				name = random
-				skill = 8
-				event_leader = yes
-				leader_age_min = 18
-				leader_age_max = 22
-				traits = {
-					trait = leader_trait_ruler_great_khan
-					trait = leader_trait_ruler_chosen
-					trait = leader_trait_eager
+			if = {
+				limit = { NOT = { has_global_flag = great_khan_dead } }
+				set_global_flag = great_khan_dead
+				# TODO: test?
+				event_target:great_khan_ruler = {
+					remove_leader_flag = great_khan # because possible loop
+					kill_leader = { show_notification = no }
 				}
-				effect = {
-					set_leader_flag = great_khan
-					save_global_event_target_as = great_khan_ruler
-					prev = { assign_leader = prev }
+				### New Ruler Khan ?
+				create_leader = {
+					class = ruler
+					species = owner_species
+					name = random
+					skill = 8
+					event_leader = yes
+					leader_age_min = 18
+					leader_age_max = 22
+					traits = {
+						trait = leader_trait_ruler_great_khan
+						trait = leader_trait_ruler_chosen
+						trait = leader_trait_eager
+					}
+					effect = {
+						set_leader_flag = great_khan
+						save_global_event_target_as = great_khan_ruler
+						prev = { assign_leader = prev }
+					}
 				}
-			}
-			# assign_leader = last_created_leader
-			### New Admiral Khan
-			clone_leader = {
-				target = event_target:great_khan_ruler
-				class = admiral
-				skill = 7
-				event_leader = yes
-				traits = {
-					trait = leader_trait_great_khan
-					trait = leader_trait_admiral_chosen
-					trait = leader_trait_fleet_logistician
-					trait = leader_trait_eager
+				assign_leader = last_created_leader
+				## New Admiral Khan
+				clone_leader = {
+					target = event_target:great_khan_ruler
+					class = admiral
+					skill = 7
+					event_leader = yes
+					traits = {
+						trait = leader_trait_great_khan
+						trait = leader_trait_admiral_chosen
+						trait = leader_trait_fleet_logistician
+						trait = leader_trait_eager
+					}
+					effect = {
+						set_leader_flag = great_khan
+						save_global_event_target_as = great_khan
+					}
 				}
-				effect = {
-					set_leader_flag = great_khan
-					save_global_event_target_as = great_khan
-				}
-			}
-			## Assign fleet + notify
-			if = { limit = { has_global_flag = CmtFlagDebugMode }
-				country_event = { id = marauder.523 days = 5 }
-			} else = {
-				event_target:global_event_country = {
-					country_event = { id = marauder.523 days = 210 random = 160 }
+
+				## Assign fleet + notify
+				if = { limit = { has_global_flag = CmtFlagDebugMode }
+					country_event = { id = marauder.523 days = 5 }
+				} else = {
+					event_target:global_event_country = {
+						country_event = { id = marauder.523 days = 210 random = 160 }
+					}
 				}
 			}
 		} else = {
 			set_global_flag = great_khan_dead
+			set_country_flag = khan_dead_event_fine
 			if = { limit = { exists = event_target:great_khan_ruler }
 				event_target:great_khan_ruler = {
+					remove_leader_flag = great_khan # because possible loop
 					kill_leader = { show_notification = no }
 				}
 			}
 			if = { limit = { exists = event_target:great_khan }
 				event_target:great_khan = {
+					remove_leader_flag = great_khan # because possible loop
 					kill_leader = { show_notification = no }
 				}
 			}
 			# country_event = { id = marauder.712 days = 10 } needless vanilla event
 			country_event = { id = marauder.514 days = 10 }
+		}
+	}
+}
+
+namespace = crisis
+
+# Declare Crisis Test (Used on desired Crisis Empire)
+country_event = {
+	id = crisis.4099
+	hide_window = yes
+	is_triggered_only = yes
+	# trigger = { always = no }
+	immediate = {
+		set_country_flag = declared_crisis
+		save_event_target_as = new_crisis
+		country_event = { id = crisis.4105 } # Notify
+		every_playable_country = {
+			limit = {
+				is_ai = no
+				NOT = { is_same_empire = prev }
+			}
+			country_event = { id = crisis.4100 }
+		}
+		if = {
+			limit = { has_galactic_custodian = yes }
+			random_playable_country = {
+				limit = { is_galactic_custodian = yes }
+				save_event_target_as = community_war_leader
+				declare_war = {
+					target = event_target:new_crisis
+					name = "NAME_Declared_Crisis_War"
+					attacker_war_goal = "wg_declared_crisis"
+				}
+			}
+			every_playable_country = {
+				limit = {
+					is_galactic_custodian = no
+					is_galactic_community_member = yes
+				}
+				join_war = event_target:community_war_leader # Should use different effect to ensure they only join the correct war
+			}
+		}
+		else = {
+			random_playable_country = {
+				limit = {
+					is_galactic_community_member = yes
+					galactic_community_rank = 1
+				}
+				save_event_target_as = community_war_leader
+				declare_war = {
+					target = event_target:new_crisis
+					name = "NAME_Declared_Crisis_War"
+					attacker_war_goal = "wg_declared_crisis"
+				}
+				every_playable_country = {
+					limit = {
+						is_galactic_community_member = yes
+						NOT = { is_same_value = event_target:community_war_leader }
+					}
+					join_war = event_target:community_war_leader # Should use different	 effect to ensure they only join the correct war
+				}
+			}
 		}
 	}
 }
@@ -5967,9 +6387,12 @@ country_event = {
 		NOR = {
 			has_global_flag = great_khan_wins
 			has_global_flag = war_in_heaven_ongoing
+			has_global_flag = great_khan_dead
 		}
 		is_overlord = yes
 		CmtTriggerIsKhanCountry = yes
+		exists = event_target:great_khan
+		exists = event_target:great_khan.fleet
 	}
 	immediate = {
 		if = {
@@ -6213,12 +6636,8 @@ starbase_event = {
 		set_starbase_module = { slot = 2 module = "shipyard" }
 		set_starbase_module = { slot = 3 module = "gun_battery" }
 		set_starbase_module = { slot = 4 module = "gun_battery" }
-		set_starbase_module = { slot = 5 module = "missile_battery" }
-		set_starbase_module = { slot = 6 module = "shipyard" }
 		set_starbase_building = { slot = 1 building = "resource_silo" }
 		set_starbase_building = { slot = 2 building = "listening_post" }
-		set_starbase_building = { slot = 3 building = "crew_quarters" }
-		set_starbase_building = { slot = 4 building = "target_uplink_computer" }
 		while = {
 			count = 4
 			create_ship = {
@@ -6228,6 +6647,13 @@ starbase_event = {
 		}
 		fleet = {
 			every_owned_ship = { set_disabled = no reduce_hp_percent = 98 }
+		}
+		if = {
+			limit = { has_starbase_size > starbase_starfortress }
+			set_starbase_module = { slot = 5 module = "missile_battery" }
+			set_starbase_module = { slot = 6 module = "shipyard" }
+			set_starbase_building = { slot = 3 building = "crew_quarters" }
+			set_starbase_building = { slot = 4 building = "target_uplink_computer" }
 		}
 		# fleet = {
 		# 	every_owned_ship = { set_disable_at_health = -1 } # needed as they get not conquered
@@ -7136,24 +7562,18 @@ system_event = {
 	}
 }
 
-# # The New Galactic Horde (Satrapy)
+# # Get a new Khan? (before marauder future) now 510
 # country_event = {
-# 	id = khan.660
-# 	title = "marauder.660.name"
-# 	desc = "marauder.660.desc"
-# 	picture = GFX_evt_arguing_senate
+# 	id = khan.710
+# 	title = "FE_war_choice"
+# 	desc = "marauder.510.desc"
+# 	picture = GFX_evt_space_funeral
 # 	show_sound = event_conversation
 # 	is_triggered_only = yes
-# 	option = {
-# 		name = marauder.660.a
-# 		ai_chance = { factor = 100 }
-# 		join_alliance = {
-# 			who = event_target:new_khanate
-# 			name = NAME_Galactic_Horde
-# 			override_requirements = yes
-# 		}
+# 	trigger = {
+# 		exists = event_target:raider_khanate
 # 	}
-# 	option = { name = marauder.660.b }
+# 	option = { name = great_khan_integrate_response }
 # }
 
 # Uprising fabricator_satrapy
