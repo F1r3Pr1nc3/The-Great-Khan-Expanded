@@ -221,7 +221,7 @@ marauder_galleon = {
 	fleet_slot_size = 4
 	section_slots = { "mid" = { locator = "part1" } }
 	num_target_locators = 0
-	# is_space_station = no
+	is_space_station = no
 	# icon_frame = 5
 	icon = ship_size_military_8
 	is_civilian = no
@@ -247,6 +247,10 @@ marauder_galleon = {
 	potential_construction = {
 		OR = {
 			is_scope_type = starbase
+			# AND = {
+			# 	is_scope_type = starbase
+			# 	NOT = { has_starbase_size = juggernaut }
+			# }
 			AND = {
 				is_scope_type = megastructure
 				OR = {
@@ -260,21 +264,41 @@ marauder_galleon = {
 	}
 
 	possible_construction = {
-		OR = {
-			AND = {
-				is_scope_type = megastructure
-				OR = {
-					is_megastructure_type = mega_shipyard_1
-					is_megastructure_type = mega_shipyard_2
-					is_megastructure_type = mega_shipyard_3
-					is_megastructure_type = mega_shipyard_restored
+		custom_tooltip = {
+			fail_text = starbase_citadel_trigger
+			OR = {
+				AND = {
+					is_scope_type = megastructure
+					OR = {
+						is_megastructure_type = mega_shipyard_1
+						is_megastructure_type = mega_shipyard_2
+						is_megastructure_type = mega_shipyard_3
+						is_megastructure_type = mega_shipyard_restored
+					}
+				}
+				AND = {
+					is_scope_type = starbase
+					has_starbase_size > starbase_starhold
 				}
 			}
-			AND = {
-				is_scope_type = starbase
-				has_starbase_size > starbase_starhold
+		}
+		custom_tooltip = {
+			fail_text = starbase_colossal_yards_trigger
+			OR = {
+				AND = {
+					is_scope_type = megastructure
+					OR = {
+						is_megastructure_type = mega_shipyard_3
+						is_megastructure_type = mega_shipyard_restored
+					}
+				}
+				AND = {
+					is_scope_type = starbase
+					has_starbase_building = colossus_yards
+				}
 			}
 		}
+
 	}
 }
 

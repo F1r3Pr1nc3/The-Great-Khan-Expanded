@@ -1460,42 +1460,62 @@ country_event = {
 		}
 
 		### Modify Country
-		set_country_type = awakened_marauders
 		set_name = random
 		change_country_flag = {
 			icon = { category = "pirate" file = "flag_pirate_11.dds" }
 			background = { category = "backgrounds" file = "00_solid.dds" }
 			colors = { "red" "red" "null" "null" }
 		}
-		change_government = {
-			authority = auth_dictatorial
-			civics = {
-				civic = civic_great_khans_vision
-				civic = civic_slaver_guilds
-				civic = civic_shared_burden
-			}
-			remove_invalid_civics = yes
-		}
-		# force_add_civic = civic_slaver_guilds
-		force_add_civic = civic_barbaric_despoilers
-		force_add_civic = civic_fanatic_purifiers
-		add_resource = {
-			energy = 20000
-			unity = 200000
-		}
 
+		if = {
+			limit = { is_pacifist = yes }
+			shift_ethic = "ethic_militarist"
+		}
 		if = {
 			limit = { has_ethic = "ethic_xenophobe" }
 			country_remove_ethic = "ethic_xenophobe"
 		}
 		if = {
-			limit = { NOT = { has_ethic = "ethic_fanatic_militarist" } }
-			country_remove_ethic = "ethic_militarist"
-			country_add_ethic = "ethic_fanatic_militarist"
+			limit = { is_spiritualist = no }
+			shift_ethic = "ethic_spiritualist"
 		}
 		if = {
-			limit = { is_spiritualist = no }
-			country_add_ethic = "ethic_spiritualist"
+			limit = { is_militarist = no }
+			shift_ethic = "ethic_fanatic_militarist"
+		}
+
+		if = { ### NSC SUPPORT
+			limit = {
+				is_ai = no
+				host_has_dlc = Apocalypse
+				has_global_flag = has_nsc_active
+			}
+			set_country_type = default
+			set_origin = "origin_nsc_freebooter"
+			if = { limit = { has_authority = auth_corporate }
+				add_civic = nsc_freebooter_civic_freebooter_trait_change_corp
+			} else = {
+				add_civic = nsc_freebooter_civic_freebooter_trait_change
+			}
+			# force_add_civic = nsc_freebooter_civic_great_khans_vision later
+		} else = {
+			set_country_type = awakened_marauders
+			change_government = {
+				authority = auth_dictatorial
+				civics = {
+					civic = civic_great_khans_vision
+					civic = civic_shared_burden
+				}
+				remove_invalid_civics = yes
+			}
+			# force_add_civic = civic_slaver_guilds
+			force_add_civic = civic_barbaric_despoilers
+			force_add_civic = civic_fanatic_purifiers
+		}
+
+		add_resource = {
+			energy = 20000
+			unity = 200000
 		}
 
 		set_ai_personality = hegemonic_imperialists
@@ -1548,6 +1568,9 @@ country_event = {
 				}
 			}
 			assign_leader = last_created_leader
+		} else_if = { ### NSC SUPPORT
+			limit = { has_global_flag = has_nsc_active }
+			ruler = { add_ruler_trait = nsc_freebooter_leader_trait_ruler_great_khan }
 		} else = {
 			ruler = {
 				add_ruler_trait = leader_trait_ruler_great_khan
@@ -1630,17 +1653,25 @@ country_event = {
 					trait = leader_trait_fleet_logistician
 					trait = leader_trait_eager
 				}
-				effect = {
-					set_leader_flag = great_khan
-					save_global_event_target_as = great_khan
-					recruitable = no
-				}
+				# effect = {
+				# 	set_leader_flag = great_khan
+				# 	save_global_event_target_as = great_khan
+				# 	recruitable = no
+				# }
+			}
+		} else_if = { ### NSC SUPPORT
+			limit = { has_global_flag = has_nsc_active }
+			clone_leader = {
+				target = ruler
+				class = admiral
+				traits = { trait = nsc_freebooter_admiral_trait_great_khan }
+				skill = 7
 			}
 		} else = {
 			clone_leader = {
 				target = event_target:great_khan_ruler
 				class = admiral
-				skill = 5
+				skill = 6
 				event_leader = yes
 				traits = {
 					trait = leader_trait_great_khan
@@ -1648,12 +1679,17 @@ country_event = {
 					trait = leader_trait_fleet_logistician
 					# trait = leader_trait_eager
 				}
-				effect = {
-					set_leader_flag = great_khan
-					save_global_event_target_as = great_khan
-					recruitable = no
-				}
+				# effect = {
+				# 	set_leader_flag = great_khan
+				# 	save_global_event_target_as = great_khan
+				# 	recruitable = no
+				# }
 			}
+		}
+		last_created_leader = {
+			set_leader_flag = great_khan
+			save_global_event_target_as = great_khan
+			recruitable = no
 		}
 
 		### Create Fleets
@@ -2355,7 +2391,7 @@ country_event = {
 				exists = event_target:raider_khanate
 				exists = event_target:khan_destroyer
 				has_country_flag = no_khan_do
-				host_has_dlc = "Apocalypse"
+				host_has_dlc = Apocalypse
 				is_ai = no
 			}
 			is_robot_empire = no
@@ -2363,10 +2399,11 @@ country_event = {
 			# is_galactic_emperor = no
 			has_been_declared_crisis = no
 			is_gestalt = no
-			# OR = {
-			# 	is_militarist = yes
-			# 	is_authoritarian = yes
-			# }
+			OR = {
+				is_militarist = yes
+				is_authoritarian = yes
+				has_ethic = "ethic_fanatic_spiritualist"
+			}
 		}
 		# TODO if Multiplayer redundant to crisis.4099
 		# every_playable_country = {
@@ -2378,6 +2415,7 @@ country_event = {
 			remove_global_flag = marauder_crisis_ongoing
 			remove_global_flag = great_khan_wins
 			set_global_flag = khan_no_die # TODO immortal? otherwise needs set_player somewhere
+			set_global_flag = CmtFlagKhanNoDieCountry
 			set_country_flag = declared_crisis
 			country_event = { id = crisis.4099 days = 9 }
 			set_country_type = dormant_marauders # Hack for trigger?
@@ -2403,6 +2441,14 @@ country_event = {
 						prev = { set_country_flag = marauder_3 save_global_event_target_as = marauder_country_3 }
 					}
 				}
+				if = { ### NSC SUPPORT
+					limit = {
+						has_global_flag = has_nsc_active
+						exists = capital_scope
+					}
+					capital_scope = { origin_nsc_freebooter_start_setup = yes }
+				}
+
 				country_event = { id = marauder.609 } # take all?
 				# set_country_type = dormant_marauders
 				destroy_country = yes
@@ -2413,6 +2459,7 @@ country_event = {
 				add_relic = r_khans_throne
 			}
 			country_event = { id = marauder.500 days = 3 } # TODO BETA FOR NOT AI
+
 		}
 		ai_chance = { factor = 0 }
 	}
@@ -5113,32 +5160,68 @@ country_event = {
 					traits = {
 						trait = leader_trait_ruler_great_khan
 						trait = leader_trait_ruler_chosen
-						trait = leader_trait_eager
+						# trait = leader_trait_eager
 					}
 					effect = {
 						set_leader_flag = great_khan
 						save_global_event_target_as = great_khan_ruler
-						prev = { assign_leader = prev }
+						recruitable = no
+						# prev = { assign_leader = prev }
 					}
 				}
 				assign_leader = last_created_leader
-				## New Admiral Khan
-				clone_leader = {
-					target = event_target:great_khan_ruler
-					class = admiral
-					skill = 7
-					event_leader = yes
-					traits = {
-						trait = leader_trait_great_khan
-						trait = leader_trait_admiral_chosen
-						trait = leader_trait_fleet_logistician
-						trait = leader_trait_eager
+
+				### New Admiral Khan
+
+				if = { ### NSC SUPPORT
+					limit = {
+						is_ai = no
+						has_global_flag = has_nsc_active
 					}
-					effect = {
-						set_leader_flag = great_khan
-						save_global_event_target_as = great_khan
+					event_target:great_khan_ruler = {
+						remove_trait = leader_trait_great_khan
+						add_ruler_trait = nsc_freebooter_leader_trait_ruler_child_of_great_khan
+					}
+					clone_leader = {
+						target = event_target:great_khan_ruler
+						class = admiral
+						skill = 7
+						# event_leader = yes
+						traits = {
+							trait = nsc_freebooter_admiral_trait_child_of_great_khan
+							trait = leader_trait_admiral_chosen
+							trait = leader_trait_fleet_logistician
+							# trait = leader_trait_eager
+						}
+						effect = {
+							set_leader_flag = great_khan
+							save_global_event_target_as = great_khan
+						}
+					}
+				} else = {
+					clone_leader = {
+						target = event_target:great_khan_ruler
+						class = admiral
+						skill = 7
+						event_leader = yes
+						traits = {
+							trait = leader_trait_great_khan
+							trait = leader_trait_admiral_chosen
+							trait = leader_trait_fleet_logistician
+							# trait = leader_trait_eager
+						}
+						effect = {
+							set_leader_flag = great_khan
+							save_global_event_target_as = great_khan
+							recruitable = no
+						}
 					}
 				}
+
+				# last_created_leader = {
+				# 	set_leader_flag = great_khan
+				# 	save_global_event_target_as = great_khan
+				# }
 
 				## Assign fleet + notify
 				if = { limit = { has_global_flag = CmtFlagDebugMode }
@@ -6632,12 +6715,63 @@ starbase_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		set_starbase_module = { slot = 1 module = "shipyard" }
-		set_starbase_module = { slot = 2 module = "shipyard" }
-		set_starbase_module = { slot = 3 module = "gun_battery" }
-		set_starbase_module = { slot = 4 module = "gun_battery" }
-		set_starbase_building = { slot = 1 building = "resource_silo" }
-		set_starbase_building = { slot = 2 building = "listening_post" }
+		if = {
+			limit = { NOT = { has_starbase_module = "shipyard" } }
+			set_starbase_module = { slot = 1 module = "shipyard" }
+		}
+		if = {
+			limit = {
+				count_starbase_modules = { type = "shipyard" count < 2 }
+				NOT = { is_starbase_building_module = "shipyard" }
+			}
+			set_starbase_module = { slot = 2 module = "shipyard" }
+		}
+		if = {
+			limit = { NOT = { has_starbase_module = "gun_battery" } }
+			set_starbase_module = { slot = 3 module = "gun_battery" }
+		}
+		if = {
+			limit = {
+				count_starbase_modules = { type = "gun_battery" count < 2 }
+				NOT = { is_starbase_building_module = "gun_battery" }
+			}
+			set_starbase_module = { slot = 4 module = "gun_battery" }
+		}
+		if = {
+			limit = { NOT = { has_starbase_building = "resource_silo" } }
+			set_starbase_building = { slot = 1 building = "resource_silo" }
+		}
+		if = {
+			limit = { NOT = { has_starbase_building = "listening_post" } }
+			set_starbase_building = { slot = 2 building = "listening_post" }
+		}
+		if = {
+			limit = { has_starbase_size > starbase_starfortress }
+			if = {
+				limit = {
+					count_starbase_modules = { type = "shipyard" count < 3 }
+					NOT = { is_starbase_building_module = "shipyard" }
+				}
+				set_starbase_module = { slot = 6 module = "shipyard" }
+			}
+			if = {
+				limit = {
+					NOR = {
+						has_starbase_module = "missile_battery"
+						is_starbase_building_module = "missile_battery"
+					}
+				}
+				set_starbase_module = { slot = 5 module = "missile_battery" }
+			}
+			if = {
+				limit = { NOT = { has_starbase_building = "crew_quarters" } }
+				set_starbase_building = { slot = 3 building = "crew_quarters" }
+			}
+			if = {
+				limit = { NOT = { has_starbase_building = "target_uplink_computer" } }
+				set_starbase_building = { slot = 4 building = "target_uplink_computer" }
+			}
+		}
 		while = {
 			count = 4
 			create_ship = {
@@ -6648,13 +6782,7 @@ starbase_event = {
 		fleet = {
 			every_owned_ship = { set_disabled = no reduce_hp_percent = 98 }
 		}
-		if = {
-			limit = { has_starbase_size > starbase_starfortress }
-			set_starbase_module = { slot = 5 module = "missile_battery" }
-			set_starbase_module = { slot = 6 module = "shipyard" }
-			set_starbase_building = { slot = 3 building = "crew_quarters" }
-			set_starbase_building = { slot = 4 building = "target_uplink_computer" }
-		}
+
 		# fleet = {
 		# 	every_owned_ship = { set_disable_at_health = -1 } # needed as they get not conquered
 		# }

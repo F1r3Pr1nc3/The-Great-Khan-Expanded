@@ -66,4 +66,4 @@
  war_goal_wg_marauder_expansion:0 "The Great Expansion"
  war_goal_wg_marauder_expansion_desc:0 "$war_goal_wg_subjugation_desc$"
  war_goal_wg_marauder_uprising:0 "The Great Uprising"
- khan.710.a.tooltip: "Ahora dictaminó que $gov_marauder_clans $ como el nuevo $RT_GREAT_KHAN$ para escribir una nueva y gloriosa historia galáctica.\n$food_policy_rationing_desc$"
+ khan.710.a.tooltip: "Ahora gobierna el $gov_marauder_clans $ como el nuevo $RT_GREAT_KHAN$ para escribir una nueva y gloriosa historia galáctica.\n$food_policy_rationing_desc$"
