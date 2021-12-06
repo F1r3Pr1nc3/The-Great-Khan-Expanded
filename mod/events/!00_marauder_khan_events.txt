@@ -720,8 +720,8 @@ planet_event = {
 				from = {
 					set_faction_hostility = {
 						target = event_target:marauder_employer
-						# set_hostile = no
-						# set_neutral = no
+						set_hostile = no
+						set_neutral = no
 						set_friendly = yes
 					}
 				}
@@ -1399,18 +1399,18 @@ country_event = {
 					NOT = { is_same_empire = root }
 				}
 				establish_communications_no_message = root
-				set_faction_hostility = {
-					target = prev
-					# set_hostile = no
-					set_neutral = yes
-					# set_friendly = yes
-				}
+				# set_faction_hostility = {
+				# 	target = prev
+				# 	# set_hostile = no
+				# 	set_neutral = yes
+				# 	# set_friendly = yes
+				# }
 				prev = {
 					set_faction_hostility = {
 						target = prev
-						# set_hostile = no
+						set_hostile = no
 						set_neutral = yes
-						# set_friendly = yes
+						set_friendly = no
 					}
 				}
 			}
@@ -1490,12 +1490,24 @@ country_event = {
 				host_has_dlc = Apocalypse
 				has_global_flag = has_nsc_active
 			}
-			set_country_type = default
+			if = {
+				limit = {
+					NOT = {
+						is_country_type = default
+						# any_playable_country = { is_same_empire = root }
+					}
+				}
+				set_country_type = default
+			}
 			set_origin = "origin_nsc_freebooter"
+			change_government = {
+				authority = auth_dictatorial
+				remove_invalid_civics = yes
+			}
 			if = { limit = { has_authority = auth_corporate }
-				add_civic = nsc_freebooter_civic_freebooter_trait_change_corp
+				force_add_civic = nsc_freebooter_civic_freebooter_trait_change_corp
 			} else = {
-				add_civic = nsc_freebooter_civic_freebooter_trait_change
+				force_add_civic = nsc_freebooter_civic_freebooter_trait_change
 			}
 			# force_add_civic = nsc_freebooter_civic_great_khans_vision later
 		} else = {
@@ -1751,9 +1763,9 @@ country_event = {
 			prev = {
 				set_faction_hostility = {
 					target = prev
-					# set_hostile = no
+					set_hostile = no
 					set_neutral = yes
-					# set_friendly = yes
+					set_friendly = no
 				}
 			}
 		}
@@ -4390,11 +4402,11 @@ country_event = {
 			country_event = { id = marauder.670 days = 4 } # Notify
 			remove_modifier = "satrapy_of_horde"
 		}
-		observer_event = { id = observer.22 }
 		every_playable_country = {
 			limit = { is_ai = no }
 			country_event = { id = marauder.640 } # Notify
 		}
+		observer_event = { id = observer.22 }
 		country_event = { id = marauder.609 }
 		destroy_country = yes
 	}
@@ -4644,7 +4656,6 @@ country_event = {
 		}
 		if = {
 			limit = { NOT = { has_global_flag = marauder_crisis_ongoing } }
-			every_owned_fleet = { set_event_locked = yes }
 			# Drag military fleets except for one (or two)
 			# random_owned_fleet = { pre 3.1
 			ordered_owned_fleet = {
@@ -4712,7 +4723,6 @@ country_event = {
 		}
 		every_owned_fleet = {
 			set_owner = event_target:new_khanate
-			set_event_locked = no
 			# recruit leader
 			if = {
 				limit = { exists = leader }
@@ -5845,6 +5855,7 @@ country_event = {
 				set_faction_hostility = {
 					target = event_target:raider_khanate
 					set_hostile = no
+					set_neutral = no
 					set_friendly = yes
 				}
 			}
@@ -6597,15 +6608,16 @@ event = {
 							NOT = { has_country_flag = rebelling_satrapy }
 							prev = { is_hostile = prev }
 						}
-						set_faction_hostility = {
-							target = prev
-							set_hostile = no
-							set_friendly = yes
-						}
+						# set_faction_hostility = {
+						# 	target = prev
+						# 	# set_hostile = no
+						# 	set_friendly = yes
+						# }
 						prev = {
 							set_faction_hostility = {
 								target = prev
 								set_hostile = no
+								set_neutral = no
 								set_friendly = yes
 							}
 						}
@@ -6630,6 +6642,21 @@ event = {
 					}
 				}
 			}
+		} else_if = {
+			limit = { NOT = { has_global_flag = khanate_starbase_fixed } }
+			# TODO remove temp fix for bugged starbases (somehow)
+			every_playable_country = {
+				limit = { has_origin = "origin_khan_successor" }
+				# Normalize Starbases
+				every_owned_starbase = {
+					limit = { has_starbase_size = starbase_marauder }
+					set_starbase_size = starbase_outpost
+				}
+				every_owned_fleet = {
+					set_event_locked = no
+				}
+			}
+			set_global_flag = khanate_starbase_fixed
 		}
 	}
 }
