@@ -414,8 +414,11 @@ country_event = {
 
 	immediate = {
 		# Marauder 1
+		set_variable = { which = merccost value = 0 }
+
 		if = {
 			limit = { has_country_flag = CmtFlagHiringMarauder1 }
+
 			every_owned_fleet = {
 				limit = { CmtTriggerHiredMarauderFleet1 = yes }
 				leader = {
@@ -423,10 +426,23 @@ country_event = {
 					# kill_leader = { show_notification = no }
 					set_owner = event_target:raider_khanate
 				}
+				switch = {
+					trigger = has_fleet_flag
+					armada_of_the_voidborn = {
+						prev = { change_variable = { which = merccost value = @largemerccost } }
+					}
+					star_rider_flotilla = {
+						prev = { change_variable = { which = merccost value = @mediummerccost } }
+					}
+					first_storm_wing = {
+						prev = { change_variable = { which = merccost value = @smallmerccost } }
+					}
+				}
 				# delete_fleet = { target = this destroy_template = yes }
 				set_owner = event_target:raider_khanate
 				fleet_event = { id = khan.611 days = -1 }
 			}
+
 			every_owned_leader = {
 				limit = { has_leader_flag = hired_merc_leader_1 }
 				# kill_leader = { show_notification = no }
@@ -451,6 +467,18 @@ country_event = {
 					remove_leader_flag = marauder_merc_leader
 					# kill_leader = { show_notification = no }
 					set_owner = event_target:raider_khanate
+				}
+				switch = {
+					trigger = has_fleet_flag
+					dwamak_bashers = {
+						prev = { change_variable = { which = merccost value = @largemerccost } }
+					}
+					unhinged_screamer_flotilla = {
+						prev = { change_variable = { which = merccost value = @mediummerccost } }
+					}
+					frenzied_volunteer_squadron = {
+						prev = { change_variable = { which = merccost value = @smallmerccost } }
+					}
 				}
 				# delete_fleet = { target = this destroy_template = yes }
 				set_owner = event_target:raider_khanate
@@ -481,6 +509,18 @@ country_event = {
 					# kill_leader = { show_notification = no }
 					set_owner = event_target:raider_khanate
 				}
+				switch = {
+					trigger = has_fleet_flag
+					her_chosen_champions = {
+						prev = { change_variable = { which = merccost value = @largemerccost } }
+					}
+					order_of_eternal_night = {
+						prev = { change_variable = { which = merccost value = @mediummerccost } }
+					}
+					twilight_congregation = {
+						prev = { change_variable = { which = merccost value = @smallmerccost } }
+					}
+				}
 				# delete_fleet = { target = this destroy_template = yes }
 				set_owner = event_target:raider_khanate
 				fleet_event = { id = khan.611 days = -1 }
@@ -493,7 +533,14 @@ country_event = {
 			remove_country_flag = CmtFlagHiringMarauder3
 		}
 	}
-
+	after = {
+		# Refund of Mercenary Pay 1/2
+		random = {
+			chance = 50
+			divide_variable = { which = merccost value = 200 }
+			add_resource = { energy = 100 mult = merccost }
+		}
+	}
 	option = { name = marauder.76.a }
 }
 
