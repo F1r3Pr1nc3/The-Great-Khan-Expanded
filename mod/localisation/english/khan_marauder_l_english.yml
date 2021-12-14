@@ -71,7 +71,7 @@
 #  station_pirate_large_key:0 "REPLACE_ME"
 #  marauder_starbase_key:0 "REPLACE_ME"
 #  pirate_galleon_key:0 "$galleon$"
- khan.751.a.response:0 "$marauder.554.a.response$"
+#  khan.751.a.response:0 "$marauder.554.a.response$"
 #  khan.801.a:0 "$marauder.554.a$"
 #  khan.801.a.response:0 "$marauder.554.a.response$"
  npc_galleon_01:0 "$RT_KHAN$ $npc_warship_01$"

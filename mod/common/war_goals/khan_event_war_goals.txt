@@ -57,22 +57,17 @@ wg_independence = {
 
 		if = {
 			limit = { from = { is_country_type = awakened_marauders } }
-			set_subject_of = { who = none }
-			set_country_flag = rebelling_satrapy
-			remove_modifier = "satrapy_of_horde"
+			country_event = { id = marauder.554 } # Rebel
+			# set_subject_of = { who = none }
+			# set_country_flag = rebelling_satrapy
+			# remove_modifier = "satrapy_of_horde"
 			# from = {
 			# 	set_faction_hostility = {
 			# 		target = root
 			# 		set_hostile = yes
-			# 		# set_neutral = no
-			# 		# set_friendly = no
+			# 		set_neutral = no
+			# 		set_friendly = no
 			# 	}
-			# }
-			# set_faction_hostility = {
-			# 	target = from
-			# 	set_hostile = yes
-			# 	# set_neutral = no
-			# 	# set_friendly = no
 			# }
 			# fromfrom = { # war scope seems only work for on_accept
 			if = {
@@ -82,7 +77,7 @@ wg_independence = {
 						# any_war_participant = {
 						any_attacker = {
 							NOT = { is_same_empire = root }
-							prev = { using_war_goal = { type = wg_independence owner = prev } }
+							prev = { using_war_goal = { type = "wg_independence" owner = prev } }
 						}
 					}
 				}
@@ -91,7 +86,10 @@ wg_independence = {
 						is_war_participant = { who = root side = attackers }
 						# any_war_participant = {
 						any_attacker = {
-							prev = { using_war_goal = { type = wg_independence owner = prev } }
+							prev = { using_war_goal = { type = "wg_independence" owner = prev } }
+						}
+						any_defender = {
+							is_same_empire = from
 						}
 					}
 					# every_war_participant = {
@@ -102,30 +100,37 @@ wg_independence = {
 							overlord = { is_same_empire = from }
 							# prev = {
 							# 	is_war_participant = { who = prev side = attackers }
-							# 	# using_war_goal = { type = wg_independence owner = prev }
+							# 	# using_war_goal = { type = "wg_independence" owner = prev }
 							# }
 						}
 						if = {
 							limit = { has_modifier = "satrapy_of_horde" }
-							set_country_flag = rebelling_satrapy
-							remove_modifier = "satrapy_of_horde"
+							country_event = { id = marauder.554 } # Rebel
+							# set_country_flag = rebelling_satrapy
+							# remove_modifier = "satrapy_of_horde"
+						} else = {
+							set_subject_of = { who = none }
+							# from = {
+							# 	set_faction_hostility = {
+							# 		target = root
+							# 		set_hostile = yes
+							# 		# set_neutral = no
+							# 		# set_friendly = no
+							# 	}
+							# }
 						}
-
-						set_subject_of = { who = none }
-						# from = {
-						# 	set_faction_hostility = {
-						# 		target = root
-						# 		set_hostile = yes
-						# 		# set_neutral = no
-						# 		# set_friendly = no
-						# 	}
-						# }
-						# set_faction_hostility = {
-						# 	target = from
-						# 	set_hostile = yes
-						# 	# set_neutral = no
-						# 	# set_friendly = no
-						# }
+					}
+					# Remove all non marauder related from war
+					every_defender = {
+						limit = {
+							NOR = {
+								is_same_empire = from
+								has_origin = "origin_khan_successor"
+								is_subject_type = war_satrapy
+							}
+							CmtTriggerIsMarauder = no
+						}
+						prev = { remove_war_participant = prev }
 					}
 				}
 			}
