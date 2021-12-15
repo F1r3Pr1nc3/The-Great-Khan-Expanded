@@ -1535,6 +1535,7 @@ country_event = {
 				civics = {
 					civic = civic_great_khans_vision
 					civic = civic_shared_burden
+					# civic = civic_warrior_culture
 				}
 				remove_invalid_civics = yes
 			}
@@ -1574,7 +1575,6 @@ country_event = {
 		}
 
 		### Ruler Khan
-
 		if = {
 			limit = { NOT = { exists = ruler } }
 			create_leader = {
@@ -1588,6 +1588,7 @@ country_event = {
 				traits = {
 					trait = leader_trait_ruler_great_khan
 					trait = leader_trait_ruler_chosen
+					trait = leader_trait_fleet_organizer
 					trait = leader_trait_eager
 				}
 				effect = {
@@ -1600,10 +1601,14 @@ country_event = {
 			assign_leader = last_created_leader
 		} else_if = { ### NSC SUPPORT
 			limit = { has_global_flag = has_nsc_active }
-			ruler = { add_ruler_trait = nsc_freebooter_leader_trait_ruler_great_khan }
+			ruler = {
+				add_ruler_trait = leader_trait_fleet_organizer
+				add_ruler_trait = nsc_freebooter_leader_trait_ruler_great_khan
+			}
 		} else = {
 			ruler = {
 				add_ruler_trait = leader_trait_ruler_great_khan
+				add_ruler_trait = leader_trait_fleet_organizer
 				# add_ruler_trait = leader_trait_ruler_chosen
 				# add_trait = leader_trait_eager
 				add_skill = 2
@@ -1707,6 +1712,7 @@ country_event = {
 					trait = leader_trait_great_khan
 					# trait = leader_trait_admiral_chosen
 					trait = leader_trait_fleet_logistician
+					trait = leader_trait_fleet_organizer
 					# trait = leader_trait_eager
 				}
 				# effect = {
@@ -5339,6 +5345,8 @@ country_event = {
 	}
 }
 
+##################################
+
 namespace = crisis
 # TODO remove on 3.3
 # Declare Crisis Test (Used on desired Crisis Empire)
@@ -5406,20 +5414,20 @@ country_event = {
 
 ##################################
 
-namespace = emperor
-
+namespace = custodian
 # Override Test Event
 country_event = {
-	id = emperor.499
+	id = custodian.499
 	hide_window = yes
-	# trigger = { always = no }
 	is_triggered_only = yes
+	# trigger = { always = no }
 	immediate = {
 		if = {
 			limit = { is_galactic_council_established = no }
 			set_council_size = 3
+			add_to_galactic_council = yes
 			while = {
-				count = 3
+				count = 2
 				random_playable_country = {
 					limit = {
 						is_galactic_community_member = yes
@@ -5429,6 +5437,43 @@ country_event = {
 					add_to_galactic_council = yes
 				}
 			}
+		}
+		set_galactic_custodian = yes
+		country_event = { id = custodian.1 }
+		country_event = { id = custodian.10 days = 5400 } # Ends in 15 years
+		if = {
+			limit = { has_global_flag = gdf_active }
+			country_event = { id = custodian.35 days = 10 }
+		}
+	}
+}
+
+##################################
+
+namespace = emperor
+# Override Test Event
+country_event = {
+	id = emperor.499
+	hide_window = yes
+	is_triggered_only = yes
+	# trigger = { always = no }
+	immediate = {
+		if = {
+			limit = { is_galactic_council_established = no }
+			set_council_size = 3
+			add_to_galactic_council = yes
+			while = {
+				count = 2
+				random_playable_country = {
+					limit = {
+						is_galactic_community_member = yes
+						is_part_of_galactic_council = no
+						is_galactic_custodian = no
+					}
+					add_to_galactic_council = yes
+				}
+			}
+			set_galactic_custodian = yes
 		}
 		country_event = { id = emperor.1 }
 	}
@@ -5859,7 +5904,7 @@ country_event = {
 	}
 }
 
-# Turn the Khan into the Galactic Emperor (or at least playable Empire).
+# Turn the Khan into the Galactic Emperor (or at least playable Empire - 3.2).
 # This = Khan
 country_event = {
 	id = khan.218
@@ -5873,6 +5918,45 @@ country_event = {
 	immediate = {
 		if = { limit = { NOT = { is_country_type = default } }
 			set_country_type = default
+			# Need Naval Capacity
+			if = {
+				limit = { NOT = { has_tradition = tr_supremacy_adopt } }
+				add_tradition = tr_supremacy_adopt
+				add_tradition = tr_supremacy_master_shipwrights
+				add_tradition = tr_supremacy_fleet_logistical_corps
+				add_tradition = tr_supremacy_overwhelming_force
+				add_tradition = tr_supremacy_war_games
+				add_tradition = tr_supremacy_great_game
+				add_tradition = tr_supremacy_finish
+			}
+			if = {
+				limit = { NOT = { has_tradition = tr_diplomacy_adopt } }
+				add_tradition = tr_diplomacy_adopt
+				add_tradition = tr_diplomacy_the_federation
+				add_tradition = tr_diplomacy_entente_coordination
+			}
+			# Strategic Coordination Center?
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_gene_banks }
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_planetary_defenses }
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_ground_defense_planning }
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_global_defense_grid }
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_doctrine_navy_size_1 }
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_doctrine_navy_size_2 }
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_doctrine_navy_size_3 }
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_doctrine_navy_size_4 }
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_repeatable_naval_cap }
+
+			if = { limit = { has_civic = civic_anarcho_tribalism }
+				force_remove_civic = civic_anarcho_tribalism
+			}
+			if = { limit = { has_civic = civic_shared_burden }
+				force_remove_civic = civic_shared_burden
+			} else_if = { limit = { has_civic = civic_slaver_guilds }
+				force_remove_civic = civic_slaver_guilds
+			} else_if = { limit = { has_civic = civic_fanatic_purifiers }
+				force_remove_civic = civic_fanatic_purifiers
+			}
+			force_add_civic = civic_warrior_culture
 		}
 		if = { limit = { has_country_flag = declared_crisis }
 			remove_country_flag = declared_crisis
@@ -5913,7 +5997,8 @@ country_event = {
 				if = { limit = { is_galactic_community_member = no }
 					add_to_galactic_community_no_message = yes
 				}
-				country_event = { id = emperor.499 days = 2 }
+				country_event = { id = custodian.499 days = -1 }
+				country_event = { id = emperor.499 days = 3 }
 			}
 		}
 	}
@@ -6028,20 +6113,17 @@ country_event = {
 		exists = root
 		is_scope_valid = yes
 		NOT = { has_country_flag = war_in_heaven_picked_side }
-		is_galactic_community_member = no
+		# is_galactic_community_member = no
 		has_been_declared_crisis = no
 	}
 
-	# I was not called into the war in heaven against the AE, only two wars in heaven against independent empires and all the rebel coalition wars.
-
-	immediate = {
-	}
+	immediate = { }
 	# Horde
 	option = {
 		name = pick_great_khan
 		trigger = {
 			CmtTriggerIsPlayableEmpire = yes
-			is_subject = no
+			# is_subject = no
 			is_zofe_fe = no
 			is_galactic_emperor = no
 			# opinion_level = { who = event_target:raider_khanate level >= neutral }
@@ -6148,7 +6230,7 @@ country_event = {
 		name = pick_fe
 		trigger = {
 			CmtTriggerIsPlayableEmpire = yes
-			is_subject = no
+			# is_subject = no
 			exists = event_target:FirstSleeper
 			is_zofe_fe = no
 			is_galactic_emperor = no
@@ -6993,20 +7075,6 @@ event = {
 							}
 						}
 					}
-					# if = {
-					# 	limit = {
-					# 		is_galactic_community_formed = yes
-					# 		is_galactic_community_member = yes
-					# 	}
-					# 	every_galcom_member = {
-					# 		limit = {
-					# 			NOT = { has_country_flag = rebelling_satrapy }
-					# 			prev = { is_hostile = prev }
-					# 		}
-					# 	}
-					# }
-
-
 				}
 				if = {
 					limit = {
@@ -7253,19 +7321,20 @@ ship_event = {
 		is_ship_class = shipclass_starbase
 		exists = owner
 		owner = { is_country_type = awakened_marauders }
-		NOT = {
-			is_ship_size = starbase_marauder
+		# NOT = {
+		# 	is_ship_size = starbase_marauder
 			# solar_system = {
 			# 	any_fleet_in_system = {
 			# 		NOT = { is_owned_by = root.owner }
 			# 		is_ship_class = shipclass_starbase
 			# 	}
 			# }
-		}
+		# }
 	}
 	immediate = {
 		if = {
 			limit = { # Keep station
+				NOT = { is_ship_size = starbase_marauder }
 				exists = from.owner
 				from.owner = { CmtTriggerIsPlayableEmpire = yes }
 				solar_system = { # Not dead end systems
@@ -8135,7 +8204,7 @@ country_event = {
 	option = {
 		name = marauder_fabricator_disloyal
 		sound = no_tut_advior_02
-		response_text = khan.751.a.response
+		response_text = marauder.554.a.response
 		set_subject_of = { who = none }
 		hidden_effect = {
 			set_country_flag = rebelling_satrapy
@@ -8786,16 +8855,15 @@ country_event = {
 						random_member = {
 							limit = { is_federation_leader = yes }
 							set_country_flag = last_best_hope
-
+							remove_global_flag = war_in_heaven_seeking_league_leader
 							if = {
 								limit = {
-									NOR = {
+									NAND = {
 										is_at_war = yes
 										is_at_war_with = root
 									}
 								}
 								remove_global_flag = war_in_heaven_nonaligned_league_war
-								remove_global_flag = war_in_heaven_seeking_league_leader
 								country_event = { id = khan.216 days = 5 }
 							}
 							if = {
@@ -8808,12 +8876,11 @@ country_event = {
 										}
 										AND = {
 											exists = event_target:SecondSleeper
-											NOT = { is_at_war_with = event_target:FirstSleeper }
+											NOT = { is_at_war_with = event_target:SecondSleeper }
 										}
 									}
 								}
 								remove_global_flag = war_in_heaven_nonaligned_league_war
-								remove_global_flag = war_in_heaven_seeking_league_leader
 								country_event = { id = war_in_heaven.16 days = 3 }
 							}
 						}

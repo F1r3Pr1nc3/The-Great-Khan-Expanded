@@ -31,7 +31,6 @@
  great_khan_wins_desc: "通过外交和压倒性军事力量的结合，大可汗成功地征服了已知星系的大部分地区，只有失落帝国仍保持独立。大汗关于银河共同体的愿景似乎会实现，尽管以何种形式实现还有待观察……"
  great_khan_wins_response: "大可汗万岁"
  khan.710.a.tooltip: "Reign over the remaining parts of the marauders to lead them into the glorious future."
- khan.751.a.response: "$marauder.554.a.response$"
  marauder_deal: "总督体制的创建是有原因的，它将向银河社会提供理想的过渡，我为什么要改变它？"
  marauder_deal_accept: "通过让我们使用这项技术，你拯救了许多生命，它将被用于维护银河系的利益。"
  marauder_deal_bad_response: "不，我们不会与您分享我们的技术。"

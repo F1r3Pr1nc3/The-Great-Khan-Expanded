@@ -7,12 +7,13 @@ civic_great_khans_vision = {
 	}
 	random_weight = { base = 5 }
 	modifier = {
-		edicts_cost_mult = -0.10
-		army_damage_mult = 0.10
-		planet_jobs_slave_produces_mult = 0.10
-		planet_jobs_worker_produces_mult = 0.10
+		edicts_cost_mult = -0.1
+		army_damage_mult = 0.1
+		planet_jobs_slave_produces_mult = 0.1
+		planet_jobs_worker_produces_mult = 0.1
 		country_government_civic_points_add = 1
 		pop_government_ethic_attraction = 0.2
 		planet_stability_add = 10
+		country_naval_cap_mult = 0.2
 	}
 }

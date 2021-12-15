@@ -30,7 +30,6 @@
  great_khan_wins_announcement_response: "Schöne Worte..."
  great_khan_wins_desc: "Durch eine Kombination aus Diplomatie und überwältigender militärischer Macht ist es dem Großkhan gelungen, den Großteil der bekannten Galaxis zu erobern, wobei nur die älteren Rassen unabhängig blieben. Es scheint, als ob sich die Vision des Großkhans von einer galaktischen Gemeinschaft verwirklichen wird, in welcher Form bleibt abzuwarten..."
  great_khan_wins_response: "Lang lebe der Große Khan..."
- khan.751.a.response: "$marauder.554.a.response$"
  khan.710.a.tooltip: "Beherrscht nun als neuer $RT_GREAT_KHAN$ die $gov_marauder_clans$, um eine neue ruhmreiche galaktische Geschichte zu schreiben.\n$food_policy_rationing_desc$"
  marauder_deal: "Das Satrapiesystem wurde aus einem bestimmten Grund geschaffen, es wird einen idealen Übergang zu einer galaktischen Gemeinschaft bieten, warum sollte ich es ändern?"
  marauder_deal_accept: "Ihr habt viele Leben gerettet, indem Ihr uns Zugang zu dieser Technologie gegeben habt. Sie wird zum Wohle der Galaxis verwendet."

@@ -4,13 +4,25 @@
 # @corvette_combat_rotation = 0.08
 # @corvette_collision_radius = 2.0
 
+@corvette_upkeep_energy = 0.1
+# @corvette_upkeep_alloys = 0.1
+# @corvette_upkeep_minerals = 0.05
+
 # @destroyer_combat_speed = 1.0		# picket ships, should stay with the battleships
 # @destroyer_combat_rotation = 0.05
 # @destroyer_collision_radius = 2.5
 
+@destroyer_upkeep_energy = 0.2
+# @destroyer_upkeep_alloys = 0.2
+# @destroyer_upkeep_minerals = 0.1
+
 # @cruiser_combat_speed = 1.25		# assault ships
 # @cruiser_combat_rotation = 0.025
 # @cruiser_collision_radius = 3
+
+@cruiser_upkeep_energy = 0.3
+# @cruiser_upkeep_alloys = 0.4
+@cruiser_upkeep_minerals = 0.2
 
 # @battleship_combat_speed = 0.75
 # @battleship_combat_rotation = 0.02
@@ -81,7 +93,7 @@ marauder_corvette = {
 		}
 		upkeep = {
 			energy = @corvette_upkeep_energy
-			minerals = @corvette_upkeep_minerals
+			# minerals = @corvette_upkeep_minerals
 		}
 	}
 }
@@ -138,7 +150,7 @@ marauder_destroyer = {
 		}
 		upkeep = {
 			energy = @destroyer_upkeep_energy
-			minerals = @destroyer_upkeep_minerals
+			# minerals = @destroyer_upkeep_minerals
 		}
 	}
 }

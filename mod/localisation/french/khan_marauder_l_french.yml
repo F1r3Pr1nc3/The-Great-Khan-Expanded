@@ -31,7 +31,6 @@
  great_khan_wins_desc: "Through a combination of diplomacy and overwhelming military might, the $RT_GREAT_KHAN$ has succeeded in conquering the majority of the known galaxy, with only the elder races remaining independent. It would seem as if the $RT_GREAT_KHAN$'s vision for a galactic community will be realized, although in what form remains to be seen..."
  great_khan_wins_response: "Long live the $RT_GREAT_KHAN$..."
  khan.710.a.tooltip: "Now rule the $gov_marauder_clans$ as the new $RT_GREAT_KHAN$ to write a new glorious galactic history.\n$food_policy_rationing_desc$"
- khan.751.a.response: "$marauder.554.a.response$"
  marauder_deal: "The satrapy system was created for a reason, it will provide an ideal transition towards a galactic community, why would I alter it?"
  marauder_deal_accept: "You have saved many lives by giving us access to this technology, it will be used for the good of the galaxy."
  marauder_deal_bad_response: "No, we will not share our technology with you."
