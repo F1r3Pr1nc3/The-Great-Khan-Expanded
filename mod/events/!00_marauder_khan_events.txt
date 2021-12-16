@@ -3666,6 +3666,17 @@ country_event = {
 		}
 		CmtEffectCreateEncouragingBase = yes		## event_target:garrison_base
 		event_target:garrison_base = { CmtEffectCreateAdmiralty_KhanEncourager = yes }
+
+		event_target:raider_khanate = {
+			if = { limit = { is_hostile = prev }
+				set_faction_hostility = {
+					target = prev
+					set_hostile = no
+					set_neutral = yes
+					set_friendly = no
+				}
+			}
+		}
 	}
 	option = { name = marauder.553.a }
 	after = {
@@ -3991,12 +4002,6 @@ country_event = {
 				add_modifier = { modifier = "satrapy_of_horde" days = -1 }
 				change_variable = { which = "planets_lost_to_marauder" value = 1 }
 				event_target:raider_khanate = {
-					if = { limit = { is_hostile = prev }
-						set_faction_hostility = {
-							target = prev
-							set_friendly = yes
-						}
-					}
 					copy_random_tech_from = { who = prev area = engineering }
 					add_resource = { influence = 20 }
 				}
@@ -4023,12 +4028,6 @@ country_event = {
 		add_modifier = { modifier = "satrapy_of_horde" days = -1 }
 
 		event_target:raider_khanate = {
-			if = { limit = { is_hostile = root }
-				set_faction_hostility = {
-					target = root
-					set_friendly = yes
-				}
-			}
 			copy_random_tech_from = { who = prev area = physics }
 			add_resource = { influence = 100 }
 		}
@@ -5906,8 +5905,11 @@ country_event = {
 	option = {
 		name = war_in_heaven.16.a
 
-		if = {
-			limit = { has_global_flag = war_in_heaven_ongoing }
+		if = { # not on great uprising
+			limit = {
+				has_global_flag = war_in_heaven_started
+				has_global_flag = war_in_heaven_ongoing
+			}
 			event_target:raider_khanate = {
 				declare_war = {
 					target = root
@@ -5936,17 +5938,6 @@ country_event = {
 				}
 			}
 		}
-
-		federation = {
-			every_member = {
-				limit = {
-					is_subject_of_khan = yes
-				}
-				set_subject_of = { who = none }
-				set_country_flag = rebelling_satrapy
-				set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
-			}
-		}
 		if = {
 			limit = {
 				NAND = {
@@ -5958,6 +5949,29 @@ country_event = {
 				target = event_target:raider_khanate
 				name = "NAME_The_Civil_War" # "The Great Uprising"
 				attacker_war_goal = "wg_independence"
+			}
+		}
+		federation = {
+			every_member = {
+				limit = {
+					OR = {
+						is_subject_of_khan = yes
+						has_country_flag = rebelling_satrapy
+					}
+				}
+				set_subject_of = { who = none }
+				set_country_flag = rebelling_satrapy
+				set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
+				event_target:raider_khanate = {
+					if = { limit = { NOT = { is_hostile = prev } }
+						set_faction_hostility = {
+							target = prev
+							set_hostile = yes
+							set_neutral = no
+							set_friendly = no
+						}
+					}
+				}
 			}
 		}
 	}
@@ -6081,6 +6095,38 @@ country_event = {
 				event_target:great_khan = {
 					if = { limit = { NOT = { has_trait = leader_trait_fleet_logistician } }
 						add_trait = leader_trait_fleet_logistician
+					}
+				}
+			}
+			## Workaround fix (not be hostile)
+			if = {
+				limit = { is_war_leader = yes }
+				every_war = {
+					limit = {
+						any_attacker = { is_same_empire = prevprev }
+					}
+					every_defender = {
+						limit = { NOT = { is_hostile = prevprev } }
+						prevprev = {
+							set_faction_hostility = {
+								target = prev
+								set_hostile = yes
+							}
+						}
+					}
+				}
+				every_war = { # less probably
+					limit = {
+						any_defender = { is_same_empire = prevprev }
+					}
+					every_attacker = {
+						limit = { NOT = { is_hostile = prevprev } }
+						prevprev = {
+							set_faction_hostility = {
+								target = prev
+								set_hostile = yes
+							}
+						}
 					}
 				}
 			}
@@ -7297,6 +7343,38 @@ event = {
 						leave_alliance = {
 							override_requirements = yes
 							apply_opinion_penalty = yes
+						}
+					}
+				}
+				## Workaround fix (not be hostile)
+				if = {
+					limit = { is_war_leader = yes }
+					every_war = {
+						limit = {
+							any_attacker = { is_same_empire = prevprev }
+						}
+						every_defender = {
+							limit = { NOT = { is_hostile = prevprev } }
+							prevprev = {
+								set_faction_hostility = {
+									target = prev
+									set_hostile = yes
+								}
+							}
+						}
+					}
+					every_war = { # less probably
+						limit = {
+							any_defender = { is_same_empire = prevprev }
+						}
+						every_attacker = {
+							limit = { NOT = { is_hostile = prevprev } }
+							prevprev = {
+								set_faction_hostility = {
+									target = prev
+									set_hostile = yes
+								}
+							}
 						}
 					}
 				}
@@ -8993,7 +9071,7 @@ country_event = {
 			}
 		}
 
-		# Fallback Workaround Khan Asmiral missing
+		# Fallback Workaround Khan Admiral missing
 		if = {
 			limit = {
 				NOR = {
