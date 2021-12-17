@@ -3724,19 +3724,17 @@ country_event = {
 		set_subject_of = { who = none }
 		hidden_effect = {
 			set_country_flag = rebelling_satrapy
+			set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
 			if = { limit = { has_modifier = "satrapy_of_horde" }
 				remove_modifier = "satrapy_of_horde"
 			}
 			if = { limit = { is_variable_set = "planets_lost_to_marauder" }
 				divide_variable = { which = "planets_lost_to_marauder" value = 5 } # clear_variable = "planets_lost_to_marauder"
 			}
-			set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
-
 			if = {
 				limit = { has_federation = yes is_in_federation_with = event_target:raider_khanate }
 				leave_alliance = { override_requirements = yes }
 			}
-
 			if = {
 				limit = { is_ai = yes }
 				event_target:raider_khanate = {
@@ -5461,39 +5459,39 @@ country_event = {
 
 ##################################
 
-namespace = custodian
-# Override Test Event
-country_event = {
-	id = custodian.499
-	hide_window = yes
-	is_triggered_only = yes
-	# trigger = { always = no }
-	immediate = {
-		if = {
-			limit = { is_galactic_council_established = no }
-			set_council_size = 3
-			add_to_galactic_council = yes
-			while = {
-				count = 2
-				random_playable_country = {
-					limit = {
-						is_galactic_community_member = yes
-						is_part_of_galactic_council = no
-						is_galactic_custodian = no
-					}
-					add_to_galactic_council = yes
-				}
-			}
-		}
-		set_galactic_custodian = yes
-		country_event = { id = custodian.1 }
-		country_event = { id = custodian.10 days = 5400 } # Ends in 15 years
-		if = {
-			limit = { has_global_flag = gdf_active }
-			country_event = { id = custodian.35 days = 10 }
-		}
-	}
-}
+# namespace = custodian
+# # Override Test Event
+# country_event = {
+# 	id = custodian.499
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	# trigger = { always = no }
+# 	immediate = {
+# 		if = {
+# 			limit = { is_galactic_council_established = no }
+# 			set_council_size = 3
+# 			add_to_galactic_council = yes
+# 			while = {
+# 				count = 2
+# 				random_playable_country = {
+# 					limit = {
+# 						is_galactic_community_member = yes
+# 						is_part_of_galactic_council = no
+# 						is_galactic_custodian = no
+# 					}
+# 					add_to_galactic_council = yes
+# 				}
+# 			}
+# 		}
+# 		set_galactic_custodian = yes
+# 		country_event = { id = custodian.1 }
+# 		country_event = { id = custodian.10 days = 5400 } # Ends in 15 years
+# 		if = {
+# 			limit = { has_global_flag = gdf_active }
+# 			country_event = { id = custodian.35 days = 10 }
+# 		}
+# 	}
+# }
 
 ##################################
 
@@ -5508,9 +5506,9 @@ country_event = {
 		if = {
 			limit = { is_galactic_council_established = no }
 			set_council_size = 3
-			add_to_galactic_council = yes
+			# add_to_galactic_council = yes
 			while = {
-				count = 2
+				count = 3
 				random_playable_country = {
 					limit = {
 						is_galactic_community_member = yes
@@ -5520,7 +5518,7 @@ country_event = {
 					add_to_galactic_council = yes
 				}
 			}
-			set_galactic_custodian = yes
+			# set_galactic_custodian = yes
 		}
 		country_event = { id = emperor.1 }
 	}
@@ -5911,6 +5909,30 @@ country_event = {
 				has_global_flag = war_in_heaven_ongoing
 			}
 			event_target:raider_khanate = {
+				# # Against FE
+				# random_war = {
+				# 	limit = {
+				# 		using_war_goal = {
+				# 			type = "wg_war_in_heaven"
+				# 			owner = event_target:raider_khanate
+				# 		}
+				# 		any_war_participant = {
+				# 			is_same_empire = event_target:FirstSleeper
+				# 		}
+				# 	}
+				# 	prev = {
+				# 		every_subject = {
+				# 			limit = {
+				# 				NOR = {
+				# 					has_country_flag = rebelling_satrapy
+				# 					is_at_war_with = event_target:FirstSleeper
+				# 				}
+				# 			}
+				# 			join_war = prev
+				# 		}
+				# 	}
+				# }
+				# Against League
 				declare_war = {
 					target = root
 					name = "NAME_The_War_in_Heaven"
@@ -5962,13 +5984,14 @@ country_event = {
 				set_subject_of = { who = none }
 				set_country_flag = rebelling_satrapy
 				set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
+				if = { limit = { has_modifier = "satrapy_of_horde" }
+					remove_modifier = "satrapy_of_horde"
+				}
 				event_target:raider_khanate = {
 					if = { limit = { NOT = { is_hostile = prev } }
 						set_faction_hostility = {
 							target = prev
 							set_hostile = yes
-							set_neutral = no
-							set_friendly = no
 						}
 					}
 				}
@@ -6098,6 +6121,15 @@ country_event = {
 					}
 				}
 			}
+
+			every_subject = {
+				limit = { is_subject_of_khan = yes }
+				set_subject_of = { who = prev subject_type = tributary }
+				if = { limit = { has_modifier = "satrapy_of_horde" }
+					remove_modifier = "satrapy_of_horde"
+				}
+			}
+
 			## Workaround fix (not be hostile)
 			if = {
 				limit = { is_war_leader = yes }
@@ -6107,11 +6139,9 @@ country_event = {
 					}
 					every_defender = {
 						limit = { NOT = { is_hostile = prevprev } }
-						prevprev = {
-							set_faction_hostility = {
-								target = prev
-								set_hostile = yes
-							}
+						set_faction_hostility = {
+							target = prevprev
+							set_hostile = yes
 						}
 					}
 				}
@@ -6121,11 +6151,9 @@ country_event = {
 					}
 					every_attacker = {
 						limit = { NOT = { is_hostile = prevprev } }
-						prevprev = {
-							set_faction_hostility = {
-								target = prev
-								set_hostile = yes
-							}
+						set_faction_hostility = {
+							target = prevprev
+							set_hostile = yes
 						}
 					}
 				}
@@ -6133,6 +6161,39 @@ country_event = {
 		}
 		if = { limit = { has_country_flag = declared_crisis }
 			remove_country_flag = declared_crisis
+		}
+
+		# Fallback (for some reason not all join)
+		if = {
+			limit = {
+				exists = event_target:FirstSleeper
+				is_at_war_with = event_target:FirstSleeper
+			}
+			every_subject = {
+				limit = {
+					NOR = {
+						has_country_flag = rebelling_satrapy
+						is_at_war = yes
+						is_at_war_with = event_target:FirstSleeper
+					}
+				}
+				join_war = root
+			}
+			# Gets dissolved on emperor (but do it anyway)
+			if = { limit = { has_federation = yes }
+				federation = {
+					every_member = {
+						limit = {
+							NOR = {
+								has_country_flag = rebelling_satrapy
+								is_at_war = yes
+								is_at_war_with = event_target:FirstSleeper
+							}
+						}
+						join_war = root
+					}
+				}
+			}
 		}
 
 		if = {
@@ -6171,7 +6232,7 @@ country_event = {
 				if = { limit = { is_galactic_community_member = no }
 					add_to_galactic_community_no_message = yes
 				}
-				country_event = { id = custodian.499 days = -1 }
+				# country_event = { id = custodian.499 days = -1 }
 				country_event = { id = emperor.499 days = 3 }
 			}
 		}
@@ -6326,29 +6387,30 @@ country_event = {
 			name = "NAME_Galactic_Horde"
 			override_requirements = yes
 		}
-		if = {
-			limit = {
-				OR = {
-					has_origin = "origin_khan_successor"
-					is_subject_type = war_satrapy
-					CmtTriggerIsMarauder = yes
-				}
-			}
-			join_war = event_target:raider_khanate
-		} else = {
-			event_target:raider_khanate = {
-				random_war = {
-					limit = {
-						using_war_goal = { type = "wg_war_in_heaven" owner = prev }
-					}
-					root = {
-						join_war_on_side = { war = prev side = prevprev }
-					}
-				}
-			}
-		}
 
 		hidden_effect = {
+			if = {
+				limit = {
+					OR = {
+						has_origin = "origin_khan_successor"
+						is_subject_type = war_satrapy
+						CmtTriggerIsMarauder = yes
+					}
+				}
+				join_war = event_target:raider_khanate
+			} else = {
+				event_target:raider_khanate = {
+					random_war = {
+						limit = {
+							using_war_goal = { type = "wg_war_in_heaven" owner = prev }
+						}
+						root = {
+							join_war_on_side = { war = prev side = prevprev }
+						}
+					}
+				}
+			}
+
 			if = { limit = { has_country_flag = rebelling_satrapy }
 				remove_country_flag = rebelling_satrapy
 				set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
@@ -6404,7 +6466,7 @@ country_event = {
 		name = pick_fe
 		trigger = {
 			CmtTriggerIsPlayableEmpire = yes
-			is_subject = no
+			# is_subject = no
 			# is_galactic_community_member = no
 			exists = event_target:FirstSleeper
 			is_zofe_fe = no
@@ -6416,6 +6478,7 @@ country_event = {
 				factor = 0
 				OR = {
 					NOT = { exists = event_target:FirstSleeper }
+					is_subject = yes
 					is_angry_to = event_target:FirstSleeper
 					opinion_level = { who = event_target:FirstSleeper level <= poor }
 					is_homicidal = yes
@@ -6953,12 +7016,12 @@ country_event = {
 					country_event = { id = khan.203 days = 16 } # Prepare Uprising
 				}
 				modifier = {
-					factor = 0.2
+					factor = 0.75
 					num_fallen_empires_setting > 0
 					any_country = { is_country_type = awakened_fallen_empire }
 				}
 				modifier = {
-					factor = 0.2
+					factor = 0.75
 					num_fallen_empires_setting > 1
 					count_country = { count > 1 limit = { is_country_type = awakened_fallen_empire } }
 				}
@@ -6992,17 +7055,17 @@ country_event = {
 					}
 				}
 				modifier = {
-					factor = 2
+					factor = 1.5
 					num_fallen_empires > 1
 					num_fallen_empires < 3
 				}
 				modifier = {
-					factor = 3
+					factor = 2
 					num_fallen_empires > 2
 					num_fallen_empires < 4
 				}
 				modifier = {
-					factor = 4
+					factor = 3
 					num_fallen_empires > 3
 				}
 			}
@@ -7181,6 +7244,8 @@ country_event = {
 			prev = {
 				set_faction_hostility = {
 					target = prev
+					set_hostile = no
+					set_neutral = no
 					set_friendly = yes
 				}
 			}
@@ -7355,11 +7420,9 @@ event = {
 						}
 						every_defender = {
 							limit = { NOT = { is_hostile = prevprev } }
-							prevprev = {
-								set_faction_hostility = {
-									target = prev
-									set_hostile = yes
-								}
+							set_faction_hostility = {
+								target = prevprev
+								set_hostile = yes
 							}
 						}
 					}
@@ -7369,11 +7432,9 @@ event = {
 						}
 						every_attacker = {
 							limit = { NOT = { is_hostile = prevprev } }
-							prevprev = {
-								set_faction_hostility = {
-									target = prev
-									set_hostile = yes
-								}
+							set_faction_hostility = {
+								target = prevprev
+								set_hostile = yes
 							}
 						}
 					}
@@ -8492,17 +8553,17 @@ country_event = {
 		set_subject_of = { who = none }
 		hidden_effect = {
 			set_country_flag = rebelling_satrapy
-			remove_modifier = "satrapy_of_horde"
+			set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
+			if = { limit = { has_modifier = "satrapy_of_horde" }
+				remove_modifier = "satrapy_of_horde"
+			}
 			if = { limit = { is_variable_set = "planets_lost_to_marauder" }
 				divide_variable = { which = "planets_lost_to_marauder" value = 5 } # clear_variable = "planets_lost_to_marauder"
 			}
-			set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
-
 			if = {
 				limit = { has_federation = yes is_in_federation_with = event_target:raider_khanate }
 				leave_alliance = { override_requirements = yes }
 			}
-
 			if = {
 				limit = { is_ai = yes }
 				event_target:raider_khanate = {
@@ -9228,6 +9289,12 @@ country_event = {
 					}
 				}
 			}
+			# TODO test balance (omit Imperial Core suffering intermittent resource shortages)
+			add_resource = {
+				minerals =	1000
+				energy =	4000
+				food = 400
+			}
 		}
 
 		### Check machinesmith;
@@ -9462,6 +9529,9 @@ country_event = {
 			set_subject_of = { who = none }
 			set_country_flag = rebelling_satrapy
 			set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
+			if = { limit = { has_modifier = "satrapy_of_horde" }
+				remove_modifier = "satrapy_of_horde"
+			}
 		}
 	}
 }
