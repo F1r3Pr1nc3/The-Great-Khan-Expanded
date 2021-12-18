@@ -1,0 +1,157 @@
+# Only vanilla logic code opt - 3.2 by FirePrince
+
+@protectorate_tech_threshold = 0.4
+@protectorate_tech_switch = 0.5
+
+vassal = {
+	can_expand = no
+	can_be_integrated = yes
+
+	research_agreement = yes
+	research_sharing = yes	# for tech sharing modifier
+
+	joins_overlord_wars = yes
+	calls_overlord_to_war = yes
+	can_do_diplomacy = no
+
+	intel_from_being_subject = 40
+	intel_from_being_overlord = 50
+
+	diplo_threat = 1.5
+
+	potential = {
+		from = { is_country_type = default }
+		has_been_declared_crisis = no
+		tech_unlocked_ratio = {
+			who = from
+			ratio >= @protectorate_tech_threshold
+		}
+	}
+
+	effect = {
+		if = {
+			limit = {
+				from = { has_valid_civic = civic_inwards_perfection }
+			}
+			set_subject_of = { who = from subject_type = tributary }
+		}
+		else_if = {
+			limit = {
+				from = {
+					OR = {
+						is_country_type_with_subjects = no
+						has_valid_civic = civic_hive_devouring_swarm
+						AND = {
+							has_valid_civic = civic_fanatic_purifiers
+							NOT = { is_same_species = root }
+						}
+					}
+				}
+			}
+			set_subject_of = { who = none }
+		}
+		else_if = {
+			limit = {
+				from = { has_authority = auth_corporate }
+			}
+			set_subject_of = { who = from subject_type = subsidiary }
+		}
+		else_if = {
+			limit = {
+				from = { is_country_type = awakened_fallen_empire }
+			}
+			from = {
+				switch = {
+					trigger = has_ethic
+					ethic_fanatic_xenophobe	= { root = { set_subject_of = { who = from subject_type = thrall } } }
+					ethic_fanatic_xenophile	= { root = { set_subject_of = { who = from subject_type = signatory } } }
+					ethic_fanatic_spiritualist	= { root = { set_subject_of = { who = from subject_type = dominion } } }
+					ethic_fanatic_materialist	= { root = { set_subject_of = { who = from subject_type = satellite } } }
+				}
+			}
+		}
+	}
+}
+
+protectorate = {
+	can_expand = no
+	can_be_integrated = yes
+
+	research_agreement = no
+
+	joins_overlord_wars = no
+	calls_overlord_to_war = yes
+	can_do_diplomacy = no
+
+	tech_cost_mult = -0.80
+
+	intel_from_being_subject = 40
+	intel_from_being_overlord = 50
+
+	overlord_resources = {
+		category = subjects
+		produces = { influence = 0.25 }
+	}
+
+	diplo_threat = 0.75
+
+	potential = {
+		from = { is_country_type = default }
+		has_been_declared_crisis = no
+		tech_unlocked_ratio = {
+			who = from
+			ratio < @protectorate_tech_threshold
+		}
+	}
+
+	effect = {
+		if = {
+			limit = {
+				from = { has_valid_civic = civic_inwards_perfection }
+			}
+			set_subject_of = { who = from subject_type = tributary }
+		}
+		else_if = {
+			limit = {
+				from = {
+					OR = {
+						is_country_type_with_subjects = no
+						has_valid_civic = civic_hive_devouring_swarm
+						AND = {
+							has_valid_civic = civic_fanatic_purifiers
+							NOT = { is_same_species = root }
+						}
+					}
+				}
+			}
+			set_subject_of = { who = none }
+		}
+		else_if = {
+			limit = {
+				from = { has_authority = auth_corporate }
+			}
+			set_subject_of = { who = from subject_type = subsidiary }
+		}
+		else_if = {
+			limit = {
+				from = { is_country_type = awakened_fallen_empire }
+			}
+			from = {
+				switch = {
+					trigger = has_ethic
+					ethic_fanatic_xenophobe	= { root = { set_subject_of = { who = from subject_type = thrall } } }
+					ethic_fanatic_xenophile	= { root = { set_subject_of = { who = from subject_type = signatory } } }
+					ethic_fanatic_spiritualist	= { root = { set_subject_of = { who = from subject_type = dominion } } }
+					ethic_fanatic_materialist	= { root = { set_subject_of = { who = from subject_type = satellite } } }
+				}
+			}
+		}
+	}
+
+	become_vassal = {
+		tech_unlocked_ratio = {
+			who = from
+			ratio > @protectorate_tech_switch
+		}
+	}
+}

@@ -170,7 +170,7 @@ marauder_cruiser = {
 		ships_upkeep_mult = -1
 	}
 	max_hitpoints = 2000
-	size_multiplier = 4
+	size_multiplier = 3 # 4
 	fleet_slot_size = 4
 	section_slots = { "mid" = { locator = "part1" } }
 	num_target_locators = 0
@@ -229,7 +229,7 @@ marauder_galleon = {
 		ships_upkeep_mult = -1
 	}
 	max_hitpoints = 40000
-	size_multiplier = 8
+	size_multiplier = 6 # 8
 	fleet_slot_size = 4
 	section_slots = { "mid" = { locator = "part1" } }
 	num_target_locators = 0
@@ -332,7 +332,7 @@ marauder_station = {
 	}
 	ship_modifier = { ship_weapon_range_mult = 0.2 }
 	max_hitpoints = 3000
-	size_multiplier = 4
+	size_multiplier = 1 # 4
 	fleet_slot_size = 4
 	section_slots = { "west" = { locator = "part1" } }
 	num_target_locators = 0
@@ -365,8 +365,8 @@ marauder_void_dwelling = {
 		ship_armor_regen_add_static = 1
 	}
 	max_hitpoints = 12000
-	size_multiplier = 8
-	fleet_slot_size = 4
+	size_multiplier = 1 # 8
+	fleet_slot_size = 1 # 4
 	section_slots = { "mid" = { locator = "part1" } }
 	components_add_to_cost = no
 	uses_name_prefix = no

@@ -23,6 +23,12 @@ on_single_player_save_game_load = {
 # 	}
 # }
 
+# on_five_year_pulse_country = {
+# 	events = {
+# 		khan.219 # integrate subject
+# 	}
+# }
+
 # This = subject
 # From = subject's overlord
 on_becoming_subject = {
@@ -85,5 +91,13 @@ on_ship_enabled = {
 on_war_beginning = {
 	events = {
 		khan.901
+	}
+}
+
+#This = destroyed country
+#From = optional, destroyer (country)
+on_country_destroyed = {
+	events = {
+		marauder.609
 	}
 }

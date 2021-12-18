@@ -1,6 +1,7 @@
+# Only vanilla logic code opt - 3.2 by FirePrince
 tributary = {
 	can_expand = yes
-	can_be_integrated = yes
+	can_be_integrated = no
 	joins_overlord_wars = no
 	calls_overlord_to_war = yes
 	can_do_diplomacy = yes
