@@ -1,0 +1,7 @@
+# Use in war scope. War is deleted.
+end_war_effect = {
+	every_war_participant = {
+		limit = { NOT = { is_same_empire = prevprev } } # Vanilla Fix: don't break the loop
+		prev = { remove_war_participant = prev }
+	}
+}

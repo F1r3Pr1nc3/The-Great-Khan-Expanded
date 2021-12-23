@@ -288,7 +288,7 @@ country_event = {
 
 ## Marauder Infighting On Action (on_yearly_pulse)
 # Reenabled by FirePrince - Commented out in Vanilla: Works in game, but causes asserts when fleets from the same country attack each other.
-# The reason seems no real, as near the same event exists for feral_prethoryn_infighting
+# Almost the same event exists for feral_prethoryn_infighting
 event = {
 	id = marauder.11
 	hide_window = yes
@@ -296,7 +296,7 @@ event = {
 	trigger = {
 		NOR = {
 			has_global_flag = marauder_infighting_ongoing
-			has_global_flag = feral_prethoryn_infighting_ongoing
+			has_global_flag = marauder_infighting_ongoing
 		}
 		num_marauder_empires_to_spawn > 0
 		# any_country = { is_country_type = dormant_marauders }
@@ -355,36 +355,114 @@ country_event = {
 				species = { save_event_target_as = marauder_species }
 			}
 			create_country = {
-				name = "NAME_Feral_Prethoryn"
-				type = "feral_prethoryn_infighting"
+				name = random
+				type = ruined_marauders
 				species = event_target:marauder_species # root
-				name_list = "Prethoryn"
+				name_list = random
 				flag = {
-					icon = { category = "pirate" file = "flag_pirate_13.dds" }
+					# icon = { category = "pirate" file = "flag_pirate_13.dds" }
 					background = { category = "backgrounds" file = "new_dawn.dds" }
 					colors = { "red_orange" "black" "null" "null" }
 				}
-				effect = { save_event_target_as = feral_prethoryn_infighting }
+				# origin = "origin_void_dwellers"
+				effect = {
+					save_event_target_as = marauder_infighting
+					randomize_flag_symbol = "pirate"
+				}
 			}
+			# Copied from pirate.150
 			solar_system = {
-				random_neighbor_system = {
-					weights = {
-						base = 1
-						modifier = { add = 2 has_owner = no }
-						modifier = { add = 1 has_owner = yes NOT = { is_owned_by = root } }
+				if = { #Prioritise unoccupied systems
+					limit = {
+						any_neighbor_system = {
+							num_planets_in_system > 1
+							NOR = {
+								exists = space_owner
+								has_star_flag = hostile_system
+								has_star_flag = guardian
+								has_star_flag = tiyanki_home_system
+								has_star_flag = amoeba_home_system
+								has_star_flag = lcluster
+								has_star_flag = sealed_system
+							}
+						}
+					}
+					random_neighbor_system = {
+						limit = {
+							num_planets_in_system > 1
+							NOR = {
+								exists = space_owner
+								has_star_flag = hostile_system
+								has_star_flag = guardian
+								has_star_flag = tiyanki_home_system
+								has_star_flag = amoeba_home_system
+								has_star_flag = lcluster
+								has_star_flag = sealed_system
+							}
+						}
+					}
+					random_system_planet = {
+						limit = { is_star = no }
+						save_event_target_as = marauder_infighting_target
 					}
 				}
-				random_system_planet = {
-					limit = { is_star = no }
-					create_fleet = {
-						effect = {
-							set_owner = event_target:feral_prethoryn_infighting # last_created_country
-							create_dyn_marauder_fleet = { OUTRIDER = 22 LANCER = 14 CHAMPION = 8 }
-							set_location = {
-								target = prev
-								distance = 80
-								angle = 180
+				else_if = { # Pop up in a semi-convenient, empire-owned system, if possible
+					limit = { # Must be duplicated below, in the random_system effect
+						any_neighbor_system = {
+							exists = space_owner
+							num_planets_in_system > 1
+							NOR = {
+								is_pirate_system = yes
+								has_star_flag = hostile_system
+								has_star_flag = guardian
+								has_star_flag = enclave
+								is_capital_system = yes
+								is_owned_by = root
 							}
+							has_system_trade_value > 80
+							distance = {
+								source = space_owner.capital_scope.solar_system
+								use_bypasses = no
+								min_jumps = 2
+								max_jumps = 5
+							}
+						}
+					}
+					random_neighbor_system = {
+						limit = {
+							exists = space_owner
+							num_planets_in_system > 1
+							NOR = {
+								is_pirate_system = yes
+								has_star_flag = hostile_system
+								has_star_flag = guardian
+								has_star_flag = enclave
+								is_capital_system = yes
+								is_owned_by = root
+							}
+							has_system_trade_value > 80
+							distance = {
+								source = space_owner.capital_scope.solar_system
+								use_bypasses = no
+								min_jumps = 2
+								max_jumps = 5
+							}
+						}
+						random_system_planet = {
+							limit = { is_star = no }
+							save_event_target_as = marauder_infighting_target
+						}
+					}
+				}
+				create_fleet = {
+					name = NAME_Pirate_Fleet
+					effect = {
+						set_owner = event_target:marauder_infighting # last_created_country
+						create_dyn_marauder_fleet = { OUTRIDER = 22 LANCER = 14 CHAMPION = 8 }
+						set_location = {
+							target = event_target:marauder_infighting_target
+							distance = 80
+							angle = 180
 						}
 					}
 				}
@@ -398,16 +476,25 @@ country_event = {
 				auto_follow_fleet = { target = event_target:infighting_target_2 attack_fleet = yes }
 			}
 		}
-		establish_communications_no_message = event_target:feral_prethoryn_infighting
-		set_faction_hostility = {
-			target = event_target:feral_prethoryn_infighting
-			set_hostile = no
-			# set_neutral = yes
-			# set_friendly = yes
+		establish_communications_no_message = event_target:marauder_infighting
+		every_country = {
+			limit = {
+				OR = {
+					is_country_type = nomad
+					is_country_type = enclave
+					is_country_type = dormant_marauders
+				}
+			}
+			set_faction_hostility = {
+				target = event_target:marauder_infighting
+				set_hostile = no
+				# set_neutral = no
+				# set_friendly = yes
+			}
 		}
 		every_playable_country = {
 			# limit = { is_country_type = default }
-			establish_communications_no_message = event_target:feral_prethoryn_infighting
+			establish_communications_no_message = event_target:marauder_infighting
 		}
 	}
 }
@@ -3204,7 +3291,6 @@ country_event = {
 				# set_country_type = dormant_marauders
 				destroy_country = yes
 			}
-			# NOT = { any_country = { is_country_type = awakened_marauders } }
 			if = { # (as we could decline?)
 				limit = { NOT = { has_relic = r_khans_throne } }
 				add_relic = r_khans_throne
@@ -4880,14 +4966,22 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		is_country_type = awakened_marauders
-		# NOT = { has_country_flag = marauder600_happened }
+		OR = {
+			is_country_type = awakened_marauders
+			AND = {
+				exists = event_target:raider_khanate
+				is_same_empire = event_target:raider_khanate
+			}
+		}
+		NOT = { has_country_flag = marauder600_happened }
 	}
 
 	immediate = {
-		# set_country_flag = marauder600_happened
+		set_country_flag = marauder600_happened
+		set_global_flag = khan_dead_event_fine
 		remove_global_flag = marauder_crisis_ongoing
 		remove_global_flag = khan_no_die
+		remove_country_flag = CmtFlagKhanNoDieCountry
 		if = { limit = { has_global_flag = great_khan_wins }
 			# clear_global_event_target = great_khan
 			# clear_global_event_target = raider_khanate
@@ -5963,8 +6057,16 @@ country_event = {
 	force_open = yes
 	diplomatic = yes
 	trigger = {
-		from = { is_country_type = awakened_marauders }
 		has_global_flag = great_khan_dead
+		from = {
+			OR = {
+				is_country_type = awakened_marauders
+				AND = {
+					exists = event_target:raider_khanate
+					is_same_empire = event_target:raider_khanate
+				}
+			}
+		}
 		NOT = { has_country_flag = marauder_diplomacy_engaged }
 	}
 	immediate = { set_country_flag = marauder_diplomacy_engaged }
@@ -6081,15 +6183,13 @@ country_event = {
 
 		if = { # Immortal fallback
 			limit = {
-				OR = {
-					has_country_flag = CmtFlagKhanNoDieCountry
-					has_global_flag = khan_no_die
-				}
+				has_global_flag = khan_no_die
+				has_country_flag = CmtFlagKhanNoDieCountry
 				# OR = {
 				# 	has_global_flag = great_khan_dead
 				# 	has_global_flag = khan_dead_event_fine
 				# }
-				check_variable = { which = CmtVarKhanRemainingLive value > -0.5 }
+				check_variable = { which = CmtVarKhanRemainingLive value > 0 }
 			}
 
 			if = { limit = { NOT = { has_global_flag = great_khan_dead } }
@@ -6356,5 +6456,133 @@ country_event = {
 			# set_galactic_custodian = yes
 		}
 		country_event = { id = emperor.1 }
+	}
+}
+
+
+# Vanilla Fix: distance source scope
+### Pirates: The Bemat Thalassocracy (by Gemma Thomson) ###
+
+# Setup (event_target:global_event_country scope; randomly triggered in pirate.100): Find a suitable spawn point
+country_event = {
+	id = pirate.150
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		NOR = {
+			exists = event_target:thalassocracy_country
+			any_country = { has_country_flag = met_thalassocracy }
+		}
+	}
+
+	immediate = {
+		create_thalassocracy_country = yes
+		if = { #Prioritise unoccupied systems
+			limit = {
+				any_system = {
+					num_planets_in_system > 1
+					NOR = {
+						exists = space_owner
+						has_star_flag = hostile_system
+						has_star_flag = guardian
+						has_star_flag = tiyanki_home_system
+						has_star_flag = amoeba_home_system
+						has_star_flag = lcluster
+						has_star_flag = sealed_system
+					}
+				}
+			}
+			random_system = {
+				limit = {
+					num_planets_in_system > 1
+					NOR = {
+						exists = space_owner
+						has_star_flag = hostile_system
+						has_star_flag = guardian
+						has_star_flag = tiyanki_home_system
+						has_star_flag = amoeba_home_system
+						has_star_flag = lcluster
+						has_star_flag = sealed_system
+					}
+				}
+				save_global_event_target_as = thalassocracy_target_system
+				random_system_planet = {
+					save_global_event_target_as = thalassocracy_spawn_planet
+					set_planet_flag = thalassocracy_visited
+				}
+				random_system_planet = {
+					limit = {
+						NOT = { has_planet_flag = thalassocracy_visited }
+					}
+					save_global_event_target_as = thalassocracy_target_planet
+				}
+				event_target:thalassocracy_country = {
+					set_country_flag = spawned_fleet
+				}
+				create_thalassocracy_fleet = yes
+			}
+		}
+		else_if = { #Pop up in a semi-convenient, empire-owned system, if possible
+			limit = { #Must be duplicated below, in the random_system effect
+				any_system = {
+					exists = space_owner
+					num_planets_in_system > 1
+					NOR = {
+						is_pirate_system = yes
+						has_star_flag = hostile_system
+						has_star_flag = guardian
+						has_star_flag = enclave
+						is_capital_system = yes
+					}
+					has_system_trade_value >= 80
+					distance = {
+						source = space_owner.capital_scope.solar_system
+						use_bypasses = no
+						min_jumps = 2
+						max_jumps = 5
+					}
+				}
+			}
+			random_system = {
+				limit = {
+					exists = space_owner
+					num_planets_in_system > 1
+					NOR = {
+						is_pirate_system = yes
+						has_star_flag = hostile_system
+						has_star_flag = guardian
+						has_star_flag = enclave
+						is_capital_system = yes
+					}
+					has_system_trade_value >= 80
+					distance = {
+						source = space_owner.capital_scope.solar_system
+						use_bypasses = no
+						min_jumps = 2
+						max_jumps = 5
+					}
+				}
+				save_global_event_target_as = thalassocracy_target_system
+				random_system_planet = {
+					save_global_event_target_as = thalassocracy_spawn_planet
+					set_planet_flag = thalassocracy_visited
+				}
+				random_galaxy_planet = {
+					limit = {
+						NOT = { has_planet_flag = thalassocracy_visited }
+					}
+					save_global_event_target_as = thalassocracy_target_planet
+				}
+				event_target:thalassocracy_country = { set_country_flag = spawned_fleet }
+				create_thalassocracy_fleet = yes
+				space_owner = {
+					country_event = { id = pirate.155 days = 0 scopes = { from = event_target:thalassocracy_country } } #Establish contact
+				}
+			}
+		}
+		# else = {
+		# 	#Nothing; await next pulse/valid country
+		# }
 	}
 }

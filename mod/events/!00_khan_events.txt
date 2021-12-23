@@ -1511,7 +1511,10 @@ country_event = {
 			limit = { check_variable = { which = CmtVarKhanRemainingLive value < 2 } }
 			set_variable = { which = CmtVarKhanRemainingLive value = 2 } ## Not CmtGlobalVar
 		}
-
+		if = {
+			limit = { has_country_flag = marauder600_happened }
+			remove_country_flag = marauder600_happened
+		}
 		event_target:CmtGlobalVar = {
 			## Give Khan check_variablevenerable Lifespan for longer War.
 			if = {
