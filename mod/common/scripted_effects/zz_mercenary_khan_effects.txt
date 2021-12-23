@@ -2,7 +2,6 @@
 # Not really necessary, as vanilla graphical_culture gets ignored if invalid.
 create_dyn_marauder_fleet = {
 	# default: OUTRIDER = 18 LANCER = 12 CHAMPION = 6 GLORY = 1
-
 	while = {
 		# count = @\[ $AMOUNT|3$ * 6 ]
 		count = $OUTRIDER|18$

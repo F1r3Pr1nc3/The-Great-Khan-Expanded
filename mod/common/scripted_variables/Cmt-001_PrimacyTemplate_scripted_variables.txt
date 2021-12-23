@@ -439,9 +439,9 @@
 		### N/A = 4, Great Great Khan = 5 (Beta)
 
 ### Interval of Khan Reigning
-	@CmtT001_ConstKhanInterval = 10
+	@CmtT001_ConstKhanInterval = 7
 		### Set in years
-		### It must be 0, 10, 25, 50, 75, 100 or 999 (Default = 0).
+		### It must be 0, 2-7, 10, 25, 50, 75, 100 or 999 (Default = 0).
 		### 999 means Template Unique Value (Beta Feature), set in ''common\scripted_variables\Cmt-xxx_Unique_scripted_variables.txt''.
 
 ### Khan to Reign at Earliest.

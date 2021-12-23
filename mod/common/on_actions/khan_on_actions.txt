@@ -10,11 +10,12 @@ on_single_player_save_game_load = {
 }
 
 # # No scope, like on_game_start
-# on_yearly_pulse = {
-# 	events = {
-# 		khan.299
-# 	}
-# }
+on_yearly_pulse = {
+	events = {
+		# khan.299
+		marauder.11 # Marauder infighting
+	}
+}
 
 # No scope, like on_game_start
 # on_yearly_pulse_country = {
@@ -42,6 +43,16 @@ on_becoming_subject = {
 on_starbase_destroyed = {
 	events = {
 		marauder.527 # increase counter
+	}
+}
+
+# This = owner of fleet 1 (destroyed)
+# From = owner of fleet 2 (combatant)
+# FromFrom = fleet 1
+# FromFromFrom = fleet 2
+on_fleet_destroyed_victim = {
+	events = {
+		marauder.13 # Marauder infighting aftermath (vanilla commented out)
 	}
 }
 
