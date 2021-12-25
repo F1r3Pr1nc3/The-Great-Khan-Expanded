@@ -329,6 +329,7 @@ country_event = {
 		set_global_flag = marauder_infighting_ongoing
 		random_planet_within_border = {
 			limit = { is_star = no }
+			save_event_target_as = marauder_infighting_target
 			create_fleet = {
 				effect = {
 					set_owner = root
@@ -343,135 +344,155 @@ country_event = {
 					save_event_target_as = infighting_target_1
 				}
 			}
-			# Make opponent species more diverse and random
-			random_country = {
-				limit = {
-					CmtTriggerIsMarauder = yes
-					exists = species
-				}
-				species = { save_event_target_as = marauder_species }
-			}
-			create_country = {
-				name = random
-				type = ruined_marauders
-				species = event_target:marauder_species # root
-				name_list = random
-				flag = {
-					# icon = { category = "pirate" file = "flag_pirate_13.dds" }
-					background = { category = "backgrounds" file = "new_dawn.dds" }
-					colors = { "red_orange" "black" "null" "null" }
-				}
-				# origin = "origin_void_dwellers"
-				effect = {
-					save_event_target_as = marauder_infighting
-					randomize_flag_symbol = "pirate"
-				}
-			}
-			# Copied from pirate.150
-			solar_system = {
-				if = { #Prioritise unoccupied systems
+			if = {
+				limit = { NOT = { exists = event_target:marauder_infighting } }
+				# Make opponent species more diverse and random
+				random_country = {
 					limit = {
-						any_neighbor_system = {
-							num_planets_in_system > 1
-							NOR = {
-								exists = space_owner
-								has_star_flag = hostile_system
-								has_star_flag = guardian
-								has_star_flag = tiyanki_home_system
-								has_star_flag = amoeba_home_system
-								has_star_flag = lcluster
-								has_star_flag = sealed_system
-							}
-						}
+						CmtTriggerIsMarauder = yes
+						exists = species
 					}
-					random_neighbor_system = {
-						limit = {
-							num_planets_in_system > 1
-							NOR = {
-								exists = space_owner
-								has_star_flag = hostile_system
-								has_star_flag = guardian
-								has_star_flag = tiyanki_home_system
-								has_star_flag = amoeba_home_system
-								has_star_flag = lcluster
-								has_star_flag = sealed_system
-							}
-						}
-					}
-					random_system_planet = {
-						limit = { is_star = no }
-						save_event_target_as = marauder_infighting_target
-					}
+					species = { save_event_target_as = marauder_species }
 				}
-				else_if = { # Pop up in a semi-convenient, empire-owned system, if possible
-					limit = { # Must be duplicated below, in the random_system effect
-						any_neighbor_system = {
-							exists = space_owner
-							num_planets_in_system > 1
-							NOR = {
-								is_pirate_system = yes
-								has_star_flag = hostile_system
-								has_star_flag = guardian
-								has_star_flag = enclave
-								is_capital_system = yes
-								is_owned_by = root
-							}
-							has_system_trade_value > 80
-							distance = {
-								source = space_owner.capital_scope.solar_system
-								use_bypasses = no
-								min_jumps = 2
-								max_jumps = 5
-							}
-						}
+				create_country = {
+					name = random
+					# type = ruined_marauders
+					type = dormant_marauders
+					species = event_target:marauder_species # root
+					name_list = random
+					flag = {
+						# icon = { category = "pirate" file = "flag_pirate_13.dds" }
+						background = { category = "backgrounds" file = "new_dawn.dds" }
+						colors = { "red_orange" "black" "null" "null" }
 					}
-					random_neighbor_system = {
-						limit = {
-							exists = space_owner
-							num_planets_in_system > 1
-							NOR = {
-								is_pirate_system = yes
-								has_star_flag = hostile_system
-								has_star_flag = guardian
-								has_star_flag = enclave
-								is_capital_system = yes
-								is_owned_by = root
-							}
-							has_system_trade_value > 80
-							distance = {
-								source = space_owner.capital_scope.solar_system
-								use_bypasses = no
-								min_jumps = 2
-								max_jumps = 5
-							}
-						}
-						random_system_planet = {
-							limit = { is_star = no }
-							save_event_target_as = marauder_infighting_target
-						}
-					}
-				}
-				create_fleet = {
-					name = NAME_Pirate_Fleet
+					# origin = "origin_void_dwellers"
 					effect = {
-						set_owner = event_target:marauder_infighting # last_created_country
-						create_dyn_marauder_fleet = { OUTRIDER = 22 LANCER = 14 CHAMPION = 8 }
-						set_location = {
-							target = event_target:marauder_infighting_target
-							distance = 80
-							angle = 180
-						}
+						save_global_event_target_as = marauder_infighting
+						set_country_flag = marauder_vengeance_begun
+						randomize_flag_symbol = "pirate"
 					}
 				}
 			}
-			last_created_fleet = {
-				save_event_target_as = infighting_target_2
-				set_fleet_flag = infighting_marauders
-				auto_follow_fleet = { target = event_target:infighting_target_1 attack_fleet = yes }
+			# Mainly copied from pirate.150
+			solar_system = {
+				random_neighbor_system = {
+					if = { #Prioritise unoccupied systems
+						limit = {
+							# any_neighbor_system = {
+							closest_system = {
+								limit = {
+									num_planets_in_system > 1
+									has_owner = no
+								}
+								NOR = {
+									exists = space_owner
+									has_star_flag = hostile_system
+									has_star_flag = guardian
+									has_star_flag = tiyanki_home_system
+									has_star_flag = amoeba_home_system
+									has_star_flag = lcluster
+									has_star_flag = sealed_system
+								}
+								min_steps = 2
+								max_steps = 5
+							}
+						}
+						closest_system = {
+							limit = {
+								num_planets_in_system > 1
+								NOR = {
+									exists = space_owner
+									has_star_flag = hostile_system
+									has_star_flag = guardian
+									has_star_flag = tiyanki_home_system
+									has_star_flag = amoeba_home_system
+									has_star_flag = lcluster
+									has_star_flag = sealed_system
+								}
+							}
+							min_steps = 2
+							max_steps = 5
+							random_system_planet = {
+								limit = { is_star = no }
+								save_event_target_as = marauder_infighting_target
+							}
+						}
+					}
+					else = { # Pop up in a semi-convenient, empire-owned system, if possible
+						#  limit = {
+							# any_neighbor_system = {
+						closest_system = {
+							limit = {
+								exists = space_owner
+								num_planets_in_system > 1
+								NOR = {
+									is_pirate_system = yes
+									has_star_flag = hostile_system
+									has_star_flag = guardian
+									has_star_flag = enclave
+									is_capital_system = yes
+									is_owned_by = root
+								}
+								has_system_trade_value > 80
+								distance = {
+									source = space_owner.capital_scope.solar_system
+									use_bypasses = no
+									min_jumps = 1
+									max_jumps = 5
+								}
+							}
+							min_steps = 1
+							max_steps = 5
+							random_system_planet = {
+								limit = { is_star = no }
+								save_event_target_as = marauder_infighting_target
+							}
+						}
+						# Must be duplicated above, in the random_system effect
+						# random_neighbor_system = {
+						# 	limit = {
+						# 		exists = space_owner
+						# 		num_planets_in_system > 1
+						# 		NOR = {
+						# 			is_pirate_system = yes
+						# 			has_star_flag = hostile_system
+						# 			has_star_flag = guardian
+						# 			has_star_flag = enclave
+						# 			is_capital_system = yes
+						# 			is_owned_by = root
+						# 		}
+						# 		has_system_trade_value > 80
+						# 		distance = {
+						# 			source = space_owner.capital_scope.solar_system
+						# 			use_bypasses = no
+						# 			min_jumps = 2
+						# 			max_jumps = 5
+						# 		}
+						# 	}
+					}
+					create_fleet = {
+						# name = random
+						effect = {
+							set_owner = event_target:marauder_infighting # last_created_country
+							create_dyn_marauder_fleet = { OUTRIDER = 22 LANCER = 14 CHAMPION = 8 }
+							set_location = {
+								target = event_target:marauder_infighting_target
+								distance = 80
+								angle = 180
+							}
+						}
+					}
+					last_created_fleet = {
+						save_event_target_as = infighting_target_2
+						set_fleet_flag = infighting_marauders
+						auto_follow_fleet = { target = event_target:infighting_target_1 attack_fleet = yes }
+					}
+				}
 			}
-			event_target:infighting_target_1 = {
-				auto_follow_fleet = { target = event_target:infighting_target_2 attack_fleet = yes }
-			}
+		}
+
+		event_target:infighting_target_1 = {
+			auto_follow_fleet = { target = event_target:infighting_target_2 attack_fleet = yes }
 		}
 		establish_communications_no_message = event_target:marauder_infighting
 		every_country = {
@@ -503,8 +524,10 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		is_country_type = dormant_marauders
-		fromfrom = { has_fleet_flag = infighting_marauders }
-		fromfromfrom = { has_fleet_flag = infighting_marauders }
+		OR = {
+			fromfrom = { has_fleet_flag = infighting_marauders }
+			fromfromfrom = { has_fleet_flag = infighting_marauders }
+		}
 	}
 	immediate = {
 		remove_global_flag = marauder_infighting_ongoing
@@ -514,43 +537,91 @@ country_event = {
 		}
 		fromfromfrom = {
 			if = {
-				limit = { NOT = { exists = event_target:return_point } }
-				solar_system = {
-					random_system_planet = {
-						limit = { is_star = no }
-						save_event_target_as = return_point
-					}
-				}
-			}
-			queue_actions = {
-				find_closest_planet = {
-					trigger = {
-						id = marauder_infighting.t1
-						solar_system = {
-							NOT = { is_same_value = root.solar_system }
-							has_owner = yes
-							NOR = { is_owned_by = root is_owned_by = from }
+				limit = { has_fleet_flag = infighting_marauders }
+				if = {
+					limit = { NOT = { exists = event_target:return_point } }
+					solar_system = {
+						random_system_planet = {
+							limit = { is_star = no }
+							save_event_target_as = return_point
 						}
-						is_a_planet = yes
-					}
-					found_planet = {
-						move_to = this
-						wait = 25
-						orbit_planet = this
 					}
 				}
-				move_to = event_target:return_point
-				wait = 5
-				effect = {
-					id = marauder_infighting.e2
-					destroy_fleet = this
+				queue_actions = {
+					wait = 2
+					find_closest_planet = {
+						trigger = {
+							id = marauder_infighting.t1
+							solar_system = {
+								NOT = { is_same_value = root.solar_system }
+								has_owner = yes
+								NOR = { is_owned_by = root is_owned_by = from }
+							}
+							is_a_planet = yes
+						}
+						found_planet = {
+							move_to = this
+							wait = 5
+							orbit_planet = this
+						}
+					}
+					move_to = event_target:return_point
+					wait = 5
+					effect = {
+						id = marauder_infighting.e2
+						destroy_fleet = this
+					}
+				}
+				# auto_move_to_planet = {
+				# 	target = event_target:return_point
+				# 	destroy_on_arrival = yes
+				# 	clear_auto_move_on_arrival = yes
+				# }
+			}
+		}
+		# By marauder.14
+		# from = {
+		# 	if = {
+		# 		limit = {
+		# 			exists = event_target:marauder_infighting
+		# 			is_same_empire = event_target:marauder_infighting
+		# 		}
+		# 		clear_global_event_target = marauder_infighting
+		# 		destroy_country = yes
+		# 	}
+		# }
+	}
+}
+
+# Rebuild marauder starbase
+system_event = {
+	id = marauder.17
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		NOT = { exists = starbase }
+		has_star_flag = marauder_system
+	}
+	immediate = {
+		if = {
+			limit = {
+				any_fleet_in_system = {
+					exists = owner
+					owner = { is_country_type = dormant_marauders }
 				}
 			}
-			# auto_move_to_planet = {
-			# 	target = event_target:return_point
-			# 	destroy_on_arrival = yes
-			# 	clear_auto_move_on_arrival = yes
-			# }
+			random_fleet_in_system = {
+				limit = {
+					exists = owner
+					owner = { is_country_type = dormant_marauders }
+				}
+				prev = {
+					create_starbase = {
+						size = "starbase_marauder"
+						owner = prev.owner
+					}
+				}
+			}
 		}
 	}
 }
@@ -3784,9 +3855,18 @@ country_event = {
 
 	trigger = {
 		NOT = { has_global_flag = marauder_crisis_ongoing }
-		end_game_years_passed < event_target:CmtGlobalVar.CmtVarKhanLatestEgpy
 		is_country_type = dormant_marauders
-		fromfrom = { is_ship_size = marauder_void_dwelling }
+		end_game_years_passed < event_target:CmtGlobalVar.CmtVarKhanLatestEgpy
+		fromfrom = {
+			exists = solar_system
+			solar_system = {
+				has_star_flag = marauder_system
+			}
+			OR = {
+				is_ship_size = marauder_void_dwelling
+				is_ship_size = starbase_marauder
+			}
+		}
 		from = { CmtTriggerIsPlayableEmpire = yes } # There are some unpredictable possiblities.
 		event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanVengeance value != 1 } }
 		OR = {
@@ -3844,6 +3924,9 @@ country_event = {
 				modifier = {
 					factor = 0
 					event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanVengeance value = 5 } }
+				}
+				fromfromfrom.solar_system = {
+					system_event = { id = marauder.17 days = 360 } # rebuild marauder starbase
 				}
 			}
 		}
@@ -5022,6 +5105,7 @@ country_event = {
 											}
 										}
 									}
+									is_scope_type = war # if not the error.log tells: Invalid Scope
 								}
 								end_war_effect = yes
 								# TODO Notify?
@@ -5055,6 +5139,7 @@ country_event = {
 									}
 								}
 							}
+							is_scope_type = war # if not the error.log tells: Invalid Scope
 						}
 						end_war_effect = yes
 					}
@@ -5076,12 +5161,12 @@ country_event = {
 			}
 			every_war = { # End Expansion War
 				# limit = { is_war_participant = { who = root side = attackers } }
-				limit = { is_scope_type = war } # TODO because of strange error log unknown Invalid Scope type for effect 'every_war_participant'. Current Scope: country Supported Scopes: war
-				# end_war_effect = yes
-				every_war_participant = {
-					limit = { NOT = { is_same_empire = root } } # don't break the loop
-					prev = { remove_war_participant = prev }
-				}
+				limit = { is_scope_type = war } # if not the error.log tells: Invalid Scope
+				end_war_effect = yes
+				# every_war_participant = {
+				# 	limit = { NOT = { is_same_empire = root } } # don't break the loop
+				# 	prev = { remove_war_participant = prev }
+				# }
 			}
 			# End subject wars
 			every_subject = {
@@ -6462,7 +6547,7 @@ country_event = {
 
 # Vanilla Fix: distance source scope
 ### Pirates: The Bemat Thalassocracy (by Gemma Thomson) ###
-
+namespace = pirate
 # Setup (event_target:global_event_country scope; randomly triggered in pirate.100): Find a suitable spawn point
 country_event = {
 	id = pirate.150
