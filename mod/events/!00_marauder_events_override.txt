@@ -294,11 +294,8 @@ event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		NOR = {
-			has_global_flag = marauder_infighting_ongoing
-			has_global_flag = marauder_infighting_ongoing
-		}
 		num_marauder_empires_to_spawn > 0
+		NOT = { has_global_flag = marauder_infighting_ongoing }
 		# any_country = { is_country_type = dormant_marauders }
 		OR = {
 			exists = event_target:marauder_country_1
@@ -2099,6 +2096,9 @@ country_event = {
 			every_playable_country = {
 				limit = { has_country_flag = rebelling_satrapy }
 				remove_country_flag = rebelling_satrapy
+			}
+			if = { limit = { has_country_flag = marauder600_happened }
+				remove_country_flag = marauder600_happened
 			}
 		}
 		if = { limit = { exists = event_target:marauder_rally_point }

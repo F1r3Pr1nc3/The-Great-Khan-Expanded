@@ -56,7 +56,7 @@ wg_independence = {
 		}
 
 		if = {
-			limit = { from = { is_country_type = awakened_marauders } }
+			limit = { from = { CmtTriggerIsKhanCountry = yes } }
 			country_event = { id = marauder.554 } # Rebel
 			# set_subject_of = { who = none }
 			# set_country_flag = rebelling_satrapy
@@ -88,9 +88,7 @@ wg_independence = {
 						any_attacker = {
 							prev = { using_war_goal = { type = "wg_independence" owner = prev } }
 						}
-						any_defender = {
-							is_same_empire = from
-						}
+						any_defender = { is_same_empire = from }
 					}
 					# every_war_participant = {
 					every_attacker = {
@@ -171,6 +169,22 @@ wg_ae_uprising = {
 					from = { has_claim = prev }
 				}
 				remove_claims = { who = from }
+			}
+
+			if = {
+				limit = {
+					has_global_flag = great_khan_wins
+					exists = event_target:raider_khanate
+					OR = {
+						is_same_empire = event_target:raider_khanate
+						from = { is_same_empire = event_target:raider_khanate }
+					}
+				}
+				event_target:raider_khanate = {
+					remove_global_flag = khan_no_die
+					remove_country_flag = CmtFlagKhanNoDieCountry
+					set_variable = { which = CmtVarKhanRemainingLive value = 0 }
+				}
 			}
 		}
 	}
@@ -307,10 +321,7 @@ wg_marauder_expansion = {
 							is_war_participant = { who = prev }
 							any_war_participant = {
 								prev = {
-									using_war_goal = {
-										type = wg_marauder_expansion
-										owner = prev
-									}
+									using_war_goal = { type = wg_marauder_expansion owner = prev }
 								}
 							}
 						}
@@ -321,10 +332,7 @@ wg_marauder_expansion = {
 							NOT = { is_war_participant = { who = root } }
 							any_war_participant = {
 								prev = {
-									using_war_goal = {
-										type = wg_marauder_expansion
-										owner = prev
-									}
+									using_war_goal = { type = wg_marauder_expansion owner = prev }
 								}
 							}
 						}
@@ -334,10 +342,7 @@ wg_marauder_expansion = {
 									is_war_participant = { who = from }
 									any_war_participant = {
 										prev = {
-											using_war_goal = {
-												type = wg_marauder_expansion
-												owner = prev
-											}
+											using_war_goal = { type = wg_marauder_expansion owner = prev }
 										}
 									}
 								}
@@ -356,10 +361,7 @@ wg_marauder_expansion = {
 							is_war_participant = { who = prev }
 							any_war_participant = {
 								prev = {
-									using_war_goal = {
-										type = wg_great_expansion
-										owner = prev
-									}
+									using_war_goal = { type = wg_great_expansion owner = prev }
 								}
 							}
 						}
@@ -370,10 +372,7 @@ wg_marauder_expansion = {
 							is_war_participant = { who = prev }
 							any_war_participant = {
 								prev = {
-									using_war_goal = {
-										type = wg_great_expansion
-										owner = prev
-									}
+									using_war_goal = { type = wg_great_expansion owner = prev }
 								}
 							}
 						}
@@ -432,9 +431,7 @@ wg_marauder_expansion = {
 			if = {
 				limit = {
 					exists = last_created_country
-					last_created_country = {
-						has_country_flag = released_empire
-					}
+					last_created_country = { has_country_flag = released_empire }
 				}
 				last_created_country = {
 					set_subject_of = {
@@ -446,17 +443,13 @@ wg_marauder_expansion = {
 		}
 	}
 
-	ai_weight = {
-		weight = 100
-	}
+	ai_weight = { weight = 100 }
 }
 
 wg_war_in_heaven = {
 	casus_belli = cb_event
 	total_war = yes
-	allowed_peace_offers = {
-		status_quo
-	}
+	allowed_peace_offers = { status_quo }
 	surrender_acceptance = -900
 	war_exhaustion = 0.25
 	set_defender_wargoal = wg_war_in_heaven
@@ -481,10 +474,7 @@ wg_war_in_heaven = {
 								NOT = { is_war_participant = { who = root } }
 								any_war_participant = {
 									prev = {
-										using_war_goal = {
-											type = wg_war_in_heaven
-											owner = prev
-										}
+										using_war_goal = { type = wg_war_in_heaven owner = prev }
 									}
 								}
 							}
@@ -494,10 +484,7 @@ wg_war_in_heaven = {
 								NOT = { is_war_participant = { who = root } }
 								any_war_participant = {
 									prev = {
-										using_war_goal = {
-											type = wg_war_in_heaven
-											owner = prev
-										}
+										using_war_goal = { type = wg_war_in_heaven owner = prev }
 									}
 								}
 							}
@@ -511,7 +498,15 @@ wg_war_in_heaven = {
 				}
 			}
 			else_if = {
-				limit = { is_country_type = awakened_marauders }
+				limit = {
+					OR = {
+						is_country_type = awakened_marauders
+						AND = {
+							exists = event_target:raider_khanate
+							is_same_empire = event_target:raider_khanate
+						}
+					}
+				}
 				from = {
 					add_threat = { who = root amount = 0.5 }
 					if = {
@@ -529,10 +524,7 @@ wg_war_in_heaven = {
 								NOT = { is_war_participant = { who = root } }
 								any_war_participant = {
 									prev = {
-										using_war_goal = {
-											type = wg_war_in_heaven
-											owner = prev
-										}
+										using_war_goal = { type = wg_war_in_heaven owner = prev }
 									}
 								}
 							}
@@ -542,10 +534,7 @@ wg_war_in_heaven = {
 								NOT = { is_war_participant = { who = root } }
 								any_war_participant = {
 									prev = {
-										using_war_goal = {
-											type = wg_war_in_heaven
-											owner = prev
-										}
+										using_war_goal = { type = wg_war_in_heaven owner = prev }
 									}
 								}
 							}
@@ -566,6 +555,20 @@ wg_war_in_heaven = {
 				# 	country_event = { id = war_in_heaven.5 }
 				# }
 			}
+			if = {
+				limit = {
+					exists = event_target:raider_khanate
+					OR = {
+						is_same_empire = event_target:raider_khanate
+						from = { is_same_empire = event_target:raider_khanate }
+					}
+				}
+				event_target:raider_khanate = {
+					remove_global_flag = khan_no_die
+					remove_country_flag = CmtFlagKhanNoDieCountry
+					set_variable = { which = CmtVarKhanRemainingLive value = 0 }
+				}
+			}
 		}
 	}
 
@@ -576,7 +579,15 @@ wg_war_in_heaven = {
 			save_event_target_as = WarInHeavenFEOne
 			from = { save_event_target_as = WarInHeavenFETwo }
 			if = {
-				limit = { is_country_type = awakened_marauders }
+				limit = {
+					OR = {
+						is_country_type = awakened_marauders
+						AND = {
+							exists = event_target:raider_khanate
+							is_same_empire = event_target:raider_khanate
+						}
+					}
+				}
 				# TODO also for any_war_participant !?
 				from = {
 					add_threat = { who = root amount = 0.5 }
@@ -625,10 +636,7 @@ wg_war_in_heaven = {
 							has_federation = yes
 							federation = { has_federation_flag = non_aligned_league }
 							prev = {
-								using_war_goal = {
-									type = wg_war_in_heaven
-									owner = prev
-								}
+								using_war_goal = { type = wg_war_in_heaven owner = prev }
 							}
 						}
 					}
@@ -665,10 +673,7 @@ wg_war_in_heaven = {
 							has_federation = yes
 							federation = { has_federation_flag = non_aligned_league }
 							prev = {
-								using_war_goal = {
-									type = wg_war_in_heaven
-									owner = prev
-								}
+								using_war_goal = { type = wg_war_in_heaven owner = prev }
 							}
 						}
 					}
@@ -741,7 +746,7 @@ wg_great_expansion = {
 			# save_event_target_as = WarInHeavenFEOne
 			# from = { save_event_target_as = WarInHeavenFETwo }
 			if = {
-				limit = { is_country_type = awakened_marauders }
+				limit = { CmtTriggerIsKhanCountry = yes }
 				# TODO also for any_war_participant !?
 				from = {
 					add_threat = { who = root amount = 0.5 }
