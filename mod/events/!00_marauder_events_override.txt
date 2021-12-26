@@ -288,12 +288,13 @@ country_event = {
 
 ## Marauder Infighting On Action (on_yearly_pulse)
 # Reenabled by FirePrince - Commented out in Vanilla: Works in game, but causes asserts when fleets from the same country attack each other.
-# Almost the same event exists for feral_prethoryn_infighting
+# Almost the same event exists for feral_prethoryn_infighting crisis.123
 event = {
 	id = marauder.11
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
+		years_passed > 90
 		num_marauder_empires_to_spawn > 0
 		NOT = { has_global_flag = marauder_infighting_ongoing }
 		# any_country = { is_country_type = dormant_marauders }
@@ -356,12 +357,11 @@ country_event = {
 				}
 				create_country = {
 					name = random
-					# type = ruined_marauders
-					type = dormant_marauders
+					type = marauder_raiders # dormant_marauders # ruined_marauders
 					species = event_target:marauder_species # root
 					name_list = random
 					flag = {
-						# icon = { category = "pirate" file = "flag_pirate_13.dds" }
+						icon = { category = "pirate" file = "flag_pirate_13.dds" }
 						background = { category = "backgrounds" file = "new_dawn.dds" }
 						colors = { "red_orange" "black" "null" "null" }
 					}
@@ -490,25 +490,30 @@ country_event = {
 				}
 			}
 		}
-
-		event_target:infighting_target_1 = {
-			auto_follow_fleet = { target = event_target:infighting_target_2 attack_fleet = yes }
-		}
 		establish_communications_no_message = event_target:marauder_infighting
-		every_country = {
-			limit = {
-				OR = {
-					is_country_type = nomad
-					is_country_type = enclave
-					is_country_type = dormant_marauders
-				}
-			}
-			set_faction_hostility = {
-				target = event_target:marauder_infighting
-				set_hostile = no
-				# set_neutral = no
-				# set_friendly = yes
-			}
+		# event_target:infighting_target_1 = {
+		# 	auto_follow_fleet = { target = event_target:infighting_target_2 attack_fleet = yes }
+		# 	every_country = {
+		# 		limit = {
+		# 			OR = {
+		# 				is_country_type = nomad
+		# 				is_country_type = enclave
+		# 				is_country_type = dormant_marauders
+		# 			}
+		# 		}
+		# 		set_faction_hostility = {
+		# 			target = prev
+		# 			set_hostile = no
+		# 			set_neutral = no
+		# 			set_friendly = yes
+		# 		}
+		# 	}
+		# }
+		set_faction_hostility = {
+			target = event_target:marauder_infighting
+			set_hostile = no
+			set_neutral = no
+			set_friendly = yes
 		}
 		every_playable_country = {
 			# limit = { is_country_type = default }
@@ -518,12 +523,20 @@ country_event = {
 }
 
 # Marauder Infighting Over (on_fleet_destroyed_victim)
+# This = owner of fleet 1 (destroyed)
+# From = owner of fleet 2 (combatant)
+# FromFrom = fleet 1
+# FromFromFrom = fleet 2
 country_event = {
 	id = marauder.13
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		is_country_type = dormant_marauders
+		has_global_flag = marauder_infighting_ongoing
+		OR = {
+			is_country_type = dormant_marauders
+			is_country_type = marauder_raiders
+		}
 		OR = {
 			fromfrom = { has_fleet_flag = infighting_marauders }
 			fromfromfrom = { has_fleet_flag = infighting_marauders }
@@ -535,9 +548,35 @@ country_event = {
 			limit = { has_planet_flag = raid_source }
 			save_event_target_as = return_point
 		}
-		fromfromfrom = {
-			if = {
+		# Also by marauder.14
+		if = { limit = { exists = event_target:marauder_infighting }
+			if = { limit = { is_same_empire = event_target:marauder_infighting }
+				destroy_country = yes
+			}
+			if = { limit = { from = { is_same_empire = event_target:marauder_infighting } }
+				set_country_type = dormant_marauders
+			}
+			clear_global_event_target = marauder_infighting
+		}
+
+		if = { limit = { fromfromfrom = { has_fleet_flag = infighting_marauders } }
+			fromfromfrom = { save_event_target_as = infighting_marauders }
+		} else_if = {
+			limit = { exists = event_target:infighting_target_1 event_target:infighting_target_1 = { NOT = { is_same_value = fromfrom } } }
+			event_target:infighting_target_1 = { save_event_target_as = infighting_marauders }
+		} else_if = {
+			limit = { exists =  event_target:infighting_target_2 event_target:infighting_target_2 = { NOT = { is_same_value = fromfrom } } }
+			event_target:infighting_target_2 = { save_event_target_as = infighting_marauders }
+		} else_if = {
+			limit = { from = { is_country_type = dormant_marauders }
+			random_owned_fleet = {
 				limit = { has_fleet_flag = infighting_marauders }
+				save_event_target_as = infighting_marauders
+			}
+		}
+
+		if = { limit = { exists =  event_target:infighting_marauders }
+			event_target:infighting_marauders = {
 				if = {
 					limit = { NOT = { exists = event_target:return_point } }
 					solar_system = {
@@ -579,17 +618,6 @@ country_event = {
 				# }
 			}
 		}
-		# By marauder.14
-		# from = {
-		# 	if = {
-		# 		limit = {
-		# 			exists = event_target:marauder_infighting
-		# 			is_same_empire = event_target:marauder_infighting
-		# 		}
-		# 		clear_global_event_target = marauder_infighting
-		# 		destroy_country = yes
-		# 	}
-		# }
 	}
 }
 
@@ -2317,6 +2345,22 @@ country_event = {
 				modify_species = { add_trait = trait_conformists }
 			}
 		}
+		### Save old values
+		create_country = {
+			name = root
+			name_list = root
+			species = root
+			type = ruined_marauders
+			civics = root
+			flag = root
+			ethos = root
+			ignore_initial_colony_error = yes
+			day_zero_contact = no
+			exclude_day_zero_contact = root
+			effect = {
+				save_global_event_target_as = marauder_precursor
+			}
+		}
 
 		### Modify Country
 		set_name = random
@@ -3291,8 +3335,8 @@ country_event = {
 	is_triggered_only = yes
 	location = event_target:khan_death_system
 	# immediate = {}
-
-	option = { ### Become the Khan Crisis
+	### Become the Khan Crisis
+	option = {
 		name = great_khan_wins_response
 		custom_tooltip = khan.710.a.tooltip
 		trigger = {
@@ -3302,6 +3346,8 @@ country_event = {
 				has_country_flag = no_khan_do
 				host_has_dlc = Apocalypse
 				is_ai = no
+				is_same_empire = event_target:khan_destroyer
+				event_target:raider_khanate = { is_ai = yes }
 			}
 			is_robot_empire = no
 			# has_federation = no
@@ -3320,6 +3366,23 @@ country_event = {
 		# 	country_event = { id = khan. } # Notify about the new Khan.
 		# }
 		hidden_effect = {
+			### Save old values
+			create_country = {
+				name = root
+				name_list = root
+				species = root
+				type = ruined_marauders
+				civics = root
+				flag = root
+				ethos = root
+				ignore_initial_colony_error = yes
+				day_zero_contact = no
+				exclude_day_zero_contact = root
+				effect = {
+					save_global_event_target_as = marauder_precursor
+				}
+			}
+
 			save_event_target_as = new_khanate
 			remove_global_flag = marauder_crisis_ongoing
 			remove_global_flag = great_khan_wins
@@ -3366,8 +3429,7 @@ country_event = {
 				limit = { NOT = { has_relic = r_khans_throne } }
 				add_relic = r_khans_throne
 			}
-			country_event = { id = marauder.500 days = 3 } # TODO BETA FOR NOT AI.
-
+			country_event = { id = marauder.500 days = 3 }
 		}
 		ai_chance = { factor = 0 }
 	}
@@ -5428,7 +5490,13 @@ country_event = {
 			limit = { is_variable_set = "successor_fleet_power" }
 			clear_variable = "successor_fleet_power"
 		}
-		destroy_country = yes
+		clear_global_event_target = marauder_precursor
+		if = { limit = { is_ai = yes }
+			destroy_country = yes
+		} else = {
+			# TODO: Player could chose!?
+			event_target:first_diadochi_origin = { set_player = root }
+		}
 	}
 }
 
@@ -5485,6 +5553,7 @@ country_event = {
 				}
 			}
 		}
+		clear_global_event_target = marauder_precursor
 		every_subject = {
 			set_subject_of = { who = none }
 			if = {
@@ -5505,7 +5574,11 @@ country_event = {
 		}
 		observer_event = { id = observer.22 }
 		country_event = { id = marauder.609 }
-		destroy_country = yes
+		if = { limit = { is_ai = yes }
+			destroy_country = yes
+		} else = {
+			event_target:new_khanate = { set_player = root }
+		}
 	}
 }
 
@@ -5536,6 +5609,7 @@ country_event = {
 				save_event_target_as = new_khanate
 			}
 		}
+		clear_global_event_target = marauder_precursor
 
 		# Give khan_destroyer opportunity to join new federation.
 		if = {
@@ -5588,7 +5662,11 @@ country_event = {
 
 		observer_event = { id = observer.23 }
 		country_event = { id = marauder.609 }
-		destroy_country = yes
+		if = { limit = { is_ai = yes }
+			destroy_country = yes
+		} else = {
+			event_target:new_khanate = { set_player = root }
+		}
 	}
 }
 
@@ -5599,50 +5677,75 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		owner_species = { save_event_target_as = marauder_species }
-		create_country = {
-			name_list = random
-			# name = random
-			species = event_target:marauder_species
-			type = dormant_marauders
-			civics = {
-				civic = civic_anarcho_tribalism
-				civic = civic_slaver_guilds
-				civic = random
-			}
-			origin = "origin_khan_successor"
-			flag = {
-				icon = { category = "pirate" file = "flag_pirate_13.dds" } # flag_pirate_5.dds
-				background = { category = "backgrounds" file = "00_solid.dds" }
-				colors = { "black" "black" "null" "null" }
-			}
-			ethos = {
-				ethic = ethic_fanatic_militarist
-				ethic = ethic_xenophobe
-			}
-			ignore_initial_colony_error = yes
-			day_zero_contact = no
-			exclude_day_zero_contact = root
-			effect = {
-				save_event_target_as = restored_marauders
-				set_country_flag = restored_marauders_flag
-				set_name = random
-				root = {
-					switch = {
-						trigger = has_country_flag
-						marauder_1 = {
-							prev = { set_country_flag = marauder_1 save_global_event_target_as = marauder_country_1 }
-						}
-						marauder_2 = {
-							prev = { set_country_flag = marauder_2 save_global_event_target_as = marauder_country_2 }
-						}
-						marauder_3 = {
-							prev = { set_country_flag = marauder_3 save_global_event_target_as = marauder_country_3 }
-						}
+
+		if = { limit = { exists = event_target:marauder_precursor }
+			event_target:marauder_precursor = {
+				create_country = {
+					name_list = prev
+					name = prev
+					species = root
+					type = dormant_marauders
+					civics = prev
+					flag = prev
+					ethos = prev
+					ignore_initial_colony_error = yes
+					day_zero_contact = no
+					exclude_day_zero_contact = root
+					effect = {
+						save_event_target_as = restored_marauders
 					}
-					every_owned_leader = {
-						# limit = { leader_class = ruler }
-						set_owner = prevprev
+				}
+			}
+			clear_global_event_target = marauder_precursor
+		} else = {
+			create_country = {
+				name_list = random
+				# name = random
+				species = event_target:marauder_species
+				type = dormant_marauders
+				civics = {
+					civic = civic_anarcho_tribalism
+					civic = civic_slaver_guilds
+					civic = random
+				}
+				origin = "origin_khan_successor"
+				flag = {
+					icon = { category = "pirate" file = "flag_pirate_13.dds" } # flag_pirate_5.dds
+					background = { category = "backgrounds" file = "00_solid.dds" }
+					colors = { "black" "black" "null" "null" }
+				}
+				ethos = {
+					ethic = ethic_fanatic_militarist
+					ethic = ethic_xenophobe
+				}
+				ignore_initial_colony_error = yes
+				day_zero_contact = no
+				exclude_day_zero_contact = root
+				effect = {
+					save_event_target_as = restored_marauders
+				}
+			}
+		}
+		event_target:restored_marauders = {
+			set_country_flag = restored_marauders_flag
+			set_name = random
+			randomize_flag_symbol = "pirate"
+			root = {
+				switch = {
+					trigger = has_country_flag
+					marauder_1 = {
+						prev = { set_country_flag = marauder_1 save_global_event_target_as = marauder_country_1 }
 					}
+					marauder_2 = {
+						prev = { set_country_flag = marauder_2 save_global_event_target_as = marauder_country_2 }
+					}
+					marauder_3 = {
+						prev = { set_country_flag = marauder_3 save_global_event_target_as = marauder_country_3 }
+					}
+				}
+				every_owned_leader = {
+					# limit = { leader_class = ruler }
+					set_owner = prevprev
 				}
 			}
 		}
