@@ -568,7 +568,7 @@ country_event = {
 			limit = { exists =  event_target:infighting_target_2 event_target:infighting_target_2 = { NOT = { is_same_value = fromfrom } } }
 			event_target:infighting_target_2 = { save_event_target_as = infighting_marauders }
 		} else_if = {
-			limit = { from = { is_country_type = dormant_marauders }
+			limit = { from = { is_country_type = dormant_marauders } }
 			random_owned_fleet = {
 				limit = { has_fleet_flag = infighting_marauders }
 				save_event_target_as = infighting_marauders
@@ -5846,6 +5846,7 @@ country_event = {
 		if = {
 			limit = {
 				NOT = { exists = event_target:new_khanate }
+				exists = last_created_country
 				last_created_country = { has_origin = "origin_khan_successor" }
 			}
 			last_created_country = { save_event_target_as = new_khanate }
