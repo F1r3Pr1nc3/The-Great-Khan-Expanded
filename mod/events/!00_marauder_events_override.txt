@@ -2309,7 +2309,7 @@ country_event = {
 					is_country_type = dormant_marauders
 					NOT = { is_same_empire = root }
 				}
-				country_event = { id = marauder.609 }
+				country_event = { id = marauder.609 } # Fully handover
 				destroy_country = yes
 			}
 		}
@@ -3131,8 +3131,8 @@ country_event = {
 	immediate = {
 		set_global_flag = great_khan_dead
 		# set_global_flag not needed
-		set_country_flag = great_khan_defeated_once # CmtFlagKhanDefeatCountry
 		change_variable = { which = CmtVarKhanRemainingLive value = -1 } ## Not CmtGlobalVar
+
 		if = {
 			limit = { exists = from }
 			from = {
@@ -3149,6 +3149,7 @@ country_event = {
 					check_variable = { which = CmtVarKhanRemainingLive value < 0 } ## Not CmtGlobalVar
 				}
 			}
+			set_country_flag = great_khan_defeated_once # CmtFlagKhanDefeatCountry
 			fromfrom = {
 				solar_system = { save_event_target_as = khan_death_system }
 				leader = {
@@ -3188,8 +3189,7 @@ country_event = {
 			}
 		} else = { # Khan dies (former .509)
 			set_country_flag = khan_dead_event_fine
-			# set_variable = { which = CmtVarKhanRemainingLive value = 0 }	## Not CmtGlobalVar
-
+			set_country_flag = great_khan_defeated_once # CmtFlagKhanDefeatCountry
 			if = {
 				limit = { exists = event_target:great_khan_ruler }
 				event_target:great_khan_ruler = { kill_leader = { show_notification = no } }
@@ -3287,7 +3287,6 @@ country_event = {
 				upgradable = yes
 			}
 		}
-
 	}
 }
 
@@ -3454,7 +3453,7 @@ country_event = {
 					capital_scope = { origin_nsc_freebooter_start_setup = yes }
 				}
 
-				country_event = { id = marauder.609 } # Take all?
+				country_event = { id = marauder.609 } # Fully handover?
 				# set_country_type = dormant_marauders
 				destroy_country = yes
 			}
@@ -3510,9 +3509,9 @@ event = {
 		if = {
 			limit = {
 				exists = event_target:great_khan
-				OR = {
-					NOT = { exists = event_target:great_khan.fleet }
-					event_target:great_khan.fleet = { num_ships < 1 }
+				NAND = {
+					exists = event_target:great_khan.fleet
+					event_target:great_khan.fleet = { num_ships > 0 }
 				}
 			}
 			if = { # Put him on a fleet.
@@ -4171,7 +4170,7 @@ planet_event = {
 			}
 			## Complete takeover
 			from = { save_event_target_as = new_khanate }
-			owner = { country_event = { id = marauder.609 } }
+			owner = { country_event = { id = marauder.609 } } # Fully handover
 			from = {
 				country_event = {
 					id = marauder.503
@@ -5259,7 +5258,7 @@ country_event = {
 			}
 			every_war = { # End Expansion War
 				# limit = { is_war_participant = { who = root side = attackers } }
-				limit = { is_scope_type = war } # if not the error.log tells: Invalid Scope
+				# limit = { is_scope_type = war } # if not the error.log tells: Invalid Scope
 				end_war_effect = yes
 				# every_war_participant = {
 				# 	limit = { NOT = { is_same_empire = root } } # don't break the loop
@@ -5412,7 +5411,7 @@ country_event = {
 					limit = { check_variable = { which = CmtVarKhanInterval value < @CmtConstKhanInterval_T0 } } # 7.5
 					if = {
 						limit = { check_variable = { which = CmtVarKhanInterval value > 0 } }
-						set_timed_global_flag = { flag = CmtFlagNowInKhanInterval days = CmtFlagNowInKhanInterval }
+						set_timed_global_flag = { flag = CmtFlagNowInKhanInterval days = CmtVarKhanInterval }
 					}
 					### Do nothing
 				} else_if = {
@@ -5545,7 +5544,6 @@ country_event = {
 		country_event = { id = khan.303 } # Get marauder_species
 		create_country = {
 			name_list = random
-			# name = random
 			species = event_target:marauder_species
 			type = default
 			authority = auth_imperial
@@ -5564,14 +5562,13 @@ country_event = {
 				ethic = ethic_xenophobe
 			}
 			ignore_initial_colony_error = yes
-			exclude_day_zero_contact = root
+			# exclude_day_zero_contact = root
 			effect = {
 				set_name = random
+				save_event_target_as = new_khanate
 				set_country_flag = new_khanate_flag
 				set_country_flag = first_alien_life
 				set_country_flag = has_encountered_other_empire
-				force_add_civic = civic_slaver_guilds
-				save_event_target_as = new_khanate
 				# Gimmick for possible after-events
 				root = {
 					switch = {
@@ -5587,9 +5584,12 @@ country_event = {
 						}
 					}
 				}
+				force_add_civic = civic_slaver_guilds
 			}
 		}
+		# last_created_country = {}
 		clear_global_event_target = marauder_precursor
+		country_event = { id = marauder.609 } # Fully handover
 		every_subject = {
 			set_subject_of = { who = none }
 			if = {
@@ -5609,7 +5609,6 @@ country_event = {
 			country_event = { id = marauder.640 } # Notify
 		}
 		observer_event = { id = observer.22 }
-		country_event = { id = marauder.609 }
 		if = { limit = { is_ai = yes }
 			destroy_country = yes
 		} else = {
@@ -5697,7 +5696,7 @@ country_event = {
 		}
 
 		observer_event = { id = observer.23 }
-		country_event = { id = marauder.609 }
+		country_event = { id = marauder.609 } # Fully handover
 		if = { limit = { is_ai = yes }
 			destroy_country = yes
 		} else = {
@@ -5797,8 +5796,11 @@ country_event = {
 			destroy_fleet = this
 		}
 		if = {
-			limit = { exists = event_target:great_khan exists = event_target:great_khan.fleet }
-			event_target:great_khan.fleet = { delete_fleet = this }
+			limit = {
+				exists = event_target:great_khan
+				exists = event_target:great_khan.fleet
+			}
+			delete_fleet = event_target:great_khan.fleet
 			clear_global_event_target = great_khan
 		}
 		every_system_within_border = {
@@ -5873,9 +5875,8 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		has_global_flag = marauder_crisis_ongoing
+		has_global_flag = marauder_crisis_started
 		exists = event_target:raider_khanate
-		# exists = event_target:new_khanate
 		# NOT = { has_global_flag = great_khan_wins }
 	}
 	immediate = {
