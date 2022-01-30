@@ -1017,7 +1017,10 @@ country_event = {
 						limit = {
 							NOT = { has_federation_type = military_federation }
 							OR = {
-								prev = { is_ai = yes any_federation_ally = { count < 1 is_ai = no } }
+								prev = {
+									is_ai = yes
+									NOT = { any_federation_ally = { is_ai = no } }
+								}
 								has_federations_dlc = yes
 							}
 						}

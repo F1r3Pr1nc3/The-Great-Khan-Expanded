@@ -345,7 +345,7 @@ marauder_station = {
 	class = shipclass_military_station
 	is_designable = no
 	enable_default_design = no
-	auto_upgrade = yes
+	# auto_upgrade = yes
 }
 
 # Marauder Void Dwelling
@@ -380,5 +380,5 @@ marauder_void_dwelling = {
 	class = shipclass_military_station
 	is_designable = no
 	enable_default_design = no
-	auto_upgrade = yes
+	# auto_upgrade = yes
 }

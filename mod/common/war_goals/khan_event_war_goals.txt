@@ -56,7 +56,10 @@ wg_independence = {
 		}
 
 		if = {
-			limit = { from = { CmtTriggerIsKhanCountry = yes } }
+			limit = {
+				has_global_flag = marauder_crisis_ongoing
+				from = { CmtTriggerIsKhanCountry = yes }
+			}
 			country_event = { id = marauder.554 } # Rebel
 			# set_subject_of = { who = none }
 			# set_country_flag = rebelling_satrapy
@@ -118,7 +121,7 @@ wg_independence = {
 							# }
 						}
 					}
-					# Remove all non marauder related from war
+					# Remove all non marauder related from war (Probably too early)
 					every_defender = {
 						limit = {
 							NOR = {

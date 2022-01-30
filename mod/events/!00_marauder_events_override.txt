@@ -365,20 +365,22 @@ country_event = {
 					species = { save_event_target_as = marauder_species }
 				}
 				create_country = {
-					name = random
-					type = marauder_raiders # dormant_marauders # ruined_marauders
+					# name = random
+					# type = marauder_raiders # not hostile
+					type = ruined_marauders # dormant_marauders
 					species = event_target:marauder_species # root
 					name_list = random
 					flag = {
-						icon = { category = "pirate" file = "flag_pirate_13.dds" }
-						background = { category = "backgrounds" file = "new_dawn.dds" }
-						colors = { "red_orange" "black" "null" "null" }
+						# icon = { category = "pirate" file = "flag_pirate_13.dds" }
+						background = { category = "backgrounds" file = "00_solid.dds" }
+						colors = { "black" "black" "null" "null" }
 					}
 					# origin = "origin_void_dwellers"
 					effect = {
 						save_global_event_target_as = marauder_infighting
 						set_country_flag = marauder_vengeance_begun
 						randomize_flag_symbol = "pirate"
+						set_graphical_culture = madd_01
 					}
 				}
 			}
@@ -393,15 +395,16 @@ country_event = {
 									num_planets_in_system > 1
 									has_owner = no
 								}
-								NOR = {
-									exists = space_owner
-									has_star_flag = hostile_system
-									has_star_flag = guardian
-									has_star_flag = tiyanki_home_system
-									has_star_flag = amoeba_home_system
-									has_star_flag = lcluster
-									has_star_flag = sealed_system
-								}
+								is_valid_crystal_splitter_system = yes
+								# NOR = {
+								# 	exists = space_owner
+								# 	has_star_flag = hostile_system
+								# 	has_star_flag = guardian
+								# 	has_star_flag = tiyanki_home_system
+								# 	has_star_flag = amoeba_home_system
+								# 	has_star_flag = lcluster
+								# 	has_star_flag = sealed_system
+								# }
 								has_access_fleet = event_target:infighting_target_1
 								min_steps = 2
 								max_steps = 5
@@ -410,15 +413,16 @@ country_event = {
 						closest_system = {
 							limit = {
 								num_planets_in_system > 1
-								NOR = {
-									exists = space_owner
-									has_star_flag = hostile_system
-									has_star_flag = guardian
-									has_star_flag = tiyanki_home_system
-									has_star_flag = amoeba_home_system
-									has_star_flag = lcluster
-									has_star_flag = sealed_system
-								}
+								is_valid_crystal_splitter_system = yes
+								# NOR = {
+								# 	exists = space_owner
+								# 	has_star_flag = hostile_system
+								# 	has_star_flag = guardian
+								# 	has_star_flag = tiyanki_home_system
+								# 	has_star_flag = amoeba_home_system
+								# 	has_star_flag = lcluster
+								# 	has_star_flag = sealed_system
+								# }
 								has_access_fleet = event_target:infighting_target_1
 							}
 							min_steps = 2
@@ -444,7 +448,7 @@ country_event = {
 									is_capital_system = yes
 									is_owned_by = root
 								}
-								has_system_trade_value > 75
+								has_system_trade_value > 65
 								has_access_fleet = event_target:infighting_target_1
 								distance = {
 									source = space_owner.capital_scope.solar_system
@@ -505,6 +509,7 @@ country_event = {
 						save_event_target_as = infighting_target_2
 						set_fleet_flag = infighting_marauders
 						auto_follow_fleet = { target = event_target:infighting_target_1 attack_fleet = yes }
+						event_target:infighting_target_1 = { auto_follow_fleet = { target = prev attack_fleet = yes } }
 					}
 				}
 			}
@@ -530,8 +535,8 @@ country_event = {
 		set_faction_hostility = {
 			target = event_target:marauder_infighting
 			set_hostile = no
-			set_neutral = no
-			set_friendly = yes
+			set_neutral = yes
+			set_friendly = no
 		}
 		every_playable_country = {
 			# limit = { is_country_type = default }
@@ -5159,7 +5164,6 @@ country_event = {
 	immediate = {
 		set_country_flag = marauder600_happened
 		set_global_flag = khan_dead_event_fine
-		remove_global_flag = marauder_crisis_ongoing
 		remove_global_flag = khan_no_die
 		remove_country_flag = CmtFlagKhanNoDieCountry
 		if = { limit = { has_global_flag = great_khan_wins }
@@ -5434,6 +5438,7 @@ country_event = {
 				}
 			}
 		}
+		remove_global_flag = marauder_crisis_ongoing
 	}
 	after = {
 		hidden_effect = {
@@ -5745,7 +5750,7 @@ country_event = {
 				}
 				origin = "origin_khan_successor"
 				flag = {
-					icon = { category = "pirate" file = "flag_pirate_13.dds" } # flag_pirate_5.dds
+					# icon = { category = "pirate" file = "flag_pirate_13.dds" } # flag_pirate_5.dds
 					background = { category = "backgrounds" file = "00_solid.dds" }
 					colors = { "black" "black" "null" "null" }
 				}
@@ -6365,6 +6370,85 @@ country_event = {
 		}
 	}
 	option = { name = marauder.671.a }
+}
+
+# New Fleet (Fix missing ship_piracy_suppression_add)
+country_event = {
+	id = marauder.704
+	title = "marauder.704.name"
+	desc = "marauder.704.desc"
+	picture = GFX_evt_pirate_armada
+	show_sound = event_radio_chatter
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = marauder_neighbor_event_4 }
+		years_passed > 30
+	}
+	immediate = { set_country_flag = marauder_neighbor_event_4 }
+	option = {
+		name = marauder.704.a
+		create_fleet = {
+			name = "NAME_Salvaged_Fleet"
+			effect = {
+				set_owner = root
+				while = {
+					count = 6
+					create_ship = {
+						name = "NAME_Outrider"
+						prefix = no
+						# design = "NAME_Outrider"
+						design = "NAME_Skull"
+						graphical_culture = "pirate_01"
+					}
+				}
+				while = {
+					count = 3
+					create_ship = {
+						name = "NAME_Lancer"
+						prefix = no
+						# design = "NAME_Lancer"
+						design = "NAME_Corsair"
+						graphical_culture = "pirate_01"
+					}
+				}
+				while = {
+					count = 2
+					create_ship = {
+						name = "NAME_Void_Champion"
+						prefix = no
+						# design = "NAME_Void_Champion"
+						design = "NAME_Black_Earl"
+						graphical_culture = "pirate_01"
+					}
+				}
+				set_location = root.capital_scope
+			}
+		}
+		custom_tooltip = gain_marauder_fleet
+		# hidden_effect = {
+		# 	create_fleet = {
+		# 		name = "NAME_Salvaged_Fleet"
+		# 		effect = {
+		# 			set_owner = root
+		# 			while = {
+		# 				count = 1
+		# 				create_ship = {
+		# 					name = random
+		# 					prefix = no
+		# 					design = "NAME_Black_Earl"
+		# 					graphical_culture = "pirate_01"
+		# 				}
+		# 			}
+		# 			create_privateer_ships_5 = yes
+		# 			set_location = root.capital_scope
+		# 		}
+		# 	}
+		# }
+	}
+	option = {
+		name = marauder.704.b
+		add_resource = { minerals = 200 }
+	}
 }
 
 # Great Khan's Throne
