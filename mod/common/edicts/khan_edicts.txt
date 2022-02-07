@@ -29,8 +29,5 @@ force_khan_spawn = {
 			id = CrisisManagerMenu.4831
 		}
 	}
-	ai_weight = {
-		weight = 0
-		# modifier = { factor = 0 }
-	}
+	ai_weight = { weight = 0 }
 }

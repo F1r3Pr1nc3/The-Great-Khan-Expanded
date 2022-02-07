@@ -3534,7 +3534,7 @@ system_event = {
 # }
 
 # DEPRECATED (TODO remove in 3.3 - now marauder.554)
-# Uprising fabricator_satrapy
+# Uprising fabricator satrapy
 country_event = {
 	id = khan.751
 	title = "greatkhan_diplo_header"
@@ -3647,7 +3647,7 @@ country_event = {
 	}
 }
 
-# fabricator_satrapy (Reinforcement Cycle)
+# fabricator satrapy (Reinforcement Cycle)
 country_event = {
 	id = khan.798
 	hide_window = yes
@@ -3815,7 +3815,7 @@ country_event = {
 	}
 }
 
-# Submit as fabricator_satrapy
+# Submit as fabricator satrapy
 country_event = {
 	id = khan.799
 	title = "greatkhan_diplo_header"

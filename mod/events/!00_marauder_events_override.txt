@@ -10,7 +10,7 @@ namespace = marauder
 #
 # Check all events: has_country_flag = marauder_x (x = 1 - 3)
 #
-###		On Actions Short Docu	###
+###		On Actions Short Docu		###
 # on_leader_fired = marauder.70
 # on_planet_bombarded = marauder.103
 # on_monthly_pulse = marauder.113	# Raiders Driven Off (HIDDEN)
@@ -508,6 +508,13 @@ country_event = {
 					last_created_fleet = {
 						save_event_target_as = infighting_target_2
 						set_fleet_flag = infighting_marauders
+						queue_actions = {
+							wait = {
+								duration = 60
+								# random = 20
+							}
+							move_to = event_target:infighting_target_1
+						}
 						auto_follow_fleet = { target = event_target:infighting_target_1 attack_fleet = yes }
 						event_target:infighting_target_1 = { auto_follow_fleet = { target = prev attack_fleet = yes } }
 					}
@@ -558,7 +565,7 @@ country_event = {
 		has_global_flag = marauder_infighting_ongoing
 		OR = {
 			is_country_type = dormant_marauders
-			is_country_type = marauder_raiders
+			is_country_type = ruined_marauders
 		}
 		OR = {
 			fromfrom = { has_fleet_flag = infighting_marauders }
@@ -610,7 +617,7 @@ country_event = {
 					}
 				}
 				queue_actions = {
-					wait = 2
+					wait = 5
 					find_closest_planet = {
 						trigger = {
 							id = marauder_infighting.t1
@@ -2865,6 +2872,7 @@ country_event = {
 			CmtTriggerIsKhanCountry = yes
 			AND = { # Khan Subject
 				is_subject_of_khan = yes
+				is_ai = yes
 				NOT = { has_country_flag = rebellion_cooldown }
 				exists = from
 				from = {
@@ -2905,8 +2913,8 @@ country_event = {
 			### Create Marauder Pops
 			save_event_target_as = conquered_planet
 			planet_event = { id = marauder.105 } # (Slaves)
-			set_owner = root
-			set_controller = root
+			set_owner = event_target:raider_khanate # root not subjects
+			set_controller = event_target:raider_khanate # root not subjects
 
 			set_variable = { which = CmtVarTemp value = 4 }
 			if = {
@@ -2922,6 +2930,14 @@ country_event = {
 
 			set_variable = { which = CmtVarTemp4 value = CmtVarTemp }
 			divide_variable = { which = CmtVarTemp4 value = 4 }
+			every_owned_pop = {
+				# limit = {
+				# 	is_robot_pop = no
+				# 	is_sapient = yes
+				# }
+				unemploy_pop = yes
+			}
+
 			if = {
 				limit = { exists = event_target:marauder_country_1 }
 				while = {
@@ -2964,14 +2980,21 @@ country_event = {
 				if = {
 					limit = {
 						exists = starbase
-						starbase = { fleet = { NOT = { is_owned_by = root } } }
+						starbase.fleet = {
+							NOR = {
+								is_owned_by = root
+								is_owned_by = event_target:raider_khanate
+							}
+						}
 					}
-					starbase = { set_owner = root }
+					starbase = {
+						set_owner = event_target:raider_khanate # root not subjects
+					}
 					# FIXME: needs possible workaround? As starbase from horde gets not conquered? See Fix id = khan.304-305
 				} else = {
 					create_starbase = {
 						size = "starbase_marauder"
-						owner = root
+						owner = event_target:raider_khanate # root not subjects
 					}
 				}
 			}
@@ -3790,6 +3813,7 @@ country_event = {
 				}
 				event_target:marauder_rally_point = {
 					create_fleet = {
+						# name = random
 						effect = {
 							set_owner = root
 							create_dyn_marauder_fleet = { OUTRIDER = 20 LANCER = 10 CHAMPION = 6 VARIANT = "_4" }
@@ -4135,7 +4159,8 @@ planet_event = {
 		exists = from
 		exists = owner
 		# owner = { CmtTriggerIsEmpire = yes }
-		count_planet_army = { count = 0 }
+		# count_planet_army = { count = 0 }
+		NOT = { any_planet_army = { always = yes } }
 		OR = {
 			planet_devastation > 90
 			num_pops < 2
