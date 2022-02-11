@@ -6,6 +6,7 @@ on_game_start = {
 on_single_player_save_game_load = {
 	events = {
 		khan.300
+		marauder.99
 	}
 }
 
