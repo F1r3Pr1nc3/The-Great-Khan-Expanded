@@ -88,12 +88,14 @@ on_planet_zero_pops_ground_combat = {
 on_ship_disabled = {
 	events = {
 		khan.304
+		pirate.65
 	}
 }
 # This = Ship
 on_ship_enabled = {
 	events = {
 		khan.305
+		pirate.66
 	}
 }
 

@@ -2203,9 +2203,10 @@ ship_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		is_ship_class = shipclass_starbase
+		is_scope_valid = yes
 		exists = owner
 		owner = { is_country_type = awakened_marauders }
+		is_ship_class = shipclass_starbase
 		# NOT = {
 		# 	is_ship_size = starbase_marauder
 			# solar_system = {
@@ -2263,14 +2264,14 @@ ship_event = {
 		is_ship_class = shipclass_starbase
 		exists = owner
 		owner = { is_country_type = awakened_marauders }
-		NOT = {
+		NOR = {
 			is_ship_size = starbase_marauder
-			# solar_system = {
-			# 	any_fleet_in_system = {
-			# 		NOT = { is_owned_by = root.owner }
-			# 		is_ship_class = shipclass_starbase
-			# 	}
-			# }
+			solar_system = {
+				any_fleet_in_system = {
+					is_owned_by = root.owner
+					NOT = { is_same_value = root.fleet }
+				}
+			}
 		}
 	}
 	immediate = {
@@ -2278,15 +2279,16 @@ ship_event = {
 		if = {
 			limit = {
 				solar_system = {
-					NOT = {
-						any_fleet_in_system = {
-							NOT = { is_same_value = root.fleet }
-							is_owned_by = root.owner
-						}
-					}
+					# NOT = {
+					# 	any_fleet_in_system = {
+					# 		NOT = { is_same_value = root.fleet }
+					# 		is_owned_by = root.owner
+					# 	}
+					# }
 					any_fleet_in_system = {
 						NOT = { is_owned_by = root.owner }
 						owner = { is_hostile = root.owner }
+						is_civilian = no
 					}
 				}
 			}

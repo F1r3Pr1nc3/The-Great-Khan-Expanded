@@ -12,7 +12,6 @@ namespace = marauder
 ## Fleets getting stuck.
 # marauder.31 .33 .101 .103 .150 .21
 # Adding marauder.27 .28 .29
-
 # Check all events: has_country_flag = marauder_x (x = 1 - 3)
 #
 ###		On Actions Short Docu		###
@@ -30,6 +29,8 @@ namespace = marauder
 # on_monthly_pulse			marauder.512 Dies for Other Reasons - From marauder.511.
 # On timer start			marauder.514 Dies of Old Ages.
 # on_leader_death			marauder.711/.712
+
+# Added pirate.65/.66 for pirate stations
 
 ###################
 ###- Constants -###
@@ -8834,6 +8835,112 @@ country_event = {
 # Vanilla Fix: distance source scope
 ### Pirates: The Bemat Thalassocracy (by Gemma Thomson) ###
 namespace = pirate
+
+# Take pirate starbase (on_ship_disabled - otherwise cannot be conquered).
+# This = Ship
+# From = Disabler Ship
+ship_event = {
+	id = pirate.65
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_scope_valid = yes
+		exists = owner
+		exists = from.owner
+		exists = fleet
+		exists = solar_system
+		is_ship_class = shipclass_starbase
+	}
+	immediate = {
+		if = {
+			limit = {
+				from.owner = { is_pirate = yes }
+				owner = { is_pirate = yes }
+			}
+			solar_system = {
+				every_system_planet = {
+					limit = { is_owned_by = root.owner }
+					set_controller = from.owner
+				}
+			}
+			starbase = { set_owner = from.owner }
+		} else_if = {
+			limit = {
+				from.owner = { is_country_type_with_subjects = yes }
+				owner = { is_pirate = yes }
+				starbase = { has_starbase_size > starbase_outpost }
+			}
+			# log="take pirate starbase"
+			# if = { limit = { starbase = { has_starbase_size > starbase_outpost } }
+			from = {
+				save_event_target_as = pirate_slayers
+				owner = {
+					random_list = {
+						85 = { country_event = { id = pirate.25 } }
+						15 = {
+							country_event = { id = pirate.26 }
+							modifier = {
+								factor = 0
+								NOT = { has_event_chain = l_cluster_chain }
+							}
+						}
+					}
+				}
+			}
+		} else_if = {
+			limit = { owner = { is_pirate = yes } }
+			starbase = { destroy_fleet = fleet }
+			# log="destroy pirate station"
+		}
+	}
+}
+
+# Pirate starbase (on_ship_enabled) - destroy (HIDDEN)
+ship_event = {
+	id = pirate.66
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_scope_valid = yes
+		exists = owner
+		owner = { is_pirate = yes }
+		exists = solar_system
+		exists = fleet
+		is_ship_class = shipclass_starbase
+		NOR = {
+			is_ship_size = starbase_marauder
+			solar_system = {
+				any_fleet_in_system = {
+					is_owned_by = root.owner
+					NOT = { is_same_value = root.fleet }
+				}
+			}
+		}
+	}
+	immediate = {
+		if = {
+			limit = {
+				solar_system = {
+					# NOT = {
+					# 	any_fleet_in_system = {
+					# 		NOT = { is_same_value = root.fleet }
+					# 		is_owned_by = root.owner
+					# 	}
+					# }
+					any_fleet_in_system = {
+						NOT = { is_owned_by = root.owner }
+						owner = { is_hostile = root.owner }
+						is_civilian = no
+					}
+				}
+			}
+			# log="destroy pirate starbase"
+			fleet = { every_owned_ship = { destroy_ship = this } }
+			destroy_fleet = fleet
+		}
+	}
+}
+
 # Setup (event_target:global_event_country scope; randomly triggered in pirate.100): Find a suitable spawn point
 country_event = {
 	id = pirate.150

@@ -276,16 +276,31 @@ marauders_garrison = {
 pirate = {
 	always_valid_target_aggressive = yes
 	attack_unarmed_orbital_stations = yes
+	can_own_empty_planets = yes
+	has_capital = no
 	enforces_borders = no
+	share_communications = no
+	can_have_their_comms_shared = no
+	can_receive_envoys = no
 	government = no
 	observable = no
+	playable = no
+	piracy_risk = no
+	diplomatic_wars = no
+	share_survey_data = no
 	# custom_starbase =
 	uses_origins = no
+	targets = {
+		default
+		pirate
+	}
 	ai = {
 		enabled = no
+		traditions = no
 	}
 	faction = {
 		hostile = yes
+		hostile_when_attacked = yes
 		pirate = yes
 		needs_border_access = no
 		generate_borders = no
