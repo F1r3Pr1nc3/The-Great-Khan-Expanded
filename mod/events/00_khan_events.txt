@@ -859,8 +859,7 @@ country_event = {
 				# set_subject_of = { who = none }
 				# set_country_flag = rebelling_satrapy
 				# set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
-			}
-			else_if = { limit = { has_modifier = "satrapy_of_horde" }
+			} else_if = { limit = { has_modifier = "satrapy_of_horde" }
 				remove_modifier = "satrapy_of_horde"
 			}
 			from = {
@@ -892,8 +891,7 @@ country_event = {
 					random = @CmtConstKhanLifespan_2e
 					scopes = { from = from }
 				}
-			}
-			else = { remove_country_flag = war_in_heaven_league_leader_declined }
+			} else = { remove_country_flag = war_in_heaven_league_leader_declined }
 		}
 		ai_chance = {
 			factor = 0.1
@@ -1213,8 +1211,7 @@ country_event = {
 		if = {
 			limit = { overlord = { is_same_empire = event_target:FirstSleeper } }
 			join_war = event_target:FirstSleeper
-		}
-		else_if = {
+		} else_if = {
 			limit = { overlord = { is_same_empire = event_target:raider_khanate } }
 			if = {
 				limit = {
@@ -1388,8 +1385,7 @@ country_event = {
 				country_event = { id = war_in_heaven.4 days = 1 }
 			}
 			country_event = { id = khan.218 days = 8 } # galcom
-		}
-		else = {
+		} else = {
 			every_playable_country = {
 				limit = {
 					CmtTriggerIsPlayableEmpire = yes
@@ -1896,14 +1892,12 @@ event = {
 							set_leader_flag = great_khan
 							save_event_target_as = old_khan
 						}
-					}
-					else_if = { limit = { exists = ruler }
+					} else_if = { limit = { exists = ruler }
 						ruler = {
 							set_leader_flag = great_khan
 							save_event_target_as = old_khan
 						}
-					}
-					else_if = {
+					} else_if = {
 						limit = {
 							any_owned_leader = { has_leader_flag = great_khan }
 						}
@@ -1911,8 +1905,7 @@ event = {
 							limit = { has_leader_flag = great_khan }
 							save_event_target_as = old_khan
 						}
-					}
-					else = {
+					} else = {
 						random_owned_leader = {
 							limit = {
 								leader_class = admiral
@@ -1952,8 +1945,7 @@ event = {
 						limit = { has_global_flag = war_in_heaven_ongoing }
 						# Dissolve Marauders again
 						country_event = { id = marauder.600 days = 5 }
-					}
-					else_if = {
+					} else_if = {
 						limit = { has_federation = yes }
 						leave_alliance = {
 							override_requirements = yes
@@ -2785,8 +2777,7 @@ country_event = {
 					} else_if = { limit = { count_starbase_modules = { count < 2 } NOT = { is_starbase_building_module = anchorage } }
 						set_starbase_module = { slot = 2 module = anchorage }
 					}
-				}
-				else_if = { limit = { has_starbase_size = starbase_starhold }
+				} else_if = { limit = { has_starbase_size = starbase_starhold }
 					if = { limit = { count_starbase_modules = { count < 1 } }
 						set_starbase_module = { slot = 1 module = anchorage }
 						set_starbase_module = { slot = 2 module = anchorage }
@@ -2809,8 +2800,8 @@ country_event = {
 						set_starbase_module = { slot = 4 module = anchorage }
 					}
 				}
-				# starbase_starfortress = { 6 }
-				# starbase_citadel = { 6 }
+				# starbase_starfortress = { 6
+				# starbase_citadel = { 6
 				else = {
 					if = { limit = { count_starbase_modules = { count < 1 } }
 						set_starbase_module = { slot = 1 module = anchorage }
@@ -3244,7 +3235,7 @@ country_event = {
 				establish_communications_no_message = root
 			}
 		}
-		country_event = { id = khan.612 days = 7 } # Build Habitas
+		country_event = { id = khan.612 days = 7 } # Build Habitats
 
 		# # event_target:second_diadochi_origin
 		# random_owned_planet = {
@@ -3355,20 +3346,17 @@ country_event = {
 				# Two habitats base + every 8 systems.
 				divide_variable = { which = marauder_habitat_count value = 9 }
 				change_variable = { which = marauder_habitat_count value = 1 }
-			}
-			else_if = {
+			} else_if = {
 				limit = { years_passed < 160 }
 				# Three habitats base + every 7 systems.
 				divide_variable = { which = marauder_habitat_count value = 8 }
 				change_variable = { which = marauder_habitat_count value = 2 }
-			}
-			else_if = {
+			} else_if = {
 				limit = { years_passed < 220 }
 				# Four habitats base + every 6 systems.
 				divide_variable = { which = marauder_habitat_count value = 7 }
 				change_variable = { which = marauder_habitat_count value = 3 }
-			}
-			else = {
+			} else = {
 				# Five habitats base + every 5 systems.
 				divide_variable = { which = marauder_habitat_count value = 6 }
 				change_variable = { which = marauder_habitat_count value = 4 }
@@ -3492,18 +3480,15 @@ system_event = {
 						limit = { has_planet_flag = mining_habitat }
 						add_district = district_hab_mining
 						add_district = district_hab_mining
-					}
-					else_if = {
+					} else_if = {
 						limit = { has_planet_flag = energy_habitat }
 						add_district = district_hab_energy
 						add_district = district_hab_energy
-					}
-					else_if = {
+					} else_if = {
 						limit = { has_planet_flag = research_habitat }
 						add_district = district_hab_science
 						add_district = district_hab_science
-					}
-					else = {
+					} else = {
 						add_district = district_hab_commercial
 						add_district = district_hab_commercial
 					}
@@ -3513,7 +3498,7 @@ system_event = {
 			}
 			from = {
 				change_variable = { which = marauder_habitat_count value = -1 }
-				country_event = { id = khan.612 days = 480 }		# Build Habitas
+				country_event = { id = khan.612 days = 480 }		# Build Habitats
 			}
 		}
 	}
@@ -3666,7 +3651,7 @@ country_event = {
 			event_target:raider_khanate = {
 				country_event = { id = khan.798 days = 210 }
 				set_variable = { which = marauder_habitat_count value = 1 }
-				country_event = { id = khan.612 days = 7 } # Build Habitas
+				country_event = { id = khan.612 days = 7 } # Build Habitats
 			}
 			break = yes
 		}
@@ -4000,7 +3985,7 @@ country_event = {
 			}
 			country_event = { id = khan.870 days = 210 }
 			set_variable = { which = marauder_habitat_count value = 1 }
-			country_event = { id = khan.612 days = 7 } # Build Habitas
+			country_event = { id = khan.612 days = 7 } # Build Habitats
 			break = yes
 		}
 		if = { limit = { num_armies < 50 }

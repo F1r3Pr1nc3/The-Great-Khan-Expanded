@@ -8,7 +8,7 @@ vassal = {
 	can_be_integrated = yes
 
 	research_agreement = yes
-	research_sharing = yes	# for tech sharing modifier
+	research_sharing = yes	# For tech sharing modifier
 
 	joins_overlord_wars = yes
 	calls_overlord_to_war = yes
@@ -34,8 +34,7 @@ vassal = {
 				from = { has_valid_civic = civic_inwards_perfection }
 			}
 			set_subject_of = { who = from subject_type = tributary }
-		}
-		else_if = {
+		} else_if = {
 			limit = {
 				from = {
 					OR = {
@@ -49,14 +48,12 @@ vassal = {
 				}
 			}
 			set_subject_of = { who = none }
-		}
-		else_if = {
+		} else_if = {
 			limit = {
 				from = { has_authority = auth_corporate }
 			}
 			set_subject_of = { who = from subject_type = subsidiary }
-		}
-		else_if = {
+		} else_if = {
 			limit = {
 				from = { is_country_type = awakened_fallen_empire }
 			}
@@ -110,8 +107,7 @@ protectorate = {
 				from = { has_valid_civic = civic_inwards_perfection }
 			}
 			set_subject_of = { who = from subject_type = tributary }
-		}
-		else_if = {
+		} else_if = {
 			limit = {
 				from = {
 					OR = {
@@ -125,14 +121,12 @@ protectorate = {
 				}
 			}
 			set_subject_of = { who = none }
-		}
-		else_if = {
+		} else_if = {
 			limit = {
 				from = { has_authority = auth_corporate }
 			}
 			set_subject_of = { who = from subject_type = subsidiary }
-		}
-		else_if = {
+		} else_if = {
 			limit = {
 				from = { is_country_type = awakened_fallen_empire }
 			}

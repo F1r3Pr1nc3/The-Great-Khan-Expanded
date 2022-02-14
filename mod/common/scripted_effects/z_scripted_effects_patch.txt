@@ -3,8 +3,8 @@
 # Vanilla Fix: don't break the loop
 end_war_effect = {
 	# every_war_participant = {
-	if = { # is defenders
-		# because strange log behavior
+	if = { # Is defenders
+		# Because strange log behavior
 		limit = {
 			exists = this
 			is_scope_valid = yes
@@ -18,10 +18,10 @@ end_war_effect = {
 			limit = {
 				# NOT = { is_same_empire = prevprev }
 				# NOT = { is_war_participant = { war = prev side = prevprev } }
-				is_war_participant = { war = prev side = attackers } # because strange log behavior
+				is_war_participant = { war = prev side = attackers } # Because strange log behavior
 			}
 			prev = { remove_war_participant = prev }
-			if = { # seems superflous
+			if = { # Seems superflous
 				limit = {
 					NAND = {
 						exists = prev
@@ -31,7 +31,7 @@ end_war_effect = {
 				break = yes
 			}
 		}
-		if = { # is defenders
+		if = { # Is defenders
 			limit = {
 				exists = this
 				is_scope_valid = yes

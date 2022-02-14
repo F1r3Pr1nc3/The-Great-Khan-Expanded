@@ -52,7 +52,7 @@ hegemonic_imperialists = {
 		}
 	}
 	weight_modifier = {
-		weight = 5		# very common, so lower weight
+		weight = 5		# Very common, so lower weight.
 		modifier = {
 			weight = 1001
 			OR = {

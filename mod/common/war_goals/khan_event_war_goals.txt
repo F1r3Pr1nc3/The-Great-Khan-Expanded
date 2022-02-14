@@ -72,7 +72,7 @@ wg_independence = {
 			# 		set_friendly = no
 			# 	}
 			# }
-			# fromfrom = { # war scope seems only work for on_accept
+			# fromfrom = { # War scope seems only work for on_accept.
 			if = {
 				limit = {
 					any_war = {
@@ -456,7 +456,7 @@ wg_war_in_heaven = {
 	surrender_acceptance = -900
 	war_exhaustion = 0.25
 	set_defender_wargoal = wg_war_in_heaven
-	potential = { always = no } # event only
+	potential = { always = no } # Event only
 	possible = { always = yes }
 	on_accept = {
 		# This is effectively unused as this is total war; surrender is highly unlikely.
@@ -499,8 +499,7 @@ wg_war_in_heaven = {
 						}
 					}
 				}
-			}
-			else_if = {
+			} else_if = {
 				limit = {
 					OR = {
 						is_country_type = awakened_marauders
@@ -704,16 +703,16 @@ wg_great_expansion = {
 	total_war = yes
 	release_occupied_systems_on_status_quo = yes
 	allowed_peace_offers = {
-		status_quo # otherwise the defender is fully inhalited
+		status_quo # Otherwise the defender is fully inhalited.
 	}
 	surrender_acceptance = -500
 	war_exhaustion = 0.5
 	# set_defender_wargoal = wg_great_expansion
-	# potential = { # needs something other than cb_event
+	# potential = { # Needs something other than cb_event.
 	# 	has_global_flag = marauder_crisis_ongoing
 	# 	is_country_type = awakened_marauders
 	# }
-	potential = { always = no } # event only
+	potential = { always = no } # Event only
 	possible = { always = yes }
 	on_accept = {
 		hidden_effect = {

@@ -14,11 +14,11 @@ pirates_01 = {
 		intensity_far = 1.0		# Amount when far away
 		near_value = 700		# Near threshold
 		far_value = 4000		# Far threshold
-		rim_start_near = 0.5	# pirate is 0.2 # reptilian is 0.5
+		rim_start_near = 0.5	# Pirate is 0.2 # Reptilian is 0.5
 		rim_stop_near = 0.99
 		rim_start_far = 0.3
 		rim_stop_far = 0.99
 		ambient_near = 0.1
-		ambient_far = 20.0 # pirate is 1.0 # reptilian/mammalian is 20.0 # fungoid is 50.0
+		ambient_far = 20.0 # Pirate is 1.0 # reptilian/mammalian is 20.0 # Fungoid is 50.0
 	}
 }

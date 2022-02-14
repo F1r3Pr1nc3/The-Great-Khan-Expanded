@@ -1,4 +1,4 @@
-# reloadable with 'reload stats'
+# Reloadable with 'reload stats'
 # This file is where you start when you want to configure something new, then go to sections.
 
 @build_block_radius_starbase = 20
@@ -7,7 +7,7 @@
 npc_galleon_01 = {
 	graphical_culture = { "npf_01_dirty" "npf_01" } # "pirate_01" "madd_01"
 	is_space_object = yes
-	graphical_culture = yes # default no vanilla yes
+	graphical_culture = yes # Default no vanilla yes
 	# entity = npc_warship_01_entity
 	# entity = npf_01_dirty_npc_warship_01_entity
 	formation_priority = 40
@@ -112,7 +112,7 @@ starbase_marauder = {
 	is_listed = no
 	can_disable = no
 	flip_control_on_disable = yes
-	enable_default_design = no	# if yes, countries will have an auto-generated design at start
+	enable_default_design = no	# If yes, countries will have an auto-generated design at start.
 	prerequisites = { "tech_starbase_3" }
 	class = shipclass_starbase
 	required_component_set = "power_core"

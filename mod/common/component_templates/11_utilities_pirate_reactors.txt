@@ -36,7 +36,7 @@
 @pirate_cruiser_power_4 =	600
 @pirate_cruiser_power_5 =	770
 @pirate_cruiser_power_6 =	1000
-# battleships shoud be here
+# Battleships shoud be here
 @galleon_power_1 =	1000	# 1100
 @galleon_power_2 =	1350	# 1450
 @galleon_power_3 =	1800	# 1900
@@ -64,7 +64,7 @@
 @pirate_cruiser_cost_4 =	88
 @pirate_cruiser_cost_5 =	112
 @pirate_cruiser_cost_6 =	148
-# battleships shoud be here
+# Battleships shoud be here
 @galleon_cost_1 =	160 # 160
 @galleon_cost_2 =	208 # 208
 @galleon_cost_3 =	272 # 272
