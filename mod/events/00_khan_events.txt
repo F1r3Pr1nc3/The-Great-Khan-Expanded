@@ -1954,21 +1954,22 @@ event = {
 					}
 				}
 			}
-		} else_if = { # TODO remove temp fix for bugged starbases (somehow)
-			limit = { NOT = { has_global_flag = khanate_starbase_fixed } }
-			every_playable_country = {
-				limit = { has_origin = "origin_khan_successor" }
-				# Normalize Starbases
-				every_owned_starbase = {
-					limit = { has_starbase_size = starbase_marauder }
-					set_starbase_size = starbase_outpost
-				}
-				every_owned_fleet = {
-					set_event_locked = no
-				}
-			}
-			set_global_flag = khanate_starbase_fixed
 		}
+		# else_if = { # TODO remove temp fix for bugged starbases (somehow)
+		# 	limit = { NOT = { has_global_flag = khanate_starbase_fixed } }
+		# 	every_playable_country = {
+		# 		limit = { has_origin = "origin_khan_successor" }
+		# 		# Normalize Starbases
+		# 		every_owned_starbase = {
+		# 			limit = { has_starbase_size = starbase_marauder }
+		# 			set_starbase_size = starbase_outpost
+		# 		}
+		# 		every_owned_fleet = {
+		# 			set_event_locked = no
+		# 		}
+		# 	}
+		# 	set_global_flag = khanate_starbase_fixed
+		# }
 	}
 }
 
@@ -3425,13 +3426,6 @@ system_event = {
 				NOR = {
 					has_planet_flag = megastructure
 					has_planet_flag = has_megastructure
-					# is_planet_class = pc_ringworld_habitable
-					# is_planet_class = pc_ringworld_habitable_damaged
-					# is_planet_class = pc_ringworld_tech
-					# is_planet_class = pc_ringworld_tech_damaged
-					# is_planet_class = pc_ringworld_seam
-					# is_planet_class = pc_ringworld_seam_damaged
-					# is_planet_class = pc_habitat
 				}
 				is_ringworld = no
 				is_a_planet = yes
@@ -3445,62 +3439,86 @@ system_event = {
 					owner = from # space_owner
 					graphical_culture = mammalian_01
 				}
-				# Populate marauder habitat
-				random_system_planet = {
-					limit = {
-						is_planet_class = pc_habitat
-						is_colony = no
-					}
-					# log = "--- Habitat \\[This.GetName] is being populated..."
-					# space_owner = {
-					# 	save_event_target_as = colony_country
-					# 	species = { save_event_target_as = colony_species }
-					# }
-					# TODO: Force-set to random/mining habitat?
-					# random_list = { # Hackely hack! ^_^
-					# 	3 = { set_planet_flag = mining_habitat }
-					# 	2 = { set_planet_flag = research_habitat }
-					# 	3 = { set_planet_flag = energy_habitat }
-					# }
-					while = {
-						count = 11
-						create_pop = {
-							species = space_owner.species
-							ethos = { ethic = "ethic_militarist" } # ethic = "ethic_egalitarian"
-						}
-					}
-					# set_owner = space_owner
-					set_controller = space_owner
-					add_building = building_hab_major_capital	# 3 jobs
-					# add_building = building_foundry_1			# 2
-					# add_building = building_foundry_1			# 2
-					# add_building = building_factory_1			# 2
-					# add_building = building_hydroponics_farm	# 3
-					add_district = district_hab_housing
-					add_district = district_hab_cultural		# 3
-					if = { # 6 jobs
-						limit = { has_planet_flag = mining_habitat }
-						add_district = district_hab_mining
-						add_district = district_hab_mining
-					} else_if = {
-						limit = { has_planet_flag = energy_habitat }
-						add_district = district_hab_energy
-						add_district = district_hab_energy
-					} else_if = {
-						limit = { has_planet_flag = research_habitat }
-						add_district = district_hab_science
-						add_district = district_hab_science
-					} else = {
-						add_district = district_hab_commercial
-						add_district = district_hab_commercial
-					}
-					# TODO: Add negative modifier that needs to be removed with expensive decision?
-				}
 				# set_star_flag = marauder_habitat_placed
+			}
+			# Populate marauder habitat
+			random_moon = {
+				limit = {
+					uses_district_set = habitat
+					# is_planet_class = pc_habitat
+					is_colony = no
+				}
+
+				# log = "--- Habitat \\[This.GetName] is being populated..."
+				# space_owner = {
+				# 	save_event_target_as = colony_country
+				# 	species = { save_event_target_as = colony_species }
+				# }
+				# TODO: Force-set to random/mining habitat?
+				# random_list = { # Hackely hack! ^_^
+				# 	3 = { set_planet_flag = mining_habitat }
+				# 	2 = { set_planet_flag = research_habitat }
+				# 	3 = { set_planet_flag = energy_habitat }
+				# }
+				while = {
+					count = 8
+					create_pop = {
+						species = space_owner.species
+						ethos = { ethic = "ethic_militarist" } # ethic = "ethic_egalitarian"
+					}
+				}
+				# set_owner = space_owner
+				set_controller = space_owner
+				add_building = building_hab_major_capital	# 3 jobs
+				# add_building = building_foundry_1			# 2
+				# add_building = building_foundry_1			# 2
+				# add_building = building_factory_1			# 2
+				# add_building = building_hydroponics_farm	# 3
+				add_district = district_hab_housing
+				add_district = district_hab_cultural		# 3
+				if = { # 6 jobs
+					limit = { has_planet_flag = mining_habitat }
+					add_district = district_hab_mining
+					add_district = district_hab_mining
+				} else_if = {
+					limit = { has_planet_flag = energy_habitat }
+					add_district = district_hab_energy
+					add_district = district_hab_energy
+				} else_if = {
+					limit = { has_planet_flag = research_habitat }
+					add_district = district_hab_science
+					add_district = district_hab_science
+				} else = {
+					add_district = district_hab_commercial
+					add_district = district_hab_commercial
+				}
+				start_colony = {
+					owner = from
+					species = from.species
+					ethos = random
+				}
+				# TODO: Add negative modifier that needs to be removed with expensive decision?
 			}
 			from = {
 				change_variable = { which = marauder_habitat_count value = -1 }
 				country_event = { id = khan.612 days = 480 }		# Build Habitats
+			}
+		}
+		from = {
+			random_planet_within_border = {
+				limit = {
+					OR = {
+						uses_district_set = habitat
+						uses_district_set = ring_world
+					}
+					is_colony = no
+					is_under_colonization = no
+				}
+				start_colony = {
+					owner = prev
+					species = prev
+					ethos = owner
+				}
 			}
 		}
 	}
