@@ -2350,9 +2350,7 @@ country_event = {
 	id = marauder.38
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {
-		exists = event_target:current_marauder_diplomacy
-	}
+	trigger = {}
 	immediate = {
 		if = {
 			limit = { exists = event_target:current_marauder_diplomacy }
@@ -6756,8 +6754,20 @@ country_event = {
 
 	immediate = {
 		save_event_target_as = satrapy_empire
-		capital_scope = {
-			save_event_target_as = capital_planet
+		if = {
+			limit = { exists = capital_scope }
+			capital_scope = {
+				save_event_target_as = capital_planet
+			}
+		} else = {
+			ordered_owned_planet = {
+				limit = { is_colony = yes }
+				position = 0
+				order_by = trigger:num_pops
+				save_event_target_as = capital_planet
+			}
+		}
+		event_target:capital_planet = {
 			solar_system = { save_event_target_as = capital_system }
 		}
 		event_target:raider_khanate = {
@@ -7097,10 +7107,15 @@ country_event = {
 	immediate = {
 		## If has_federation give Horde malus partial back.
 		if = {
-			limit = { NOT = { exists = capital_scope } }
-			save_event_target_as = capital_planet
-		} else = {
+			limit = { exists = capital_scope }
 			capital_scope = {
+				save_event_target_as = capital_planet
+			}
+		} else = {
+			ordered_owned_planet = {
+				limit = { is_colony = yes }
+				position = 0
+				order_by = trigger:num_pops
 				save_event_target_as = capital_planet
 			}
 		}
@@ -7160,16 +7175,16 @@ country_event = {
 		# Can't rebel for a year after submitting.
 		set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
 		save_event_target_as = new_satrapy
-		observer_event = { id = observer.19 }
-		every_playable_country = {
+		every_playable_country = { # Notify
 			limit = {
 				is_ai = no
 				has_communications = root
 				NOT = { is_same_empire = root }
 			}
-			country_event = { id = marauder.552 }
+			country_event = { id = marauder.552 days = 2 }
 		}
-		country_event = { id = marauder.553 days = 10 } # Init base
+		observer_event = { id = observer.19 }
+		country_event = { id = marauder.553 days = 12 } # Init base
 		add_modifier = { modifier = "satrapy_of_horde" }
 
 		event_target:raider_khanate = {

@@ -67,11 +67,21 @@ is_subject_of_khan = {
 	exists = event_target:raider_khanate
 	# overlord = { is_same_empire = prevprev }
 	overlord = { is_same_empire = event_target:raider_khanate }
-	OR = { # Only to be sure
-		is_subject_type = machinesmith
-		is_subject_type = satrapy
-		is_subject_type = fabricator_satrapy
-		is_subject_type = war_satrapy
-		# is_subject_type = nsc_freebooter_satrapy ### NSC SUPPORT has_global_flag = has_nsc_active
+	# OR = { # Only to be sure
+	# 	is_subject_type = machinesmith
+	# 	is_subject_type = satrapy
+	# 	is_subject_type = fabricator_satrapy
+	# 	is_subject_type = war_satrapy
+	# 	# is_subject_type = nsc_freebooter_satrapy ### NSC SUPPORT has_global_flag = has_nsc_active
+	# }
+}
+
+is_regular_empire = {
+	OR = {
+		is_country_type = default
+		is_country_type = awakened_marauders
+		is_country_type = gate_builders
+		is_fallen_empire = yes
 	}
+	NOT = { has_ethic = ethic_gestalt_consciousness	}
 }
