@@ -3492,11 +3492,11 @@ system_event = {
 					add_district = district_hab_commercial
 					add_district = district_hab_commercial
 				}
-				start_colony = {
-					owner = from
-					species = from.species
-					ethos = random
-				}
+				# start_colony = {
+				# 	owner = from
+				# 	species = from.species
+				# 	ethos = random
+				# }
 				# TODO: Add negative modifier that needs to be removed with expensive decision?
 			}
 			from = {
@@ -3504,23 +3504,24 @@ system_event = {
 				country_event = { id = khan.612 days = 480 }		# Build Habitats
 			}
 		}
-		from = {
-			random_planet_within_border = {
-				limit = {
-					OR = {
-						uses_district_set = habitat
-						uses_district_set = ring_world
-					}
-					is_colony = no
-					is_under_colonization = no
-				}
-				start_colony = {
-					owner = prev
-					species = prev
-					ethos = owner
-				}
-			}
-		}
+		# Unknown "Unexpected token: country_event, near line: 3543
+		# from = {
+		# 	random_planet_within_border = {
+		# 		limit = {
+		# 			OR = {
+		# 				uses_district_set = habitat
+		# 				uses_district_set = ring_world
+		# 			}
+		# 			is_colony = no
+		# 			is_under_colonization = no
+		# 		}
+		# 		start_colony = {
+		# 			owner = prev
+		# 			species = prev.species
+		# 			ethos = owner
+		# 		}
+		# 	}
+		# }
 	}
 }
 
