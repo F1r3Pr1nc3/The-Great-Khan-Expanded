@@ -1,32 +1,12 @@
-namespace = marauder
-
 #########################################
 #########################################
 #####			Marauder			#####
 #####	Khan (Horde Crisis) Events	#####
 #####		By FirePrince			#####
-#####	Replaced by Crisis Manager	#####
 #####								#####
 #########################################
 #########################################
 #
-# Check all events: has_country_flag = marauder_x (x = 1 - 3)
-#
-###		On Actions Short Docu	###
-# on_leader_fired = marauder.70
-# on_planet_bombarded = marauder.103
-# on_monthly_pulse = marauder.113	# Raiders Driven Off (HIDDEN)
-# on_yearly_pulse =
-# 	marauder.100	# Raid Available
-# 	marauder.85		# Mercenaries Available
-# 	marauder.160	# Raiding End Failsafe
-# 	marauder.699	# Neighbor Events - .707
-###		Khan Dead Events		###
-# on_ship_destroyed_victim	marauder.505 Defeated in Combat but NOT die.
-# on_ship_destroyed_victim	marauder.509 Defeated in Combat and die.
-# on_monthly_pulse			marauder.512 Dies for Other Reasons - From marauder.511.
-# On timer start			marauder.514 Dies of Old Ages.
-# on_leader_death			marauder.711/.712
 
 ###################
 ###- Constants -###
@@ -1364,7 +1344,6 @@ country_event = {
 		## Choose to be Rebel or Satrapy.
 		every_playable_country = {
 			limit = {
-				CmtTriggerIsPlayableEmpire = yes
 				NOT = { is_same_empire = root }
 			}
 			set_timed_country_flag = { flag = ai_no_wars days = 3592 }
@@ -1381,21 +1360,19 @@ country_event = {
 		if = {
 			limit = { has_galactic_emperor = no }
 			every_playable_country = {
-				limit = { CmtTriggerIsPlayableEmpire = yes }
+				limit = { }
 				country_event = { id = war_in_heaven.4 days = 1 }
 			}
 			country_event = { id = khan.218 days = 8 } # galcom
 		} else = {
 			every_playable_country = {
 				limit = {
-					CmtTriggerIsPlayableEmpire = yes
 					is_galactic_community_member = yes
 				}
 				country_event = { id = war_in_heaven.7 days = 1 } # Start 3rd party war
 			}
 			every_playable_country = {
 				limit = {
-					CmtTriggerIsPlayableEmpire = yes
 					is_galactic_community_member = no
 				}
 				country_event = { id = war_in_heaven.4 days = 1 }
@@ -1588,7 +1565,6 @@ country_event = {
 			50 = { # Final immediately
 				every_playable_country = {
 					limit = {
-						CmtTriggerIsPlayableEmpire = yes
 						NOR = {
 							is_same_empire = root
 							has_active_event = { khan.290 }
@@ -1641,7 +1617,6 @@ country_event = {
 				modifier = {
 					factor = 1.5
 					any_playable_country = {
-						is_country_type = default
 						fleet_power > 120000
 					}
 				}
@@ -1846,7 +1821,24 @@ event = {
 	is_triggered_only = yes
 	immediate = {
 		set_global_flag = gf_great_khan_active
-		# log="The Great Khan Expanded loaded"
+		if = {
+			limit = {
+				host_has_dlc = "Apocalypse"
+				NOR = {
+					exists = event_target:CmtGlobalVar
+					has_global_flag = CmtFlagActivated
+				}
+			}
+			if = {
+				limit = { NOT = { exists = event_target:global_event_country } }
+				save_global_event_target_as = global_event_country
+			}
+			event_target:global_event_country = {
+				save_global_event_target_as = CmtGlobalVar
+				log="The Great Khan Expanded loaded"
+			}
+		}
+
 		if = {
 			limit = { has_global_flag = expanded_spaceborne_installed }
 			event_target:CmtGlobalVar = {
@@ -3447,6 +3439,7 @@ system_event = {
 					uses_district_set = habitat
 					# is_planet_class = pc_habitat
 					is_colony = no
+					is_colonizable = yes
 				}
 
 				# log = "--- Habitat \\[This.GetName] is being populated..."
@@ -3492,16 +3485,16 @@ system_event = {
 					add_district = district_hab_commercial
 					add_district = district_hab_commercial
 				}
+				from = {
+					change_variable = { which = marauder_habitat_count value = -1 }
+					country_event = { id = khan.612 days = 480 }		# Build Habitats
+				}
+				# TODO: Add negative modifier that needs to be removed with expensive decision?
 				# start_colony = {
 				# 	owner = from
 				# 	species = from.species
-				# 	ethos = random
-				# }
-				# TODO: Add negative modifier that needs to be removed with expensive decision?
-			}
-			from = {
-				change_variable = { which = marauder_habitat_count value = -1 }
-				country_event = { id = khan.612 days = 480 }		# Build Habitats
+				# 	# ethos = random
+				# } # "Unexpected token:  (everything after scope start_colony)
 			}
 		}
 		# Unknown "Unexpected token: country_event, near line: 3543

@@ -3803,7 +3803,6 @@ event = {
 	trigger = {
 		years_passed >= 50
 		any_playable_country = {
-			is_country_type = default
 			is_ai = yes
 			is_homicidal = no
 			any_rival_country = {
@@ -6678,7 +6677,7 @@ country_event = {
 	}
 	is_triggered_only = yes
 	trigger = {
-		NOT = { has_country_flag = marauder_diplomacy_engaged }
+		# NOT = { has_country_flag = marauder_diplomacy_engaged }
 		has_been_declared_crisis = no
 	}
 	force_open = yes
@@ -6810,7 +6809,7 @@ country_event = {
 	force_open = yes
 	diplomatic = yes
 	trigger = {
-		NOT = { has_country_flag = marauder_diplomacy_engaged }
+		# NOT = { has_country_flag = marauder_diplomacy_engaged }
 		exists = event_target:raider_khanate
 	}
 	immediate = { set_country_flag = marauder_diplomacy_engaged }
