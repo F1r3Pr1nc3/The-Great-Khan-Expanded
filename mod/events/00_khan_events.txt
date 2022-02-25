@@ -794,37 +794,53 @@ country_event = {
 	}
 }
 
-## Final Uprising (290-299)
+## Final Uprising (289-299)
 # The numerical order is upside down in relation to the events happen (Because of the logic of the initial author Kinneyj47)
-# This = EVERY default empire choose your side
+# This = EVERY human player empire chooses side
 # From = Khan
 country_event = {
-	id = khan.290 # Without FE Awakening
+	id = khan.289 # Without FE Awakening
 	title = "war_goal_wg_marauder_uprising" # "emperor.101.name" # "The Uprising"
 	desc = great_khan_integrate_choice
 	picture = GFX_evt_khan_throne_room
 	is_triggered_only = yes
-	force_open = yes
+	auto_select = yes
+	# major = yes
+	# force_open = yes
+	auto_opens = yes
+	# major_trigger
 	trigger = {
 		exists = event_target:raider_khanate
 		exists = from
 		NOT = { has_country_flag = war_in_heaven_nonaligned_league_timer }
 		has_been_declared_crisis = no
-		is_zofe_fe = no
-		is_galactic_emperor = no
+		# is_zofe_fe = no
+		NAND = {
+			has_galactic_emperor = yes
+			is_galactic_emperor = yes
+		}
 	}
 	immediate = {
+		set_country_flag = marauder_diplomacy_engaged
 		set_timed_country_flag = { flag = war_in_heaven_nonaligned_league_timer days = 180 }
+	}
+	after = {
+		remove_country_flag = marauder_diplomacy_engaged
 	}
 	option = {
 		name = marauder_uprising_now
-		if = {
-			limit = { has_federation = yes is_in_federation_with = from }
-			leave_alliance = { override_requirements = yes }
-		}
 		hidden_effect = {
-			if = { limit = { is_variable_set = "planets_lost_to_marauder" }
+			if = {
+				limit = { has_federation = yes is_in_federation_with = from }
+				leave_alliance = { override_requirements = yes }
+			}
+			if = {
+				limit = { is_variable_set = "planets_lost_to_marauder" }
 				divide_variable = { which = "planets_lost_to_marauder" value = 5 } # clear_variable = "planets_lost_to_marauder"
+			}
+			if = {
+				limit = { has_country_flag = war_in_heaven_league_leader_declined }
+				remove_country_flag = war_in_heaven_league_leader_declined
 			}
 			if = {
 				limit = {
@@ -835,10 +851,7 @@ country_event = {
 					}
 					NOT = { has_active_event = { marauder.554 } }
 				}
-				country_event = { id = marauder.554 } # Rebel?
-				# set_subject_of = { who = none }
-				# set_country_flag = rebelling_satrapy
-				# set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
+				country_event = { id = marauder.554 } # Rebel!?
 			} else_if = { limit = { has_modifier = "satrapy_of_horde" }
 				remove_modifier = "satrapy_of_horde"
 			}
@@ -847,31 +860,36 @@ country_event = {
 					add_opinion_modifier = { who = root modifier = opinion_traitor_to_empire }
 				}
 				add_opinion_modifier = { who = root modifier = opinion_war_in_heaven_enemy }
-
-				if = { limit = { NOT = { is_hostile = from } }
-					set_faction_hostility = { target = from set_hostile = yes }
+				if = {
+					limit = { NOT = { is_hostile = root } }
+					set_faction_hostility = { target = root set_hostile = yes }
 				}
 			}
 			add_opinion_modifier = { who = from modifier = opinion_war_in_heaven_enemy }
+
 		}
-		ai_chance = { factor = 2 }
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 20
+				has_country_flag = war_in_heaven_league_leader_declined
+			}
+		}
 	}
 	option = {
 		name = marauder_uprising_stall
+		trigger = {
+			NOT = { has_country_flag = war_in_heaven_league_leader_declined }
+			from = { is_same_empire = event_target:raider_khanate }
+		}
 		hidden_effect = {
-			if = {
-				limit = {
-					NOT = { has_country_flag = war_in_heaven_league_leader_declined }
-					from = { is_same_empire = event_target:raider_khanate }
-				}
-				set_country_flag = war_in_heaven_league_leader_declined
-				country_event = {
-					id = khan.290
-					days = 200
-					random = @CmtConstKhanLifespan_2e
-					scopes = { from = from }
-				}
-			} else = { remove_country_flag = war_in_heaven_league_leader_declined }
+			set_country_flag = war_in_heaven_league_leader_declined
+			country_event = {
+				id = khan.289
+				days = 200
+				random = @CmtConstKhanLifespan_2e
+				scopes = { from = from }
+			}
 		}
 		ai_chance = {
 			factor = 0.1
@@ -881,7 +899,95 @@ country_event = {
 			}
 		}
 	}
-	# after = {}
+}
+
+# This = EVERY default AI Empire chooses side
+# From = Khan
+country_event = {
+	id = khan.290 # Without FE Awakening
+	hide_window = yes
+	is_triggered_only = yes
+	# major = yes
+	# major_trigger
+	trigger = {
+		exists = event_target:raider_khanate
+		exists = from
+		NOT = { has_country_flag = war_in_heaven_nonaligned_league_timer }
+		has_been_declared_crisis = no
+		# is_zofe_fe = no
+		NAND = {
+			has_galactic_emperor = yes
+			is_galactic_emperor = yes
+		}
+	}
+	immediate = {
+		# set_timed_country_flag = { flag = war_in_heaven_nonaligned_league_timer days = 180 }
+		random_list = {
+			# marauder_uprising_now
+			20 = {
+				modifier = {
+					factor = 20
+					has_country_flag = war_in_heaven_league_leader_declined
+				}
+				if = {
+					limit = { has_federation = yes is_in_federation_with = from }
+					leave_alliance = { override_requirements = yes }
+				}
+				if = {
+					limit = { is_variable_set = "planets_lost_to_marauder" }
+					divide_variable = { which = "planets_lost_to_marauder" value = 5 } # clear_variable = "planets_lost_to_marauder"
+				}
+				if = {
+					limit = { has_country_flag = war_in_heaven_league_leader_declined }
+					remove_country_flag = war_in_heaven_league_leader_declined
+				}
+				if = {
+					limit = {
+						is_subject = yes
+						OR = {
+							is_subject_of_khan = yes
+							has_modifier = "satrapy_of_horde"
+						}
+						NOT = { has_active_event = { marauder.554 } }
+					}
+					country_event = { id = marauder.554 days = 1 random = 6 } # Rebel!?
+				} else_if = { limit = { has_modifier = "satrapy_of_horde" }
+					remove_modifier = "satrapy_of_horde"
+				}
+				from = {
+					if = { limit = { root = { has_country_flag = rebelling_satrapy } }
+						add_opinion_modifier = { who = root modifier = opinion_traitor_to_empire }
+					}
+					add_opinion_modifier = { who = root modifier = opinion_war_in_heaven_enemy }
+					if = {
+						limit = { NOT = { is_hostile = root } }
+						set_faction_hostility = { target = root set_hostile = yes }
+					}
+				}
+				add_opinion_modifier = { who = from modifier = opinion_war_in_heaven_enemy }
+			}
+			1 = { # marauder_uprising_stall
+				modifier = {
+					factor = 0
+					OR = {
+						NOT = { from = { is_same_empire = event_target:raider_khanate } }
+						has_country_flag = war_in_heaven_league_leader_declined
+					}
+				}
+				modifier = {
+					factor = 50
+					has_origin = "origin_khan_successor"
+				}
+				set_country_flag = war_in_heaven_league_leader_declined
+				country_event = {
+					id = khan.290
+					days = 200
+					random = @CmtConstKhanLifespan_2e
+					scopes = { from = from }
+				}
+			}
+		}
+	}
 }
 
 # FE Awakening
@@ -1360,7 +1466,7 @@ country_event = {
 		if = {
 			limit = { has_galactic_emperor = no }
 			every_playable_country = {
-				limit = { }
+				# limit = { }
 				country_event = { id = war_in_heaven.4 days = 1 }
 			}
 			country_event = { id = khan.218 days = 8 } # galcom
@@ -1382,7 +1488,7 @@ country_event = {
 	}
 }
 
-# Notify + choose side
+# Notify + chooses side
 # This = subject (is_ai = no)
 country_event = {
 	id = khan.293
@@ -1576,8 +1682,10 @@ country_event = {
 							NOT = { has_active_event = { khan.294 } }
 						}
 						country_event = { id = khan.294 } # Notify only
+						country_event = { id = khan.289 days = 3 random = 3 } # Let choose side!?
+					} else = {
+						country_event = { id = khan.290 days = 3 random = 3 } # Let choose side!?
 					}
-					country_event = { id = khan.290 days = 3 random = 3 } # Let choose side!?
 				}
 				if = { limit = { NOT = { has_active_event = { khan.203 } } }
 					country_event = { id = khan.203 days = 16 } # Prepare Uprising
@@ -1836,6 +1944,22 @@ event = {
 			event_target:global_event_country = {
 				save_global_event_target_as = CmtGlobalVar
 				log="The Great Khan Expanded loaded"
+				set_variable = { which = CmtVarKhanMultiple value = 2 }
+				set_variable = { which = CmtVarKhanInterval value = 0 }
+				set_variable = { which = CmtKhanEarliestMgpy value = 10 }
+				set_variable = { which = CmtVarKhanLatestEgpy value = 0 }
+				set_variable = { which = CmtVarKhanTriggerProbability value = 2 }
+				set_variable = { which = CmtVarKhanVengeance value = 2 }
+				set_variable = { which = CmtVarKhanResurgence value = 1 }
+				set_variable = { which = CmtVarKhanLifespan value = 3 }
+				set_variable = { which = CmtVarReinforceCycle_Khan value = 1 }
+				set_variable = { which = CmtVarKhanPostDeathSummary value = 1 }
+				# Crisis Power
+				set_variable = { which = CmtVarFleetPower_Khan value = 1 }
+				set_variable = { which = CmtVarCombatFleetNumber_Khan value = 1 }
+				set_variable = { which = CmtVarArmyPower_Khan value = 1 }
+				set_variable = { which = CmtVarArmyNumber_Khan value = 1 }
+				set_variable = { which = CmtVarConstructorNumber_Khan value = 1 }
 			}
 		}
 
@@ -4427,6 +4551,9 @@ country_event = {
 		name = NEGOTIATE
 		default_hide_option = yes
 		ai_chance = { factor = 0 }
+		hidden_effect = {
+			country_event = { id = marauder.550 scopes = { from = fromfrom } }
+		}
 	}
 }
 

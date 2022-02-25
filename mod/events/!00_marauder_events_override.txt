@@ -5573,7 +5573,6 @@ country_event = {
 		ai_chance = { factor = 0 }
 	}
 	option = {
-		# name = great_khan_integrate_response # "This isn't good..."
 		name = marauder.510.a
 		custom_tooltip = marauder.122.a # "good job"
 		hidden_effect = {
@@ -6806,10 +6805,12 @@ country_event = {
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
-	force_open = yes
+	auto_select = yes
+	# force_open = yes possible crash on major
+	auto_opens = yes
 	diplomatic = yes
 	trigger = {
-		# NOT = { has_country_flag = marauder_diplomacy_engaged }
+		# NOT = { has_country_flag = marauder_diplomacy_engaged } already set by source
 		exists = event_target:raider_khanate
 	}
 	immediate = { set_country_flag = marauder_diplomacy_engaged }
