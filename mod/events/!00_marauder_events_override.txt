@@ -4969,7 +4969,9 @@ country_event = {
 		fromfrom = {
 			if = {
 				limit = { num_pops > 20 }
-				prev.from = { change_variable = { which = "planets_lost_to_marauder" value = 1 } }
+				prev.from = {
+					change_variable = { which = "planets_lost_to_marauder" value = 1 }
+				}
 				while = {
 					count = 6
 					limit = { num_pops > 20 }
@@ -5106,8 +5108,10 @@ country_event = {
 			set_country_flag = former_owner@fromfrom
 		}
 		fromfrom = {
-			### Create Defense Armies (for some reason they get deleted)
-			set_variable = { which = CmtVarTemp value = 8 }
+			### Create Defense Armies (for some job reasons common armies get deleted)
+			set_variable = { which = CmtVarTemp value = trigger:num_pops }
+			divide_variable = { which = CmtVarTemp value = 5 }
+			round_variable = CmtVarTemp
 			if = {
 				limit = { exists = event_target:marauder_country_1 }
 				while = {
@@ -5116,7 +5120,7 @@ country_event = {
 						name = random
 						owner = root
 						species = event_target:marauder_country_1.owner_species
-						type = "occupation_army" # "defense_army"
+						type = "marauder_defense_army"
 					}
 					change_variable = { which = CmtVarTemp value = -1 }
 				}
@@ -5129,7 +5133,7 @@ country_event = {
 						name = random
 						owner = root
 						species = event_target:marauder_country_2.owner_species
-						type = "occupation_army" # "defense_army"
+						type = "marauder_defense_army"
 					}
 					change_variable = { which = CmtVarTemp value = -1 }
 				}
@@ -5142,7 +5146,7 @@ country_event = {
 						name = random
 						owner = root
 						species = event_target:marauder_country_3.owner_species
-						type = "occupation_army" # "defense_army"
+						type = "marauder_defense_army"
 					}
 					change_variable = { which = CmtVarTemp value = -1 }
 				}
@@ -5153,7 +5157,7 @@ country_event = {
 					name = random
 					owner = root
 					species = root.species
-					type = "occupation_army" # "defense_army"
+					type = "marauder_defense_army"
 				}
 				change_variable = { which = CmtVarTemp value = -1 }
 			}
@@ -5202,7 +5206,7 @@ country_event = {
 						name = random
 						owner = from
 						species = prev
-						type = "defense_army"
+						type = "marauder_defense_army"
 					}
 				}
 			}
@@ -5983,7 +5987,6 @@ country_event = {
 			}
 		} else = {
 			every_playable_country = {
-				# limit = { CmtTriggerIsPlayableEmpire = yes }
 				country_event = { id = marauder.524 }
 			}
 		}
@@ -6806,7 +6809,7 @@ country_event = {
 	}
 	is_triggered_only = yes
 	auto_select = yes
-	# force_open = yes possible crash on major
+	force_open = yes
 	auto_opens = yes
 	diplomatic = yes
 	trigger = {
@@ -6856,7 +6859,6 @@ country_event = {
 						limit = { has_fleet_flag = satrapy_garrison }
 						destroy_fleet = { target = this destroy_template = yes }
 					}
-
 					random_fleet_in_system = { # Own 1 garrison
 						limit = { has_fleet_flag = satrapy_garrison_fleet }
 						set_owner = root
@@ -6942,7 +6944,9 @@ country_event = {
 				}
 			} else = {
 				every_war = { # End War
-					limit = { is_war_participant = { who = event_target:raider_khanate } }
+					limit = {
+						is_war_participant = { who = event_target:raider_khanate side = root }
+					}
 					remove_war_participant = root
 				}
 				if = {
@@ -6953,10 +6957,37 @@ country_event = {
 							}
 						}
 					}
-					declare_war = {
-						target = event_target:raider_khanate
-						name = "NAME_Rebellion"
-						attacker_war_goal = "wg_independence"
+					event_target:raider_khanate = {
+						if = {
+							limit = {
+								any_war = {
+									using_war_goal = { type = "wg_independence" owner = attacker }
+									NOT = {
+										is_war_participant = { who = root side = attackers }
+									}
+									attacker_war_exhaustion < 0.6
+								}
+							}
+							random_war = {
+								limit = {
+									using_war_goal = { type = "wg_independence" owner = attacker }
+									NOT = {
+										is_war_participant = { who = root side = attackers }
+									}
+								}
+								root = {
+									join_war_on_side = { war = prev side = attackers }
+								}
+							}
+						} else = {
+							root = {
+								declare_war = {
+									target = prev
+									name = "NAME_Rebellion"
+									attacker_war_goal = "wg_independence"
+								}
+							}
+						}
 					}
 				}
 			}

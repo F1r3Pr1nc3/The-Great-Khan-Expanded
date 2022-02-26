@@ -43,7 +43,7 @@ awakened_marauders = {
 		modules = {
 			horde_military_minister_module
 			horde_interior_minister_module
-			foreign_minister_module
+			# foreign_minister_module
 		}
 
 		ship_data = {

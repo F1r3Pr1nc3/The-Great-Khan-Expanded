@@ -805,16 +805,15 @@ country_event = {
 	picture = GFX_evt_khan_throne_room
 	is_triggered_only = yes
 	auto_select = yes
-	# major = yes
 	# force_open = yes
 	auto_opens = yes
-	# major_trigger
 	trigger = {
 		exists = event_target:raider_khanate
 		exists = from
-		NOT = { has_country_flag = war_in_heaven_nonaligned_league_timer }
-		has_been_declared_crisis = no
-		# is_zofe_fe = no
+		NOR = {
+			has_country_flag = war_in_heaven_nonaligned_league_timer
+			has_active_event = { khan.289 }
+		}
 		NAND = {
 			has_galactic_emperor = yes
 			is_galactic_emperor = yes
@@ -913,8 +912,6 @@ country_event = {
 		exists = event_target:raider_khanate
 		exists = from
 		NOT = { has_country_flag = war_in_heaven_nonaligned_league_timer }
-		has_been_declared_crisis = no
-		# is_zofe_fe = no
 		NAND = {
 			has_galactic_emperor = yes
 			is_galactic_emperor = yes
@@ -1492,8 +1489,8 @@ country_event = {
 # This = subject (is_ai = no)
 country_event = {
 	id = khan.293
-	force_open = yes
 	is_triggered_only = yes
+	force_open = yes
 	diplomatic = yes
 	title = "greatkhan_diplo_header"
 	desc = "great_khan_fe_war"
@@ -1539,10 +1536,16 @@ country_event = {
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
-	force_open = yes
+	# force_open = yes
+	auto_opens = yes
+	major = yes
+	major_trigger = {
+		is_ai = no
+	}
 	trigger = {
 		NOT = { has_country_flag = marauder_diplomacy_engaged }
 		exists = event_target:raider_khanate
+		NOT = { has_active_event = { khan.294 } }
 	}
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
@@ -1673,15 +1676,11 @@ country_event = {
 					limit = {
 						NOR = {
 							is_same_empire = root
-							has_active_event = { khan.290 }
+							has_been_declared_crisis = yes
+							is_zofe_fe = yes
 						}
 					}
-					if = {
-						limit = {
-							is_ai = no
-							NOT = { has_active_event = { khan.294 } }
-						}
-						country_event = { id = khan.294 } # Notify only
+					if = { limit = { is_ai = no }
 						country_event = { id = khan.289 days = 3 random = 3 } # Let choose side!?
 					} else = {
 						country_event = { id = khan.290 days = 3 random = 3 } # Let choose side!?
@@ -1690,6 +1689,8 @@ country_event = {
 				if = { limit = { NOT = { has_active_event = { khan.203 } } }
 					country_event = { id = khan.203 days = 16 } # Prepare Uprising
 				}
+				country_event = { id = khan.294 } # Notify only
+
 				modifier = {
 					factor = 0.75
 					num_fallen_empires_setting > 0
@@ -1750,8 +1751,8 @@ country_event = {
 # Great Khan has won Notify + Reinforcement
 country_event = {
 	id = khan.297
-	force_open = yes
 	is_triggered_only = yes
+	force_open = yes
 	diplomatic = yes
 	title = "greatkhan_diplo_header"
 	desc = "great_khan_wins_announcement"
@@ -1787,15 +1788,20 @@ country_event = {
 # Notify only (is_ai = no) great_khan has won
 country_event = {
 	id = khan.298
-	force_open = yes
 	is_triggered_only = yes
 	title = "great_khan_wins"
 	desc = "great_khan_wins_desc"
 	picture = GFX_evt_khan_throne_room
 	show_sound = event_radio_chatter
+	force_open = yes
+	major = yes
+	major_trigger = {
+		is_ai = no
+	}
 	trigger = {
 		has_global_flag = marauder_crisis_ongoing
 		exists = event_target:raider_khanate
+		NOT = { has_active_event = { khan.298 } }
 		# NOT = { has_country_flag = marauder_diplomacy_engaged }
 	}
 	# immediate = { set_country_flag = marauder_diplomacy_engaged }
@@ -1884,18 +1890,19 @@ country_event = {
 				}
 			}
 			# has_defensive_pact = root
-			every_playable_country = {
-				if = {
-					limit = {
-						NOR = {
-							is_ai = yes
-							# has_country_flag = marauder_diplomacy_engaged
-							has_active_event = { khan.298 }
-						}
-					}
-					country_event = { id = khan.298 }
-				}
-			}
+			country_event = { id = khan.298 } # Notify global
+			# every_playable_country = {
+			# 	if = {
+			# 		limit = {
+			# 			NOR = {
+			# 				is_ai = yes
+			# 				# has_country_flag = marauder_diplomacy_engaged
+			# 				has_active_event = { khan.298 }
+			# 			}
+			# 		}
+			# 		country_event = { id = khan.298 }
+			# 	}
+			# }
 			set_global_flag = great_khan_wins
 			country_event = {
 				id = khan.296
@@ -2347,7 +2354,63 @@ ship_event = {
 					}
 				}
 			}
-			fleet = { set_owner = from.owner }
+			# Give former owner
+			solar_system = {
+				if = {
+					limit = {
+						NOT = {
+							any_system_planet = {
+								has_owner = yes
+								is_owned_by = from.owner
+							}
+						}
+						any_system_planet = {
+							OR = {
+								any_playable_country = {
+									has_country_flag = former_owner@prev
+									NOT = { is_hostile_to = from.owner }
+								}
+								AND = {
+									has_owner = yes
+									is_colony = yes
+									owner = {
+										NOT = { is_hostile_to = from.owner }
+									}
+								}
+							}
+						}
+					}
+					if = {
+						limit = {
+							any_system_planet = {
+								any_playable_country = { has_country_flag = former_owner@prev }
+							}
+						}
+						random_system_planet = {
+							limit = {
+								any_playable_country = { has_country_flag = former_owner@prev }
+							}
+							random_playable_country = {
+								limit = { has_country_flag = former_owner@prev }
+								root.fleet = { set_owner = prev }
+								if = { limit = { NOT = { has_global_flag = marauder_crisis_ongoing } }
+									remove_country_flag = former_owner@prev
+								}
+							}
+						}
+					} else = {
+						random_system_planet = {
+							limit = {
+								has_owner = yes
+								is_colony = yes
+							}
+							root.fleet = { set_owner = prev.owner }
+						}
+					}
+				} else = {
+					root.fleet = { set_owner = from.owner }
+				}
+			}
 		} else = {
 			fleet = { every_owned_ship = { set_disable_at_health = -1 destroy_ship = this } }
 			destroy_fleet = fleet
@@ -3904,7 +3967,10 @@ country_event = {
 						# }
 						# 1 = { while = { count = 5 CmtEffectCreateShip_KhanArmy = yes } }
 					}
-					set_fleet_stance = evasive
+					random = {
+						chance = 50
+						set_fleet_stance = evasive # AI does not handle this well too
+					}
 					set_location = {
 						target = prev
 						distance = 20
@@ -4462,8 +4528,8 @@ country_event = {
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
-	diplomatic = yes
 	force_open = yes
+	diplomatic = yes
 	immediate = { set_country_flag = marauder_diplomacy_engaged }
 	after = {
 		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
@@ -4510,8 +4576,8 @@ country_event = {
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
-	diplomatic = yes
 	force_open = yes
+	diplomatic = yes
 	immediate = { set_country_flag = marauder_diplomacy_engaged }
 	after = {
 		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
