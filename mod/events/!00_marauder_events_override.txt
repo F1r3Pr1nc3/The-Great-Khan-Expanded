@@ -6815,6 +6815,7 @@ country_event = {
 				limit = { has_federation = yes is_in_federation_with = event_target:raider_khanate }
 				leave_alliance = { override_requirements = yes }
 			}
+
 			if = {
 				limit = { is_ai = yes }
 				# Owner can be someone
@@ -6840,27 +6841,45 @@ country_event = {
 						}
 						remove_fleet_flag = satrapy_garrison_fleet
 					}
+					event_target:raider_khanate = {
+						# > 3.1
+						ordered_owned_fleet = { # Own 1 auxuliaries
+							limit = {
+								has_fleet_flag = horde_auxuliaries
+								exists = leader
+								solar_system = { is_owned_by = root }
+								leader = { is_same_species = root }
+							}
+							position = 0
+							order_by = trigger:fleet_power
+							set_owner = root
+							leader = { set_owner = root }
+						}
+					}
 				}
+			}
 
+			if = {
+				limit = { used_naval_capacity_percent < 0.85 }
 				event_target:raider_khanate = {
-					# random_owned_fleet = { # Desert 1 garrison
-					# 	limit = {
-					# 		has_fleet_flag = satrapy_garrison
-					# 		solar_system = { is_owned_by = root }
-					# 	}
-					# 	destroy_fleet = { target = this destroy_template = yes }
-					# }
-					# random_owned_fleet = { # Own 1 garrison
-					# 	limit = {
-					# 		has_fleet_flag = satrapy_garrison_fleet
-					# 		solar_system = { is_owned_by = root }
-					# 	}
-					# 	set_owner = root
-					# 	if = {
-					# 		limit = { exists = leader }
-					# 		leader = { set_owner = root }
-					# 	}
-					# }
+					random_owned_fleet = { # Desert 1 garrison
+						limit = {
+							has_fleet_flag = satrapy_garrison
+							solar_system = { is_owned_by = root }
+						}
+						destroy_fleet = { target = this destroy_template = yes }
+					}
+					random_owned_fleet = { # Own 1 garrison
+						limit = {
+							has_fleet_flag = satrapy_garrison_fleet
+							solar_system = { is_owned_by = root }
+						}
+						set_owner = root
+						if = {
+							limit = { exists = leader }
+							leader = { set_owner = root }
+						}
+					}
 					# > 3.1
 					ordered_owned_fleet = { # Own 1 auxuliaries
 						limit = {
