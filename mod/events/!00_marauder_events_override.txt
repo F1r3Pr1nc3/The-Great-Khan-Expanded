@@ -387,6 +387,7 @@ country_event = {
 						set_country_flag = marauder_vengeance_begun
 						randomize_flag_symbol = "pirate"
 						set_graphical_culture = madd_01
+						make_moderately_hostile = yes
 					}
 				}
 			}
@@ -398,7 +399,6 @@ country_event = {
 							# any_neighbor_system = {
 							closest_system = {
 								limit = {
-									has_owner = no
 									is_valid_crystal_splitter_system = yes
 									num_planets_in_system > 1
 									event_target:infighting_target_1 = { can_access_system = prev }
@@ -1885,6 +1885,7 @@ country_event = {
 					set_country_flag = marauder_3
 				}
 				set_country_flag = raid_ongoing
+				make_moderately_hostile = yes
 			}
 		}
 		event_target:marauder_raiding_country = {
@@ -3969,6 +3970,7 @@ event = {
 							set_country_flag = marauder_3
 						}
 						set_country_flag = raid_ongoing
+						make_moderately_hostile = yes
 					}
 				}
 				event_target:marauder_raiding_country = {
@@ -4765,50 +4767,20 @@ country_event = {
 				delete_ship = this
 			}
 		}
-		country_event = { id = marauder.520 days = 210 }	## Reinforcement cycle
-		event_target:CmtGlobalVar = { set_variable = { which = CmtVarKhanReinforcementCounter value = 10 } }
-
+		## Reinforcement cycle
+		country_event = {
+			id = marauder.520
+			days = 210
+		}
+		event_target:CmtGlobalVar = {
+			set_variable = { which = CmtVarKhanReinforcementCounter value = 10 }
+		}
 		if = {
 			limit = { is_ai = yes }
-			country_event = { id = marauder.78 days = 20 }		## Mercenaries Join
-
+			## Mercenaries Join
+			country_event = { id = marauder.78 days = 20 }
 			### Should not attack: the Khan is not that bad!
-			every_country = {
-				limit = {
-					CmtTriggerIsPlayableEmpire = no
-					OR = {
-						is_country_type = fallen_empire # is_fallen_empire = yes
-						is_country_type = enclave
-						is_country_type = caravaneer_home
-						is_country_type = caravaneer_fleet
-						is_country_type = guardian_sphere
-						is_country_type = marauder_raiders
-						is_country_type = ratlings
-						is_country_type = ldragon_country
-						is_tiyanki_country_type = yes
-						is_amoeba_country_type = yes
-						is_crystal_country_type = yes
-						is_drone_country_type = yes
-						is_country_type = vluur
-						is_primitive = yes
-					}
-					OR = {
-						is_hostile = prev
-						prev = { is_hostile = prev }
-						# prev = { NOT = { is_neutral_to = prev } }
-					}
-					# prev = { NOR = { is_friendly_to = prev is_neutral_to = prev } }
-				}
-				establish_communications_no_message = root
-				prev = {
-					set_faction_hostility = {
-						target = prev
-						set_hostile = no
-						set_neutral = yes
-						# set_friendly = no
-					}
-				}
-			}
+			make_moderately_hostile = yes
 		}
 
 		### Notifications
@@ -8947,8 +8919,8 @@ ship_event = {
 	immediate = {
 		if = {
 			limit = {
-				from.owner = { is_pirate = yes }
-				owner = { is_pirate = yes }
+				from.owner = { is_pirate_country = yes }
+				owner = { is_pirate_country = yes }
 			}
 			solar_system = {
 				every_system_planet = {
@@ -8960,7 +8932,7 @@ ship_event = {
 		} else_if = {
 			limit = {
 				from.owner = { is_country_type_with_subjects = yes }
-				owner = { is_pirate = yes }
+				owner = { is_pirate_country = yes }
 				starbase = { has_starbase_size > starbase_outpost }
 			}
 			# log="take pirate starbase"
@@ -8981,7 +8953,7 @@ ship_event = {
 				}
 			}
 		} else_if = {
-			limit = { owner = { is_pirate = yes } }
+			limit = { owner = { is_pirate_country = yes } }
 			starbase = { destroy_fleet = fleet }
 			# log="destroy pirate station"
 		}
@@ -8996,7 +8968,7 @@ ship_event = {
 	trigger = {
 		is_scope_valid = yes
 		exists = owner
-		owner = { is_pirate = yes }
+		owner = { is_pirate_country = yes }
 		exists = solar_system
 		exists = fleet
 		is_ship_class = shipclass_starbase

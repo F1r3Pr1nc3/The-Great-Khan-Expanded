@@ -53,8 +53,8 @@
 @CmtConstKhanLifespan_5f =	360		### Time-Lag of Post-Death Process (random = 1f)
 
 ### Immortality (Lifespan of Khan): Directly Written in Event/Effect
-@CmtConstKhanLifespan_6e =	360		### Time-Lag of Post-Death Process (days = 1e)
-@CmtConstKhanLifespan_6f =	360		### Time-Lag of Post-Death Process (random = 1f)
+# @CmtConstKhanLifespan_6e =	360		### Time-Lag of Post-Death Process (days = 1e)
+# @CmtConstKhanLifespan_6f =	360		### Time-Lag of Post-Death Process (random = 1f)
 
 namespace = khan
 
@@ -1714,6 +1714,9 @@ country_event = {
 				modifier = {
 					factor = 0
 					has_global_flag = CmtFlagDebugMode # Test satrapy uprising
+				}
+				modifier = {
+					factor = 0
 					NOR = {
 						num_fallen_empires_setting > 0
 						host_has_dlc = "Leviathans Story Pack"
@@ -1906,9 +1909,9 @@ country_event = {
 			set_global_flag = great_khan_wins
 			country_event = {
 				id = khan.296
-				days = @CmtConstKhanLifespan_2d
+				days = 1800 # @CmtConstKhanLifespan_2d # 8 years
 				random = @CmtConstKhanLifespan_5f
-				# days = @CmtConstKhanLifespan_5d
+				# days = @CmtConstKhanLifespan_5d # original 25 years???
 				# random = @CmtConstKhanLifespan_2d
 			}
 		}
@@ -2319,9 +2322,9 @@ country_event = {
 	}
 }
 
+# Marauder System Liberated - on_disabled Marauder starbase (HIDDEN)
 # This = Ship
 # From = Disabler Ship
-# on_disabled Marauder starbase (HIDDEN)
 ship_event = {
 	id = khan.304
 	hide_window = yes
@@ -2367,8 +2370,11 @@ ship_event = {
 						any_system_planet = {
 							OR = {
 								any_playable_country = {
-									has_country_flag = former_owner@prev
 									NOT = { is_hostile_to = from.owner }
+									OR = {
+										has_country_flag = former_owner@prev
+										prev = { is_planet = prev.home_planet }
+									}
 								}
 								AND = {
 									has_owner = yes
@@ -2396,6 +2402,21 @@ ship_event = {
 								if = { limit = { NOT = { has_global_flag = marauder_crisis_ongoing } }
 									remove_country_flag = former_owner@prev
 								}
+							}
+						}
+					} else_if = {
+						limit = {
+							any_system_planet = {
+								any_playable_country = { prev = { is_planet = prev.home_planet } }
+							}
+						}
+						random_system_planet = {
+							limit = {
+								any_playable_country = { prev = { is_planet = prev.home_planet } }
+							}
+							random_playable_country = {
+								limit = { prev = { is_planet = prev.home_planet } }
+								root.fleet = { set_owner = prev }
 							}
 						}
 					} else = {
@@ -2473,7 +2494,9 @@ ship_event = {
 				}
 			}
 			log="destroy starbase_marauder"
-			fleet = { every_owned_ship = { destroy_ship = this } }
+			fleet = {
+				every_owned_ship = { destroy_ship = this }
+			}
 			destroy_fleet = fleet
 		}
 	}
@@ -3625,7 +3648,6 @@ system_event = {
 				limit = {
 					uses_district_set = habitat
 					# is_planet_class = pc_habitat
-					is_colony = no
 					is_colonizable = yes
 				}
 
@@ -3647,8 +3669,8 @@ system_event = {
 						ethos = { ethic = "ethic_militarist" } # ethic = "ethic_egalitarian"
 					}
 				}
-				# set_owner = space_owner
 				set_controller = space_owner
+				set_owner = space_owner
 				add_building = building_hab_major_capital	# 3 jobs
 				# add_building = building_foundry_1			# 2
 				# add_building = building_foundry_1			# 2
@@ -3692,13 +3714,12 @@ system_event = {
 		# 				uses_district_set = habitat
 		# 				uses_district_set = ring_world
 		# 			}
-		# 			is_colony = no
-		# 			is_under_colonization = no
+		# 			is_colonizable = yes
 		# 		}
 		# 		start_colony = {
 		# 			owner = prev
 		# 			species = prev.species
-		# 			ethos = owner
+		# 			# ethos = owner
 		# 		}
 		# 	}
 		# }

@@ -30,7 +30,7 @@ CmtEffectCreateShip_Outrider = {
 		design = "NAME_Outrider"
 		prefix = no
 		# upgradable = yes
-		# graphical_culture = prev.owner
+		graphical_culture = "madd_01" # prev.owner
 	}
 }
 
@@ -40,7 +40,7 @@ CmtEffectCreateShip_Lancer = {
 		design = "NAME_Lancer"
 		prefix = no
 		# upgradable = yes
-		# graphical_culture = prev.owner
+		graphical_culture = "madd_01" # prev.owner
 	}
 }
 
@@ -50,7 +50,7 @@ CmtEffectCreateShip_VoidChampion = {
 		design = "NAME_Void_Champion"
 		prefix = no
 		# upgradable = yes
-		# graphical_culture = prev.owner
+		graphical_culture = "madd_01" # prev.owner
 	}
 }
 
@@ -60,7 +60,7 @@ CmtEffectCreateShip_AncestralGlory = {
 		design = "NAME_Ancestral_Glory"
 		prefix = no
 		# upgradable = yes
-		# graphical_culture = prev.owner
+		graphical_culture = "madd_01" # prev.owner
 	}
 }
 
@@ -101,7 +101,7 @@ CmtEffectCreateShip_KhanArmy = {
 	} else = {
 		create_army_transport = {
 			ship_name = "NAME_Pirate_Transport"
-			# graphical_culture = "mammalian_01"
+			graphical_culture = "mammalian_01"
 			army_type = $TYPE|assault_army$
 			species = prev.owner # event_target:raider_khanate
 		}
