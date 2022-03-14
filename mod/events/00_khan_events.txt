@@ -740,7 +740,7 @@ country_event = {
 						}
 					}
 					# Call once again later
-					country_event = { id = khan.218 days = 12 } # galcom
+					country_event = { id = khan.218 days = 18 } # galcom
 				}
 			} else = {
 				if = { limit = { is_galactic_community_member = no }
@@ -3107,6 +3107,42 @@ country_event = {
 	}
 }
 
+# Assign Gov on capital for Marauders (on_capital_changed).
+planet_event = {
+	id = khan.320
+	hide_window = yes
+	is_triggered_only = yes
+	pre_triggers= {
+		has_owner = yes
+		is_ai = yes
+	}
+	trigger = {
+		exists = sector
+		NOT = { exists = sector.leader  }
+		owner = {
+			CmtTriggerIsMarauder = yes
+			any_owned_leader = {
+				leader_class = governor
+				NOT = { exists = sector }
+			}
+		}
+		# NOT = { has_global_flag = great_khan_wins }
+	}
+	immediate = {
+		owner = {
+			random_owned_leader = {
+				limit = {
+					leader_class = governor
+					NOT = { exists = sector }
+				}
+				root.sector = {
+					assign_leader = prev
+				}
+			}
+		}
+	}
+}
+
 ### Deprecated
 ### Drums of War - Khan Expanding War (Cycle) on_action yearly/on_becoming_subject MTTH 360
 # This = Khan / subject
@@ -3532,6 +3568,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
+		is_ai = yes
 		OR = {
 			has_origin = "origin_khan_successor"
 			is_country_type = awakened_marauders
@@ -3670,7 +3707,7 @@ system_event = {
 					}
 				}
 				set_controller = space_owner
-				set_owner = space_owner
+				# set_owner = space_owner
 				add_building = building_hab_major_capital	# 3 jobs
 				# add_building = building_foundry_1			# 2
 				# add_building = building_foundry_1			# 2
@@ -3699,30 +3736,40 @@ system_event = {
 					country_event = { id = khan.612 days = 480 }		# Build Habitats
 				}
 				# TODO: Add negative modifier that needs to be removed with expensive decision?
-				# start_colony = {
-				# 	owner = from
-				# 	species = from.species
-				# 	# ethos = random
-				# } # "Unexpected token:  (everything after scope start_colony)
+				start_colony = {
+					owner = from
+					species = from.species
+					# ethos = random
+				} # "Unexpected token:  (everything after scope start_colony)
 			}
 		}
 		# Unknown "Unexpected token: country_event, near line: 3543
-		# from = {
-		# 	random_planet_within_border = {
-		# 		limit = {
-		# 			OR = {
-		# 				uses_district_set = habitat
-		# 				uses_district_set = ring_world
-		# 			}
-		# 			is_colonizable = yes
-		# 		}
-		# 		start_colony = {
-		# 			owner = prev
-		# 			species = prev.species
-		# 			# ethos = owner
-		# 		}
-		# 	}
-		# }
+		from = {
+			random_planet_within_border = {
+				limit = {
+					is_colonizable = yes
+					habitability = {
+						who = THIS
+						value > 0.65
+					}
+				}
+				weights = {
+					base = 1
+					modifier = {
+						add = 3
+						OR = {
+							uses_district_set = habitat
+							uses_district_set = ring_world
+						}
+					}
+				}
+				start_colony = {
+					owner = prev
+					species = prev.species
+					# ethos = owner
+				}
+			}
+		}
 	}
 }
 

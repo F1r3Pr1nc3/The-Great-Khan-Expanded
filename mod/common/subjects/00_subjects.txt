@@ -60,8 +60,8 @@ vassal = {
 			from = {
 				switch = {
 					trigger = has_ethic
-					ethic_fanatic_xenophobe	= { root = { set_subject_of = { who = from subject_type = thrall } } }
-					ethic_fanatic_xenophile	= { root = { set_subject_of = { who = from subject_type = signatory } } }
+					ethic_fanatic_xenophobe		= { root = { set_subject_of = { who = from subject_type = thrall } } }
+					ethic_fanatic_xenophile		= { root = { set_subject_of = { who = from subject_type = signatory } } }
 					ethic_fanatic_spiritualist	= { root = { set_subject_of = { who = from subject_type = dominion } } }
 					ethic_fanatic_materialist	= { root = { set_subject_of = { who = from subject_type = satellite } } }
 				}
@@ -133,8 +133,8 @@ protectorate = {
 			from = {
 				switch = {
 					trigger = has_ethic
-					ethic_fanatic_xenophobe	= { root = { set_subject_of = { who = from subject_type = thrall } } }
-					ethic_fanatic_xenophile	= { root = { set_subject_of = { who = from subject_type = signatory } } }
+					ethic_fanatic_xenophobe		= { root = { set_subject_of = { who = from subject_type = thrall } } }
+					ethic_fanatic_xenophile		= { root = { set_subject_of = { who = from subject_type = signatory } } }
 					ethic_fanatic_spiritualist	= { root = { set_subject_of = { who = from subject_type = dominion } } }
 					ethic_fanatic_materialist	= { root = { set_subject_of = { who = from subject_type = satellite } } }
 				}

@@ -5,7 +5,9 @@ tributary = {
 	joins_overlord_wars = no
 	calls_overlord_to_war = yes
 	can_do_diplomacy = yes
-	can_switch_to = { vassal protectorate }
+	can_switch_to = {
+		vassal protectorate
+	}
 	intel_from_being_subject = 30
 	intel_from_being_overlord = 40
 	subject_tax_rate = {

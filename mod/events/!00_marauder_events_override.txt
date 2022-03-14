@@ -587,7 +587,7 @@ country_event = {
 					wait = 5
 					find_closest_planet = {
 						trigger = {
-							id = marauder_infighting.t1
+							id = "marauder_infighting.t1[infighting_marauders.GetName]"
 							solar_system = {
 								prevprev = { can_access_system = prev }
 								has_owner = yes
@@ -609,7 +609,7 @@ country_event = {
 					wait = 5
 					find_closest_planet = {
 						trigger = {
-							id = marauder_infighting.t2
+							id = "marauder_infighting.t2[infighting_marauders.GetName]"
 							is_same_value = event_target:return_point
 						}
 						found_planet = {
@@ -618,7 +618,7 @@ country_event = {
 						}
 					}
 					effect = {
-						id = marauder_infighting.e2
+						id = "marauder_infighting.e2[infighting_marauders.GetName]"
 						destroy_fleet = this
 					}
 				}
@@ -1795,6 +1795,9 @@ country_event = {
 	}
 	option = {
 		name = marauder.31.e
+		trigger = {
+			NOT = { has_active_event = { marauder.21 } }
+		}
 		hidden_effect = {
 			country_event = { id = marauder.21 }
 		}
@@ -2239,6 +2242,9 @@ country_event = {
 	}
 	option = {
 		name = marauder.34.d
+		trigger = {
+			NOT = { has_active_event = { marauder.21 } }
+		}
 		hidden_effect = {
 			country_event = { id = marauder.21 }
 		}
@@ -2336,6 +2342,9 @@ country_event = {
 	}
 	option = {
 		name = marauder.37.a
+		trigger = {
+			NOT = { has_active_event = { marauder.21 } }
+		}
 		hidden_effect = {
 			country_event = { id = marauder.21 }
 		}
@@ -4327,6 +4336,7 @@ country_event = {
 			}
 			if = { limit = { has_global_flag = great_khan_dead }
 				remove_global_flag = great_khan_dead
+				remove_global_flag = great_khan_announcement
 			}
 		}
 		if = { limit = { exists = event_target:marauder_rally_point }
@@ -4522,8 +4532,8 @@ country_event = {
 			if = {
 				limit = {
 					NOT = {
-						is_country_type = default
-						# any_playable_country = { is_same_empire = root }
+						# is_country_type = default
+						any_playable_country = { is_same_empire = root }
 					}
 				}
 				set_country_type = default
@@ -5214,7 +5224,9 @@ country_event = {
 	}
 
 	immediate = {
-		set_global_flag = great_khan_dead
+		set_country_flag = khan_dead_event_fine
+		set_country_flag = great_khan_defeated_once # CmtFlagKhanDefeatCountry
+
 		# set_global_flag not needed
 		change_variable = { which = CmtVarKhanRemainingLive value = -1 } ## Not CmtGlobalVar
 
@@ -5234,7 +5246,6 @@ country_event = {
 					check_variable = { which = CmtVarKhanRemainingLive value < 0 } ## Not CmtGlobalVar
 				}
 			}
-			set_country_flag = great_khan_defeated_once # CmtFlagKhanDefeatCountry
 			fromfrom = {
 				solar_system = { save_event_target_as = khan_death_system }
 				leader = {
@@ -5273,8 +5284,7 @@ country_event = {
 				fleet_event = { id = khan.611 }
 			}
 		} else = { # Khan dies (former .509)
-			set_country_flag = khan_dead_event_fine
-			set_country_flag = great_khan_defeated_once # CmtFlagKhanDefeatCountry
+			set_global_flag = great_khan_dead
 			if = {
 				limit = { exists = event_target:great_khan_ruler }
 				event_target:great_khan_ruler = { kill_leader = { show_notification = no } }
@@ -5349,6 +5359,8 @@ country_event = {
 	trigger = { has_global_flag = great_khan_dead }
 	immediate = {
 		remove_global_flag = great_khan_dead
+		remove_country_flag = khan_dead_event_fine
+
 		country_event = { id = khan.306 } # Check/Create fallback rally_point
 		event_target:marauder_rally_point = { CmtEffectCreateAdmiralty_Khan2ndFleetSet = yes }
 
@@ -5438,7 +5450,7 @@ country_event = {
 	}
 
 	immediate = {
-		# set_global_flag = great_khan_dead
+		set_global_flag = great_khan_dead
 	}
 }
 
@@ -5843,7 +5855,11 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		has_global_flag = marauder_crisis_ongoing
-		CmtTriggerIsKhanCountry = yes
+		# CmtTriggerIsKhanCountry = yes # breaks self-calling loop
+		OR = {
+			is_country_type = awakened_marauders
+			is_same_empire = event_target:raider_khanate
+		}
 		NOT = { has_global_flag = great_khan_wins }
 		# NOT = { has_country_flag = has_machinesmith }
 	}
@@ -7319,8 +7335,9 @@ country_event = {
 
 	immediate = {
 		set_country_flag = marauder600_happened
-		set_global_flag = khan_dead_event_fine
+		set_country_flag = khan_dead_event_fine
 		remove_global_flag = khan_no_die
+		remove_global_flag = great_khan_announcement
 		remove_country_flag = CmtFlagKhanNoDieCountry
 		if = { limit = { has_global_flag = great_khan_wins }
 			# clear_global_event_target = great_khan
@@ -8641,10 +8658,6 @@ country_event = {
 			limit = {
 				has_global_flag = khan_no_die
 				has_country_flag = CmtFlagKhanNoDieCountry
-				# OR = {
-				# 	has_global_flag = great_khan_dead
-				# 	has_global_flag = khan_dead_event_fine
-				# }
 				check_variable = { which = CmtVarKhanRemainingLive value > 0 }
 			}
 
@@ -8772,7 +8785,7 @@ country_event = {
 			limit = {
 				NOR = {
 					has_global_flag = great_khan_dead
-					has_global_flag = khan_dead_event_fine
+					has_country_flag = khan_dead_event_fine
 				}
 			}
 			country_event = { id = marauder.514 days = 2 }
