@@ -4326,18 +4326,23 @@ country_event = {
 				}
 			}
 			clear_global_event_target = raider_khanate
-
 			every_playable_country = {
 				limit = { has_country_flag = rebelling_satrapy }
 				remove_country_flag = rebelling_satrapy
 			}
-			if = { limit = { has_country_flag = marauder600_happened }
-				remove_country_flag = marauder600_happened
-			}
-			if = { limit = { has_global_flag = great_khan_dead }
-				remove_global_flag = great_khan_dead
-				remove_global_flag = great_khan_announcement
-			}
+		}
+		if = { limit = { has_country_flag = marauder600_happened }
+			remove_country_flag = marauder600_happened
+		}
+		if = { limit = { has_country_flag = khan_dead_event_fine }
+			remove_country_flag = khan_dead_event_fine
+		}
+		if = { limit = { has_country_flag = great_khan_defeated_once }
+			remove_country_flag = great_khan_defeated_once
+		}
+		if = { limit = { has_global_flag = great_khan_dead }
+			remove_global_flag = great_khan_dead
+			remove_global_flag = great_khan_announcement
 		}
 		if = { limit = { exists = event_target:marauder_rally_point }
 			clear_global_event_target = marauder_rally_point
