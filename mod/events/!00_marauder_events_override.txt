@@ -5229,11 +5229,8 @@ country_event = {
 	}
 
 	immediate = {
-		set_country_flag = khan_dead_event_fine
-		set_country_flag = great_khan_defeated_once # CmtFlagKhanDefeatCountry
-
 		# set_global_flag not needed
-		change_variable = { which = CmtVarKhanRemainingLive value = -1 } ## Not CmtGlobalVar
+		change_variable = { which = "CmtVarKhanRemainingLive" value = -1 } ## Not CmtGlobalVar
 
 		if = {
 			limit = { exists = from }
@@ -5245,12 +5242,13 @@ country_event = {
 
 		if = { # 505 but NOT die.
 			limit = {
-				check_variable = { which = CmtVarKhanRemainingLive value > -1.5 }	## Not CmtGlobalVar
+				check_variable = { which = "CmtVarKhanRemainingLive" value > -1.5 }	## Not CmtGlobalVar
 				NAND = {
 					has_country_flag = great_khan_defeated_once # CmtFlagKhanDefeatCountry
-					check_variable = { which = CmtVarKhanRemainingLive value < 0 } ## Not CmtGlobalVar
+					check_variable = { which = "CmtVarKhanRemainingLive" value < 0 } ## Not CmtGlobalVar
 				}
 			}
+			set_country_flag = great_khan_defeated_once # CmtFlagKhanDefeatCountry
 			fromfrom = {
 				solar_system = { save_event_target_as = khan_death_system }
 				leader = {
@@ -5290,6 +5288,8 @@ country_event = {
 			}
 		} else = { # Khan dies (former .509)
 			set_global_flag = great_khan_dead
+			set_country_flag = khan_dead_event_fine
+			set_country_flag = great_khan_defeated_once # possible superfluous
 			if = {
 				limit = { exists = event_target:great_khan_ruler }
 				event_target:great_khan_ruler = { kill_leader = { show_notification = no } }
@@ -7278,11 +7278,22 @@ fleet_event = {
 			# 		}
 			# 	}
 			fleet_event = { id = marauder.560 days = 600 random = 300 }
+
+			set_variable = { which = "satrapy_fleet_power" value = trigger:fleet_power }
+			divide_variable = { which = "satrapy_fleet_power" value = 26000 }
+			divide_variable = { which = "satrapy_fleet_power" value = trigger:used_naval_capacity_percent }
+			round_variable = "satrapy_fleet_power"
+			if = { limit = { check_variable = { which = "satrapy_fleet_power" value < 2 }
+				set_variable = { which = "satrapy_fleet_power" value = 2 }
+			} else_if = { limit = { check_variable = { which = "satrapy_fleet_power" value > 6 }
+				set_variable = { which = "satrapy_fleet_power" value = 6 }
+			}
+
 			if = {
 				limit = {
 					solar_system = {
 						count_fleet_in_system = {
-							count < 5
+							count < root.satrapy_fleet_power
 							limit = {
 								is_owned_by = event_target:raider_khanate
 								has_fleet_flag = horde_auxuliaries
