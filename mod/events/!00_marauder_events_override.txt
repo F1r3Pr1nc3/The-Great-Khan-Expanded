@@ -5357,6 +5357,7 @@ country_event = {
 }
 
 ### Return of Khan
+# This = raider_khanate
 country_event = {
 	id = marauder.507
 	hide_window = yes
@@ -5364,11 +5365,16 @@ country_event = {
 	trigger = {
 		exists = event_target:raider_khanate
 		event_target:raider_khanate = {
+			NOT = { has_country_flag = khan_dead_age }
 			OR = {
 				has_global_flag = great_khan_dead
 				has_country_flag = great_khan_defeated_once
 				has_country_flag = khan_dead_event_fine
 			}
+		}
+		NAND = {
+			exists = event_target:great_khan
+			exists = event_target:great_khan.fleet
 		}
 	}
 	immediate = {
@@ -7294,21 +7300,22 @@ fleet_event = {
 			# 	}
 			fleet_event = { id = marauder.560 days = 600 random = 300 }
 
-			set_variable = { which = "satrapy_fleet_power" value = trigger:fleet_power }
-			divide_variable = { which = "satrapy_fleet_power" value = 26000 }
-			divide_variable = { which = "satrapy_fleet_power" value = trigger:used_naval_capacity_percent }
-			round_variable = "satrapy_fleet_power"
-			if = { limit = { check_variable = { which = "satrapy_fleet_power" value < 2 }
-				set_variable = { which = "satrapy_fleet_power" value = 2 }
-			} else_if = { limit = { check_variable = { which = "satrapy_fleet_power" value > 6 }
-				set_variable = { which = "satrapy_fleet_power" value = 6 }
+			event_target:satrapy_empire = {
+				set_variable = { which = "satrapy_fleet_power" value = trigger:fleet_power }
+				divide_variable = { which = "satrapy_fleet_power" value = 26000 }
+				divide_variable = { which = "satrapy_fleet_power" value = trigger:used_naval_capacity_percent }
+				round_variable = "satrapy_fleet_power"
+				if = { limit = { check_variable = { which = "satrapy_fleet_power" value < 2 } }
+					set_variable = { which = "satrapy_fleet_power" value = 2 }
+				} else_if = { limit = { check_variable = { which = "satrapy_fleet_power" value > 6 } }
+					set_variable = { which = "satrapy_fleet_power" value = 6 }
+				}
 			}
-
 			if = {
 				limit = {
 					solar_system = {
 						count_fleet_in_system = {
-							count < root.satrapy_fleet_power
+							count < event_target:satrapy_empire.satrapy_fleet_power
 							limit = {
 								is_owned_by = event_target:raider_khanate
 								has_fleet_flag = horde_auxuliaries
