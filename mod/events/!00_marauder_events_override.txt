@@ -5365,12 +5365,12 @@ country_event = {
 	trigger = {
 		exists = event_target:raider_khanate
 		event_target:raider_khanate = {
-			NOT = { has_country_flag = khan_dead_age }
+			NOR = { has_country_flag = khan_dead_age has_global_flag = great_khan_dead }
 			OR = {
-				has_global_flag = great_khan_dead
 				has_country_flag = great_khan_defeated_once
 				has_country_flag = khan_dead_event_fine
 			}
+			check_variable = { which = "CmtVarKhanRemainingLive" value > -1.5 } # To be sure (as we use this event as active fix)
 		}
 		NAND = {
 			exists = event_target:great_khan
@@ -5378,9 +5378,9 @@ country_event = {
 		}
 	}
 	immediate = {
-		if = { limit = { has_global_flag = great_khan_dead }
-			remove_global_flag = great_khan_dead
-		}
+		# if = { limit = { has_global_flag = great_khan_dead }
+		# 	remove_global_flag = great_khan_dead
+		# }
 		event_target:raider_khanate = {
 			if = { limit = { has_country_flag = khan_dead_event_fine }
 				remove_country_flag = khan_dead_event_fine

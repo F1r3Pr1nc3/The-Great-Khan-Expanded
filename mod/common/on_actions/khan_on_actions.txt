@@ -19,11 +19,12 @@ on_yearly_pulse = {
 }
 
 # No scope, like on_game_start
-# on_yearly_pulse_country = {
-# 	events = {
-# 		khan.529
-# 	}
-# }
+on_yearly_pulse_country = {
+	events = {
+		khan.309 # TODO TEMP FIX KHAN HOSTILE TO SATRAP
+		# khan.529
+	}
+}
 
 # on_five_year_pulse_country = {
 # 	events = {

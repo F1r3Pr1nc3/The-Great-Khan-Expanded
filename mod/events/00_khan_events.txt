@@ -2062,7 +2062,7 @@ event = {
 				# Fix ongoing hostility (is_hostile seems not immediately working on load)
 				country_event = { id = khan.309 }
 				country_event = { id = khan.309 days = 4 }
-				# TEMP FIX KHAN NO RESPAWN
+				# TODO TEMP FIX KHAN NO RESPAWN
 				country_event = { id = marauder.507 days = 105 random = 80 }
 
 				if = {
@@ -2730,6 +2730,11 @@ country_event = {
 	id = khan.309
 	hide_window = yes
 	is_triggered_only = yes
+	trigger = {
+		has_global_flag = marauder_crisis_ongoing
+		exists = event_target:raider_khanate
+		CmtTriggerIsKhanCountry = yes
+	}
 	immediate = {
 		if = {
 			limit = { is_war_leader = yes }
@@ -2781,7 +2786,7 @@ country_event = {
 					NOT = { has_country_flag = rebelling_satrapy }
 					is_hostile = prev
 				}
-				log = "Fix ongoing hostilityy" # \\[This.GetName]
+				log = "Fix ongoing hostility for \\[This.GetName]"
 				prev = {
 					country_event = { id = khan.308 scopes = { from = prev } } # Set friendly
 				}
