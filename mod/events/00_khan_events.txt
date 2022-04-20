@@ -3798,117 +3798,117 @@ system_event = {
 
 # DEPRECATED (TODO remove in 3.3 - now marauder.554)
 # Uprising fabricator satrapy
-country_event = {
-	id = khan.751
-	title = "greatkhan_diplo_header"
-	desc = marauder_fabricator_threat
-	picture_event_data = {
-		portrait = event_target:raider_khanate
-		room = ethic_spaceship_room
-	}
-	is_triggered_only = yes
-	force_open = yes
-	diplomatic = yes
-	trigger = {
-		NOT = { has_country_flag = marauder_diplomacy_engaged }
-		exists = event_target:raider_khanate
-	}
-	immediate = { set_country_flag = marauder_diplomacy_engaged }
-	after = {
-		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
-	}
-	option = {
-		name = marauder_fabricator_disloyal
-		sound = no_tut_advior_02
-		response_text = marauder.554.a.response
-		set_subject_of = { who = none }
-		hidden_effect = {
-			set_country_flag = rebelling_satrapy
-			set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
-			if = { limit = { has_modifier = "satrapy_of_horde" }
-				remove_modifier = "satrapy_of_horde"
-			}
-			if = { limit = { is_variable_set = "planets_lost_to_marauder" }
-				divide_variable = { which = "planets_lost_to_marauder" value = 5 } # clear_variable = "planets_lost_to_marauder"
-			}
-			if = {
-				limit = { has_federation = yes is_in_federation_with = event_target:raider_khanate }
-				leave_alliance = { override_requirements = yes }
-			}
-			if = {
-				limit = { is_ai = yes }
-				event_target:raider_khanate = {
-					random_owned_fleet = {
-						limit = {
-							has_fleet_flag = satrapy_garrison
-							solar_system = { is_owned_by = root }
-						}
-						destroy_fleet = { target = this destroy_template = yes }
-					}
-					random_owned_fleet = {
-						limit = {
-							has_fleet_flag = satrapy_garrison_fleet
-							solar_system = { is_owned_by = root }
-						}
-						set_owner = root
-						if = {
-							limit = { exists = leader }
-							leader = { set_owner = root }
-						}
-					}
-				}
-			}
+# country_event = {
+# 	id = khan.751
+# 	title = "greatkhan_diplo_header"
+# 	desc = marauder_fabricator_threat
+# 	picture_event_data = {
+# 		portrait = event_target:raider_khanate
+# 		room = ethic_spaceship_room
+# 	}
+# 	is_triggered_only = yes
+# 	force_open = yes
+# 	diplomatic = yes
+# 	trigger = {
+# 		NOT = { has_country_flag = marauder_diplomacy_engaged }
+# 		exists = event_target:raider_khanate
+# 	}
+# 	immediate = { set_country_flag = marauder_diplomacy_engaged }
+# 	after = {
+# 		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
+# 	}
+# 	option = {
+# 		name = marauder_fabricator_disloyal
+# 		sound = no_tut_advior_02
+# 		response_text = marauder.554.a.response
+# 		set_subject_of = { who = none }
+# 		hidden_effect = {
+# 			set_country_flag = rebelling_satrapy
+# 			set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
+# 			if = { limit = { has_modifier = "satrapy_of_horde" }
+# 				remove_modifier = "satrapy_of_horde"
+# 			}
+# 			if = { limit = { is_variable_set = "planets_lost_to_marauder" }
+# 				divide_variable = { which = "planets_lost_to_marauder" value = 5 } # clear_variable = "planets_lost_to_marauder"
+# 			}
+# 			if = {
+# 				limit = { has_federation = yes is_in_federation_with = event_target:raider_khanate }
+# 				leave_alliance = { override_requirements = yes }
+# 			}
+# 			if = {
+# 				limit = { is_ai = yes }
+# 				event_target:raider_khanate = {
+# 					random_owned_fleet = {
+# 						limit = {
+# 							has_fleet_flag = satrapy_garrison
+# 							solar_system = { is_owned_by = root }
+# 						}
+# 						destroy_fleet = { target = this destroy_template = yes }
+# 					}
+# 					random_owned_fleet = {
+# 						limit = {
+# 							has_fleet_flag = satrapy_garrison_fleet
+# 							solar_system = { is_owned_by = root }
+# 						}
+# 						set_owner = root
+# 						if = {
+# 							limit = { exists = leader }
+# 							leader = { set_owner = root }
+# 						}
+# 					}
+# 				}
+# 			}
 
-			if = {
-				limit = {
-					has_global_flag = great_khan_wins
-					event_target:raider_khanate = {
-						any_war = {
-							using_war_goal = { type = "wg_independence" owner = attacker }
-						}
-					}
-				}
-				event_target:raider_khanate = {
-					random_war = {
-						limit = {
-							using_war_goal = { type = "wg_independence" owner = attacker }
-						}
-						root = {
-							join_war_on_side = { war = prev side = attackers }
-						}
-					}
-				}
-			} else = {
-				every_war = { # End War
-					limit = { is_war_participant = { who = event_target:raider_khanate } }
-					remove_war_participant = root
-				}
-				declare_war = {
-					target = event_target:raider_khanate
-					name = "NAME_Rebellion"
-					attacker_war_goal = "wg_independence"
-				}
-			}
+# 			if = {
+# 				limit = {
+# 					has_global_flag = great_khan_wins
+# 					event_target:raider_khanate = {
+# 						any_war = {
+# 							using_war_goal = { type = "wg_independence" owner = attacker }
+# 						}
+# 					}
+# 				}
+# 				event_target:raider_khanate = {
+# 					random_war = {
+# 						limit = {
+# 							using_war_goal = { type = "wg_independence" owner = attacker }
+# 						}
+# 						root = {
+# 							join_war_on_side = { war = prev side = attackers }
+# 						}
+# 					}
+# 				}
+# 			} else = {
+# 				every_war = { # End War
+# 					limit = { is_war_participant = { who = event_target:raider_khanate } }
+# 					remove_war_participant = root
+# 				}
+# 				declare_war = {
+# 					target = event_target:raider_khanate
+# 					name = "NAME_Rebellion"
+# 					attacker_war_goal = "wg_independence"
+# 				}
+# 			}
 
-			event_target:raider_khanate = {
-				add_opinion_modifier = { modifier = opinion_traitor_to_empire who = prev }
-				if = { limit = { NOT = { is_hostile = root } }
-					set_faction_hostility = {
-						target = root
-						set_hostile = yes
-					}
-				}
-			}
-		}
-		ai_chance = { factor = 2 }
-	}
-	option = {
-		name = marauder_fabricator_loyal
-		# sound = no_tut_advior_07
-		response_text = marauder.554.b.response
-		ai_chance = { factor = 0 }
-	}
-}
+# 			event_target:raider_khanate = {
+# 				add_opinion_modifier = { modifier = opinion_traitor_to_empire who = prev }
+# 				if = { limit = { NOT = { is_hostile = root } }
+# 					set_faction_hostility = {
+# 						target = root
+# 						set_hostile = yes
+# 					}
+# 				}
+# 			}
+# 		}
+# 		ai_chance = { factor = 2 }
+# 	}
+# 	option = {
+# 		name = marauder_fabricator_loyal
+# 		# sound = no_tut_advior_07
+# 		response_text = marauder.554.b.response
+# 		ai_chance = { factor = 0 }
+# 	}
+# }
 
 # Fabricator satrapy (Reinforcement Cycle)
 country_event = {
@@ -4100,7 +4100,8 @@ country_event = {
 	option = {
 		name = marauder_fabricator_deal_accept
 		custom_tooltip = "SUBJECT_DESC_fabricator_satrapy"
-		sound = placeholder_sfx
+		# sound = placeholder_sfx
+		trigger = { has_been_declared_crisis = no }
 		response_text = marauder_fabricator_good
 		country_event = { id = marauder.559 } # Pre-Submit to Khan
 		set_subject_of = {
@@ -4108,6 +4109,16 @@ country_event = {
 			subject_type = fabricator_satrapy
 		}
 		hidden_effect = {
+			event_target:raider_khanate = {
+				if = { limit = { is_hostile = prev }
+					set_faction_hostility = {
+						target = prev
+						set_hostile = no
+						set_neutral = yes
+					}
+				}
+				country_event = { id = khan.309 days = 1 } # To be sure
+			}
 			country_event = { id = khan.798 days = @CmtConstKhanLifespan_5e random = @CmtConstKhanLifespan_2f }
 		}
 		ai_chance = { factor = 5 }
@@ -4624,6 +4635,14 @@ country_event = {
 		}
 		hidden_effect = {
 			event_target:raider_khanate = {
+				if = { limit = { is_hostile = prev }
+					set_faction_hostility = {
+						target = prev
+						set_hostile = no
+						set_neutral = yes
+					}
+				}
+				country_event = { id = khan.309 days = 1 } # To be sure
 				set_country_flag = has_machinesmith
 				# country_event = { id = khan.868 } # (New Reinforcement Cycle)
 			}

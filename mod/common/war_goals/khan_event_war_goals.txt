@@ -308,6 +308,16 @@ wg_marauder_expansion = {
 					who = event_target:raider_khanate
 					subject_type = satrapy
 				}
+				event_target:raider_khanate = {
+					if = { limit = { is_hostile = prev }
+						set_faction_hostility = {
+							target = prev
+							set_hostile = no
+							set_neutral = yes
+						}
+					}
+					country_event = { id = khan.309 days = 1 } # To be sure
+				}
 			}
 		}
 	}
@@ -518,6 +528,16 @@ wg_war_in_heaven = {
 						set_subject_of = {
 							who = event_target:raider_khanate
 							subject_type = satrapy
+						}
+						event_target:raider_khanate = {
+							if = { limit = { is_hostile = prev }
+								set_faction_hostility = {
+									target = prev
+									set_hostile = no
+									set_neutral = yes
+								}
+							}
+							country_event = { id = khan.309 days = 1 } # To be sure
 						}
 					}
 					if = {
@@ -737,6 +757,16 @@ wg_great_expansion = {
 				set_subject_of = {
 					who = event_target:raider_khanate
 					subject_type = satrapy
+				}
+				event_target:raider_khanate = {
+					if = { limit = { is_hostile = prev }
+						set_faction_hostility = {
+							target = prev
+							set_hostile = no
+							set_neutral = yes
+						}
+					}
+					country_event = { id = khan.309 days = 1 } # To be sure
 				}
 			}
 		}

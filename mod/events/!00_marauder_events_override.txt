@@ -3469,7 +3469,7 @@ planet_event = {
 				}
 				controller = { save_event_target_as = marauder_employer }
 			}
-
+			# Set friendly
 			if = {
 				limit = {
 					exists = event_target:marauder_employer
@@ -3477,11 +3477,7 @@ planet_event = {
 					has_global_flag = gf_great_khan_active
 				}
 				from = {
-					# Set friendly
-					country_event = {
-						id = khan.308
-						scopes = { from = event_target:marauder_employer }
-					}
+					country_event = { id = khan.308 scopes = { from = event_target:marauder_employer } }
 				}
 			}
 
@@ -6692,10 +6688,6 @@ country_event = {
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
-	trigger = {
-		# NOT = { has_country_flag = marauder_diplomacy_engaged }
-		has_been_declared_crisis = no
-	}
 	force_open = yes
 	diplomatic = yes
 	immediate = { set_country_flag = marauder_diplomacy_engaged }
@@ -6712,6 +6704,16 @@ country_event = {
 			set_subject_of = {
 				who = event_target:raider_khanate
 				subject_type = satrapy
+			}
+			event_target:raider_khanate = {
+				if = { limit = { is_hostile = prev }
+					set_faction_hostility = {
+						target = prev
+						set_hostile = no
+						set_neutral = yes
+					}
+				}
+				country_event = { id = khan.309 days = 1 } # To be sure
 			}
 		}
 	}
@@ -6744,13 +6746,22 @@ country_event = {
 				who = event_target:raider_khanate
 				subject_type = war_satrapy
 			}
+			event_target:raider_khanate = {
+				if = { limit = { is_hostile = prev }
+					set_faction_hostility = {
+						target = prev
+						set_hostile = no
+						set_neutral = yes
+					}
+				}
+				country_event = { id = khan.309 days = 1 } # To be sure
+			}
 		}
 		ai_chance = { factor = 5 }
 	}
 	option = {
 		name = marauder.551.b
 		response_text = marauder.551.b.response
-		default_hide_option = yes
 		ai_chance = { factor = 0 }
 	}
 }
@@ -7157,6 +7168,16 @@ country_event = {
 			who = event_target:raider_khanate
 			subject_type = satrapy
 		}
+		event_target:raider_khanate = {
+			if = { limit = { is_hostile = prev }
+				set_faction_hostility = {
+					target = prev
+					set_hostile = no
+					set_neutral = yes
+				}
+			}
+			country_event = { id = khan.309 days = 1 } # To be sure
+		}
 	}
 }
 
@@ -7305,8 +7326,8 @@ fleet_event = {
 				divide_variable = { which = "satrapy_fleet_power" value = 26000 }
 				divide_variable = { which = "satrapy_fleet_power" value = trigger:used_naval_capacity_percent }
 				round_variable = "satrapy_fleet_power"
-				if = { limit = { check_variable = { which = "satrapy_fleet_power" value < 2 } }
-					set_variable = { which = "satrapy_fleet_power" value = 2 }
+				if = { limit = { check_variable = { which = "satrapy_fleet_power" value < 3 } }
+					set_variable = { which = "satrapy_fleet_power" value = 3 }
 				} else_if = { limit = { check_variable = { which = "satrapy_fleet_power" value > 6 } }
 					set_variable = { which = "satrapy_fleet_power" value = 6 }
 				}
