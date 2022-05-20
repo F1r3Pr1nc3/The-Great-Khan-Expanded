@@ -12,11 +12,11 @@
 ################################
 
 ### Hard Coated Option
-CmtEffectHardCoatedSettings = {
-	remove_global_flag = CmtFlagDebugMode
-	# set_global_flag = CmtFlagDebugMode		## Hidden menu is shown and MTTH several event is short.
-	# set_global_flag = CmtFlagNoSeparator
-}
+# CmtEffectHardCoatedSettings = {
+# 	remove_global_flag = CmtFlagDebugMode
+# 	# set_global_flag = CmtFlagDebugMode		## Hidden menu is shown and MTTH several event is short.
+# 	# set_global_flag = CmtFlagNoSeparator
+# }
 
 ### Version check
 CmtEffectVersionUp = {
@@ -187,16 +187,26 @@ CmtEffectDetectFeeCompatPatch = {}
 CmtEffectDestroySystemStarbase = {
 	if = {
 		limit = { exists = starbase }
-		starbase = { fleet = { destroy_fleet = this } }
+		starbase = { destroy_fleet = fleet }
 	}
 }
 
 ### scope: this = country (fallen empire), Overwritten by FFE_CMT
 CmtEffectChangeAwakenerCivic = {
-	change_government = {
-		civics = {
-			civic = civic_revanchist_fervor
-			civic = civic_ancient_caches_of_technology
+	if = {
+		limit = { has_authority = auth_hive_mind has_global_flag = has_FEE_mod }
+		change_government = {
+			civics = {
+				civic = civic_invigorated_coalescence
+				civic = civic_rejuvenated_drones
+			}
+		} else = {
+			change_government = {
+				civics = {
+					civic = civic_revanchist_fervor
+					civic = civic_ancient_caches_of_technology
+				}
+			}
 		}
 	}
 }

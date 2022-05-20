@@ -96,7 +96,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_1" }
 	component_set = "thruster_components"
-	size_restriction = { corvette crisis_corvette pirate_corvette marauder_corvette colonizer lithoid_colonizer sponsored_colonizer constructor science transport }
+	size_restriction = { corvette crisis_corvette offspring_corvette pirate_corvette marauder_corvette colonizer lithoid_colonizer sponsored_colonizer constructor science transport }
 	upgrades_to = "SHIP_THRUSTER_2"
 
 	ai_weight = {
@@ -122,7 +122,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_1" }
 	component_set = "thruster_components"
-	size_restriction = { destroyer crisis_destroyer pirate_destroyer marauder_destroyer }
+	size_restriction = { destroyer crisis_destroyer offspring_destroyer pirate_destroyer marauder_destroyer }
 	upgrades_to = "DESTROYER_SHIP_THRUSTER_2"
 
 	ai_weight = {
@@ -148,7 +148,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_1" }
 	component_set = "thruster_components"
-	size_restriction = { cruiser crisis_cruiser pirate_cruiser marauder_cruiser }
+	size_restriction = { cruiser crisis_cruiser offspring_cruiser pirate_cruiser marauder_cruiser }
 	upgrades_to = "CRUISER_SHIP_THRUSTER_2"
 
 	ai_weight = {
@@ -174,7 +174,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_1" }
 	component_set = "thruster_components"
-	size_restriction = { battleship }
+	size_restriction = { battleship offspring_battleship }
 	upgrades_to = "BATTLESHIP_SHIP_THRUSTER_2"
 
 	ai_weight = {
@@ -255,7 +255,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_2" }
 	component_set = "thruster_components"
-	size_restriction = { corvette crisis_corvette pirate_corvette marauder_corvette colonizer lithoid_colonizer sponsored_colonizer constructor science transport }
+	size_restriction = { corvette crisis_corvette offspring_corvette pirate_corvette marauder_corvette colonizer lithoid_colonizer sponsored_colonizer constructor science transport }
 	upgrades_to = "SHIP_THRUSTER_3"
 
 	ai_weight = {
@@ -283,7 +283,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_2" }
 	component_set = "thruster_components"
-	size_restriction = { destroyer crisis_destroyer pirate_destroyer marauder_destroyer }
+	size_restriction = { destroyer crisis_destroyer offspring_destroyer pirate_destroyer marauder_destroyer }
 	upgrades_to = "DESTROYER_SHIP_THRUSTER_3"
 
 	ai_weight = {
@@ -311,7 +311,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_2" }
 	component_set = "thruster_components"
-	size_restriction = { cruiser crisis_cruiser pirate_cruiser marauder_cruiser }
+	size_restriction = { cruiser crisis_cruiser offspring_cruiser pirate_cruiser marauder_cruiser }
 	upgrades_to = "CRUISER_SHIP_THRUSTER_3"
 
 	ai_weight = {
@@ -339,7 +339,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_2" }
 	component_set = "thruster_components"
-	size_restriction = { battleship }
+	size_restriction = { battleship offspring_battleship }
 	upgrades_to = "BATTLESHIP_SHIP_THRUSTER_3"
 
 	ai_weight = {
@@ -423,7 +423,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_3" }
 	component_set = "thruster_components"
-	size_restriction = { corvette crisis_corvette pirate_corvette marauder_corvette colonizer lithoid_colonizer sponsored_colonizer constructor science transport }
+	size_restriction = { corvette crisis_corvette offspring_corvette pirate_corvette marauder_corvette colonizer lithoid_colonizer sponsored_colonizer constructor science transport }
 	upgrades_to = "SHIP_THRUSTER_4"
 
 	ai_weight = {
@@ -450,7 +450,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_3" }
 	component_set = "thruster_components"
-	size_restriction = { destroyer crisis_destroyer pirate_destroyer marauder_destroyer }
+	size_restriction = { destroyer crisis_destroyer offspring_destroyer pirate_destroyer marauder_destroyer }
 	upgrades_to = "DESTROYER_SHIP_THRUSTER_4"
 
 	ai_weight = {
@@ -477,7 +477,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_3" }
 	component_set = "thruster_components"
-	size_restriction = { cruiser crisis_cruiser pirate_cruiser marauder_cruiser }
+	size_restriction = { cruiser crisis_cruiser offspring_cruiser pirate_cruiser marauder_cruiser }
 	upgrades_to = "CRUISER_SHIP_THRUSTER_4"
 
 	ai_weight = {
@@ -504,7 +504,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_3" }
 	component_set = "thruster_components"
-	size_restriction = { battleship }
+	size_restriction = { battleship offspring_battleship }
 	upgrades_to = "BATTLESHIP_SHIP_THRUSTER_4"
 
 	ai_weight = {
@@ -586,7 +586,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_4" }
 	component_set = "thruster_components"
-	size_restriction = { corvette crisis_corvette pirate_corvette marauder_corvette colonizer lithoid_colonizer sponsored_colonizer constructor science transport }
+	size_restriction = { corvette crisis_corvette offspring_corvette pirate_corvette marauder_corvette colonizer lithoid_colonizer sponsored_colonizer constructor science transport }
 	upgrades_to = "SHIP_THRUSTER_5"
 
 	ai_weight = {
@@ -613,7 +613,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_4" }
 	component_set = "thruster_components"
-	size_restriction = { destroyer crisis_destroyer pirate_destroyer marauder_destroyer }
+	size_restriction = { destroyer crisis_destroyer offspring_destroyer pirate_destroyer marauder_destroyer }
 	upgrades_to = "DESTROYER_SHIP_THRUSTER_5"
 
 	ai_weight = {
@@ -640,7 +640,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_4" }
 	component_set = "thruster_components"
-	size_restriction = { cruiser crisis_cruiser pirate_cruiser marauder_cruiser }
+	size_restriction = { cruiser crisis_cruiser offspring_cruiser pirate_cruiser marauder_cruiser }
 	upgrades_to = "CRUISER_SHIP_THRUSTER_5"
 
 	ai_weight = {
@@ -667,7 +667,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_4" }
 	component_set = "thruster_components"
-	size_restriction = { battleship }
+	size_restriction = { battleship offspring_battleship }
 	upgrades_to = "BATTLESHIP_SHIP_THRUSTER_5"
 
 	ai_weight = {
@@ -750,12 +750,12 @@ utility_component_template = {
 
 	prerequisites = { "tech_dark_matter_propulsion" }
 	component_set = "thruster_components"
-	size_restriction = { corvette crisis_corvette pirate_corvette marauder_corvette colonizer lithoid_colonizer sponsored_colonizer constructor science transport }
+	size_restriction = { corvette crisis_corvette offspring_corvette pirate_corvette marauder_corvette colonizer lithoid_colonizer sponsored_colonizer constructor science transport }
 
 	ai_weight = {
 		weight = 5
 		modifier = {
-			factor = 0.0
+			factor = 0
 			no_resource_for_component = { RESOURCE = sr_dark_matter }
 		}
 	}
@@ -781,12 +781,12 @@ utility_component_template = {
 
 	prerequisites = { "tech_dark_matter_propulsion" }
 	component_set = "thruster_components"
-	size_restriction = { destroyer crisis_destroyer pirate_destroyer marauder_destroyer }
+	size_restriction = { destroyer crisis_destroyer offspring_destroyer pirate_destroyer marauder_destroyer }
 
 	ai_weight = {
 		weight = 5
 		modifier = {
-			factor = 0.0
+			factor = 0
 			no_resource_for_component = { RESOURCE = sr_dark_matter }
 		}
 	}
@@ -812,12 +812,12 @@ utility_component_template = {
 
 	prerequisites = { "tech_dark_matter_propulsion" }
 	component_set = "thruster_components"
-	size_restriction = { cruiser crisis_cruiser pirate_cruiser marauder_cruiser }
+	size_restriction = { cruiser crisis_cruiser offspring_cruiser pirate_cruiser marauder_cruiser }
 
 	ai_weight = {
 		weight = 5
 		modifier = {
-			factor = 0.0
+			factor = 0
 			no_resource_for_component = { RESOURCE = sr_dark_matter }
 		}
 	}
@@ -843,12 +843,12 @@ utility_component_template = {
 
 	prerequisites = { "tech_dark_matter_propulsion" }
 	component_set = "thruster_components"
-	size_restriction = { battleship }
+	size_restriction = { battleship offspring_battleship }
 
 	ai_weight = {
 		weight = 5
 		modifier = {
-			factor = 0.0
+			factor = 0
 			no_resource_for_component = { RESOURCE = sr_dark_matter }
 		}
 	}
@@ -879,7 +879,7 @@ utility_component_template = {
 	ai_weight = {
 		weight = 5
 		modifier = {
-			factor = 0.0
+			factor = 0
 			no_resource_for_component = { RESOURCE = sr_dark_matter }
 		}
 	}
@@ -909,7 +909,7 @@ utility_component_template = {
 	ai_weight = {
 		weight = 5
 		modifier = {
-			factor = 0.0
+			factor = 0
 			no_resource_for_component = { RESOURCE = sr_dark_matter }
 		}
 	}

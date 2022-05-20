@@ -35,9 +35,7 @@ npc_galleon_01 = {
 	combat_disengage_chance = 1.25
 	is_civilian = no
 	# auto_upgrade = yes
-	potential_country = {
-		is_country_type = awakened_marauders
-	}
+	potential_country = { is_country_type = awakened_marauders }
 	class = shipclass_military
 	# default_behavior = artillery
 	takes_name_from_ship_design = yes
@@ -104,6 +102,7 @@ starbase_marauder = {
 	fleet_slot_size = 2
 	section_slots = { "mid" = { locator = "part1" } }
 	is_designable = no
+	use_shipnames_from = military_station_small
 	num_target_locators = 0
 	is_space_station = no
 	can_have_federation_design = no
@@ -129,4 +128,6 @@ starbase_marauder = {
 	}
 	icon_frame = -1
 	icon = ship_size_military_station
+	potential_construction = { always = no }
+	possible_construction = { always = no }
 }

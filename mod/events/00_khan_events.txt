@@ -78,7 +78,7 @@ country_event = {
 			order_by = trigger:fleet_power
 			inverse = yes
 			limit = {
-				CmtTriggerIsPlayableEmpire = yes
+				merg_is_default_empire = yes
 				opinion_level = { who = prev level > neutral }
 				is_ai = yes
 				OR = {
@@ -289,7 +289,7 @@ country_event = {
 		else = {
 			random_playable_country = {
 				limit = {
-					# CmtTriggerIsPlayableEmpire = yes
+					# merg_is_default_empire = yes
 					is_subject = no
 					is_homicidal = no
 					has_been_declared_crisis = no
@@ -521,9 +521,9 @@ country_event = {
 				set_subject_of = { who = none }
 				set_country_flag = rebelling_satrapy
 				set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
-				if = { limit = { has_modifier = "satrapy_of_horde" }
-					remove_modifier = "satrapy_of_horde"
-				}
+				# if = { limit = { has_modifier = "satrapy_of_horde" }
+				# 	remove_modifier = "satrapy_of_horde"
+				# }
 				event_target:raider_khanate = {
 					if = { limit = { NOT = { is_hostile = prev } }
 						set_faction_hostility = {
@@ -661,10 +661,10 @@ country_event = {
 
 			every_subject = {
 				limit = { is_subject_of_khan = yes }
-				set_subject_of = { who = prev subject_type = tributary }
-				if = { limit = { has_modifier = "satrapy_of_horde" }
-					remove_modifier = "satrapy_of_horde"
-				}
+				set_subject_of = { who = prev preset = preset_tributary }
+				# if = { limit = { has_modifier = "satrapy_of_horde" }
+				# 	remove_modifier = "satrapy_of_horde"
+				# }
 			}
 
 			country_event = { id = khan.311 days = 1 } # Reduce Naval Cap.
@@ -821,7 +821,7 @@ country_event = {
 	}
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
-		set_timed_country_flag = { flag = war_in_heaven_nonaligned_league_timer days = 180 }
+		set_timed_country_flag = { flag = war_in_heaven_nonaligned_league_timer months = 6 }
 	}
 	after = {
 		remove_country_flag = marauder_diplomacy_engaged
@@ -844,16 +844,15 @@ country_event = {
 			if = {
 				limit = {
 					is_subject = yes
-					OR = {
-						is_subject_of_khan = yes
-						has_modifier = "satrapy_of_horde"
-					}
+					is_subject_of_khan = yes
+					# has_modifier = "satrapy_of_horde"
 					NOT = { has_active_event = { marauder.554 } }
 				}
 				country_event = { id = marauder.554 } # Rebel!?
-			} else_if = { limit = { has_modifier = "satrapy_of_horde" }
-				remove_modifier = "satrapy_of_horde"
 			}
+			# else_if = { limit = { has_modifier = "satrapy_of_horde" }
+			# 	remove_modifier = "satrapy_of_horde"
+			# }
 			from = {
 				if = { limit = { root = { has_country_flag = rebelling_satrapy } }
 					add_opinion_modifier = { who = root modifier = opinion_traitor_to_empire }
@@ -918,7 +917,7 @@ country_event = {
 		}
 	}
 	immediate = {
-		# set_timed_country_flag = { flag = war_in_heaven_nonaligned_league_timer days = 180 }
+		# set_timed_country_flag = { flag = war_in_heaven_nonaligned_league_timer months = 6 }
 		random_list = {
 			# marauder_uprising_now
 			20 = {
@@ -941,16 +940,15 @@ country_event = {
 				if = {
 					limit = {
 						is_subject = yes
-						OR = {
-							is_subject_of_khan = yes
-							has_modifier = "satrapy_of_horde"
-						}
+						is_subject_of_khan = yes
+						# has_modifier = "satrapy_of_horde"
 						NOT = { has_active_event = { marauder.554 } }
 					}
 					country_event = { id = marauder.554 days = 1 random = 6 } # Rebel!?
-				} else_if = { limit = { has_modifier = "satrapy_of_horde" }
-					remove_modifier = "satrapy_of_horde"
 				}
+				# else_if = { limit = { has_modifier = "satrapy_of_horde" }
+				# 	remove_modifier = "satrapy_of_horde"
+				# }
 				from = {
 					if = { limit = { root = { has_country_flag = rebelling_satrapy } }
 						add_opinion_modifier = { who = root modifier = opinion_traitor_to_empire }
@@ -1012,7 +1010,7 @@ country_event = {
 	option = {
 		name = pick_great_khan
 		trigger = {
-			CmtTriggerIsPlayableEmpire = yes
+			merg_is_default_empire = yes
 			# is_subject = no
 			# is_galactic_community_member = no
 			is_zofe_fe = no
@@ -1049,7 +1047,7 @@ country_event = {
 				limit = {
 					OR = {
 						has_origin = "origin_khan_successor"
-						is_subject_type = war_satrapy
+						any_agreement = { agreement_preset = preset_war_satrapy }
 						CmtTriggerIsMarauder = yes
 					}
 				}
@@ -1119,7 +1117,7 @@ country_event = {
 	option = {
 		name = pick_fe
 		trigger = {
-			CmtTriggerIsPlayableEmpire = yes
+			merg_is_default_empire = yes
 			# is_subject = no
 			# is_galactic_community_member = no
 			exists = event_target:FirstSleeper
@@ -1144,17 +1142,17 @@ country_event = {
 		if = {
 			limit = { is_zofe_ae = yes }		## For ZoFE
 			every_subject = {
-				limit = { CmtTriggerIsPlayableEmpire = yes }
+				limit = { merg_is_default_empire = yes }
 				join_war = event_target:FirstSleeper
 			}
 		} else = {
 			event_target:FirstSleeper = {
 				switch = {
 					trigger = has_ethic
-					ethic_fanatic_xenophobe = { prev = { set_subject_of = { who = prev subject_type = thrall } } }
-					ethic_fanatic_xenophile = { prev = { set_subject_of = { who = prev subject_type = signatory } } }
-					ethic_fanatic_spiritualist = { prev = { set_subject_of = { who = prev subject_type = dominion } } }
-					ethic_fanatic_materialist = { prev = { set_subject_of = { who = prev subject_type = satellite } } }
+					ethic_fanatic_xenophobe = { prev = { set_subject_of = { who = prev preset = preset_thrall } } }
+					ethic_fanatic_xenophile = { prev = { set_subject_of = { who = prev preset = preset_signatory } } }
+					ethic_fanatic_spiritualist = { prev = { set_subject_of = { who = prev preset = preset_dominion } } }
+					ethic_fanatic_materialist = { prev = { set_subject_of = { who = prev preset = preset_satellite } } }
 				}
 			}
 		}
@@ -1300,7 +1298,7 @@ country_event = {
 				limit = {
 					OR = {
 						has_origin = "origin_khan_successor"
-						is_subject_type = war_satrapy
+						any_agreement = { agreement_preset = preset_war_satrapy }
 						CmtTriggerIsMarauder = yes
 					}
 				}
@@ -1368,7 +1366,7 @@ country_event = {
 		if = {
 			limit = { is_overlord = yes }
 			every_subject = {
-				limit = { CmtTriggerIsPlayableEmpire = yes }
+				limit = { merg_is_default_empire = yes }
 				join_war = root
 			}
 		}
@@ -1438,7 +1436,7 @@ country_event = {
 		set_global_flag = war_in_heaven_debug
 		set_global_flag = war_in_heaven_started
 		set_global_flag = war_in_heaven_ongoing
-		set_timed_global_flag = { flag = war_in_heaven_recently_started days = 5400 }
+		set_timed_global_flag = { flag = war_in_heaven_recently_started years = 15 }
 
 		set_country_flag = sleepers_awake_first_sleeper
 		save_global_event_target_as = SecondSleeper
@@ -1453,9 +1451,9 @@ country_event = {
 			if = { limit = { is_variable_set = "planets_lost_to_marauder" }
 				divide_variable = { which = "planets_lost_to_marauder" value = 5 } # clear_variable = "planets_lost_to_marauder"
 			}
-			if = { limit = { has_modifier = "satrapy_of_horde" }
-				remove_modifier = "satrapy_of_horde"
-			}
+			# if = { limit = { has_modifier = "satrapy_of_horde" }
+			# 	remove_modifier = "satrapy_of_horde"
+			# }
 			country_event = { id = khan.291 days = 7 } # 2nd chance to pick side
 		}
 
@@ -1507,10 +1505,8 @@ country_event = {
 		if = {
 			limit = {
 				is_subject = yes
-				OR = {
-					is_subject_of_khan = yes
-					has_modifier = "satrapy_of_horde"
-				}
+				is_subject_of_khan = yes
+				# has_modifier = "satrapy_of_horde"
 				NOT = { has_active_event = { marauder.554 } }
 			}
 			country_event = { id = marauder.554 days = 8 } # Rebel?
@@ -1873,7 +1869,7 @@ country_event = {
 					check_variable = { which = khan_fleet_power value > inc_fleet_power }
 					count_playable_country = {
 						limit = {
-							# CmtTriggerIsPlayableEmpire = yes
+							# merg_is_default_empire = yes
 							has_been_declared_crisis = no
 							is_subject = no
 							fleet_power > 26000
@@ -1911,7 +1907,7 @@ country_event = {
 				id = khan.296
 				days = 1440 # @CmtConstKhanLifespan_2d # 8 years
 				random = @CmtConstKhanLifespan_5f
-				# days = @CmtConstKhanLifespan_5d # original 25 years???
+				# days = @CmtConstKhanLifespan_5d # Original 25 years???
 				# random = @CmtConstKhanLifespan_2d
 			}
 		}
@@ -2062,7 +2058,7 @@ event = {
 				# Fix ongoing hostility (is_hostile seems not immediately working on load)
 				country_event = { id = khan.309 }
 				country_event = { id = khan.309 days = 4 }
-				# TODO TEMP FIX KHAN NO RESPAWN
+				# TODO TEMP FIX KHAN NO RESPAWN.
 				country_event = { id = marauder.507 days = 105 random = 80 }
 
 				if = {
@@ -2352,7 +2348,7 @@ ship_event = {
 			limit = { # Keep station
 				NOT = { is_ship_size = starbase_marauder }
 				exists = from.owner
-				from.owner = { CmtTriggerIsPlayableEmpire = yes }
+				from.owner = { merg_is_default_empire = yes }
 				solar_system = { # Not dead end systems
 					OR = {
 						count_neighbor_system = { count > 1 }
@@ -2591,7 +2587,7 @@ country_event = {
 	}
 	immediate = {
 		remove_country_flag = attacking_fleets_stopped
-		every_owned_fleet = {
+		every_controlled_fleet = {
 			limit = {
 				is_mobile = yes
 				is_ship_class = shipclass_military
@@ -2627,7 +2623,7 @@ country_event = {
 	immediate = {
 		log="Fix ongoing hostility" # \\[This.GetName]
 		# Before we need to stop fleets attacking.
-		every_owned_fleet = {
+		every_controlled_fleet = {
 			limit = {
 				is_mobile = yes
 				is_in_combat = yes
@@ -2658,7 +2654,7 @@ country_event = {
 			}
 		}
 		from = {
-			every_owned_fleet = {
+			every_controlled_fleet = {
 				limit = {
 					is_mobile = yes
 					is_in_combat = yes
@@ -2831,13 +2827,13 @@ system_event = {
 	}
 	immediate = {
 		# system_owner does not exists
-		# log="test khan.310 \\[former_starbase_owner.GetName] or \\[FromFrom.Owner.GetName]"
+		# log="test khan.310 \\[former_starbase_owner.GetName] or \\[fromfrom.Owner.GetName]"
 		if = { limit = { exists = starbase has_owner = yes }
 			delete_fleet = starbase.fleet
 			# if = { limit = { NOT = { has_star_flag = starbase_destroyed } }
 			# 	system_event = { id = khan.310 days = 1 scopes = { fromfrom = fromfrom } }
 			# 	set_timed_star_flag = { flag = starbase_destroyed days = 5 }
-			# 	log="khan.310 exists = starbase \\[former_starbase_owner.GetName] or \\[FromFrom.Owner.GetName]"
+			# 	log="khan.310 exists = starbase \\[former_starbase_owner.GetName] or \\[fromfrom.Owner.GetName]"
 			# }
 			# break = yes
 		}
@@ -2955,7 +2951,7 @@ country_event = {
 				}
 			}
 		}
-		every_owned_fleet = {
+		every_controlled_fleet = {
 			limit = {
 				OR = {
 					has_fleet_flag = satrapy_garrison
@@ -3190,7 +3186,7 @@ country_event = {
 				limit = {
 					any_playable_country = {
 						has_communications = prev
-						# CmtTriggerIsPlayableEmpire = yes
+						# merg_is_default_empire = yes
 						NOR = {
 							has_truce = prev
 							is_subject_of_khan = yes
@@ -3201,7 +3197,7 @@ country_event = {
 				}
 				random_neighbor_country = {
 					limit = {
-						# CmtTriggerIsPlayableEmpire = yes
+						# merg_is_default_empire = yes
 						NOR = {
 							has_truce = prev
 							is_subject_of_khan = yes
@@ -3240,7 +3236,7 @@ country_event = {
 				# 	random_country = {
 				# 		limit = {
 				# 			has_communications = prev
-				# 			CmtTriggerIsPlayableEmpire = yes
+				# 			merg_is_default_empire = yes
 				# 			NOR = {
 				# 				prev = { is_overlord_to = prev }
 				# 				is_at_war_with = prev
@@ -3351,7 +3347,7 @@ country_event = {
 					limit = { prev = { num_owned_relics > 0 } }
 					steal_relic = { target = prev relic = random }
 				}
-				add_100_unity_per_year_passed = yes
+				add_500_unity_per_year_passed = yes
 
 				# Normalize Starbases
 				every_owned_starbase = {
@@ -3758,7 +3754,7 @@ system_event = {
 				limit = {
 					is_colonizable = yes
 					habitability = {
-						who = THIS
+						who = this
 						value > 0.65
 					}
 				}
@@ -3918,7 +3914,7 @@ country_event = {
 	trigger = {
 		NOT = { has_country_flag = rebelling_satrapy }
 		is_subject = yes
-		is_subject_type = fabricator_satrapy
+		any_agreement = { agreement_preset = preset_fabricator_satrapy }
 		exists = event_target:raider_khanate
 	}
 	immediate = {
@@ -4046,7 +4042,7 @@ country_event = {
 					}
 					random = {
 						chance = 50
-						set_fleet_stance = evasive # AI does not handle this well too
+						set_fleet_stance = evasive # AI does not handle this well too.
 					}
 					set_location = {
 						target = prev
@@ -4106,7 +4102,7 @@ country_event = {
 		country_event = { id = marauder.559 } # Pre-Submit to Khan
 		set_subject_of = {
 			who = event_target:raider_khanate
-			subject_type = fabricator_satrapy
+			preset = preset_fabricator_satrapy
 		}
 		hidden_effect = {
 			event_target:raider_khanate = {
@@ -4181,7 +4177,7 @@ country_event = {
 			}
 			random_subject = {
 				limit = {
-					is_subject_type = machinesmith
+					any_agreement = { agreement_preset = preset_machinesmith_satrapy }
 					NOT = { has_country_flag = rebelling_satrapy }
 				}
 				root = {
@@ -4344,8 +4340,8 @@ country_event = {
 			random_subject = {
 				limit = {
 					NOR = {
-						# is_subject_type = machinesmith
-						# is_subject_type = fabricator_satrapy
+						# any_agreement = { agreement_preset = preset_machinesmith_satrapy }
+						# any_agreement = { agreement_preset = preset_fabricator_satrapy }
 						has_country_flag = rebellion_cooldown
 						has_country_flag = rebelling_satrapy
 						is_at_war = yes
@@ -4355,7 +4351,7 @@ country_event = {
 					limit = {
 						OR = {
 							has_origin = "origin_khan_successor"
-							is_subject_type = war_satrapy
+							any_agreement = { agreement_preset = preset_war_satrapy }
 							CmtTriggerIsMarauder = yes
 						}
 					}
@@ -4395,7 +4391,7 @@ country_event = {
 							limit = {
 								OR = {
 									has_origin = "origin_khan_successor"
-									# is_subject_type = war_satrapy
+									# any_agreement = { agreement_preset = preset_war_satrapy }
 									CmtTriggerIsMarauder = yes
 								}
 							}
@@ -4585,7 +4581,7 @@ country_event = {
 		### Check machinesmith;
 		random_subject = {
 			limit = {
-				is_subject_type = machinesmith
+				any_agreement = { agreement_preset = preset_machinesmith_satrapy }
 				NOR = {
 					has_country_flag = rebellion_cooldown
 					has_country_flag = rebelling_satrapy
@@ -4631,7 +4627,7 @@ country_event = {
 		country_event = { id = marauder.559 } # Pre-Submit to Khan
 		set_subject_of = {
 			who = event_target:raider_khanate
-			subject_type = machinesmith
+			preset = preset_machinesmith_satrapy
 		}
 		hidden_effect = {
 			event_target:raider_khanate = {
@@ -4804,7 +4800,7 @@ country_event = {
 				limit = {
 					OR = {
 						event_target:victim_country = {
-							is_subject_type = war_satrapy
+							any_agreement = { agreement_preset = preset_war_satrapy }
 						}
 						NOT = { any_playable_country = {
 							is_same_empire = event_target:attacking_country
@@ -4825,9 +4821,9 @@ country_event = {
 			set_subject_of = { who = none }
 			set_country_flag = rebelling_satrapy
 			set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
-			if = { limit = { has_modifier = "satrapy_of_horde" }
-				remove_modifier = "satrapy_of_horde"
-			}
+			# if = { limit = { has_modifier = "satrapy_of_horde" }
+			# 	remove_modifier = "satrapy_of_horde"
+			# }
 		}
 	}
 }

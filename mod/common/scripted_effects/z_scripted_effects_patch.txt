@@ -25,7 +25,7 @@ end_war_effect = {
 		}
 
 		if = {
-			limit = { # check again all after remove_war_participant
+			limit = { # Check again all after remove_war_participant.
 				exists = this
 				is_scope_valid = yes
 				is_scope_type = war
@@ -55,7 +55,7 @@ end_war_effect = {
 make_moderately_hostile = {
 	every_country = {
 		limit = {
-			CmtTriggerIsPlayableEmpire = no
+			merg_is_default_empire = no
 			OR = {
 				is_country_type = fallen_empire						# is_fallen_empire = yes
 				is_country_type = enclave

@@ -362,7 +362,7 @@ utility_component_template = {
 			accuracy = 0.4
 			damage = { min = 5 max = 15 }
 			shield_damage = 2.0
-			shield_penetration = 0.0
+			shield_penetration = 0
 			armor_penetration = 0.75
 		}
 
@@ -427,7 +427,7 @@ utility_component_template = {
 			accuracy = 0.3
 			damage = { min = 15 max = 25 }
 			shield_damage = 3.0
-			shield_penetration = 0.0
+			shield_penetration = 0
 			armor_penetration = 0.75
 		}
 
@@ -492,7 +492,7 @@ utility_component_template = {
 			accuracy = 0.2
 			damage = { min = 25 max = 45 }
 			shield_damage = 5.0
-			shield_penetration = 0.0
+			shield_penetration = 0
 			armor_penetration = 0.75
 		}
 

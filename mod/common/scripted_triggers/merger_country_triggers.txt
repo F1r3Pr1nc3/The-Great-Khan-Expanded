@@ -17,15 +17,6 @@
 # 	}
 # }
 
-# is_zofe_country = {
-# 	is_ai = no
-# 	# always = no
-# 	# OR = {
-# 	# 	is_country_type = ascended_empire
-# 	# 	is_country_type = lost_empire
-# 	# }
-# }
-
 # Merger of Rules scripted triggers.
 # Extended Merger of Rules with Nomads: The wondering Void Farers
 # These triggers are also meant as a library for modders who want to reuse them in their own mods.

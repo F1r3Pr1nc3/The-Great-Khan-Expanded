@@ -1,5 +1,4 @@
-#	size_restriction = { corvette destroyer cruiser battleship titan scout crisis_corvette pirate_corvette marauder_corvette crisis_destroyer pirate_destroyer assault_crisis_destroyer pirate_destroyer marauder_destroyer support_cruiser pirate_cruiser marauder_cruiser pirate_cruiser marauder_cruiser lite_dreadnought Dreadnought galleon }
-
+#	size_restriction = { corvette offspring_corvette destroyer offspring_destroyer cruiser offspring_cruiser battleship offspring_battleship titan scout crisis_corvette pirate_corvette marauder_corvette crisis_destroyer pirate_destroyer assault_crisis_destroyer pirate_destroyer marauder_destroyer support_cruiser pirate_cruiser marauder_cruiser pirate_cruiser marauder_cruiser lite_dreadnought Dreadnought galleon }
 @cost0 = 0
 @cost1 = 5
 @cost2 = 10
@@ -8,7 +7,6 @@
 @power1 = -10
 @power2 = -15
 @power3 = -25
-
 ####################
 # DEFAULT COMPUTER #
 ####################
@@ -41,14 +39,17 @@ utility_component_template = {
 	class_restriction = { shipclass_military }
 	size_restriction = {
 		corvette
+		offspring_corvette
 		crisis_corvette
 		pirate_corvette
 		marauder_corvette
 		destroyer
+		offspring_destroyer
 		crisis_destroyer
 		pirate_destroyer
 		marauder_destroyer
 		cruiser
+		offspring_cruiser
 		crisis_cruiser
 		pirate_cruiser
 		marauder_cruiser
@@ -72,6 +73,7 @@ utility_component_template = {
 	class_restriction = { shipclass_military }
 	size_restriction = {
 		destroyer
+		offspring_destroyer
 		crisis_destroyer
 		pirate_destroyer
 		marauder_destroyer
@@ -95,10 +97,12 @@ utility_component_template = {
 	class_restriction = { shipclass_military }
 	size_restriction = {
 		cruiser
+		offspring_cruiser
 		crisis_cruiser
 		pirate_cruiser
 		marauder_cruiser
 		battleship
+		offspring_battleship
 	}
 	component_set = "combat_computers"
 	upgrades_to = "COMBAT_COMPUTER_LINE_BASIC"
@@ -154,7 +158,7 @@ utility_component_template = {
 	component_set = "combat_computers"
 	ship_behavior = "platform"
 	upgrades_to = "COMBAT_COMPUTER_PLATFORM_BASIC"
-	ship_modifier = {}
+	ship_modifier = {  }
 	ai_weight = { weight = 1 }
 }
 
@@ -174,6 +178,7 @@ utility_component_template = {
 	class_restriction = { shipclass_military }
 	size_restriction = {
 		corvette
+		offspring_corvette
 		crisis_corvette
 		pirate_corvette
 		marauder_corvette
@@ -200,6 +205,7 @@ utility_component_template = {
 	class_restriction = { shipclass_military }
 	size_restriction = {
 		corvette
+		offspring_corvette
 		crisis_corvette
 		pirate_corvette
 		marauder_corvette
@@ -226,6 +232,7 @@ utility_component_template = {
 	class_restriction = { shipclass_military }
 	size_restriction = {
 		corvette
+		offspring_corvette
 		crisis_corvette
 		pirate_corvette
 		marauder_corvette
@@ -263,6 +270,7 @@ utility_component_template = {
 	class_restriction = { shipclass_military }
 	size_restriction = {
 		corvette
+		offspring_corvette
 		crisis_corvette
 		pirate_corvette
 		marauder_corvette
@@ -288,6 +296,7 @@ utility_component_template = {
 	class_restriction = { shipclass_military }
 	size_restriction = {
 		corvette
+		offspring_corvette
 		crisis_corvette
 		pirate_corvette
 		marauder_corvette
@@ -319,14 +328,17 @@ utility_component_template = {
 	class_restriction = { shipclass_military }
 	size_restriction = {
 		corvette
+		offspring_corvette
 		crisis_corvette
 		pirate_corvette
 		marauder_corvette
 		destroyer
+		offspring_destroyer
 		crisis_destroyer
 		pirate_destroyer
 		marauder_destroyer
 		cruiser
+		offspring_cruiser
 		crisis_cruiser
 		pirate_cruiser
 		marauder_cruiser
@@ -335,7 +347,10 @@ utility_component_template = {
 	ship_behavior = "picket"
 	prerequisites = { "tech_combat_computers_1" }
 	upgrades_to = "COMBAT_COMPUTER_PICKET_ADVANCED"
-	ship_modifier = { ship_fire_rate_mult = 0.05 ship_tracking_add = 10 }
+	ship_modifier = {
+		ship_fire_rate_mult = 0.05
+		ship_tracking_add = 10
+	}
 	ai_weight = { weight = 2 }
 }
 
@@ -352,14 +367,17 @@ utility_component_template = {
 	class_restriction = { shipclass_military }
 	size_restriction = {
 		corvette
+		offspring_corvette
 		crisis_corvette
 		pirate_corvette
 		marauder_corvette
 		destroyer
+		offspring_destroyer
 		crisis_destroyer
 		pirate_destroyer
 		marauder_destroyer
 		cruiser
+		offspring_cruiser
 		crisis_cruiser
 		pirate_cruiser
 		marauder_cruiser
@@ -368,7 +386,10 @@ utility_component_template = {
 	ship_behavior = "picket"
 	prerequisites = { "tech_combat_computers_2" }
 	upgrades_to = "COMBAT_COMPUTER_PICKET_SAPIENT"
-	ship_modifier = { ship_fire_rate_mult = 0.1 ship_tracking_add = 20 }
+	ship_modifier = {
+		ship_fire_rate_mult = 0.1
+		ship_tracking_add = 20
+	}
 	ai_weight = { weight = 3 }
 }
 
@@ -385,14 +406,17 @@ utility_component_template = {
 	class_restriction = { shipclass_military }
 	size_restriction = {
 		corvette
+		offspring_corvette
 		crisis_corvette
 		pirate_corvette
 		marauder_corvette
 		destroyer
+		offspring_destroyer
 		crisis_destroyer
 		pirate_destroyer
 		marauder_destroyer
 		cruiser
+		offspring_cruiser
 		crisis_cruiser
 		pirate_cruiser
 		marauder_cruiser
@@ -401,7 +425,10 @@ utility_component_template = {
 	ship_behavior = "picket"
 	prerequisites = { "tech_combat_computers_3" }
 	modifier = { ship_evasion_mult = 0.1 }
-	ship_modifier = { ship_fire_rate_mult = 0.15 ship_tracking_add = 30 }
+	ship_modifier = {
+		ship_fire_rate_mult = 0.15
+		ship_tracking_add = 30
+	}
 	ai_weight = {
 		weight = 5
 		modifier = {
@@ -430,14 +457,17 @@ utility_component_template = {
 	class_restriction = { shipclass_military }
 	size_restriction = {
 		corvette
+		offspring_corvette
 		crisis_corvette
 		pirate_corvette
 		marauder_corvette
 		destroyer
+		offspring_destroyer
 		crisis_destroyer
 		pirate_destroyer
 		marauder_destroyer
 		cruiser
+		offspring_cruiser
 		crisis_cruiser
 		pirate_cruiser
 		marauder_cruiser
@@ -446,7 +476,10 @@ utility_component_template = {
 	ship_behavior = "picket"
 	prerequisites = { "tech_combat_computers_autonomous" }
 	modifier = { ship_evasion_mult = 0.1 }
-	ship_modifier = { ship_fire_rate_mult = 0.15 ship_tracking_add = 30 }
+	ship_modifier = {
+		ship_fire_rate_mult = 0.15
+		ship_tracking_add = 30
+	}
 	ai_weight = { weight = 5 }
 }
 
@@ -463,14 +496,17 @@ utility_component_template = {
 	class_restriction = { shipclass_military }
 	size_restriction = {
 		corvette
+		offspring_corvette
 		crisis_corvette
 		pirate_corvette
 		marauder_corvette
 		destroyer
+		offspring_destroyer
 		crisis_destroyer
 		pirate_destroyer
 		marauder_destroyer
 		cruiser
+		offspring_cruiser
 		crisis_cruiser
 		pirate_cruiser
 		marauder_cruiser
@@ -478,7 +514,10 @@ utility_component_template = {
 	component_set = "combat_computers"
 	ship_behavior = "picket"
 	prerequisites = { "tech_precognition_interface" }
-	ship_modifier = { ship_fire_rate_mult = 0.2 ship_tracking_add = 40 }
+	ship_modifier = {
+		ship_fire_rate_mult = 0.2
+		ship_tracking_add = 40
+	}
 	ai_weight = { weight = 4 }
 }
 
@@ -498,20 +537,26 @@ utility_component_template = {
 	class_restriction = { shipclass_military }
 	size_restriction = {
 		destroyer
+		offspring_destroyer
 		crisis_destroyer
 		pirate_destroyer
 		marauder_destroyer
 		cruiser
+		offspring_cruiser
 		crisis_cruiser
 		pirate_cruiser
 		marauder_cruiser
 		battleship
+		offspring_battleship
 	}
 	component_set = "combat_computers"
 	ship_behavior = "line"
 	prerequisites = { "tech_combat_computers_1" }
 	upgrades_to = "COMBAT_COMPUTER_LINE_ADVANCED"
-	ship_modifier = { ship_fire_rate_mult = 0.05 ship_accuracy_add = 5 }
+	ship_modifier = {
+		ship_fire_rate_mult = 0.05
+		ship_accuracy_add = 5
+	}
 	ai_weight = { weight = 2 }
 }
 
@@ -528,20 +573,26 @@ utility_component_template = {
 	class_restriction = { shipclass_military }
 	size_restriction = {
 		destroyer
+		offspring_destroyer
 		crisis_destroyer
 		pirate_destroyer
 		marauder_destroyer
 		cruiser
+		offspring_cruiser
 		crisis_cruiser
 		pirate_cruiser
 		marauder_cruiser
 		battleship
+		offspring_battleship
 	}
 	component_set = "combat_computers"
 	ship_behavior = "line"
 	prerequisites = { "tech_combat_computers_2" }
 	upgrades_to = "COMBAT_COMPUTER_LINE_SAPIENT"
-	ship_modifier = { ship_fire_rate_mult = 0.1 ship_accuracy_add = 10 }
+	ship_modifier = {
+		ship_fire_rate_mult = 0.1
+		ship_accuracy_add = 10
+	}
 	ai_weight = { weight = 3 }
 }
 
@@ -561,14 +612,17 @@ utility_component_template = {
 	}
 	size_restriction = {
 		destroyer
+		offspring_destroyer
 		crisis_destroyer
 		pirate_destroyer
 		marauder_destroyer
 		cruiser
+		offspring_cruiser
 		crisis_cruiser
 		pirate_cruiser
 		marauder_cruiser
 		battleship
+		offspring_battleship
 		galleon
 		marauder_galleon
 		star_eater
@@ -576,7 +630,10 @@ utility_component_template = {
 	component_set = "combat_computers"
 	ship_behavior = "line"
 	prerequisites = { "tech_combat_computers_3" }
-	ship_modifier = { ship_fire_rate_mult = 0.2 ship_accuracy_add = 20 }
+	ship_modifier = {
+		ship_fire_rate_mult = 0.2
+		ship_accuracy_add = 20
+	}
 	ai_weight = {
 		weight = 5
 		modifier = {
@@ -605,21 +662,27 @@ utility_component_template = {
 	class_restriction = { shipclass_military }
 	size_restriction = {
 		destroyer
+		offspring_destroyer
 		crisis_destroyer
 		pirate_destroyer
 		marauder_destroyer
 		cruiser
+		offspring_cruiser
 		crisis_cruiser
 		pirate_cruiser
 		marauder_cruiser
 		battleship
+		offspring_battleship
 		galleon
 		marauder_galleon
 	}
 	component_set = "combat_computers"
 	ship_behavior = "line"
 	prerequisites = { "tech_combat_computers_autonomous" }
-	ship_modifier = { ship_fire_rate_mult = 0.2 ship_accuracy_add = 20 }
+	ship_modifier = {
+		ship_fire_rate_mult = 0.2
+		ship_accuracy_add = 20
+	}
 	ai_weight = { weight = 5 }
 }
 
@@ -636,25 +699,24 @@ utility_component_template = {
 	class_restriction = { shipclass_military }
 	size_restriction = {
 		destroyer
+		offspring_destroyer
 		crisis_destroyer
 		pirate_destroyer
 		marauder_destroyer
 		cruiser
+		offspring_cruiser
 		crisis_cruiser
 		pirate_cruiser
 		marauder_cruiser
 		battleship
+		offspring_battleship
 		galleon
 		marauder_galleon
 	}
 	component_set = "combat_computers"
 	ship_behavior = "line"
 	prerequisites = { "tech_precognition_interface" }
-	ship_modifier = {
-		ship_fire_rate_mult = 0.15
-		ship_accuracy_add = 15
-		ship_tracking_add = 10
-	}
+	ship_modifier = { ship_fire_rate_mult = 0.15 ship_accuracy_add = 15 ship_tracking_add = 10 }
 	ai_weight = { weight = 4 }
 }
 
@@ -677,14 +739,17 @@ utility_component_template = {
 	}
 	size_restriction = {
 		destroyer
+		offspring_destroyer
 		crisis_destroyer
 		pirate_destroyer
 		marauder_destroyer
 		cruiser
+		offspring_cruiser
 		crisis_cruiser
 		pirate_cruiser
 		marauder_cruiser
 		battleship
+		offspring_battleship
 		titan
 		juggernaut
 		galleon
@@ -695,7 +760,10 @@ utility_component_template = {
 	ship_behavior = "artillery"
 	prerequisites = { "tech_combat_computers_1" }
 	upgrades_to = "COMBAT_COMPUTER_ARTILLERY_ADVANCED"
-	ship_modifier = { ship_fire_rate_mult = 0.05 ship_weapon_range_mult = 0.05 }
+	ship_modifier = {
+		ship_fire_rate_mult = 0.05
+		ship_weapon_range_mult = 0.05
+	}
 	ai_weight = { weight = 2 }
 }
 
@@ -716,14 +784,17 @@ utility_component_template = {
 	}
 	size_restriction = {
 		destroyer
+		offspring_destroyer
 		crisis_destroyer
 		pirate_destroyer
 		marauder_destroyer
 		cruiser
+		offspring_cruiser
 		crisis_cruiser
 		pirate_cruiser
 		marauder_cruiser
 		battleship
+		offspring_battleship
 		juggernaut
 		titan
 		galleon
@@ -734,7 +805,10 @@ utility_component_template = {
 	ship_behavior = "artillery"
 	prerequisites = { "tech_combat_computers_2" }
 	upgrades_to = "COMBAT_COMPUTER_ARTILLERY_SAPIENT"
-	ship_modifier = { ship_fire_rate_mult = 0.1 ship_weapon_range_mult = 0.1 }
+	ship_modifier = {
+		ship_fire_rate_mult = 0.1
+		ship_weapon_range_mult = 0.1
+	}
 	ai_weight = { weight = 3 }
 }
 
@@ -755,14 +829,17 @@ utility_component_template = {
 	}
 	size_restriction = {
 		destroyer
+		offspring_destroyer
 		crisis_destroyer
 		pirate_destroyer
 		marauder_destroyer
 		cruiser
+		offspring_cruiser
 		crisis_cruiser
 		pirate_cruiser
 		marauder_cruiser
 		battleship
+		offspring_battleship
 		titan
 		juggernaut
 		galleon
@@ -772,7 +849,10 @@ utility_component_template = {
 	component_set = "combat_computers"
 	ship_behavior = "artillery"
 	prerequisites = { "tech_combat_computers_3" }
-	ship_modifier = { ship_fire_rate_mult = 0.2 ship_weapon_range_mult = 0.2 }
+	ship_modifier = {
+		ship_fire_rate_mult = 0.2
+		ship_weapon_range_mult = 0.2
+	}
 	ai_weight = {
 		weight = 5
 		modifier = {
@@ -805,14 +885,17 @@ utility_component_template = {
 	}
 	size_restriction = {
 		destroyer
+		offspring_destroyer
 		crisis_destroyer
 		pirate_destroyer
 		marauder_destroyer
 		cruiser
+		offspring_cruiser
 		crisis_cruiser
 		pirate_cruiser
 		marauder_cruiser
 		battleship
+		offspring_battleship
 		titan
 		juggernaut
 		galleon
@@ -822,7 +905,10 @@ utility_component_template = {
 	component_set = "combat_computers"
 	ship_behavior = "artillery"
 	prerequisites = { "tech_combat_computers_autonomous" }
-	ship_modifier = { ship_fire_rate_mult = 0.2 ship_weapon_range_mult = 0.2 }
+	ship_modifier = {
+		ship_fire_rate_mult = 0.2
+		ship_weapon_range_mult = 0.2
+	}
 	ai_weight = { weight = 5 }
 }
 
@@ -842,14 +928,17 @@ utility_component_template = {
 	}
 	size_restriction = {
 		destroyer
+		offspring_destroyer
 		crisis_destroyer
 		pirate_destroyer
 		marauder_destroyer
 		cruiser
+		offspring_cruiser
 		crisis_cruiser
 		pirate_cruiser
 		marauder_cruiser
 		battleship
+		offspring_battleship
 		juggernaut
 		titan
 		galleon
@@ -858,11 +947,7 @@ utility_component_template = {
 	component_set = "combat_computers"
 	ship_behavior = "artillery"
 	prerequisites = { "tech_precognition_interface" }
-	ship_modifier = {
-		ship_fire_rate_mult = 0.15
-		ship_weapon_range_mult = 0.15
-		ship_tracking_add = 10
-	}
+	ship_modifier = { ship_fire_rate_mult = 0.15 ship_weapon_range_mult = 0.15 ship_tracking_add = 10 }
 	ai_weight = { weight = 4 }
 }
 
@@ -886,10 +971,12 @@ utility_component_template = {
 	}
 	size_restriction = {
 		cruiser
+		offspring_cruiser
 		crisis_cruiser
 		pirate_cruiser
 		marauder_cruiser
 		battleship
+		offspring_battleship
 		juggernaut
 		titan
 		galleon
@@ -921,10 +1008,12 @@ utility_component_template = {
 	}
 	size_restriction = {
 		cruiser
+		offspring_cruiser
 		crisis_cruiser
 		pirate_cruiser
 		marauder_cruiser
 		battleship
+		offspring_battleship
 		juggernaut
 		titan
 		galleon
@@ -956,10 +1045,12 @@ utility_component_template = {
 	}
 	size_restriction = {
 		cruiser
+		offspring_cruiser
 		crisis_cruiser
 		pirate_cruiser
 		marauder_cruiser
 		battleship
+		offspring_battleship
 		juggernaut
 		titan
 		galleon
@@ -1002,10 +1093,12 @@ utility_component_template = {
 	}
 	size_restriction = {
 		cruiser
+		offspring_cruiser
 		crisis_cruiser
 		pirate_cruiser
 		marauder_cruiser
 		battleship
+		offspring_battleship
 		juggernaut
 		titan
 		galleon
@@ -1036,10 +1129,12 @@ utility_component_template = {
 	}
 	size_restriction = {
 		cruiser
+		offspring_cruiser
 		crisis_cruiser
 		pirate_cruiser
 		marauder_cruiser
 		battleship
+		offspring_battleship
 		juggernaut
 		titan
 		galleon
@@ -1049,7 +1144,10 @@ utility_component_template = {
 	component_set = "combat_computers"
 	ship_behavior = "carrier"
 	prerequisites = { "tech_precognition_interface" }
-	ship_modifier = { ship_engagement_range_mult = 0.75 ship_tracking_add = 10 }
+	ship_modifier = {
+		ship_engagement_range_mult = 0.75
+		ship_tracking_add = 10
+	}
 	ai_weight = { weight = 4 }
 }
 
@@ -1071,7 +1169,10 @@ utility_component_template = {
 	ship_behavior = "platform"
 	prerequisites = { "tech_combat_computers_1" }
 	upgrades_to = "COMBAT_COMPUTER_PLATFORM_ADVANCED"
-	ship_modifier = { ship_fire_rate_mult = 0.05 ship_tracking_add = 5 }
+	ship_modifier = {
+		ship_fire_rate_mult = 0.25
+		ship_tracking_add = 15
+	}
 	ai_weight = { weight = 2 }
 }
 
@@ -1090,7 +1191,10 @@ utility_component_template = {
 	ship_behavior = "platform"
 	prerequisites = { "tech_combat_computers_2" }
 	upgrades_to = "COMBAT_COMPUTER_PLATFORM_SAPIENT"
-	ship_modifier = { ship_fire_rate_mult = 0.1 ship_tracking_add = 10 }
+	ship_modifier = {
+		ship_fire_rate_mult = 0.3
+		ship_tracking_add = 20
+	}
 	ai_weight = { weight = 3 }
 }
 
@@ -1108,11 +1212,7 @@ utility_component_template = {
 	component_set = "combat_computers"
 	ship_behavior = "platform"
 	prerequisites = { "tech_combat_computers_3" }
-	ship_modifier = {
-		ship_fire_rate_mult = 0.15
-		ship_tracking_add = 15
-		ship_accuracy_add = 10
-	}
+	ship_modifier = { ship_fire_rate_mult = 0.35 ship_tracking_add = 25 ship_accuracy_add = 10 }
 	ai_weight = {
 		weight = 5
 		modifier = {
@@ -1142,11 +1242,7 @@ utility_component_template = {
 	component_set = "combat_computers"
 	ship_behavior = "platform"
 	prerequisites = { "tech_combat_computers_autonomous" }
-	ship_modifier = {
-		ship_fire_rate_mult = 0.15
-		ship_tracking_add = 15
-		ship_accuracy_add = 10
-	}
+	ship_modifier = { ship_fire_rate_mult = 0.35 ship_tracking_add = 25 ship_accuracy_add = 10 }
 	ai_weight = { weight = 5 }
 }
 
@@ -1164,7 +1260,10 @@ utility_component_template = {
 	component_set = "combat_computers"
 	ship_behavior = "platform"
 	prerequisites = { "tech_precognition_interface" }
-	ship_modifier = { ship_fire_rate_mult = 0.15 ship_tracking_add = 25 }
+	ship_modifier = {
+		ship_fire_rate_mult = 0.35
+		ship_tracking_add = 35
+	}
 	ai_weight = { weight = 4 }
 }
 
@@ -1184,11 +1283,17 @@ utility_component_template = {
 		starbase_starhold
 		starbase_starfortress
 		starbase_citadel
+		orbital_ring_tier_1
+		orbital_ring_tier_2
+		orbital_ring_tier_3
 	}
 	component_set = "combat_computers"
 	ship_behavior = "platform"
 	upgrades_to = "STARBASE_COMBAT_COMPUTER_2"
-	ship_modifier = { ship_fire_rate_mult = 0.05 ship_tracking_add = 10 }
+	ship_modifier = {
+		ship_fire_rate_mult = 0.05
+		ship_tracking_add = 10
+	}
 	ai_weight = { weight = 1 }
 }
 
@@ -1205,12 +1310,18 @@ utility_component_template = {
 		starbase_starhold
 		starbase_starfortress
 		starbase_citadel
+		orbital_ring_tier_1
+		orbital_ring_tier_2
+		orbital_ring_tier_3
 	}
 	component_set = "combat_computers"
 	ship_behavior = "platform"
 	prerequisites = { "tech_combat_computers_1" }
 	upgrades_to = "STARBASE_COMBAT_COMPUTER_3"
-	ship_modifier = { ship_fire_rate_mult = 0.1 ship_tracking_add = 20 }
+	ship_modifier = {
+		ship_fire_rate_mult = 0.1
+		ship_tracking_add = 20
+	}
 	ai_weight = { weight = 2 }
 }
 
@@ -1227,11 +1338,17 @@ utility_component_template = {
 		starbase_starhold
 		starbase_starfortress
 		starbase_citadel
+		orbital_ring_tier_1
+		orbital_ring_tier_2
+		orbital_ring_tier_3
 	}
 	component_set = "combat_computers"
 	ship_behavior = "platform"
 	prerequisites = { "tech_combat_computers_2" }
-	ship_modifier = { ship_fire_rate_mult = 0.15 ship_tracking_add = 30 }
+	ship_modifier = {
+		ship_fire_rate_mult = 0.15
+		ship_tracking_add = 30
+	}
 	ai_weight = { weight = 3 }
 }
 
@@ -1268,6 +1385,9 @@ utility_component_template = {
 	class_restriction = { shipclass_military }
 	size_restriction = { stellarite }
 	ship_behavior = "stellarite_default"
-	ship_modifier = { ship_accuracy_add = 4 ship_fire_rate_mult = 0.1 }
+	ship_modifier = {
+		ship_accuracy_add = 4
+		ship_fire_rate_mult = 0.1
+	}
 	ai_weight = { weight = 0 }
 }

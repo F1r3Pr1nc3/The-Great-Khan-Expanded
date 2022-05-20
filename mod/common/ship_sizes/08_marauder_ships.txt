@@ -85,6 +85,7 @@ marauder_corvette = {
 	required_component_set = "thruster_components"
 	required_component_set = "combat_computers"
 	is_designable = yes
+	use_shipnames_from = corvette
 	auto_upgrade = yes
 	resources = {
 		category = ships
@@ -133,6 +134,7 @@ marauder_destroyer = {
 	construction_type = starbase_shipyard
 	is_designable = yes
 	enable_default_design = yes
+	use_shipnames_from = destroyer
 	auto_upgrade = yes
 
 	default_behavior = picket
@@ -190,7 +192,7 @@ marauder_cruiser = {
 	construction_type = starbase_shipyard
 	is_designable = yes
 	enable_default_design = yes
-	# use_shipnames_from = cruiser
+	use_shipnames_from = cruiser
 
 	default_behavior = line
 	required_component_set = "power_core"
@@ -245,6 +247,7 @@ marauder_galleon = {
 	construction_type = starbase_shipyard
 	is_designable = yes
 	enable_default_design = yes
+	use_shipnames_from = battleship
 	auto_upgrade = yes
 
 	# default_behavior = artillery
@@ -345,6 +348,7 @@ marauder_station = {
 	class = shipclass_military_station
 	is_designable = no
 	enable_default_design = no
+	use_shipnames_from = military_station_small
 	# auto_upgrade = yes
 }
 
@@ -380,5 +384,6 @@ marauder_void_dwelling = {
 	class = shipclass_military_station
 	is_designable = no
 	enable_default_design = no
+	use_shipnames_from = military_station_small
 	# auto_upgrade = yes
 }

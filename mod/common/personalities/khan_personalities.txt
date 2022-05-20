@@ -39,12 +39,15 @@ hegemonic_imperialists = {
 	}
 	allow = {
 		OR = {
-			is_country_type = awakened_marauders
-			is_country_type = default
 			is_ai = no
-			# CmtTriggerIsPlayableEmpire = yes
+			is_country_type = awakened_marauders
+			merg_is_default_empire = yes # is_country_type = default
 		}
 		is_pacifist = no
+		NOR = {
+			has_ethic = "ethic_fanatic_socialism"
+			has_valid_civic = "civic_xeno_militarist"
+		}
 		OR = {
 			is_militarist = yes
 			is_authoritarian = yes
@@ -58,7 +61,12 @@ hegemonic_imperialists = {
 			OR = {
 				has_civic = civic_barbaric_despoilers
 				has_civic = civic_great_khans_vision
+				has_valid_civic = civic_nationalistic_zeal
+				has_valid_civic = civic_barbaric_despoilers
+				has_valid_civic = civic_fanatic_purifiers
 			}
 		}
+		modifier = { add = 5 has_ethic = "ethic_fanatic_authoritarian" }
+		modifier = { add = 10 has_ethic = "ethic_fanatic_militarist" }
 	}
 }

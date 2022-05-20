@@ -16,7 +16,7 @@
    sodipodi:docname="KHAN logo.svg"
    enable-background="new"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   inkscape:export-filename="D:\GOG Games\Settings\Khan.git\source\KHAN logo3.3.png"
+   inkscape:export-filename="..\..\KHAN.mod\thumbs\KHAN logo3.4.png"
    inkscape:export-xdpi="25.6"
    inkscape:export-ydpi="25.6">
   <metadata
@@ -40,17 +40,17 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1680"
-     inkscape:window-height="987"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
      id="namedview1849"
      showgrid="true"
      inkscape:zoom="0.51357539"
-     inkscape:cx="1215.5964"
-     inkscape:cy="1678.3551"
+     inkscape:cx="753.53182"
+     inkscape:cy="1519.0482"
      inkscape:window-x="-4"
      inkscape:window-y="-4"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg1847"
+     inkscape:current-layer="layer3"
      inkscape:snap-bbox="true"
      inkscape:bbox-nodes="true"
      inkscape:snap-bbox-midpoints="false"
@@ -64,7 +64,10 @@
      inkscape:snap-smooth-nodes="true"
      inkscape:snap-intersection-paths="true"
      inkscape:snap-bbox-edge-midpoints="false"
-     inkscape:snap-grids="false">
+     inkscape:snap-grids="false"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#ff88ff"
+     inkscape:showpageshadow="0">
     <inkscape:grid
        type="xygrid"
        id="grid7347"
@@ -145,10 +148,10 @@
     </filter>
     <filter
        id="e"
-       x="-.006"
-       y="-.006"
-       width="1.012"
-       height="1.012"
+       x="-0.010050678"
+       y="-0.010164794"
+       width="1.0198152"
+       height="1.0200175"
        color-interpolation-filters="sRGB">
       <feGaussianBlur
          stdDeviation="0.16120536"
@@ -257,10 +260,10 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter1793"
-       x="-0.1539561"
-       width="1.3079122"
-       y="-0.13468774"
-       height="1.2693754">
+       x="-0.22972117"
+       width="1.3836773"
+       y="-0.20097044"
+       height="1.3356582">
       <feGaussianBlur
          inkscape:collect="always"
          stdDeviation="0.71492198"
@@ -293,10 +296,10 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter952"
-       x="-0.0072784882"
-       width="1.014557"
-       y="-0.060175702"
-       height="1.1203514">
+       x="-0.0089931773"
+       width="1.0179864"
+       y="-0.074352083"
+       height="1.1487042">
       <feGaussianBlur
          inkscape:collect="always"
          stdDeviation="1.1002531"
@@ -315,10 +318,10 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter960-4"
-       x="-0.0061850133"
-       width="1.01237"
-       y="-0.051135279"
-       height="1.1022706">
+       x="-0.0076716473"
+       width="1.0153433"
+       y="-0.063426188"
+       height="1.1268524">
       <feGaussianBlur
          inkscape:collect="always"
          stdDeviation="0.93495792"
@@ -326,7 +329,11 @@
     </filter>
     <filter
        style="color-interpolation-filters:sRGB"
-       id="g-5">
+       id="g-5"
+       x="-0.023182047"
+       y="-0.023181136"
+       width="1.0552518"
+       height="1.0552496">
       <feOffset
          dx="3"
          dy="3"
@@ -367,7 +374,11 @@
     <filter
        style="color-interpolation-filters:sRGB;"
        inkscape:label="Blur"
-       id="filter1898">
+       id="filter1898"
+       x="-0.020770094"
+       y="-0.017316836"
+       width="1.0415402"
+       height="1.0346337">
       <feGaussianBlur
          stdDeviation="3 0.01"
          result="blur"
@@ -409,10 +420,10 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter6701"
-       x="-0.01609058"
-       width="1.0321812"
-       y="-0.016015542"
-       height="1.0320311">
+       x="-0.018736866"
+       width="1.0374737"
+       y="-0.01873613"
+       height="1.0374723">
       <feGaussianBlur
          inkscape:collect="always"
          stdDeviation="2.3748113"
@@ -426,7 +437,11 @@
     <filter
        style="color-interpolation-filters:sRGB;"
        inkscape:label="Drop Shadow"
-       id="filter7113">
+       id="filter7113"
+       x="-0.036217312"
+       y="-0.036215889"
+       width="1.0753972"
+       height="1.0753942">
       <feFlood
          flood-opacity="1"
          flood-color="rgb(0,0,0)"
@@ -459,10 +474,10 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter6689"
-       x="-0.14825632"
-       width="1.2965126"
-       y="-0.013056832"
-       height="1.0261137">
+       x="-2.3950739"
+       width="5.7901479"
+       y="-inf"
+       height="inf">
       <feGaussianBlur
          inkscape:collect="always"
          stdDeviation="1.8251471"
@@ -472,10 +487,10 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter2299"
-       x="-0.012"
-       width="1.024"
-       y="-0.012"
-       height="1.024">
+       x="-9.9237141"
+       width="20.847428"
+       y="-inf"
+       height="inf">
       <feGaussianBlur
          inkscape:collect="always"
          stdDeviation="9.1847268"
@@ -485,10 +500,10 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter7240"
-       x="-0.1789212"
-       width="1.3578424"
-       y="-0.01709007"
-       height="1.0341801">
+       x="-2.7755541"
+       width="6.5511082"
+       y="-inf"
+       height="inf">
       <feGaussianBlur
          inkscape:collect="always"
          stdDeviation="2.2026549"
@@ -498,10 +513,10 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter7385"
-       x="-0.13848649"
-       width="1.276973"
-       y="-0.013138462"
-       height="1.0262769">
+       x="-0.10632256"
+       width="1.2403258"
+       y="-0.013661745"
+       height="1.0260771">
       <feGaussianBlur
          inkscape:collect="always"
          stdDeviation="1.6946563"
@@ -511,10 +526,10 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter7424"
-       x="-0.068400805"
-       width="1.1368016"
-       y="-0.068399195"
-       height="1.1367984">
+       x="-0.12932946"
+       width="1.2586589"
+       y="-0.12932642"
+       height="1.2586528">
       <feGaussianBlur
          inkscape:collect="always"
          stdDeviation="2.3548959"
@@ -523,7 +538,11 @@
     <filter
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
-       id="filter7434">
+       id="filter7434"
+       x="-0.0076716472"
+       y="-0.063426189"
+       width="1.0153433"
+       height="1.1268524">
       <feBlend
          inkscape:collect="always"
          mode="color-burn"
@@ -559,10 +578,10 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter960"
-       x="-0.0061850133"
-       width="1.01237"
-       y="-0.051135279"
-       height="1.1022706">
+       x="-0.0079162474"
+       width="1.0158325"
+       y="-0.065448447"
+       height="1.1308969">
       <feGaussianBlur
          inkscape:collect="always"
          stdDeviation="0.93495792"
@@ -572,10 +591,10 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter2850"
-       x="-0.036646499"
-       width="1.073293"
-       y="-0.003267487"
-       height="1.006535">
+       x="-0.031205969"
+       width="1.0900111"
+       y="-0.0050706979"
+       height="1.0087277">
       <feGaussianBlur
          inkscape:collect="always"
          stdDeviation="0.44844245"
@@ -585,9 +604,9 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter1049-5"
-       x="-0.080399998"
+       x="-0.0804"
        width="1.1608"
-       y="-0.080399998"
+       y="-0.0804"
        height="1.1608">
       <feGaussianBlur
          inkscape:collect="always"
@@ -598,9 +617,9 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter1049-52"
-       x="-0.080399998"
+       x="-0.0804"
        width="1.1608"
-       y="-0.080399998"
+       y="-0.0804"
        height="1.1608">
       <feGaussianBlur
          inkscape:collect="always"
@@ -611,9 +630,9 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter1049-4"
-       x="-0.080399998"
+       x="-0.0804"
        width="1.1608"
-       y="-0.080399998"
+       y="-0.0804"
        height="1.1608">
       <feGaussianBlur
          inkscape:collect="always"
@@ -673,42 +692,41 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="bg"
-     style="display:inline"
-     sodipodi:insensitive="true">
-    <image
-       sodipodi:absref="D:\GOG Games\Settings\Khan.git\source\khan_throne_room.png"
-       xlink:href="khan_throne_room.png"
-       width="700.61664"
-       height="275.69583"
-       preserveAspectRatio="none"
-       style="stroke-width:0.15640807;image-rendering:optimizeSpeed"
-       id="image1547"
-       x="-95.615341"
-       y="232.30417" />
+     style="display:inline">
     <image
        sodipodi:absref="D:\GOG Games\Settings\Khan.git\source\pirate_armada.png"
        xlink:href="pirate_armada.png"
-       width="542.2323"
-       height="232.83333"
-       preserveAspectRatio="none"
-       style="stroke-width:0.19346352;image-rendering:optimizeSpeed"
-       id="image1536"
+       y="-0.79374999"
        x="-17.116211"
-       y="0" />
+       id="image1536"
+       style="stroke-width:0.193464;image-rendering:optimizeSpeed"
+       preserveAspectRatio="none"
+       height="234.15625"
+       width="542.39581" />
+    <image
+       sodipodi:absref="D:\GOG Games\Settings\Khan.git\source\khan_throne_room.png"
+       xlink:href="khan_throne_room.png"
+       y="232.30417"
+       x="-95.615341"
+       id="image1547"
+       style="stroke-width:0;image-rendering:optimizeSpeed;stroke:none;stroke-miterlimit:4;stroke-dasharray:none"
+       preserveAspectRatio="none"
+       height="275.69583"
+       width="700.61664" />
     <image
        sodipodi:absref="D:\GOG Games\Settings\Khan.git\source\diplomacy_stripes.png"
        xlink:href="diplomacy_stripes.png"
-       transform="matrix(0.26458333,0,0,0.26458333,-25.394913,260.4774)"
-       y="-2.2737368e-13"
-       x="0"
-       id="image2361"
-       style="display:inline;stroke-width:0.34344324;filter:url(#filter7434);image-rendering:optimizeSpeed"
-       preserveAspectRatio="none"
+       width="2639.9524"
        height="1039.465"
-       width="2639.9524" />
+       preserveAspectRatio="none"
+       style="display:inline;stroke-width:0.343443;filter:url(#filter7434);image-rendering:optimizeSpeed"
+       id="image2361"
+       x="0"
+       y="-2.2737368e-13"
+       transform="matrix(0.26458333,0,0,0.26458333,-25.394913,260.4774)" />
     <rect
        transform="matrix(2.0134485,0,0,0.79320919,553.58939,103.30104)"
-       style="display:inline;opacity:0.66600001;vector-effect:none;fill:url(#linearGradient976);fill-opacity:1;fill-rule:evenodd;stroke:#fce94f;stroke-width:1.25617337;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.17808222;filter:url(#filter960)"
+       style="display:inline;opacity:0.666;vector-effect:none;fill:url(#linearGradient976);fill-opacity:1;fill-rule:evenodd;stroke:#fce94f;stroke-width:1.25617;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.178082;filter:url(#filter960)"
        id="rect974"
        width="362.79614"
        height="43.881622"
@@ -822,9 +840,10 @@
        transform="rotate(-180,296.82104,216.58311)" />
   </g>
   <g
-     id="g930">
+     id="g930"
+     style="display:inline">
     <path
-       style="display:inline;opacity:0.84;vector-effect:none;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffdb11;stroke-width:10.06873308;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter7424)"
+       style="display:inline;opacity:0.84;vector-effect:none;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffdb11;stroke-width:10.0687;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter7424)"
        d="m 43.527344,1797.8438 v 82.6289 m 0,0 H 126.1543"
        id="path2157"
        transform="matrix(-0.31270485,0,0,0.31270485,519.53382,-82.11032)"
@@ -836,7 +855,7 @@
        height="3.1750002"
        width="3.1750002"
        id="rect911"
-       style="opacity:0.9;vector-effect:none;fill:#fdf29b;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.27476251;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.17808222;filter:url(#filter1049)"
+       style="opacity:0.9;vector-effect:none;fill:#fdf29b;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.27476;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.178082;filter:url(#filter1049)"
        rx="0.79374999"
        ry="0.79374999" />
   </g>
@@ -860,7 +879,7 @@
        height="43.881622"
        width="362.79614"
        id="rect934"
-       style="display:inline;opacity:0.66600001;vector-effect:none;fill:url(#linearGradient936-7);fill-opacity:1;fill-rule:evenodd;stroke:#fce94f;stroke-width:1.07868814;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.17808222;filter:url(#filter960-4)"
+       style="display:inline;opacity:0.666;vector-effect:none;fill:url(#linearGradient936-7);fill-opacity:1;fill-rule:evenodd;stroke:#fce94f;stroke-width:1.07869;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.178082;filter:url(#filter960-4)"
        transform="matrix(2.0134485,0,0,1.0757098,553.58939,182.41922)" />
   </g>
   <g
@@ -932,35 +951,35 @@
          transform="translate(0.25,0.5)"
          id="g1760">
         <text
-           style="font-size:52.52431107px;word-spacing:-16.88281441px;stroke-width:1.25000751;stroke-miterlimit:4;stroke-dasharray:none"
+           style="font-size:52.5243px;word-spacing:-16.8828px;stroke-width:1.25001;stroke-miterlimit:4;stroke-dasharray:none"
            id="text"
            x="-150"
            y="235"
            word-spacing="-18px"
            sodipodi:role="line"
            transform="scale(1.0000563,0.99994365)"><tspan
-   style="font-weight:900;font-size:57.77674484px;stroke-width:1.25000751;stroke-miterlimit:4;stroke-dasharray:none"
+   style="font-weight:900;font-size:57.7767px;stroke-width:1.25001;stroke-miterlimit:4;stroke-dasharray:none"
    id="tspan925">T</tspan>
 he <tspan
-   style="font-weight:900;font-size:57.77674484px;stroke-width:1.25000751;stroke-miterlimit:4;stroke-dasharray:none"
+   style="font-weight:900;font-size:57.7767px;stroke-width:1.25001;stroke-miterlimit:4;stroke-dasharray:none"
    id="tspan1586">G</tspan>
 reat<tspan
-   style="font-size:65.65538788px;letter-spacing:13.60004425px;stroke-width:1.25000751;stroke-miterlimit:4;stroke-dasharray:none"
+   style="font-size:65.6554px;letter-spacing:13.6px;stroke-width:1.25001;stroke-miterlimit:4;stroke-dasharray:none"
    x="-140.89468"
    y="388.85944"
    font-size="70px"
    letter-spacing="14.5px"
    id="tspan1757"><tspan
-   style="font-weight:900;font-size:72.22092438px;stroke-width:1.25000751;stroke-miterlimit:4;stroke-dasharray:none"
+   style="font-weight:900;font-size:72.2209px;stroke-width:1.25001;stroke-miterlimit:4;stroke-dasharray:none"
    id="tspan927">K</tspan>
 han</tspan>
 <tspan
-   style="letter-spacing:9.37934113px;stroke-width:1.25000751;stroke-miterlimit:4;stroke-dasharray:none"
+   style="letter-spacing:9.37934px;stroke-width:1.25001;stroke-miterlimit:4;stroke-dasharray:none"
    x="-152.1499"
    y="531.42542"
    letter-spacing="10px"
    id="tspan1656"><tspan
-   style="font-weight:900;font-size:57.77674484px;stroke-width:1.25000751;stroke-miterlimit:4;stroke-dasharray:none"
+   style="font-weight:900;font-size:57.7767px;stroke-width:1.25001;stroke-miterlimit:4;stroke-dasharray:none"
    id="tspan1654">E</tspan>
 xpanded</tspan>
 </text>
@@ -1274,7 +1293,7 @@ xpanded</tspan>
            d="m 125.30084,-107.65988 q 0.58777,-1.08953 1.24722,-1.08953 0.22938,0 0.44442,0.11468 0.25804,0.12903 0.45875,0.38707 0.21504,0.25805 0.53043,0.81715 0.11469,0.21504 0.54476,0.75981 0.43008,0.53043 0.50176,0.65945 0.10035,0.21504 0.10035,0.43008 -0.0143,0.50176 -0.4014,0.86015 -0.37274,0.34407 -0.93184,0.50176 -0.54477,0.14336 -1.20422,0.14336 -1.07519,0 -1.79199,-0.3584 -0.27238,-0.12902 -0.53043,-0.45875 -0.24371,-0.34406 -0.24371,-0.68812 0,-0.10035 0.0143,-0.18637 0.0143,-0.10035 0.0287,-0.17203 0.0143,-0.0717 0.0573,-0.1577 0.0573,-0.086 0.0717,-0.11468 0.0287,-0.043 0.10035,-0.12903 0.086,-0.10035 0.10035,-0.12902 0.0287,-0.0287 0.12903,-0.12902 0.10035,-0.11469 0.12902,-0.14336 0.34406,-0.37274 0.64512,-0.9175 z m 8.84527,-6.27914 q 0.24371,-0.0287 0.45875,-0.0287 0.58777,0 1.01785,0.24371 0.43008,0.22937 0.64512,0.64511 l 0.10035,0.22938 -0.0143,0.40141 q 0,0.35839 -0.0573,0.53042 -0.043,0.17204 -0.22937,0.57344 -0.41575,0.84582 -1.51961,2.07871 -1.10387,1.21856 -1.89235,1.47661 -0.21504,0.0717 -0.68812,0.0717 -1.20422,0 -2.25074,-0.63079 -1.04653,-0.63078 -1.41926,-1.5196 -0.086,-0.17204 -0.086,-0.5161 v -0.34406 l 0.14336,-0.27238 q 0.3584,-0.74547 1.34758,-1.37625 1.00351,-0.64512 2.13605,-1.01786 1.13254,-0.37273 2.30809,-0.54476 z m -17.24613,0.84582 q 0.44441,-0.86016 1.72031,-0.86016 0.40141,0 0.88883,0.086 1.06086,0.18637 2.09305,0.5591 1.04652,0.3584 1.96402,0.97484 0.9175,0.60211 1.24723,1.31891 0.17203,0.3584 0.17203,0.70246 0,0.7168 -0.65946,1.34758 -0.64511,0.61645 -1.50527,0.94617 -0.86016,0.32973 -1.59129,0.32973 -0.11469,0 -0.21504,-0.0143 -0.50176,-0.043 -0.93183,-0.30106 -0.41575,-0.25804 -1.08954,-0.9175 -1.60562,-1.57695 -2.09304,-2.9532 -0.086,-0.22937 -0.086,-0.63078 0,-0.30106 0,-0.37273 0.0143,-0.0717 0.086,-0.21504 z m 12.38625,10.46523 q 0.21504,-0.43008 0.48742,-0.68812 0.27238,-0.27239 0.73113,-0.27239 0.48742,0 0.83149,0.37274 0.34406,0.3584 0.34406,0.87449 0,0.25805 -0.0573,0.67379 -0.043,0.41574 -0.043,0.7598 0,0.0573 0,0.11469 0.0143,0.61645 0.0287,0.63078 0.043,0.043 0.32973,0.043 0.45875,0 0.80281,-0.086 0.87449,-0.24372 1.33324,-1.00352 v -1.00352 l -0.14336,-0.41574 q -0.14336,-0.43008 -0.14336,-0.60211 0,-0.14336 0.10035,-0.28672 0.1577,-0.24371 0.32973,-0.32972 0.18637,-0.10036 0.54477,-0.12903 1.06086,-0.10035 1.69164,-0.54476 0.64511,-0.45875 1.03218,-1.31891 v -0.74547 q 0,-0.24371 0,-0.3584 0,-0.34406 -0.0287,-0.47308 -0.0287,-0.12903 -0.14336,-0.3584 -0.0287,-0.043 -0.17203,-0.24371 -0.14336,-0.20071 -0.30105,-0.41574 -0.1577,-0.21504 -0.30106,-0.44442 -0.12902,-0.22937 -0.14336,-0.32972 -0.0143,-0.22938 0.20071,-0.68813 0.54476,-1.18988 0.78847,-2.32242 l 0.086,-0.40141 0.0143,-1.54828 q 0,-0.70246 0,-0.97484 0,-0.61645 -0.043,-0.88883 -0.44441,-2.32242 -1.92101,-4.1861 -1.4766,-1.86367 -3.64133,-2.93886 -2.15039,-1.0752 -4.65918,-1.23289 -0.32973,-0.0143 -0.67379,-0.0143 -1.61996,0 -3.09656,0.38707 -2.0357,0.54476 -3.69867,1.72031 -1.66297,1.16121 -2.76684,2.83852 -1.13254,1.72031 -1.44793,3.77035 -0.0143,0.15769 -0.0143,0.98918 0,0.24371 0,0.58777 0,1.01785 0.0143,1.23289 0.0143,0.21504 0.0717,0.48742 0.10035,0.54477 0.22938,0.96051 0.12902,0.41574 0.24371,0.73113 0.12902,0.30106 0.4014,0.9175 0.14336,0.32973 0.14336,0.54477 0,0.21504 -0.086,0.37273 -0.0143,0.0287 -0.44442,0.60211 -0.41574,0.57344 -0.50176,0.81715 -0.0717,0.18637 -0.0717,0.81715 0,0.63078 0.0573,0.83148 0.27238,0.77415 0.97484,1.24723 0.7168,0.47309 1.74899,0.57344 0.22937,0.0143 0.31539,0.043 0.086,0.0143 0.15769,0.0573 0.086,0.043 0.20071,0.14336 0.25804,0.24371 0.25804,0.48742 0,0.18637 -0.15769,0.64512 l -0.14336,0.45875 v 0.43007 q 0,0.44442 0.0717,0.58778 0.31539,0.58777 1.13254,0.86015 0.41574,0.14336 0.9605,0.14336 0.25805,0 0.30106,-0.0573 0.043,-0.043 0.043,-0.67379 0,-0.73113 -0.043,-1.00351 -0.043,-0.18637 -0.043,-0.3584 0,-0.90316 0.78848,-1.29023 0.15769,-0.086 0.41574,-0.086 0.53043,0 0.86016,0.37273 0.32972,0.3584 0.32972,0.9175 0,0.30105 -0.043,0.68813 -0.0287,0.37273 -0.0287,0.7598 0,0.0573 0,0.11469 v 0.70246 q 0.22938,0.200696 0.88883,0.200696 0.3584,-0.0143 0.5161,-0.0573 0.17203,-0.0287 0.30105,-0.143356 l 0.0143,-0.74547 q 0,-0.0717 0,-0.12902 0,-0.43008 -0.043,-0.7598 -0.043,-0.32973 -0.043,-0.63079 0,-0.54476 0.34406,-0.9175 0.34406,-0.37273 0.87449,-0.37273 0.5161,0 0.84582,0.37273 0.34407,0.37274 0.34407,0.88883 0,0.27239 -0.0573,0.73114 -0.0573,0.44441 -0.0573,0.83148 0,0.53043 0.0287,0.65945 0.0287,0.129026 0.1577,0.186366 0.22937,0.086 0.7598,0.086 0.65945,0 0.75981,-0.186366 0.0143,-0.0287 0.0143,-0.53043 0,-0.7598 -0.0287,-1.69164 z"
            inkscape:connector-curvature="0" />
         <text
-           style="font-weight:bold;font-size:29.36000061px;font-family:Orbitron;letter-spacing:2px;word-spacing:0px;text-anchor:middle"
+           style="font-weight:bold;font-size:29.36px;font-family:Orbitron;letter-spacing:2px;word-spacing:0px;text-anchor:middle"
            word-spacing="0px"
            font-weight="bold"
            font-size="29.36px"
@@ -1283,7 +1302,7 @@ xpanded</tspan>
            transform="rotate(45)"
            id="text4499">
           <tspan
-             id="tspan1768">3.3.⠀</tspan>
+             id="tspan1768">3.4.⠀</tspan>
         </text>
       </g>
     </g>

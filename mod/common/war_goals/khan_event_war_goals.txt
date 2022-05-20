@@ -105,7 +105,11 @@ wg_independence = {
 							# }
 						}
 						if = {
-							limit = { has_modifier = "satrapy_of_horde" }
+							limit = {
+								# has_modifier = "satrapy_of_horde"
+								# any_agreement = { agreement_preset = preset_satrapy }
+								is_subject_of_khan = yes
+							}
 							country_event = { id = marauder.554 } # Rebel
 							# set_country_flag = rebelling_satrapy
 							# remove_modifier = "satrapy_of_horde"
@@ -127,7 +131,7 @@ wg_independence = {
 							NOR = {
 								is_same_empire = from
 								has_origin = "origin_khan_successor"
-								is_subject_type = war_satrapy
+								any_agreement = { agreement_preset = preset_war_satrapy }
 							}
 							CmtTriggerIsMarauder = no
 						}
@@ -306,7 +310,7 @@ wg_marauder_expansion = {
 				country_event = { id = marauder.559 } # Pre-Submit to Khan
 				set_subject_of = {
 					who = event_target:raider_khanate
-					subject_type = satrapy
+					preset = preset_satrapy
 				}
 				event_target:raider_khanate = {
 					if = { limit = { is_hostile = prev }
@@ -323,7 +327,7 @@ wg_marauder_expansion = {
 	}
 
 	on_wargoal_set = {
-		# log="[FromFrom.GetName]" not exists
+		# log="[fromfrom.GetName]" not exists
 		event_target:raider_khanate = {
 			if = {
 				limit = { is_at_war_with = from }
@@ -400,7 +404,7 @@ wg_marauder_expansion = {
 			}
 			every_subject = {
 				limit = {
-					is_subject_type = war_satrapy
+					any_agreement = { agreement_preset = preset_war_satrapy }
 					NOT = { is_at_war_with = from }
 				}
 				end_truce = from
@@ -449,7 +453,7 @@ wg_marauder_expansion = {
 				last_created_country = {
 					set_subject_of = {
 						who = event_target:raider_khanate
-						subject_type = satrapy
+						preset = preset_satrapy
 					}
 				}
 			}
@@ -527,7 +531,7 @@ wg_war_in_heaven = {
 						country_event = { id = marauder.559 } # Pre-Submit to Khan
 						set_subject_of = {
 							who = event_target:raider_khanate
-							subject_type = satrapy
+							preset = preset_satrapy
 						}
 						event_target:raider_khanate = {
 							if = { limit = { is_hostile = prev }
@@ -638,7 +642,7 @@ wg_war_in_heaven = {
 					last_created_country = {
 						set_subject_of = {
 							who = event_target:raider_khanate
-							subject_type = satrapy
+							preset = preset_satrapy
 						}
 					}
 				}
@@ -756,7 +760,7 @@ wg_great_expansion = {
 				country_event = { id = marauder.559 } # Pre-Submit to Khan
 				set_subject_of = {
 					who = event_target:raider_khanate
-					subject_type = satrapy
+					preset = preset_satrapy
 				}
 				event_target:raider_khanate = {
 					if = { limit = { is_hostile = prev }
@@ -807,7 +811,7 @@ wg_great_expansion = {
 					last_created_country = {
 						set_subject_of = {
 							who = event_target:raider_khanate
-							subject_type = satrapy
+							preset = preset_satrapy
 						}
 					}
 				}

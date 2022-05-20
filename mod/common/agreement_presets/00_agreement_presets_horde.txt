@@ -1,0 +1,167 @@
+preset_machinesmith_satrapy = {
+	icon = "GFX_diplomacy_status_is_satrapy"
+	term_data = {
+		discrete_terms = {
+			{
+				key = specialist_type
+				value = specialist_none
+			}
+			{
+				key = subject_integration
+				value = subject_can_not_be_integrated
+			}
+			{
+				key = subject_diplomacy
+				value = subject_can_do_diplomacy
+			}
+			{
+				key = subject_expand
+				value = subject_can_expand
+			}
+			{
+				key = joins_overlord_wars
+				value = joins_overlord_wars_all
+			}
+			{
+				key = joins_subject_wars
+				value = joins_subject_wars_none
+			}
+			{
+				key = naval_capacity
+				value = naval_cap_satrapy
+			}
+			{
+				key = subject_loyalty
+				value = subject_loyalty_effects
+			}
+		}
+		resource_terms = {
+			{
+				key = resource_subsidies_basic
+				value = 0
+			}
+			{
+				key = resource_subsidies_research
+				value = 0.2
+			}
+		}
+	}
+	potential = {
+		merg_is_default_empire = yes
+		has_been_declared_crisis = no
+		from = { is_country_type = awakened_marauders }
+
+	}
+}
+
+preset_fabricator_satrapy = {
+	icon = "GFX_diplomacy_status_is_satrapy"
+	term_data = {
+		discrete_terms = {
+			{
+				key = specialist_type
+				value = specialist_none
+			}
+			{
+				key = subject_integration
+				value = subject_can_not_be_integrated
+			}
+			{
+				key = subject_diplomacy
+				value = subject_can_do_diplomacy
+			}
+			{
+				key = subject_expand
+				value = subject_can_expand
+			}
+			{
+				key = joins_overlord_wars
+				value = joins_overlord_wars_all
+			}
+			{
+				key = joins_subject_wars
+				value = joins_subject_wars_none
+			}
+			{
+				key = naval_capacity
+				value = naval_cap_satrapy
+			}
+			{
+				key = subject_loyalty
+				value = subject_loyalty_effects
+			}
+		}
+		resource_terms = {
+			{
+				key = resource_subsidies_basic
+				value = 0.1
+			}
+		}
+	}
+	potential = {
+		merg_is_default_empire = yes
+		has_been_declared_crisis = no
+		from = { is_country_type = awakened_marauders }
+	}
+}
+
+# Bulwark
+preset_war_satrapy = {
+	icon = "GFX_diplomacy_status_is_satrapy"
+	term_data = {
+		discrete_terms = {
+			{
+				key = specialist_type
+				value = specialist_none
+			}
+			{
+				key = subject_integration
+				value = subject_can_not_be_integrated
+			}
+			{
+				key = subject_diplomacy
+				value = subject_can_do_diplomacy
+			}
+			{
+				key = subject_expand
+				value = subject_can_expand
+			}
+			{
+				key = joins_overlord_wars
+				value = joins_overlord_wars_all
+			}
+			{
+				key = joins_subject_wars
+				value = joins_subject_wars_all
+			}
+			{
+				key = naval_capacity
+				value = naval_cap_unmodified
+			}
+			{
+				key = subject_loyalty
+				value = subject_loyalty_effects
+			}
+		}
+		resource_terms = {
+			{
+				key = resource_subsidies_basic
+				value = 0.1
+			}
+			{
+				key = resource_subsidies_research
+				value = -0.1
+			}
+		}
+	}
+	potential = {
+		merg_is_default_empire = yes
+		has_been_declared_crisis = no
+		from = { is_country_type = awakened_marauders }
+		is_militarist = yes
+		tech_unlocked_ratio = {
+			who = from
+			ratio < 0.8
+		}
+	}
+}

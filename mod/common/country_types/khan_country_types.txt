@@ -28,7 +28,7 @@ awakened_marauders = {
 	}
 	ai = {
 		enabled = yes
-		# declare_war = yes # may lead to unintentional hostility to satrap!?
+		# declare_war = yes # May lead to unintentional hostility to satrap!?
 		min_navy_for_wars = 0
 		min_assault_armies_for_wars = 6
 		colonizer = yes
@@ -45,146 +45,146 @@ awakened_marauders = {
 			horde_interior_minister_module
 			# foreign_minister_module
 		}
+		# TODO for 3.4
+		# ship_data = {
 
-		ship_data = {
+		# 	# constructor = {
+		# 	# 	min = 4
+		# 	# 	max = 6
+		# 	# }
 
-			# constructor = {
-			# 	min = 4
-			# 	max = 6
-			# }
+		# 	# science	= {
+		# 	# 	min = 3
+		# 	# 	max = 6
+		# 	# }
 
-			# science	= {
-			# 	min = 3
-			# 	max = 6
-			# }
+		# 	# colonizer = {
+		# 	# 	min = 1
+		# 	# 	max = 3
+		# 	# }
 
-			# colonizer = {
-			# 	min = 1
-			# 	max = 3
-			# }
+		# 	marauder_cruiser = {
+		# 		fraction = {
+		# 			base = 35
+		# 		}
+		# 	}
 
-			marauder_cruiser = {
-				fraction = {
-					base = 35
-				}
-			}
+		# 	marauder_destroyer = {
+		# 		fraction = {
+		# 			base = 50
+		# 		}
+		# 	}
 
-			marauder_destroyer = {
-				fraction = {
-					base = 50
-				}
-			}
+		# 	marauder_corvette = {
+		# 		fraction = {
+		# 			base = 100
+		# 		}
+		# 	}
 
-			marauder_corvette = {
-				fraction = {
-					base = 100
-				}
-			}
+		# 	marauder_galleon = {
+		# 		min = 1
+		# 		max = 25
+		# 		fraction = {
+		# 			base = 25
+		# 		}
+		# 	}
 
-			marauder_galleon = {
-				min = 1
-				max = 25
-				fraction = {
-					base = 25
-				}
-			}
-
-		}
-
-		army_data = {
-			assault_army = {
-				fraction = {
-					factor = 10
-					modifier = {
-						factor = 0
-						OR = {
-							has_technology = tech_telepathy
-							has_technology = tech_gene_seed_purification
-							# has_authority = auth_machine_intelligence
-							# AND = {
-							# 	OR = {
-							# 		has_ethic = ethic_militarist
-							# 		has_ethic = ethic_fanatic_militarist
-							# 	}
-							# 	has_technology = tech_gene_banks
-							# }
-							# AND = {
-							# 	has_ai_personality_behaviour = slaver
-							# 	has_technology = tech_neural_implants
-							# }
-							# AND = {
-							# 	has_ai_personality_behaviour = robot_liberator
-							# 	has_technology = tech_droid_workers
-							# }
-						}
-					}
-				}
-			}
-			gene_warrior_army = {
-				fraction = {
-					factor = 75
-					modifier = {
-						factor = 0
-						NOR = {
-							has_ethic = ethic_fanatic_xenophile
-							has_technology = tech_gene_seed_purification
-						}
-					}
-				}
-			}
-			psionic_army = {
-				fraction = {
-					factor = 75
-					modifier = {
-						factor = 0
-						OR = {
-							has_authority = auth_machine_intelligence
-							NOR = {
-								has_technology = tech_telepathy
-								has_ethic = ethic_fanatic_spiritualist
-							}
-							has_technology = tech_gene_seed_purification
-						}
-					}
-				}
-			}
-			# xenomorph_army = {
-			# 	fraction = {
-			# 		factor = 75
-			# 		modifier = {
-			# 			factor = 0
-			# 			NOT = { has_ethic = ethic_fanatic_xenophobe }
-			# 		}
-			# 	}
-			# }
-			# robotic_army = {
-			# 	fraction = {
-			# 		factor = 75
-			# 		modifier = {
-			# 			factor = 0
-			# 			NOT = { has_ethic = ethic_fanatic_materialist }
-			# 		}
-			# 	}
-			# }
-			# machine_assault_2 = {
-			# 	fraction = {
-			# 		factor = 50
-			# 		modifier = {
-			# 			factor = 0
-			# 			NOT = { has_authority = auth_machine_intelligence }
-			# 		}
-			# 	}
-			# }
-			# machine_assault_3 = {
-			# 	fraction = {
-			# 		factor = 25
-			# 		modifier = {
-			# 			factor = 0
-			# 			NOT = { has_authority = auth_machine_intelligence }
-			# 		}
-			# 	}
-			# }
-		}
+		# }
+		# TODO for 3.4
+		# army_data = {
+		# 	assault_army = {
+		# 		fraction = {
+		# 			factor = 10
+		# 			modifier = {
+		# 				factor = 0
+		# 				OR = {
+		# 					has_technology = tech_telepathy
+		# 					has_technology = tech_gene_seed_purification
+		# 					# has_authority = auth_machine_intelligence
+		# 					# AND = {
+		# 					# 	OR = {
+		# 					# 		has_ethic = ethic_militarist
+		# 					# 		has_ethic = ethic_fanatic_militarist
+		# 					# 	}
+		# 					# 	has_technology = tech_gene_banks
+		# 					# }
+		# 					# AND = {
+		# 					# 	has_ai_personality_behaviour = slaver
+		# 					# 	has_technology = tech_neural_implants
+		# 					# }
+		# 					# AND = {
+		# 					# 	has_ai_personality_behaviour = robot_liberator
+		# 					# 	has_technology = tech_droid_workers
+		# 					# }
+		# 				}
+		# 			}
+		# 		}
+		# 	}
+		# 	gene_warrior_army = {
+		# 		fraction = {
+		# 			factor = 75
+		# 			modifier = {
+		# 				factor = 0
+		# 				NOR = {
+		# 					has_ethic = ethic_fanatic_xenophile
+		# 					has_technology = tech_gene_seed_purification
+		# 				}
+		# 			}
+		# 		}
+		# 	}
+		# 	psionic_army = {
+		# 		fraction = {
+		# 			factor = 75
+		# 			modifier = {
+		# 				factor = 0
+		# 				OR = {
+		# 					has_authority = auth_machine_intelligence
+		# 					NOR = {
+		# 						has_technology = tech_telepathy
+		# 						has_ethic = ethic_fanatic_spiritualist
+		# 					}
+		# 					has_technology = tech_gene_seed_purification
+		# 				}
+		# 			}
+		# 		}
+		# 	}
+		# 	# xenomorph_army = {
+		# 	# 	fraction = {
+		# 	# 		factor = 75
+		# 	# 		modifier = {
+		# 	# 			factor = 0
+		# 	# 			NOT = { has_ethic = ethic_fanatic_xenophobe }
+		# 	# 		}
+		# 	# 	}
+		# 	# }
+		# 	# robotic_army = {
+		# 	# 	fraction = {
+		# 	# 		factor = 75
+		# 	# 		modifier = {
+		# 	# 			factor = 0
+		# 	# 			NOT = { has_ethic = ethic_fanatic_materialist }
+		# 	# 		}
+		# 	# 	}
+		# 	# }
+		# 	# machine_assault_2 = {
+		# 	# 	fraction = {
+		# 	# 		factor = 50
+		# 	# 		modifier = {
+		# 	# 			factor = 0
+		# 	# 			NOT = { has_authority = auth_machine_intelligence }
+		# 	# 		}
+		# 	# 	}
+		# 	# }
+		# 	# machine_assault_3 = {
+		# 	# 	fraction = {
+		# 	# 		factor = 25
+		# 	# 		modifier = {
+		# 	# 			factor = 0
+		# 	# 			NOT = { has_authority = auth_machine_intelligence }
+		# 	# 		}
+		# 	# 	}
+		# 	# }
+		# }
 	}
 	# prior
 	# targets = {

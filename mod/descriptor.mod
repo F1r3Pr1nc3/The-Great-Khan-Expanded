@@ -1,4 +1,4 @@
-version="1.9.7"
+version="2.0.0"
 tags={
 	"Events"
 	"Crisis"
@@ -9,6 +9,6 @@ tags={
 dependencies={
 	"Marauders but Cooler"
 }
-name="The Great Khan Expanded [3.3.☠]"
-supported_version="3.3.*"
+name="The Great Khan Expanded [3.4.☠]"
+supported_version="3.4.*"
 remote_file_id="2508704523"

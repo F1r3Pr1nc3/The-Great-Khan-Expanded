@@ -828,7 +828,7 @@ utility_component_template = {
 		weight = 6
 		modifier = {
 			factor = 0
-			CmtTriggerIsPlayableEmpire = yes
+			merg_is_default_empire = yes
 			has_monthly_income = {
 				resource = sr_dark_matter
 				value < 1

@@ -12,10 +12,5 @@ marauder_defense_army = {
 	war_exhaustion = 0
 	icon = GFX_army_type_defensive
 	has_species = no
-	potential = {
-		exists = owner
-		owner = {
-			CmtTriggerIsMarauder = yes
-		}
-	}
+	potential_country = { CmtTriggerIsMarauder = yes }
 }
