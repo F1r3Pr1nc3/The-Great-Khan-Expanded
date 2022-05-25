@@ -135,6 +135,14 @@ planet_event = {
 					size = starbase_outpost
 					owner = root.owner
 				}
+				if = {
+					limit = { root.owner = { is_specialist_subject_type = { TYPE = bulwark } } }
+					starbase = {
+						add_starbase_component = {
+							component = "STARBASE_AURA_BULWARK_ARRAY"
+						}
+					}
+				}
 			}
 		}
 	}

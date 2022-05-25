@@ -128,6 +128,10 @@ starbase_marauder = {
 	}
 	icon_frame = -1
 	icon = ship_size_military_station
-	potential_construction = { always = no }
-	possible_construction = { always = no }
+	potential_construction = {
+		is_scope_type = planet
+		is_primary_star = yes
+		NOT = { exists = orbital_defence }
+	}
+	# possible_construction = { always = no }
 }

@@ -72,6 +72,6 @@
  war_goal_wg_ae_uprising_desc: "发动战争是为了确保我们独立于银河帝国"
  war_goal_wg_great_expansion: "$war_goal_wg_path_destruction$"
  war_goal_wg_great_expansion_desc: "$war_goal_wg_path_destruction_desc$"
- war_goal_wg_marauder_expansion: "大扩张"
+ war_goal_wg_marauder_expansion: "$NAME_Expansion$"
  war_goal_wg_marauder_expansion_desc: "$war_goal_wg_subjugation_desc$"
  war_goal_wg_marauder_uprising: "大起义"

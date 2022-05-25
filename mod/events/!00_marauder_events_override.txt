@@ -3401,7 +3401,7 @@ planet_event = {
 	trigger = {
 		planet_devastation > 15
 		from = { is_country_type = marauder_raiders }
-		owner = { CmtTriggerIsEmpire = yes }
+		owner = { merg_is_standard_empire = yes }
 		NOT = { has_planet_flag = planet_raided }
 	}
 	immediate = {
@@ -3438,7 +3438,7 @@ planet_event = {
 						exists = controller
 						NOT = { is_controlled_by = owner }
 						controller = {
-							CmtTriggerIsEmpire = yes
+							merg_is_standard_empire = yes
 							NOT = { has_country_flag = under_marauder_attack }
 							# OR = {
 							# 	has_relation_flag = { who = event_target:marauder_country flag = hired_fleet }
@@ -3475,7 +3475,7 @@ planet_event = {
 					exists = controller
 					NOT = { is_controlled_by = owner }
 					controller = {
-						CmtTriggerIsEmpire = yes
+						merg_is_standard_empire = yes
 						OR = {
 							has_relation_flag = { who = event_target:marauder_country flag = hired_fleet }
 							is_friendly_to = from
@@ -3512,7 +3512,7 @@ planet_event = {
 							exists = controller
 							NOT = { is_controlled_by = owner }
 							controller = {
-								CmtTriggerIsEmpire = yes
+								merg_is_standard_empire = yes
 								NOT = { has_country_flag = under_marauder_attack }
 								OR = {
 									is_friendly_to = from
@@ -3525,7 +3525,7 @@ planet_event = {
 				# log="Save New Marauder Raid Target Victim"
 				random_country = {
 					limit = {
-						CmtTriggerIsEmpire = yes
+						merg_is_standard_empire = yes
 						has_country_flag = under_marauder_attack
 						has_country_flag = raid_target_of@event_target:marauder_country
 						has_relation_flag = { who = event_target:marauder_country flag = current_hired_target }
@@ -6261,7 +6261,7 @@ planet_event = {
 		exists = event_target:raider_khanate
 		exists = from
 		exists = owner
-		# owner = { CmtTriggerIsEmpire = yes }
+		# owner = { merg_is_standard_empire = yes }
 		# count_planet_army = { count = 0 }
 		NOT = { any_planet_army = { always = yes } }
 		OR = {

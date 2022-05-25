@@ -72,6 +72,6 @@
  war_goal_wg_ae_uprising_desc: "Es wird Krieg geführt, um unsere Unabhängigkeit gegen die großen Imperien der Galaxis zu sichern."
  war_goal_wg_great_expansion: "$war_goal_wg_path_destruction$"
  war_goal_wg_great_expansion_desc: "$war_goal_wg_path_destruction_desc$"
- war_goal_wg_marauder_expansion: "Die Große Expansion"
+ war_goal_wg_marauder_expansion: "$NAME_Expansion$"
  war_goal_wg_marauder_expansion_desc: "$war_goal_wg_subjugation_desc$"
  war_goal_wg_marauder_uprising: "Der Große Aufstand"

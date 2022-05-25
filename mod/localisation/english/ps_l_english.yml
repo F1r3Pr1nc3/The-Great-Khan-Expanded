@@ -73,8 +73,8 @@
  ####################################
  # Modifiers
  ####################################
- tech_pirate_ships:0 "Pirate technologies"
- tech_pirate_ships_desc:0 "We can carefully disassemble the pirate warships."
+ # tech_pirate_ships:0 "Pirate technologies"
+ # tech_pirate_ships_desc:0 "We can carefully disassemble the pirate warships."
 
  ####################################
  # Dynamic Modifiers
@@ -144,7 +144,7 @@
  PIRATE_DESTROYER_MID_M1S4:1 "Mary Rose"
  PIRATE_DESTROYER_MID_M1S2P2:1 "Blessed William"
  PIRATE_DESTROYER_MID_T1S4:0 "Clipper Ariel"
- PIRATE_DESTROYER_MID_M1S2P2:0 "Carroll A. Deering"
+ # PIRATE_DESTROYER_MID_M1S2P2:0 "Carroll A. Deering"
  PIRATE_DESTROYER_MID_T1S2P2:1 "Endeavour"
  PIRATE_DESTROYER_MID_M1T1S2:1 "Clipper Great Republic"
  PIRATE_DESTROYER_MID_M2S2:1 "Black Pearl"
@@ -301,7 +301,7 @@
  # Species Specific Engineering
  # ###################################
 
- # #################################Pirate technology part #########################################
+ # ################################# Pirate technology part #########################################
 
  tech_pirate_ships: "Disassemble Pirate ships"
  tech_pirate_ships_desc: "After decades of engineering experience, we now have the capability to disassemble Pirate-class military vessels."

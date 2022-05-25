@@ -1171,7 +1171,7 @@ country_event = {
 	}
 	# Non-Aligned League
 	option = {
-		name = pick_indep # war_in_heaven.4.c "We will not take sides in this conflict."
+		name = "marauder.554.a" # war_in_heaven.4.c "We will not take sides in this conflict."
 		trigger = {
 			is_subject = no
 		}
