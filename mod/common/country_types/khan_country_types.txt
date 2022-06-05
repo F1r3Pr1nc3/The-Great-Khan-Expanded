@@ -28,7 +28,7 @@ awakened_marauders = {
 	}
 	ai = {
 		enabled = yes
-		# declare_war = yes # May lead to unintentional hostility to satrap!?
+		declare_war = yes # May lead to unintentional hostility to satrap!?
 		min_navy_for_wars = 0
 		min_assault_armies_for_wars = 6
 		colonizer = yes
@@ -202,26 +202,26 @@ awakened_marauders = {
 		exclusive_diplomacy_module = {
 			contact_rule = always
 			# Maybe lead to unintentional hostility to satrap!?
-			# can_receive = {
-			# 	action_declare_war
-			# 	action_offer_peace
-			# 	action_make_rival
-			# 	action_end_rivalry
-			# 	action_offer_trade_deal
-			# 	action_cancel_trade_deal
-			# 	action_insult
-			# }
-			# can_send = {
-			# 	action_declare_war
-			# 	action_offer_peace
-			# 	action_make_rival
-			# 	action_end_rivalry
-			# 	action_offer_trade_deal
-			# 	action_cancel_trade_deal
-			# 	# action_open_borders
-			# 	# action_close_borders
-			# 	action_insult
-			# }
+			can_receive = {
+				action_declare_war
+				action_offer_peace
+				action_make_rival
+				action_end_rivalry
+				action_offer_trade_deal
+				action_cancel_trade_deal
+				action_insult
+			}
+			can_send = {
+				action_declare_war
+				action_offer_peace
+				action_make_rival
+				action_end_rivalry
+				action_offer_trade_deal
+				action_cancel_trade_deal
+				# action_open_borders
+				# action_close_borders
+				action_insult
+			}
 		}
 		standard_expansion_module = {}
 	}

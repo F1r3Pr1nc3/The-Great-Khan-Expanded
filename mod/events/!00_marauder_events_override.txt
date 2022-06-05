@@ -158,9 +158,10 @@ country_event = {
 					fromfrom.solar_system = {
 						save_event_target_as = attacked_system
 						random_system_planet = {
-							limit = { is_a_planet = yes }
+							limit = { is_star = no }
 							weights = {
 								base = 1
+								modifier = { add = 1 is_a_planet = yes } # somehow this trigger is not consistent
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 							}
@@ -192,9 +193,10 @@ country_event = {
 							modifier = { add = 3 has_star_flag = marauder_capital_1 }
 						}
 						random_system_planet = {
-							limit = { is_a_planet = yes }
+							limit = { is_star = no }
 							weights = {
 								base = 1
+								modifier = { add = 1 is_a_planet = yes } # somehow this trigger is not consistent
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 							}
@@ -225,9 +227,10 @@ country_event = {
 							modifier = { add = 3 has_star_flag = marauder_capital_2 }
 						}
 						random_system_planet = {
-							limit = { is_a_planet = yes }
+							limit = { is_star = no }
 							weights = {
 								base = 1
+								modifier = { add = 1 is_a_planet = yes } # somehow this trigger is not consistent
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 							}
@@ -258,9 +261,10 @@ country_event = {
 							modifier = { add = 3 has_star_flag = marauder_capital_3 }
 						}
 						random_system_planet = {
-							limit = { is_a_planet = yes }
+							limit = { is_star = no }
 							weights = {
 								base = 1
+								modifier = { add = 1 is_a_planet = yes } # somehow this trigger is not consistent
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 							}
@@ -2320,21 +2324,21 @@ country_event = {
 					save_global_event_target_as = marauder_country_1
 					if = {
 						limit = { NOT = { exists = event_target:CmtTargetMarauderRallyPoint1 } }
-						country_event = { id = marauder.499 }
+						country_event = { id = marauder.499 days = -1 }
 					}
 				}
 				marauder_2 = {
 					save_global_event_target_as = marauder_country_2
 					if = {
 						limit = { NOT = { exists = event_target:CmtTargetMarauderRallyPoint2 } }
-						country_event = { id = marauder.499 }
+						country_event = { id = marauder.499 days = -1 }
 					}
 				}
 				marauder_3 = {
 					save_global_event_target_as = marauder_country_3
 					if = {
 						limit = { NOT = { exists = event_target:CmtTargetMarauderRallyPoint3 } }
-						country_event = { id = marauder.499 }
+						country_event = { id = marauder.499 days = -1 }
 					}
 				}
 			}
@@ -2387,21 +2391,21 @@ country_event = {
 						save_global_event_target_as = marauder_country_1
 						if = {
 							limit = { NOT = { exists = event_target:CmtTargetMarauderRallyPoint1 } }
-							country_event = { id = marauder.499 }
+							country_event = { id = marauder.499 days = -1 }
 						}
 					}
 					marauder_2 = {
 						save_global_event_target_as = marauder_country_2
 						if = {
 							limit = { NOT = { exists = event_target:CmtTargetMarauderRallyPoint2 } }
-							country_event = { id = marauder.499 }
+							country_event = { id = marauder.499 days = -1 }
 						}
 					}
 					marauder_3 = {
 						save_global_event_target_as = marauder_country_3
 						if = {
 							limit = { NOT = { exists = event_target:CmtTargetMarauderRallyPoint3 } }
-							country_event = { id = marauder.499 }
+							country_event = { id = marauder.499 days = -1 }
 						}
 					}
 				}
@@ -2684,7 +2688,7 @@ country_event = {
 				}
 				# delete_fleet = { target = this destroy_template = yes }
 				set_owner = event_target:raider_khanate
-				fleet_event = { id = khan.611 }
+				fleet_event = { id = khan.611 days = -1 }
 			}
 
 			every_owned_leader = {
@@ -2726,7 +2730,7 @@ country_event = {
 				}
 				# delete_fleet = { target = this destroy_template = yes }
 				set_owner = event_target:raider_khanate
-				fleet_event = { id = khan.611 }
+				fleet_event = { id = khan.611 days = -1 }
 			}
 			every_owned_leader = {
 				limit = { has_leader_flag = hired_merc_leader_2 }
@@ -2767,7 +2771,7 @@ country_event = {
 				}
 				# delete_fleet = { target = this destroy_template = yes }
 				set_owner = event_target:raider_khanate
-				fleet_event = { id = khan.611 }
+				fleet_event = { id = khan.611 days = -1 }
 			}
 			every_owned_leader = {
 				limit = { has_leader_flag = hired_merc_leader_3 }
@@ -4112,9 +4116,10 @@ country_event = {
 							}
 						} else = {	## Backup Code: raid_source NOT Found in Capital System
 							random_system_planet = {
-								limit = { is_planet = this }
+								limit = { is_star = no }
 								weights = {
 									base = 1
+									modifier = { add = 1 is_a_planet = yes } # somehow this trigger is not consistent
 									modifier = { add = 2 is_colony = yes }
 									modifier = { add = 1 is_colonizable = yes }
 								}
@@ -4125,7 +4130,7 @@ country_event = {
 					}
 				} else = {	## Backup Code: Capital System NOT Found
 					random_planet_within_border = {
-						limit = { is_planet = this }
+						limit = { is_star = no }
 						weights = {
 							base = 1
 							modifier = { add = 2 is_colony = yes }
@@ -4173,9 +4178,10 @@ country_event = {
 							}
 						} else = {	## Backup Code: raid_source NOT found in Capital System
 							random_system_planet = {
-								limit = { is_planet = this }
+								limit = { is_star = no }
 								weights = {
 									base = 1
+									modifier = { add = 1 is_a_planet = yes } # somehow this trigger is not consistent
 									modifier = { add = 2 is_colony = yes }
 									modifier = { add = 1 is_colonizable = yes }
 								}
@@ -4187,7 +4193,7 @@ country_event = {
 				} else = {
 					## Backup Code: Capital System NOT Found
 					random_planet_within_border = {
-						limit = { is_planet = this }
+						limit = { is_star = no }
 						weights = {
 							base = 1
 							modifier = { add = 2 is_colony = yes }
@@ -4235,9 +4241,10 @@ country_event = {
 							}
 						} else = {	## Backup Code: raid_source NOT Found in Capital System
 							random_system_planet = {
-								limit = { is_planet = this }
+								limit = { is_star = no }
 								weights = {
 									base = 1
+									modifier = { add = 1 is_a_planet = yes } # somehow this trigger is not consistent
 									modifier = { add = 2 is_colony = yes }
 									modifier = { add = 1 is_colonizable = yes }
 								}
@@ -4248,7 +4255,7 @@ country_event = {
 					}
 				} else = {	## Backup Code: Capital System NOT Found
 					random_planet_within_border = {
-						limit = { is_planet = this }
+						limit = { is_star = no }
 						weights = {
 							base = 1
 							modifier = { add = 2 is_colony = yes }
@@ -4379,7 +4386,7 @@ country_event = {
 			}
 		}
 		# Create global Rally Point event_targets.
-		country_event = { id = marauder.499 }
+		country_event = { id = marauder.499 days = -1 } # TODO may effect?
 
 		### Rally Point of Fleets 2/3: Set Event Targets, Flags
 		if = {
@@ -4438,7 +4445,7 @@ country_event = {
 					is_country_type = dormant_marauders
 					NOT = { is_same_empire = root }
 				}
-				country_event = { id = marauder.609 } # Fully handover
+				country_event = { id = marauder.609 days = -1 } # Fully handover
 				destroy_country = yes
 			}
 		}
@@ -4464,7 +4471,8 @@ country_event = {
 		if = {
 			limit = { NOT = { exists = event_target:marauder_rally_point } }
 			random_planet_within_border = {
-				limit = { is_a_planet = yes }
+				limit = { is_star = no }
+				weights = { base = 2 modifier = { add = 2 is_a_planet = yes } } # somehow this trigger is not consistent
 				save_global_event_target_as = marauder_rally_point
 				set_planet_flag = marauder_rally_point
 				log = "Backup Code for marauder_rally_point Processed"
@@ -4642,7 +4650,6 @@ country_event = {
 				# add_ruler_trait = leader_trait_ruler_chosen
 				# add_trait = leader_trait_eager
 				add_skill = 2
-
 			}
 		}
 
@@ -4727,11 +4734,11 @@ country_event = {
 					trait = leader_trait_admiral_chosen
 					# trait = leader_trait_eager
 				}
-				# effect = {
-				# 	set_leader_flag = great_khan
-				# 	save_global_event_target_as = great_khan
-				# 	recruitable = no
-				# }
+				effect = {
+					set_leader_flag = great_khan
+					save_global_event_target_as = great_khan
+					recruitable = no
+				}
 			}
 		} else_if = { ### NSC SUPPORT
 			limit = { has_global_flag = has_nsc_active }
@@ -4753,11 +4760,11 @@ country_event = {
 					trait = leader_trait_fleet_organizer
 					# trait = leader_trait_eager
 				}
-				# effect = {
-				# 	set_leader_flag = great_khan
-				# 	save_global_event_target_as = great_khan
-				# 	recruitable = no
-				# }
+				effect = {
+					set_leader_flag = great_khan
+					save_global_event_target_as = great_khan
+					recruitable = no
+				}
 			}
 		}
 		last_created_leader = {
@@ -5295,7 +5302,7 @@ country_event = {
 					}
 					NOT = { is_within_borders_of = root.owner }
 				}
-				fleet_event = { id = khan.611 }
+				fleet_event = { id = khan.611 days = -1 }
 			}
 		} else = { # Khan dies (former .509)
 			set_global_flag = great_khan_dead
@@ -5589,7 +5596,7 @@ country_event = {
 					capital_scope = { origin_nsc_freebooter_start_setup = yes }
 				}
 
-				country_event = { id = marauder.609 } # Fully handover?
+				country_event = { id = marauder.609 days = -1 } # Fully handover?
 				# set_country_type = dormant_marauders
 				destroy_country = yes
 			}
@@ -6303,7 +6310,7 @@ planet_event = {
 			}
 			## Complete takeover
 			from = { save_event_target_as = new_khanate }
-			owner = { country_event = { id = marauder.609 } } # Fully handover
+			owner = { country_event = { id = marauder.609 days = -1 } } # Fully handover
 			from = {
 				country_event = {
 					id = marauder.503
@@ -7805,7 +7812,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		country_event = { id = khan.303 } # Get marauder_species
+		country_event = { id = khan.303 days = -1 } # Get marauder_species
 		create_country = {
 			name_list = random
 			species = event_target:marauder_species
@@ -7854,7 +7861,7 @@ country_event = {
 		}
 		# last_created_country = {}
 		clear_global_event_target = marauder_precursor
-		country_event = { id = marauder.609 } # Fully handover
+		country_event = { id = marauder.609 days = -1 } # Fully handover
 		every_subject = {
 			set_subject_of = { who = none }
 			# if = {
@@ -7889,7 +7896,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		country_event = { id = khan.303 } # Get marauder_species
+		country_event = { id = khan.303 days = -1 } # Get marauder_species
 		create_country = {
 			name_list = random
 			name = random
@@ -7961,7 +7968,7 @@ country_event = {
 		# }
 
 		observer_event = { id = observer.23 }
-		country_event = { id = marauder.609 } # Fully handover
+		country_event = { id = marauder.609 days = -1 } # Fully handover
 		if = { limit = { is_ai = yes }
 			destroy_country = yes
 		} else = {
@@ -8081,7 +8088,7 @@ country_event = {
 						limit = { NOT = { is_ship_class = shipclass_transport } }
 						assign_leader = leader
 					}
-					# fleet_event = { id = khan.611 }
+					# fleet_event = { id = khan.611 days = -1 }
 				}
 			}
 		}
@@ -8132,7 +8139,7 @@ country_event = {
 # From marauder.602 and marauder.603
 # This = be destroyed country
 country_event = {
-	id = marauder.609
+	id = marauder.609 days = -1
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
@@ -8198,7 +8205,7 @@ country_event = {
 					limit = { NOT = { is_ship_class = shipclass_transport } }
 					assign_leader = leader
 				}
-				fleet_event = { id = khan.611 }
+				fleet_event = { id = khan.611 days = -1 }
 			}
 			every_controlled_fleet = {
 				limit = {
@@ -8246,7 +8253,7 @@ country_event = {
 					limit = { NOT = { is_ship_class = shipclass_transport } }
 					assign_leader = leader
 				}
-				fleet_event = { id = khan.611 }
+				fleet_event = { id = khan.611 days = -1 }
 			}
 		}
 

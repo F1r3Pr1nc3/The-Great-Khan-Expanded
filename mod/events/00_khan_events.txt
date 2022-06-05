@@ -95,7 +95,7 @@ country_event = {
 				}
 			}
 			prev = { save_event_target_as = new_khanate }
-			country_event = { id = marauder.609 }
+			country_event = { id = marauder.609 days = -1 }
 			destroy_country = yes
 		}
 		every_subject = {
@@ -1648,7 +1648,7 @@ country_event = {
 					set_country_flag = CmtFlagHiringMarauder3
 				} root = { set_country_flag = marauder_3 } }
 			}
-			country_event = { id = marauder.609 }
+			country_event = { id = marauder.609 days = -1 }
 			destroy_country = yes
 		}
 		every_playable_country = {
@@ -2542,7 +2542,7 @@ country_event = {
 			random_system_within_border = {
 				limit = {
 					exists = starbase
-					any_system_planet = { is_a_planet = yes }
+					any_system_planet = { is_star = no }
 				}
 				weights = {
 					base = 1
@@ -2560,9 +2560,10 @@ country_event = {
 					modifier = { add = 1 is_capital_system = yes }
 				}
 				random_system_planet = {
-					limit = { is_a_planet = yes }
+					limit = { is_star = no }
 					weights = {
 						base = 1
+						modifier = { add = 1 is_a_planet = yes } # somehow this trigger is not consistent
 						modifier = { add = 2 has_planet_flag = raid_source }
 						modifier = { add = 2 is_colony = yes }
 						modifier = { add = 3 is_capital = yes }
