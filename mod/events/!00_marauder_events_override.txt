@@ -161,7 +161,7 @@ country_event = {
 							limit = { is_star = no }
 							weights = {
 								base = 1
-								modifier = { add = 1 is_a_planet = yes } # somehow this trigger is not consistent
+								modifier = { add = 1 is_a_planet = yes } # possible inconsisent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 							}
@@ -196,7 +196,7 @@ country_event = {
 							limit = { is_star = no }
 							weights = {
 								base = 1
-								modifier = { add = 1 is_a_planet = yes } # somehow this trigger is not consistent
+								modifier = { add = 1 is_a_planet = yes } # possible inconsisent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 							}
@@ -230,7 +230,7 @@ country_event = {
 							limit = { is_star = no }
 							weights = {
 								base = 1
-								modifier = { add = 1 is_a_planet = yes } # somehow this trigger is not consistent
+								modifier = { add = 1 is_a_planet = yes } # possible inconsisent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 							}
@@ -264,7 +264,7 @@ country_event = {
 							limit = { is_star = no }
 							weights = {
 								base = 1
-								modifier = { add = 1 is_a_planet = yes } # somehow this trigger is not consistent
+								modifier = { add = 1 is_a_planet = yes } # possible inconsisent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 							}
@@ -616,7 +616,7 @@ country_event = {
 									is_owned_by = from
 								}
 							}
-							is_a_planet = yes
+							is_star = no # is_a_planet = yes
 						}
 						found_planet = {
 							move_to = this
@@ -3646,7 +3646,7 @@ planet_event = {
 					# log="No new Marauder Raid Target found, return home"
 					event_target:raiding_fleet = {
 						set_event_locked = no
-						fleet_event = { id = marauder.110 days = 7 }
+						fleet_event = { id = marauder.110 days = 7 scopes = { from = event_target:raid_victim } }
 					}
 				}
 				set_timed_planet_flag = { flag = planet_raided days = 9 }
@@ -3657,7 +3657,7 @@ planet_event = {
 		set_timed_planet_flag = { flag = planet_raided months = 20 }
 		event_target:raiding_fleet = { # Return home
 			set_event_locked = no
-			fleet_event = { id = marauder.110 days = 20 }
+			fleet_event = { id = marauder.110 days = 20 scopes = { from = event_target:raid_victim } }
 		}
 
 		owner = { save_event_target_as = raid_victim }
@@ -4119,7 +4119,7 @@ country_event = {
 								limit = { is_star = no }
 								weights = {
 									base = 1
-									modifier = { add = 1 is_a_planet = yes } # somehow this trigger is not consistent
+									modifier = { add = 1 is_a_planet = yes } # possible inconsisent due other mods
 									modifier = { add = 2 is_colony = yes }
 									modifier = { add = 1 is_colonizable = yes }
 								}
@@ -4181,7 +4181,7 @@ country_event = {
 								limit = { is_star = no }
 								weights = {
 									base = 1
-									modifier = { add = 1 is_a_planet = yes } # somehow this trigger is not consistent
+									modifier = { add = 1 is_a_planet = yes } # possible inconsisent due other mods
 									modifier = { add = 2 is_colony = yes }
 									modifier = { add = 1 is_colonizable = yes }
 								}
@@ -4244,7 +4244,7 @@ country_event = {
 								limit = { is_star = no }
 								weights = {
 									base = 1
-									modifier = { add = 1 is_a_planet = yes } # somehow this trigger is not consistent
+									modifier = { add = 1 is_a_planet = yes } # possible inconsisent due other mods
 									modifier = { add = 2 is_colony = yes }
 									modifier = { add = 1 is_colonizable = yes }
 								}
@@ -4472,10 +4472,10 @@ country_event = {
 			limit = { NOT = { exists = event_target:marauder_rally_point } }
 			random_planet_within_border = {
 				limit = { is_star = no }
-				weights = { base = 2 modifier = { add = 2 is_a_planet = yes } } # somehow this trigger is not consistent
+				weights = { base = 1 modifier = { add = 2 is_a_planet = yes } } # possible inconsisent due other mods
 				save_global_event_target_as = marauder_rally_point
 				set_planet_flag = marauder_rally_point
-				log = "Backup Code for marauder_rally_point Processed"
+				log = "Backup Code for marauder_rally_point Processed on \\[This.GetName] at \\[This.System.GetName]"
 			}
 		}
 
@@ -4721,7 +4721,7 @@ country_event = {
 				root = { set_variable = { which = CmtVarKhanRemainingLive value = prev.CmtVarKhanResurgence } }
 			}
 		}
-
+		# log="Set Admiral Khan"
 		### Admiral Khan
 		if = { limit = { is_ai = yes }
 			clone_leader = {
@@ -4814,6 +4814,7 @@ country_event = {
 			country_event = { id = marauder.78 days = 20 }
 			### Should not attack: the Khan is not that bad!
 			make_moderately_hostile = yes
+			set_country_flag = use_default_ships
 		}
 
 		### Notifications
@@ -6132,7 +6133,9 @@ country_event = {
 			change_variable = { which = CmtVarHalfMidgame value = event_target:CmtGlobalVar.CmtVarKhanEarliestMgpy }
 			divide_variable = { which = CmtVarHalfMidgame value = 2 }
 		}
-		divide_variable = { which = CmtVarKhanProbability value = CmtVarHalfMidgame }
+		if = { limit = { check_variable = { which = CmtVarHalfMidgame value > 0 } }
+			divide_variable = { which = CmtVarKhanProbability value = CmtVarHalfMidgame }
+		}
 		subtract_variable = { which = CmtVarKhanProbability value = 1 }
 
 		random_list = {
@@ -7360,11 +7363,14 @@ fleet_event = {
 			# 		}
 			# 	}
 			fleet_event = { id = marauder.560 days = 600 random = 300 }
-
+			#
 			event_target:satrapy_empire = {
 				set_variable = { which = "satrapy_fleet_power" value = trigger:fleet_power }
+				# Get normal possible capacity (divide by 0 cause crash)
+				if = { limit = { check_variable_arithmetic = { which = trigger:used_naval_capacity_percent value > 0 } }
+					divide_variable = { which = "satrapy_fleet_power" value = trigger:used_naval_capacity_percent }
+				} else = { multiply_variable = { which = "satrapy_fleet_power" value = 11 } }
 				divide_variable = { which = "satrapy_fleet_power" value = 26000 }
-				divide_variable = { which = "satrapy_fleet_power" value = trigger:used_naval_capacity_percent }
 				round_variable = "satrapy_fleet_power"
 				if = { limit = { check_variable = { which = "satrapy_fleet_power" value < 3 } }
 					set_variable = { which = "satrapy_fleet_power" value = 3 }
