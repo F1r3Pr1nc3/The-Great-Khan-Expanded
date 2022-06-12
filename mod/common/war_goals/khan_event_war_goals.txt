@@ -308,10 +308,7 @@ wg_marauder_expansion = {
 			from = {
 				# country_event = { id = marauder.550 } # Submit to Khan
 				country_event = { id = marauder.559 } # Pre-Submit to Khan
-				set_subject_of = {
-					who = event_target:raider_khanate
-					preset = preset_satrapy
-				}
+				set_subject_of = { who = event_target:raider_khanate preset = preset_satrap }
 				event_target:raider_khanate = {
 					if = { limit = { is_hostile = prev }
 						set_faction_hostility = {
@@ -404,6 +401,7 @@ wg_marauder_expansion = {
 			}
 			every_subject = {
 				limit = {
+					merg_is_standard_empire = yes
 					any_agreement = { agreement_preset = preset_war_satrapy }
 					NOT = { is_at_war_with = from }
 				}
@@ -451,10 +449,7 @@ wg_marauder_expansion = {
 					last_created_country = { has_country_flag = released_empire }
 				}
 				last_created_country = {
-					set_subject_of = {
-						who = event_target:raider_khanate
-						preset = preset_satrapy
-					}
+					set_subject_of = { who = event_target:raider_khanate preset = preset_satrap }
 				}
 			}
 		}
@@ -529,10 +524,7 @@ wg_war_in_heaven = {
 						limit = { has_been_declared_crisis = no }
 						# country_event = { id = marauder.550 } # Submit to Khan
 						country_event = { id = marauder.559 } # Pre-Submit to Khan
-						set_subject_of = {
-							who = event_target:raider_khanate
-							preset = preset_satrapy
-						}
+						set_subject_of = { who = event_target:raider_khanate preset = preset_satrap }
 						event_target:raider_khanate = {
 							if = { limit = { is_hostile = prev }
 								set_faction_hostility = {
@@ -640,10 +632,7 @@ wg_war_in_heaven = {
 						last_created_country = { has_country_flag = released_empire }
 					}
 					last_created_country = {
-						set_subject_of = {
-							who = event_target:raider_khanate
-							preset = preset_satrapy
-						}
+						set_subject_of = { who = event_target:raider_khanate preset = preset_satrap }
 					}
 				}
 				every_war = { # End War in Heaven
@@ -758,10 +747,7 @@ wg_great_expansion = {
 			from = {
 				# country_event = { id = marauder.550 } # Submit to Khan
 				country_event = { id = marauder.559 } # Pre-Submit to Khan
-				set_subject_of = {
-					who = event_target:raider_khanate
-					preset = preset_satrapy
-				}
+				set_subject_of = { who = event_target:raider_khanate preset = preset_satrap }
 				event_target:raider_khanate = {
 					if = { limit = { is_hostile = prev }
 						set_faction_hostility = {
@@ -809,10 +795,7 @@ wg_great_expansion = {
 						last_created_country = { has_country_flag = released_empire }
 					}
 					last_created_country = {
-						set_subject_of = {
-							who = event_target:raider_khanate
-							preset = preset_satrapy
-						}
+						set_subject_of = { who = event_target:raider_khanate preset = preset_satrap }
 					}
 				}
 			}

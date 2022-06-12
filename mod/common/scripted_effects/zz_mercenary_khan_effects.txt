@@ -641,3 +641,91 @@ create_fourth_diadochi = {
 		}
 	}
 }
+
+
+# This = Marauder
+get_marauder_species = {
+	if = {
+		limit = { exists = owner_species }
+		owner_species = { save_event_target_as = marauder_species }
+	}
+	if = {
+		limit = {
+			OR = {
+				NOT = { exists = event_target:marauder_species }
+				event_target:marauder_species = {
+					OR = {
+						species_can_be_necrophaged = no							# Implies is_robotic
+						is_archetype = LITHOID
+						is_archetype = PRESAPIENT
+					}
+				}
+			}
+		}
+		random_owned_pop_species = {
+			limit = {
+				species_can_be_necrophaged = yes
+				NOR = {
+					is_archetype = LITHOID
+					is_archetype = PRESAPIENT
+				}
+			}
+			weights = {
+				base = 1
+				modifier = {
+					add = 1
+					prev = {
+						count_owned_pop = {
+							count > 5
+							limit = { is_same_species = prevprev }
+						}
+					}
+				}
+				modifier = {
+					add = 2
+					prev = {
+						count_owned_pop = {
+							count > 10
+							limit = { is_same_species = prevprev }
+						}
+					}
+				}
+				modifier = {
+					add = 3
+					prev = {
+						count_owned_pop = {
+							count > 17
+							limit = { is_same_species = prevprev }
+						}
+					}
+				}
+				# modifier = { add = 3 is_same_species = root.owner_species }
+				modifier = {
+					add = 2
+					prev = {
+						capital_scope = {
+							habitability = {
+								who = prev
+								value > 0.6
+							}
+						}
+					}
+				}
+				modifier = {
+					add = 4
+					root = {
+						any_owned_planet = {
+							is_homeworld = yes
+							is_same_value = prevprev.home_planet
+						}
+					}
+				}
+			}
+			save_event_target_as = marauder_species
+			root = {
+				change_dominant_species = { species = prev }
+				set_built_species = prev
+			}
+		}
+	}
+}

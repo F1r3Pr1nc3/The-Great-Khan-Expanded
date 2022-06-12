@@ -100,6 +100,7 @@ country_event = {
 		}
 		every_subject = {
 			limit = {
+				merg_is_standard_empire = yes
 				is_ai = yes
 				NOR = {
 					has_country_flag = war_in_heaven_league_leader_declined
@@ -478,6 +479,7 @@ country_event = {
 				hidden_effect = {
 					every_subject = {
 						limit = {
+							merg_is_standard_empire = yes
 							NOR = {
 								has_country_flag = rebelling_satrapy
 								# is_at_war = yes
@@ -660,7 +662,10 @@ country_event = {
 			}
 
 			every_subject = {
-				limit = { is_subject_of_khan = yes }
+				limit = {
+					merg_is_standard_empire = yes
+					is_subject_of_khan = yes
+				}
 				set_subject_of = { who = prev preset = preset_tributary }
 				# if = { limit = { has_modifier = "satrapy_of_horde" }
 				# 	remove_modifier = "satrapy_of_horde"
@@ -685,6 +690,7 @@ country_event = {
 			remove_country_flag = ai_no_wars
 			every_subject = {
 				limit = {
+					merg_is_standard_empire = yes
 					NOR = {
 						has_country_flag = rebelling_satrapy
 						is_at_war = yes
@@ -1854,7 +1860,7 @@ country_event = {
 		# set_variable = { which = khan_galaxy_pct value = trigger:galaxy_percentage }
 		export_trigger_value_to_variable = { trigger = galaxy_percentage variable = khan_galaxy_pct }
 		every_subject = {
-			limit = { NOT = { has_country_flag = rebelling_satrapy } }
+			limit = { merg_is_standard_empire = yes NOT = { has_country_flag = rebelling_satrapy } }
 			# export_trigger_value_to_variable = { trigger = galaxy_percentage variable = khan_galaxy_pct }
 			# prev = { change_variable = { which = khan_galaxy_pct value = prev.khan_galaxy_pct } }
 			prev = { change_variable = { which = khan_galaxy_pct value = prev.trigger:galaxy_percentage } }
@@ -2473,14 +2479,14 @@ ship_event = {
 		is_ship_class = shipclass_starbase
 		exists = owner
 		owner = { is_country_type = awakened_marauders }
-		NOR = {
+		NOT = {
 			is_ship_size = starbase_marauder
-			solar_system = {
-				any_fleet_in_system = {
-					is_owned_by = root.owner
-					NOT = { is_same_value = root.fleet }
-				}
-			}
+			# solar_system = {
+			# 	any_fleet_in_system = {
+			# 		is_owned_by = root.owner
+			# 		NOT = { is_same_value = root.fleet }
+			# 	}
+			# }
 		}
 	}
 	immediate = {
@@ -2488,13 +2494,15 @@ ship_event = {
 		if = {
 			limit = {
 				solar_system = {
-					# NOT = {
-					# 	any_fleet_in_system = {
-					# 		NOT = { is_same_value = root.fleet }
-					# 		is_owned_by = root.owner
-					# 	}
-					# }
+					NOT = {
+						any_fleet_in_system = {
+							NOT = { is_same_value = root.fleet }
+							exists = owner
+							is_owned_by = root.owner
+						}
+					}
 					any_fleet_in_system = {
+						exists = owner
 						NOT = { is_owned_by = root.owner }
 						owner = { is_hostile = root.owner }
 						is_civilian = no
@@ -2528,12 +2536,15 @@ country_event = {
 							exists = starbase
 							starbase = { has_starbase_size = starbase_citadel }
 						}
-						NOT = { any_fleet_in_system = {
-							OR = {
-								is_in_combat = yes
-								owner = { is_hostile = root }
+						NOT = {
+							any_fleet_in_system = {
+								exists = owner
+								OR = {
+									is_in_combat = yes
+									owner = { is_hostile = root }
+								}
 							}
-						} }
+						}
 					}
 				}
 			}
@@ -3701,6 +3712,7 @@ system_event = {
 				limit = {
 					uses_district_set = habitat
 					# is_planet_class = pc_habitat
+					is_colony = no
 					is_colonizable = yes
 				}
 
@@ -3718,11 +3730,11 @@ system_event = {
 				while = {
 					count = 8
 					create_pop = {
-						species = space_owner.species
+						species = from.species
 						ethos = { ethic = "ethic_militarist" } # ethic = "ethic_egalitarian"
 					}
 				}
-				set_controller = space_owner
+				set_controller = from # space_owner
 				# set_owner = space_owner
 				add_building = building_hab_major_capital	# 3 jobs
 				# add_building = building_foundry_1			# 2
@@ -4111,10 +4123,7 @@ country_event = {
 		trigger = { has_been_declared_crisis = no }
 		response_text = marauder_fabricator_good
 		country_event = { id = marauder.559 } # Pre-Submit to Khan
-		set_subject_of = {
-			who = event_target:raider_khanate
-			preset = preset_fabricator_satrapy
-		}
+		set_subject_of = { who = event_target:raider_khanate preset = preset_fabricator_satrap }
 		hidden_effect = {
 			event_target:raider_khanate = {
 				if = { limit = { is_hostile = prev }
@@ -4636,10 +4645,7 @@ country_event = {
 		trigger = { has_been_declared_crisis = no }
 		response_text = marauder_deal_accept
 		country_event = { id = marauder.559 } # Pre-Submit to Khan
-		set_subject_of = {
-			who = event_target:raider_khanate
-			preset = preset_machinesmith_satrapy
-		}
+		set_subject_of = { who = event_target:raider_khanate preset = preset_machinesmith_satrap }
 		hidden_effect = {
 			event_target:raider_khanate = {
 				if = { limit = { is_hostile = prev }

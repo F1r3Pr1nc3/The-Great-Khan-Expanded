@@ -4494,11 +4494,11 @@ country_event = {
 				set_subject_of = { who = none }
 			} else_if = { limit = { is_overlord = yes }
 				every_subject = {
-					limit = { NOT = { is_at_war_with = overlord } }
-					set_subject_of = {
-						who = root
-						preset = preset_satrapy
+					limit = {
+						merg_is_standard_empire = yes
+						NOT = { is_at_war_with = overlord }
 					}
+					set_subject_of = { who = root preset = preset_satrapy }
 					# set_subject_of = { who = none }
 				}
 			}
@@ -5607,7 +5607,7 @@ country_event = {
 			}
 			country_event = { id = marauder.500 days = 3 }
 		}
-		ai_chance = { factor = 0 }
+		ai_chance = { factor = 0.1 }
 	}
 	option = {
 		name = marauder.510.a
@@ -6612,7 +6612,7 @@ country_event = {
 		response_text = marauder.550.b.response
 		is_dialog_only = yes
 		hidden_effect = { set_country_flag = asked_about_language }
-		ai_chance = { factor = 0 }
+		ai_chance = { factor = 0.1 }
 	}
 	option = {
 		name = marauder.550.c
@@ -6626,7 +6626,7 @@ country_event = {
 		response_text = marauder.550.c.response
 		is_dialog_only = yes
 		hidden_effect = { set_country_flag = asked_about_religion }
-		ai_chance = { factor = 0 }
+		ai_chance = { factor = 0.1 }
 	}
 	option = { # Rebel?
 		name = marauder_fabricator_rebel
@@ -6703,7 +6703,7 @@ country_event = {
 	option = {
 		name = marauder.20.e
 		default_hide_option = yes
-		ai_chance = { factor = 0 }
+		ai_chance = { factor = 0.1 }
 	}
 }
 
@@ -6719,6 +6719,7 @@ country_event = {
 	is_triggered_only = yes
 	force_open = yes
 	diplomatic = yes
+	trigger = { has_been_declared_crisis = no }
 	immediate = { set_country_flag = marauder_diplomacy_engaged }
 	after = {
 		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
@@ -6726,21 +6727,20 @@ country_event = {
 	option = {
 		name = marauder.551.a
 		sound = advisor_clicking_respons_01
-		trigger = { has_been_declared_crisis = no }
 		response_text = marauder.551.a.response
 		allow = {
-			custom_tooltip = {
-				text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
-				is_subject = no
+			OR = {
+				custom_tooltip = {
+					text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
+					is_subject = no
+				}
+				is_subject_of_khan = yes
 			}
 		}
 		custom_tooltip = marauder.551.a.tt
 		hidden_effect = {
 			country_event = { id = marauder.559 } # Pre-Submit to Khan
-			set_subject_of = {
-				who = event_target:raider_khanate
-				preset = preset_satrapy
-			}
+			set_subject_of = { who = event_target:raider_khanate preset = preset_satrap }
 			event_target:raider_khanate = {
 				if = { limit = { is_hostile = prev }
 					set_faction_hostility = {
@@ -6757,7 +6757,6 @@ country_event = {
 		name = marauder.551.a
 		sound = full_tut_advisor_01
 		trigger = {
-			has_been_declared_crisis = no
 			OR = {
 				is_militarist = yes
 				has_militarist_government = yes
@@ -6777,18 +6776,18 @@ country_event = {
 		}
 		response_text = marauder.551.a.response
 		allow = {
-			custom_tooltip = {
-				text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
-				is_subject = no
+			OR = {
+				custom_tooltip = {
+					text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
+					is_subject = no
+				}
+				is_subject_of_khan = yes
 			}
 		}
 		custom_tooltip = marauder.551.a.tt
 		hidden_effect = {
 			country_event = { id = marauder.559 } # Pre-Submit to Khan
-			set_subject_of = {
-				who = event_target:raider_khanate
-				preset = preset_war_satrapy
-			}
+			set_subject_of = { who = event_target:raider_khanate preset = preset_war_satrapy }
 			event_target:raider_khanate = {
 				if = { limit = { is_hostile = prev }
 					set_faction_hostility = {
@@ -6805,7 +6804,8 @@ country_event = {
 	option = {
 		name = marauder.551.b
 		response_text = marauder.551.b.response
-		ai_chance = { factor = 0 }
+		default_hide_option = yes
+		ai_chance = { factor = 0.1 }
 	}
 }
 
@@ -7105,14 +7105,14 @@ country_event = {
 		name = marauder_fabricator_loyal
 		trigger = { any_agreement = { agreement_preset = preset_fabricator_satrapy } }
 		response_text = marauder.554.b.response
-		ai_chance = { factor = 0 }
+		ai_chance = { factor = 0.1 }
 	}
 	option = {
 		name = marauder.554.b
 		trigger = { NOT = { any_agreement = { agreement_preset = preset_fabricator_satrapy } } }
 		# sound = no_tut_advior_07
 		response_text = marauder.554.b.response
-		ai_chance = { factor = 0 }
+		ai_chance = { factor = 0.1 }
 	}
 }
 
@@ -7207,10 +7207,7 @@ country_event = {
 		# var = "planets_lost_to_marauder" is increased on .503, .527 and .528
 		# country_event = { id = marauder.550 } # Submit to Khan
 		country_event = { id = marauder.559 } # Pre-Submit to Khan
-		set_subject_of = {
-			who = event_target:raider_khanate
-			preset = preset_satrapy
-		}
+		set_subject_of = { who = event_target:raider_khanate preset = preset_satrap }
 		event_target:raider_khanate = {
 			if = { limit = { is_hostile = prev }
 				set_faction_hostility = {
@@ -7275,6 +7272,7 @@ country_event = {
 
 		if = { limit = { is_overlord = yes }
 			every_subject = {
+				limit = { merg_is_standard_empire = yes }
 				country_event = { id = marauder.553 days = 10 }
 				country_event = { id = marauder.551 }
 				# set_subject_of = {
@@ -7818,7 +7816,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		country_event = { id = khan.303 days = -1 } # Get marauder_species
+		get_marauder_species = yes # country_event = { id = khan.303 days = -1 }
 		create_country = {
 			name_list = random
 			species = event_target:marauder_species
@@ -7902,7 +7900,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		country_event = { id = khan.303 days = -1 } # Get marauder_species
+		get_marauder_species = yes # country_event = { id = khan.303 days = -1 }
 		create_country = {
 			name_list = random
 			name = random
@@ -8145,7 +8143,7 @@ country_event = {
 # From marauder.602 and marauder.603
 # This = be destroyed country
 country_event = {
-	id = marauder.609 days = -1
+	id = marauder.609
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
@@ -8471,6 +8469,7 @@ country_event = {
 	show_sound = event_conversation
 	is_triggered_only = yes
 	trigger = {
+		merg_is_standard_empire = yes
 		NOT = { has_country_flag = marauder_diplomacy_engaged }
 	}
 	immediate = {
@@ -8508,6 +8507,7 @@ country_event = {
 	show_sound = event_conversation
 	is_triggered_only = yes
 	trigger = {
+		merg_is_standard_empire = yes
 		NOT = { has_country_flag = marauder_diplomacy_engaged }
 	}
 	immediate = { set_country_flag = marauder_diplomacy_engaged }
@@ -8547,7 +8547,7 @@ country_event = {
 	}
 }
 
-# Horde Diplomacy after Great Khan's death (on_custom_diplomacy)
+# Notify: Horde Diplomacy after Great Khan's death (on_custom_diplomacy)
 country_event = {
 	id = marauder.665
 	title = "TRANSMISSION"
@@ -8558,6 +8558,7 @@ country_event = {
 	diplomatic = yes
 	trigger = {
 		has_global_flag = great_khan_dead
+		is_ai = no
 		from = {
 			OR = {
 				is_country_type = awakened_marauders
@@ -8575,7 +8576,7 @@ country_event = {
 	}
 	option = {
 		name = marauder.665.a
-		default_hide_option = yes
+		# default_hide_option = yes
 	}
 }
 
@@ -8588,6 +8589,7 @@ country_event = {
 	show_sound = event_conversation
 	is_triggered_only = yes
 	trigger = {
+		merg_is_standard_empire = yes
 		NOT = { has_country_flag = marauder_diplomacy_engaged }
 	}
 	immediate = {
@@ -8902,6 +8904,39 @@ country_event = {
 	}
 }
 
+# Copy of marauder.514, fallback for when the Khan mysteriously dies outside of the events meant to kill them.
+country_event = {
+	id = marauder.712
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = khan_dead_event_fine }
+	}
+	immediate = {
+		set_global_flag = great_khan_dead
+		set_country_flag = khan_dead_event_fine
+		set_country_flag = khan_dead_age
+		observer_event = { id = observer.17 }
+		every_playable_country = {
+			limit = { is_ai = no }
+			country_event = { id = marauder.513 }
+		}
+		country_event = { id = marauder.600 days = 200 random = 100 }
+		if = {
+			limit = { exists = event_target:great_khan_ruler }
+			event_target:great_khan_ruler = {
+				kill_leader = { show_notification = no }
+			}
+		}
+		if = {
+			limit = { exists = event_target:great_khan }
+			event_target:great_khan = {
+				kill_leader = { show_notification = no }
+			}
+		}
+	}
+}
+
 ##################################
 
 namespace = crisis
@@ -9114,6 +9149,7 @@ ship_event = {
 			is_ship_size = starbase_marauder
 			solar_system = {
 				any_fleet_in_system = {
+					exists = owner
 					is_owned_by = root.owner
 					NOT = { is_same_value = root.fleet }
 				}
@@ -9188,6 +9224,7 @@ country_event = {
 		} else_if = { # Pop up in a semi-convenient, empire-owned system, if possible
 			limit = { # Must be duplicated below, in the random_system effect.
 				any_system = {
+					has_owner = yes
 					exists = space_owner
 					num_planets_in_system > 1
 					NOR = {
@@ -9208,6 +9245,7 @@ country_event = {
 			}
 			random_system = {
 				limit = {
+					has_owner = yes
 					exists = space_owner
 					num_planets_in_system > 1
 					NOR = {
