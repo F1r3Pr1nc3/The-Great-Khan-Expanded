@@ -28,9 +28,8 @@ event = {
 					has_ground_combat = no
 					owner = {
 						OR = {
-							is_country_type_with_subjects = yes
+							merg_is_standard_empire = yes
 							is_country_type = awakened_marauders
-							is_country_type = fallen_empire
 						}
 					}
 					solar_system = {
@@ -51,9 +50,8 @@ event = {
 								owner = {
 									NOT = { is_same_empire = prevprevprev.owner }
 									OR = {
-										is_country_type_with_subjects = yes
+										merg_is_standard_empire = yes
 										is_country_type = awakened_marauders
-										is_country_type = fallen_empire
 									}
 								}
 							}
@@ -68,9 +66,8 @@ event = {
 					has_ground_combat = no
 					owner = {
 						OR = {
-							is_country_type_with_subjects = yes
+							merg_is_standard_empire = yes
 							is_country_type = awakened_marauders
-							is_country_type = fallen_empire
 						}
 					}
 					solar_system = {
@@ -90,9 +87,8 @@ event = {
 								owner = {
 									NOT = { is_same_empire = prevprev.owner }
 									OR = {
-										is_country_type_with_subjects = yes
+										merg_is_standard_empire = yes
 										is_country_type = awakened_marauders
-										is_country_type = fallen_empire
 									}
 								}
 							}

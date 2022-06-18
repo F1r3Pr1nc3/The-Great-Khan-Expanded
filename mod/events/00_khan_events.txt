@@ -167,7 +167,7 @@ country_event = {
 					NOR = {
 						has_country_flag = war_in_heaven_league_leader_declined
 						any_country = {
-							is_country_type = awakened_fallen_empire
+							merg_is_fallen_empire = yes
 							is_at_war_with = prev
 						}
 					}
@@ -179,7 +179,7 @@ country_event = {
 					NOR = {
 						has_country_flag = war_in_heaven_league_leader_declined
 						any_country = {
-							is_country_type = awakened_fallen_empire
+							merg_is_fallen_empire = yes
 							is_at_war_with = prev
 						}
 					}
@@ -202,7 +202,7 @@ country_event = {
 						NOR = {
 							has_country_flag = war_in_heaven_league_leader_declined
 							any_country = {
-								is_country_type = awakened_fallen_empire
+								merg_is_fallen_empire = yes
 								is_at_war_with = prev
 							}
 						}
@@ -222,7 +222,7 @@ country_event = {
 								NOR = {
 									has_country_flag = war_in_heaven_league_leader_declined
 									any_country = {
-										is_country_type = awakened_fallen_empire
+										merg_is_fallen_empire = yes
 										is_at_war_with = prev
 									}
 								}
@@ -240,7 +240,7 @@ country_event = {
 						NOR = {
 							has_country_flag = war_in_heaven_league_leader_declined
 							any_country = {
-								is_country_type = awakened_fallen_empire
+								merg_is_fallen_empire = yes
 								is_at_war_with = prev
 							}
 						}
@@ -260,7 +260,7 @@ country_event = {
 								NOR = {
 									has_country_flag = war_in_heaven_league_leader_declined
 									any_country = {
-										is_country_type = awakened_fallen_empire
+										merg_is_fallen_empire = yes
 										is_at_war_with = prev
 									}
 								}
@@ -276,7 +276,7 @@ country_event = {
 						NOR = {
 							has_country_flag = war_in_heaven_league_leader_declined
 							any_country = {
-								is_country_type = awakened_fallen_empire
+								merg_is_fallen_empire = yes
 								is_at_war_with = prev
 							}
 						}
@@ -298,12 +298,12 @@ country_event = {
 						# has_global_flag = war_in_heaven_seeking_league_leader
 						has_country_flag = war_in_heaven_league_leader_declined
 						any_country = {
-							is_country_type = awakened_fallen_empire
+							merg_is_fallen_empire = yes
 							is_at_war_with = prev
 						}
 						# any_playable_country = {
 						# 	is_subject = no
-						# 	# is_country_type = default
+						# 	# merg_is_default_empire = yes
 						# 	relative_power = {
 						# 		who = prev
 						# 		value > equivalent
@@ -312,7 +312,7 @@ country_event = {
 						# 		has_country_flag = war_in_heaven_league_leader_declined
 						# 		is_homicidal = yes
 						# 		any_country = {
-						# 			is_country_type = awakened_fallen_empire
+						# 			merg_is_fallen_empire = yes
 						# 			is_at_war_with = prev
 						# 		}
 						# 	}
@@ -599,7 +599,7 @@ country_event = {
 		is_same_empire = event_target:raider_khanate
 	}
 	immediate = {
-		if = { limit = { NOT = { is_country_type = default } }
+		if = { limit = { NOT = { merg_is_default_empire = yes } }
 			set_country_type = default
 
 			### Need Naval Capacity
@@ -1406,7 +1406,7 @@ country_event = {
 			}
 			weights = {
 				base = 1
-				modifier = { add = 2 is_country_type = fallen_empire }
+				modifier = { add = 2 merg_is_fallen_empire = yes }
 			}
 
 			set_timed_global_flag = { flag = sleepers_awake_happened days = @CmtConstKhanLifespan_1f }
@@ -1696,12 +1696,12 @@ country_event = {
 				modifier = {
 					factor = 0.75
 					num_fallen_empires_setting > 0
-					any_country = { is_country_type = awakened_fallen_empire }
+					any_country = { merg_is_fallen_empire = yes }
 				}
 				modifier = {
 					factor = 0.75
 					num_fallen_empires_setting > 1
-					count_country = { count > 1 limit = { is_country_type = awakened_fallen_empire } }
+					count_country = { count > 1 limit = { merg_is_fallen_empire = yes } }
 				}
 				modifier = {
 					factor = 0
@@ -1934,7 +1934,7 @@ country_event = {
 	}
 }
 
-# Set Mod Flag
+# Set Mod Flag (on_game_start)
 event = {
 	id = khan.300
 	hide_window = yes
@@ -2062,6 +2062,9 @@ event = {
 					} else = { log="FAIL: Can't find any current Khan!?!" }
 				}
 				# Fix ongoing hostility (is_hostile seems not immediately working on load)
+				if = { limit = { has_country_flag = declared_crisis }
+					remove_country_flag = declared_crisis
+				}
 				country_event = { id = khan.309 }
 				country_event = { id = khan.309 days = 4 }
 				# TODO TEMP FIX KHAN NO RESPAWN.
@@ -2709,11 +2712,19 @@ country_event = {
 			country_event = { id = khan.307 days = 3 } # Just reenable
 		}
 
+		add_trust = { amount = 100 who = from }
 		set_faction_hostility = {
 			target = from
 			set_hostile = no
 			set_neutral = no
 			set_friendly = yes
+		}
+		random_agreement = {
+			limit = {
+				is_owned_by = event_target:raider_khanate
+				target = { is_same_value = root }
+			}
+			add_loyalty = 25
 		}
 
 		if = {
@@ -2721,18 +2732,58 @@ country_event = {
 			event_target:marauders_garrison_1 = {
 				if = {
 					limit = { is_hostile = root }
+					add_trust = { amount = 100 who = root }
 					set_faction_hostility = {
 						target = root
 						set_hostile = no
+						set_neutral = no
+						set_friendly = yes
+					}
+					root = { # Superfluous?
+						add_trust = { amount = 100 who = prev }
+						set_faction_hostility = {
+							target = prev
+							set_hostile = no
+							set_neutral = no
+							set_friendly = yes
+						}
 					}
 				}
 				if = {
 					limit = { is_hostile = from }
+					add_trust = { amount = 100 who = from }
 					set_faction_hostility = {
 						target = from
 						set_hostile = no
+						set_neutral = no
+						set_friendly = yes
+					}
+					from = { # Superfluous?
+						add_trust = { amount = 100 who = prev }
+						set_faction_hostility = {
+							target = prev
+							set_hostile = no
+							set_neutral = no
+							set_friendly = yes
+						}
 					}
 				}
+				random_agreement = {
+					limit = {
+						is_owned_by = event_target:raider_khanate
+						target = { is_same_value = prev }
+					}
+					add_loyalty = 100
+				}
+			}
+		}
+		from = { # Superfluous?
+			add_trust = { amount = 100 who = root }
+			set_faction_hostility = {
+				target = root
+				set_hostile = no
+				set_neutral = no
+				set_friendly = yes
 			}
 		}
 
@@ -2812,7 +2863,7 @@ country_event = {
 				# if = {
 				# 	limit = {
 				# 		has_global_flag = great_khan_wins
-				# 		NOT = { is_country_type = default }
+				# 		NOT = { merg_is_default_empire = yes }
 				# 	}
 				# 	set_country_type = default
 				# }
@@ -2948,6 +2999,51 @@ country_event = {
 							set_neutral = no
 							set_friendly = yes
 						}
+						prev = {
+							set_faction_hostility = {
+								target = prev
+								set_hostile = no
+								set_neutral = no
+								set_friendly = yes
+							}
+						}
+						add_trust = { amount = 100 who = prev }
+						add_intel = { amount = 100 who = prev }
+						add_opinion_modifier = { who = prev modifier = opinion_common_ground }
+						add_opinion_modifier = { who = prev modifier = opinion_ceded_starbase }
+						add_opinion_modifier = { who = prev modifier = opinion_non_aligned_league }
+						add_opinion_modifier = { who = prev modifier = opinion_crisis_fighter }
+						add_opinion_modifier = { who = prev modifier = opinion_shade_giver }
+						add_opinion_modifier = { who = prev modifier = opinion_imperial_overlord_ai_opinion }
+
+						prev = {
+							add_trust = { amount = 100 who = prev }
+							add_intel = { amount = 100 who = prev }
+							add_opinion_modifier = { who = prev modifier = opinion_common_ground }
+							add_opinion_modifier = { who = prev modifier = opinion_ceded_starbase }
+							add_opinion_modifier = { who = prev modifier = opinion_non_aligned_league }
+							add_opinion_modifier = { who = prev modifier = opinion_crisis_fighter }
+							add_opinion_modifier = { who = prev modifier = opinion_shade_giver }
+							add_opinion_modifier = { who = prev modifier = opinion_enlightened_us }
+							add_opinion_modifier = { who = prev modifier = opinion_liberated_us }
+							add_opinion_modifier = { who = prev modifier = opinion_imperial_vassal_ai_opinion }
+						}
+					}
+					set_subject_of = { who = event_target:raider_khanate preset = preset_bulwark }
+
+					random_agreement = {
+						limit = {
+							is_owned_by = event_target:raider_khanate
+							target = { is_same_value = prev }
+						}
+						add_loyalty = 100
+					}
+					random_agreement = {
+						limit = {
+							is_owned_by = prev
+							target = { is_same_value = event_target:raider_khanate }
+						}
+						add_loyalty = 100
 					}
 				}
 			}
@@ -3711,7 +3807,7 @@ system_event = {
 			random_moon = {
 				limit = {
 					uses_district_set = habitat
-					# is_planet_class = pc_habitat
+					# merg_is_habitat = yes
 					is_colony = no
 					is_colonizable = yes
 				}
