@@ -3403,11 +3403,11 @@ planet_event = {
 	trigger = {
 		planet_devastation > 15
 		from = { is_country_type = marauder_raiders }
+		exists = owner
 		owner = { merg_is_standard_empire = yes }
 		NOT = { has_planet_flag = planet_raided }
 	}
 	immediate = {
-
 		from = {
 			random_owned_fleet = {
 				limit = {
@@ -3694,7 +3694,10 @@ planet_event = {
 	location = root
 	is_triggered_only = yes
 	pre_triggers = { has_owner = yes }
-	trigger = { is_colony = yes }
+	trigger = {
+		is_colony = yes
+		exists = owner
+	}
 	immediate = {
 		if = { limit = { NOT = { exists = event_target:marauder_country } }
 			random_country = {
@@ -6180,6 +6183,7 @@ starbase_event = {
 		exists = owner
 		has_starbase_size > starbase_outpost
 		owner = { merg_is_default_empire = yes }
+		exists = from.owner
 		from.owner = {
 			OR = {
 				CmtTriggerIsKhanCountry = yes
@@ -6957,6 +6961,7 @@ country_event = {
 					random_owned_fleet = { # Desert 1 garrison
 						limit = {
 							has_fleet_flag = satrapy_garrison
+							exists = solar_system
 							solar_system = { is_owned_by = root }
 						}
 						destroy_fleet = { target = this destroy_template = yes }
@@ -6964,6 +6969,7 @@ country_event = {
 					random_owned_fleet = { # Own 1 garrison
 						limit = {
 							has_fleet_flag = satrapy_garrison_fleet
+							exists = solar_system
 							solar_system = { is_owned_by = root }
 						}
 						set_owner = root
@@ -6977,6 +6983,7 @@ country_event = {
 						limit = {
 							has_fleet_flag = horde_auxuliaries
 							exists = leader
+							exists = solar_system
 							solar_system = { is_owned_by = root }
 							leader = { is_same_species = root }
 						}
@@ -7335,10 +7342,11 @@ fleet_event = {
 			limit = {
 				NOT = { exists = event_target:satrapy_empire }
 				exists = space_owner
+				exists = owner
 				space_owner = {
 					is_subject_of_khan = yes
 					NOT = { has_country_flag = rebelling_satrapy }
-					prev.owner = { is_same_empire = prev.overlord }
+					root.owner = { is_same_empire = prev.overlord }
 				}
 			}
 			space_owner = { save_event_target_as = satrapy_empire }
@@ -7438,6 +7446,7 @@ country_event = {
 		remove_global_flag = khan_no_die
 		remove_global_flag = great_khan_announcement
 		remove_country_flag = CmtFlagKhanNoDieCountry
+		remove_global_flag = marauder_crisis_ongoing	# must be removed before
 		if = { limit = { has_global_flag = great_khan_wins }
 			# clear_global_event_target = great_khan
 			# clear_global_event_target = raider_khanate
@@ -7704,7 +7713,6 @@ country_event = {
 				}
 			}
 		}
-		remove_global_flag = marauder_crisis_ongoing
 	}
 	after = {
 		hidden_effect = {
@@ -8173,8 +8181,7 @@ country_event = {
 		if = { limit = { NOT = { exists = event_target:new_khanate } }
 			break = yes
 		}
-		if = {
-			limit = { NOT = { has_global_flag = marauder_crisis_ongoing } }
+		if = { limit = { NOT = { has_global_flag = marauder_crisis_ongoing } }
 			# Drag military fleets except for one (or two)
 			# random_owned_fleet = { pre 3.1
 			ordered_owned_fleet = {
@@ -8201,6 +8208,22 @@ country_event = {
 				limit = { is_mobile = yes exists = leader }
 				set_owner = root
 				leader = { set_owner = root } # Recruit leader
+				if = {
+					limit = { NOT = { is_ship_class = shipclass_transport } }
+					assign_leader = leader
+				}
+				fleet_event = { id = khan.611 days = -1 }
+			}
+			random_owned_fleet = {
+				limit = {
+					is_mobile = yes
+					exists = leader
+					exists = solar_system
+					is_civilian = no any_owned_ship = { is_ship_class = shipclass_military }
+				}
+				set_owner = event_target:new_khanate
+				# Recruit leader
+				leader = { set_owner = event_target:new_khanate }
 				if = {
 					limit = { NOT = { is_ship_class = shipclass_transport } }
 					assign_leader = leader
@@ -8243,6 +8266,7 @@ country_event = {
 			limit = { exists = starbase }
 			starbase = { set_owner = event_target:new_khanate }
 		}
+		# Full handover
 		every_owned_fleet = {
 			set_owner = event_target:new_khanate
 			# Recruit leader
@@ -8250,7 +8274,9 @@ country_event = {
 				limit = { exists = leader }
 				leader = { set_owner = event_target:new_khanate }
 				if = {
-					limit = { NOT = { is_ship_class = shipclass_transport } }
+					limit = {
+						NOT = { is_ship_class = shipclass_transport }
+					}
 					assign_leader = leader
 				}
 				fleet_event = { id = khan.611 days = -1 }
@@ -8350,9 +8376,7 @@ country_event = {
 				# limit = { leader_class = ruler }
 				set_owner = event_target:new_khanate
 			}
-
-			if = {
-				limit = { CmtTriggerIsMarauder = no }
+			if = { limit = { CmtTriggerIsMarauder = no }
 				add_500_unity_per_year_passed = yes
 				country_event = { id = game_start.6 days = 6 random = 4 }	# advanced_empire
 				country_event = { id = game_start.9 days = 12 random = 8 }	# empire_init_create_ships civil
@@ -9163,6 +9187,7 @@ ship_event = {
 					# 	}
 					# }
 					any_fleet_in_system = {
+						exists = owner
 						NOT = { is_owned_by = root.owner }
 						owner = { is_hostile = root.owner }
 						is_civilian = no

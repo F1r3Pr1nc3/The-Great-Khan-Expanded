@@ -690,3 +690,233 @@ ship_design = {
 	required_component = "COMBAT_COMPUTER_ARTILLERY_SAPIENT"
 	required_component = "TITAN_ZERO_POINT_REACTOR"
 }
+
+# Marauder Citadel
+ship_design = {
+	name = "NAME_Marauder_Citadel"
+	ship_size = starbase_citadel
+	section = {
+		template = "CITADEL_STARBASE_SECTION"
+		slot = "core"
+		component = {
+			slot = "MEDIUM_GUN_01"
+			template = "MEDIUM_PLASMA_2"
+		}
+		component = {
+			slot = "MEDIUM_GUN_02"
+			template = "MEDIUM_PLASMA_2"
+		}
+		component = {
+			slot = "MEDIUM_GUN_03"
+			template = "MEDIUM_PLASMA_2"
+		}
+		component = {
+			slot = "MEDIUM_GUN_04"
+			template = "MEDIUM_PLASMA_2"
+		}
+		component = {
+			slot = "MEDIUM_GUN_05"
+			template = "MEDIUM_PLASMA_2"
+		}
+		component = {
+			slot = "MEDIUM_GUN_06"
+			template = "FLAK_BATTERY_1"
+		}
+		component = {
+			slot = "MEDIUM_GUN_07"
+			template = "FLAK_BATTERY_1"
+		}
+		component = {
+			slot = "MEDIUM_GUN_08"
+			template = "MEDIUM_MASS_DRIVER_3"
+		}
+		component = {
+			slot = "MEDIUM_GUN_09"
+			template = "MEDIUM_MASS_DRIVER_3"
+		}
+		component = {
+			slot = "MEDIUM_GUN_010"
+			template = "MEDIUM_MASS_DRIVER_3"
+		}
+		component = {
+			slot = "MEDIUM_GUN_011"
+			template = "MEDIUM_MASS_DRIVER_3"
+		}
+		component = {
+			slot = "MEDIUM_GUN_012"
+			template = "FLAK_BATTERY_1"
+		}
+		component = {
+			slot = "MEDIUM_GUN_013"
+			template = "FLAK_BATTERY_1"
+		}
+
+		component = {
+			slot = "LARGE_UTILITY_1"
+			template = "LARGE_ARMOR_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_2"
+			template = "LARGE_ARMOR_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_3"
+			template = "LARGE_ARMOR_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_4"
+			template = "LARGE_ARMOR_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_5"
+			template = "LARGE_ARMOR_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_6"
+			template = "LARGE_ARMOR_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_7"
+			template = "LARGE_SHIELD_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_8"
+			template = "LARGE_SHIELD_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_9"
+			template = "LARGE_SHIELD_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_10"
+			template = "LARGE_SHIELD_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_11"
+			template = "LARGE_SHIELD_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_12"
+			template = "LARGE_SHIELD_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_13"
+			template = "LARGE_SHIELD_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_14"
+			template = "LARGE_SHIELD_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_15"
+			template = "LARGE_SHIELD_4"
+		}
+		component = {
+			slot = "LARGE_UTILITY_16"
+			template = "LARGE_SHIELD_4"
+		}
+		component = {
+			slot = "LARGE_UTILITY_17"
+			template = "LARGE_SHIELD_4"
+		}
+		component = {
+			slot = "LARGE_UTILITY_18"
+			template = "LARGE_SHIELD_4"
+		}
+		component = {
+			slot = "LARGE_UTILITY_19"
+			template = "LARGE_ARMOR_4"
+		}
+		component = {
+			slot = "LARGE_UTILITY_20"
+			template = "LARGE_ARMOR_4"
+		}
+		component = {
+			slot = "LARGE_UTILITY_21"
+			template = "LARGE_ARMOR_4"
+		}
+		component = {
+			slot = "LARGE_UTILITY_22"
+			template = "LARGE_ARMOR_4"
+		}
+		component = {
+			slot = "LARGE_UTILITY_23"
+			template = "LARGE_SHIELD_4"
+		}
+		component = {
+			slot = "LARGE_UTILITY_24"
+			template = "LARGE_SHIELD_4"
+		}
+		component = {
+			slot = "LARGE_UTILITY_25"
+			template = "LARGE_SHIELD_4"
+		}
+		component = {
+			slot = "LARGE_UTILITY_26"
+			template = "LARGE_SHIELD_4"
+		}
+		component = {
+			slot = "AUX_UTILITY_1"
+			template = "AUTO_REPAIR"
+		}
+
+	}
+
+	section = {
+		template = "MISSILE_STARBASE_SECTION"
+		slot = "1"
+		component = {
+			slot = "TORPEDO_01"
+			template = "MISSILE_3"
+		}
+		component = {
+			slot = "TORPEDO_02"
+			template = "MISSILE_3"
+		}
+	}
+	section = {
+		template = "MISSILE_STARBASE_SECTION"
+		slot = "2"
+		component = {
+			slot = "TORPEDO_01"
+			template = "MISSILE_3"
+		}
+		component = {
+			slot = "TORPEDO_02"
+			template = "MISSILE_3"
+		}
+	}
+	section = {
+		template = "BATTERY_STARBASE_SECTION"
+		slot = "3"
+		component = {
+			slot = "MEDIUM_GUN_01"
+			template = "FLAK_BATTERY_1"
+		}
+		component = {
+			slot = "MEDIUM_GUN_02"
+			template = "FLAK_BATTERY_1"
+		}
+	}
+	section = {
+		template = "SHIPYARD_STARBASE_SECTION"
+		slot = "4"
+	}
+	section = {
+		template = "HANGAR_STARBASE_SECTION"
+		slot = "5"
+		component = {
+			slot = "STRIKE_CRAFT_01"
+			template = "STRIKE_CRAFT_HANGAR_3"
+		}
+	}
+	section = {
+		template = "HANGAR_STARBASE_SECTION"
+		slot = "6"
+		component = {
+			slot = "STRIKE_CRAFT_01"
+			template = "STRIKE_CRAFT_HANGAR_3"
+		}
+	}
+	required_component="SENSOR_2"
+}

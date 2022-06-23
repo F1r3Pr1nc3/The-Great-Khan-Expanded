@@ -2112,6 +2112,9 @@ system_event = {
 	id = khan.301
 	hide_window = yes
 	is_triggered_only = yes
+	trigger = {
+		exists = event_target:raider_khanate
+	}
 	immediate = {
 		if = {
 			limit = {
@@ -2120,7 +2123,6 @@ system_event = {
 					starbase = { has_starbase_size = starbase_citadel }
 				}
 			}
-
 			# space_owner = {
 			# 	if = {
 			# 		limit = { graphical_culture = pirate_01 }
@@ -2129,14 +2131,15 @@ system_event = {
 			# 		set_variable = { which = has_pirate_01 value = 1 }
 			# 	}
 			# }
-			# log="create starbase_citadel"
-			# event_target:raider_khanate = {
-			# 	if = {
-			# 		limit = { NOT = { has_existing_ship_design = "" }
-			# 		create_ship_design = { design = "" }
-			# 		add_ship_design = last_created_design
-			# 	}
-			# }
+			# TODO Trying to create a starbase with an invalid starbase design sik'El'Re for ship size starbase_citadel (note: starbases cannot have components that allow them to move or go FTL)
+			log="create starbase_citadel"
+			event_target:raider_khanate = {
+				if = {
+					limit = { NOT = { has_existing_ship_design = starbase_citadel } }
+					create_ship_design = { design = "NAME_Marauder_Citadel" }
+					add_ship_design = last_created_design
+				}
+			}
 			create_starbase = {
 				size = "starbase_citadel"
 				# module = "shipyard"
@@ -2350,6 +2353,7 @@ ship_event = {
 		is_scope_valid = yes
 		exists = owner
 		owner = { is_country_type = awakened_marauders }
+		exists = from
 		is_ship_class = shipclass_starbase
 		# NOT = {
 		# 	is_ship_size = starbase_marauder
@@ -2374,7 +2378,7 @@ ship_event = {
 					}
 				}
 			}
-			# Give former owner
+			log="Give marauder starbase former owner"
 			solar_system = {
 				if = {
 					limit = {
@@ -2385,6 +2389,7 @@ ship_event = {
 							}
 						}
 						any_system_planet = {
+							colonizable_planet = yes
 							OR = {
 								any_playable_country = {
 									NOT = { is_hostile_to = from.owner }
@@ -2396,6 +2401,7 @@ ship_event = {
 								AND = {
 									has_owner = yes
 									is_colony = yes
+									exists = owner
 									owner = {
 										NOT = { is_hostile_to = from.owner }
 									}
@@ -2406,11 +2412,13 @@ ship_event = {
 					if = {
 						limit = {
 							any_system_planet = {
+								colonizable_planet = yes
 								any_playable_country = { has_country_flag = former_owner@prev }
 							}
 						}
 						random_system_planet = {
 							limit = {
+								colonizable_planet = yes
 								any_playable_country = { has_country_flag = former_owner@prev }
 							}
 							random_playable_country = {
@@ -2424,11 +2432,13 @@ ship_event = {
 					} else_if = {
 						limit = {
 							any_system_planet = {
+								colonizable_planet = yes
 								any_playable_country = { prev = { is_planet = prev.home_planet } }
 							}
 						}
 						random_system_planet = {
 							limit = {
+								colonizable_planet = yes
 								any_playable_country = { prev = { is_planet = prev.home_planet } }
 							}
 							random_playable_country = {
@@ -2450,7 +2460,9 @@ ship_event = {
 				}
 			}
 		} else = {
-			fleet = { every_owned_ship = { set_disable_at_health = -1 destroy_ship = this } }
+			fleet = {
+				every_owned_ship = { set_disable_at_health = -1 destroy_ship = this }
+			}
 			destroy_fleet = fleet
 		}
 
@@ -2482,14 +2494,18 @@ ship_event = {
 		is_ship_class = shipclass_starbase
 		exists = owner
 		owner = { is_country_type = awakened_marauders }
-		NOT = {
+		NOR = {
 			is_ship_size = starbase_marauder
-			# solar_system = {
-			# 	any_fleet_in_system = {
-			# 		is_owned_by = root.owner
-			# 		NOT = { is_same_value = root.fleet }
-			# 	}
-			# }
+			solar_system = {
+				any_fleet_in_system = {
+					is_owned_by = root.owner
+					NOT = { is_same_value = root.fleet }
+				}
+				# any_fleet_in_system = {
+				# 	NOT = { is_owned_by = root.owner }
+				# 	is_ship_class = shipclass_starbase
+				# }
+			}
 		}
 	}
 	immediate = {
@@ -2497,13 +2513,6 @@ ship_event = {
 		if = {
 			limit = {
 				solar_system = {
-					NOT = {
-						any_fleet_in_system = {
-							NOT = { is_same_value = root.fleet }
-							exists = owner
-							is_owned_by = root.owner
-						}
-					}
 					any_fleet_in_system = {
 						exists = owner
 						NOT = { is_owned_by = root.owner }
@@ -2552,7 +2561,7 @@ country_event = {
 				}
 			}
 			event_target:marauder_rally_point = {
-				solar_system = { system_event = { id = khan.301 } }
+				solar_system = { system_event = { id = khan.301 } } # Create Citadel
 			}
 		} else_if = {
 			limit = {
@@ -2594,7 +2603,7 @@ country_event = {
 					save_global_event_target_as = marauder_rally_point
 					set_planet_flag = marauder_rally_point
 				}
-				system_event = { id = khan.301 }
+				system_event = { id = khan.301 } # Create Citadel
 			}
 		}
 	}
@@ -3240,7 +3249,8 @@ planet_event = {
 	trigger = {
 		# has_global_flag = marauder_crisis_ongoing
 		exists = sector
-		NOT = { exists = sector.leader  }
+		NOT = { exists = sector.leader }
+		exists = owner
 		owner = {
 			CmtTriggerIsMarauder = yes
 			any_owned_leader = {
@@ -3473,7 +3483,7 @@ country_event = {
 				}
 				random_system_within_border = {
 					limit = { CmtTriggerMarauderCapitalSystem = yes }
-					system_event = { id = khan.301 }
+					system_event = { id = khan.301 } # Create Citadel
 				}
 				while = {
 					limit = {
@@ -3872,10 +3882,7 @@ system_event = {
 			random_planet_within_border = {
 				limit = {
 					is_colonizable = yes
-					habitability = {
-						who = this
-						value > 0.65
-					}
+					habitability = { who = prev.species value > 0.65 }
 				}
 				weights = {
 					base = 1

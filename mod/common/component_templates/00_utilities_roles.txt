@@ -120,11 +120,7 @@ utility_component_template = {
 		cost = { alloys = @cost0 }
 	}
 	ship_behavior = "artillery"
-	class_restriction = {
-		shipclass_military
-		shipclass_starbase
-		shipclass_military_special
-	}
+	class_restriction = { shipclass_military shipclass_starbase shipclass_military_special }
 	size_restriction = {
 		titan
 		juggernaut
@@ -733,10 +729,7 @@ utility_component_template = {
 		category = ship_components
 		cost = { alloys = @cost1 }
 	}
-	class_restriction = {
-		shipclass_military
-		shipclass_military_special
-	}
+	class_restriction = { shipclass_military shipclass_starbase shipclass_military_special }
 	size_restriction = {
 		destroyer
 		offspring_destroyer
@@ -777,11 +770,7 @@ utility_component_template = {
 		category = ship_components
 		cost = { alloys = @cost2 }
 	}
-	class_restriction = {
-		shipclass_military
-		shipclass_starbase
-		shipclass_military_special
-	}
+	class_restriction = { shipclass_military shipclass_starbase shipclass_military_special }
 	size_restriction = {
 		destroyer
 		offspring_destroyer
@@ -822,11 +811,7 @@ utility_component_template = {
 		category = ship_components
 		cost = { alloys = @cost3 }
 	}
-	class_restriction = {
-		shipclass_military
-		shipclass_starbase
-		shipclass_military_special
-	}
+	class_restriction = { shipclass_military shipclass_starbase shipclass_military_special }
 	size_restriction = {
 		destroyer
 		offspring_destroyer
@@ -878,11 +863,7 @@ utility_component_template = {
 		category = ship_components
 		cost = { alloys = @cost3 }
 	}
-	class_restriction = {
-		shipclass_military
-		shipclass_starbase
-		shipclass_military_special
-	}
+	class_restriction = { shipclass_military shipclass_starbase shipclass_military_special }
 	size_restriction = {
 		destroyer
 		offspring_destroyer
@@ -964,11 +945,7 @@ utility_component_template = {
 		category = ship_components
 		cost = { alloys = @cost1 }
 	}
-	class_restriction = {
-		shipclass_military
-		shipclass_starbase
-		shipclass_military_special
-	}
+	class_restriction = { shipclass_military shipclass_starbase shipclass_military_special }
 	size_restriction = {
 		cruiser
 		offspring_cruiser
@@ -1001,11 +978,7 @@ utility_component_template = {
 		category = ship_components
 		cost = { alloys = @cost2 }
 	}
-	class_restriction = {
-		shipclass_military
-		shipclass_starbase
-		shipclass_military_special
-	}
+	class_restriction = { shipclass_military shipclass_starbase shipclass_military_special }
 	size_restriction = {
 		cruiser
 		offspring_cruiser
@@ -1038,11 +1011,7 @@ utility_component_template = {
 		category = ship_components
 		cost = { alloys = @cost3 }
 	}
-	class_restriction = {
-		shipclass_military
-		shipclass_starbase
-		shipclass_military_special
-	}
+	class_restriction = { shipclass_military shipclass_starbase shipclass_military_special }
 	size_restriction = {
 		cruiser
 		offspring_cruiser
@@ -1086,11 +1055,7 @@ utility_component_template = {
 		category = ship_components
 		cost = { alloys = @cost3 }
 	}
-	class_restriction = {
-		shipclass_military
-		shipclass_starbase
-		shipclass_military_special
-	}
+	class_restriction = { shipclass_military shipclass_starbase shipclass_military_special }
 	size_restriction = {
 		cruiser
 		offspring_cruiser
@@ -1122,11 +1087,7 @@ utility_component_template = {
 		category = ship_components
 		cost = { alloys = @cost3 }
 	}
-	class_restriction = {
-		shipclass_military
-		shipclass_starbase
-		shipclass_military_special
-	}
+	class_restriction = { shipclass_military shipclass_starbase shipclass_military_special }
 	size_restriction = {
 		cruiser
 		offspring_cruiser
