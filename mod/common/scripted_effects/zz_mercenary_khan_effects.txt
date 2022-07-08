@@ -642,7 +642,6 @@ create_fourth_diadochi = {
 	}
 }
 
-
 # This = Marauder
 get_marauder_species = {
 	if = {
@@ -726,6 +725,101 @@ get_marauder_species = {
 				change_dominant_species = { species = prev }
 				set_built_species = prev
 			}
+		}
+	}
+}
+
+# Scope = event_target:raiding_marauder
+get_marauder_raid_source = {
+	random_planet_within_border = {
+		limit = { is_star = no }
+		weights = {
+			base = 1
+			modifier = { add = 3 has_planet_flag = raid_source }
+			modifier = { add = 1 is_colonizable = yes }
+		}
+		save_event_target_as = raid_source
+	}
+
+	### Rally Point Fallback
+	if = {
+		limit = { NOT = { exists = event_target:raid_source } }
+		switch = {
+			trigger = has_country_flag
+			marauder_1 = {
+				random_system = {
+					limit = { has_star_flag = marauder_capital_1 }
+					random_system_planet = {
+						limit = { is_star = no }
+						weights = {
+							base = 1
+							modifier = { add = 3 has_planet_flag = raid_source }
+							modifier = { add = 1 is_colonizable = yes }
+						}
+						save_event_target_as = raid_source
+					}
+				}
+			}
+			marauder_2 = {
+				random_system = {
+					limit = { has_star_flag = marauder_capital_2 }
+					random_system_planet = {
+						limit = { is_star = no }
+						weights = {
+							base = 1
+							modifier = { add = 3 has_planet_flag = raid_source }
+							modifier = { add = 1 is_colonizable = yes }
+						}
+						save_event_target_as = raid_source
+					}
+				}
+			}
+			marauder_3 = {
+				random_system = {
+					limit = { has_star_flag = marauder_capital_3 }
+					random_system_planet = {
+						limit = { is_star = no }
+						weights = {
+							base = 1
+							modifier = { add = 3 has_planet_flag = raid_source }
+							modifier = { add = 1 is_colonizable = yes }
+						}
+						save_event_target_as = raid_source
+					}
+				}
+			}
+		}
+	}
+
+	### Last Fallback
+	if = {
+		limit = { NOT = { exists = event_target:raid_source } }
+		# ordered_owned_starbase = {
+		random_owned_starbase = {
+			limit = {
+				exists = solar_system
+				solar_system = {
+					any_system_planet = { is_star = no }
+				}
+			}
+			# position = 0
+			# order_by = fleet.trigger:fleet_power
+			solar_system = {
+				random_system_planet = {
+					limit = { is_star = no }
+					weights = {
+						base = 1
+						modifier = { add = 3 has_planet_flag = raid_source }
+						modifier = { add = 1 is_colonizable = yes }
+					}
+					save_event_target_as = raid_source
+				}
+			}
+		}
+	}
+	event_target:raid_source = {
+		solar_system = {
+			save_event_target_as = marauder_system
 		}
 	}
 }

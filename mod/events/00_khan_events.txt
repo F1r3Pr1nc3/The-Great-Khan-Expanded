@@ -1721,7 +1721,7 @@ country_event = {
 					factor = 0
 					NOR = {
 						num_fallen_empires_setting > 0
-						host_has_dlc = "Leviathans Story Pack"
+						has_leviathans = yes
 						any_country = {
 							is_fallen_empire = yes
 							NOT = { has_ethic = ethic_gestalt_consciousness }
@@ -2984,7 +2984,7 @@ country_event = {
 				NOT = { exists = event_target:marauders_garrison_1 }
 			}
 			create_country = {
-				name = "[root.GetName]"
+				name = root
 				type = marauders_garrison
 				flag = {
 					icon = { category = "pirate" file = "flag_pirate_11.dds" }
@@ -3047,13 +3047,13 @@ country_event = {
 						}
 						add_loyalty = 100
 					}
-					random_agreement = {
-						limit = {
-							is_owned_by = prev
-							target = { is_same_value = event_target:raider_khanate }
-						}
-						add_loyalty = 100
-					}
+					# random_agreement = {
+					# 	limit = {
+					# 		is_owned_by = prev
+					# 		target = { is_same_value = event_target:raider_khanate }
+					# 	}
+					# 	add_loyalty = 100
+					# }
 				}
 			}
 		}
@@ -3458,7 +3458,7 @@ country_event = {
 					limit = { NOT = { is_ship_class = shipclass_transport } }
 					assign_leader = leader
 				}
-				fleet_event = { id = khan.611 }
+				fleet_event = { id = khan.611 days = -1 }
 			}
 			prev = {
 				add_resource = {

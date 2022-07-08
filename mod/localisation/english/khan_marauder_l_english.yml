@@ -88,3 +88,9 @@
  NAME_Ancestral_Glory_4:0 "Deedes Aldar"
  NAME_R45:0 "R45"
  NAME_Expansion:0 "The Great Expansion"
+
+ marauder.31.k:0 "§YThe [raid_target_5.GetName].§!"
+ marauder.31.g:0 "§YThe [raid_target_6.GetName].§!"
+ marauder.31.h:0 "§YThe [raid_target_7.GetName].§!"
+ marauder.31.i:0 "§YThe [raid_target_8.GetName].§!"
+ marauder.31.j:0 "§YThe [raid_target_9.GetName].§!"
