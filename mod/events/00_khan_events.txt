@@ -1670,6 +1670,16 @@ country_event = {
 
 		country_event = { id = marauder.78 days = 6 }	## Mercenaries Join the Great Khan.
 
+		every_country = {
+			limit = {
+				merg_is_standard_empire = yes
+				NOT = { is_same_empire = root }
+			}
+			# add_opinion_modifier = { who = root modifier = opinion_destroying_galaxy }
+			add_opinion_modifier = { who = root modifier = opinion_doomed_us_all }
+			add_opinion_modifier = { who = root modifier = triggered_dc_opinion_of_assimilators }
+			prev = { add_opinion_modifier = { who = root modifier = opinion_prey } }
+		}
 		## 50% chance integrating Satrapies - sparking a galaxy wide uprising.
 		## 50% chance of a WiH with a FE.
 		locked_random_list = {
@@ -1687,10 +1697,13 @@ country_event = {
 					} else = {
 						country_event = { id = khan.290 days = 3 random = 3 } # Let choose side!?
 					}
+					add_opinion_modifier = { who = root modifier = opinion_destroying_galaxy }
 				}
 				if = { limit = { NOT = { has_active_event = { khan.203 } } }
 					country_event = { id = khan.203 days = 16 } # Prepare Uprising
+
 				}
+
 				country_event = { id = khan.294 } # Notify only
 
 				modifier = {
@@ -4059,20 +4072,56 @@ country_event = {
 		create_fleet = {
 			name = "NAME_Thalassocracy_fleet"
 			effect = {
-				set_owner = event_target:raider_khanate
-				while = {
-					count = 2
-					while = {
-						count = 11
-						CmtEffectCreateShip_Outrider = yes
+				random_list = {
+					25 = {
+						set_owner = event_target:raider_khanate
+						# while = { count = 2
+						# 	while = { count = 11 CmtEffectCreateShip_Outrider = yes }
+						# 	while = { count = 7 CmtEffectCreateShip_Lancer = yes }
+						# 	while = { count = 4 CmtEffectCreateShip_VoidChampion = yes }
+						# }
+						create_dyn_marauder_fleet = { OUTRIDER = 22 LANCER = 14 CHAMPION = 8 VARIANT = "_4" }
 					}
-					while = {
-						count = 7
-						CmtEffectCreateShip_Lancer = yes
-					}
-					while = {
-						count = 4
-						CmtEffectCreateShip_VoidChampion = yes
+					75 = { # Own ships
+						set_owner = root
+						while = {
+							count = 22
+							create_ship = {
+								name = random
+								prefix = no
+								random_existing_design = corvette
+								graphical_culture = root
+							}
+						}
+						while = {
+							count = 14
+							create_ship = {
+								name = random
+								prefix = no
+								random_existing_design = destroyer
+								graphical_culture = root
+							}
+						}
+						while = {
+							count = 5
+							create_ship = {
+								name = random
+								prefix = no
+								random_existing_design = cruiser
+								graphical_culture = root
+							}
+						}
+						if = { limit = { root = { any_owned_design = { is_ship_size = battleship } } }
+							while = {
+								count = 1
+								create_ship = {
+									name = random
+									prefix = no
+									random_existing_design = battleship
+									graphical_culture = root
+								}
+							}
+						}
 					}
 				}
 				set_formation_scale = 2
@@ -4086,6 +4135,9 @@ country_event = {
 				}
 			}
 		}
+
+		last_created_fleet = { set_owner = event_target:raider_khanate }
+
 		capital_scope = {
 			create_fleet = {
 				effect = {

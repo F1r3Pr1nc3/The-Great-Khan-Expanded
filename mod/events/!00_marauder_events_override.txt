@@ -24,12 +24,15 @@ namespace = marauder
 # 	marauder.160	# Raiding End Failsafe
 # 	marauder.699	# Neighbor Events - .707
 ###		Khan Dead Events		###
-# on_ship_destroyed_victim	marauder.505 Defeated in Combat but NOT die.
-	# Only Return of the Great Khan!?! marauder.523 marauder.507
-# on_ship_destroyed_victim	marauder.509 Defeated in Combat and die.
-# on_monthly_pulse			marauder.511. - marauder.512 Dies for Other Reasons
-# On timer start			marauder.514 Dies of Old Ages.
+## Future of the Horde marauder.600
+	# on_ship_destroyed_victim	marauder.505 Defeated in Combat but NOT die.
+		# Only Return of the Great Khan!?! marauder.523 marauder.507
+	# on_monthly_pulse			marauder.511. - marauder.512 Dies for Other Reasons
+	# On timer start			marauder.514 Dies of Old Ages.
+
+# DEPRECATED on_ship_destroyed_victim	marauder.509 Defeated in Combat and die.
 # on_leader_death			marauder.711/.712
+# marauder.505
 
 # Added pirate.65/.66 for pirate stations.
 
@@ -4294,7 +4297,10 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		num_marauder_empires_to_spawn > 0
+		OR = {
+			num_marauder_empires_to_spawn > 0
+			event_target:global_event_country = { has_country_flag = outer_bulwark_inactive }
+		}
 		# is_crises_allowed = yes
 		NOT = { has_global_flag = great_khan_wins }
 		CmtTriggerNowInKhanCrisis = no
@@ -5928,12 +5934,93 @@ country_event = {
 					limit = { num_armies < 40 }
 					create_marauder_armies = yes
 				}
+				random_subject = {
+					limit = {
+						any_agreement = { agreement_preset = preset_machinesmith_satrapy }
+						NOT = { has_country_flag = rebelling_satrapy }
+					}
+					root = {
+						if = {
+							limit = { can_copy_random_tech_from = { who = prev } }
+							copy_random_tech_from = { who = prev }
+						}
+					}
+					log = "machinesmith sold [This.GetName]"
+					save_event_target_as = machinesmith
+					country_event = { id = marauder.520 days = 360 } # Improved cycle
+
+					random_owned_design = {
+						limit = { is_ship_size = corvette }
+						save_event_target_as = machinesmith_corvette
+					}
+					random_owned_design = {
+						limit = { is_ship_size = destroyer }
+						save_event_target_as = machinesmith_destroyer
+					}
+					random_owned_design = {
+						limit = { is_ship_size = cruiser }
+						save_event_target_as = machinesmith_cruiser
+					}
+					random_owned_design = {
+						limit = { is_ship_size = battleship }
+						save_event_target_as = machinesmith_battleship
+					}
+				}
+
 				event_target:marauder_rally_point = {
 					create_fleet = {
-						# name = random
+						name = random
 						effect = {
-							set_owner = root
-							create_dyn_marauder_fleet = { OUTRIDER = 20 LANCER = 10 CHAMPION = 6 VARIANT = "_4" }
+							random_list = {
+								25 = {
+									set_owner = root
+									create_dyn_marauder_fleet = { OUTRIDER = 20 LANCER = 10 CHAMPION = 6 VARIANT = "_4" }
+								}
+								75 = { # Own ships
+									modifier = { factor = 0 NOT = { exists = event_target:machinesmith } }
+									set_owner = event_target:machinesmith
+									while = {
+										count = 20
+										create_ship = {
+											name = random
+											prefix = no
+											design = event_target:machinesmith_corvette
+											graphical_culture = event_target:machinesmith
+										}
+									}
+									while = {
+										count = 10
+										create_ship = {
+											name = random
+											prefix = no
+											design = event_target:machinesmith_destroyer
+											graphical_culture = event_target:machinesmith
+										}
+									}
+									if = {
+										limit = { exists = event_target:machinesmith_battleship }
+										while = {
+											count = 2
+											create_ship = {
+												name = random
+												prefix = no
+												design = event_target:machinesmith_battleship
+												graphical_culture = event_target:machinesmith
+											}
+										}
+									} else = {
+										while = {
+											count = 6
+											create_ship = {
+												name = random
+												prefix = no
+												design = event_target:machinesmith_cruiser
+												graphical_culture = event_target:machinesmith
+											}
+										}
+									}
+								}
+							}
 							set_location = {
 								target = prev
 								distance = 20
@@ -5946,23 +6033,14 @@ country_event = {
 					}
 				}
 
-				random_subject = {
-					limit = {
-						any_agreement = { agreement_preset = preset_machinesmith_satrapy }
-						NOT = { has_country_flag = rebelling_satrapy }
-					}
-					root = {
-						if = {
-							limit = { can_copy_random_tech_from = { who = prev } }
-							copy_random_tech_from = { who = prev }
-						}
-					}
-					log = "machinesmith sold"
-					country_event = { id = marauder.520 days = 360 } # Improved cycle
+				if = {
+					limit = { NOT = { exists = event_target:machinesmith } }
+					remove_country_flag = has_machinesmith # Regular cycle
+					country_event = { id = marauder.520 days = 330 }
+				} else = {
+					last_created_fleet = { set_owner = root }
 					break = yes
 				}
-				remove_country_flag = has_machinesmith # Regular cycle
-				country_event = { id = marauder.520 days = 330 }
 			} else = {
 				event_target:CmtGlobalVar = {
 					if = {
@@ -8688,36 +8766,7 @@ country_event = {
 			name = "NAME_Salvaged_Fleet"
 			effect = {
 				set_owner = root
-				while = {
-					count = 6
-					create_ship = {
-						name = "NAME_Outrider"
-						prefix = no
-						# design = "NAME_Outrider"
-						design = "NAME_Skull"
-						graphical_culture = "pirate_01"
-					}
-				}
-				while = {
-					count = 3
-					create_ship = {
-						name = "NAME_Lancer"
-						prefix = no
-						# design = "NAME_Lancer"
-						design = "NAME_Corsair"
-						graphical_culture = "pirate_01"
-					}
-				}
-				while = {
-					count = 2
-					create_ship = {
-						name = "NAME_Void_Champion"
-						prefix = no
-						# design = "NAME_Void_Champion"
-						design = "NAME_Black_Earl"
-						graphical_culture = "pirate_01"
-					}
-				}
+				create_dyn_pirate_fleet = { Skull = 6 Corsair = 3 Black_Earl = 2 }
 				set_location = root.capital_scope
 			}
 		}

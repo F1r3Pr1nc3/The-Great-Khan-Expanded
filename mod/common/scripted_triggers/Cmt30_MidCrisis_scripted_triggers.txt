@@ -32,7 +32,8 @@ CmtTriggerKhanAwakingMultipleCheck = {
 }
 
 ### Country Conditions
-CmtTriggerHasPotentialKhanAwaking = { ## Scope = country
+## Scope = country
+CmtTriggerHasPotentialKhanAwaking = {
 	OR = {
 		is_country_type = dormant_marauders
 		AND = { # Fallback

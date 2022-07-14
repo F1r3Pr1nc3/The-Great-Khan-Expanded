@@ -142,17 +142,53 @@ create_marauder_fleet = {
 	}
 	create_fleet = {
 		effect = {
-			set_owner = event_target:raider_khanate
-			if = {
-				limit = {
-					OR = {
-						has_global_flag = expanded_spaceborne_installed
-						event_target:CmtGlobalVar = { check_variable = { which = CmtVarFleetPower_Khan value > 1.74 } }
+			random_list = {
+				50 = {
+					set_owner = event_target:raider_khanate
+					if = {
+						limit = {
+							OR = {
+								has_global_flag = expanded_spaceborne_installed
+								event_target:CmtGlobalVar = { check_variable = { which = CmtVarFleetPower_Khan value > 1.74 } }
+							}
+						}
+						create_dyn_marauder_fleet = { OUTRIDER = 32 LANCER = 16 CHAMPION = 12 }
+					} else = {
+						create_dyn_marauder_fleet = { OUTRIDER = 16 LANCER = 8 }
 					}
 				}
-				create_dyn_marauder_fleet = { OUTRIDER = 32 LANCER = 16 CHAMPION = 12 }
-			} else = {
-				create_dyn_marauder_fleet = { OUTRIDER = 16 LANCER = 8 }
+				50 = { # Own ships
+					set_owner = root
+					while = {
+						count = 16
+						create_ship = {
+							name = random
+							prefix = no
+							random_existing_design = corvette
+							graphical_culture = root
+						}
+					}
+					while = {
+						count = 8
+						create_ship = {
+							name = random
+							prefix = no
+							random_existing_design = destroyer
+							graphical_culture = root
+						}
+					}
+					if = { limit = { root = { any_owned_design = { is_ship_size = cruiser } } }
+						while = {
+							count = 3
+							create_ship = {
+								name = random
+								prefix = no
+								random_existing_design = cruiser
+								graphical_culture = root
+							}
+						}
+					}
+				}
 			}
 
 			assign_leader = last_created_leader
@@ -169,6 +205,7 @@ create_marauder_fleet = {
 			can_change_composition = no
 		}
 	}
+	last_created_fleet = { set_owner = event_target:raider_khanate }
 }
 
 create_small_marauder_auxiliaries = {
