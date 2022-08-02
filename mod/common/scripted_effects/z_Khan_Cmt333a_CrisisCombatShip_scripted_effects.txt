@@ -30,7 +30,7 @@ CmtEffectCreateShip_Outrider = {
 		design = "NAME_Outrider"
 		prefix = no
 		# upgradable = yes
-		graphical_culture = "madd_01" # prev.owner
+		graphical_culture = prev.owner # "madd_01"
 	}
 }
 
@@ -40,7 +40,7 @@ CmtEffectCreateShip_Lancer = {
 		design = "NAME_Lancer"
 		prefix = no
 		# upgradable = yes
-		graphical_culture = "madd_01" # prev.owner
+		graphical_culture = prev.owner # "madd_01"
 	}
 }
 
@@ -50,7 +50,7 @@ CmtEffectCreateShip_VoidChampion = {
 		design = "NAME_Void_Champion"
 		prefix = no
 		# upgradable = yes
-		graphical_culture = "madd_01" # prev.owner
+		graphical_culture = prev.owner # "madd_01"
 	}
 }
 
@@ -60,7 +60,7 @@ CmtEffectCreateShip_AncestralGlory = {
 		design = "NAME_Ancestral_Glory"
 		prefix = no
 		# upgradable = yes
-		graphical_culture = "madd_01" # prev.owner
+		graphical_culture = prev.owner # "madd_01"
 	}
 }
 

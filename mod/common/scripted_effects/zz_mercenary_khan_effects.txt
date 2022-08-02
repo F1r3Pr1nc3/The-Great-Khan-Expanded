@@ -1,4 +1,4 @@
-# Replaced graphical_culture = "madd_01"
+# Replaced graphical_culture = prev.owner # "madd_01"
 # Not really necessary, as vanilla graphical_culture gets ignored if invalid.
 # This = Fleet
 create_dyn_marauder_fleet = {
@@ -11,7 +11,7 @@ create_dyn_marauder_fleet = {
 			design = NAME_Outrider$VARIANT$
 			prefix = no
 			# upgradable = yes
-			graphical_culture = "madd_01"
+			graphical_culture = prev.owner # "madd_01"
 		}
 	}
 	while = {
@@ -21,7 +21,7 @@ create_dyn_marauder_fleet = {
 			design = NAME_Lancer$VARIANT$
 			prefix = no
 			# upgradable = yes
-			graphical_culture = "madd_01"
+			graphical_culture = prev.owner # "madd_01"
 		}
 	}
 	while = {
@@ -31,7 +31,7 @@ create_dyn_marauder_fleet = {
 			design = NAME_Void_Champion$VARIANT$
 			prefix = no
 			# upgradable = yes
-			graphical_culture = "madd_01"
+			graphical_culture = prev.owner # "madd_01"
 		}
 	}
 	while = {
@@ -41,7 +41,7 @@ create_dyn_marauder_fleet = {
 			design = NAME_Ancestral_Glory$VARIANT$
 			prefix = no
 			# upgradable = yes
-			graphical_culture = "madd_01"
+			graphical_culture = prev.owner # "madd_01"
 		}
 	}
 }
@@ -218,7 +218,10 @@ create_small_marauder_auxiliaries = {
 		traits = { trait = random_trait }
 	}
 	create_fleet = {
-		name = "NAME_Horde_Auxiliary_Fleet"
+		name = {
+			key = "NAME_Horde_Auxiliary_Fleet"
+			variable_string = "satrapy_species.GetName"
+		}
 		effect = {
 			set_owner = event_target:raider_khanate
 			set_fleet_flag = horde_auxuliaries
@@ -261,7 +264,10 @@ create_medium_marauder_auxiliaries = {
 		traits = { trait = random_trait }
 	}
 	create_fleet = {
-		name = "NAME_Horde_Auxiliary_Fleet"
+		name = {
+			key = "NAME_Horde_Auxiliary_Fleet"
+			variable_string = "satrapy_species.GetName"
+		}
 		effect = {
 			set_owner = event_target:raider_khanate
 			set_fleet_flag = horde_auxuliaries
@@ -304,7 +310,10 @@ create_large_marauder_auxiliaries = {
 		traits = { trait = random_trait }
 	}
 	create_fleet = {
-		name = "NAME_Horde_Auxiliary_Fleet"
+		name = {
+			key = "NAME_Horde_Auxiliary_Fleet"
+			variable_string = "satrapy_species.GetName"
+		}
 		effect = {
 			set_owner = event_target:raider_khanate
 			set_fleet_flag = horde_auxuliaries
@@ -346,7 +355,10 @@ create_very_large_marauder_auxiliaries = {
 	}
 	last_created_leader = { set_age = 37 }
 	create_fleet = {
-		name = "NAME_Horde_Auxiliary_Fleet"
+		name = {
+			key = "NAME_Horde_Auxiliary_Fleet"
+			variable_string = "satrapy_species.GetName"
+		}
 		effect = {
 			set_owner = event_target:raider_khanate
 			set_fleet_flag = horde_auxuliaries

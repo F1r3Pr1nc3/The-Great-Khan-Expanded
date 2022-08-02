@@ -1,4 +1,5 @@
-@corvette_scale = 1.05
+#@corvette_scale = 1.05
+#@destroyer_scale = 1.45
 
 # Vanilla Fix Try
 # entity = {
@@ -10,53 +11,37 @@
 # 		}
 # 	scale = 1.0
 # }
-entity = {
-	name = "pirate_01_starbase_marauder_construction_entity"
-	clone = "station_generic_01_entity"
-	scale = 8
-}
+entity = { name = "pirate_01_starbase_marauder_construction_entity" clone = "station_generic_01_entity" scale = 8 }
+entity = { name = "madd_01_starbase_marauder_construction_entity" clone = "station_generic_01_entity" scale = 8 }
 
-entity = {
-	name = "madd_01_starbase_marauder_construction_entity"
-	clone = "station_generic_01_entity"
-	scale = 8
-}
+# entity = { name = "pirate_corvette_entity" clone = "pirate_01_pirate_corvette_entity" scale = 1 }
+# entity = { name = "pirate_corvette_M1S1_entity" clone = "pirate_01_pirate_corvette_M1S1_entity" scale = 1 }
+# entity = { name = "pirate_corvette_S3_entity" clone = "pirate_01_pirate_corvette_S3_entity" scale = 1 }
+# entity = { name = "pirate_destroyer_entity" clone = "pirate_01_pirate_destroyer_entity" scale = 1 }
+# entity = { name = "pirate_cruiser_entity" clone = "pirate_01_pirate_cruiser_entity" scale = 1 }
+# entity = { name = "galleon_entity" clone = "pirate_01_galleon_entity" scale = 1 }
+## Section templates are not needed as they get overwritten!?
+# entity = { name = "madd_01_pirate_corvette_S3_entity" clone = "pirate_01_pirate_corvette_S3_entity" scale = 1 }
+# entity = { name = "madd_01_pirate_corvette_M1S1_entity" clone = "pirate_01_pirate_corvette_M1S1_entity" scale = 1 }
+# entity = { name = "madd_01_pirate_corvette_S1_entity" clone = "pirate_01_pirate_corvette_S1_entity" scale = 1 }
+# entity = { name = "madd_01_pirates_destroyer01_1l_2s_entity" clone = "pirates_destroyer01_1l_2s_entity" scale = 1 }
+# entity = { name = "madd_01_pirates_destroyer01_1m_2s_1m_entity" clone = "pirates_destroyer01_1m_2s_1m_entity" scale = 1 }
+# entity = { name = "madd_01_pirate_corvette_entity" clone = "pirate_01_pirate_corvette_entity" scale = 1 }
+# entity = { name = "madd_01_pirate_destroyer_entity" clone = "pirate_01_pirate_destroyer_entity" scale = 1 }
+# entity = { name = "madd_01_cruiser_hull_entity" clone = "pirate_01_cruiser_hull_entity" scale = 1 }
+# entity = { name = "madd_01_galleon_hull_entity" clone = "pirate_01_galleon_hull_entity" scale = 1 }
 
-entity = { name = "pirate_corvette_entity" clone = "pirate_01_pirate_corvette_entity" }
-entity = { name = "pirate_corvette_M1S1_entity" clone = "pirate_01_pirate_corvette_M1S1_entity" }
-entity = { name = "pirate_corvette_S3_entity" clone = "pirate_01_pirate_corvette_S3_entity" }
+entity = { name = "madd_01_pirate_cruiser_entity" clone = "pirate_01_pirate_cruiser_entity" scale = 1 }
+entity = { name = "madd_01_galleon_entity" clone = "pirate_01_galleon_entity" scale = 1 }
 
 ## STATIONS
-entity = {
-	name = "madd_01_marauder_station_entity"
-	clone = "pirate_01_pirate_station_entity"
-}
-
-entity = {
-	name = "pirate_01_marauder_station_entity"
-	clone = "pirate_01_pirate_station_entity"
-}
-
-entity = {
-	name = "horde_void_dwelling_entity"
-	clone = "station_generic_01_entity"
-	scale = 2
-}
-
-# entity = {
-# 	name = "madd_01_pirate_station_entity"
-# 	clone = "pirate_01_pirate_station_entity"
-# }
-# entity = {
-# 	name = "madd_01_pirate_base_entity"
-# 	clone = "pirate_01_pirate_base_entity"
-# }
-
-entity = {
-	name = "npf_01_dirty_npc_galleon_01_hull_entity"
-	clone = "npf_01_dirty_npc_warship_01_hull_entity"
-	scale = 2.0
-}
+# entity = { name = "madd_01_marauder_station_entity" clone = "pirate_01_pirate_station_entity" scale = 1 }
+# entity = { name = "pirate_01_marauder_station_entity" clone = "pirate_01_pirate_station_entity" }
+entity = { name = "horde_void_dwelling_entity" clone = "station_generic_01_entity" scale = 2 }
+# Section templates
+# entity = { name = "madd_01_pirate_station_entity" clone = "pirate_01_pirate_station_entity" scale = 1 }
+entity = { name = "madd_01_pirate_base_entity" clone = "pirate_01_pirate_base_entity" scale = 1 }
+entity = { name = "npf_01_dirty_npc_galleon_01_hull_entity" clone = "npf_01_dirty_npc_warship_01_hull_entity" scale = 2.0 }
 
 entity = {
 	name = "npf_01_npc_galleon_01_entity"
@@ -92,8 +77,25 @@ entity = {
 	}
 }
 
-entity = {
-	name = "pirate_01_pirate_starbase_entity"
-	clone = "pirate_01_pirate_base_entity"
-	scale = 2.4
-}
+entity = { name = "pirate_01_pirate_starbase_entity" clone = "pirate_01_pirate_base_entity" scale = 2.4 }
+entity = { name = "madd_01_pirate_starbase_entity" clone = "pirate_01_pirate_base_entity" scale = 2.4 }
+
+
+###################################################################################
+###																				###
+###									WEAPONS										###
+###																				###
+###################################################################################
+entity = { name = "madd_01_turret_energy_torpedo_entity" clone = "pirate_01_turret_energy_torpedo_entity" scale = 1 }
+entity = { name = "madd_01_turret_torpedo_entity" clone = "pirate_01_turret_torpedo_entity" scale = 1 }
+entity = { name = "madd_01_turret_missile_large_entity" clone = "pirate_01_turret_missile_large_entity" scale = 1 }
+entity = { name = "madd_01_turret_missile_medium_entity" clone = "pirate_01_turret_missile_medium_entity" scale = 1 }
+entity = { name = "madd_01_turret_missile_small_entity" clone = "pirate_01_turret_missile_small_entity" scale = 1 }
+entity = { name = "madd_01_large_kinetic_gun_entity" clone = "pirate_01_large_kinetic_gun_entity" scale = 1 }
+entity = { name = "madd_01_medium_kinetic_gun_entity" clone = "pirate_01_medium_kinetic_gun_entity" scale = 1 }
+entity = { name = "madd_01_small_kinetic_gun_entity" clone = "pirate_01_small_kinetic_gun_entity" scale = 1 }
+entity = { name = "madd_01_turret_point_defence_entity" clone = "pirate_01_turret_point_defence_entity" scale = 1 }
+entity = { name = "madd_01_large_laser_gun_entity" clone = "pirate_01_large_laser_gun_entity" scale = 1 }
+entity = { name = "madd_01_medium_laser_gun_entity" clone = "pirate_01_medium_laser_gun_entity" scale = 1 }
+entity = { name = "madd_01_small_laser_gun_entity" clone = "pirate_01_small_laser_gun_entity" scale = 1 }
+entity = { name = "madd_01_turret_xl_entity" clone = "pirate_01_turret_xl_entity" scale = 1 }

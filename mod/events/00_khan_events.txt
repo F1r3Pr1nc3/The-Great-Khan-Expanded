@@ -4278,7 +4278,7 @@ country_event = {
 		trigger = { has_been_declared_crisis = no }
 		response_text = marauder_fabricator_good
 		country_event = { id = marauder.559 } # Pre-Submit to Khan
-		set_subject_of = { who = event_target:raider_khanate preset = preset_fabricator_satrap }
+		set_subject_of = { who = event_target:raider_khanate preset = preset_fabricator_satrapy }
 		hidden_effect = {
 			event_target:raider_khanate = {
 				if = { limit = { is_hostile = prev }
@@ -4288,7 +4288,7 @@ country_event = {
 						set_neutral = yes
 					}
 				}
-				country_event = { id = khan.309 days = 1 } # To be sure
+				country_event = { id = khan.309 days = 1 } # Friendly to be sure
 			}
 			country_event = { id = khan.798 days = @CmtConstKhanLifespan_5e random = @CmtConstKhanLifespan_2f }
 		}
@@ -4800,7 +4800,7 @@ country_event = {
 		trigger = { has_been_declared_crisis = no }
 		response_text = marauder_deal_accept
 		country_event = { id = marauder.559 } # Pre-Submit to Khan
-		set_subject_of = { who = event_target:raider_khanate preset = preset_machinesmith_satrap }
+		set_subject_of = { who = event_target:raider_khanate preset = preset_machinesmith_satrapy }
 		hidden_effect = {
 			event_target:raider_khanate = {
 				if = { limit = { is_hostile = prev }
@@ -4810,7 +4810,7 @@ country_event = {
 						set_neutral = yes
 					}
 				}
-				country_event = { id = khan.309 days = 1 } # To be sure
+				country_event = { id = khan.309 days = 1 } # Friendly to be sure
 				set_country_flag = has_machinesmith
 				# country_event = { id = khan.868 } # (New Reinforcement Cycle)
 			}
@@ -4851,6 +4851,10 @@ country_event = {
 		custom_tooltip = "SUBJECT_DESC_machinesmith"
 		# sound = placeholder_sfx
 		trigger = {
+			NAND = {
+				is_subject_of_khan = yes
+				any_agreement = { agreement_preset = preset_machinesmith_satrapy }
+			}
 			has_technology = tech_mass_drivers_4
 			has_technology = tech_lasers_4
 			has_technology = tech_ship_armor_4
@@ -4867,10 +4871,11 @@ country_event = {
 		custom_tooltip = "SUBJECT_DESC_fabricator_satrapy"
 		# sound = placeholder_sfx
 		trigger = {
-			has_monthly_income = {
-				resource = alloys
-				value > 100
+			NAND = {
+				is_subject_of_khan = yes
+				any_agreement = { agreement_preset = preset_fabricator_satrapy }
 			}
+			has_monthly_income = { resource = alloys value > 100 }
 		}
 		allow = { NOT = { has_active_event = { khan.799 } } }
 		hidden_effect = {
