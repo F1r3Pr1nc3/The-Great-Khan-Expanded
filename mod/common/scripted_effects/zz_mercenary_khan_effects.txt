@@ -47,6 +47,7 @@ create_dyn_marauder_fleet = {
 }
 
 create_1st_khan_fleet = {
+	optimize_memory
 	create_fleet = {
 		name = "NAME_Chosen_of_the_Great_Khan"
 		effect = {
@@ -87,6 +88,7 @@ create_1st_khan_fleet = {
 }
 
 create_2nd_khan_fleet = {
+	optimize_memory
 	create_fleet = {
 		name = "NAME_Chosen_of_the_Great_Khan"
 		effect = {
@@ -128,6 +130,7 @@ create_2nd_khan_fleet = {
 }
 
 create_marauder_fleet = {
+	optimize_memory # as replaced and not used by this mod
 	create_leader = {
 		class = admiral
 		species = owner_species
@@ -209,6 +212,7 @@ create_marauder_fleet = {
 }
 
 create_small_marauder_auxiliaries = {
+	optimize_memory
 	create_leader = {
 		class = admiral
 		species = event_target:satrapy_species
@@ -255,6 +259,7 @@ create_small_marauder_auxiliaries = {
 }
 
 create_medium_marauder_auxiliaries = {
+	optimize_memory
 	create_leader = {
 		class = admiral
 		species = event_target:satrapy_species
@@ -301,6 +306,7 @@ create_medium_marauder_auxiliaries = {
 }
 
 create_large_marauder_auxiliaries = {
+	optimize_memory
 	create_leader = {
 		class = admiral
 		species = event_target:satrapy_species
@@ -347,6 +353,7 @@ create_large_marauder_auxiliaries = {
 }
 
 create_very_large_marauder_auxiliaries = {
+	optimize_memory
 	create_leader = {
 		class = admiral
 		species = event_target:satrapy_species
@@ -392,6 +399,7 @@ create_very_large_marauder_auxiliaries = {
 }
 
 create_marauder_successor_fleet = {
+	optimize_memory
 	random_owned_planet = { save_event_target_as = fleet_position }
 	create_leader = {
 		class = admiral
@@ -436,6 +444,7 @@ create_marauder_successor_fleet = {
 }
 
 create_first_diadochi = {
+	optimize_memory
 	if = {
 		limit = {
 			exists = event_target:first_diadochi_origin
@@ -500,6 +509,7 @@ create_first_diadochi = {
 }
 
 create_second_diadochi = {
+	optimize_memory
 	if = {
 		limit = {
 			exists = event_target:second_diadochi_origin
@@ -564,6 +574,7 @@ create_second_diadochi = {
 }
 
 create_third_diadochi = {
+	optimize_memory
 	if = {
 		limit = {
 			exists = event_target:third_diadochi_origin
@@ -628,6 +639,7 @@ create_third_diadochi = {
 }
 
 create_fourth_diadochi = {
+	optimize_memory
 	if = {
 		limit = {
 			exists = event_target:fourth_diadochi_origin
