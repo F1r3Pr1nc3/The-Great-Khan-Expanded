@@ -5409,7 +5409,7 @@ country_event = {
 				remove_global_flag = great_khan_dead
 			}
 
-			country_event = { id = khan.306 } # Check/Create fallback rally_point
+			country_event = { id = khan.306 days = -1 } # Check/Create fallback rally_point
 			event_target:marauder_rally_point = { CmtEffectCreateAdmiralty_Khan2ndFleetSet = yes }
 
 			if = {
@@ -5917,7 +5917,7 @@ country_event = {
 		# NOT = { has_country_flag = has_machinesmith }
 	}
 	immediate = {
-		country_event = { id = khan.306 } # Check/Create fallback rally_point
+		country_event = { id = khan.306 days = -1 } # Check/Create fallback rally_point
 		if = {
 			limit = { exists = event_target:marauder_rally_point }
 			### Khan Expanded
@@ -5925,6 +5925,104 @@ country_event = {
 				limit = { NOT = { has_country_flag = KhanReinforcement_Cycle } }
 				country_event = { id = khan.299 } # End check
 				set_country_flag = KhanReinforcement_Cycle
+
+				# Minor checks: no high frequent needed
+				## ReinforceKhan himself
+				if = {
+					limit = {
+						exists = event_target:great_khan
+						exists = event_target:great_khan.fleet
+						event_target:great_khan.fleet = {
+							fleet_power < 36000
+							exists = solar_system
+						}
+					}
+					event_target:great_khan.fleet = {
+						# Reinforce Khan himself
+						if = { limit = { fleet_power < 12000 }
+							create_dyn_marauder_fleet = { OUTRIDER = 20 LANCER = 10 CHAMPION = 6 GLORY = 1 }
+						} else_if = { limit = { fleet_power < 21000 }
+							create_dyn_marauder_fleet = { OUTRIDER = 18 LANCER = 8 CHAMPION = 3 }
+						} else = {
+							create_dyn_marauder_fleet = { OUTRIDER = 14 LANCER = 6 CHAMPION = 1 VARIANT = "_4" }
+						}
+					}
+				}
+				## Re-assing idle admirals
+				if = {
+					limit = {
+						any_owned_fleet = {
+							is_mobile = yes
+							is_civilian = no
+							NOT = { exists = leader }
+						}
+						any_owned_leader = {
+							leader_class = admiral
+							is_event_leader = no
+							NOT = { exists = fleet }
+						}
+					}
+					random_owned_fleet = {
+						limit = {
+							is_mobile = yes
+							is_civilian = no
+							NOT = { exists = leader }
+						}
+						root = {
+							random_owned_leader = {
+								limit = {
+									leader_class = admiral
+									is_event_leader = no
+									NOT = { exists = fleet }
+								}
+								prevprev = { assign_leader = prev }
+							}
+						}
+					}
+				}
+				## Re-assing idle generals
+				if = {
+					limit = {
+						any_controlled_planet = {
+							has_army = yes
+							NOR = {
+								has_ground_combat = yes
+								planet_garrison_strength < 510
+								any_planet_army = { exists = leader }
+							}
+						}
+						any_owned_leader = {
+							leader_class = general
+							is_event_leader = no
+							NOR = { exists = fleet exists = army } # cwtools false error
+						}
+					}
+					random_controlled_planet = {
+						limit = {
+							has_army = yes
+							NOR = {
+								has_ground_combat = yes
+								planet_garrison_strength < 510
+								any_planet_army = { exists = leader }
+							}
+						}
+						root = {
+							random_owned_leader = {
+								limit = {
+									leader_class = general
+									NOR = { exists = fleet exists = army }
+								}
+								prevprev = {
+									random_planet_army = {
+										assign_leader = prevprev
+									}
+								}
+							}
+						}
+					}
+				}
+
+
 			} else = { remove_country_flag = KhanReinforcement_Cycle }
 
 			if = {
@@ -7382,7 +7480,9 @@ country_event = {
 			copy_random_tech_from = { who = prev area = physics }
 			add_resource = { influence = 100 }
 		}
-		event_target:capital_planet = { clear_variable = "planets_lost_to_marauder" }
+		if = { limit = { is_variable_set = event_target:capital_planet.planets_lost_to_marauder }
+			event_target:capital_planet = { clear_variable = planets_lost_to_marauder }
+		}
 	}
 }
 
@@ -8169,7 +8269,7 @@ country_event = {
 				limit = { root = { num_owned_relics > 0 } }
 				steal_relic = { target = root relic = all }
 			}
-			country_event = { id = khan.306 }
+			country_event = { id = khan.306 days = -1 }
 			# create_marauder_successor_fleet = yes
 			event_target:marauder_rally_point = {
 				prev = { CmtEffectCreateFleet_KhanStandard = yes }

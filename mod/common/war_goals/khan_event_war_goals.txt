@@ -50,7 +50,10 @@ wg_independence = {
 	on_wargoal_set = {
 		every_system_within_border = {
 			limit = {
-				NOT = { from = { has_claim = prev } }
+				NOR = {
+					from = { has_claim = prev }
+					is_owned_by = from
+				}
 			}
 			add_claims = { who = from }
 		}
@@ -199,8 +202,9 @@ wg_ae_uprising = {
 	on_wargoal_set = {
 		every_system_within_border = {
 			limit = {
-				NOT = {
+				NOR = {
 					from = { has_claim = prev }
+					is_owned_by = from
 				}
 			}
 			add_claims = { who = from }

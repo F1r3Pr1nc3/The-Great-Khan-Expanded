@@ -2078,7 +2078,7 @@ event = {
 				if = { limit = { has_country_flag = declared_crisis }
 					remove_country_flag = declared_crisis
 				}
-				country_event = { id = khan.309 }
+				country_event = { id = khan.309 days = -1 }
 				country_event = { id = khan.309 days = 4 }
 				# TODO TEMP FIX KHAN NO RESPAWN.
 				country_event = { id = marauder.507 days = 105 random = 80 }
@@ -2471,14 +2471,32 @@ ship_event = {
 								root.fleet = { set_owner = prev }
 							}
 						}
-					} else = {
+					} else_if = {
+						limit = {
+							any_system_planet = {
+								has_owner = yes
+								is_colony = yes
+								NOT = { is_owned_by = root.owner }
+								NAND = {
+									exists = controller
+									controller = { is_same_empire = root.owner }
+								}
+							}
+						}
 						random_system_planet = {
 							limit = {
 								has_owner = yes
 								is_colony = yes
+								NOT = { is_owned_by = root.owner }
+								NAND = {
+									exists = controller
+									controller = { is_same_empire = root.owner }
+								}
 							}
 							root.fleet = { set_owner = prev.owner }
 						}
+					} else = {
+						root.fleet = { set_owner = from.owner }
 					}
 				} else = {
 					root.fleet = { set_owner = from.owner }
@@ -4230,14 +4248,15 @@ country_event = {
 						# }
 						# 1 = { while = { count = 5 CmtEffectCreateShip_KhanArmy = yes } }
 					}
-					random = {
-						chance = 50
-						set_fleet_stance = evasive # AI does not handle this well too.
-					}
 					set_location = {
 						target = prev
 						distance = 20
 						angle = random
+					}
+					random_list = {
+						2 = {}
+						3 = { set_fleet_stance = evasive } # AI does not handle this well too.
+						5 = { set_fleet_stance = aggressive }
 					}
 				}
 			}
@@ -4327,7 +4346,7 @@ country_event = {
 		# has_country_flag = has_machinesmith
 	}
 	immediate = {
-		country_event = { id = khan.306 } # Check/Create fallback rally_point
+		country_event = { id = khan.306 days = -1 } # Check/Create fallback rally_point
 		create_marauder_constructors = yes
 		if = {
 			limit = { num_armies < 40 }
@@ -4439,7 +4458,7 @@ country_event = {
 		}
 	}
 	immediate = {
-		country_event = { id = khan.306 } # Check/Create fallback rally_point
+		country_event = { id = khan.306 days = -1 } # Check/Create fallback rally_point
 		# log="khan.870 Cycle"
 		if = {
 			limit = {
