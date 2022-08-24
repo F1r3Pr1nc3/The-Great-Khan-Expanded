@@ -26,7 +26,7 @@ npc_galleon_01 = {
 	}
 	max_hitpoints = 40000
 	combat_size_multiplier = 24 # 20
-	size_multiplier = 12 # 8
+	size_multiplier = 8
 	fleet_slot_size = 4
 	section_slots = { "mid" = { locator = "part1" } }
 	is_designable = no # TODO?
@@ -100,7 +100,7 @@ starbase_marauder = {
 	max_hitpoints = 20000
 	base_buildtime = 730
 	combat_size_multiplier = 50
-	size_multiplier = 4
+	size_multiplier = -30 # 4
 	fleet_slot_size = 2
 	section_slots = { "mid" = { locator = "part1" } }
 	is_designable = no

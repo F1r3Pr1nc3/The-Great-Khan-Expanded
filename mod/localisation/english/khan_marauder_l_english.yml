@@ -94,3 +94,5 @@
  marauder.31.h:0 "§YThe [raid_target_7.GetName].§!"
  marauder.31.i:0 "§YThe [raid_target_8.GetName].§!"
  marauder.31.j:0 "§YThe [raid_target_9.GetName].§!"
+ war_goal_wg_satrapy_independence:0 "$war_goal_wg_independence$"
+ war_goal_wg_satrapy_independence_desc:0 "$war_goal_wg_independence_desc$"

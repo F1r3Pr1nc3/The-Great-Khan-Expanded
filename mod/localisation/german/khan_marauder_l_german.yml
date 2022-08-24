@@ -80,3 +80,5 @@
  war_goal_wg_marauder_expansion: "$NAME_Expansion$"
  war_goal_wg_marauder_expansion_desc: "$war_goal_wg_subjugation_desc$"
  war_goal_wg_marauder_uprising: "Der Große Aufstand"
+ war_goal_wg_satrapy_independence: "$war_goal_wg_independence$"
+ war_goal_wg_satrapy_independence_desc: "$war_goal_wg_independence_desc$"

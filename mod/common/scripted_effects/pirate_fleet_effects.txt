@@ -21,7 +21,7 @@ create_normal_pirate_country = {
 			event_target:pirate_band = {
 				set_name = random
 				randomize_flag_symbol = "pirate"
-				every_country = { establish_communications_no_message = prev }
+				every_country = { limit = { is_country_type_with_subjects = yes } establish_communications_no_message = prev }
 			}
 		}
 	}
@@ -50,7 +50,7 @@ create_drone_pirate_country = {
 			event_target:pirate_band = {
 				set_name = random
 				randomize_flag_symbol = "pirate"
-				every_country = { establish_communications_no_message = prev }
+				every_country = { limit = { is_country_type_with_subjects = yes } establish_communications_no_message = prev }
 			}
 		}
 	}
@@ -78,7 +78,7 @@ create_drone_pirate_country_2 = {
 			event_target:pirate_band = {
 				set_name = random
 				randomize_flag_symbol = "pirate"
-				every_country = { establish_communications_no_message = prev }
+				every_country = { limit = { is_country_type_with_subjects = yes } establish_communications_no_message = prev }
 			}
 		}
 	}
@@ -106,7 +106,7 @@ create_machine_pirate_country = {
 			event_target:pirate_band = {
 				set_name = random
 				randomize_flag_symbol = "pirate"
-				every_country = { establish_communications_no_message = prev }
+				every_country = { limit = { is_country_type_with_subjects = yes } establish_communications_no_message = prev }
 			}
 		}
 	}
@@ -134,7 +134,7 @@ create_machine_pirate_country_2 = {
 			event_target:pirate_band = {
 				set_name = random
 				randomize_flag_symbol = "pirate"
-				every_country = { establish_communications_no_message = prev }
+				every_country = { limit = { is_country_type_with_subjects = yes } establish_communications_no_message = prev }
 			}
 		}
 	}
@@ -662,7 +662,7 @@ create_privateer_country = {
 			}
 			event_target:privateer_band = {
 				randomize_flag_symbol = "pirate"
-				every_country = { establish_communications_no_message = prev }
+				every_country = { limit = { is_country_type_with_subjects = yes } establish_communications_no_message = prev }
 			}
 		}
 	}

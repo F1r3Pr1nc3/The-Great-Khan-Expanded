@@ -509,7 +509,7 @@ country_event = {
 			declare_war = {
 				target = event_target:raider_khanate
 				name = "NAME_The_Civil_War" # "The Great Uprising"
-				attacker_war_goal = "wg_independence"
+				attacker_war_goal = "wg_satrapy_independence"
 			}
 		}
 		federation = {
@@ -604,30 +604,11 @@ country_event = {
 
 			### Need Naval Capacity
 			if = {
-				limit = { NOT = { has_tradition = tr_supremacy_adopt } }
-				add_tradition = tr_supremacy_adopt
-				add_tradition = tr_supremacy_master_shipwrights
-				add_tradition = tr_supremacy_fleet_logistical_corps
-				add_tradition = tr_supremacy_overwhelming_force
-				add_tradition = tr_supremacy_war_games
-				add_tradition = tr_supremacy_great_game
-				add_tradition = tr_supremacy_finish
-			}
-			if = {
 				limit = { NOT = { has_tradition = tr_diplomacy_adopt } }
 				add_tradition = tr_diplomacy_adopt
 				add_tradition = tr_diplomacy_the_federation
 				add_tradition = tr_diplomacy_entente_coordination
 			}
-			give_tech_no_error_effect = { MESSAGE = no TECH = tech_gene_banks }
-			give_tech_no_error_effect = { MESSAGE = no TECH = tech_planetary_defenses }
-			give_tech_no_error_effect = { MESSAGE = no TECH = tech_ground_defense_planning }
-			give_tech_no_error_effect = { MESSAGE = no TECH = tech_global_defense_grid }
-			give_tech_no_error_effect = { MESSAGE = no TECH = tech_doctrine_navy_size_1 }
-			give_tech_no_error_effect = { MESSAGE = no TECH = tech_doctrine_navy_size_2 }
-			give_tech_no_error_effect = { MESSAGE = no TECH = tech_doctrine_navy_size_3 }
-			give_tech_no_error_effect = { MESSAGE = no TECH = tech_doctrine_navy_size_4 }
-			give_tech_no_error_effect = { MESSAGE = no TECH = tech_repeatable_naval_cap }
 
 			if = { limit = { has_civic = civic_anarcho_tribalism }
 				force_remove_civic = civic_anarcho_tribalism
@@ -644,21 +625,6 @@ country_event = {
 				energy =	50000
 				alloys =	20000
 				minerals =	10000
-			}
-
-			if = { limit = { exists = ruler }
-				ruler = {
-					if = { limit = { NOT = { has_trait = leader_trait_fleet_organizer } }
-						add_ruler_trait = leader_trait_fleet_organizer
-					}
-				}
-			}
-			if = { limit = { exists = event_target:great_khan }
-				event_target:great_khan = {
-					if = { limit = { NOT = { has_trait = leader_trait_fleet_logistician } }
-						add_trait = leader_trait_fleet_logistician
-					}
-				}
 			}
 
 			every_subject = {
@@ -1294,9 +1260,14 @@ country_event = {
 	}
 	option = {
 		name = war_in_heaven.4.d
-		trigger = { is_subject = yes }
+		trigger = {
+			is_subject = yes
+		}
 		if = {
-			limit = { overlord = { is_same_empire = event_target:FirstSleeper } }
+			limit = {
+				exists = event_target:FirstSleeper
+				overlord = { is_same_empire = event_target:FirstSleeper }
+			}
 			join_war = event_target:FirstSleeper
 		} else_if = {
 			limit = { overlord = { is_same_empire = event_target:raider_khanate } }
@@ -1329,7 +1300,10 @@ country_event = {
 	}
 	option = {		## For ZoFE
 		name = war_in_heaven.4.e
-		trigger = { is_zofe_ae = yes }
+		trigger = {
+			is_zofe_ae = yes
+			exists = event_target:FirstSleeper
+		}
 		ai_chance = {
 			factor = 20
 			modifier = {
@@ -2225,6 +2199,9 @@ starbase_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
+		if = { limit = { NOT = { is_owned_by = event_target:raider_khanate } }
+			set_owner = event_target:raider_khanate
+		}
 		# TODO needs free slot check somehow: "Building slot is invalid."
 		if = {
 			limit = { NOT = { has_starbase_module = "shipyard" } }
@@ -2283,14 +2260,11 @@ starbase_event = {
 				set_starbase_building = { slot = 4 building = "target_uplink_computer" }
 			}
 		}
-		while = {
-			count = 4
-			create_ship = {
-				name = random
-				design = "NAME_Warrior_Freehold"
-			}
+		while = { count = 4
+			create_ship = { name = random design = "NAME_Warrior_Freehold" }
 		}
 		fleet = {
+			set_event_locked = no
 			every_owned_ship = { set_disabled = no reduce_hp_percent = 98 }
 		}
 
@@ -2457,13 +2431,13 @@ ship_event = {
 					} else_if = {
 						limit = {
 							any_system_planet = {
-								colonizable_planet = yes
+								# colonizable_planet = yes
 								any_playable_country = { prev = { is_planet = prev.home_planet } }
 							}
 						}
 						random_system_planet = {
 							limit = {
-								colonizable_planet = yes
+								# colonizable_planet = yes
 								any_playable_country = { prev = { is_planet = prev.home_planet } }
 							}
 							random_playable_country = {
@@ -2564,7 +2538,7 @@ ship_event = {
 					}
 				}
 			}
-			log="destroy starbase_marauder"
+			log="destroy starbase marauder"
 			fleet = {
 				every_owned_ship = { destroy_ship = this }
 			}
@@ -2697,7 +2671,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		log="Fix ongoing hostility" # \\[This.GetName]
+		#log="Fix ongoing hostility" # \\[This.GetName]
 		# Before we need to stop fleets attacking.
 		every_controlled_fleet = {
 			limit = {
@@ -2955,7 +2929,7 @@ system_event = {
 		if = { limit = { exists = starbase has_owner = yes }
 			delete_fleet = starbase.fleet
 			# if = { limit = { NOT = { has_star_flag = starbase_destroyed } }
-			# 	system_event = { id = khan.310 days = 1 scopes = { fromfrom = fromfrom } }
+			# 	system_event = { id = khan.310 days = 2 scopes = { fromfrom = fromfrom } }
 			# 	set_timed_star_flag = { flag = starbase_destroyed days = 5 }
 			# 	log="khan.310 exists = starbase \\[former_starbase_owner.GetName] or \\[fromfrom.Owner.GetName]"
 			# }
@@ -2972,6 +2946,7 @@ system_event = {
 				size = "starbase_starfortress"
 				owner = event_target:former_starbase_owner # from.owner
 				effect = {
+					# set_disabled = yes only ship
 					# set_graphical_culture = event_target:former_starbase_owner
 					starbase_event = { id = khan.302 days = 20 } # workaround
 				}
@@ -2981,15 +2956,18 @@ system_event = {
 				size = "starbase_citadel"
 				owner = event_target:former_starbase_owner
 				effect = {
+					# set_disabled = yes only ship
 					starbase_event = { id = khan.302 days = 20 }
 				}
 			}
 		}
 
 		last_created_fleet = {
+			set_event_locked = yes
 			set_owner = event_target:raider_khanate
 			every_owned_ship = {
-				reduce_hp_percent = 95 # set_disabled = yes
+				set_disabled = yes
+				reduce_hp_percent = 95
 			}
 			while = {
 				count = 3
@@ -3015,11 +2993,35 @@ country_event = {
 		is_same_empire = event_target:raider_khanate
 	}
 	immediate = {
+		set_update_modifiers_batch = begin
 		remove_country_flag = ai_no_wars
+
+		if = { limit = { has_ethic = ethic_xenophobe }
+			country_remove_ethic = ethic_xenophobe
+		} else_if = { limit = { has_ethic = ethic_fanatic_xenophobe }
+			country_remove_ethic = ethic_fanatic_xenophobe
+		}
+		shift_ethic = ethic_xenophile # omit purge pops and be the crisis
+
 		set_policy = {
 			policy = diplomatic_stance
 			option = diplo_stance_belligerent
 			cooldown = yes
+		}
+
+		if = { limit = { exists = ruler }
+			ruler = {
+				if = { limit = { NOT = { has_trait = leader_trait_fleet_organizer } }
+					add_ruler_trait = leader_trait_fleet_organizer
+				}
+			}
+		}
+		if = { limit = { exists = event_target:great_khan }
+			event_target:great_khan = {
+				if = { limit = { NOT = { has_trait = leader_trait_fleet_logistician } }
+					add_trait = leader_trait_fleet_logistician
+				}
+			}
 		}
 
 		if = {
@@ -3041,6 +3043,7 @@ country_event = {
 					save_global_event_target_as = marauders_garrison_1
 					copy_ethos_and_authority = root
 					every_playable_country = {
+						limit = { has_communications = root }
 						establish_communications_no_message = event_target:marauders_garrison_1
 					}
 					event_target:raider_khanate = {
@@ -3247,7 +3250,7 @@ country_event = {
 						}
 					}
 				}
-				add_resource = { alloys = 150000 }
+				add_resource = { alloys = 150000 energy = 50000 }
 				random_system_within_border = {
 					limit = { has_star_flag = ruined_strategic_coordination_center_system }
 					random_system_megastructure = {
@@ -3276,7 +3279,60 @@ country_event = {
 					}
 				}
 			}
+
+			if = { limit = { NOT = { has_relic = r_khans_throne } }
+				add_relic = r_khans_throne
+			}
+
+			### Need Naval Capacity
+
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_gene_banks }
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_planetary_defenses }
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_ground_defense_planning }
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_global_defense_grid }
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_doctrine_navy_size_1 }
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_doctrine_navy_size_2 }
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_doctrine_navy_size_3 }
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_doctrine_navy_size_4 }
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_repeatable_naval_cap }
+
+			if = {
+				limit = { NOT = { has_tradition = tr_supremacy_adopt } }
+				add_tradition = tr_supremacy_adopt
+				add_tradition = tr_supremacy_master_shipwrights
+				add_tradition = tr_supremacy_fleet_logistical_corps
+				add_tradition = tr_supremacy_war_games
+				add_tradition = tr_supremacy_overwhelming_force
+				add_tradition = tr_supremacy_great_game
+				add_tradition = tr_supremacy_finish
+			}
+
+			switch = {
+				trigger = is_difficulty
+				2 = { add_modifier = { modifier = difficulty_captain } }
+				3 = { add_modifier = { modifier = difficulty_commodore } }
+				4 = { add_modifier = { modifier = difficulty_admiral } }
+				5 = { add_modifier = { modifier = difficulty_grand_admiral } }
+			}
+
+			add_modifier = { modifier = ai_strength years = 3 }
+			add_modifier = { modifier = fallen_empire_base years = 4 }
+			add_modifier = { modifier = sponsored_rebels years = 1 }
+			add_modifier = { modifier = uprising_ai_buff years = 2 }
+			add_modifier = { modifier = resolution_custodian_galactic_mobilization }
+			add_modifier = { modifier = gdf_naval_cap years = 3 }
+			add_modifier = { modifier = gdf_naval_cap_2 }
+			add_modifier = { modifier = mercenary_fleet_size_upgrade_1 years = 1 }
+			add_modifier = { modifier = mercenary_fleet_size_upgrade_2 years = 2 }
+			add_modifier = { modifier = mercenary_fleet_size_upgrade_3 years = 3 }
+			add_modifier = { modifier = mercenary_fleet_size_upgrade_4 years = 4 }
+			add_modifier = { modifier = mercenary_fleet_size_upgrade_5 }
+			add_modifier = { modifier = mercenary_enclave_logistic_help }
+			add_modifier = { modifier = resolution_defenseprivatization_defense_contracts_merc_naval_cap }
+			add_modifier = { modifier = resolution_defenseprivatization_private_support_troops_merc_naval_cap }
+			add_modifier = { modifier = resolution_defenseprivatization_corporate_warlords_merc_naval_cap }
 		}
+		set_update_modifiers_batch = end
 	}
 }
 
@@ -4029,14 +4085,14 @@ system_event = {
 # 					has_global_flag = great_khan_wins
 # 					event_target:raider_khanate = {
 # 						any_war = {
-# 							using_war_goal = { type = "wg_independence" owner = attacker }
+# 							using_war_goal = { type = "wg_satrapy_independence" owner = attacker }
 # 						}
 # 					}
 # 				}
 # 				event_target:raider_khanate = {
 # 					random_war = {
 # 						limit = {
-# 							using_war_goal = { type = "wg_independence" owner = attacker }
+# 							using_war_goal = { type = "wg_satrapy_independence" owner = attacker }
 # 						}
 # 						root = {
 # 							join_war_on_side = { war = prev side = attackers }
@@ -4051,7 +4107,7 @@ system_event = {
 # 				declare_war = {
 # 					target = event_target:raider_khanate
 # 					name = "NAME_Rebellion"
-# 					attacker_war_goal = "wg_independence"
+# 					attacker_war_goal = "wg_satrapy_independence"
 # 				}
 # 			}
 

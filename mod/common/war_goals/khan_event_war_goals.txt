@@ -1,11 +1,14 @@
-wg_independence = {
+# FIXME replace with own and own defender_wargoal
+wg_satrapy_independence = {
 	casus_belli = cb_subject
 
 	hide_if_no_cb = yes
-	set_defender_wargoal = wg_assert_overlordship
+	total_war = yes
+	set_defender_wargoal = wg_great_expansion # wg_assert_overlordship
 
 	potential = { always = yes }
 	possible = {
+		is_subject_of_khan = yes
 		custom_tooltip = {
 			fail_text = cannot_use_against_emperor
 			OR = {
@@ -83,7 +86,7 @@ wg_independence = {
 						# any_war_participant = {
 						any_attacker = {
 							NOT = { is_same_empire = root }
-							prev = { using_war_goal = { type = "wg_independence" owner = prev } }
+							prev = { using_war_goal = { type = "wg_satrapy_independence" owner = prev } }
 						}
 					}
 				}
@@ -92,7 +95,7 @@ wg_independence = {
 						is_war_participant = { who = root side = attackers }
 						# any_war_participant = {
 						any_attacker = {
-							prev = { using_war_goal = { type = "wg_independence" owner = prev } }
+							prev = { using_war_goal = { type = "wg_satrapy_independence" owner = prev } }
 						}
 						any_defender = { is_same_empire = from }
 					}
@@ -104,7 +107,7 @@ wg_independence = {
 							overlord = { is_same_empire = from }
 							# prev = {
 							# 	is_war_participant = { who = prev side = attackers }
-							# 	# using_war_goal = { type = "wg_independence" owner = prev }
+							# 	# using_war_goal = { type = "wg_satrapy_independence" owner = prev }
 							# }
 						}
 						if = {
@@ -145,7 +148,7 @@ wg_independence = {
 		}
 	}
 
-	ai_weight = { weight = 100 }
+	ai_weight = { weight = 120 }
 }
 
 # Final uprising against Awakended Fallen Empire.
@@ -153,10 +156,10 @@ wg_independence = {
 wg_ae_uprising = {
 	casus_belli = cb_event
 	hide_if_no_cb = yes
+	total_war = yes
 	set_defender_wargoal = wg_ae_domination
 	potential = { always = yes }
 	possible = { always = yes }
-
 	allowed_peace_offers = {
 		status_quo
 		surrender
@@ -467,7 +470,7 @@ wg_war_in_heaven = {
 	total_war = yes
 	allowed_peace_offers = { status_quo }
 	surrender_acceptance = -900
-	war_exhaustion = 0.25
+	war_exhaustion = 0
 	set_defender_wargoal = wg_war_in_heaven
 	potential = { always = no } # Event only
 	possible = { always = yes }
@@ -717,13 +720,14 @@ wg_war_in_heaven = {
 
 wg_great_expansion = {
 	casus_belli = cb_event
+	cede_claims = occupied_only
 	total_war = yes
 	release_occupied_systems_on_status_quo = yes
 	allowed_peace_offers = {
 		status_quo # Otherwise the defender is fully inhalited.
 	}
-	surrender_acceptance = -500
-	war_exhaustion = 0.5
+	surrender_acceptance = -600
+	war_exhaustion = 0.25
 	# set_defender_wargoal = wg_great_expansion
 	# potential = { # Needs something other than cb_event.
 	# 	has_global_flag = marauder_crisis_ongoing
@@ -762,6 +766,19 @@ wg_great_expansion = {
 					}
 					country_event = { id = khan.309 days = 1 } # To be sure
 				}
+			}
+		}
+	}
+
+	on_wargoal_set = {
+		if = {
+			limit = {
+				exists = event_target:marauders_garrison_1
+				event_target:marauders_garrison_1 = { NOT = { is_at_war_with = from } }
+			}
+			event_target:marauders_garrison_1 = {
+				end_truce = from
+				join_war = prev
 			}
 		}
 	}

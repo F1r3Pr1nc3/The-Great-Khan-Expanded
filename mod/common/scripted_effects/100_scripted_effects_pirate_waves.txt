@@ -499,7 +499,7 @@ create_pirate_waves_fleet = {
 			multiply_variable = { which = pirates_f_tmp value = 265 }			# 1.25^25
 		} else = {
 			multiply_variable = { which = pirates_f_tmp value = years_passed_tmp }
-			multiply_variable = { which = pirates_f_tmp value = 0.1585 }			# 1/sqrt(10,1.25)
+			multiply_variable = { which = pirates_f_tmp value = 0.1585 }		# 1/sqrt(10,1.25)
 		}
 		set_variable = { which = pirates_f_tmp2 value = pirates_f_tmp }
 		change_variable = { which = pirates_f_tmp2 value = 49 }

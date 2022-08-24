@@ -246,6 +246,8 @@ awakened_marauders = {
 
 marauders_garrison = {
 	show_in_contacts_list = no
+	share_survey_data = no
+	custom_diplomacy = no
 	# blocks_piracy = yes
 	can_receive_envoys = no
 	government = no
