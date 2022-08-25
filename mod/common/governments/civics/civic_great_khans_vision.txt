@@ -3,9 +3,13 @@ civic_great_khans_vision = {
 	icon = "gfx/interface/icons/governments/civics/civic_warrior_culture.dds"
 	# description = origin_no_effect
 	potential = {
-		country_type = { value = awakened_marauders }
+		country_type = {
+			value = awakened_marauders
+		}
 	}
-	random_weight = { base = 5 }
+	random_weight = {
+		base = 5
+	}
 	modifier = {
 		edicts_cost_mult = -0.1
 		army_damage_mult = 0.1
@@ -15,5 +19,25 @@ civic_great_khans_vision = {
 		pop_government_ethic_attraction = 0.2
 		planet_stability_add = 10
 		country_naval_cap_mult = 0.2
+	}
+}
+
+origin_khan_successor = {
+	is_origin = yes
+	icon = "gfx/interface/icons/origins/origins_khan_successor.dds"
+	playable = {
+		always = no		# Non-player origin
+	}
+	possible = {
+	}
+	modifier = {
+		# planet_stability_add = 10
+		army_damage_mult = 0.10
+		country_naval_cap_mult = 0.1
+		planet_pops_consumer_goods_upkeep_mult = -0.10
+	}
+	# description = origin_no_effect
+	random_weight = {
+		base = 0
 	}
 }

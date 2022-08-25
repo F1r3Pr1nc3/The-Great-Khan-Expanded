@@ -1,170 +1,190 @@
+@protectorate_tech_threshold = 0.4
+
+@specialist_base_acceptance_value = 100
+@specialist_aligned_ethics_value = 50
+@specialist_unaligned_ethics_value = -50
+
 preset_machinesmith_satrapy = {
 	icon = "GFX_diplomacy_status_is_satrapy"
+	specialist_type = specialist_scholarium
 	term_data = {
 		discrete_terms = {
-			{
-				key = specialist_type
-				value = specialist_none
-			}
-			{
-				key = subject_integration
-				value = subject_can_not_be_integrated
-			}
-			{
-				key = subject_diplomacy
-				value = subject_can_do_diplomacy
-			}
-			{
-				key = subject_expand
-				value = subject_can_expand
-			}
-			{
-				key = joins_overlord_wars
-				value = joins_overlord_wars_all
-			}
-			{
-				key = joins_subject_wars
-				value = joins_subject_wars_none
-			}
-			{
-				key = naval_capacity
-				value = naval_cap_satrapy
-			}
-			{
-				key = subject_loyalty
-				value = subject_loyalty_effects
-			}
-			{ key = protectorate value = subject_is_not_protectorate }
+			{ key = specialist_type			value = specialist_scholarium }
+			{ key = subject_integration		value = subject_can_not_be_integrated }
+			{ key = subject_diplomacy		value = subject_can_do_diplomacy }
+			{ key = subject_expand			value = subject_can_expand }
+			{ key = joins_overlord_wars		value = joins_overlord_wars_defensive }
+			{ key = joins_subject_wars		value = joins_subject_wars_defensive }
+			{ key = naval_capacity			value = naval_cap_satrapy }
+			{ key = subject_holdings_limit	value = subject_holdings_limit_1 }
+			{ key = subject_loyalty			value = subject_loyalty_effects }
+			{ key = protectorate			value = subject_is_not_protectorate }
 		}
 		resource_terms = {
-			{
-				key = resource_subsidies_basic
-				value = 0
-			}
-			{
-				key = resource_subsidies_research
-				value = 0.2
-			}
+			{ key = resource_subsidies_basic	value = 0 }
+			{ key = resource_subsidies_research	value = 0.2 }
 		}
 	}
+
+	overlord_weight = {
+		base =  @specialist_base_acceptance_value
+		modifier = { add = @specialist_aligned_ethics_value is_materialist = yes }
+		modifier = {
+			factor = 0.5
+			has_specialist_subject_type = { TYPE = scholarium }
+			NOT = { FROM = { is_specialist_subject_type = { TYPE = scholarium } } }
+		}
+		modifier = {
+			factor = 1.5
+			FROM = { is_specialist_subject_type = { TYPE = scholarium } }
+		}
+	}
+
+	subject_weight = {
+		base =  @specialist_base_acceptance_value
+		modifier = { add = @specialist_aligned_ethics_value is_materialist = yes }
+		modifier = { add = @specialist_unaligned_ethics_value is_spiritualist = yes }
+	}
+
 	potential = {
 		merg_is_default_empire = yes
 		has_been_declared_crisis = no
-		from = { is_country_type = awakened_marauders }
-
+		NOT = { has_civic = civic_inwards_perfection }
+		from = {
+			OR = {
+				is_country_type = awakened_marauders
+				has_origin = origin_khan_successor
+			}
+		}
+		OR = {
+			FROM = { has_origin = origin_khan_successor }
+			is_specialist_subject_type = { TYPE = scholarium }
+			has_country_flag = specialistion_subject_conversion_flag
+			tech_unlocked_ratio = { who = from ratio >= @protectorate_tech_threshold }
+		}
 	}
 }
 
 preset_fabricator_satrapy = {
 	icon = "GFX_diplomacy_status_is_satrapy"
+	specialist_type = specialist_prospectorium
 	term_data = {
 		discrete_terms = {
-			{
-				key = specialist_type
-				value = specialist_none
-			}
-			{
-				key = subject_integration
-				value = subject_can_not_be_integrated
-			}
-			{
-				key = subject_diplomacy
-				value = subject_can_do_diplomacy
-			}
-			{
-				key = subject_expand
-				value = subject_can_expand
-			}
-			{
-				key = joins_overlord_wars
-				value = joins_overlord_wars_all
-			}
-			{
-				key = joins_subject_wars
-				value = joins_subject_wars_none
-			}
-			{
-				key = naval_capacity
-				value = naval_cap_satrapy
-			}
-			{
-				key = subject_loyalty
-				value = subject_loyalty_effects
-			}
-			{ key = protectorate value = subject_is_not_protectorate }
+			{ key = specialist_type			value = specialist_prospectorium }
+			{ key = subject_integration		value = subject_can_not_be_integrated }
+			{ key = subject_diplomacy		value = subject_can_do_diplomacy }
+			{ key = subject_expand			value = subject_can_expand }
+			{ key = joins_overlord_wars		value = joins_overlord_wars_defensive }
+			{ key = joins_subject_wars		value = joins_subject_wars_defensive }
+			{ key = subject_holdings_limit	value = subject_holdings_limit_1 }
+			{ key = naval_capacity			value = naval_cap_satrapy }
+			{ key = subject_loyalty			value = subject_loyalty_effects }
+			{ key = protectorate			value = subject_is_not_protectorate }
 		}
 		resource_terms = {
-			{
-				key = resource_subsidies_basic
-				value = 0.1
-			}
+			{ key = resource_subsidies_basic	value = 0.1 }
+			{ key = resource_subsidies_research	value = -0.2 }
 		}
 	}
+
+	overlord_weight = {
+		base =  @specialist_base_acceptance_value
+		modifier = { add = @specialist_aligned_ethics_value is_pacifist = yes }
+		modifier = {
+			factor = 0.5
+			has_specialist_subject_type = { TYPE = prospectorium }
+			NOT = { FROM = { is_specialist_subject_type = { TYPE = prospectorium } } }
+		}
+		modifier = {
+			factor = 1.5
+			FROM = { is_specialist_subject_type = { TYPE = prospectorium } }
+		}
+	}
+
+	subject_weight = {
+		base =  @specialist_base_acceptance_value
+		modifier = { add = @specialist_aligned_ethics_value is_pacifist = yes }
+		modifier = { add = @specialist_unaligned_ethics_value is_militarist = yes }
+	}
+
 	potential = {
 		merg_is_default_empire = yes
 		has_been_declared_crisis = no
-		from = { is_country_type = awakened_marauders }
+		NOT = { has_civic = civic_inwards_perfection }
+		from = {
+			OR = {
+				is_country_type = awakened_marauders
+				has_origin = origin_khan_successor
+			}
+		}
+		OR = {
+			FROM = { has_origin = origin_khan_successor }
+			is_specialist_subject_type = { TYPE = prospectorium }
+			has_country_flag = specialistion_subject_conversion_flag
+			tech_unlocked_ratio = { who = from ratio >= @protectorate_tech_threshold }
+		}
 	}
 }
 
 # Bulwark
 preset_war_satrapy = {
 	icon = "GFX_diplomacy_status_is_satrapy"
+	specialist_type = specialist_bulwark
 	term_data = {
 		discrete_terms = {
-			{
-				key = specialist_type
-				value = specialist_none
-			}
-			{
-				key = subject_integration
-				value = subject_can_not_be_integrated
-			}
-			{
-				key = subject_diplomacy
-				value = subject_can_do_diplomacy
-			}
-			{
-				key = subject_expand
-				value = subject_can_expand
-			}
-			{
-				key = joins_overlord_wars
-				value = joins_overlord_wars_all
-			}
-			{
-				key = joins_subject_wars
-				value = joins_subject_wars_all
-			}
-			{
-				key = naval_capacity
-				value = naval_cap_unmodified
-			}
-			{
-				key = subject_loyalty
-				value = subject_loyalty_effects
-			}
-			{ key = protectorate value = subject_is_protectorate }
+			{ key = specialist_type			value = specialist_bulwark }
+			{ key = subject_integration		value = subject_can_not_be_integrated }
+			{ key = subject_diplomacy		value = subject_can_do_diplomacy }
+			{ key = subject_expand			value = subject_can_expand }
+			{ key = joins_overlord_wars		value = joins_overlord_wars_all }
+			{ key = joins_subject_wars		value = joins_subject_wars_all }
+			{ key = naval_capacity			value = naval_cap_unmodified }
+			{ key = subject_loyalty			value = subject_loyalty_effects }
+			{ key = protectorate			value = subject_is_protectorate }
 		}
 		resource_terms = {
-			{
-				key = resource_subsidies_basic
-				value = 0.1
-			}
-			{
-				key = resource_subsidies_research
-				value = -0.1
-			}
+			{ key = resource_subsidies_basic	value = -0.2 }
+			{ key = resource_subsidies_research	value = -0.1 }
 		}
 	}
+
+	overlord_weight = {
+		base = @specialist_base_acceptance_value
+		modifier = { add = @specialist_aligned_ethics_value is_militarist = yes }
+		modifier = {
+			factor = 0.5
+			has_specialist_subject_type = { TYPE = bulwark }
+			NOT = { FROM = { is_specialist_subject_type = { TYPE = bulwark } } }
+		}
+		modifier = {
+			factor = 1.5
+			FROM = { is_specialist_subject_type = { TYPE = bulwark } }
+		}
+		modifier = { factor = 1.2 num_rivals > 0 }
+	}
+
+	subject_weight = {
+		base =  @specialist_base_acceptance_value
+		modifier = { add = @specialist_aligned_ethics_value is_militarist = yes }
+		modifier = { add = @specialist_unaligned_ethics_value is_pacifist = yes }
+	}
+
 	potential = {
 		merg_is_default_empire = yes
 		has_been_declared_crisis = no
-		from = { is_country_type = awakened_marauders }
+		from = {
+			OR = {
+				is_country_type = awakened_marauders
+				has_origin = origin_khan_successor
+			}
+		}
+		NOT = { has_civic = civic_inwards_perfection }
 		is_militarist = yes
-		tech_unlocked_ratio = {
-			who = from
-			ratio < 0.8
+		OR = {
+			FROM = { has_origin = origin_khan_successor }
+			is_specialist_subject_type = { TYPE = bulwark }
+			has_country_flag = specialistion_subject_conversion_flag
+			tech_unlocked_ratio = { who = from ratio < 0.8 }
 		}
 	}
 }

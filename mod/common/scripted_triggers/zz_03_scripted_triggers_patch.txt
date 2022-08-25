@@ -61,7 +61,10 @@ is_subject_of_khan = {
 	exists = overlord
 	exists = event_target:raider_khanate
 	# overlord = { is_same_empire = prevprev }
-	overlord = { is_same_empire = event_target:raider_khanate }
+	overlord = {
+		is_same_empire = event_target:raider_khanate
+		# is_country_type = awakened_marauders
+	}
 	# OR = { # Only to be sure
 	# 	any_agreement = { agreement_preset = preset_machinesmith_satrapy }
 	# 	any_agreement = { agreement_preset = preset_satrapy }
