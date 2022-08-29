@@ -351,6 +351,7 @@ CmtEffectCreateAdmiralty_KhanReinforcement = {
 # }
 
 ### Reinforcement (Satrap)
+# This = location
 # CmtEffectCreateAdmiralty_KhanSubReinforcement = {
 # 	event_target:raider_khanate = {
 # 		event_target:CmtGlobalVar = { set_variable = { which = CmtVarWhileControlFleet value = CmtVarCombatFleetNumber_Khan } }

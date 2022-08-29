@@ -127,7 +127,7 @@ country_event = {
 
 	immediate = {
 		from = { save_event_target_as = marauder_killer }
-		owner_species = { save_event_target_as = marauder_species }
+		get_marauder_species = yes
 		fromfromfrom.solar_system = { save_event_target_as = marauder_system }
 		every_playable_country = {
 			limit = {
@@ -295,9 +295,7 @@ country_event = {
 			}
 
 		} else = {
-			every_owned_megastructure = {
-				set_ruined_megastructure = yes
-			}
+			every_owned_megastructure = { set_ruined_megastructure = yes }
 			destroy_country = yes
 		}
 	}
@@ -1296,9 +1294,7 @@ fleet_event = {
 	id = marauder.27
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {
-		exists = from
-	}
+	trigger = { exists = from }
 	immediate = {
 		closest_system = {
 			min_steps = 2
@@ -4814,9 +4810,7 @@ country_event = {
 		}
 		## Reinforcement cycle
 		country_event = { id = marauder.520 days = 210 }
-		event_target:CmtGlobalVar = {
-			set_variable = { which = CmtVarKhanReinforcementCounter value = 10 }
-		}
+		set_variable = { which = CmtVarKhanReinforcementCounter value = 10 }
 		if = {
 			limit = { is_ai = yes }
 			## Mercenaries Join
@@ -5025,21 +5019,18 @@ country_event = {
 			### Create Marauder Pops
 			save_event_target_as = conquered_planet
 			planet_event = { id = marauder.105 }		# (Slaves)
-
-			# set_owner = from # Added due 3.4 bug
-			# Removed due 3.4 bug
-			# set_owner = event_target:raider_khanate		# Root not subjects
 			set_controller = event_target:raider_khanate	# Root not subjects
-
+			if = { limit = { root = { is_country_type = awakened_marauders } }
+				set_owner = from # Added due 3.4 unknow bug Khan is regocnized as Satrapy
+				# Removed due 3.4 bug
+				# set_owner = event_target:raider_khanate		# Root not subjects
+			}
 			set_variable = { which = CmtVarTemp value = 4 }
-			if = {
-				limit = { free_housing < 2 }
+			if = { limit = { free_housing < 2 }
 				change_variable = { which = CmtVarTemp value = 4 }
-			} else_if = {
-				limit = { free_housing < 6 free_housing > 1 }
+			} else_if = { limit = { free_housing < 6 free_housing > 1 }
 				change_variable = { which = CmtVarTemp value = 8 }
-			} else_if = {
-				limit = { free_housing > 5 }
+			} else_if = { limit = { free_housing > 5 }
 				change_variable = { which = CmtVarTemp value = 12 }
 			}
 
@@ -5536,6 +5527,7 @@ country_event = {
 }
 
 # Great Khan Dies (Notify)
+# This = player
 country_event = {
 	id = marauder.510
 	title = "marauder.510.name"
@@ -5565,6 +5557,8 @@ country_event = {
 			# is_galactic_emperor = no
 			has_been_declared_crisis = no
 			is_gestalt = no
+		}
+		allow = {
 			OR = {
 				is_militarist = yes
 				is_authoritarian = yes
@@ -5585,52 +5579,41 @@ country_event = {
 				ethics = yes
 				government = yes
 			}
-			create_country = {
-				name = root
-				name_list = root
-				species = root
-				type = ruined_marauders
-				civics = root
-				flag = root
-				ethos = root
-				ignore_initial_colony_error = yes
-				day_zero_contact = no
-				exclude_day_zero_contact = root
-				effect = { save_global_event_target_as = marauder_precursor }
-			}
+			# create_country = {
+			# 	name = root
+			# 	name_list = root
+			# 	species = root
+			# 	type = ruined_marauders
+			# 	civics = root
+			# 	flag = root
+			# 	ethos = root
+			# 	ignore_initial_colony_error = yes
+			# 	day_zero_contact = no
+			# 	exclude_day_zero_contact = root
+			# 	effect = { save_global_event_target_as = marauder_precursor }
+			# }
 
 			save_event_target_as = new_khanate
 			remove_global_flag = marauder_crisis_ongoing
 			remove_global_flag = great_khan_wins
 			set_global_flag = khan_no_die # TODO immortal? otherwise needs set_player somewhere
 			set_country_flag = CmtFlagKhanNoDieCountry
-			country_event = { id = crisis.4099 days = 9 }
+			country_event = { id = crisis.4099 days = 9 } # Declare Crisis
 			set_country_type = dormant_marauders # Hack for trigger?
 			set_country_flag = new_khanate_flag
 			set_origin = "origin_khan_successor"
 			event_target:raider_khanate = {
 				every_subject = {
-					limit = {
-						# has_modifier = "satrapy_of_horde"
-						# any_agreement = { agreement_preset = preset_satrapy }
-						is_subject_of_khan = yes
-					}
+					limit = { is_subject_of_khan = yes }
 					country_event = { id = marauder.671 days = -1 } # Do it immediately as raider_khanate should exists.
 					set_subject_of = { who = none }
 					# remove_modifier = "satrapy_of_horde"
 				}
 				# Inheritance old flag
-				switch = {
-					trigger = has_country_flag
-					marauder_1 = {
-						prev = { set_country_flag = marauder_1 save_global_event_target_as = marauder_country_1 }
-					}
-					marauder_2 = {
-						prev = { set_country_flag = marauder_2 save_global_event_target_as = marauder_country_2 }
-					}
-					marauder_3 = {
-						prev = { set_country_flag = marauder_3 save_global_event_target_as = marauder_country_3 }
-					}
+				switch = { trigger = has_country_flag
+					marauder_1 = { prev = { set_country_flag = marauder_1 save_global_event_target_as = marauder_country_1 } }
+					marauder_2 = { prev = { set_country_flag = marauder_2 save_global_event_target_as = marauder_country_2 } }
+					marauder_3 = { prev = { set_country_flag = marauder_3 save_global_event_target_as = marauder_country_3 } }
 				}
 				if = { ### NSC SUPPORT
 					limit = {
@@ -5644,12 +5627,13 @@ country_event = {
 				# set_country_type = dormant_marauders
 				destroy_country = yes
 			}
-			if = { # (as we could decline?)
-				limit = { NOT = { has_relic = r_khans_throne } }
+			clear_global_event_target = raider_khanate
+			 # (as we could decline?)
+			if = { limit = { NOT = { has_relic = r_khans_throne } }
 				add_relic = r_khans_throne
 			}
 			country_event = { id = marauder.500 days = 3 }
-			clear_global_event_target = raider_khanate
+
 		}
 		ai_chance = { factor = 0.1 }
 	}
@@ -5755,42 +5739,39 @@ event = {
 			event_target:raider_khanate = { country_event = { id = marauder.512 } }
 			# event_target:CmtGlobalVar = { set_variable = { which = CmtVarKhanLifespan value = 1 } }
 			break = yes
-		}
-
-		# every_country = { currently only one Khan
-			# limit = {
-			# 	CmtTriggerIsKhanCountry = yes
-			# 	NOT = { has_country_flag = CmtFlagKhanNoDieCountry }
-			# }
-		event_target:CmtGlobalVar = {
-			random_list = {
-				2 = {
-					event_target:raider_khanate = { country_event = { id = marauder.512 } }
-					modifier = {
-						factor = 0
-						check_variable = { which = CmtVarKhanLifespan value = 6 }
+		} else = {
+			# every_country = { currently only one Khan
+				# limit = {
+				# 	CmtTriggerIsKhanCountry = yes
+				# 	NOT = { has_country_flag = CmtFlagKhanNoDieCountry }
+				# }
+			event_target:CmtGlobalVar = {
+				random_list = {
+					2 = {
+						modifier = { factor = 0 check_variable = { which = CmtVarKhanLifespan value = 6 } }
+						event_target:raider_khanate = { country_event = { id = marauder.512 } }
 					}
-				}
-				98 = {
-					modifier = {
-						factor = @CmtConstKhanLifespan_1b
-						check_variable = { which = CmtVarKhanLifespan value = 1 }
-					}
-					modifier = {
-						factor = @CmtConstKhanLifespan_2b
-						check_variable = { which = CmtVarKhanLifespan value = 2 }
-					}
-					modifier = {
-						factor = @CmtConstKhanLifespan_3b
-						check_variable = { which = CmtVarKhanLifespan value = 3 }
-					}
-					modifier = {
-						factor = @CmtConstKhanLifespan_4b
-						check_variable = { which = CmtVarKhanLifespan value = 4 }
-					}
-					modifier = {
-						factor = @CmtConstKhanLifespan_5b
-						check_variable = { which = CmtVarKhanLifespan value = 5 }
+					98 = {
+						modifier = {
+							factor = @CmtConstKhanLifespan_1b
+							check_variable = { which = CmtVarKhanLifespan value = 1 }
+						}
+						modifier = {
+							factor = @CmtConstKhanLifespan_2b
+							check_variable = { which = CmtVarKhanLifespan value = 2 }
+						}
+						modifier = {
+							factor = @CmtConstKhanLifespan_3b
+							check_variable = { which = CmtVarKhanLifespan value = 3 }
+						}
+						modifier = {
+							factor = @CmtConstKhanLifespan_4b
+							check_variable = { which = CmtVarKhanLifespan value = 4 }
+						}
+						modifier = {
+							factor = @CmtConstKhanLifespan_5b
+							check_variable = { which = CmtVarKhanLifespan value = 5 }
+						}
 					}
 				}
 			}
@@ -5963,7 +5944,9 @@ country_event = {
 			### Khan Expanded
 			if = {
 				limit = { NOT = { has_country_flag = KhanReinforcement_Cycle } }
-				country_event = { id = khan.299 } # End check
+				if = { limit = { end_game_years_passed > -50 }
+					country_event = { id = khan.299 } # End check
+				}
 				set_country_flag = KhanReinforcement_Cycle
 
 				# Minor checks: no high frequent needed
@@ -6147,10 +6130,7 @@ country_event = {
 						name = random
 						effect = {
 							random_list = {
-								20 = {
-									set_owner = root
-									create_dyn_marauder_fleet = { OUTRIDER = 20 LANCER = 10 CHAMPION = 6 VARIANT = "_4" }
-								}
+								20 = { set_owner = root create_dyn_marauder_fleet = { OUTRIDER = 20 LANCER = 10 CHAMPION = 6 VARIANT = "_4" } }
 								80 = { # Own ships
 									modifier = { factor = 0 NOT = { exists = event_target:machinesmith } }
 									set_owner = event_target:machinesmith
@@ -6232,11 +6212,12 @@ country_event = {
 						}
 					} else = {
 						if = {
-							limit = { check_variable = { which = CmtVarKhanReinforcementCounter value > 9.5 } }
+							limit = { root = { check_variable = { which = CmtVarKhanReinforcementCounter value > 9.5 } } }
 							CmtEffectKhanReinforceOnCapital = yes
-							change_variable = { which = CmtVarKhanReinforcementCounter value = -10 }
+							root = { change_variable = { which = CmtVarKhanReinforcementCounter value = -10 } }
 						} # else = { root = { set_country_flag = KhanReinforcement_Cycle } }
-						CmtEffectKhanIncreasementReinforcementCycle = yes ## required: prev = root
+						# Set var counter for next cycle
+						CmtEffectKhanIncreasementReinforcementCycle = yes ## required: prev = Khan
 						root = { # TODO: days somehow dyn.
 							country_event = { id = marauder.520 days = 100 }
 						}
@@ -6251,7 +6232,6 @@ country_event = {
 				# 	create_marauder_fleet = yes
 				# }
 				# country_event = { id = marauder.520 days = 340 }
-
 				# Try to expand the war?
 				# TODO?
 				# country_event = { id = khan.529 }
@@ -6949,6 +6929,7 @@ country_event = {
 }
 
 # Submit?
+# From = Khan / Overlord
 country_event = {
 	id = marauder.551
 	title = "greatkhan_diplo_header"
@@ -7044,13 +7025,21 @@ country_event = {
 				add_resource = { influence = 40 }
 			}
 		}
-		ai_chance = { factor = 5 }
+		ai_chance = { factor = 3 }
 	}
 	option = {
 		name = marauder.551.b
 		response_text = marauder.551.b.response
+		trigger = { from = { is_same_empire = root } }
 		# default_hide_option = yes
-		ai_chance = { factor = 0.1 }
+		ai_chance = { factor = 0.2 }
+	}
+	option = {
+		name = MI_NEUTRAL_GREETING_01
+		response_text = HG_HOSTILE_GREETING_01
+		trigger = { NOT = { from = { is_same_empire = root } } }
+		# default_hide_option = yes
+		ai_chance = { factor = 0.2 }
 	}
 }
 
@@ -7070,9 +7059,7 @@ country_event = {
 		save_event_target_as = satrapy_empire
 		if = {
 			limit = { exists = capital_scope }
-			capital_scope = {
-				save_event_target_as = capital_planet
-			}
+			capital_scope = { save_event_target_as = capital_planet }
 		} else = {
 			ordered_owned_planet = {
 				limit = { is_colony = yes }
@@ -7094,8 +7081,72 @@ country_event = {
 			}
 			country_event = { id = khan.309 days = 1 } # To be sure
 		}
-		CmtEffectCreateEncouragingBase = yes		## event_target:garrison_base
-		event_target:garrison_base = { CmtEffectCreateAdmiralty_KhanEncourager = yes }
+		# CmtEffectCreateEncouragingBase = yes		## event_target:garrison_base
+		create_fleet = {
+			effect = {
+				set_owner = event_target:raider_khanate
+				create_ship = {
+					name = "NAME_Garrison_Base"
+					design = "NAME_Void_Dwelling"
+					graphical_culture = event_target:raider_khanate
+				}
+				set_location = {
+					target = event_target:capital_planet
+					distance = 50
+					angle = random
+				}
+				save_event_target_as = garrison_base
+				set_fleet_flag = satrapy_garrison
+				if = {
+					limit = {
+						event_target:CmtGlobalVar = {
+							OR = {
+								check_variable = { which = CmtVarReinforceCycle_Khan value = 2 }
+								check_variable = { which = CmtVarReinforceCycle_Khan value = 3 }
+								check_variable = { which = CmtVarReinforceCycle_Khan value = 4 }
+							}
+						}
+					}
+					set_variable = { which = CmtVarKhanReinforcementCounter value = 10 }
+				}
+				fleet_event = { id = marauder.560 days = 10 }
+			}
+		}
+
+		last_created_fleet = {
+			# CmtEffectCreateAdmiralty_KhanEncourager
+			event_target:raider_khanate = {
+				create_fleet = {
+					name = "NAME_Garrison_Fleet"
+					effect = {
+						set_owner = prev
+						set_fleet_flag = satrapy_garrison_fleet
+						event_target:CmtGlobalVar = { set_variable = { which = CmtVarWhileControlShip value = CmtVarFleetPower_Khan } }
+						prev = { CmtEffectResetLoop = yes }
+						while = {
+							limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarWhileControlShip value > 0.125 } } }
+							event_target:CmtGlobalVar = { change_variable = { which = CmtVarWhileControlShip value = -0.25 } }
+							while = { count = 5 CmtEffectCreateShip_Outrider = yes }			## 22
+							while = { count = 3 CmtEffectCreateShip_Lancer = yes }				## 14
+							while = { count = 2 CmtEffectCreateShip_VoidChampion = yes }		## 8
+							prev = {
+								CmtEffectProgressLoop2 = yes
+								switch = {
+									trigger = has_country_flag
+									CmtFlagLoopA = { prev = { CmtEffectCreateShip_Lancer = yes } }
+									CmtFlagLoopZ = { prev = { CmtEffectCreateShip_Outrider = yes } }
+								}
+							}
+						}
+						CmtFleetSetAuxParam_KhanEncourager = yes
+					}
+					settings = {
+						garrison = yes
+						uses_naval_capacity = no
+					}
+				}
+			}
+		}
 	}
 	option = { name = marauder.553.a }
 	after = {
@@ -7397,7 +7448,7 @@ country_event = {
 		}
 		has_been_declared_crisis = no
 		NOT = { has_country_flag = rebellion_cooldown }
-		CmtTriggerExistKhanCountry = yes # exists = event_target:raider_khanate
+		any_country = { CmtTriggerIsKhanCountry = yes } # exists = event_target:raider_khanate
 		merg_is_default_empire = yes
 		is_subject = no
 		is_ai = yes
@@ -7497,9 +7548,7 @@ country_event = {
 		## If has_federation give Horde malus partial back.
 		if = {
 			limit = { exists = capital_scope }
-			capital_scope = {
-				save_event_target_as = capital_planet
-			}
+			capital_scope = { save_event_target_as = capital_planet }
 		} else = {
 			ordered_owned_planet = {
 				limit = { is_colony = yes }
@@ -7600,8 +7649,15 @@ fleet_event = {
 
 	trigger = {
 		is_scope_valid = yes
-		CmtTriggerExistKhanCountry = yes
-		is_owned_by = event_target:raider_khanate
+		exists = owner
+		any_country = { CmtTriggerIsKhanCountry = yes } # exists = event_target:raider_khanate
+		OR = {
+			is_owned_by = event_target:raider_khanate
+			AND = {
+				exists = event_target:marauders_garrison_1
+				is_owned_by = event_target:marauders_garrison_1
+			}
+		}
 	}
 
 	immediate = {
@@ -7618,19 +7674,48 @@ fleet_event = {
 			}
 			space_owner = { save_event_target_as = satrapy_empire }
 		}
-		if = {
-			limit = { exists = event_target:satrapy_empire }
+		if = { limit = { exists = event_target:satrapy_empire }
 			event_target:satrapy_empire = { owner_species = { save_event_target_as = satrapy_species } }
-			# if = {
-			# 	limit = {
-			# 		event_target:CmtGlobalVar = {
-			# 			OR = {
-			# 				check_variable = { which = CmtVarReinforceCycle_Khan value < 2 }
-			# 				check_variable = { which = CmtVarReinforceCycle_Khan value > 4 }
-			# 			}
-			# 		}
-			# 	}
-			fleet_event = { id = marauder.560 days = 600 random = 300 }
+			if = {
+				limit = {
+					event_target:CmtGlobalVar = {
+						OR = {
+							check_variable = { which = CmtVarReinforceCycle_Khan value < 2 }
+							check_variable = { which = CmtVarReinforceCycle_Khan value > 4 }
+						}
+					}
+				}
+				fleet_event = { id = marauder.560 days = 600 random = 300 }
+
+			} else = {
+				# TODO needs FIX: CM somehow not working as fleet power gets unlimited (over 5M)
+				# So static limit is of 4 fleets is set.
+				fleet_event = { id = marauder.560 days = 160 random = 80 }
+				# event_target:raider_khanate = {
+				# 	if = {
+				# 		limit = { check_variable = { which = CmtVarKhanReinforcementCounter value > 9.5 } }
+				# 		change_variable = { which = CmtVarKhanReinforcementCounter value = -10 }
+				# 		root = {
+				# 			if = {
+				# 				limit = {
+				# 					solar_system = {
+				# 						count_fleet_in_system = {
+				# 							count < 5
+				# 							limit = {
+				# 								is_owned_by = event_target:raider_khanate
+				# 								has_fleet_flag = horde_auxuliaries
+				# 							}
+				# 						}
+				# 					}
+				# 				}
+				# 				CmtEffectCreateAdmiralty_KhanSubReinforcement = yes
+				# 			}
+				# 		}
+				# 	}
+				# }
+				# Set var counter for next cycle
+				event_target:raider_khanate = { event_target:CmtGlobalVar = { CmtEffectKhanIncreasementReinforcementCycle = yes } }
+			}
 			event_target:satrapy_empire = {
 				set_variable = { which = "satrapy_fleet_power" value = trigger:fleet_power }
 				# Get normal possible capacity (divide by 0 cause crash)
@@ -7656,12 +7741,13 @@ fleet_event = {
 							}
 						}
 					}
+					OR = {
+						event_target:CmtGlobalVar = { check_variable = { which = CmtVarReinforceCycle_Khan value < 2 } }
+						event_target:CmtGlobalVar = { check_variable = { which = CmtVarReinforceCycle_Khan value > 4 } }
+						check_variable = { which = CmtVarKhanReinforcementCounter value > 9.5 }
+					}
 				}
-				# if = { limit = { exists = event_target:marauders_garrison_1 }
-				# 	event_target:marauders_garrison_1 = { CmtEffectCreateAdmiralty_KhanSubReinforcement = yes }
-				# } else = {
-				# 	CmtEffectCreateAdmiralty_KhanSubReinforcement = yes
-				# }
+				# CmtEffectCreateAdmiralty_KhanSubReinforcement
 				event_target:raider_khanate = {
 					event_target:CmtGlobalVar = { set_variable = { which = CmtVarWhileControlFleet value = CmtVarCombatFleetNumber_Khan } }
 					while = {
@@ -7713,31 +7799,9 @@ fleet_event = {
 						}
 					}
 				}
+				change_variable = { which = CmtVarKhanReinforcementCounter value = -10 }
 			}
-			# } else = {
-			# 	# TODO needs FIX: CM somehow not working as fleet power gets unlimited (over 5M)
-			# 	# So static limit is of 4 fleets is set.
-			# 	fleet_event = { id = marauder.560 days = 160 random = 80 }
-			# 	if = {
-			# 		limit = { check_variable = { which = CmtVarKhanReinforcementCounter value > 9.5 } }
-			# 		change_variable = { which = CmtVarKhanReinforcementCounter value = -10 }
-			# 		if = {
-			# 			limit = {
-			# 				solar_system = {
-			# 					count_fleet_in_system = {
-			# 						count < 5
-			# 						limit = {
-			# 							is_owned_by = event_target:raider_khanate
-			# 							has_fleet_flag = horde_auxuliaries
-			# 						}
-			# 					}
-			# 				}
-			# 			}
-			# 			CmtEffectCreateAdmiralty_KhanSubReinforcement = yes
-			# 		}
-			# 	}
-			# 	root.owner = { root = { CmtEffectKhanIncreasementReinforcementCycle = yes } }
-			# }
+
 		}
 	}
 }
@@ -7769,7 +7833,7 @@ country_event = {
 		remove_global_flag = marauder_crisis_ongoing	# must be removed before
 		if = { limit = { has_global_flag = great_khan_wins }
 			# clear_global_event_target = great_khan
-			# clear_global_event_target = raider_khanate
+			# clear_global_event_target = raider_khanate needed for future
 			clear_global_event_target = great_khan_ruler
 			if = { limit = { exists = event_target:marauders_garrison_1 }
 				event_target:marauders_garrison_1 = {
@@ -7859,10 +7923,6 @@ country_event = {
 				# limit = { is_war_participant = { who = root side = attackers } }
 				# limit = { is_scope_type = war } # If not the error.log tells: Invalid Scope
 				end_war_effect = yes
-				# every_war_participant = {
-				# 	limit = { NOT = { is_same_empire = root } } # don't break the loop
-				# 	prev = { remove_war_participant = prev }
-				# }
 			}
 			# End subject wars
 			every_subject = {
@@ -8128,9 +8188,9 @@ country_event = {
 		clear_global_event_target = marauder_precursor
 		if = { limit = { is_ai = yes }
 			destroy_country = yes
-		} else = {
+		} else_if = { limit = { exists = event_target:raider_khanate }
 			# TODO: Player could chose!?
-			event_target:first_diadochi_origin = { set_player = root }
+			event_target:first_diadochi_origin = { set_player = event_target:raider_khanate }
 		}
 		set_update_modifiers_batch = end
 	}
@@ -8217,8 +8277,8 @@ country_event = {
 		observer_event = { id = observer.22 }
 		if = { limit = { is_ai = yes }
 			destroy_country = yes
-		} else = {
-			event_target:new_khanate = { set_player = root }
+		} else_if = { limit = { exists = event_target:raider_khanate } # Reported bug in multiplayer, someone got the new new_khanate fully unrelated??
+			event_target:new_khanate = { set_player = event_target:raider_khanate }
 		}
 	}
 	after = {
@@ -8310,8 +8370,8 @@ country_event = {
 		country_event = { id = marauder.609 days = -1 } # Fully handover
 		if = { limit = { is_ai = yes }
 			destroy_country = yes
-		} else = {
-			event_target:new_khanate = { set_player = root }
+		} else_if = { limit = { exists = event_target:raider_khanate } # Reported bug in multiplayer, someone got the new new_khanate fully unrelated??
+			event_target:new_khanate = { set_player = event_target:raider_khanate }
 		}
 	}
 	after = {

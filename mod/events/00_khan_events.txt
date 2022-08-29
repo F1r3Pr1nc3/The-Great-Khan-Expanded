@@ -999,6 +999,26 @@ country_event = {
 		}
 
 		hidden_effect = {
+			# End subject wars
+			if = {
+				limit = { is_at_war = yes }
+				every_war = {
+					limit = {
+						is_scope_type = war # TODO because of strange error.
+						is_war_participant = { who = root }
+						is_war_participant = { who = event_target:raider_khanate }
+						OR = {
+							any_war_participant = {
+								prev = { using_war_goal = { type = wg_marauder_expansion owner = prev } }
+							}
+							any_war_participant = {
+								prev = { using_war_goal = { type = wg_great_expansion owner = prev } }
+							}
+						}
+					}
+					end_war_effect = yes # remove_war_participant = root
+				}
+			}
 			if = {
 				limit = {
 					OR = {
@@ -1365,6 +1385,13 @@ country_event = {
 		set_country_flag = sleepers_awake_first_sleeper
 		save_global_event_target_as = SecondSleeper
 		set_timed_country_flag = { flag = ai_no_wars days = 3592 }
+		every_war = {
+			limit = {
+				is_scope_type = war # TODO because of strange error.
+				is_war_participant = { who = root }
+			}
+			end_war_effect = yes
+		}
 
 		## Choose to be Rebel or Satrapy.
 		every_playable_country = {
@@ -1564,8 +1591,9 @@ country_event = {
 					set_country_flag = CmtFlagHiringMarauder3
 				} root = { set_country_flag = marauder_3 } }
 			}
-			country_event = { id = marauder.609 days = -1 }
-			destroy_country = yes
+			set_country_type = ruined_marauders
+			# country_event = { id = marauder.609 days = -1 }
+			# destroy_country = yes
 		}
 		every_playable_country = {
 			limit = {
@@ -1974,9 +2002,46 @@ event = {
 
 				if = {
 					limit = {
-						has_origin = "origin_khan_successor"
-						NOT = { has_global_flag = great_khan_wins }
+						count_owned_fleet = { count = 0 }
+						count_controlled_planet = { count = 0 }
 					}
+					remove_global_flag = marauder_crisis_ongoing
+					clear_global_event_target = raider_khanate
+					destroy_country = yes
+				} else_if = { # Fix never endingh total war
+					limit = { is_country_type = awakened_marauders }
+					every_controlled_planet = {
+						limit = {
+							has_owner = yes
+							NOT = { is_owned_by = prev }
+						}
+						set_owner = prev
+					}
+				} else_if = { limit = { has_global_flag = great_khan_wins }
+					if = {
+						limit = { is_at_war = yes }
+						every_war = {
+							limit = {
+								is_scope_type = war # TODO because of strange error.log!?
+								is_war_participant = { who = prev }
+								any_war_participant = {
+									prev = { using_war_goal = { type = wg_marauder_expansion owner = prev } }
+								}
+							}
+							end_war_effect = yes
+						}
+						every_war = {
+							limit = {
+								is_scope_type = war # TODO because of strange error.log!?
+								is_war_participant = { who = prev }
+								any_war_participant = {
+									prev = { using_war_goal = { type = wg_great_expansion owner = prev } }
+								}
+							}
+							remove_war_participant = root
+						}
+					}
+				} else_if = { limit = { has_origin = "origin_khan_successor" }
 					if = {
 						limit = { has_global_flag = war_in_heaven_ongoing }
 						# Dissolve Marauders again
@@ -1990,15 +2055,6 @@ event = {
 					}
 				}
 
-				if = {
-					limit = {
-						count_owned_fleet = { count = 0 }
-						count_controlled_planet = { count = 0 }
-					}
-					remove_global_flag = marauder_crisis_ongoing
-					clear_global_event_target = raider_khanate
-					destroy_country = yes
-				}
 			}
 		}
 		# else_if = { # TODO remove temp fix for bugged starbases (somehow)
@@ -3302,7 +3358,7 @@ country_event = {
 	# From = subject's overlord (on_becoming_subject)
 	trigger = {
 		has_global_flag = marauder_crisis_ongoing
-		exists = event_target:raider_khanate # CmtTriggerExistKhanCountry = yes
+		any_country = { CmtTriggerIsKhanCountry = yes } # exists = event_target:raider_khanate
 		OR = {
 			CmtTriggerIsKhanCountry = yes
 			AND = {
@@ -4351,7 +4407,9 @@ country_event = {
 			country_event = { id = khan.868 days = 210 }
 			break = yes
 		}
-		country_event = { id = khan.299 } # End check
+		if = { limit = { end_game_years_passed > -50 }
+			country_event = { id = khan.299 } # End check
+		}
 		if = {
 			limit = { has_country_flag = has_machinesmith }
 			event_target:marauder_rally_point = {

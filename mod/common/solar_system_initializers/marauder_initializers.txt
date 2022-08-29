@@ -224,6 +224,7 @@ marauder_1_1 = {
 				}
 				settings = {
 					garrison = yes
+					uses_naval_capacity = no
 				}
 			}
 
@@ -373,6 +374,7 @@ marauder_1_1 = {
 					}
 					settings = {
 						garrison = yes
+						uses_naval_capacity = no
 					}
 				}
 			}
@@ -513,6 +515,7 @@ marauder_1_1 = {
 					}
 					settings = {
 						garrison = yes
+						uses_naval_capacity = no
 					}
 				}
 			}
@@ -691,6 +694,7 @@ marauder_1_1 = {
 					}
 					settings = {
 						garrison = yes
+						uses_naval_capacity = no
 					}
 				}
 			}
@@ -2271,6 +2275,7 @@ marauder_3_1 = {
 					}
 					settings = {
 						garrison = yes
+						uses_naval_capacity = no
 					}
 				}
 			}
@@ -2437,6 +2442,7 @@ marauder_3_1 = {
 					}
 					settings = {
 						garrison = yes
+						uses_naval_capacity = no
 					}
 				}
 			}
@@ -2531,6 +2537,7 @@ marauder_3_1 = {
 					}
 					settings = {
 						garrison = yes
+						uses_naval_capacity = no
 					}
 				}
 			}
