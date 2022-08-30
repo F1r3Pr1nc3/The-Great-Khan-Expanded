@@ -4533,7 +4533,6 @@ country_event = {
 		}
 
 		### Modify Country
-		set_name = random
 		change_country_flag = {
 			icon = { category = "pirate" file = "flag_pirate_11.dds" }
 			background = { category = "backgrounds" file = "00_solid.dds" }
@@ -4576,6 +4575,7 @@ country_event = {
 			change_government = {
 				authority = auth_dictatorial
 				remove_invalid_civics = yes
+				origin = "origin_nsc_freebooter"
 			}
 			if = { limit = { has_authority = auth_corporate }
 				force_add_civic = nsc_freebooter_civic_freebooter_trait_change_corp
@@ -4591,6 +4591,7 @@ country_event = {
 					civic = civic_shared_burden
 					# civic = civic_warrior_culture
 				}
+				origin = "origin_void_dwellers"
 			}
 			# force_add_civic = civic_slaver_guilds
 			force_add_civic = civic_barbaric_despoilers
@@ -4630,25 +4631,37 @@ country_event = {
 		}
 
 		### Ruler Khan
-		if = {
-			limit = { NOT = { exists = ruler } }
-			create_leader = {
-				class = ruler
-				species = owner_species
-				name = random
-				skill = 10
-				event_leader = yes
-				leader_age_min = 22
-				leader_age_max = 40
-				traits = {
-					trait = leader_trait_ruler_great_khan
-					trait = leader_trait_ruler_chosen
-					trait = leader_trait_fleet_organizer
-					# trait = leader_trait_eager
-				}
+		create_leader = {
+			class = ruler
+			species = owner_main_species
+			name = random
+			skill = 10
+			event_leader = yes
+			leader_age_min = 22
+			leader_age_max = 40
+			traits = {
+				trait = leader_trait_ruler_great_khan
+				trait = leader_trait_ruler_chosen
+				trait = leader_trait_fleet_organizer
+				# trait = leader_trait_eager
 			}
-			assign_leader = last_created_leader
-		} else_if = { ### NSC SUPPORT
+		}
+
+		if = { ## Compat. Khorgis Khan: Scourge of the Stars
+			limit = { is_species_class = GC_CORGI }
+			set_name = "NAME_KHORGI_KHAN"
+			# room_name_override = "khorgis_khan_1_room" FIXME not working
+			last_created_leader = {
+				set_name = "NAME_Khorgis_Khan"
+			}
+		} else = {
+			set_name = random
+			# room_name_override = "ethic_spaceship_room" FIXME not working
+		}
+
+		assign_leader = last_created_leader
+
+		if = { ### NSC SUPPORT
 			limit = { has_global_flag = has_nsc_active }
 			ruler = { add_ruler_trait = nsc_freebooter_leader_trait_ruler_great_khan }
 		} else = {
@@ -4659,7 +4672,6 @@ country_event = {
 				add_skill = 2
 			}
 		}
-
 		ruler = {
 			if = { limit = { NOT = { has_trait = leader_trait_fleet_organizer } }
 				add_trait = leader_trait_fleet_organizer
@@ -4917,7 +4929,6 @@ country_event = {
 				}
 			}
 		}
-
 		# random_neighbor_country = {
 		# 	limit = {
 		# 		merg_is_default_empire = yes
@@ -5488,7 +5499,7 @@ country_event = {
 	diplomatic = yes
 	picture_event_data = {
 		portrait = event_target:raider_khanate
-		room = "ethic_spaceship_room"
+		room = khorgis_khan_1_room
 	}
 	location = event_target:marauder_rally_point
 	is_triggered_only = yes
@@ -6754,7 +6765,7 @@ country_event = {
 	}
 	picture_event_data = {
 		portrait = event_target:raider_khanate
-		room = ethic_spaceship_room
+		room = khorgis_khan_1_room
 	}
 	is_triggered_only = yes
 	force_open = yes
@@ -6936,7 +6947,7 @@ country_event = {
 	desc = marauder.551.a.desc
 	picture_event_data = {
 		portrait = event_target:raider_khanate
-		room = ethic_spaceship_room
+		room = khorgis_khan_1_room
 	}
 	is_triggered_only = yes
 	force_open = yes
@@ -7169,7 +7180,7 @@ country_event = {
 	}
 	picture_event_data = {
 		portrait = event_target:raider_khanate
-		room = ethic_spaceship_room
+		room = khorgis_khan_1_room
 	}
 	is_triggered_only = yes
 	auto_select = yes
@@ -7831,6 +7842,7 @@ country_event = {
 		remove_global_flag = great_khan_announcement
 		remove_country_flag = CmtFlagKhanNoDieCountry
 		remove_global_flag = marauder_crisis_ongoing	# must be removed before
+		room_name_override = ""
 		if = { limit = { has_global_flag = great_khan_wins }
 			# clear_global_event_target = great_khan
 			# clear_global_event_target = raider_khanate needed for future
@@ -8139,7 +8151,52 @@ country_event = {
 		# 	country_event = { id = marauder.670 days = 4 } # Notify
 		# 	remove_modifier = "satrapy_of_horde"
 		# }
-		if = {
+
+		# Cleanup possilbe old flags (old version)
+		every_system_within_border = {
+			limit = {
+				OR = {
+					has_star_flag = first_diadochi_system
+					has_star_flag = second_diadochi_system
+					has_star_flag = third_diadochi_system
+					has_star_flag = fourth_diadochi_system
+				}
+			}
+			remove_star_flag = first_diadochi_system
+			remove_star_flag = second_diadochi_system
+			remove_star_flag = third_diadochi_system
+			remove_star_flag = fourth_diadochi_system
+		}
+
+		if = { # Four Diadochi
+			limit = {
+				OR = {
+					num_owned_planets > 11
+					count_system_within_border = {
+						count > 4
+						limit = {
+							any_system_planet = {
+								has_owner = yes
+								is_owned_by = root
+							}
+							is_potential_diadochi_system = yes
+						}
+					}
+				}
+			}
+			assign_first_diadochi_planets = yes
+			assign_second_diadochi_planets = yes
+			assign_third_diadochi_planets = yes
+			assign_fourth_diadochi_planets = yes
+
+			assign_diadochi_systems = yes
+
+			create_first_diadochi = yes
+			create_second_diadochi = yes
+			create_third_diadochi = yes
+			create_fourth_diadochi = yes
+		}
+		else_if = { # Three Diadochi
 			limit = {
 				OR = {
 					num_owned_planets > 9
@@ -8155,22 +8212,22 @@ country_event = {
 					}
 				}
 			}
-			# Four Diadochi
-			assign_first_diadochi_planets = yes
 			assign_second_diadochi_planets = yes
 			assign_third_diadochi_planets = yes
 			assign_fourth_diadochi_planets = yes
+
 			assign_diadochi_systems = yes
-			create_first_diadochi = yes
+
 			create_second_diadochi = yes
 			create_third_diadochi = yes
 			create_fourth_diadochi = yes
 		}
-		# Two Diadochi (Marauder small)
-		else = {
+		else = { # Two Diadochi (Marauder small)
 			assign_third_diadochi_planets = yes
 			assign_fourth_diadochi_planets = yes
+
 			assign_diadochi_systems = yes
+
 			create_third_diadochi = yes
 			create_fourth_diadochi = yes
 		}
@@ -8186,15 +8243,19 @@ country_event = {
 			clear_variable = "successor_fleet_power"
 		}
 		clear_global_event_target = marauder_precursor
-		if = { limit = { is_ai = yes }
-			destroy_country = yes
-		} else_if = { limit = { exists = event_target:raider_khanate }
-			# TODO: Player could chose!?
-			event_target:first_diadochi_origin = { set_player = event_target:raider_khanate }
-		}
 		set_update_modifiers_batch = end
 	}
 	after = {
+		if = { limit = { is_ai = yes }
+			destroy_country = yes
+		} else_if = {
+			limit = {
+				exists = event_target:raider_khanate
+				exists = event_target:fourth_diadochi
+			}
+			# TODO: Player could chose!?
+			event_target:fourth_diadochi = { set_player = event_target:raider_khanate }
+		}
 		if = { limit = { exists = event_target:raider_khanate }
 			clear_global_event_target = raider_khanate
 		}

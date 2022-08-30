@@ -493,17 +493,16 @@ create_first_diadochi = {
 			starbase = {
 				set_owner = event_target:first_diadochi
 			}
-		}
-		# Flip Planets
-		every_owned_planet = {
-			limit = {
-				solar_system = { has_star_flag = first_diadochi_system }
+			# Flip Planets
+			every_system_planet = {
+				limit = { has_owner = yes is_owned_by = root }
+				set_owner = event_target:first_diadochi
+				set_controller = event_target:first_diadochi
 			}
-			set_owner = event_target:first_diadochi
-			set_controller = event_target:first_diadochi
+			remove_star_flag = first_diadochi_system
 		}
 		last_created_country = {
-			country_event = { id = khan.610 } # Handover some old stuff
+			country_event = { id = khan.610 days = -1 } # Handover some old stuff
 		}
 	}
 }
@@ -558,17 +557,16 @@ create_second_diadochi = {
 			starbase = {
 				set_owner = event_target:second_diadochi
 			}
-		}
-		# Flip Planets
-		every_owned_planet = {
-			limit = {
-				solar_system = { has_star_flag = second_diadochi_system }
+			# Flip Planets
+			every_system_planet = {
+				limit = { has_owner = yes is_owned_by = root }
+				set_owner = event_target:second_diadochi
+				set_controller = event_target:second_diadochi
 			}
-			set_owner = event_target:second_diadochi
-			set_controller = event_target:second_diadochi
+			remove_star_flag = second_diadochi_system
 		}
 		last_created_country = {
-			country_event = { id = khan.610 } # Handover some old stuff
+			country_event = { id = khan.610 days = -1 } # Handover some old stuff
 		}
 	}
 }
@@ -623,17 +621,16 @@ create_third_diadochi = {
 			starbase = {
 				set_owner = event_target:third_diadochi
 			}
-		}
-		# Flip Planets
-		every_owned_planet = {
-			limit = {
-				solar_system = { has_star_flag = third_diadochi_system }
+			# Flip Planets
+			every_system_planet = {
+				limit = { has_owner = yes is_owned_by = root }
+				set_owner = event_target:third_diadochi
+				set_controller = event_target:third_diadochi
 			}
-			set_owner = event_target:third_diadochi
-			set_controller = event_target:third_diadochi
+			remove_star_flag = third_diadochi_system
 		}
 		last_created_country = {
-			country_event = { id = khan.610 } # Handover some old stuff
+			country_event = { id = khan.610 days = -1 } # Handover some old stuff
 		}
 	}
 }
@@ -688,17 +685,17 @@ create_fourth_diadochi = {
 			starbase = {
 				set_owner = event_target:fourth_diadochi
 			}
-		}
-		# Flip Planets
-		every_owned_planet = {
-			limit = {
-				solar_system = { has_star_flag = fourth_diadochi_system }
+			# Flip Planets
+			every_system_planet = {
+				limit = { has_owner = yes is_owned_by = root }
+				set_owner = event_target:fourth_diadochi
+				set_controller = event_target:fourth_diadochi
 			}
-			set_owner = event_target:fourth_diadochi
-			set_controller = event_target:fourth_diadochi
+			remove_star_flag = fourth_diadochi_system
 		}
+
 		last_created_country = {
-			country_event = { id = khan.610 } # Handover some old stuff
+			country_event = { id = khan.610 days = -1 } # Handover some old stuff
 		}
 	}
 }

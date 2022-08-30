@@ -1441,7 +1441,7 @@ country_event = {
 	desc = "great_khan_fe_war"
 	picture_event_data = {
 		portrait = event_target:raider_khanate
-		room = ethic_spaceship_room
+		room = khorgis_khan_1_room
 	}
 	trigger = {
 		NOT = { has_country_flag = marauder_diplomacy_engaged }
@@ -1476,7 +1476,7 @@ country_event = {
 	diplomatic = yes
 	picture_event_data = {
 		portrait = event_target:raider_khanate
-		room = ethic_spaceship_room
+		room = khorgis_khan_1_room
 	}
 	is_triggered_only = yes
 	# force_open = yes
@@ -1701,7 +1701,7 @@ country_event = {
 	desc = "great_khan_wins_announcement"
 	picture_event_data = {
 		portrait = event_target:raider_khanate
-		room = ethic_spaceship_room
+		room = khorgis_khan_1_room
 	}
 	trigger = {
 		has_global_flag = marauder_crisis_ongoing
@@ -3479,6 +3479,7 @@ country_event = {
 	}
 }
 
+# Maybe buggy because to late and raider_khanate not exists
 # Handover parts of marauder country for Diadochi (HIDDEN)
 # Via marauder.601 and marauder.609
 # This = Diadochi
@@ -4014,7 +4015,7 @@ system_event = {
 # 	desc = marauder_fabricator_threat
 # 	picture_event_data = {
 # 		portrait = event_target:raider_khanate
-# 		room = ethic_spaceship_room
+# 		room = khorgis_khan_1_room
 # 	}
 # 	is_triggered_only = yes
 # 	force_open = yes
@@ -4338,7 +4339,7 @@ country_event = {
 	desc = marauder_fabricator_offer
 	picture_event_data = {
 		portrait = event_target:raider_khanate
-		room = ethic_spaceship_room
+		room = khorgis_khan_1_room
 	}
 	is_triggered_only = yes
 	force_open = yes
@@ -4860,7 +4861,7 @@ country_event = {
 	desc = marauder_deal_offer
 	picture_event_data = {
 		portrait = event_target:raider_khanate
-		room = ethic_spaceship_room
+		room = khorgis_khan_1_room
 	}
 	is_triggered_only = yes
 	force_open = yes
@@ -4913,7 +4914,7 @@ country_event = {
 	desc = marauder_deal
 	picture_event_data = {
 		portrait = event_target:raider_khanate
-		room = ethic_spaceship_room
+		room = khorgis_khan_1_room
 	}
 	is_triggered_only = yes
 	force_open = yes
