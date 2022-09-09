@@ -55,6 +55,7 @@ marauder_1_1 = {
 					trait = "trait_quarrelsome"
 					trait = "trait_unruly"
 					trait = "trait_deviants"
+					trait = "trait_charismatic"
 				}
 			}
 			create_country = {
@@ -1117,6 +1118,7 @@ marauder_2_1 = {
 					trait = "trait_quarrelsome"
 					trait = "trait_unruly"
 					trait = "trait_deviants"
+					trait = "trait_communal"
 				}
 			}
 			create_country = {
@@ -2112,6 +2114,7 @@ marauder_3_1 = {
 					trait = "trait_quarrelsome"
 					trait = "trait_unruly"
 					trait = "trait_deviants"
+					trait = "trait_traditional"
 				}
 			}
 			create_country = {

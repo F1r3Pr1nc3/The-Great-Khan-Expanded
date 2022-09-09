@@ -43,6 +43,7 @@
  edict_force_khan_spawn_desc: "Activate this edict to spawn the Khan (either by force or in ordinary way)."
  force_khan_option: "Force the Khan to spawn 1 year after the mid-game start date."
  normal_khan: "Let the Khan spawn randomly."
+ marauder.550.a_fail:0 "§RYou cannot submit until the Great Khan is a real threat to us.§!"
  # khan.999.name: "$RT_GREAT_KHAN$ Spawn Settings"
  # khan.999.desc: "You can choose to either force the $RT_GREAT_KHAN$ to spawn roughly 1 year after the mid-game start date, or to let the Khan spawn randomly. Just activate the edict again if you change your mind."
  ### Subjects

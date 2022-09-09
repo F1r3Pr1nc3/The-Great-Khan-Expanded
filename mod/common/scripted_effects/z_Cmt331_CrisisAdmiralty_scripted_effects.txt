@@ -197,7 +197,9 @@ CmtEffectCreateAdmiralty_KhanMercenaries3 = {
 ### Reinforcement (Capital/Sub-Capital)
 CmtEffectCreateAdmiralty_KhanReinforcement = {
 	event_target:raider_khanate = {
-		get_marauder_species = yes
+		if = { limit = { NOT = { exists = event_target:marauder_species } exists = owner_species }
+			owner_species = { save_event_target_as = marauder_species }
+		}
 		### Constructor
 		if = {
 			limit = {
