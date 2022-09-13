@@ -249,7 +249,6 @@ CmtTriggerIsOrganicSleeper = {
 
 ### Mid-Game Crises ###
 CmtTriggerIsMarauder = {
-	optimize_memory
 	OR = {
 		is_country_type = dormant_marauders
 		is_country_type = ruined_marauders
@@ -358,10 +357,9 @@ CmtTriggerNowSleeperStayup = {
 	}
 }
 
-CmtTriggerNowInKhanCrisis = {
-	optimize_memory
-	any_country = { is_country_type = awakened_marauders }
-}
+# CmtTriggerNowInKhanCrisis = {
+# 	any_country = { is_country_type = awakened_marauders }
+# }
 
 #################################
 ###- Trigger Check of Events -###

@@ -250,6 +250,7 @@ preset_satrapy_scholarium_mean_03 = {
 			{ key = joins_subject_wars		value = joins_subject_wars_defensive }
 			{ key = subject_holdings_limit	value = subject_holdings_limit_3 }
 			{ key = subject_loyalty			value = subject_loyalty_effects }
+			{ key = protectorate 			value = subject_is_not_protectorate }
 		}
 	}
 

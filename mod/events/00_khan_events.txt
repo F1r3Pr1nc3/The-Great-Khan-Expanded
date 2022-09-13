@@ -599,7 +599,7 @@ country_event = {
 		is_same_empire = event_target:raider_khanate
 	}
 	immediate = {
-		if = { limit = { NOT = { merg_is_default_empire = yes } }
+		if = { limit = { merg_is_default_empire = no }
 			set_country_type = default
 			set_origin = origin_khan_successor
 			### Need Naval Capacity
@@ -795,7 +795,7 @@ country_event = {
 		set_country_flag = marauder_diplomacy_engaged
 		set_timed_country_flag = { flag = war_in_heaven_nonaligned_league_timer months = 6 }
 	}
-	after = { remove_country_flag = marauder_diplomacy_engaged }
+	after = { hidden_effect = { remove_country_flag = marauder_diplomacy_engaged } }
 	option = {
 		name = marauder_uprising_now
 		hidden_effect = {
@@ -1339,7 +1339,7 @@ country_event = {
 				is_fallen_empire = yes
 				NOR = {
 					is_at_war_with = root
-					has_ethic = ethic_gestalt_consciousness
+					is_gestalt = yes
 				}
 			}
 			weights = {
@@ -1675,7 +1675,7 @@ country_event = {
 						has_leviathans = yes
 						any_country = {
 							is_fallen_empire = yes
-							NOT = { has_ethic = ethic_gestalt_consciousness }
+							is_gestalt = no
 						}
 					}
 				}
@@ -2091,14 +2091,14 @@ system_event = {
 			}
 			# space_owner = {
 			# 	if = {
-			# 		limit = { graphical_culture = pirate_01 }
+			# 		limit = { graphical_culture = "pirate_01" }
 			# 		set_graphical_culture = "reptilian_01"
 			# 		# log="set_graphical_culture reptilian_01"
 			# 		set_variable = { which = has_pirate_01 value = 1 }
 			# 	}
 			# }
 			# TODO Trying to create a starbase with an invalid starbase design sik'El'Re for ship size starbase_citadel (note: starbases cannot have components that allow them to move or go FTL)
-			log="create starbase_citadel"
+			log="Try create starbase_citadel"
 			event_target:raider_khanate = {
 				if = {
 					limit = {
@@ -2112,12 +2112,14 @@ system_event = {
 					give_technology = { tech = tech_starbase_4 message = no }
 					give_technology = { tech = tech_starbase_5 message = no }
 				}
+				# FIXME Trying to create a starbase with an invalid starbase design
 				if = {
 					limit = { NOT = { has_existing_ship_design = starbase_citadel } }
 					create_ship_design = { design = "NAME_Marauder_Citadel" }
 					add_ship_design = last_created_design
 				}
 			}
+			# FIXME Failed to create a starbase at
 			create_starbase = {
 				size = "starbase_citadel"
 				# module = "shipyard"
@@ -2336,8 +2338,8 @@ ship_event = {
 		is_scope_valid = yes
 		exists = owner
 		owner = { is_country_type = awakened_marauders }
-		exists = from
 		is_ship_class = shipclass_starbase
+		exists = from
 		# NOT = {
 		# 	is_ship_size = starbase_marauder
 			# solar_system = {
@@ -2486,6 +2488,34 @@ ship_event = {
 	}
 }
 
+
+# on_disabled starbase (HIDDEN)
+# This = starbase being disabled (not ship!)
+# From = fleet that disabled the starbase
+# starbase_event = {
+# 	id = khan.303
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		is_scope_valid = yes
+# 		exists = owner
+# 		exists = from.owner
+# 		OR = {
+# 			owner = { is_country_type = awakened_marauders }
+# 			from.owner = {  is_country_type = awakened_marauders }
+# 		}
+# 		fleet = { is_ship_class = shipclass_starbase }
+# 	}
+# 	immediate = {
+# 		fleet = {
+# 			random_owned_ship = {
+# 				limit = { is_ship_class = shipclass_starbase }
+# 				ship_event = { id = khan.304 }
+# 			}
+# 		}
+# 	}
+# }
+
 # on_enabled Marauder station - destroy (HIDDEN)
 ship_event = {
 	id = khan.305
@@ -2493,8 +2523,8 @@ ship_event = {
 	is_triggered_only = yes
 	trigger = {
 		is_ship_class = shipclass_starbase
-		exists = owner
-		owner = { is_country_type = awakened_marauders }
+		has_global_flag = marauder_crisis_ongoing
+		exists = event_target:raider_khanate
 		NOR = {
 			is_ship_size = starbase_marauder
 			solar_system = {
@@ -2513,20 +2543,42 @@ ship_event = {
 		# fleet = { every_owned_ship = { set_disable_at_health = -1 set_disabled = no } }
 		if = {
 			limit = {
+				exists = owner
+				exists = solar_system
 				solar_system = {
 					any_fleet_in_system = {
 						exists = owner
+						is_civilian = no
+						is_mobile = yes
 						NOT = { is_owned_by = root.owner }
 						owner = { is_hostile = root.owner }
-						is_civilian = no
 					}
 				}
 			}
-			log="destroy starbase marauder"
-			fleet = {
-				every_owned_ship = { destroy_ship = this }
+			if = {
+				limit = {
+					OR = {
+						owner = { is_country_type = awakened_marauders }
+						solar_system = {
+							any_fleet_in_system = {
+								exists = owner
+								is_civilian = no
+								is_mobile = yes
+								owner = {
+									NOT = { is_same_empire = root.owner }
+									is_hostile = root.owner
+									is_country_type = awakened_marauders
+								}
+							}
+						}
+					}
+				}
+				log="destroy starbase marauder"
+				fleet = {
+					every_owned_ship = { destroy_ship = this }
+				}
+				destroy_fleet = fleet
 			}
-			destroy_fleet = fleet
 		}
 	}
 }
@@ -2651,7 +2703,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		#log="Fix ongoing hostility" # \\[This.GetName]
+		# log="Fix ongoing hostility" # \\[This.GetName]
 		# Before we need to stop fleets attacking.
 		every_controlled_fleet = {
 			limit = {
@@ -2869,7 +2921,7 @@ country_event = {
 				# if = {
 				# 	limit = {
 				# 		has_global_flag = great_khan_wins
-				# 		NOT = { merg_is_default_empire = yes }
+				# 		merg_is_default_empire = no
 				# 	}
 				# 	set_country_type = default
 				# }
@@ -3898,7 +3950,7 @@ system_event = {
 					type = "habitat_0"
 					planet = prev
 					owner = from # space_owner
-					graphical_culture = mammalian_01
+					graphical_culture = "mammalian_01"
 				}
 				# set_star_flag = marauder_habitat_placed
 			}
@@ -3923,14 +3975,15 @@ system_event = {
 				# 	3 = { set_planet_flag = energy_habitat }
 				# }
 				while = {
-					count = 8
+					count = 7
 					create_pop = {
-						species = from.species
+						species = from.owner_main_species
 						ethos = { ethic = "ethic_militarist" } # ethic = "ethic_egalitarian"
 					}
 				}
-				set_controller = from # space_owner
 				# set_owner = space_owner
+				set_controller = from # space_owner
+				set_name = random # TODO more variations?
 				add_building = building_hab_major_capital	# 3 jobs
 				# add_building = building_foundry_1			# 2
 				# add_building = building_foundry_1			# 2
@@ -3961,7 +4014,7 @@ system_event = {
 				# TODO: Add negative modifier that needs to be removed with expensive decision?
 				start_colony = {
 					owner = from
-					species = from.species
+					species = from.owner_main_species
 					# ethos = random
 				} # "Unexpected token:  (everything after scope start_colony)
 			}
@@ -3971,7 +4024,7 @@ system_event = {
 			random_planet_within_border = {
 				limit = {
 					is_colonizable = yes
-					habitability = { who = prev.species value > 0.65 }
+					habitability = { who = prev.owner_main_species value > 0.65 }
 				}
 				weights = {
 					base = 1
@@ -3985,7 +4038,7 @@ system_event = {
 				}
 				start_colony = {
 					owner = prev
-					species = prev.species
+					species = prev.owner_main_species
 					# ethos = owner
 				}
 			}
@@ -4225,7 +4278,7 @@ country_event = {
 								factor = 0
 								root = {
 									NOR = {
-										has_authority = auth_machine_intelligence
+										is_machine_empire = yes
 										has_technology = tech_biomechanics
 									}
 								}
@@ -4237,7 +4290,7 @@ country_event = {
 								factor = 0
 								root = {
 									OR = {
-										has_authority = auth_machine_intelligence
+										is_machine_empire = yes
 										NOT = { has_technology = tech_gene_seed_purification }
 									}
 								}
@@ -4249,7 +4302,7 @@ country_event = {
 								factor = 0
 								root = {
 									OR = {
-										has_authority = auth_machine_intelligence
+										is_machine_empire = yes
 										NOT = { has_technology = tech_telepathy }
 									}
 								}
@@ -4261,7 +4314,7 @@ country_event = {
 								factor = 0
 								root = {
 									NOR = {
-										has_authority = auth_machine_intelligence
+										is_machine_empire = yes
 										has_technology = tech_adaptive_combat_algorithms
 									}
 								}
@@ -4273,7 +4326,7 @@ country_event = {
 								factor = 0
 								root = {
 									OR = {
-										has_authority = auth_machine_intelligence
+										is_machine_empire = yes
 										NOT = { has_technology = tech_gene_banks }
 									}
 								}
@@ -4285,7 +4338,7 @@ country_event = {
 						# 		factor = 0
 						# 		root = {
 						# 			OR = {
-						# 				has_authority = auth_machine_intelligence
+						# 				is_machine_empire = yes
 						# 				NOT = { has_policy_flag = slavery_allowed }
 						# 				NOT = { has_technology = tech_neural_implants }
 						# 			}
@@ -4350,7 +4403,7 @@ country_event = {
 	}
 	option = {
 		name = marauder_fabricator_deal_accept
-		custom_tooltip = "SUBJECT_DESC_fabricator_satrapy"
+		custom_tooltip = "preset_fabricator_satrapy_desc"
 		# sound = placeholder_sfx
 		trigger = { has_been_declared_crisis = no }
 		response_text = marauder_fabricator_good
@@ -4872,7 +4925,7 @@ country_event = {
 	}
 	option = {
 		name = marauder_deal_response
-		custom_tooltip = "SUBJECT_DESC_machinesmith"
+		custom_tooltip = "preset_machinesmith_desc"
 		# sound = placeholder_sfx
 		trigger = { has_been_declared_crisis = no }
 		response_text = marauder_deal_accept
@@ -4925,7 +4978,7 @@ country_event = {
 	}
 	option = {
 		name = marauder_deal_reason
-		custom_tooltip = "SUBJECT_DESC_machinesmith"
+		custom_tooltip = "preset_machinesmith_desc"
 		# sound = placeholder_sfx
 		trigger = {
 			NAND = {
@@ -4945,7 +4998,7 @@ country_event = {
 	}
 	option = {
 		name = marauder_fabricator_deal_reason
-		custom_tooltip = "SUBJECT_DESC_fabricator_satrapy"
+		custom_tooltip = "preset_fabricator_satrapy_desc"
 		# sound = placeholder_sfx
 		trigger = {
 			NAND = {

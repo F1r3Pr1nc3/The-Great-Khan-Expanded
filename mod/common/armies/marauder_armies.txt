@@ -13,9 +13,11 @@ marauder_defense_army = {
 	icon = GFX_army_type_defensive
 	has_species = no
 	potential_country = {
-		OR = { # CmtTriggerIsMarauder = yes
-			is_country_type = dormant_marauders
-			is_country_type = ruined_marauders
+		# CmtTriggerIsMarauder = yes
+		OR = {
+			is_pirate = yes
+			# is_country_type = dormant_marauders
+			# is_country_type = ruined_marauders
 			is_country_type = awakened_marauders
 			is_country_type = marauder_raiders
 		}
