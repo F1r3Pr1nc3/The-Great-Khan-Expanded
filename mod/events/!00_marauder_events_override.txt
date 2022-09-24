@@ -5055,15 +5055,20 @@ country_event = {
 			# force_add_civic = nsc_freebooter_civic_great_khans_vision later
 		} else = {
 			set_country_type = awakened_marauders
+			if = { limit = { is_egalitarian = yes }
+				shift_ethic = ethic_fanatic_spiritualist
+			}
 			change_government = {
-				authority = auth_dictatorial
+				authority = auth_dictatorial # not with with Egalitarian
 				remove_invalid_civics = yes
 				civics = {
 					civic = civic_great_khans_vision
 					civic = civic_shared_burden
-					# civic = civic_warrior_culture
 				}
 			}
+			# force_add_civic = civic_great_khans_vision
+			# force_add_civic = civic_shared_burden
+			# force_add_civic = civic_warrior_culture
 			# force_add_civic = civic_slaver_guilds
 			force_add_civic = civic_barbaric_despoilers
 			force_add_civic = civic_fanatic_purifiers

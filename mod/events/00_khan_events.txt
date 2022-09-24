@@ -2103,11 +2103,13 @@ system_event = {
 				if = {
 					limit = {
 						NOR = {
+							has_technology = tech_starbase_2
 							has_technology = tech_starbase_3
 							has_technology = tech_starbase_4
 							has_technology = tech_starbase_5
 						}
 					}
+					give_technology = { tech = tech_starbase_2 message = no }
 					give_technology = { tech = tech_starbase_3 message = no }
 					give_technology = { tech = tech_starbase_4 message = no }
 					give_technology = { tech = tech_starbase_5 message = no }

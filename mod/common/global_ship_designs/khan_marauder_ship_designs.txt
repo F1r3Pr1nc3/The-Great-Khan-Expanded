@@ -695,6 +695,7 @@ ship_design = {
 ship_design = {
 	name = "NAME_Marauder_Citadel"
 	ship_size = starbase_citadel
+	is_event_design = yes
 	section = {
 		template = "CITADEL_STARBASE_SECTION"
 		slot = "core"
@@ -750,7 +751,6 @@ ship_design = {
 			slot = "MEDIUM_GUN_013"
 			template = "FLAK_BATTERY_1"
 		}
-
 		component = {
 			slot = "LARGE_UTILITY_1"
 			template = "LARGE_ARMOR_3"
@@ -859,9 +859,7 @@ ship_design = {
 			slot = "AUX_UTILITY_1"
 			template = "AUTO_REPAIR"
 		}
-
 	}
-
 	section = {
 		template = "MISSILE_STARBASE_SECTION"
 		slot = "1"
@@ -918,5 +916,6 @@ ship_design = {
 			template = "STRIKE_CRAFT_HANGAR_3"
 		}
 	}
-	required_component="SENSOR_2"
+	required_component = "STARBASE_ZERO_POINT_REACTOR"
+	required_component = "SENSOR_2"
 }
