@@ -42,6 +42,7 @@
  marauder.31.i: "§YThe [raid_target_8.GetName].§!"
  marauder.31.j: "§YThe [raid_target_9.GetName].§!"
  marauder.31.k: "§YThe [raid_target_5.GetName].§!"
+ marauder.550.a_fail: "§RYou cannot submit until the Great Khan is a real threat to us.§!"
  marauder_deal: "Das Satrapiesystem wurde aus einem bestimmten Grund geschaffen, es wird einen idealen Übergang zu einer galaktischen Gemeinschaft bieten, warum sollte ich es ändern?"
  marauder_deal_accept: "Ihr habt viele Leben gerettet, indem Ihr uns Zugang zu dieser Technologie gegeben habt. Sie wird zum Wohle der Galaxis verwendet."
  marauder_deal_bad_response: "Nein, wir werden unsere Technologie nicht mit Euch teilen."

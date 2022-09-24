@@ -32,6 +32,10 @@ ship_design = {
 			slot = "AUX_UTILITY_1"
 			template = "AFTERBURNER_1"
 		}
+		component = {
+			slot = "AUX_UTILITY_2"
+			template = "AFTERBURNER_1"
+		}
 	}
 	required_component = "HYPER_DRIVE_2"
 	required_component = "COMBAT_COMPUTER_SWARM_BASIC"
@@ -69,6 +73,10 @@ ship_design = {
 		}
 		component = {
 			slot = "AUX_UTILITY_1"
+			template = "AFTERBURNER_1"
+		}
+		component = {
+			slot = "AUX_UTILITY_2"
 			template = "AFTERBURNER_1"
 		}
 	}

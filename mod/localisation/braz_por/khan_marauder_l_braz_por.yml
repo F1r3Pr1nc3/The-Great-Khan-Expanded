@@ -42,6 +42,7 @@
  marauder.31.i: "§YThe [raid_target_8.GetName].§!"
  marauder.31.j: "§YThe [raid_target_9.GetName].§!"
  marauder.31.k: "§YThe [raid_target_5.GetName].§!"
+ marauder.550.a_fail: "§RYou cannot submit until the Great Khan is a real threat to us.§!"
  marauder_deal: "El sistema de satrapy fue creado por una razón, proporcionará una transición ideal hacia una comunidad galáctica, ¿por qué lo modificaría?"
  marauder_deal_accept: "Has salvado muchas vidas al darnos acceso a esta tecnología, se utilizará para el bien de la galaxia."
  marauder_deal_bad_response: "No, no compartiremos nuestra tecnología contigo."

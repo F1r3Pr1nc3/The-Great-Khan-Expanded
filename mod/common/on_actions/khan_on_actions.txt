@@ -40,14 +40,6 @@ on_becoming_subject = {
 	}
 }
 
-# This = starbase being destroyed
-# From = fleet that destroyed the starbase
-on_starbase_destroyed = {
-	events = {
-		marauder.527 # Increase counter
-	}
-}
-
 # This = owner of fleet 1 (destroyed)
 # From = owner of fleet 2 (combatant)
 # fromfrom = fleet 1
@@ -81,6 +73,22 @@ on_planet_zero_pops = {
 on_planet_zero_pops_ground_combat = {
 	events = {
 		marauder.528 # Increase counter
+	}
+}
+
+# This = starbase being destroyed
+# From = fleet that destroyed the starbase
+on_starbase_destroyed = {
+	events = {
+		marauder.527 # Increase counter
+	}
+}
+
+# This = starbase being disabled (not ship!)
+# From = fleet that disabled the starbase
+on_starbase_disabled = {
+	events = {
+		marauder.527
 	}
 }
 

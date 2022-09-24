@@ -59,6 +59,7 @@ create_1st_khan_fleet = {
 				graphical_culture = "npf_01" # _dirty
 			}
 			assign_leader = last_created_leader
+			set_fleet_flag = khan_fleet
 			if = {
 				limit = {
 					OR = {
@@ -100,6 +101,7 @@ create_2nd_khan_fleet = {
 				graphical_culture = "npf_01_dirty"
 			}
 			set_leader = exiled_khan
+			set_fleet_flag = khan_fleet
 			if = {
 				limit = {
 					OR = {

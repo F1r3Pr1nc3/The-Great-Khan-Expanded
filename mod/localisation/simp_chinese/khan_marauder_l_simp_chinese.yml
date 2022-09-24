@@ -42,6 +42,7 @@
  marauder.31.i: "§YThe [raid_target_8.GetName].§!"
  marauder.31.j: "§YThe [raid_target_9.GetName].§!"
  marauder.31.k: "§YThe [raid_target_5.GetName].§!"
+ marauder.550.a_fail: "§RYou cannot submit until the Great Khan is a real threat to us.§!"
  marauder_deal: "总督体制的创建是有原因的，它将向银河社会提供理想的过渡，我为什么要改变它？"
  marauder_deal_accept: "通过让我们使用这项技术，你拯救了许多生命，它将被用于维护银河系的利益。"
  marauder_deal_bad_response: "不，我们不会与您分享我们的技术。"
