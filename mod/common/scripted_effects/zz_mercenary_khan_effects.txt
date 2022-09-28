@@ -498,8 +498,8 @@ create_first_diadochi = {
 				set_owner = event_target:first_diadochi
 			}
 			# Flip Planets
-			every_system_planet = {
-				limit = { has_owner = yes is_owned_by = root }
+			every_system_colony = {
+				limit = { is_owned_by = root }
 				set_owner = event_target:first_diadochi
 				set_controller = event_target:first_diadochi
 			}
@@ -562,8 +562,8 @@ create_second_diadochi = {
 				set_owner = event_target:second_diadochi
 			}
 			# Flip Planets
-			every_system_planet = {
-				limit = { has_owner = yes is_owned_by = root }
+			every_system_colony = {
+				limit = { is_owned_by = root }
 				set_owner = event_target:second_diadochi
 				set_controller = event_target:second_diadochi
 			}
@@ -626,8 +626,8 @@ create_third_diadochi = {
 				set_owner = event_target:third_diadochi
 			}
 			# Flip Planets
-			every_system_planet = {
-				limit = { has_owner = yes is_owned_by = root }
+			every_system_colony = {
+				limit = { is_owned_by = root }
 				set_owner = event_target:third_diadochi
 				set_controller = event_target:third_diadochi
 			}
@@ -690,8 +690,8 @@ create_fourth_diadochi = {
 				set_owner = event_target:fourth_diadochi
 			}
 			# Flip Planets
-			every_system_planet = {
-				limit = { has_owner = yes is_owned_by = root }
+			every_system_colony = {
+				limit = { is_owned_by = root }
 				set_owner = event_target:fourth_diadochi
 				set_controller = event_target:fourth_diadochi
 			}

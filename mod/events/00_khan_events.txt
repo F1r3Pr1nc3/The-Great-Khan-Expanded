@@ -2340,8 +2340,8 @@ ship_event = {
 		is_scope_valid = yes
 		exists = owner
 		owner = { is_country_type = awakened_marauders }
-		is_ship_class = shipclass_starbase
 		exists = from
+		is_ship_class = shipclass_starbase
 		# NOT = {
 		# 	is_ship_size = starbase_marauder
 			# solar_system = {
@@ -2369,12 +2369,7 @@ ship_event = {
 			solar_system = {
 				if = {
 					limit = {
-						NOT = {
-							any_system_planet = {
-								has_owner = yes
-								is_owned_by = from.owner
-							}
-						}
+						NOT = { any_system_colony = { is_owned_by = from.owner } }
 						any_system_planet = {
 							colonizable_planet = yes
 							OR = {
@@ -2435,8 +2430,7 @@ ship_event = {
 						}
 					} else_if = {
 						limit = {
-							any_system_planet = {
-								has_owner = yes
+							any_system_colony = {
 								is_colony = yes
 								NOT = { is_owned_by = root.owner }
 								NAND = {
@@ -2445,10 +2439,9 @@ ship_event = {
 								}
 							}
 						}
-						random_system_planet = {
+						random_system_colony = {
 							limit = {
-								has_owner = yes
-								is_colony = yes
+																is_colony = yes
 								NOT = { is_owned_by = root.owner }
 								NAND = {
 									exists = controller
@@ -2489,34 +2482,6 @@ ship_event = {
 		# }
 	}
 }
-
-
-# on_disabled starbase (HIDDEN)
-# This = starbase being disabled (not ship!)
-# From = fleet that disabled the starbase
-# starbase_event = {
-# 	id = khan.303
-# 	hide_window = yes
-# 	is_triggered_only = yes
-# 	trigger = {
-# 		is_scope_valid = yes
-# 		exists = owner
-# 		exists = from.owner
-# 		OR = {
-# 			owner = { is_country_type = awakened_marauders }
-# 			from.owner = {  is_country_type = awakened_marauders }
-# 		}
-# 		fleet = { is_ship_class = shipclass_starbase }
-# 	}
-# 	immediate = {
-# 		fleet = {
-# 			random_owned_ship = {
-# 				limit = { is_ship_class = shipclass_starbase }
-# 				ship_event = { id = khan.304 }
-# 			}
-# 		}
-# 	}
-# }
 
 # on_enabled Marauder station - destroy (HIDDEN)
 ship_event = {
@@ -3630,7 +3595,7 @@ country_event = {
 							modifier = { factor = 3 is_bottleneck_system = yes }
 							modifier = {
 								factor = 5
-								any_system_planet = { is_colony = yes is_under_colonization = no }
+								any_system_colony = { is_under_colonization = no }
 							}
 						}
 						starbase = {
@@ -4767,6 +4732,7 @@ country_event = {
 					position = 0
 					order_by = trigger:fleet_power
 					assign_leader = event_target:great_khan
+					set_fleet_flag = khan_fleet
 				}
 			} else = {
 				event_target:marauder_rally_point = {

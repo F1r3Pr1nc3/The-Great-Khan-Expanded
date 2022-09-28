@@ -1292,15 +1292,13 @@ fleet_event = {
 			min_steps = 2
 			use_bypasses = yes
 			limit = {
-				any_system_planet = {
-					has_owner = yes
+				any_system_colony = {
 					is_owned_by = from
 					num_pops > 1
 				}
 			}
-			random_system_planet = {
+			random_system_colony = {
 				limit = {
-					has_owner = yes
 					is_owned_by = from
 					num_pops > 1
 				}
@@ -1390,8 +1388,7 @@ country_event = {
 								min_steps = 2
 								use_bypasses = yes
 								limit = {
-									any_system_planet = {
-										has_owner = yes
+									any_system_colony = {
 										is_owned_by = event_target:marauder_target
 										num_pops > 1
 									}
@@ -1405,16 +1402,14 @@ country_event = {
 							min_steps = 2
 							use_bypasses = yes
 							limit = {
-								any_system_planet = {
-									has_owner = yes
+								any_system_colony = {
 									is_owned_by = event_target:marauder_target
 									num_pops > 1
 								}
 								# prev = { can_access_system = prev }
 							}
-							random_system_planet = {
+							random_system_colony = {
 								limit = {
-									has_owner = yes
 									is_owned_by = event_target:marauder_target
 									num_pops > 1
 								}
@@ -1461,16 +1456,14 @@ fleet_event = {
 			min_steps = 1
 			use_bypasses = yes
 			limit = {
-				any_system_planet = {
-					has_owner = yes
+				any_system_colony = {
 					is_owned_by = from
 					num_pops > 1
 				}
 				prev = { can_access_system = prev }
 			}
-			random_system_planet = {
+			random_system_colony = {
 				limit = {
-					has_owner = yes
 					is_owned_by = from
 					num_pops > 1
 				}
@@ -1517,8 +1510,7 @@ fleet_event = {
 					fleet = { is_disabled = no }					# Not working for starbase?
 				}
 				NOR = {
-					any_system_planet = {
-						has_owner = yes
+					any_system_colony = {
 						is_owned_by = from
 						num_pops > 0
 					}
@@ -2220,16 +2212,14 @@ country_event = {
 					limit = {
 						has_owner = yes
 						is_owned_by = root
-						any_system_planet = {
-							has_owner = yes
+						any_system_colony = {
 							is_owned_by = root
 							num_pops > 0
 						}
 						# prev = { can_access_system = prev }
 					}
-					random_system_planet = {
+					random_system_colony = {
 						limit = {
-							has_owner = yes
 							is_owned_by = root
 							num_pops > 0
 						}
@@ -3648,11 +3638,11 @@ country_event = {
 					limit = {
 						has_owner = yes
 						is_owned_by = root
-						any_system_planet = { has_owner = yes is_owned_by = root num_pops > 0 }
+						any_system_colony = { is_owned_by = root num_pops > 0 }
 						# prev = { can_access_system = prev }
 					}
-					random_system_planet = {
-						limit = { has_owner = yes is_owned_by = root num_pops > 0 }
+					random_system_colony = {
+						limit = { is_owned_by = root num_pops > 0 }
 						save_event_target_as = raid_planet
 					}
 				}
@@ -4074,19 +4064,17 @@ planet_event = {
 				solar_system = {
 					closest_system = {
 						limit = {
-							any_system_planet = {
+							any_system_colony = {
 								has_owner = yes
 								is_owned_by = event_target:raid_victim
-								is_colony = yes
 								is_occupied_flag = no
 								NOT = { has_planet_flag = planet_raided }
 								num_pops > 1
 							}
 							# event_target:raiding_fleet = { can_access_system = prev }
 						}
-						random_system_planet = {
+						random_system_colony = {
 							limit = {
-								has_owner = yes
 								is_owned_by = event_target:raid_victim
 								is_colony = yes
 								is_occupied_flag = no
@@ -4510,16 +4498,14 @@ event = {
 							limit = {
 								has_owner = yes
 								is_owned_by = event_target:marauder_target
-								any_system_planet = {
-									has_owner = yes
+								any_system_colony = {
 									is_owned_by = event_target:marauder_target
 									num_pops > 0
 								}
 								# prev = { can_access_system = prev }
 							}
-							random_system_planet = {
+							random_system_colony = {
 								limit = {
-									has_owner = yes
 									is_owned_by = event_target:marauder_target
 									num_pops > 0
 								}
@@ -5013,7 +4999,12 @@ country_event = {
 		}
 
 		if = {
-			limit = { is_pacifist = yes }
+			limit = {
+				OR = {
+					is_pacifist = yes
+					is_militarist = no
+				}
+			}
 			shift_ethic = "ethic_militarist"
 		}
 		if = {
@@ -5024,9 +5015,13 @@ country_event = {
 			limit = { is_spiritualist = no }
 			shift_ethic = "ethic_spiritualist"
 		}
-		if = {
-			limit = { is_militarist = no }
-			shift_ethic = "ethic_fanatic_militarist"
+		# if = {
+		# 	limit = { is_militarist = no }
+		# 	shift_ethic = "ethic_fanatic_militarist"
+		# }
+		if = { limit = { is_egalitarian = yes }
+			# shift_ethic = ethic_fanatic_spiritualist
+			shift_ethic = ethic_authoritarian
 		}
 
 		if = { ### NSC SUPPORT
@@ -5047,6 +5042,7 @@ country_event = {
 			set_origin = "origin_nsc_freebooter"
 			change_government = {
 				authority = auth_dictatorial
+				cooldown = no
 				remove_invalid_civics = yes
 			}
 			if = { limit = { has_authority = auth_corporate }
@@ -5055,19 +5051,15 @@ country_event = {
 			# force_add_civic = nsc_freebooter_civic_great_khans_vision later
 		} else = {
 			set_country_type = awakened_marauders
-			if = { limit = { is_egalitarian = yes }
-				shift_ethic = ethic_fanatic_spiritualist
-			}
 			change_government = {
 				authority = auth_dictatorial # not with with Egalitarian
-				remove_invalid_civics = yes
 				civics = {
 					civic = civic_great_khans_vision
 					civic = civic_shared_burden
 				}
+				cooldown = no
+				remove_invalid_civics = yes
 			}
-			# force_add_civic = civic_great_khans_vision
-			# force_add_civic = civic_shared_burden
 			# force_add_civic = civic_warrior_culture
 			# force_add_civic = civic_slaver_guilds
 			force_add_civic = civic_barbaric_despoilers
@@ -5082,7 +5074,6 @@ country_event = {
 		}
 
 		set_ai_personality = hegemonic_imperialists
-
 		create_ship_design = { design = "NAME_Pirate_Transport" }
 		add_ship_design = last_created_design
 		create_ship_design = { design = "NAME_Clan_Builder" }
@@ -5094,7 +5085,6 @@ country_event = {
 			create_ship_design = { design = "NAME_Marauder_Starbase" }
 			add_ship_design = last_created_design
 		}
-
 		if = {
 			limit = { NOT = { has_tradition = tr_harmony_adopt } }
 			add_tradition = tr_harmony_adopt
@@ -5105,7 +5095,6 @@ country_event = {
 			add_tradition = tr_harmony_harmonious_directives
 			add_tradition = tr_harmony_finish
 		}
-
 		### Ruler Khan
 		create_leader = {
 			class = ruler
@@ -5895,7 +5884,10 @@ country_event = {
 
 			if = {
 				limit = { NOT = { exists = event_target:great_khan.fleet } }
-				last_created_fleet = { assign_leader = event_target:great_khan }
+				last_created_fleet = {
+					assign_leader = event_target:great_khan
+					set_fleet_flag = khan_fleet
+				}
 			}
 			every_playable_country = {
 				limit = { is_ai = no }
@@ -6175,6 +6167,7 @@ event = {
 						position = 0
 						order_by = trigger:fleet_power
 						assign_leader = event_target:great_khan
+						set_fleet_flag = khan_fleet
 					}
 				}
 			} else = {
@@ -6994,7 +6987,7 @@ planet_event = {
 				}
 			}
 			owner = { change_variable = { which = "planets_lost_to_marauder" value = 1 } }
-			every_owned_pop = { unemploy_pop = yes kill_pop = yes } # ghost pop bug
+			every_owned_pop = { kill_pop = yes } # ghost pop bug
 			destroy_colony = yes
 		} else_if = {
 			limit = {
@@ -7240,14 +7233,13 @@ country_event = {
 				has_country_flag = rebelling_satrapy
 				is_homicidal = yes
 			}
-			# always?
-			# OR = {
-			# 	is_subject_of_khan = no
-			# 	NOR = {
-			# 		any_agreement = { agreement_preset = preset_machinesmith_satrapy }
-			# 		any_agreement = { agreement_preset = preset_fabricator_satrapy }
-			# 	}
-			# }
+			OR = {
+				is_subject_of_khan = no
+				NOR = {
+					any_agreement = { agreement_preset = preset_machinesmith_satrapy }
+					any_agreement = { agreement_preset = preset_fabricator_satrapy }
+				}
+			}
 			OR = {
 				AND = {
 					has_technology = tech_mass_drivers_4
@@ -8594,10 +8586,7 @@ country_event = {
 					count_system_within_border = {
 						count > 4
 						limit = {
-							any_system_planet = {
-								has_owner = yes
-								is_owned_by = root
-							}
+							any_system_colony = { is_owned_by = root }
 							is_potential_diadochi_system = yes
 						}
 					}
@@ -8621,10 +8610,7 @@ country_event = {
 					count_system_within_border = {
 						count > 3
 						limit = {
-							any_system_planet = {
-								has_owner = yes
-								is_owned_by = root
-							}
+							any_system_colony = { is_owned_by = root }
 							is_potential_diadochi_system = yes
 						}
 					}
