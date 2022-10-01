@@ -22,9 +22,8 @@ event = {
 		every_system = {
 			limit = {
 				NOT = { exists = starbase }
-				any_system_planet = {
+				any_system_colony = {
 					is_colony = yes
-					exists = owner
 					has_ground_combat = no
 					owner = {
 						OR = {
@@ -44,8 +43,7 @@ event = {
 									}
 								}
 							}
-							any_system_planet = {
-								exists = owner
+							any_system_colony = {
 								NOT = { is_same_value = prevprev }
 								owner = {
 									NOT = { is_same_empire = prevprevprev.owner }
@@ -59,9 +57,8 @@ event = {
 					}
 				}
 			}
-			random_system_planet = {
+			random_system_colony = {
 				limit = {
-					is_colony = yes
 					exists = owner
 					has_ground_combat = no
 					owner = {
@@ -82,8 +79,7 @@ event = {
 									}
 								}
 							}
-							any_system_planet = {
-								exists = owner
+							any_system_colony = {
 								owner = {
 									NOT = { is_same_empire = prevprev.owner }
 									OR = {

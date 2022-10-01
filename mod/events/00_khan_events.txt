@@ -3498,6 +3498,109 @@ country_event = {
 	}
 }
 
+# Submit to Khan (Pre-Helper)
+# Used also for marauder.555 and marauder.551
+# This = new subject
+country_event = {
+	id = khan.559
+	is_triggered_only = yes
+	hide_window = yes
+	trigger = { is_subject_of_khan = no }
+	immediate = {
+		## If has_federation give Horde malus partial back.
+		if = { limit = { exists = capital_scope }
+			capital_scope = { save_event_target_as = capital_planet }
+		} else = {
+			ordered_owned_planet = {
+				limit = { is_colony = yes }
+				position = 0
+				order_by = trigger:num_pops
+				save_event_target_as = capital_planet
+			}
+		}
+		event_target:capital_planet = {
+			set_variable = { which = "planets_lost_to_marauder" value = 1 } # temp. only
+			if = { limit = { root = { has_federation = yes } }
+				change_variable = { which = "planets_lost_to_marauder" value = 1 }
+				if = { limit = { root = { is_federation_leader = yes } }
+					change_variable = { which = "planets_lost_to_marauder" value = 1 }
+				}
+				root.federation = {
+					every_member = {
+						change_variable = { which = "planets_lost_to_marauder" value = prevprev.planets_lost_to_marauder }
+					}
+				}
+			}
+			if = { limit = { root = { num_defensive_pacts > 0 } }
+				every_playable_country = {
+					limit = { has_defensive_pact = root }
+					change_variable = { which = "planets_lost_to_marauder" value = 1 }
+					change_variable = { which = "planets_lost_to_marauder" value = prev.planets_lost_to_marauder }
+				}
+			}
+		}
+		if = { limit = { check_variable = { which = "planets_lost_to_marauder" value < 6 } }
+			set_variable = { which = "planets_lost_to_marauder" value = 6 }
+		}
+		divide_variable = { which = "planets_lost_to_marauder" value = 2 }
+
+		if = { limit = { is_overlord = yes }
+			every_subject = {
+				limit = { merg_is_standard_empire = yes }
+				set_subject_of = { who = none }
+				change_variable = { which = "planets_lost_to_marauder" value = 1 }
+				if = {
+					limit = {
+						OR = {
+							is_ai = no
+							fleet_power < 24000
+							check_variable = { which = "planets_lost_to_marauder" value > 22 }
+							num_owned_planets < 3
+						}
+						NOT = { has_active_event = { marauder.551 } }
+					}
+					country_event = { id = marauder.551 } # Submit Dialog
+				}
+			}
+			leave_alliance = { override_requirements = yes }
+		} else_if = { limit = { is_subject = yes exists = overlord }
+			overlord = { # Much less likely
+				change_variable = { which = "planets_lost_to_marauder" value = 2 }
+			}
+			leave_alliance = { override_requirements = yes }
+		}
+
+		if = { limit = { is_galactic_community_member = yes }
+			remove_from_galactic_community = yes
+		}
+
+		# Can't rebel for a year after submitting.
+		set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
+		save_event_target_as = new_satrapy
+		every_playable_country = { # Notify
+			limit = {
+				is_ai = no
+				has_communications = root
+				NOT = { is_same_empire = root }
+			}
+			country_event = { id = marauder.552 days = 2 }
+		}
+		observer_event = { id = observer.19 }
+		country_event = { id = marauder.553 days = 12 } # Init base
+		# add_modifier = { modifier = "satrapy_of_horde" }
+
+		event_target:raider_khanate = {
+			copy_random_tech_from = { who = prev area = physics }
+			add_resource = { influence = 100 }
+		}
+		event_target:capital_planet = {
+			if = { limit = { is_variable_set = planets_lost_to_marauder }
+				clear_variable = planets_lost_to_marauder
+			}
+		}
+	}
+}
+
 # Maybe buggy because to late and raider_khanate not exists
 # Handover parts of marauder country for Diadochi (HIDDEN)
 # Via marauder.601 and marauder.609
@@ -4374,7 +4477,7 @@ country_event = {
 		# sound = placeholder_sfx
 		trigger = { has_been_declared_crisis = no }
 		response_text = marauder_fabricator_good
-		country_event = { id = marauder.559 } # Pre-Submit to Khan
+		country_event = { id = khan.559 days = -1 } # Pre-Submit to Khan
 		set_subject_of = { who = event_target:raider_khanate preset = preset_fabricator_satrapy }
 		hidden_effect = {
 			event_target:raider_khanate = {
@@ -4897,7 +5000,7 @@ country_event = {
 		# sound = placeholder_sfx
 		trigger = { has_been_declared_crisis = no }
 		response_text = marauder_deal_accept
-		country_event = { id = marauder.559 } # Pre-Submit to Khan
+		country_event = { id = khan.559 days = -1 } # Pre-Submit to Khan
 		set_subject_of = { who = event_target:raider_khanate preset = preset_machinesmith_satrapy }
 		hidden_effect = {
 			event_target:raider_khanate = {

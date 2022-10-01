@@ -314,7 +314,7 @@ wg_marauder_expansion = {
 			limit = { from = { has_been_declared_crisis = no } }
 			from = {
 				# country_event = { id = marauder.550 } # Submit to Khan
-				country_event = { id = marauder.559 } # Pre-Submit to Khan
+				country_event = { id = khan.559 days = -1 } # Pre-Submit to Khan
 				set_subject_of = { who = event_target:raider_khanate preset = preset_satrapy }
 				event_target:raider_khanate = {
 					if = { limit = { is_hostile = prev }
@@ -530,7 +530,7 @@ wg_war_in_heaven = {
 					if = {
 						limit = { has_been_declared_crisis = no }
 						# country_event = { id = marauder.550 } # Submit to Khan
-						country_event = { id = marauder.559 } # Pre-Submit to Khan
+						country_event = { id = khan.559 days = -1 } # Pre-Submit to Khan
 						set_subject_of = { who = event_target:raider_khanate preset = preset_satrapy }
 						event_target:raider_khanate = {
 							if = { limit = { is_hostile = prev }
@@ -754,7 +754,7 @@ wg_great_expansion = {
 			limit = { from = { has_been_declared_crisis = no } }
 			from = {
 				# country_event = { id = marauder.550 } # Submit to Khan
-				country_event = { id = marauder.559 } # Pre-Submit to Khan
+				country_event = { id = khan.559 days = -1 } # Pre-Submit to Khan
 				set_subject_of = { who = event_target:raider_khanate preset = preset_satrapy }
 				event_target:raider_khanate = {
 					if = { limit = { is_hostile = prev }
