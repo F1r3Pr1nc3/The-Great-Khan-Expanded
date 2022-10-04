@@ -121,7 +121,7 @@ on_war_beginning = {
 # From = optional, destroyer (country)
 on_country_destroyed = {
 	events = {
-		marauder.609
+		marauder.609 # handover marauder
 	}
 }
 

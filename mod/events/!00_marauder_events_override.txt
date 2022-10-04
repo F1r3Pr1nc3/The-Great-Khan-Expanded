@@ -24,6 +24,9 @@ namespace = marauder
 # 	marauder.85		# Mercenaries Available
 # 	marauder.160	# Raiding End Failsafe
 # 	marauder.699	# Neighbor Events - .707
+
+# on_ship_destroyed_victim = marauder.525 # Horde Triggered Through Destruction of Stations.
+
 ###		Khan Dead Events		###
 ## Future of the Horde marauder.600
 	# on_ship_destroyed_victim	marauder.505 Defeated in Combat but NOT die.
@@ -6674,12 +6677,11 @@ country_event = {
 ### Awakening for Vengeance: on_ship_destroyed_victim ###
 #########################################################
 
-# Horde Triggered Through Destruction of Stations.
+# Horde Triggered Through Destruction of Stations (on_ship_destroyed_victim).
 country_event = {
 	id = marauder.525
 	hide_window = yes
 	is_triggered_only = yes
-
 	trigger = {
 		NOT = { has_global_flag = marauder_crisis_ongoing }
 		is_country_type = dormant_marauders
@@ -6692,24 +6694,20 @@ country_event = {
 				is_ship_size = starbase_marauder
 			}
 		}
-		from = { merg_is_default_empire = yes } # There are some unpredictable possiblities.
+		OR = {
+			from = { merg_is_default_empire = yes } # There are some unpredictable possiblities.
+			count_country = { count = 1 limit = { is_country_type = dormant_marauders } }
+		}
 		event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanVengeance value != 1 } }
 		OR = {
-			count_owned_ship = {
-				limit = { is_ship_size = marauder_void_dwelling }
-				count > 1
-			}
+			count_owned_ship = { count > 1 limit = { is_ship_size = marauder_void_dwelling }  }
 			AND = {
 				event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanVengeance value = 5 } }
-				count_owned_ship = {
-					limit = { is_ship_size = marauder_void_dwelling }
-					count > 0
-				}
+				count_owned_ship = { count > 0 limit = { is_ship_size = marauder_void_dwelling } }
 			}
 		}
 		CmtTriggerKhanAwakingMultipleCheck = yes
 	}
-
 	immediate = {
 		from = { save_event_target_as = awakened_horde }
 		# Since 3.0: reduce possibility if too early
@@ -6746,7 +6744,13 @@ country_event = {
 			100 = {
 				modifier = {
 					factor = 0
-					event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanVengeance value = 5 } }
+					OR = {
+						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanVengeance value = 5 } }
+						AND = {
+							count_owned_ship = { count < 2 limit = { is_ship_size = marauder_void_dwelling } }
+							count_country = { count = 1 limit = { is_country_type = dormant_marauders } }
+						}
+					}
 				}
 				fromfromfrom.solar_system = {
 					system_event = { id = marauder.17 days = 360 } # Rebuild marauder starbase

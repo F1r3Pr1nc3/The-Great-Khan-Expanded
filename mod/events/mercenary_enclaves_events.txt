@@ -46,7 +46,7 @@ event = {
 				}
 			}
 		}
-		if = { # Fallback 3.4 saves
+		if = { # Fallback 3.4 saves/mods
 			limit = { NOT = { exists = event_target:khan_fleet } }
 			event_target:raider_khanate = {
 				random_owned_fleet = {
@@ -66,7 +66,7 @@ event = {
 				has_communications = event_target:raider_khanate
 				has_modifier = country_enclave_capacity_decrease_modifier
 				NOR = {
-					has_ethic = ethic_gestalt_consciousness
+					is_gestalt = yes
 					has_civic = civic_fanatic_purifiers
 					is_hostile = event_target:raider_khanate
 				}
@@ -90,15 +90,11 @@ event = {
 						any_owned_fleet = { is_leased = yes }
 						any_country = {
 							merg_is_standard_empire = yes
-							# has_communications = event_target:raider_khanate
+							has_communications = event_target:raider_khanate
 							has_modifier = country_enclave_capacity_decrease_modifier
-							NOR = {
-								has_ethic = ethic_gestalt_consciousness
-								has_civic = civic_fanatic_purifiers
-							}
 							OR = {
-								is_ai = yes
-								NOT = { is_hostile = event_target:raider_khanate }
+								is_ai = no
+								is_hostile = event_target:raider_khanate
 							}
 							has_country_flag = merc_enclave_founder@prev
 							prev = { has_country_flag = created_by@prev }
