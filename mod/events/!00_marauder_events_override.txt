@@ -4981,7 +4981,7 @@ country_event = {
 		if = { limit = { is_militarist = no }
 			# limit = { is_pacifist = yes }
 			shift_ethic = "ethic_militarist"
-			#shift_ethic = "ethic_fanatic_militarist"
+			# shift_ethic = "ethic_fanatic_militarist"
 		}
 		if = { limit = { has_ethic = "ethic_xenophobe" }
 			country_remove_ethic = "ethic_xenophobe"
@@ -5015,7 +5015,7 @@ country_event = {
 				cooldown = no
 				remove_invalid_civics = yes
 			}
-			if = { limit = { has_authority = auth_corporate }
+			if = { limit = { is_megacorp = yes }
 				force_add_civic = nsc_freebooter_civic_freebooter_trait_change_corp
 			} else = { force_add_civic = nsc_freebooter_civic_freebooter_trait_change }
 			# force_add_civic = nsc_freebooter_civic_great_khans_vision later
@@ -5233,6 +5233,24 @@ country_event = {
 			### Should not attack: the Khan is not that bad!
 			make_moderately_hostile = yes
 			set_country_flag = use_default_ships
+		} else = {
+			# Should not attack Enclaves
+			every_country = {
+				limit = {
+					OR = {
+						is_country_type = enclave
+						is_country_type = enclave_mercenary
+					}
+				}
+				event_target:raider_khanate = {
+					set_faction_hostility = {
+						target = prev
+						set_hostile = no
+						set_neutral = no
+						set_friendly = yes
+					}
+				}
+			}
 		}
 
 		### Notifications

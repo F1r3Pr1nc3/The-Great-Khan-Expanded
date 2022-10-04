@@ -16,7 +16,7 @@ cb_satrapy_subjugation = {
 			is_in_federation_with = from
 			is_overlord_to = from
 			has_valid_civic = civic_inwards_perfection
-			has_authority = auth_machine_intelligence
+			is_machine_empire = yes
 		}
 		event_target:raider_khanate = {
 			is_country_type = awakened_marauders
@@ -29,8 +29,8 @@ cb_satrapy_subjugation = {
 			is_in_federation_with = from
 			is_overlord_to = from
 			has_valid_civic = civic_inwards_perfection
-			has_authority = auth_machine_intelligence
-			# has_authority = auth_corporate
+			is_machine_empire = yes
+			# is_megacorp = yes
 		}
 		from = { is_subject_of_khan = no }
 	}

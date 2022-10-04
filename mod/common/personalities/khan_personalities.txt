@@ -41,7 +41,7 @@ hegemonic_imperialists = {
 		OR = {
 			is_ai = no
 			is_country_type = awakened_marauders
-			merg_is_default_empire = yes # is_country_type = default
+			merg_is_default_empire = yes
 		}
 		is_pacifist = no
 		NOR = {

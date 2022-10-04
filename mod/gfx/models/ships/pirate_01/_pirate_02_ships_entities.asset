@@ -98,4 +98,4 @@ entity = { name = "madd_01_turret_point_defence_entity" clone = "pirate_01_turre
 entity = { name = "madd_01_large_laser_gun_entity" clone = "pirate_01_large_laser_gun_entity" scale = 1 }
 entity = { name = "madd_01_medium_laser_gun_entity" clone = "pirate_01_medium_laser_gun_entity" scale = 1 }
 entity = { name = "madd_01_small_laser_gun_entity" clone = "pirate_01_small_laser_gun_entity" scale = 1 }
-entity = { name = "madd_01_turret_xl_entity" clone = "pirate_01_turret_xl_entity" scale = 1 }
+# entity = { name = "madd_01_turret_xl_entity" clone = "pirate_01_turret_xl_entity" scale = 1 }

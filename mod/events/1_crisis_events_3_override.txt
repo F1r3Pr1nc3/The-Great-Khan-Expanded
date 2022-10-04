@@ -303,7 +303,7 @@ country_event = {
 				}
 			}
 		}
-		#if = {
+		# if = {
 		#	limit = { NOT = { any_country = { is_country_type = extradimensional has_country_flag = unbidden } } }
 		random_country = {
 			limit = { is_country_type = extradimensional }

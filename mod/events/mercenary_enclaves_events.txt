@@ -1,0 +1,197 @@
+###################################################
+#
+# "Overlord" Enclave Events
+# By Gemma Thomson, Hadrien Buytaers & Chad Inglis
+# Modded by FirePrince (Khan hires only neutral mercenary + minor backward compat +)
+#
+###################################################
+namespace = enclave
+# enclave.2xxx	Mercenary enclave
+# Khan hires available mercs
+event = {
+	id = enclave.2045
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_global_flag = marauder_crisis_ongoing
+		OR = {
+			exists = event_target:raider_khanate
+			any_country = { is_country_type = awakened_marauders }
+		}
+		NOT = { has_global_flag = great_khan_dead }
+		any_country = {
+			is_country_type = enclave_mercenary
+			NOT = { any_owned_fleet = { is_leased = yes } }
+		}
+	}
+	immediate = {
+		if = {
+			limit = { NOT = { exists = event_target:raider_khanate } }
+			random_country = {
+				limit = { is_country_type = awakened_marauders }
+				save_global_event_target_as = raider_khanate
+			}
+		}
+		if = {
+			limit = {
+				exists = event_target:great_khan
+				exists = event_target:great_khan.fleet
+			}
+			event_target:great_khan.fleet = { save_event_target_as = khan_fleet }
+		} else = {
+			event_target:raider_khanate = {
+				random_owned_fleet = {
+					limit = { has_fleet_flag = khan_fleet }
+					save_event_target_as = khan_fleet
+				}
+			}
+		}
+		if = { # Fallback 3.4 saves
+			limit = { NOT = { exists = event_target:khan_fleet } }
+			event_target:raider_khanate = {
+				random_owned_fleet = {
+					limit = {
+						exists = leader
+						leader = { has_leader_flag = great_khan }
+					}
+					save_event_target_as = khan_fleet
+					leader = { save_global_event_target_as = great_khan }
+				}
+			}
+		}
+
+		random_country = {
+			limit = {
+				merg_is_standard_empire = yes
+				has_communications = event_target:raider_khanate
+				has_modifier = country_enclave_capacity_decrease_modifier
+				NOR = {
+					has_ethic = ethic_gestalt_consciousness
+					has_civic = civic_fanatic_purifiers
+					is_hostile = event_target:raider_khanate
+				}
+			}
+			random_country = {
+				limit = {
+					is_country_type = enclave_mercenary
+					NOT = { any_owned_fleet = { is_leased = yes } }
+					has_country_flag = created_by@prev
+					prev = { has_country_flag = merc_enclave_founder@prev }
+				}
+				save_event_target_as = mercenary_enclave_country
+			}
+		}
+		if = {
+			limit = { NOT = { exists = event_target:mercenary_enclave_country } }
+			random_country = {
+				limit = {
+					is_country_type = enclave_mercenary
+					NOR = {
+						any_owned_fleet = { is_leased = yes }
+						any_country = {
+							merg_is_standard_empire = yes
+							# has_communications = event_target:raider_khanate
+							has_modifier = country_enclave_capacity_decrease_modifier
+							NOR = {
+								has_ethic = ethic_gestalt_consciousness
+								has_civic = civic_fanatic_purifiers
+							}
+							OR = {
+								is_ai = yes
+								NOT = { is_hostile = event_target:raider_khanate }
+							}
+							has_country_flag = merc_enclave_founder@prev
+							prev = { has_country_flag = created_by@prev }
+						}
+					}
+				}
+				save_event_target_as = mercenary_enclave_country
+			}
+		}
+
+		if = {
+			limit = { exists = event_target:mercenary_enclave_country }
+			event_target:mercenary_enclave_country = {
+				# Khan hires only the main fleet
+				ordered_controlled_fleet = {
+					limit = {
+						is_ship_class = shipclass_military
+						is_leased = no
+					}
+					position = 0
+					order_by = trigger:fleet_power
+					save_event_target_as = mercenary_fleet
+				}
+				event_target:mercenary_fleet = {
+					give_fleet = { controller = event_target:raider_khanate days = 1510 }
+					set_name = {
+						key = NAME_Mercenary_Fleet
+						variable_string = "[event_target:mercenary_enclave_country.GetName]"
+					}
+					auto_follow_fleet = { target = event_target:khan_fleet }
+				}
+				set_country_flag = mercenary_enclave_rented_fleet
+			}
+		}
+	}
+}
+
+# Khan dies, mercenaries leave
+event = {
+	id = enclave.2055
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_global_flag = great_khan_dead
+		any_country = {
+			is_country_type = enclave_mercenary
+			any_owned_fleet = {
+				is_leased = yes
+				controller = { is_country_type = awakened_marauders }
+			}
+		}
+	}
+	immediate = {
+		random_country = {
+			limit = {
+				is_country_type = enclave_mercenary
+				any_owned_fleet = {
+					is_leased = yes
+					controller = { is_country_type = awakened_marauders }
+				}
+			}
+			random_owned_fleet = {
+				limit = {
+					is_leased = yes
+					controller = { is_country_type = awakened_marauders }
+				}
+				end_fleet_contract = {
+					initiator = event_target:raider_khanate # controller
+					reason = cancelled
+				}
+			}
+			remove_country_flag = mercenary_enclave_rented_fleet
+		}
+	}
+}
+
+# TODO try and have it not trigger is you dismiss the fleet.
+# Merc Fleet Lease Ended
+# fleet_event = {
+# 	id = enclave.2059
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		from = { is_ai = no }
+# 	}
+# 	immediate = {
+# 		fromfrom = {
+# 			save_event_target_as = mercenary_enclave_country
+# 			# Failsafe to catch if fleets are no longer on loan
+# 			remove_loaning_fleet_flag = yes
+# 		}
+# 		from = {
+# 			country_event = { id = enclave.2060 }
+# 		}
+# 	}
+# }

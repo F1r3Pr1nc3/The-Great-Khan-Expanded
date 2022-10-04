@@ -264,8 +264,8 @@ wg_marauder_expansion = {
 			is_in_federation_with = from
 			is_overlord_to = from
 			has_valid_civic = civic_inwards_perfection
-			has_authority = auth_machine_intelligence
-			# has_authority = auth_corporate
+			is_machine_empire = yes
+			# is_megacorp = yes
 		}
 		from = { is_subject_of_khan = no }
 		event_target:raider_khanate = {

@@ -100,7 +100,7 @@ awakened_marauders = {
 		# 				OR = {
 		# 					has_technology = tech_telepathy
 		# 					has_technology = tech_gene_seed_purification
-		# 					# has_authority = auth_machine_intelligence
+		# 					# is_machine_empire = yes
 		# 					# AND = {
 		# 					# 	OR = {
 		# 					# 		has_ethic = ethic_militarist
@@ -138,7 +138,7 @@ awakened_marauders = {
 		# 			modifier = {
 		# 				factor = 0
 		# 				OR = {
-		# 					has_authority = auth_machine_intelligence
+		# 					is_machine_empire = yes
 		# 					NOR = {
 		# 						has_technology = tech_telepathy
 		# 						has_ethic = ethic_fanatic_spiritualist
@@ -171,7 +171,7 @@ awakened_marauders = {
 		# 	# 		factor = 50
 		# 	# 		modifier = {
 		# 	# 			factor = 0
-		# 	# 			NOT = { has_authority = auth_machine_intelligence }
+		# 	# 			is_machine_empire = no
 		# 	# 		}
 		# 	# 	}
 		# 	# }
@@ -180,7 +180,7 @@ awakened_marauders = {
 		# 	# 		factor = 25
 		# 	# 		modifier = {
 		# 	# 			factor = 0
-		# 	# 			NOT = { has_authority = auth_machine_intelligence }
+		# 	# 			is_machine_empire = no
 		# 	# 		}
 		# 	# 	}
 		# 	# }
