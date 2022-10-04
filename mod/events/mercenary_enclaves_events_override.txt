@@ -2,7 +2,7 @@
 #
 # "Overlord" Enclave Events
 # By Gemma Thomson, Hadrien Buytaers & Chad Inglis
-# Modded by FirePrince (Khan hires only neutral mercenary + minor backward compat +)
+# Modded by FirePrince (Khan hires only neutral mercenary + minor backward compat.)
 #
 ###################################################
 namespace = enclave

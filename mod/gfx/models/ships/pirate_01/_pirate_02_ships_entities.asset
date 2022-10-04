@@ -21,9 +21,9 @@ entity = { name = "madd_01_starbase_marauder_construction_entity" clone = "stati
 # entity = { name = "pirate_cruiser_entity" clone = "pirate_01_pirate_cruiser_entity" scale = 1 }
 # entity = { name = "galleon_entity" clone = "pirate_01_galleon_entity" scale = 1 }
 ## Section templates are not needed as they get overwritten!?
-# entity = { name = "madd_01_pirate_corvette_S3_entity" clone = "pirate_01_pirate_corvette_S3_entity" scale = 1 }
-# entity = { name = "madd_01_pirate_corvette_M1S1_entity" clone = "pirate_01_pirate_corvette_M1S1_entity" scale = 1 }
-# entity = { name = "madd_01_pirate_corvette_S1_entity" clone = "pirate_01_pirate_corvette_S1_entity" scale = 1 }
+entity = { name = "madd_01_pirate_corvette_S3_entity" clone = "pirate_01_pirate_corvette_S3_entity" scale = 1 }
+entity = { name = "madd_01_pirate_corvette_M1S1_entity" clone = "pirate_01_pirate_corvette_M1S1_entity" scale = 1 }
+entity = { name = "madd_01_pirate_corvette_S1_entity" clone = "pirate_01_pirate_corvette_S1_entity" scale = 1 }
 # entity = { name = "madd_01_pirates_destroyer01_1l_2s_entity" clone = "pirates_destroyer01_1l_2s_entity" scale = 1 }
 # entity = { name = "madd_01_pirates_destroyer01_1m_2s_1m_entity" clone = "pirates_destroyer01_1m_2s_1m_entity" scale = 1 }
 # entity = { name = "madd_01_pirate_corvette_entity" clone = "pirate_01_pirate_corvette_entity" scale = 1 }

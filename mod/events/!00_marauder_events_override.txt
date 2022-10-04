@@ -5465,12 +5465,10 @@ country_event = {
 				### Create Marauder Pops
 				save_event_target_as = conquered_planet
 				planet_event = { id = marauder.105 }			# (Slaves)
-				set_controller = event_target:raider_khanate	# Root not subjects
 				if = { limit = { root = { is_country_type = awakened_marauders } }
-					set_owner = root.from # Added due 3.4 unknow bug Khan is regocnized as Satrapy
-					# Removed due 3.4 bug
-					# set_owner = event_target:raider_khanate		# Root not subjects
+					set_owner = root		# Root not subjects
 				}
+				set_controller = root
 
 				set_variable = { which = CmtVarTemp value = 4 }
 				if = { limit = { free_housing < 2 }
