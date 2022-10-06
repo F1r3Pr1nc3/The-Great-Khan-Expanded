@@ -48,11 +48,19 @@
  # khan.999.desc: "You can choose to either force the $RT_GREAT_KHAN$ to spawn roughly 1 year after the mid-game start date, or to let the Khan spawn randomly. Just activate the edict again if you change your mind."
  ### Subjects
  SUBJECT_machinesmith: "Machinesmith $SUBJECT_satrapy$"
- SUBJECT_DESC_machinesmith: "This type of subject provides advanced technology to their Overlord ($RT_GREAT_KHAN$) in exchange for independence."
+ # SUBJECT_DESC_machinesmith: "This type of subject provides advanced technology to their Overlord ($RT_GREAT_KHAN$) in exchange for independence."
  SUBJECT_fabricator_satrapy: "Fabricator $SUBJECT_satrapy$"
- SUBJECT_DESC_fabricator_satrapy: "This type of subject builds ships for its Overlord ($RT_GREAT_KHAN$) in exchange for independence."
+ # SUBJECT_DESC_fabricator_satrapy: "This type of subject builds ships for its Overlord ($RT_GREAT_KHAN$) in exchange for independence."
  SUBJECT_war_satrapy: "$SUBJECT_dominion$ $SUBJECT_satrapy$ "
- SUBJECT_DESC_war_satrapy: "This type of subject is diplomatically independent and protected by their Overlord ($RT_GREAT_KHAN$). But they also pay §Y10%§! of their monthly Energy Credits and Minerals in tribute."
+ # SUBJECT_DESC_war_satrapy: "This type of subject is diplomatically independent and protected by their Overlord ($RT_GREAT_KHAN$). But they also pay §Y10%§! of their monthly Energy Credits and Minerals in tribute."
+
+ preset_machinesmith_satrapy: "Machinesmith $SUBJECT_satrapy$"
+ preset_machinesmith_satrapy_desc: "This type of subject provides advanced technology to their Overlord ($RT_GREAT_KHAN$) in exchange for independence."
+ preset_fabricator_satrapy: "Fabricator $SUBJECT_satrapy$"
+ preset_fabricator_satrapy_desc: "This type of subject builds ships for its Overlord ($RT_GREAT_KHAN$) in exchange for independence."
+ preset_war_satrapy: "$SUBJECT_dominion$ $SUBJECT_satrapy$ "
+ preset_war_satrapy_desc: "This type of subject is diplomatically independent and protected by their Overlord ($RT_GREAT_KHAN$). But they also pay §Y10%§! of their monthly Energy Credits and Minerals in tribute."
+
  war_goal_wg_marauder_uprising: "The Great Uprising"
  war_goal_wg_marauder_expansion_desc: "$war_goal_wg_subjugation_desc$"
  war_goal_wg_marauder_expansion: "The Great Expansion" # war_goal_wg_scion

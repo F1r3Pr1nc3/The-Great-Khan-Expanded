@@ -5024,6 +5024,8 @@ country_event = {
 			# force_add_civic = nsc_freebooter_civic_great_khans_vision later
 		} else = {
 			set_country_type = awakened_marauders
+			set_graphical_culture = madd_01
+
 			change_government = {
 				authority = auth_dictatorial
 				civics = {
@@ -8352,7 +8354,7 @@ country_event = {
 		# 	remove_modifier = "satrapy_of_horde"
 		# }
 
-		# Cleanup possilbe old flags (old version)
+		# Cleanup possible old flags (old version)
 		every_system_within_border = {
 			limit = { is_potential_diadochi_system = no }
 			switch = { trigger = has_star_flag
@@ -8370,7 +8372,7 @@ country_event = {
 					count_system_within_border = {
 						count > 4
 						limit = {
-							any_system_colony = { is_owned_by = root }
+							any_system_colony = { is_owned_by = root uses_habitat_capitals = no }
 							is_potential_diadochi_system = yes
 						}
 					}
@@ -8394,7 +8396,7 @@ country_event = {
 					count_system_within_border = {
 						count > 3
 						limit = {
-							any_system_colony = { is_owned_by = root }
+							any_system_colony = { is_owned_by = root uses_habitat_capitals = no }
 							is_potential_diadochi_system = yes
 						}
 					}

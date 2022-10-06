@@ -110,9 +110,7 @@ create_2nd_khan_fleet = {
 					}
 				}
 				create_dyn_marauder_fleet = { OUTRIDER = 36 LANCER = 24 CHAMPION = 12 }
-			} else = {
-				create_dyn_marauder_fleet = yes
-			}
+			} else = { create_dyn_marauder_fleet = yes }
 
 			set_location = {
 				target = event_target:marauder_rally_point
@@ -287,9 +285,7 @@ create_medium_marauder_auxiliaries = {
 					}
 				}
 				create_dyn_marauder_fleet = { OUTRIDER = 32 LANCER = 16 CHAMPION = 12 }
-			} else = {
-				create_dyn_marauder_fleet = yes
-			}
+			} else = { create_dyn_marauder_fleet = yes }
 			assign_leader = last_created_leader
 			set_location = {
 				target = root
@@ -447,12 +443,41 @@ create_marauder_successor_fleet = {
 	}
 }
 
+#TODO
+# NUM required
+assign_diadochi_planets = {
+	optimize_memory
+	random_system_within_border = {
+		limit = {
+			is_potential_diadochi_system = yes
+			any_system_colony = {
+				has_owner = yes
+				is_owned_by = root
+				merg_is_habitat = no
+				num_pops > 5
+			}
+		}
+		set_star_flag = $NUM$_diadochi_system
+		save_event_target_as = $NUM$_diadochi_origin
+	}
+	effect_on_blob = {
+		center = event_target:$NUM$_diadochi_origin
+		owned_planets_percentage = 0.33
+		planet_limit = {
+			solar_system = {
+				is_potential_diadochi_system = yes
+			}
+		}
+		effect = {
+			set_star_flag = $NUM$_diadochi_system
+		}
+	}
+}
+
+# Used only once
 create_first_diadochi = {
 	optimize_memory
-	if = {
-		limit = {
-			exists = event_target:first_diadochi_origin
-		}
+	if = { limit = { exists = event_target:first_diadochi_origin }
 		create_country = {
 			name_list = random
 			# name = random
@@ -472,9 +497,7 @@ create_first_diadochi = {
 					limit = {
 						exists = capital_scope
 						capital_scope = {
-							any_owned_species = {
-								is_same_species_class = prevprev
-							}
+							any_owned_species = { is_same_species_class = prevprev }
 						}
 					}
 					modify_species = {
@@ -494,9 +517,7 @@ create_first_diadochi = {
 				has_star_flag = first_diadochi_system
 				exists = starbase
 			}
-			starbase = {
-				set_owner = event_target:first_diadochi
-			}
+			starbase = { set_owner = event_target:first_diadochi }
 			# Flip Planets
 			every_system_colony = {
 				limit = { is_owned_by = root }
@@ -513,10 +534,7 @@ create_first_diadochi = {
 
 create_second_diadochi = {
 	optimize_memory
-	if = {
-		limit = {
-			exists = event_target:second_diadochi_origin
-		}
+	if = { limit = { exists = event_target:second_diadochi_origin }
 		create_country = {
 			name_list = random
 			# name = random
@@ -536,9 +554,7 @@ create_second_diadochi = {
 					limit = {
 						exists = capital_scope
 						capital_scope = {
-							any_owned_species = {
-								is_same_species_class = prevprev
-							}
+							any_owned_species = { is_same_species_class = prevprev }
 						}
 					}
 					modify_species = {
@@ -558,9 +574,7 @@ create_second_diadochi = {
 				has_star_flag = second_diadochi_system
 				exists = starbase
 			}
-			starbase = {
-				set_owner = event_target:second_diadochi
-			}
+			starbase = { set_owner = event_target:second_diadochi }
 			# Flip Planets
 			every_system_colony = {
 				limit = { is_owned_by = root }
@@ -577,10 +591,7 @@ create_second_diadochi = {
 
 create_third_diadochi = {
 	optimize_memory
-	if = {
-		limit = {
-			exists = event_target:third_diadochi_origin
-		}
+	if = { limit = { exists = event_target:third_diadochi_origin }
 		create_country = {
 			name_list = random
 			# name = random
@@ -600,9 +611,7 @@ create_third_diadochi = {
 					limit = {
 						exists = capital_scope
 						capital_scope = {
-							any_owned_species = {
-								is_same_species_class = prevprev
-							}
+							any_owned_species = { is_same_species_class = prevprev }
 						}
 					}
 					modify_species = {
@@ -622,9 +631,7 @@ create_third_diadochi = {
 				has_star_flag = third_diadochi_system
 				exists = starbase
 			}
-			starbase = {
-				set_owner = event_target:third_diadochi
-			}
+			starbase = { set_owner = event_target:third_diadochi }
 			# Flip Planets
 			every_system_colony = {
 				limit = { is_owned_by = root }
@@ -641,10 +648,7 @@ create_third_diadochi = {
 
 create_fourth_diadochi = {
 	optimize_memory
-	if = {
-		limit = {
-			exists = event_target:fourth_diadochi_origin
-		}
+	if = { limit = { exists = event_target:fourth_diadochi_origin }
 		create_country = {
 			name_list = random
 			# name = random
@@ -664,9 +668,7 @@ create_fourth_diadochi = {
 					limit = {
 						exists = capital_scope
 						capital_scope = {
-							any_owned_species = {
-								is_same_species_class = prevprev
-							}
+							any_owned_species = { is_same_species_class = prevprev }
 						}
 					}
 					modify_species = {
@@ -686,9 +688,7 @@ create_fourth_diadochi = {
 				has_star_flag = fourth_diadochi_system
 				exists = starbase
 			}
-			starbase = {
-				set_owner = event_target:fourth_diadochi
-			}
+			starbase = { set_owner = event_target:fourth_diadochi }
 			# Flip Planets
 			every_system_colony = {
 				limit = { is_owned_by = root }
@@ -706,8 +706,7 @@ create_fourth_diadochi = {
 
 # This = Marauder
 get_marauder_species = {
-	if = {
-		limit = { exists = owner_species }
+	if = { limit = { exists = owner_species }
 		owner_species = { save_event_target_as = marauder_species }
 	}
 	if = {
@@ -804,8 +803,7 @@ get_marauder_raid_source = {
 	}
 
 	### Rally Point Fallback
-	if = {
-		limit = { NOT = { exists = event_target:raid_source } }
+	if = { limit = { NOT = { exists = event_target:raid_source } }
 		switch = {
 			trigger = has_country_flag
 			marauder_1 = {
@@ -880,8 +878,6 @@ get_marauder_raid_source = {
 		}
 	}
 	event_target:raid_source = {
-		solar_system = {
-			save_event_target_as = marauder_system
-		}
+		solar_system = { save_event_target_as = marauder_system }
 	}
 }
