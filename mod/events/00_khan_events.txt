@@ -2181,8 +2181,14 @@ starbase_event = {
 	id = khan.302
 	hide_window = yes
 	is_triggered_only = yes
+	# trigger = { }
 	immediate = {
-		if = { limit = { NOT = { is_owned_by = event_target:raider_khanate } }
+		if = {
+			limit = {
+				exists = event_target:raider_khanate
+				NOT = { is_owned_by = event_target:raider_khanate }
+				has_global_flag = marauder_crisis_ongoing
+			}
 			set_owner = event_target:raider_khanate
 		}
 		# TODO needs free slot check somehow: "Building slot is invalid."
@@ -2270,64 +2276,7 @@ starbase_event = {
 
 # Deprecated / Legacy (replaced by effect)
 # Get marauder_species
-# country_event = {
-# 	id = khan.303
-# 	hide_window = yes
-# 	is_triggered_only = yes
-# 	immediate = {
-# 		if = {
-# 			limit = { exists = owner_species }
-# 			owner_species = { save_event_target_as = marauder_species }
-# 		}
-# 		if = {
-# 			limit = {
-# 				OR = {
-# 					NOT = { exists = event_target:marauder_species }
-# 					event_target:marauder_species = {
-# 						OR = {
-# 							species_can_be_necrophaged = no # Implies is_robotic
-# 							is_archetype = LITHOID
-# 							is_archetype = PRESAPIENT
-# 						}
-# 					}
-# 				}
-# 			}
-# 			random_owned_pop_species = {
-# 				limit = {
-# 					species_can_be_necrophaged = yes
-# 					NOR = {
-# 						is_archetype = LITHOID
-# 						is_archetype = PRESAPIENT
-# 					}
-# 				}
-# 				weights = {
-# 					base = 1
-# 					modifier = { add = 1 prev = { count_owned_pop = { count > 5 limit = { is_same_species = prevprev } } } }
-# 					modifier = { add = 2 prev = { count_owned_pop = { count > 10 limit = { is_same_species = prevprev } } } }
-# 					modifier = { add = 3 prev = { count_owned_pop = { count > 17 limit = { is_same_species = prevprev } } } }
-# 					# modifier = { add = 3 is_same_species = root.owner_species }
-# 					modifier = { add = 2 prev = { capital_scope = { habitability = { who = prev value > 0.6 } } } }
-# 					modifier = {
-# 						add = 4
-# 						root = { any_owned_planet = {
-# 							is_homeworld = yes
-# 							is_same_value = prevprev.home_planet
-# 						} }
-# 					}
-# 				}
-# 				save_event_target_as = marauder_species
-# 				root = {
-# 					change_dominant_species = { species = prev }
-# 					set_built_species = prev
-# 				}
-# 			}
-# 		}
-# 		# if = { # legacy
-# 		# 	limit = { NOT = { exists = event_target:marauder_species } }
-# 		# 	owner_species = { save_event_target_as = marauder_species }
-# 		# }
-# 	}
-# }
+# country_event = { id = khan.303
 
 # Marauder System Liberated - on_disabled Marauder starbase (HIDDEN)
 # This = Ship
@@ -3601,6 +3550,39 @@ country_event = {
 	}
 }
 
+# Remove old Marauder
+country_event = {
+	id = khan.606
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		if = { limit = { exists = event_target:raider_khanate }
+			clear_global_event_target = raider_khanate
+		}
+		if = { limit = { exists = event_target:marauder_precursor }
+			clear_global_event_target = marauder_precursor
+		}
+		if = { limit = { exists = event_target:marauder_rally_point }
+			clear_global_event_target = marauder_rally_point
+		}
+		destroy_country = yes
+		if = { limit = { exists = event_target:marauders_garrison_1 }
+			event_target:marauders_garrison_1 = {
+				every_controlled_fleet = {
+					limit = {
+						OR = {
+							has_fleet_flag = satrapy_garrison
+							has_fleet_flag = satrapy_garrison_fleet
+						}
+					}
+					destroy_fleet = this
+				}
+				destroy_country = yes
+			}
+		}
+	}
+}
+
 # Maybe buggy because to late and raider_khanate not exists
 # Handover parts of marauder country for Diadochi (HIDDEN)
 # Via marauder.601 and marauder.609
@@ -3617,8 +3599,7 @@ country_event = {
 		set_country_flag = diadochi
 		set_country_flag = first_alien_life
 		set_country_flag = has_encountered_other_empire
-		# log="Handover raider_khanate \\[From.GetName] to Diadochi."
-		# event_target:raider_khanate = {
+		log="Handover raider_khanate \\[From.GetName] to Diadochi."
 		from = {
 			if = {
 				limit = { NOT = { has_global_flag = marauder_crisis_ongoing } }
@@ -3642,8 +3623,10 @@ country_event = {
 					# 	modifier = { add = 2 fleet_power > 11000 }
 					# 	modifier = { add = 3 fleet_power > 22000 }
 					# }
+					if = { limit = { exists = leader }
+						leader = { set_owner = root }
+					}
 					set_owner = root
-					leader = { set_owner = root }
 				}
 			}
 			random_owned_fleet = {
@@ -3821,12 +3804,104 @@ country_event = {
 		}
 		country_event = { id = khan.612 days = 7 } # Build Habitats
 
+		if = { limit = { NOT = { has_civic = civic_slaver_guilds } }
+			force_add_civic = civic_slaver_guilds
+		}
+		if = { limit = { NOT = { has_civic = civic_warrior_culture } }
+			force_add_civic = civic_warrior_culture
+		} else_if = { limit = { NOT = { has_civic = civic_shared_burden } }
+			force_add_civic = civic_shared_burden
+		}
+
+		# Find better capital
+		ordered_owned_planet = {
+			limit = {
+				exists = owner
+				exists = starbase
+				any_owned_species = {
+					prev = { is_majority_species = prev }
+					species_can_be_necrophaged = yes
+					NOR = {
+						is_archetype = LITHOID
+						is_species_class = PLANT
+						is_species_class = FUN
+					}
+				}
+			}
+			position = 1
+			order_by = trigger:num_pops
+			set_capital = yes
+		}
+
+		# Find better dominant species
+		random_list = {
+			25 = {
+				modifier = {
+					factor = 0
+					NAND = {
+						exists = capital_scope
+						capital_scope = {
+							any_owned_species = {
+								prev = { is_majority_species = prev }
+								OR = {
+									species_can_be_necrophaged = yes
+									is_same_species = prev.owner_species
+								}
+								NOR = {
+									is_archetype = LITHOID
+									is_species_class = PLANT
+									is_species_class = FUN
+								}
+							}
+						}
+					}
+				}
+				capital_scope = {
+					random_owned_species = {
+						limit = {
+							prev = { is_majority_species = prev }
+							OR = {
+								species_can_be_necrophaged = yes
+								is_same_species = prev.owner_species
+							}
+							NOR = {
+								is_archetype = LITHOID
+								is_species_class = PLANT
+								is_species_class = FUN
+							}
+						}
+						root = { change_dominant_species = { species = prev } }
+						save_event_target_as = marauder_species
+						# log="TAKE CAPITAL SPECIES"
+					}
+				}
+			}
+			25 = {
+				modifier = {
+					factor = 0.01
+					pop_percentage = {
+						percentage > 0.34
+						limit = { is_same_species = root.owner_species }
+					}
+				}
+				if = { limit = { exists = event_target:marauder_species }
+					no_scope = { save_global_event_target_as = marauder_species }
+					clear_global_event_target = marauder_species
+				}
+				reroll_random = yes
+				# log = "RECHECK MARAUDER SPECIES"
+				get_marauder_species = yes
+			}
+			1 = {
+				# log="OLD MARAUDER SPECIES"
+			}
+		}
 		# # event_target:second_diadochi_origin
 		# random_owned_planet = {
 		# 	prev = { CmtEffectCreateAdmiral_MarauderStandard = yes }
 		# 	create_fleet = {
 		# 		effect = {
-		# 			set_owner = event_target:raider_khanate
+		# 			set_owner = root.from
 		# 			if = {
 		# 				limit = { has_global_flag = expanded_spaceborne_installed }
 		# 				create_dyn_marauder_fleet = { OUTRIDER = 32 LANCER = 16 CHAMPION = 12 }

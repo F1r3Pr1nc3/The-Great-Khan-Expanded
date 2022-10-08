@@ -5440,28 +5440,48 @@ country_event = {
 			set_country_flag = former_owner@root.fromfrom
 
 			from = {
+
+				### Create Defense Armies (for some job reasons common armies get deleted)
+				set_variable = { which = CmtVarTemp value = trigger:num_pops }
+				divide_variable = { which = CmtVarTemp value = 5 }
+				floor_variable = CmtVarTemp
+
+				while = {
+					count = CmtVarTemp # 6
+					limit = { num_pops > 5 }
+					random_owned_pop = {
+						limit = {
+							# is_robot_pop = no
+							# is_sapient = yes
+							NOT = { is_same_species = root.species }
+						}
+						weights = {
+							base = 5
+							# modifier = { add = 1 OR = { is_pop_category = slave is_pop_category = purge } }
+							modifier = { add = 1 is_unemployed = yes }
+							modifier = { add = 1 NOT = { ideal_planet_class = prev } }
+							modifier = { add = 3 species = { species_can_be_necrophaged = no } }
+							modifier = { add = 2
+								OR = { pop_has_trait = trait_lithoid is_species_class = PLANT is_species_class = FUN }
+							}
+							modifier = { factor = 2
+								OR = {
+									pop_has_trait = "trait_pc_habitat_preference"
+									pop_has_trait = "trait_extremely_adaptive"
+									pop_has_trait = "trait_rapid_breeders"
+									pop_has_trait = "trait_nomadic"
+									pop_has_trait = "trait_deviants"
+								}
+							}
+							# modifier = { add = 1 prev = { count_owned_pop = { limit = { is_same_species = prevprev.species } count < 4 } } }
+						}
+						# unemploy_pop = yes
+						kill_pop = yes
+					}
+				}
+
 				if = { limit = { num_pops > 20 }
 					prev = { change_variable = { which = "planets_lost_to_marauder" value = 1 } }
-					while = {
-						count = 6
-						limit = { num_pops > 20 }
-						random_owned_pop = {
-							limit = {
-								is_robot_pop = no
-								is_sapient = yes
-							}
-							weights = {
-								base = 3
-								modifier = { add = 1 OR = { is_pop_category = slave is_pop_category = purge } }
-								modifier = { add = 1 is_unemployed = yes }
-								modifier = { add = 1 NOT = { ideal_planet_class = prev } }
-								modifier = { add = 2 NOT = { is_same_species = root.species } }
-								# modifier = { add = 1 prev = { count_owned_pop = { limit = { is_same_species = prevprev.species } count < 4 } } }
-							}
-							# unemploy_pop = yes
-							kill_pop = yes
-						}
-					}
 				}
 
 				### Create Marauder Pops
@@ -6029,9 +6049,8 @@ country_event = {
 				}
 				country_event = { id = marauder.609 days = -1 }				# Fully handover?
 				# set_country_type = dormant_marauders
-				destroy_country = yes
+				country_event = { id = khan.606 days = 2 } # destroy_country = yes
 			}
-			clear_global_event_target = raider_khanate
 			if = { limit = { NOT = { has_relic = r_khans_throne } } # (as we could decline?)
 				add_relic = r_khans_throne
 			}
@@ -8282,7 +8301,7 @@ country_event = {
 				}
 			}
 		}
-		clear_global_event_target = marauder_rally_point
+		# clear_global_event_target = marauder_rally_point
 		event_target:CmtGlobalVar = {
 			if = { limit = { check_variable = { which = CmtVarKhanMultiple value = 3 } }
 				remove_global_flag = CmtFlagNowInKhanInterval
@@ -8329,8 +8348,10 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
+		# log="TGKE Diadochi"
+		owner_species = { save_event_target_as = marauder_species }
+		# get_marauder_species = yes
 		set_update_modifiers_batch = begin
-		get_marauder_species = yes
 		# every_owned_fleet = { # Delete everything except starbase_marauder
 		# 	limit = {
 		# 		count_owned_ship = {
@@ -8372,7 +8393,11 @@ country_event = {
 					count_system_within_border = {
 						count > 4
 						limit = {
-							any_system_colony = { is_owned_by = root uses_habitat_capitals = no }
+							any_system_colony = {
+								has_owner = yes
+								is_owned_by = root
+								uses_habitat_capitals = no
+							}
 							is_potential_diadochi_system = yes
 						}
 					}
@@ -8382,6 +8407,10 @@ country_event = {
 			assign_second_diadochi_planets = yes
 			assign_third_diadochi_planets = yes
 			assign_fourth_diadochi_planets = yes
+			# assign_diadochi_planets = { NUM = first PCT = 0.25 }
+			# assign_diadochi_planets = { NUM = second PCT = 0.33 }
+			# assign_diadochi_planets = { NUM = third PCT = 0.5 }
+			# assign_diadochi_planets = { NUM = fourth PCT = 1 }
 
 			assign_diadochi_systems = yes
 
@@ -8396,7 +8425,11 @@ country_event = {
 					count_system_within_border = {
 						count > 3
 						limit = {
-							any_system_colony = { is_owned_by = root uses_habitat_capitals = no }
+							any_system_colony = {
+								has_owner = yes
+								is_owned_by = root
+								uses_habitat_capitals = no
+							}
 							is_potential_diadochi_system = yes
 						}
 					}
@@ -8405,6 +8438,9 @@ country_event = {
 			assign_second_diadochi_planets = yes
 			assign_third_diadochi_planets = yes
 			assign_fourth_diadochi_planets = yes
+			# assign_diadochi_planets = { NUM = second PCT = 0.33 }
+			# assign_diadochi_planets = { NUM = third PCT = 0.5 }
+			# assign_diadochi_planets = { NUM = fourth PCT = 1 }
 
 			assign_diadochi_systems = yes
 
@@ -8414,6 +8450,8 @@ country_event = {
 		} else = { # Two Diadochi (Marauder small)
 			assign_third_diadochi_planets = yes
 			assign_fourth_diadochi_planets = yes
+			# assign_diadochi_planets = { NUM = third PCT = 0.5 }
+			# assign_diadochi_planets = { NUM = fourth PCT = 1 }
 
 			assign_diadochi_systems = yes
 
@@ -8431,7 +8469,6 @@ country_event = {
 			limit = { is_variable_set = "successor_fleet_power" }
 			clear_variable = "successor_fleet_power"
 		}
-		clear_global_event_target = marauder_precursor
 		set_update_modifiers_batch = end
 	}
 	after = {
@@ -8445,9 +8482,9 @@ country_event = {
 				# TODO: Player could chose!? # Reported mysteric bug, somehow player lost systems
 				event_target:third_diadochi = { set_player = event_target:raider_khanate }
 			}
-			clear_global_event_target = raider_khanate
+			# clear_global_event_target = raider_khanate
 		}
-		destroy_country = yes
+		country_event = { id = khan.606 days = 3 } # destroy_country = yes
 	}
 }
 
@@ -8497,8 +8534,6 @@ country_event = {
 				}
 			}
 		}
-		# last_created_country = {}
-		clear_global_event_target = marauder_precursor
 		every_subject = {
 			set_subject_of = { who = none }
 			# if = {
@@ -8530,9 +8565,9 @@ country_event = {
 				# Reported bug, someone got the new new_khanate fully unrelated??
 				event_target:new_khanate = { set_player = event_target:raider_khanate }
 			}
-			clear_global_event_target = raider_khanate
+			# clear_global_event_target = raider_khanate
 		}
-		destroy_country = yes
+		country_event = { id = khan.606 days = 1 } # destroy_country = yes
 	}
 }
 
@@ -8566,7 +8601,6 @@ country_event = {
 				}
 			}
 		}
-		clear_global_event_target = marauder_precursor
 
 		# Give khan_destroyer opportunity to join new federation.
 		if = { limit = { NOT = { exists = event_target:khan_destroyer } }
@@ -8629,9 +8663,9 @@ country_event = {
 				# Reported bug, someone got the new new_khanate fully unrelated??
 				event_target:new_khanate = { set_player = event_target:raider_khanate }
 			}
-			clear_global_event_target = raider_khanate
+			# clear_global_event_target = raider_khanate
 		}
-		destroy_country = yes
+		country_event = { id = khan.606 days = 1 } # destroy_country = yes
 	}
 }
 
@@ -8660,7 +8694,6 @@ country_event = {
 				# }
 				save_event_target_as = restored_marauders
 			}
-			clear_global_event_target = marauder_precursor
 		} else = {
 			create_country = {
 				name_list = random
@@ -8780,13 +8813,9 @@ country_event = {
 			limit = { is_ai = no }
 			country_event = { id = marauder.630 } # Notify
 		}
-		destroy_country = yes
-		clear_global_event_target = marauder_rally_point
 	}
 	after = {
-		if = { limit = { exists = event_target:raider_khanate }
-			clear_global_event_target = raider_khanate
-		}
+		country_event = { id = khan.606 days = 1 } # destroy_country = yes
 	}
 }
 

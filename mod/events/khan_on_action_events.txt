@@ -59,8 +59,8 @@ event = {
 			}
 			random_system_colony = {
 				limit = {
-					exists = owner
 					has_ground_combat = no
+					exists = owner
 					owner = {
 						OR = {
 							merg_is_standard_empire = yes
@@ -80,8 +80,9 @@ event = {
 								}
 							}
 							any_system_colony = {
+								exists = owner
 								owner = {
-									NOT = { is_same_empire = prevprev.owner }
+									NOT = { is_same_empire = prevprevprev.owner }
 									OR = {
 										merg_is_standard_empire = yes
 										is_country_type = awakened_marauders
