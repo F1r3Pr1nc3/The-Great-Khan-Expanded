@@ -268,7 +268,13 @@ set_pirates_difficulty = {
 	remove_country_flag = pirate_waves_insane
 	if = { limit = { is_variable_set = pirate_waves_difficulty }
 		set_variable = { which = pirate_waves_difficulty value = 4 } # reset
-	} else = { set_variable = { which = pirate_waves_difficulty value = 1 } }
+	} else = {
+		if = { limit = { is_difficulty > 2 }
+			set_variable = { which = pirate_waves_difficulty value = 1 }
+		} else = {
+			set_variable = { which = pirate_waves_difficulty value = 0 }
+		}
+	}
 	if = {
 		limit = { is_multiplayer = yes }
 		# set_variable = { which = num_pirate_waves_player value = 0 }

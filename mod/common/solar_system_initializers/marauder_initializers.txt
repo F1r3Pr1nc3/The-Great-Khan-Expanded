@@ -218,7 +218,7 @@ marauder_1_1 = {
 					}
 					set_formation_scale = 2
 					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
+					# set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_location = {
 						target = prev
@@ -368,7 +368,7 @@ marauder_1_1 = {
 						}
 						set_formation_scale = 2
 						set_fleet_stance = aggressive
-						set_aggro_range_measure_from = self
+						# set_aggro_range_measure_from = self
 						set_aggro_range = 250
 						set_location = {
 							target = prev
@@ -443,7 +443,7 @@ marauder_1_1 = {
 					}
 					set_formation_scale = 2
 					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
+					# set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_location = {
 						target = prev
@@ -509,7 +509,7 @@ marauder_1_1 = {
 						}
 						set_formation_scale = 2
 						set_fleet_stance = aggressive
-						set_aggro_range_measure_from = self
+						# set_aggro_range_measure_from = self
 						set_aggro_range = 250
 						set_location = {
 							target = prev
@@ -688,7 +688,7 @@ marauder_1_1 = {
 						}
 						set_formation_scale = 2
 						set_fleet_stance = aggressive
-						set_aggro_range_measure_from = self
+						# set_aggro_range_measure_from = self
 						set_aggro_range = 250
 						set_location = {
 							target = prev
@@ -774,7 +774,7 @@ marauder_1_2 = {
 					}
 					set_formation_scale = 2
 					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
+					# set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_location = {
 						target = prev
@@ -815,7 +815,7 @@ marauder_1_2 = {
 					}
 					set_formation_scale = 2
 					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
+					# set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_location = {
 						target = prev
@@ -972,7 +972,7 @@ marauder_1_3 = {
 					}
 					set_formation_scale = 2
 					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
+					# set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_location = {
 						target = prev
@@ -1013,7 +1013,7 @@ marauder_1_3 = {
 					}
 					set_formation_scale = 2
 					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
+					# set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_location = {
 						target = prev
@@ -1449,7 +1449,7 @@ marauder_2_1 = {
 					}
 					set_formation_scale = 2
 					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
+					# set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_location = {
 						target = prev
@@ -1541,7 +1541,7 @@ marauder_2_1 = {
 					}
 					set_formation_scale = 2
 					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
+					# set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_location = {
 						target = prev
@@ -1629,7 +1629,7 @@ marauder_2_1 = {
 					}
 					set_formation_scale = 2
 					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
+					# set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_location = {
 						target = prev
@@ -1661,7 +1661,7 @@ marauder_2_1 = {
 					}
 					set_formation_scale = 2
 					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
+					# set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_location = {
 						target = prev
@@ -1693,7 +1693,7 @@ marauder_2_1 = {
 					}
 					set_formation_scale = 2
 					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
+					# set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_location = {
 						target = prev
@@ -1777,7 +1777,7 @@ marauder_2_2 = {
 					}
 					set_formation_scale = 2
 					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
+					# set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_location = {
 						target = prev
@@ -1818,7 +1818,7 @@ marauder_2_2 = {
 					}
 					set_formation_scale = 2
 					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
+					# set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_location = {
 						target = prev
@@ -1975,7 +1975,7 @@ marauder_2_3 = {
 					}
 					set_formation_scale = 2
 					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
+					# set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_location = {
 						target = prev
@@ -2016,7 +2016,7 @@ marauder_2_3 = {
 					}
 					set_formation_scale = 2
 					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
+					# set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_location = {
 						target = prev
@@ -2181,7 +2181,7 @@ marauder_3_1 = {
 					}
 					set_formation_scale = 2
 					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
+					# set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_location = {
 						target = prev
@@ -2223,7 +2223,7 @@ marauder_3_1 = {
 					}
 					set_formation_scale = 2
 					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
+					# set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_location = {
 						target = prev
@@ -2277,7 +2277,7 @@ marauder_3_1 = {
 						}
 						set_formation_scale = 2
 						set_fleet_stance = aggressive
-						set_aggro_range_measure_from = self
+						# set_aggro_range_measure_from = self
 						set_aggro_range = 250
 						set_location = {
 							target = prev
@@ -2444,7 +2444,7 @@ marauder_3_1 = {
 						}
 						set_formation_scale = 2
 						set_fleet_stance = aggressive
-						set_aggro_range_measure_from = self
+						# set_aggro_range_measure_from = self
 						set_aggro_range = 250
 						set_location = {
 							target = prev
@@ -2539,7 +2539,7 @@ marauder_3_1 = {
 						}
 						set_formation_scale = 2
 						set_fleet_stance = aggressive
-						set_aggro_range_measure_from = self
+						# set_aggro_range_measure_from = self
 						set_aggro_range = 250
 						set_location = {
 							target = prev
@@ -2649,7 +2649,7 @@ marauder_3_2 = {
 					}
 					set_formation_scale = 2
 					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
+					# set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_location = {
 						target = prev
@@ -2690,7 +2690,7 @@ marauder_3_2 = {
 					}
 					set_formation_scale = 2
 					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
+					# set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_location = {
 						target = prev
@@ -2847,7 +2847,7 @@ marauder_3_3 = {
 					}
 					set_formation_scale = 2
 					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
+					# set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_location = {
 						target = prev
@@ -2888,7 +2888,7 @@ marauder_3_3 = {
 					}
 					set_formation_scale = 2
 					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
+					# set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_location = {
 						target = prev

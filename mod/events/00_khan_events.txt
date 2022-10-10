@@ -1592,8 +1592,6 @@ country_event = {
 				} root = { set_country_flag = marauder_3 } }
 			}
 			set_country_type = ruined_marauders
-			# country_event = { id = marauder.609 days = -1 }
-			# destroy_country = yes
 		}
 		every_playable_country = {
 			limit = {
@@ -3541,6 +3539,18 @@ country_event = {
 		event_target:raider_khanate = {
 			copy_random_tech_from = { who = prev area = physics }
 			add_resource = { influence = 100 }
+			# Khan wins immediately
+			if = {
+				limit = {
+					count_playable_country = {
+						limit = { is_subject = no }
+						count < 3
+					}
+				}
+				country_event = { id = khan.298 days = 7 } # Notify global
+				set_global_flag = great_khan_wins
+				country_event = { id = khan.296 days = 300 random = 60 }
+			}
 		}
 		event_target:capital_planet = {
 			if = { limit = { is_variable_set = planets_lost_to_marauder }
@@ -3996,7 +4006,7 @@ country_event = {
 		# TODO: Capital habitat? Special deposits? Flavor difference between khan, diadochi and fed?
 		# Place increasingly many habitats depending on game year, late game Khan should be scary too! (I really should scale the initial crisis strength too...)
 		if = { # Because we loop
-			limit = { NOT = { is_variable_set =		marauder_habitat_count } }
+			limit = { NOT = { is_variable_set = marauder_habitat_count } }
 			set_variable = { which = marauder_habitat_count value = 0 }
 			every_system_within_border = {
 				prev = { change_variable = { which = marauder_habitat_count value = 1 } }
