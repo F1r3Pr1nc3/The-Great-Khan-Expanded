@@ -2078,7 +2078,9 @@ system_event = {
 	id = khan.301
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = { exists = event_target:raider_khanate }
+	trigger = {
+		exists = event_target:raider_khanate
+	}
 	immediate = {
 		if = {
 			limit = {
@@ -2089,7 +2091,7 @@ system_event = {
 			}
 			# space_owner = {
 			# 	if = {
-			# 		limit = { graphical_culture = "pirate_01" }
+			# 		limit = { graphical_culture = pirate_01 }
 			# 		set_graphical_culture = "reptilian_01"
 			# 		# log="set_graphical_culture reptilian_01"
 			# 		set_variable = { which = has_pirate_01 value = 1 }
@@ -2119,7 +2121,7 @@ system_event = {
 					add_ship_design = last_created_design
 				}
 			}
-			# FIXME Failed to create a starbase at
+			# TODO Trying to create a starbase with an invalid starbase design sik'El'Re for ship size starbase_citadel (note: starbases cannot have components that allow them to move or go FTL)
 			create_starbase = {
 				size = "starbase_citadel"
 				# module = "shipyard"
@@ -2155,7 +2157,10 @@ system_event = {
 				starbase = {
 					OR = {
 						has_starbase_size < starbase_starfortress
-						NOR = { has_starbase_size = starbase_citadel has_starbase_size = starbase_marauder }
+						NOR = {
+							has_starbase_size = starbase_citadel
+							has_starbase_size = starbase_marauder
+						}
 					}
 				}
 			}
@@ -2388,7 +2393,7 @@ ship_event = {
 						}
 						random_system_colony = {
 							limit = {
-																is_colony = yes
+								is_colony = yes
 								NOT = { is_owned_by = root.owner }
 								NAND = {
 									exists = controller
@@ -2508,9 +2513,16 @@ country_event = {
 			limit = {
 				exists = event_target:marauder_rally_point
 				event_target:marauder_rally_point = {
-					OR = { has_owner = no is_owned_by = root is_controlled_by = root }
+					OR = {
+						has_owner = no
+						is_owned_by = root
+						is_controlled_by = root
+					}
 					solar_system = {
-						OR = { has_owner = no is_owned_by = root }
+						OR = {
+							has_owner = no
+							is_owned_by = root
+						}
 						NAND = {
 							exists = starbase
 							starbase = { has_starbase_size = starbase_citadel }
@@ -2528,7 +2540,9 @@ country_event = {
 				}
 			}
 			event_target:marauder_rally_point = {
-				solar_system = { system_event = { id = khan.301 } } # Create Citadel
+				solar_system = {
+					system_event = { id = khan.301 } # Create Citadel
+				}
 			}
 		} else_if = {
 			limit = {
@@ -2545,11 +2559,16 @@ country_event = {
 				}
 				weights = {
 					base = 1
-					modifier = { add = 1 starbase = { has_starbase_size >= starbase_starhold } }
-					modifier = { add = 1
+					modifier = {
+						add = 1
+						starbase = { has_starbase_size >= starbase_starhold }
+					}
+					modifier = {
+						add = 1
 						any_system_planet = {
 							OR = {
-								is_colony = yes is_owned_by = root
+								is_colony = yes
+								is_owned_by = root
 								has_planet_flag = marauder_rally_point
 								has_planet_flag = CmtFlagMarauderExpRallyPoint
 							}
@@ -2577,9 +2596,9 @@ country_event = {
 }
 
 # Reenable fleets (hack)
-# From = former opponent
+# from = former opponent
 country_event = {
-	id = khan.307 # Same as a_deadly_tempest.13007
+	id = khan.307	# Same as a_deadly_tempest.13007
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = { has_country_flag = attacking_fleets_stopped }
@@ -2617,7 +2636,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		# log="Fix ongoing hostility" # \\[This.GetName]
+		# log = "Fix ongoing hostility"		# \\[This.GetName]
 		# Before we need to stop fleets attacking.
 		every_controlled_fleet = {
 			limit = {
@@ -2871,13 +2890,13 @@ system_event = {
 	}
 	immediate = {
 		# system_owner does not exists
-		# log="test khan.310 \\[former_starbase_owner.GetName] or \\[fromfrom.Owner.GetName]"
+		# log="test khan.310 \\[former_starbase_owner.GetName] or \\[Fromfrom.Owner.GetName]"
 		if = { limit = { exists = starbase has_owner = yes }
 			delete_fleet = starbase.fleet
 			# if = { limit = { NOT = { has_star_flag = starbase_destroyed } }
 			# 	system_event = { id = khan.310 days = 2 scopes = { fromfrom = fromfrom } }
 			# 	set_timed_star_flag = { flag = starbase_destroyed days = 5 }
-			# 	log="khan.310 exists = starbase \\[former_starbase_owner.GetName] or \\[fromfrom.Owner.GetName]"
+			# 	log="khan.310 exists = starbase \\[former_starbase_owner.GetName] or \\[Fromfrom.Owner.GetName]"
 			# }
 			# break = yes
 		}
@@ -2890,7 +2909,7 @@ system_event = {
 			}
 			create_starbase = {
 				size = "starbase_starfortress"
-				owner = event_target:former_starbase_owner # from.owner
+				owner = event_target:former_starbase_owner				# from.owner
 				effect = {
 					# set_disabled = yes only ship
 					# set_graphical_culture = event_target:former_starbase_owner
@@ -3593,8 +3612,8 @@ country_event = {
 	}
 }
 
-# Maybe buggy because to late and raider_khanate not exists
 # Handover parts of marauder country for Diadochi (HIDDEN)
+# Maybe buggy because to late and raider_khanate not exists
 # Via marauder.601 and marauder.609
 # This = Diadochi
 # From = raider_khanate
@@ -3957,9 +3976,9 @@ fleet_event = {
 			if = {
 				limit = {
 					NAND = {
-						has_owner = yes # exists = space_owner
+						has_owner = yes						# exists = space_owner
 						exists = starbase
-						is_owned_by = root.owner # is_owned_by = root.owner
+						is_owned_by = root.owner						# is_owned_by = root.owner
 					}
 				}
 				prev = {
@@ -3973,7 +3992,10 @@ fleet_event = {
 								}
 							}
 							# log="auto_move_to_planet \\[This.GetName]"
-							auto_move_to_planet = { target = event_target:marauder_rally_point clear_auto_move_on_arrival = yes }
+							auto_move_to_planet = {
+								target = event_target:marauder_rally_point
+								clear_auto_move_on_arrival = yes
+							}
 						} else = {
 							remove_auto_move_target = yes
 							clear_fleet_actions = this

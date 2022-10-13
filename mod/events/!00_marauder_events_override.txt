@@ -5233,13 +5233,33 @@ country_event = {
 		## Reinforcement cycle
 		country_event = { id = marauder.520 days = 210 }
 		set_variable = { which = CmtVarKhanReinforcementCounter value = 10 }
+		set_country_flag = use_default_ships
+
 		if = {
 			limit = { is_ai = yes }
 			## Mercenaries Join
 			country_event = { id = marauder.78 days = 20 }
 			### Should not attack: the Khan is not that bad!
 			make_moderately_hostile = yes
-			set_country_flag = use_default_ships
+			# Addition to make_moderately_hostile
+			every_country = {
+				limit = {
+					merg_is_fallen_empire = yes
+					OR = {
+						is_hostile = prev
+						prev = { is_hostile = prev }
+					}
+				}
+				establish_communications_no_message = prev
+				root = {
+					set_faction_hostility = {
+						target = prev
+						set_hostile = no
+						set_neutral = yes
+						set_friendly = no
+					}
+				}
+			}
 		} else = {
 			# Should not attack Enclaves
 			every_country = {
@@ -5249,7 +5269,7 @@ country_event = {
 						is_country_type = enclave_mercenary
 					}
 				}
-				event_target:raider_khanate = {
+				root = {
 					set_faction_hostility = {
 						target = prev
 						set_hostile = no
@@ -5444,7 +5464,7 @@ country_event = {
 				save_event_target_as = conquered_planet
 				prev = {
 					if = { limit = { NOT = { has_active_event = { marauder.504 } } }
-						country_event = { id = marauder.504marauder.504 days = 1 } # Notify + Hack
+						country_event = { id = marauder.504 days = 1 } # Notify + Hack
 					}
 				}
 
@@ -8189,6 +8209,7 @@ country_event = {
 		remove_country_flag = CmtFlagKhanNoDieCountry
 		remove_global_flag = marauder_crisis_ongoing	# must be removed before
 		room_name_override = ""
+
 		if = { limit = { has_global_flag = great_khan_wins }
 			# clear_global_event_target = great_khan
 			# clear_global_event_target = raider_khanate needed for future

@@ -83,6 +83,8 @@ npc_galleon_01 = {
 	}
 }
 
+# Values doubled (TODO add dynamically modififier?)
+# Overrides NSC2 S7 (which has much higher values)
 starbase_marauder = {
 	# graphical_culture = { "pirate_01" "madd_01" }
 	# entity = starbase_marauder_entity
@@ -92,12 +94,16 @@ starbase_marauder = {
 	rotation_speed = 0
 	modifier = {
 		ship_evasion_mult = -1
-		ship_shield_add = 10000
-		ship_armor_add = 10000
+		ship_shield_add = 20000	# 10000
+		ship_armor_add = 20000	# 10000
 		ship_sensor_range_add = 1
 	}
-	ship_modifier = { ship_weapon_range_mult = 0.2 }
-	max_hitpoints = 20000
+	ship_modifier = {
+		ship_weapon_range_mult = 0.2
+		ship_tracking_add = 15
+		ship_accuracy_add = 15
+	}
+	max_hitpoints = 40000	# 20000
 	base_buildtime = 730
 	combat_size_multiplier = 50
 	size_multiplier = -30 # 4
