@@ -3976,9 +3976,10 @@ fleet_event = {
 			if = {
 				limit = {
 					NAND = {
-						has_owner = yes						# exists = space_owner
+						has_owner = yes
+						# exists = space_owner
 						exists = starbase
-						is_owned_by = root.owner						# is_owned_by = root.owner
+						is_owned_by = root.owner
 					}
 				}
 				prev = {
