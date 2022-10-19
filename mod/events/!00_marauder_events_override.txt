@@ -3472,10 +3472,44 @@ event = {
 			}
 			country_event = { id = marauder.28 days = 8 }
 		}
-		# TODO Remove me on 3.6
+		# TODO Remove me on 3.6.*
 		every_galaxy_fleet = {
 			limit = { NOT = { exists = owner } }
 			delete_fleet = this
+		}
+		# TODO Remove me on 3.6.*
+		if = {
+			limit = {
+				NOT = { has_global_flag = marauder_crisis_ongoing }
+				has_global_flag = marauder_crisis_started
+				# OR = {
+				# 	mid_game_years_passed > 5
+				# 	has_global_flag = horde_triggered
+				# }
+			}
+			random_playable_country = {
+				limit = {
+					has_country_flag = new_khanate_flag
+					num_owned_planets < 3
+					any_owned_planet = { # Fix (Vanilla) splitted system can lead to unserveyable: https://forum.paradoxplaza.com/forum/threads/stellaris-great-khan-event-renders-system-unserveyable.1548356/
+						# OR = { NAND = { exists = space_owner space_owner = { is_same_empire = prevprev } }
+						solar_system = {
+							NAND = {
+								exists = owner
+								owner = { is_same_empire = prevprevprev }
+							}
+							any_system_colony = {
+								NOT = { is_planet = prevprev }
+								is_colonizable = no
+								exists = owner
+								owner = { NOT = { is_same_empire = prevprevprevprev } }
+							}
+						}
+					}
+				}
+				save_global_event_target_as = raider_khanate
+				country_event = { id = marauder.604 days = 1 } # Reverts to old ways.
+			}
 		}
 	}
 }
@@ -4848,6 +4882,47 @@ country_event = {
 				save_global_event_target_as = marauder_country_3
 			}
 		}
+
+		### Unify All Marauders if Great Khan.
+		if = { limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanMultiple value = 5 } } }
+			if = { limit = { exists = event_target:marauder_country_1 }
+				set_country_flag = marauder_1
+				save_global_event_target_as = marauder_country_1
+			}
+			if = { limit = { exists = event_target:marauder_country_2 }
+				set_country_flag = marauder_2
+				save_global_event_target_as = marauder_country_2
+			}
+			if = { limit = { exists = event_target:marauder_country_3 }
+				set_country_flag = marauder_3
+				save_global_event_target_as = marauder_country_3
+			}
+			save_event_target_as = new_khanate
+			every_country = {
+				limit = {
+					is_country_type = dormant_marauders
+					NOT = { is_same_empire = root }
+				}
+				country_event = { id = marauder.609 days = -1 } # Fully handover
+				destroy_country = yes
+			}
+		}
+		# else = {
+		# 	every_country = {
+		# 		limit = {
+		# 			is_country_type = dormant_marauders
+		# 			NOT = { is_same_empire = root }
+		# 		}
+		# 		establish_communications_no_message = root
+		# 		prev = {
+		# 			set_faction_hostility = {
+		# 				target = prev
+		# 				set_neutral = yes
+		# 			}
+		# 		}
+		# 	}
+		# }
+
 		# Create global Rally Point event_targets.
 		country_event = { id = marauder.499 days = -1 } # TODO may effect?
 
@@ -4892,34 +4967,6 @@ country_event = {
 			}
 		}
 
-		### Unify All Marauders if Great Khan.
-		if = { limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanMultiple value = 5 } } }
-			save_event_target_as = new_khanate
-			every_country = {
-				limit = {
-					is_country_type = dormant_marauders
-					NOT = { is_same_empire = root }
-				}
-				country_event = { id = marauder.609 days = -1 } # Fully handover
-				destroy_country = yes
-			}
-		}
-		# else = {
-		# 	every_country = {
-		# 		limit = {
-		# 			is_country_type = dormant_marauders
-		# 			NOT = { is_same_empire = root }
-		# 		}
-		# 		establish_communications_no_message = root
-		# 		prev = {
-		# 			set_faction_hostility = {
-		# 				target = prev
-		# 				set_neutral = yes
-		# 			}
-		# 		}
-		# 	}
-		# }
-
 		### Rally Point of Fleets 3/3: Backup Code
 		if = { limit = { NOT = { exists = event_target:marauder_rally_point } }
 			random_planet_within_border = {
@@ -4927,6 +4974,7 @@ country_event = {
 				weights = { base = 1 modifier = { add = 2 is_a_planet = yes } } # possible inconsisent due other mods
 				save_global_event_target_as = marauder_rally_point
 				set_planet_flag = marauder_rally_point
+				set_planet_flag = CmtFlagMarauderExpRallyPoint
 				log = "Backup Code for marauder_rally_point Processed on \\[This.GetName] at \\[This.System.GetName]"
 			}
 		}
@@ -5494,7 +5542,7 @@ country_event = {
 
 				### Create Defense Armies (for some job reasons common armies get deleted)
 				set_variable = { which = CmtVarTemp value = trigger:num_pops }
-				divide_variable = { which = CmtVarTemp value = 5 }
+				divide_variable = { which = CmtVarTemp value = 4 } # ~25%
 				floor_variable = CmtVarTemp
 
 				while = {
@@ -8358,8 +8406,34 @@ country_event = {
 			}
 		} # End Khan Extended
 
-		if = {
-			limit = { num_owned_planets < 1 } # If Horde owns no planet.
+		if = { # If Horde owns no planet.
+			limit = {
+				OR = {
+					num_owned_planets < 1
+					count_owned_planet = { # Fix (Vanilla) splitted system can lead to unserveyable: https://forum.paradoxplaza.com/forum/threads/stellaris-great-khan-event-renders-system-unserveyable.1548356/
+						limit = {
+							OR = {
+								AND = { exists = space_owner space_owner = { is_same_empire = root } }
+								solar_system = {
+									OR = {
+										NOT = { exists = owner }
+										owner = { is_same_empire = root }
+									}
+									NOT = {
+										any_system_colony = {
+											NOT = { is_planet = prevprev }
+											is_colonizable = no
+											exists = owner
+											owner = { NOT = { is_same_empire = root } }
+										}
+									}
+								}
+							}
+						}
+						count = 0
+					}
+				}
+			}
 			country_event = { id = marauder.604 } # Reverts to old ways.
 		} else = {
 			if = {
@@ -8494,12 +8568,15 @@ country_event = {
 	after = {
 		hidden_effect = {
 			if = { limit = { exists = event_target:CmtTargetMarauderRallyPoint1 }
+				event_target:CmtTargetMarauderRallyPoint1 = { remove_planet_flag = CmtFlagMarauderExpRallyPoint }
 				clear_global_event_target = CmtTargetMarauderRallyPoint1
 			}
 			if = { limit = { exists = event_target:CmtTargetMarauderRallyPoint2 }
+				event_target:CmtTargetMarauderRallyPoint2 = { remove_planet_flag = CmtFlagMarauderExpRallyPoint }
 				clear_global_event_target = CmtTargetMarauderRallyPoint2
 			}
 			if = { limit = { exists = event_target:CmtTargetMarauderRallyPoint3 }
+				event_target:CmtTargetMarauderRallyPoint3 = { remove_planet_flag = CmtFlagMarauderExpRallyPoint }
 				clear_global_event_target = CmtTargetMarauderRallyPoint3
 			}
 		}
@@ -8838,8 +8915,115 @@ country_event = {
 	id = marauder.604
 	hide_window = yes
 	is_triggered_only = yes
+	trigger = {
+		# any_planet_within_border = {} does not work on game load
+	}
 	immediate = {
+		## Find Marauder Capital System
+		random_system_within_border = {
+			limit = { exists = starbase starbase = { is_owned_by = root } }
+			weights = {
+				base = 1
+				modifier = { add = 6 has_star_flag = marauder_system }
+				modifier = { add = 2 is_pirate_system = yes }
+				modifier = { add = 2 is_valid_crystal_splitter_system = yes }
+				modifier = { add = 2 NOR = { has_star_flag = enclave has_star_flag = primitive_system } }
+				modifier = { add = 30 CmtTriggerMarauderCapitalSystem = yes }
+				# modifier = { add = 6 count_neighbor_system = { count > 0 limit = { is_pirate_system = yes } } }
+			}
+			if = { limit = { any_system_planet = { is_star = no } }
+				random_system_planet = {
+					limit = { is_star = no }
+					weights = {
+						base = 1
+						modifier = { add = 1 is_asteroid = no }
+						modifier = { add = 2 merg_is_gas_giant = no }
+						modifier = { add = 3 colonizable_planet = yes }
+					}
+					save_event_target_as = marauder_capital
+				}
+			} else = {
+				random_neighbor_system = {
+					limit = {
+						is_pirate_system = yes
+						# is_valid_crystal_splitter_system = yes
+						NOR = {
+							# is_star_class = sc_black_hole
+							# has_star_flag = crystal_splitter_starting_system
+							# has_star_flag = crystal_splitter_destination_system
+							# has_star_flag = hostile_system
+							# has_star_flag = guardian
+							has_star_flag = tiyanki_home_system
+							has_star_flag = amoeba_home_system
+							has_star_flag = lcluster
+							has_star_flag = sealed_system
+							has_star_flag = enclave
+							has_star_flag = primitive_system
+						}
+						any_system_planet = { is_star = no }
+					}
+					weights = {
+						base = 1
+						modifier = { add = 1 any_system_planet = { is_asteroid = no } }
+						modifier = { add = 2 any_system_planet = { colonizable_planet = yes } }
+						modifier = {
+							add = 3
+							count_neighbor_system = {
+								count > 1
+								limit = { is_pirate_system = yes }
+							}
+						}
+						modifier = {
+							add = 5
+							OR = {
+								CmtTriggerMarauderCapitalSystem = yes
+								count_neighbor_system = {
+									count > 2
+									limit = { is_pirate_system = yes }
+								}
+							}
+						}
+					}
+					random_system_planet = {
+						limit = { is_star = no }
+						weights = {
+							base = 1
+							modifier = { add = 1 is_asteroid = no }
+							modifier = { add = 2 merg_is_gas_giant = no }
+							modifier = { add = 3 colonizable_planet = yes }
+						}
+						save_event_target_as = marauder_capital
+					}
+				}
+			}
+		}
+		if = { limit = { NOT = { exists = event_target:marauder_capital } }
+			log = "Last fallback for \\[This.GetName]"
+			# random_planet_within_border = { limit = { solar_system = { exists = starbase starbase = { is_owned_by = root } } }
+			every_owned_starbase = {
+				solar_system = {
+					random_system_planet = {
+						limit = { is_star = no }
+						weights = {
+							base = 1
+							modifier = { add = 1 is_asteroid = no }
+							modifier = { add = 2 merg_is_gas_giant = no }
+							modifier = { add = 3 colonizable_planet = yes }
+						}
+						save_event_target_as = marauder_capital
+					}
+				}
+			}
+		}
+
+		if = { limit = { NOT = { exists = event_target:marauder_capital } }
+			log = "No place for new Marauder system found for \\[This.GetName]!?"
+		} else = {
+			event_target:marauder_capital.solar_system = { set_star_flag = marauder_system }
+		}
+
 		get_marauder_species = yes
+		set_update_modifiers_batch = begin
 
 		if = { limit = { exists = event_target:marauder_precursor }
 			event_target:marauder_precursor = {
@@ -8882,24 +9066,87 @@ country_event = {
 				ignore_initial_colony_error = yes
 				day_zero_contact = no
 				exclude_day_zero_contact = root
-				effect = { save_event_target_as = restored_marauders }
+				effect = {
+					save_event_target_as = restored_marauders
+				}
 			}
 		}
+		# Setup to make Khan & Mercenaries possible again.
 		event_target:restored_marauders = {
 			set_country_flag = restored_marauders_flag
 			set_name = random
 			randomize_flag_symbol = "pirate"
+			set_graphical_culture = madd_01
+			set_country_flag = first_alien_life
+			set_country_flag = has_encountered_other_empire
+			create_ship_design = { design = "NAME_Marauder_Starbase" }
+			add_ship_design = last_created_design
 			root = {
 				switch = {
 					trigger = has_country_flag
 					marauder_1 = { prev = { set_country_flag = marauder_1 save_global_event_target_as = marauder_country_1 } }
 					marauder_2 = { prev = { set_country_flag = marauder_2 save_global_event_target_as = marauder_country_2 } }
-					marauder_3 = { prev = { set_country_flag = marauder_3 save_global_event_target_as = marauder_country_3 } }
+					marauder_3 = { prev = { set_country_flag = marauder_3 save_global_event_target_as = marauder_country_3 shift_ethic = ethic_fanatic_spiritualist } }
 				}
 				every_owned_leader = {
 					# limit = { leader_class = ruler }
 					set_owner = prevprev
 				}
+			}
+
+			# There is a possibility there is no flag
+			if = {
+				limit = {
+					NOR = {
+						has_country_flag = marauder_1
+						has_country_flag = marauder_2
+						has_country_flag = marauder_3
+					}
+				}
+				if = {
+					limit = {
+						NOR = {
+							exists = event_target:marauder_country_3
+							any_country = {
+								is_country_type = dormant_marauders
+								has_country_flag = marauder_3
+							}
+						}
+					}
+					set_country_flag = marauder_3
+					save_global_event_target_as = marauder_country_3
+					shift_ethic = ethic_fanatic_spiritualist
+				} else_if = {
+					limit = {
+						NOR = {
+							exists = event_target:marauder_country_2
+							any_country = {
+								is_country_type = dormant_marauders
+								has_country_flag = marauder_2
+							}
+						}
+					}
+					set_country_flag = marauder_2
+					save_global_event_target_as = marauder_country_2
+				} else_if = {
+					limit = {
+						NOR = {
+							exists = event_target:marauder_country_1
+							any_country = {
+								is_country_type = dormant_marauders
+								has_country_flag = marauder_1
+							}
+						}
+					}
+					set_country_flag = marauder_1
+					save_global_event_target_as = marauder_country_1
+				}
+			}
+			switch = {
+				trigger = has_country_flag
+				marauder_1 = { event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_1 } }
+				marauder_2 = { event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_2 } }
+				marauder_3 = { event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_3 } }
 			}
 		}
 
@@ -8921,9 +9168,47 @@ country_event = {
 			delete_fleet = event_target:great_khan.fleet
 			clear_global_event_target = great_khan
 		}
-		every_system_within_border = {
-			limit = { exists = starbase }
-			starbase = { set_owner = event_target:restored_marauders }
+
+		every_owned_starbase = {
+			set_owner = event_target:restored_marauders
+			solar_system = {
+				if = {
+					limit = {
+						any_fleet_in_system = {
+							owner = { is_country_type = enclave_mercenary }
+						}
+					}
+					random_fleet_in_system = {
+						limit = { is_ship_size = enclave_mercenary_station }
+						owner = {
+							every_owned_fleet = {
+								# if = { limit = { NOT = { is_within_borders_of = event_target:restored_marauders } }
+								# 	# delete_fleet = this
+								# 	random_country = {
+								# 		limit = { is_pirate = yes }
+								# 		prev = {
+								# 			set_owner = prev
+								# 			if = { limit = { exists = leader }
+								# 				leader = { set_owner = prevprev }
+								# 			}
+								# 		}
+								# 	}
+								# } else = {
+								set_owner = event_target:restored_marauders
+								if = { limit = { exists = leader }
+									leader = { set_owner = event_target:restored_marauders }
+									if = { limit = { NOT = { is_ship_class = shipclass_transport } }
+										assign_leader = leader
+									}
+									# fleet_event = { id = khan.611 days = -1 }
+								}
+							}
+							# destroy_country
+							country_event = { id = enclave.23 scopes = { from = event_target:restored_marauders fromfrom = prev } }
+						}
+					}
+				}
+			}
 		}
 		every_owned_fleet = {
 			if = { limit = { NOT = { is_within_borders_of = root.owner } }
@@ -8949,13 +9234,61 @@ country_event = {
 			event_target:marauder_rally_point = {
 				prev = { CmtEffectCreateFleet_KhanStandard = yes }
 			}
+			save_event_target_as = new_khanate
 		}
+
+		# If Horde owns only planets on not owned system.
+		if = { limit = { num_owned_planets > 0 }
+			# Give former owner
+			every_owned_planet = {
+				# set_owner = event_target:restored_marauders
+				limit = {
+					any_playable_country = { has_country_flag = former_owner@prev }
+				}
+				random_playable_country = {
+					limit = { has_country_flag = former_owner@prev }
+					prev = {
+						set_owner = prev
+						if = { limit = { exists = starbase }
+							starbase = { set_owner = prevprev }
+						}
+					}
+					remove_country_flag = former_owner@prev
+				}
+			}
+			# Give system owner
+			if = { limit = { num_owned_planets > 0 }
+				every_owned_planet = {
+					if = {
+						limit = { exists = space_owner }
+						set_owner = space_owner
+					} else = {
+						solar_system = {
+							random_system_colony = {
+								limit = {
+									exists = owner
+									NOR = {
+										is_planet = prevprev
+										owner = { is_same_empire = prevprevprevprev }
+									}
+								}
+								weights = { base = 1 modifier = { add = 3 is_colonizable = no } }
+								prevprev = { set_owner = prev.owner }
+							}
+						}
+					}
+				}
+			}
+		}
+
+		country_event = { id = marauder.609 days = -1 }		# Fully handover
 
 		# Establish Communications
 		every_country = {
 			limit = { has_communications = root }
 			establish_communications_no_message = event_target:restored_marauders
 		}
+		set_update_modifiers_batch = end
 
 		every_subject = {
 			limit = { merg_is_standard_empire = yes }
@@ -8973,9 +9306,21 @@ country_event = {
 		# 	remove_modifier = "satrapy_of_horde"
 		# }
 		observer_event = { id = observer.21 }
-		every_playable_country = {
-			limit = { is_ai = no }
-			country_event = { id = marauder.630 } # Notify
+		if = {
+			limit = {
+				OR = {
+					is_country_type = awakened_marauders
+					AND = {
+						exists = event_target:raider_khanate
+						is_same_empire = event_target:raider_khanate
+					}
+					has_country_flag = marauder600_happened
+				}
+			}
+			every_playable_country = {
+				limit = { is_ai = no }
+				country_event = { id = marauder.630 } # Notify
+			}
 		}
 	}
 	after = {
@@ -8984,7 +9329,7 @@ country_event = {
 }
 
 # Fully handover marauder country (HIDDEN)
-# From marauder.602 and marauder.603
+# From marauder.602 .603 .604
 # This = be destroyed country
 country_event = {
 	id = marauder.609

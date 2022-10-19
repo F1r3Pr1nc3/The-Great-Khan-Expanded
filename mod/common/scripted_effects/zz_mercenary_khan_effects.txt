@@ -839,7 +839,7 @@ create_fourth_diadochi = {
 	}
 }
 
-# This = Root = Marauder
+# This = root = Marauder
 get_marauder_species = {
 	# log = "GET MARAUDER SPECIES"
 	if = {
@@ -880,7 +880,7 @@ get_marauder_species = {
 			}
 			weights = {
 				base = 100
-				# complex_trigger_modifier = { #add 10 for each unhappy pop of this species
+				# complex_trigger_modifier = { # add 10 for each unhappy pop of this species
 				# 	trigger = count_owned_pop
 				# 	trigger_scope = root
 				# 	potential = {
@@ -888,14 +888,14 @@ get_marauder_species = {
 				# 	}
 				# 	parameters = {
 				# 		limit = {
-				# 			is_same_species = prevprev #prev should be root.target, prevprev the species
+				# 			is_same_species = prevprev # prev should be root.target, prevprev the species
 				# 			happiness > 0.5
 				# 		}
 				# 	}
 				# 	mode = add
 				# 	mult = 10
 				# }
-				complex_trigger_modifier = { #multiply it by the percentage of pops on the planet
+				complex_trigger_modifier = { # multiply it by the percentage of pops on the planet
 					trigger = pop_percentage
 					trigger_scope = root
 					parameters = {
@@ -984,7 +984,7 @@ get_marauder_species = {
 			}
 			weights = {
 				base = 10
-				# complex_trigger_modifier = { #add 10 for each unhappy pop of this species
+				# complex_trigger_modifier = { # add 10 for each unhappy pop of this species
 				# 	trigger = count_owned_pop
 				# 	trigger_scope = root
 				# 	potential = {
@@ -992,14 +992,14 @@ get_marauder_species = {
 				# 	}
 				# 	parameters = {
 				# 		limit = {
-				# 			is_same_species = prevprev #prev should be root.target, prevprev the species
+				# 			is_same_species = prevprev # prev should be root.target, prevprev the species
 				# 			happiness > 0.5
 				# 		}
 				# 	}
 				# 	mode = add
 				# 	mult = 10
 				# }
-				complex_trigger_modifier = { #multiply it by the percentage of pops on the planet
+				complex_trigger_modifier = { # multiply it by the percentage of pops on the planet
 					trigger = pop_percentage
 					trigger_scope = root
 					parameters = {
@@ -1008,12 +1008,12 @@ get_marauder_species = {
 					mode = mult
 				}
 			}
-		}
-		# log="OWNER DOMINANT SPECIES"
-		save_event_target_as = marauder_species
-		root = {
-			change_dominant_species = { species = prev }
-			set_built_species = prev
+			# log="OWNER DOMINANT SPECIES"
+			save_event_target_as = marauder_species
+			root = {
+				change_dominant_species = { species = prev }
+				set_built_species = prev
+			}
 		}
 	}
 	# Common Fallback

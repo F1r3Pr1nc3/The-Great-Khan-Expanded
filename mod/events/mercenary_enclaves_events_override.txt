@@ -21,12 +21,16 @@ event = {
 		NOT = { has_global_flag = great_khan_dead }
 		any_country = {
 			is_country_type = enclave_mercenary
-			NOT = { any_owned_fleet = { is_leased = yes } }
+			NOT = {
+				any_owned_fleet = { is_leased = yes }
+			}
 		}
 	}
 	immediate = {
 		if = {
-			limit = { NOT = { exists = event_target:raider_khanate } }
+			limit = {
+				NOT = { exists = event_target:raider_khanate }
+			}
 			random_country = {
 				limit = { is_country_type = awakened_marauders }
 				save_global_event_target_as = raider_khanate
@@ -46,8 +50,11 @@ event = {
 				}
 			}
 		}
-		if = { # Fallback 3.4 saves/mods
-			limit = { NOT = { exists = event_target:khan_fleet } }
+		if = {
+			# Fallback 3.4 saves/mods
+			limit = {
+				NOT = { exists = event_target:khan_fleet }
+			}
 			event_target:raider_khanate = {
 				random_owned_fleet = {
 					limit = {
@@ -59,7 +66,6 @@ event = {
 				}
 			}
 		}
-
 		random_country = {
 			limit = {
 				merg_is_standard_empire = yes
@@ -74,7 +80,9 @@ event = {
 			random_country = {
 				limit = {
 					is_country_type = enclave_mercenary
-					NOT = { any_owned_fleet = { is_leased = yes } }
+					NOT = {
+						any_owned_fleet = { is_leased = yes }
+					}
 					has_country_flag = created_by@prev
 					prev = { has_country_flag = merc_enclave_founder@prev }
 				}
@@ -82,7 +90,9 @@ event = {
 			}
 		}
 		if = {
-			limit = { NOT = { exists = event_target:mercenary_enclave_country } }
+			limit = {
+				NOT = { exists = event_target:mercenary_enclave_country }
+			}
 			random_country = {
 				limit = {
 					is_country_type = enclave_mercenary
@@ -104,7 +114,6 @@ event = {
 				save_event_target_as = mercenary_enclave_country
 			}
 		}
-
 		if = {
 			limit = { exists = event_target:mercenary_enclave_country }
 			event_target:mercenary_enclave_country = {
@@ -118,26 +127,45 @@ event = {
 					order_by = trigger:fleet_power
 					save_event_target_as = mercenary_fleet
 				}
-				if = { limit = { NOT = { exists = event_target:marauder_rally_point } }
+				if = {
+					limit = {
+						NOT = { exists = event_target:marauder_rally_point }
+					}
 					event_target:raider_khanate = {
 						random_planet_within_border = {
 							limit = { is_star = no }
-							weights = { base = 1 modifier = { add = 2 is_a_planet = yes } } # possible inconsisent due other mods
+							weights = {
+								base = 1
+								modifier = { add = 2 is_a_planet = yes }
+							}							# possible inconsisent due other mods
 							save_global_event_target_as = marauder_rally_point
 							set_planet_flag = marauder_rally_point
 						}
 					}
 				}
 				event_target:mercenary_fleet = {
-					give_fleet = { controller = event_target:raider_khanate days = 1510 }
+					give_fleet = {
+						controller = event_target:raider_khanate
+						days = 1510
+					}
 					set_name = {
 						key = NAME_Mercenary_Fleet
 						variable_string = "[event_target:mercenary_enclave_country.GetName]"
 					}
-					if = { limit = { NOT = { can_access_system = event_target:khan_fleet } }
+					if = {
+						limit = {
+							exists = solar_system # Otherwise CTD
+							NOT = { can_access_system = event_target:khan_fleet }
+						}
 						set_home_base = event_target:marauder_rally_point.starbase
 						set_mia = yes
+						queue_actions = {
+							wait = 5
+							move_to = event_target:khan_fleet
+						}
+
 					}
+					order_forced_return = yes
 					auto_follow_fleet = {
 						target = event_target:khan_fleet
 						attack_fleet = no
@@ -179,7 +207,7 @@ event = {
 					controller = { is_country_type = awakened_marauders }
 				}
 				end_fleet_contract = {
-					initiator = event_target:raider_khanate # controller
+					initiator = event_target:raider_khanate					# controller
 					reason = cancelled
 				}
 			}
@@ -208,3 +236,75 @@ event = {
 # 		}
 # 	}
 # }
+# Unemployed mercs return to merc station
+# Vanilla fix missing triggers
+# This = enclave_mercenary
+country_event = {
+	id = enclave.2070
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		any_owned_fleet = {
+			is_leased = no
+			NAND = {
+				exists = solar_system
+				solar_system = {
+					any_fleet_in_system = {
+						is_ship_size = enclave_mercenary_station
+						is_owned_by = root
+					}
+				}
+			}
+		}
+	}
+	immediate = {
+		random_owned_fleet = {
+			limit = { is_ship_size = enclave_mercenary_station }
+			save_event_target_as = mercenary_enclave_station
+		}
+		ordered_controlled_fleet = {
+			limit = {
+				is_ship_class = shipclass_military
+				is_leased = no
+				NAND = {
+					exists = solar_system
+					solar_system = {
+						any_fleet_in_system = {
+							is_ship_size = enclave_mercenary_station
+							is_owned_by = root
+						}
+					}
+				}
+			}
+			position = 0
+			order_by = trigger:fleet_power
+
+			if = {
+				limit = { has_auto_move_target = yes }
+				remove_auto_move_target = yes
+				clear_orders = yes
+				clear_fleet_actions = this
+			}
+
+			set_home_base = event_target:mercenary_enclave_station
+
+			if = {
+				limit = { can_access_system = event_target:mercenary_enclave_station.solar_system }
+				order_forced_return = yes
+				auto_follow_fleet = { target = event_target:mercenary_enclave_station }
+			} else_if = {
+				limit = { exists = solar_system } # Otherwise CTD
+				set_mia = yes
+			}
+
+			root = {
+				random_owned_fleet = {
+					limit = { is_ship_size = enclave_mercenary_station }
+					prevprev = {
+						queue_actions = { move_to = prev }
+					}
+				}
+			}
+		}
+	}
+}

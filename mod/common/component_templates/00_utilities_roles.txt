@@ -158,30 +158,6 @@ utility_component_template = {
 	ai_weight = { weight = 1 }
 }
 
-utility_component_template = {
-	key = "COMBAT_COMPUTER_TORPEDO_DEFAULT"
-	size = small
-	icon = "GFX_ship_part_computer_default"
-	icon_frame = 1
-	power = @power0
-	resources = {
-		category = ship_components
-		cost = {
-			alloys = @cost0
-		}
-	}
-	ship_behavior = "torpedo"
-
-	class_restriction = { shipclass_military }
-	size_restriction = { frigate }
-	component_set = "combat_computers"
-	upgrades_to = "COMBAT_COMPUTER_TORPEDO_BASIC"
-
-	ai_weight = {
-		weight = 1
-	}
-}
-
 #####################
 # 'SWARM' COMPUTERS #
 #####################

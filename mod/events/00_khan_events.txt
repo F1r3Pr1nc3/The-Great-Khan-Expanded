@@ -3594,6 +3594,7 @@ country_event = {
 		if = { limit = { exists = event_target:marauder_rally_point }
 			clear_global_event_target = marauder_rally_point
 		}
+		set_global_flag = horde_triggered
 		destroy_country = yes
 		if = { limit = { exists = event_target:marauders_garrison_1 }
 			event_target:marauders_garrison_1 = {
