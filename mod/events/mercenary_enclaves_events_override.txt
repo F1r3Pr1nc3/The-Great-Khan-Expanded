@@ -157,8 +157,11 @@ event = {
 							exists = solar_system # Otherwise CTD
 							NOT = { can_access_system = event_target:khan_fleet }
 						}
-						set_home_base = event_target:marauder_rally_point.starbase
-						set_mia = yes
+						if = {
+							limit = { exists = event_target:marauder_rally_point.starbase }
+							set_home_base = event_target:marauder_rally_point.starbase
+							set_mia = yes
+						}
 						queue_actions = {
 							wait = 5
 							move_to = event_target:khan_fleet
@@ -286,7 +289,10 @@ country_event = {
 				clear_fleet_actions = this
 			}
 
-			set_home_base = event_target:mercenary_enclave_station
+			if = {
+				limit = { exists = event_target:mercenary_enclave_station.starbase }
+				set_home_base = event_target:mercenary_enclave_station.starbase
+			}
 
 			if = {
 				limit = { can_access_system = event_target:mercenary_enclave_station.solar_system }

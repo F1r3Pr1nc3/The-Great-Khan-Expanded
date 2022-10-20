@@ -5105,7 +5105,7 @@ country_event = {
 	}
 	option = {
 		name = marauder_deal_response
-		custom_tooltip = "preset_machinesmith_desc"
+		custom_tooltip = "preset_machinesmith_satrapy_desc"
 		# sound = placeholder_sfx
 		trigger = { has_been_declared_crisis = no }
 		response_text = marauder_deal_accept
@@ -5158,7 +5158,7 @@ country_event = {
 	}
 	option = {
 		name = marauder_deal_reason
-		custom_tooltip = "preset_machinesmith_desc"
+		custom_tooltip = "preset_machinesmith_satrapy_desc"
 		# sound = placeholder_sfx
 		trigger = {
 			NAND = {
