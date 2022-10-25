@@ -240,6 +240,7 @@ marauder_galleon = {
 	is_space_station = no
 	# icon_frame = 5
 	icon = ship_size_military_8
+	combat_disengage_chance = -0.25
 	is_civilian = no
 	# can_have_federation_design = no
 	potential_country = {

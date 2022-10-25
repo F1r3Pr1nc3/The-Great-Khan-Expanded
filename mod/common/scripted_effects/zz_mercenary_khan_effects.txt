@@ -841,7 +841,50 @@ create_fourth_diadochi = {
 
 # This = root = Marauder
 get_marauder_species = {
-	# log = "GET MARAUDER SPECIES"
+	log = "GET MARAUDER SPECIES"
+
+	# if = { limit = { exists = prev prev = { is_scope_type = planet } }
+	[[PLANET]
+		log = "GET MARAUDER PLANET SPECIES"
+		if = {
+			limit = {
+				exists = event_target:marauder_country_1	# root = { has_country_flag = marauder_1 }
+				OR = {
+					$PLANET|prev$.solar_system = { has_star_flag = marauder_capital_1 }
+					AND = {
+						exists = event_target:CmtTargetMarauderRallyPoint1
+						event_target:CmtTargetMarauderRallyPoint1 = { is_planet = $PLANET|prevprev$ }
+					}
+				}
+			}
+			event_target:marauder_country_1.owner_species = { save_event_target_as = marauder_species }
+		} else_if = {
+			limit = {
+				exists = event_target:marauder_country_2
+				OR = {
+					$PLANET|prev$.solar_system = { has_star_flag = marauder_capital_2 }
+					AND = {
+						exists = event_target:CmtTargetMarauderRallyPoint2
+						event_target:CmtTargetMarauderRallyPoint2 = { is_planet = $PLANET|prevprev$ }
+					}
+				}
+			}
+			event_target:marauder_country_2.owner_species = { save_event_target_as = marauder_species }
+		} else_if = {
+			limit = {
+				exists = event_target:marauder_country_3
+				OR = {
+					$PLANET|prev$.solar_system = { has_star_flag = marauder_capital_3 }
+					AND = {
+						exists = event_target:CmtTargetMarauderRallyPoint3
+						event_target:CmtTargetMarauderRallyPoint3 = { is_planet = $PLANET|prevprev$ }
+					}
+				}
+			}
+			event_target:marauder_country_3.owner_species = { save_event_target_as = marauder_species }
+		}
+	]
+
 	if = {
 		limit = {
 			OR = {
@@ -941,12 +984,12 @@ get_marauder_species = {
 					root = { any_owned_planet = { is_homeworld = yes is_same_value = prevprev.home_planet } }
 				}
 			}
-			# log="RANDOM OWNED MARAUDER SPECIES"
+			log="RANDOM OWNED MARAUDER SPECIES"
 			save_event_target_as = marauder_species
-			root = {
-				change_dominant_species = { species = prev }
-				set_built_species = prev
-			}
+			# root = {
+			# 	change_dominant_species = { species = prev }
+			# 	set_built_species = prev
+			# }
 		}
 	}
 
@@ -1008,7 +1051,7 @@ get_marauder_species = {
 					mode = mult
 				}
 			}
-			# log="OWNER DOMINANT SPECIES"
+			log="OWNER DOMINANT SPECIES"
 			save_event_target_as = marauder_species
 			root = {
 				change_dominant_species = { species = prev }

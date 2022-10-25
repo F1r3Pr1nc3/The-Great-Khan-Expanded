@@ -154,8 +154,9 @@ event = {
 					}
 					if = {
 						limit = {
-							exists = solar_system # Otherwise CTD
-							NOT = { can_access_system = event_target:khan_fleet }
+							exists = solar_system
+							exists = event_target:khan_fleet.solar_system
+							NOT = { can_access_system = event_target:khan_fleet.solar_system }
 						}
 						if = {
 							limit = { exists = event_target:marauder_rally_point.starbase }
@@ -295,7 +296,10 @@ country_event = {
 			}
 
 			if = {
-				limit = { can_access_system = event_target:mercenary_enclave_station.solar_system }
+				limit = {
+					exists = event_target:mercenary_enclave_station.solar_system
+					can_access_system = event_target:mercenary_enclave_station.solar_system
+				}
 				order_forced_return = yes
 				auto_follow_fleet = { target = event_target:mercenary_enclave_station }
 			} else_if = {

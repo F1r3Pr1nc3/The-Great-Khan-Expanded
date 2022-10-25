@@ -34,7 +34,7 @@ npc_galleon_01 = {
 	is_space_station = no
 	# icon_frame = 6
 	icon = ship_size_military_16
-	combat_disengage_chance = 1.25
+	combat_disengage_chance = -0.25
 	is_civilian = no
 	# auto_upgrade = yes
 	potential_country = { is_country_type = awakened_marauders }
