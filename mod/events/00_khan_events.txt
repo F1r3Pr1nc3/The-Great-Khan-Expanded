@@ -482,7 +482,6 @@ country_event = {
 							merg_is_standard_empire = yes
 							NOR = {
 								has_country_flag = rebelling_satrapy
-								# is_at_war = yes
 								is_at_war_with = root
 							}
 						}
@@ -3565,6 +3564,13 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
+
+		if = { limit = { exists = event_target:great_khan }
+			if = { limit = { exists = event_target:great_khan.fleet }
+				destroy_fleet = event_target:great_khan.fleet
+			}
+			clear_global_event_target = great_khan
+		}
 		if = { limit = { exists = event_target:raider_khanate }
 			clear_global_event_target = raider_khanate
 		}

@@ -316,8 +316,10 @@ set_pirates_difficulty = {
 	# Checks the ship limit of this country.
 	if = {
 		limit = {
-			# OR = { NOT = { is_variable_set = pirate_waves_difficulty }
-			check_variable = { which = pirate_waves_difficulty value = 1 }
+			OR = {
+				NOT = { is_variable_set = pirate_waves_difficulty }
+				check_variable = { which = pirate_waves_difficulty value = 1 }
+			}
 		}
 		# set_variable = { which = pirate_waves_difficulty value = 1 }
 		set_country_flag = pirate_waves_easy

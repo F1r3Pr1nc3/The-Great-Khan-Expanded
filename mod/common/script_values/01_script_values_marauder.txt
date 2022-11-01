@@ -1,0 +1,14 @@
+
+marauder_distance = {
+	base = 100000
+	complex_trigger_modifier = {
+		trigger = distance
+		parameters = {
+			source = $SOURCE$
+			min_distance >= $min_distance|9$
+			max_distance <= $max_distance|9000$
+			type = euclidean
+		}
+		mode = weight
+	}
+}
