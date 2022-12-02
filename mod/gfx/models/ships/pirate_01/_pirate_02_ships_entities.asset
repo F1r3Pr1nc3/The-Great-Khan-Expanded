@@ -28,11 +28,10 @@ entity = { name = "madd_01_pirate_corvette_S1_entity" clone = "pirate_01_pirate_
 # entity = { name = "madd_01_pirates_destroyer01_1m_2s_1m_entity" clone = "pirates_destroyer01_1m_2s_1m_entity" scale = 1 }
 # entity = { name = "madd_01_pirate_corvette_entity" clone = "pirate_01_pirate_corvette_entity" scale = 1 }
 # entity = { name = "madd_01_pirate_destroyer_entity" clone = "pirate_01_pirate_destroyer_entity" scale = 1 }
-# entity = { name = "madd_01_cruiser_hull_entity" clone = "pirate_01_cruiser_hull_entity" scale = 1 }
-# entity = { name = "madd_01_galleon_hull_entity" clone = "pirate_01_galleon_hull_entity" scale = 1 }
-
-entity = { name = "madd_01_pirate_cruiser_entity" clone = "pirate_01_pirate_cruiser_entity" scale = 1 }
-entity = { name = "madd_01_galleon_entity" clone = "pirate_01_galleon_entity" scale = 1 }
+entity = { name = "madd_01_cruiser_hull_entity" clone = "pirate_01_cruiser_hull_entity" scale = 1 }
+entity = { name = "madd_01_galleon_hull_entity" clone = "pirate_01_galleon_hull_entity" scale = 1 }
+entity = { name = "madd_01_pirate_cruiser_entity" clone = "pirate_01_pirate_cruiser_entity" }
+entity = { name = "madd_01_galleon_entity" clone = "pirate_01_galleon_entity" }
 
 ## STATIONS
 # entity = { name = "madd_01_marauder_station_entity" clone = "pirate_01_pirate_station_entity" scale = 1 }
@@ -79,7 +78,6 @@ entity = {
 
 entity = { name = "pirate_01_pirate_starbase_entity" clone = "pirate_01_pirate_base_entity" scale = 2.4 }
 entity = { name = "madd_01_pirate_starbase_entity" clone = "pirate_01_pirate_base_entity" scale = 2.4 }
-
 
 ###################################################################################
 ###																				###

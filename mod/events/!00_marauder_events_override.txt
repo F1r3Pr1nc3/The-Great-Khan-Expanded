@@ -821,22 +821,22 @@ country_event = {
 		exists = from
 		from = { is_country_type = dormant_marauders }
 		NOR = {
-			has_country_flag = marauder_diplomacy_engaged
+			# has_country_flag = marauder_diplomacy_engaged
 			has_relation_flag = { who = from flag = current_target }
 			has_relation_flag = { who = from flag = current_hired_target }
 		}
 	}
 	immediate = {
-		set_country_flag = marauder_diplomacy_engaged
+		# set_country_flag = marauder_diplomacy_engaged
 		from = {
 			owner_species = { save_event_target_as = marauder_species }
 			save_event_target_as = current_marauder_diplomacy
 			country_event = { id = marauder.28 days = 8 }
 		}
 	}
-	after = {
-		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
-	}
+	# after = {
+	# 	hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
+	# }
 	# Ask them to raid someone.
 	option = {
 		name = marauder.20.b
@@ -1111,7 +1111,7 @@ country_event = {
 	force_open = yes
 	diplomatic = yes
 	immediate = {
-		set_country_flag = marauder_diplomacy_engaged
+		# set_country_flag = marauder_diplomacy_engaged
 		if = { limit = { NOT = { exists = event_target:current_marauder_diplomacy } }
 			from = {
 				if = { limit = { is_country_type = dormant_marauders }
@@ -1126,9 +1126,9 @@ country_event = {
 			country_event = { id = marauder.28 days = 8 }
 		}
 	}
-	after = {
-		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
-	}
+	# after = {
+	# 	hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
+	# }
 	# Ask them to raid someone.
 	option = {
 		name = marauder.20.b
@@ -1646,7 +1646,7 @@ country_event = {
 		from = { any_owned_fleet = { is_mobile = yes } }
 	}
 	immediate = {
-		set_country_flag = marauder_diplomacy_engaged
+		# set_country_flag = marauder_diplomacy_engaged
 		if = {
 			limit = {
 				NOT = { exists = event_target:current_marauder_diplomacy }
@@ -1828,7 +1828,7 @@ country_event = {
 					country_event = { id = marauder.32 scopes = { from = event_target:current_marauder_diplomacy } }
 				}
 			}
-			remove_country_flag = marauder_diplomacy_engaged
+			# remove_country_flag = marauder_diplomacy_engaged
 		}
 	}
 	option = {
@@ -1954,7 +1954,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = { exists = from }
 	immediate = {
-		set_country_flag = marauder_diplomacy_engaged
+		# set_country_flag = marauder_diplomacy_engaged
 		if = {
 			limit = {
 				NOT = { exists = event_target:current_marauder_diplomacy }
@@ -2000,7 +2000,7 @@ country_event = {
 	}
 	after = {
 		hidden_effect = {
-			remove_country_flag = marauder_diplomacy_engaged
+			# remove_country_flag = marauder_diplomacy_engaged
 			event_target:current_marauder_diplomacy = {
 				if = { limit = { is_variable_set = raidcost }
 					log="Dyn. raidcost \\[This.raidcost] and difficulty \\[This.pirate_waves_difficulty]"
@@ -2253,7 +2253,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = { exists = from }
 	immediate = {
-		set_country_flag = marauder_diplomacy_engaged
+		# set_country_flag = marauder_diplomacy_engaged
 		if = {
 			limit = {
 				NOT = { exists = event_target:current_marauder_diplomacy }
@@ -2289,9 +2289,9 @@ country_event = {
 		# 	multiply_variable = { which = smallmerccost value = pirates_factor }
 		# }
 	}
-	after = {
-		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
-	}
+	# after = {
+	# 	hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
+	# }
 	# Hire Armada of the Voidborn.
 	option = {
 		name = marauder.34.1.a
@@ -2554,7 +2554,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = { exists = from }
 	immediate = {
-		set_country_flag = marauder_diplomacy_engaged
+		# set_country_flag = marauder_diplomacy_engaged
 		if = {
 			limit = {
 				NOT = { exists = event_target:current_marauder_diplomacy }
@@ -2564,9 +2564,9 @@ country_event = {
 		}
 		event_target:current_marauder_diplomacy = { owner_species = { save_event_target_as = marauder_species } }
 	}
-	after = {
-		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
-	}
+	# after = {
+	# 	hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
+	# }
 	option = {
 		name = marauder.31.e
 		hidden_effect = {
@@ -2620,7 +2620,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = { exists = from }
 	immediate = {
-		set_country_flag = marauder_diplomacy_engaged
+		# set_country_flag = marauder_diplomacy_engaged
 		if = {
 			limit = {
 				NOT = { exists = event_target:current_marauder_diplomacy }
@@ -2670,9 +2670,9 @@ country_event = {
 			country_event = { id = marauder.38 scopes = { from = event_target:current_marauder_diplomacy } }			# Use mia
 		}
 	}
-	after = {
-		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
-	}
+	# after = {
+	# 	hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
+	# }
 	option = {
 		name = marauder.37.a
 		hidden_effect = {
@@ -6353,7 +6353,7 @@ country_event = {
 	option = { name = marauder.510.a }
 }
 
-### Great Khan Dies of Old Ages.
+### Great Khan Dies of Old Age.
 country_event = {
 	id = marauder.514
 	hide_window = yes
@@ -7650,10 +7650,6 @@ country_event = {
 	force_open = yes
 	diplomatic = yes
 	trigger = { has_been_declared_crisis = no }
-	immediate = { set_country_flag = marauder_diplomacy_engaged }
-	after = {
-		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
-	}
 	option = {
 		name = marauder.551.a
 		sound = advisor_clicking_respons_01
@@ -7884,12 +7880,7 @@ country_event = {
 	auto_opens = yes
 	diplomatic = yes
 	trigger = {
-		# NOT = { has_country_flag = marauder_diplomacy_engaged } already set by source
 		exists = event_target:raider_khanate
-	}
-	immediate = { set_country_flag = marauder_diplomacy_engaged }
-	after = {
-		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
 	}
 	# option = {
 	# 	name = marauder_fabricator_disloyal
@@ -10220,10 +10211,10 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		merg_is_standard_empire = yes
-		NOT = { has_country_flag = marauder_diplomacy_engaged }
+		# NOT = { has_country_flag = marauder_diplomacy_engaged }
 	}
 	immediate = {
-		set_country_flag = marauder_diplomacy_engaged
+		# set_country_flag = marauder_diplomacy_engaged
 		if = { limit = { is_subject = yes }
 			set_subject_of = { who = none }
 		}
@@ -10231,6 +10222,9 @@ country_event = {
 			clear_variable = "planets_lost_to_marauder"
 		}
 	}
+	# after = {
+	# 	hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
+	# }
 	option = {
 		name = marauder.660.a
 		ai_chance = { factor = 100 }
@@ -10241,9 +10235,6 @@ country_event = {
 		}
 	}
 	option = { name = marauder.660.b }
-	after = {
-		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
-	}
 }
 
 # The New Galactic Horde (Non-Satrapy)
@@ -10256,9 +10247,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		merg_is_standard_empire = yes
-		NOT = { has_country_flag = marauder_diplomacy_engaged }
 	}
-	immediate = { set_country_flag = marauder_diplomacy_engaged }
 	# Opportunity Khan Destroyer marauder.710
 	option = {
 		name = marauder.660.a
@@ -10290,9 +10279,6 @@ country_event = {
 		}
 	}
 	option = { name = marauder.661.a }
-	after = {
-		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
-	}
 }
 
 # Notify: Horde Diplomacy after Great Khan's death (on_custom_diplomacy)
@@ -10316,11 +10302,6 @@ country_event = {
 				}
 			}
 		}
-		NOT = { has_country_flag = marauder_diplomacy_engaged }
-	}
-	immediate = { set_country_flag = marauder_diplomacy_engaged }
-	after = {
-		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
 	}
 	option = {
 		name = marauder.665.a
@@ -10338,10 +10319,10 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		merg_is_standard_empire = yes
-		NOT = { has_country_flag = marauder_diplomacy_engaged }
+		# NOT = { has_country_flag = marauder_diplomacy_engaged }
 	}
 	immediate = {
-		set_country_flag = marauder_diplomacy_engaged
+		# set_country_flag = marauder_diplomacy_engaged
 		if = { limit = { is_subject = yes }
 			set_subject_of = { who = none }
 		}
@@ -10350,9 +10331,9 @@ country_event = {
 		}
 	}
 	option = { name = marauder.670.a }
-	after = {
-		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
-	}
+	# after = {
+	# 	hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
+	# }
 }
 
 # Garrison Station Scuttled

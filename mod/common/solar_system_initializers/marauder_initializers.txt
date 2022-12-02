@@ -1,4 +1,5 @@
 @base_moon_distance = 10
+@marauderClusterRange = 120
 
 ### MARAUDER SYSTEMS
 
@@ -21,10 +22,12 @@ marauder_1_1 = {
 			add = 2000000
 			host_has_dlc = "Apocalypse"
 			num_marauder_empires_to_spawn > 0
-			is_in_cluster = resource_cluster_1
+			is_in_cluster = resource_cluster_1 # Defined in code; see RESOURCE_CLUSTER_COUNT
 			NOR = {
 				has_star_flag = empire_cluster
-				any_neighbor_system = { has_star_flag = empire_cluster }
+				any_neighbor_system = {
+					has_star_flag = empire_cluster
+				}
 			}
 		}
 	}
@@ -40,6 +43,11 @@ marauder_1_1 = {
 		has_ring = no
 
 		init_effect = {
+			create_cluster = {
+				id = marauder_1_cluster
+				radius = @marauderClusterRange
+				center = this.solar_system
+			}
 			create_species = {
 				name = random
 				class = random
@@ -207,7 +215,6 @@ marauder_1_1 = {
 					}
 				}
 			}
-
 			create_fleet = {
 				effect = {
 					set_owner = event_target:marauder_country_1
@@ -851,6 +858,12 @@ marauder_1_2 = {
 	init_effect = {
 		event_target:marauder_country_1 = { save_event_target_as = marauder_starbase_owner }
 		create_marauder_starbase = yes
+		every_neighbor_system = {
+			set_star_flag = marauder_cluster
+			every_neighbor_system = {
+				set_star_flag = marauder_cluster
+			}
+		}
 	}
 }
 
@@ -1065,6 +1078,12 @@ marauder_1_3 = {
 	init_effect = {
 		event_target:marauder_country_1 = { save_event_target_as = marauder_starbase_owner }
 		create_marauder_starbase = yes
+		every_neighbor_system = {
+			set_star_flag = marauder_cluster
+			every_neighbor_system = {
+				set_star_flag = marauder_cluster
+			}
+		}
 	}
 }
 
@@ -1087,10 +1106,12 @@ marauder_2_1 = {
 			add = 2000000
 			host_has_dlc = "Apocalypse"
 			num_marauder_empires_to_spawn > 1
-			is_in_cluster = resource_cluster_2
+			is_in_cluster = resource_cluster_2 # Defined in code; see RESOURCE_CLUSTER_COUNT
 			NOR = {
 				has_star_flag = empire_cluster
-				any_neighbor_system = { has_star_flag = empire_cluster }
+				any_neighbor_system = {
+					has_star_flag = empire_cluster
+				}
 			}
 		}
 	}
@@ -1106,6 +1127,11 @@ marauder_2_1 = {
 		has_ring = no
 
 		init_effect = {
+			create_cluster = {
+				id = marauder_2_cluster
+				radius = @marauderClusterRange
+				center = this.solar_system
+			}
 			create_species = {
 				name = random
 				class = random
@@ -1720,6 +1746,12 @@ marauder_2_1 = {
 	init_effect = {
 		event_target:marauder_country_2 = { save_event_target_as = marauder_starbase_owner }
 		create_marauder_starbase = yes
+		every_neighbor_system = {
+			set_star_flag = marauder_cluster
+			every_neighbor_system = {
+				set_star_flag = marauder_cluster
+			}
+		}
 	}
 }
 
@@ -2068,6 +2100,12 @@ marauder_2_3 = {
 	init_effect = {
 		event_target:marauder_country_2 = { save_event_target_as = marauder_starbase_owner }
 		create_marauder_starbase = yes
+		every_neighbor_system = {
+			set_star_flag = marauder_cluster
+			every_neighbor_system = {
+				set_star_flag = marauder_cluster
+			}
+		}
 	}
 }
 
@@ -2086,10 +2124,12 @@ marauder_3_1 = {
 			add = 2000000
 			host_has_dlc = "Apocalypse"
 			num_marauder_empires_to_spawn > 2
-			is_in_cluster = resource_cluster_3
+			is_in_cluster = resource_cluster_3 # Defined in code; see RESOURCE_CLUSTER_COUNT
 			NOR = {
 				has_star_flag = empire_cluster
-				any_neighbor_system = { has_star_flag = empire_cluster }
+				any_neighbor_system = {
+					has_star_flag = empire_cluster
+				}
 			}
 		}
 	}
@@ -2105,6 +2145,11 @@ marauder_3_1 = {
 		has_ring = no
 
 		init_effect = {
+			create_cluster = {
+				id = marauder_3_cluster
+				radius = @marauderClusterRange
+				center = this.solar_system
+			}
 			create_species = {
 				name = random
 				class = random
@@ -2592,6 +2637,12 @@ marauder_3_1 = {
 	init_effect = {
 		event_target:marauder_country_3 = { save_event_target_as = marauder_starbase_owner }
 		create_marauder_starbase = yes
+		every_neighbor_system = {
+			set_star_flag = marauder_cluster
+			every_neighbor_system = {
+				set_star_flag = marauder_cluster
+			}
+		}
 	}
 }
 
@@ -2940,5 +2991,11 @@ marauder_3_3 = {
 	init_effect = {
 		event_target:marauder_country_3 = { save_event_target_as = marauder_starbase_owner }
 		create_marauder_starbase = yes
+		every_neighbor_system = {
+			set_star_flag = marauder_cluster
+			every_neighbor_system = {
+				set_star_flag = marauder_cluster
+			}
+		}
 	}
 }

@@ -8,7 +8,7 @@
    sodipodi:docname="KHAN logo.svg"
    enable-background="new"
    inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
-   inkscape:export-filename="..\..\KHAN.mod\thumbs\KHAN logo3.5.1.png"
+   inkscape:export-filename="..\..\KHAN.mod\workshop\thumbs\KHAN logo3.6.0.png"
    inkscape:export-xdpi="25.6"
    inkscape:export-ydpi="25.6"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -27,7 +27,6 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -41,12 +40,12 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1920"
-     inkscape:window-height="1017"
+     inkscape:window-height="1061"
      id="namedview1849"
      showgrid="true"
-     inkscape:zoom="0.2567877"
-     inkscape:cx="1045.6108"
-     inkscape:cy="-36.995542"
+     inkscape:zoom="0.36315264"
+     inkscape:cx="699.43041"
+     inkscape:cy="1339.6571"
      inkscape:window-x="-4"
      inkscape:window-y="-4"
      inkscape:window-maximized="1"
@@ -67,7 +66,9 @@
      inkscape:snap-grids="false"
      inkscape:pagecheckerboard="1"
      inkscape:deskcolor="#ff88ff"
-     inkscape:showpageshadow="0">
+     inkscape:showpageshadow="true"
+     shape-rendering="auto"
+     inkscape:lockguides="true">
     <inkscape:grid
        type="xygrid"
        id="grid7347"
@@ -148,10 +149,10 @@
     </filter>
     <filter
        id="e"
-       x="-0.0099103664"
-       y="-0.010021301"
-       width="1.0195385"
-       height="1.0197349"
+       x="-0.0099242213"
+       y="-0.010035468"
+       width="1.0195658"
+       height="1.0197628"
        color-interpolation-filters="sRGB">
       <feGaussianBlur
          stdDeviation="0.16120536"
@@ -375,10 +376,10 @@
        style="color-interpolation-filters:sRGB;"
        inkscape:label="Blur"
        id="filter1898"
-       x="-0.020770094"
-       y="-0.017316836"
+       x="-0.020770091"
+       y="-0.017316813"
        width="1.0415402"
-       height="1.0346337">
+       height="1.0346336">
       <feGaussianBlur
          stdDeviation="3 0.01"
          result="blur"
@@ -474,8 +475,8 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter6689"
-       x="-2.3950739"
-       width="5.7901479"
+       x="-2.3950732"
+       width="5.7901465"
        y="-inf"
        height="inf">
       <feGaussianBlur
@@ -500,8 +501,8 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter7240"
-       x="-2.7755541"
-       width="6.5511082"
+       x="-2.7755534"
+       width="6.5511068"
        y="-inf"
        height="inf">
       <feGaussianBlur
@@ -592,7 +593,7 @@
        style="color-interpolation-filters:sRGB"
        id="filter2850"
        x="-0.031205969"
-       width="1.0900111"
+       width="1.090011"
        y="-0.0050706979"
        height="1.0087277">
       <feGaussianBlur
@@ -698,7 +699,7 @@
        y="232.30417"
        x="-95.615341"
        id="image1547"
-       style="display:inline;mix-blend-mode:normal;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;image-rendering:optimizeQuality"
+       style="display:inline;mix-blend-mode:normal;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;image-rendering:pixelated"
        preserveAspectRatio="none"
        height="275.69583"
        width="700.61664" />
@@ -707,7 +708,7 @@
        y="-0.66145831"
        x="-17.116211"
        id="image1536"
-       style="mix-blend-mode:normal;stroke-width:0.193464;image-rendering:optimizeQuality"
+       style="mix-blend-mode:normal;stroke-width:0.193464;image-rendering:pixelated"
        preserveAspectRatio="none"
        height="234.15625"
        width="542.39581" />
@@ -1293,7 +1294,7 @@
            x="5"
            transform="rotate(45)"
            id="text4499"><tspan
-             id="tspan1768">3.5.⠀</tspan></text>
+             id="tspan1768">3.6.⠀</tspan></text>
       </g>
     </g>
     <use

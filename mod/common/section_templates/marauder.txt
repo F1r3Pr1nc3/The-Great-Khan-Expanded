@@ -115,7 +115,7 @@ ship_section_template = {
 	ship_size = marauder_cruiser
 	fits_on_slot = mid
 	should_draw_components = yes
-	entity = "pirate_01_cruiser_hull_entity"
+	entity = "cruiser_hull_entity" # pirate_01_cruiser_hull_entity
 	icon = "GFX_ship_part_core_mid"
 
 	component_slot = {
@@ -183,7 +183,7 @@ ship_section_template = {
 	ship_size = marauder_galleon
 	fits_on_slot = mid
 	should_draw_components = yes
-	entity = "pirate_01_galleon_hull_entity"
+	entity = "galleon_hull_entity" # pirate_01_galleon_hull_entity
 	icon = "GFX_ship_part_core_mid"
 
 	component_slot = {

@@ -7,8 +7,8 @@
 npc_galleon_01 = {
 	is_space_object = yes
 	graphical_culture = {  "pirate_01" "npf_01_dirty" "npf_01" "madd_01" }
-	graphical_culture = yes # Default no vanilla yes
-	# entity = "npf_01_dirty_npc_galleon_01_entity"
+	# graphical_culture = yes # Default no vanilla yes
+	entity = "npf_01_dirty_npc_galleon_01_entity"
 	# entity = pirate_01_galleon_entity
 	# entity = npc_warship_01_entity
 	# entity = madd_01_npc_galleon_01_entity
