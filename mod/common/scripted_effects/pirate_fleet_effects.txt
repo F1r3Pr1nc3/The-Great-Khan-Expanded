@@ -1,4 +1,4 @@
-#  Only minor changes by FirePrince: random pirate stations on create_pirate_base_1
+# Only minor changes by FirePrince: random pirate stations on create_pirate_base_1
 
 ###############
 # New Pirates #
@@ -682,7 +682,7 @@ create_privateer_fleet = {
 			get_galaxy_setup_value = { which = mid_year setting = mid_game_year } # 100%
 			divide_variable = { which = mid_year value = 2 }
 			set_variable = { which = current_year_factor value = trigger:years_passed }
-			# Only partial =  (cy/my*1.25 + 0.75)/2
+			# Only partial = (cy/my*1.25 + 0.75)/2
 			divide_variable = { which = current_year_factor value = mid_year }
 			multiply_variable = { which = pirates_f_tmp value = 1.25 }
 			change_variable = { which = pirates_f_tmp value = 0.75 }

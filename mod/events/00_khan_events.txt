@@ -2191,38 +2191,63 @@ starbase_event = {
 			set_owner = event_target:raider_khanate
 		}
 		# TODO needs free slot check somehow: "Building slot is invalid."
-		if = { limit = { NOT = { has_starbase_module = "shipyard" } }
+		if = {
+			limit = {
+				count_starbase_modules = { count < 2 include_being_constructed = yes }
+				NOR = { has_starbase_building = "shipyard" is_starbase_building_module = "shipyard" }
+			}
+			remove_starbase_module = { slot = 1 }
 			set_starbase_module = { slot = 1 module = "shipyard" }
 		}
 		if = {
 			limit = {
-				count_starbase_modules = { type = "shipyard" count < 2 }
+				count_starbase_modules = { type = "shipyard" count < 2 include_being_constructed = yes }
 				NOT = { is_starbase_building_module = "shipyard" }
 			}
+			remove_starbase_module = { slot = 2 }
 			set_starbase_module = { slot = 2 module = "shipyard" }
 		}
-		if = { limit = { NOT = { has_starbase_module = "gun_battery" } }
+		if = {
+			limit = {
+				count_starbase_modules = { count < 3 include_being_constructed = yes }
+				NOR = { has_starbase_building = "gun_battery" is_starbase_building_module = "gun_battery" }
+			}
+			remove_starbase_module = { slot = 3 }
 			set_starbase_module = { slot = 3 module = "gun_battery" }
 		}
 		if = {
 			limit = {
-				count_starbase_modules = { type = "gun_battery" count < 2 }
+				count_starbase_modules = { count < 4 include_being_constructed = yes }
+				count_starbase_modules = { type = "gun_battery" count < 2 include_being_constructed = yes }
 				NOT = { is_starbase_building_module = "gun_battery" }
 			}
+			remove_starbase_module = { slot = 4 }
 			set_starbase_module = { slot = 4 module = "gun_battery" }
 		}
-		if = { limit = { NOT = { has_starbase_building = "fleet_academy" } }
+		if = {
+			limit = {
+				count_starbase_building = { count < 2 include_being_constructed = yes }
+				NOR = { has_starbase_building = "fleet_academy" is_starbase_building_building = "fleet_academy" }
+			}
+			remove_starbase_building = { slot = 1 }
 			set_starbase_building = { slot = 1 building = "fleet_academy" }
 		}
-		if = { limit = { NOT = { has_starbase_building = "resource_silo" } }
+		if = {
+			limit = {
+				count_starbase_building = { count < 3 include_being_constructed = yes }
+				NOR = { has_starbase_building = "resource_silo" is_starbase_building_building = "resource_silo" }
+			}
+			remove_starbase_building = { slot = 2 }
 			set_starbase_building = { slot = 2 building = "resource_silo" }
 		}
 		if = { limit = { has_starbase_size > starbase_starfortress }
 			if = {
 				limit = {
-					count_starbase_modules = { type = "shipyard" count < 3 }
+					count_starbase_modules = { count < 4 include_being_constructed = yes }
+					count_starbase_modules = { type = "shipyard" count < 3 include_being_constructed = yes }
 					NOT = { is_starbase_building_module = "shipyard" }
 				}
+				remove_starbase_module = { slot = 6 }
 				set_starbase_module = { slot = 6 module = "shipyard" }
 			}
 			if = {
@@ -2232,16 +2257,19 @@ starbase_event = {
 						is_starbase_building_module = "missile_battery"
 					}
 				}
+				remove_starbase_module = { slot = 5 }
 				set_starbase_module = { slot = 5 module = "missile_battery" }
 			}
-			if = { limit = { NOT = { has_starbase_building = "crew_quarters" } }
+			if = { limit = { NOR = { has_starbase_building = "crew_quarters" is_starbase_building_building = "crew_quarters" } }
+				remove_starbase_module = { slot = 3 }
 				set_starbase_building = { slot = 3 building = "crew_quarters" }
 			}
-			if = { limit = { NOT = { has_starbase_building = "target_uplink_computer" } }
+			if = { limit = { NOR = { has_starbase_building = "target_uplink_computer" is_starbase_building_building = "target_uplink_computer" } }
+				remove_starbase_module = { slot = 4 }
 				set_starbase_building = { slot = 4 building = "target_uplink_computer" }
 			}
 			# if = {
-			# 	limit = { NOT = { has_starbase_building = "listening_post" } }
+			# 	limit = { NOR = { has_starbase_building = "listening_post" is_starbase_building_building = "listening_post" } }
 			# 	set_starbase_building = { slot = 5 building = "listening_post" }
 			# }
 		}
@@ -3623,6 +3651,7 @@ country_event = {
 				ordered_owned_fleet = {
 					limit = {
 						is_mobile = yes
+						exists = owner # for whatever reason
 						exists = leader
 						exists = solar_system
 						solar_system = { is_owned_by = root }
@@ -3710,19 +3739,9 @@ country_event = {
 				}
 			}
 			# Survey Own Space
-			every_planet_within_border = {
-				set_surveyed = {
-					surveyed = yes
-					surveyor = root
-				}
-			}
-			# Survey Rest of Horde's Space
 			root = {
 				every_planet_within_border = {
-					set_surveyed = {
-						surveyed = yes
-						surveyor = root
-					}
+					set_surveyed = { surveyed = yes surveyor = root }
 				}
 			}
 			# Mining and Research Stations
@@ -3837,12 +3856,15 @@ country_event = {
 				exists = owner
 				exists = starbase
 				any_owned_species = {
-					prev = { is_majority_species = prev }
-					species_can_be_necrophaged = yes
 					NOR = {
 						is_archetype = LITHOID
 						is_species_class = PLANT
 						is_species_class = FUN
+					}
+					prev = { is_majority_species = prev }
+					OR = {
+						species_can_be_necrophaged = yes
+						is_same_species_class = root.owner_species
 					}
 				}
 			}
@@ -3863,7 +3885,7 @@ country_event = {
 								prev = { is_majority_species = prev }
 								OR = {
 									species_can_be_necrophaged = yes
-									is_same_species = prev.owner_species
+									is_same_species_class = prev.owner_species
 								}
 								NOR = {
 									is_archetype = LITHOID
@@ -3880,7 +3902,7 @@ country_event = {
 							prev = { is_majority_species = prev }
 							OR = {
 								species_can_be_necrophaged = yes
-								is_same_species = prev.owner_species
+								is_same_species_class = prev.owner_species
 							}
 							NOR = {
 								is_archetype = LITHOID
@@ -3890,7 +3912,7 @@ country_event = {
 						}
 						root = { change_dominant_species = { species = prev } }
 						save_event_target_as = marauder_species
-						# log="TAKE CAPITAL SPECIES"
+						log="DIADOCHI TAKE CAPITAL SPECIES"
 					}
 				}
 			}
@@ -3899,19 +3921,25 @@ country_event = {
 					factor = 0.01
 					pop_percentage = {
 						percentage > 0.34
-						limit = { is_same_species = root.owner_species }
+						limit = { is_same_species_class = root.owner_species }
 					}
 				}
 				if = { limit = { exists = event_target:marauder_species }
-					no_scope = { save_global_event_target_as = marauder_species }
-					clear_global_event_target = marauder_species
+					no_scope = { save_event_target_as = marauder_species }
+					# clear_global_event_target = marauder_species
 				}
 				reroll_random = yes
-				# log = "RECHECK MARAUDER SPECIES"
+				log = "DIADOCHI RECHECK MARAUDER SPECIES"
 				get_marauder_species = yes
 			}
 			1 = {
-				# log="OLD MARAUDER SPECIES"
+				log="DIADOCHI OLD MARAUDER SPECIES"
+			}
+		}
+		event_target:marauder_species = {
+			modify_species = {
+				species = this
+				ideal_planet_class = capital_scope
 			}
 		}
 		# # event_target:second_diadochi_origin
@@ -4158,7 +4186,7 @@ system_event = {
 					has_planet_flag = megastructure
 					has_planet_flag = has_megastructure
 				}
-				is_ringworld = no
+				has_ringworld_output_boost = no
 
 			}
 			weights = { base = 1 modifier = { add = 2 is_a_planet = yes } }
@@ -4181,7 +4209,6 @@ system_event = {
 					is_colony = no
 					is_colonizable = yes
 				}
-
 				# log = "--- Habitat \\[This.GetName] is being populated..."
 				# space_owner = {
 				# 	save_event_target_as = colony_country
@@ -4193,8 +4220,9 @@ system_event = {
 				# 	2 = { set_planet_flag = research_habitat }
 				# 	3 = { set_planet_flag = energy_habitat }
 				# }
+				change_planet_size = 2
 				while = {
-					count = 7
+					count = 5
 					create_pop = {
 						species = from.owner_main_species
 						ethos = { ethic = "ethic_militarist" } # ethic = "ethic_egalitarian"
@@ -4233,7 +4261,7 @@ system_event = {
 					owner = from
 					species = from.owner_main_species
 					# ethos = random
-				} # "Unexpected token:  (everything after scope start_colony)
+				}
 			}
 		}
 		# Unknown "Unexpected token: country_event, near line: 3543
