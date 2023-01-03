@@ -83,7 +83,7 @@ event = {
 									is_homeworld = yes
 									has_modifier = instability_join_revolt
 									owner = { has_origin = origin_demonic_incursion }
-									owner = { has_country_flag = former_owner@prevprev }
+									owner = { has_country_flag = former_owner@prevprevprev }
 								}
 							}
 							NOR = {
@@ -174,7 +174,7 @@ event = {
 									is_homeworld = yes
 									has_modifier = instability_join_revolt
 									owner = { has_origin = origin_demonic_incursion }
-									owner = { has_country_flag = former_owner@prevprev }
+									owner = { has_country_flag = former_owner@prevprevprev }
 								}
 							}
 							NOR = {
