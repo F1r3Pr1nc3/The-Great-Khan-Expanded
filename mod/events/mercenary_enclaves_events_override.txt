@@ -150,7 +150,7 @@ event = {
 					}
 					set_name = {
 						key = NAME_Mercenary_Fleet
-						variable_string = "[event_target:mercenary_enclave_country.GetName]"
+						variable_string = "event_target:mercenary_enclave_country.GetName"
 					}
 					if = {
 						limit = {

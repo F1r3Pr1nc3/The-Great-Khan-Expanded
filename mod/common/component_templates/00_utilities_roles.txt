@@ -466,7 +466,7 @@ utility_component_template = {
 				has_global_flag = ghost_signal_4_flag
 				has_global_flag = ghost_signal_3_flag
 				has_global_flag = ghost_signal_2_flag
-				has_global_flag = ghost_signal_1_flag
+				# has_global_flag = ghost_signal_1_flag
 			}
 		}
 	}
@@ -901,20 +901,22 @@ utility_component_template = {
 	}
 	class_restriction = { shipclass_military }
 	size_restriction = {
+		corvette
 		destroyer
-		offspring_destroyer
-		crisis_destroyer
-		pirate_destroyer
-		marauder_destroyer
 		cruiser
-		offspring_cruiser
-		crisis_cruiser
-		pirate_cruiser
-		marauder_cruiser
 		battleship
+		crisis_destroyer
+		crisis_cruiser
+		offspring_destroyer
+		offspring_cruiser
 		offspring_battleship
 		galleon
+		pirate_cruiser
+		pirate_destroyer
+		marauder_cruiser
+		marauder_destroyer
 		marauder_galleon
+		graygoo_interdictor
 	}
 	component_set = "combat_computers"
 	ship_behavior = "line"
@@ -940,20 +942,24 @@ utility_component_template = {
 	}
 	class_restriction = { shipclass_military }
 	size_restriction = {
+		corvette
 		destroyer
-		offspring_destroyer
-		crisis_destroyer
-		pirate_destroyer
-		marauder_destroyer
 		cruiser
-		offspring_cruiser
-		crisis_cruiser
-		pirate_cruiser
-		marauder_cruiser
 		battleship
+		titan
+		crisis_destroyer
+		crisis_cruiser
+		offspring_corvette
+		offspring_destroyer
+		offspring_cruiser
 		offspring_battleship
 		galleon
+		pirate_destroyer
+		pirate_cruiser
+		marauder_destroyer
+		marauder_cruiser
 		marauder_galleon
+		graygoo_interdictor
 	}
 	component_set = "combat_computers"
 	ship_behavior = "line"
@@ -989,22 +995,22 @@ utility_component_template = {
 	size_restriction = {
 		frigate
 		destroyer
-		offspring_destroyer
-		crisis_destroyer
-		pirate_destroyer
-		marauder_destroyer
 		cruiser
-		offspring_cruiser
+		crisis_destroyer
 		crisis_cruiser
-		pirate_cruiser
-		marauder_cruiser
-		battleship
+		offspring_destroyer
+		offspring_cruiser
 		offspring_battleship
+		battleship
 		titan
 		juggernaut
 		galleon
-		marauder_galleon
 		star_eater
+		pirate_destroyer
+		pirate_cruiser
+		marauder_destroyer
+		marauder_cruiser
+		marauder_galleon
 	}
 	component_set = "combat_computers"
 	ship_behavior = "artillery"
@@ -1091,22 +1097,24 @@ utility_component_template = {
 	size_restriction = {
 		frigate
 		destroyer
-		offspring_destroyer
-		crisis_destroyer
-		pirate_destroyer
-		marauder_destroyer
 		cruiser
-		offspring_cruiser
-		crisis_cruiser
-		pirate_cruiser
-		marauder_cruiser
 		battleship
-		offspring_battleship
 		titan
 		juggernaut
 		galleon
-		marauder_galleon
+		crisis_destroyer
+		crisis_cruiser
 		star_eater
+		offspring_destroyer
+		offspring_cruiser
+		offspring_battleship
+		dreadnought
+		scavenger_bot
+		pirate_destroyer
+		pirate_cruiser
+		marauder_destroyer
+		marauder_cruiser
+		marauder_galleon
 	}
 	component_set = "combat_computers"
 	ship_behavior = "artillery"
@@ -1153,22 +1161,22 @@ utility_component_template = {
 	size_restriction = {
 		frigate
 		destroyer
-		offspring_destroyer
-		crisis_destroyer
-		pirate_destroyer
-		marauder_destroyer
 		cruiser
-		offspring_cruiser
+		battleship
+		juggernaut
+		titan
+		galleon
+		crisis_destroyer
 		crisis_cruiser
+		star_eater
+		offspring_destroyer
+		offspring_cruiser
+		offspring_battleship
+		pirate_destroyer
 		pirate_cruiser
 		marauder_cruiser
-		battleship
-		offspring_battleship
-		titan
-		juggernaut
-		galleon
+		marauder_destroyer
 		marauder_galleon
-		star_eater
 	}
 	component_set = "combat_computers"
 	ship_behavior = "artillery"
@@ -1202,20 +1210,20 @@ utility_component_template = {
 	size_restriction = {
 		frigate
 		destroyer
-		offspring_destroyer
-		crisis_destroyer
-		pirate_destroyer
-		marauder_destroyer
 		cruiser
-		offspring_cruiser
-		crisis_cruiser
-		pirate_cruiser
-		marauder_cruiser
 		battleship
-		offspring_battleship
-		juggernaut
 		titan
+		juggernaut
 		galleon
+		crisis_destroyer
+		crisis_cruiser
+		offspring_destroyer
+		offspring_cruiser
+		offspring_battleship
+		pirate_destroyer
+		pirate_cruiser
+		marauder_destroyer
+		marauder_cruiser
 		marauder_galleon
 	}
 	component_set = "combat_computers"
@@ -1382,17 +1390,17 @@ utility_component_template = {
 	}
 	size_restriction = {
 		cruiser
-		offspring_cruiser
-		crisis_cruiser
-		pirate_cruiser
-		marauder_cruiser
 		battleship
-		offspring_battleship
 		juggernaut
 		titan
 		galleon
-		marauder_galleon
+		crisis_cruiser
 		star_eater
+		offspring_cruiser
+		offspring_battleship
+		pirate_cruiser
+		marauder_cruiser
+		marauder_galleon
 	}
 	component_set = "combat_computers"
 	ship_behavior = "carrier"
@@ -1420,17 +1428,18 @@ utility_component_template = {
 	}
 	size_restriction = {
 		cruiser
-		crisis_cruiser
-		pirate_cruiser
-		marauder_cruiser
 		battleship
 		juggernaut
 		titan
-		galleon
-		marauder_galleon
+		crisis_cruiser
 		star_eater
 		offspring_cruiser
 		offspring_battleship
+		dreadnought
+		pirate_cruiser
+		marauder_cruiser
+		galleon
+		marauder_galleon
 	}
 	component_set = "combat_computers"
 	ship_behavior = "carrier"

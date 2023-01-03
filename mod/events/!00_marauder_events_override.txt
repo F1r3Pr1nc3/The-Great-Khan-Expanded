@@ -1,12 +1,12 @@
-#########################################
-#########################################
-#####		Marauder Events			#####
-#####	Khan (Horde Crisis) Events	#####
-#####	Vanilla by Henrik Thyrwall	#####
-#####	Replaced by Crisis Manager	#####
-#####	Edited by FirePrince		#####
-#########################################
-#########################################
+##############################################
+##############################################
+#####			Marauder Events				#####
+#####		Khan (Horde Crisis) Events		#####
+#####		Vanilla by Henrik Thyrwall		#####
+#####		Replaced by Crisis Manager		#####
+#####		Edited by FirePrince			#####
+##############################################
+##############################################
 namespace = marauder
 
 ## Vanilla fixes >3.2
@@ -3330,6 +3330,11 @@ country_event = {
 				save_global_event_target_as = marauder_country_3
 			}
 		}
+		if = { limit = { NOT = { exists = event_target:marauder_species } }
+			owner_main_species = {
+				save_event_target_as = marauder_species
+			}
+		}
 
 		if = {
 			limit = {
@@ -4749,6 +4754,7 @@ country_event = {
 	trigger = {
 		OR = {
 			num_marauder_empires_to_spawn > 0
+			has_global_flag = horde_triggered
 			has_global_flag = pirate_waves_active
 			event_target:global_event_country = { has_country_flag = outer_bulwark_inactive }
 		}
@@ -5058,6 +5064,9 @@ country_event = {
 			minerals =	8000
 			unity	=	200000
 		}
+		# Only to be sure
+		give_tech_no_error_effect = { MESSAGE = no TECH = tech_autocannons_1 }
+		give_tech_no_error_effect = { MESSAGE = no TECH = tech_autocannons_2 }
 
 		set_ai_personality = hegemonic_imperialists
 		create_ship_design = { design = "NAME_Pirate_Transport" }
@@ -5066,8 +5075,8 @@ country_event = {
 		add_ship_design = last_created_design
 		create_ship_design = { design = "NAME_Outrider" }
 		add_ship_design = last_created_design
-		if = { # If not dormant origin
-			limit = { NOT = { has_existing_ship_design = starbase_marauder } }
+		# If not dormant origin
+		if = { limit = { NOT = { has_existing_ship_design = starbase_marauder } }
 			create_ship_design = { design = "NAME_Marauder_Starbase" }
 			add_ship_design = last_created_design
 		}
@@ -5636,6 +5645,14 @@ country_event = {
 						}
 						# FIXME: needs possible workaround? As starbase from horde gets not conquered? See Fix id = khan.304-305
 					} else = {
+						event_target:raider_khanate = {
+							# Error log drops: invalid starbase design Void Home
+							if = { limit = { NOT = { has_existing_ship_design = starbase_marauder } }
+								create_ship_design = { design = "NAME_Marauder_Starbase" }
+								add_ship_design = last_created_design
+							}
+						}
+						# create_marauder_starbase = yes
 						create_starbase = {
 							size = "starbase_marauder"
 							owner = event_target:raider_khanate # Root not subjects
@@ -5973,9 +5990,10 @@ country_event = {
 					set_fleet_flag = khan_fleet
 				}
 			}
+			# Notify: needs event_target:khan_destroyer
 			every_playable_country = {
 				limit = { is_ai = no }
-				country_event = { id = marauder.508 }			# Notify
+				country_event = { id = marauder.508 }
 			}
 			observer_event = { id = observer.15 }
 
@@ -5994,6 +6012,7 @@ country_event = {
 }
 
 # Return of the Great Khan.
+# Needs event_target:khan_destroyer
 country_event = {
 	id = marauder.508
 	title = "greatkhan_diplo_header"
@@ -6165,7 +6184,7 @@ country_event = {
 			}
 			country_event = { id = marauder.500 days = 3 }
 		}
-		ai_chance = { factor = 0.1 }
+		ai_chance = { factor = 0 }
 	}
 	option = {
 		name = marauder.510.a
@@ -6957,6 +6976,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
+		# needs event_target:khan_destroyer
 		if = { limit = { exists = from }
 			from = {
 				country_event = { id = marauder.507 }
@@ -7273,7 +7293,7 @@ planet_event = {
 				}
 			}
 		}
-		log = "marauder.528 planets_lost_to_marauder increased for [Root.GetOwnerName]"
+		log = "marauder.528 planets_lost_to_marauder increased for \\[This.Owner.GetName]"
 	}
 }
 
@@ -7509,6 +7529,10 @@ country_event = {
 		allow = {
 			NOT = { has_active_event = { khan.998 } }
 			hidden_trigger = { is_variable_set = "planets_lost_to_marauder" }
+			custom_tooltip = {
+				text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
+				is_subject = no
+			}
 		}
 		hidden_effect = {
 			country_event = { id = khan.998 }
@@ -7527,7 +7551,13 @@ country_event = {
 			has_technology = tech_shields_4
 			is_fallen_empire = no
 		}
-		allow = { hidden_trigger = { is_variable_set = "planets_lost_to_marauder" } }
+		allow = {
+			hidden_trigger = { is_variable_set = "planets_lost_to_marauder" }
+			custom_tooltip = {
+				text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
+				is_subject = no
+			}
+		}
 		response_text = marauder.550.a.2.response
 		is_dialog_only = yes
 	}
@@ -7536,11 +7566,13 @@ country_event = {
 		name = marauder.550.a
 		sound = advisor_clicking_respons_13
 		trigger = {
-			is_subject_of_khan = no
-			has_been_declared_crisis = no
-			NOT = { has_country_flag = rebelling_satrapy }
-			is_homicidal = no
-			is_fallen_empire = no
+			NOR = {
+				is_subject_of_khan = yes
+				has_been_declared_crisis = yes
+				has_country_flag = rebelling_satrapy
+				is_homicidal = yes
+				is_fallen_empire = yes
+			}
 		}
 		allow = {
 			custom_tooltip = {
@@ -7554,6 +7586,10 @@ country_event = {
 				}
 			}
 			NOT = { has_active_event = { marauder.551 } }
+			custom_tooltip = {
+				text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
+				is_subject = no
+			}
 		}
 		hidden_effect = {
 			country_event = { id = marauder.551 }
@@ -7567,8 +7603,19 @@ country_event = {
 		# Submit? Already rebelled
 		name = marauder.550.a
 		sound = no_tut_advior_05
-		trigger = { has_country_flag = rebelling_satrapy }
-		allow = { hidden_trigger = { is_variable_set = "planets_lost_to_marauder" } }
+		trigger = {
+			has_country_flag = rebelling_satrapy
+		}
+		allow = {
+			OR = {
+				custom_tooltip = {
+					text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
+					is_subject = no
+				}
+				is_subject_of_khan = yes
+			}
+			hidden_trigger = { is_variable_set = "planets_lost_to_marauder" }
+		}
 		response_text = marauder.550.a.2.response
 		is_dialog_only = yes
 	}
@@ -7602,7 +7649,10 @@ country_event = {
 	}
 	option = { # Rebel?
 		name = marauder_fabricator_rebel
-		trigger = { any_agreement = { agreement_preset = preset_fabricator_satrapy } }
+		trigger = {
+			is_subject_of_khan = yes
+			any_agreement = { agreement_preset = preset_fabricator_satrapy }
+		}
 		allow = { NOT = { has_active_event = { marauder.554 } } }
 		hidden_effect = {
 			country_event = { id = marauder.554 }
@@ -7612,6 +7662,7 @@ country_event = {
 	option = { # Rebel?
 		name = marauder.550.d
 		trigger = {
+			is_subject_of_khan = yes
 			OR = {
 				any_agreement = { agreement_preset = preset_machinesmith_satrapy }
 				any_agreement = { agreement_preset = preset_satrapy }
@@ -8170,14 +8221,14 @@ country_event = {
 			factor = 0.5
 			OR = {
 				check_variable = { which = "planets_lost_to_marauder" value > 11 }
-				num_owned_planets < 3
+				num_owned_planets < 4
 			}
 		}
 		modifier = {
 			factor = 0.1
 			OR = {
 				check_variable = { which = "planets_lost_to_marauder" value > 22 }
-				num_owned_planets < 3
+				num_owned_planets < 4
 			}
 		}
 		modifier = {
@@ -8393,9 +8444,11 @@ country_event = {
 		set_country_flag = khan_dead_event_fine
 		remove_global_flag = khan_no_die
 		remove_global_flag = great_khan_announcement
+		remove_global_flag = horde_triggered
 		remove_country_flag = CmtFlagKhanNoDieCountry
 		remove_global_flag = marauder_crisis_ongoing	# must be removed before
 		room_name_override = ""
+		set_timed_global_flag = { flag = CmtFlagKillDoubleBookingKhan years = 2 }
 
 		if = { limit = { has_global_flag = great_khan_wins }
 			# clear_global_event_target = great_khan
@@ -10621,13 +10674,15 @@ country_event = {
 				recruitable = no
 				exile_leader_as = exiled_khan
 			}
-
-			## Assign fleet + notify
-			if = { limit = { has_global_flag = CmtFlagDebugMode }
-				country_event = { id = marauder.523 days = 5 }
-			} else = {
-				event_target:global_event_country = {
-					country_event = { id = marauder.523 days = 210 random = 160 }
+			if = {
+				limit = { exists = event_target:khan_destroyer }
+				## Assign fleet + notify: Only if in battle?
+				if = { limit = { has_global_flag = CmtFlagDebugMode }
+					country_event = { id = marauder.523 days = 5 }
+				} else = {
+					event_target:global_event_country = {
+						country_event = { id = marauder.523 days = 210 random = 160 }
+					}
 				}
 			}
 		} else_if = {

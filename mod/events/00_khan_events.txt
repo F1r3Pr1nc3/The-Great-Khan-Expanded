@@ -1621,9 +1621,7 @@ country_event = {
 				}
 				if = { limit = { NOT = { has_active_event = { khan.203 } } }
 					country_event = { id = khan.203 days = 16 } # Prepare Uprising
-
 				}
-
 				country_event = { id = khan.294 } # Notify only
 
 				modifier = {
@@ -1868,12 +1866,11 @@ event = {
 				}
 			}
 			if = { limit = { NOT = { exists = event_target:global_event_country } }
-				random_country = { limit = { is_country_type = global_event }
+				event_target:global_event_country = {
 					save_global_event_target_as = global_event_country
 				}
 			}
 			event_target:global_event_country = {
-				save_global_event_target_as = CmtGlobalVar
 				log="The Great Khan Expanded loaded"
 				set_variable = { which = CmtVarKhanMultiple value = 2 }
 				set_variable = { which = CmtVarKhanInterval value = 0 }
@@ -1891,16 +1888,15 @@ event = {
 				set_variable = { which = CmtVarArmyPower_Khan value = 1.5 }
 				set_variable = { which = CmtVarArmyNumber_Khan value = 1.5 }
 				set_variable = { which = CmtVarConstructorNumber_Khan value = 1.5 }
+				save_global_event_target_as = CmtGlobalVar
+				if = { limit = { has_global_flag = expanded_spaceborne_installed }
+					# set_variable = { which = CmtVarFleetPower_Khan value = 2 }
+					set_variable = { which = CmtVarCrisisPower_Midgame value = 4 }
+					CmtEffectDifficulty_MidgameVeryHard = yes
+				}
 			}
 		}
 
-		if = { limit = { has_global_flag = expanded_spaceborne_installed }
-			event_target:CmtGlobalVar = {
-				# set_variable = { which = CmtVarFleetPower_Khan value = 2 }
-				set_variable = { which = CmtVarCrisisPower_Midgame value = 4 }
-				CmtEffectDifficulty_MidgameVeryHard = yes
-			}
-		}
 		if = { # Workaround bugfix (unknown reason on saveload): Khan fights own subjects (seems since 3.1)
 			limit = {
 				has_global_flag = marauder_crisis_ongoing
@@ -1976,7 +1972,7 @@ event = {
 				if = { limit = { has_country_flag = declared_crisis }
 					remove_country_flag = declared_crisis
 				}
-				country_event = { id = khan.309 days = -1 }
+				country_event = { id = khan.309 }
 				country_event = { id = khan.309 days = 4 }
 				# TODO TEMP FIX KHAN NO RESPAWN.
 				country_event = { id = marauder.507 days = 105 random = 80 }
@@ -2090,10 +2086,10 @@ system_event = {
 							has_technology = tech_starbase_5
 						}
 					}
-					give_technology = { tech = tech_starbase_2 message = no }
-					give_technology = { tech = tech_starbase_3 message = no }
-					give_technology = { tech = tech_starbase_4 message = no }
-					give_technology = { tech = tech_starbase_5 message = no }
+					give_tech_no_error_effect = { MESSAGE = no TECH = tech_starbase_2 }
+					give_tech_no_error_effect = { MESSAGE = no TECH = tech_starbase_3 }
+					give_tech_no_error_effect = { MESSAGE = no TECH = tech_starbase_4 }
+					give_tech_no_error_effect = { MESSAGE = no TECH = tech_starbase_5 }
 				}
 				# FIXME Trying to create a starbase with an invalid starbase design
 				if = { limit = { NOT = { has_existing_ship_design = starbase_citadel } }
@@ -2805,7 +2801,7 @@ country_event = {
 	trigger = {
 		has_global_flag = marauder_crisis_ongoing
 		exists = event_target:raider_khanate
-		CmtTriggerIsKhanCountry = yes
+		is_same_empire = event_target:raider_khanate # CmtTriggerIsKhanCountry = yes
 	}
 	immediate = {
 		if = { limit = { is_war_leader = yes }
@@ -2856,10 +2852,11 @@ country_event = {
 					# is_subject_of_khan = yes
 					NOT = { has_country_flag = rebelling_satrapy }
 					is_hostile = prev
+					prev = { is_hostile = prev }
 				}
 				log = "Fix ongoing hostility for \\[This.GetName]"
 				prev = {
-					country_event = { id = khan.308 scopes = { from = prev } } # Set friendly
+					country_event = { id = khan.308 scopes = { from = prev } days = -1 } # Set friendly
 				}
 			}
 			if = { limit = { has_federation = yes }
@@ -3577,6 +3574,14 @@ country_event = {
 				set_global_flag = great_khan_wins
 				country_event = { id = khan.296 days = 300 random = 60 }
 			}
+			add_opinion_modifier = { who = prev modifier = opinion_imperial_overlord_ai_opinion }
+			prev = {
+				if = { limit = { is_ai = yes }
+					add_opinion_modifier = { who = prev modifier = opinion_imperial_vassal_ai_opinion }
+				} else = {
+					add_opinion_modifier = { who = prev modifier = opinion_imperial_vassal_new_overlord }
+				}
+			}
 		}
 		event_target:capital_planet = {
 			if = { limit = { is_variable_set = planets_lost_to_marauder }
@@ -3592,7 +3597,6 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-
 		if = { limit = { exists = event_target:great_khan }
 			if = { limit = { exists = event_target:great_khan.fleet }
 				destroy_fleet = event_target:great_khan.fleet
@@ -3609,7 +3613,42 @@ country_event = {
 			clear_global_event_target = marauder_rally_point
 		}
 		set_global_flag = horde_triggered
-		destroy_country = yes
+
+		if = {
+			limit = {
+				OR = {
+					num_owned_planets = 0
+					NOT = {
+						any_system_within_border = {
+							any_system_colony = {
+								has_owner = yes
+								is_owned_by = root
+								is_under_colonization = no
+								uses_habitat_capitals = no
+							}
+						}
+					}
+				}
+			}
+			destroy_country = yes
+		} else = {
+			every_controlled_fleet = {
+				limit = {
+					OR = {
+						has_fleet_flag = satrapy_garrison
+						has_fleet_flag = satrapy_garrison_fleet
+						has_fleet_flag = horde_auxuliaries
+						NOT = { is_within_borders_of = root }
+						is_alliance_fleet = yes
+						has_ship_owner_type = galactic_community
+						has_ship_owner_type = federation
+					}
+				}
+				destroy_fleet = this
+			}
+			country_event = { id = marauder.602 days = 1 }
+		}
+
 		if = { limit = { exists = event_target:marauders_garrison_1 }
 			event_target:marauders_garrison_1 = {
 				every_controlled_fleet = {
@@ -5184,6 +5223,7 @@ country_event = {
 				# country_event = { id = khan.868 } # (New Reinforcement Cycle)
 			}
 			give_tech_no_error_effect = { MESSAGE = no TECH = tech_mass_drivers_4 }
+			give_tech_no_error_effect = { MESSAGE = no TECH = tech_autocannons_3 }
 			give_tech_no_error_effect = { MESSAGE = no TECH = tech_lasers_4 }
 			give_tech_no_error_effect = { MESSAGE = no TECH = tech_ship_armor_4 }
 			give_tech_no_error_effect = { MESSAGE = no TECH = tech_shields_4 }
