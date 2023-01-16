@@ -393,14 +393,14 @@ country_event = {
 				limit = { is_federation_leader = yes }
 				if = {
 					limit = {
-						NAND = {
-							is_at_war = yes
+						NOT = {
 							is_at_war_with = root
 						}
 					}
 					remove_global_flag = war_in_heaven_nonaligned_league_war
 					remove_country_flag = war_in_heaven_nonaligned_league_timer
-					country_event = { id = khan.216 days = 5 }
+					country_event = { id = khan.216 days = 50 }
+					country_event = { id = khan.216 days = 350 }
 				}
 			}
 		}
@@ -422,31 +422,30 @@ country_event = {
 		has_federation = yes
 		is_federation_leader = yes # has_country_flag = war_in_heaven_league_leader
 		federation = { has_federation_flag = non_aligned_league }
-		NOT = {
+		exists = event_target:raider_khanate
+		NOR = {
 			# has_global_flag = war_in_heaven_nonaligned_league_war
 			has_global_flag = war_in_heaven_seeking_league_leader
+			# has_country_flag = war_in_heaven_nonaligned_league_timer
+			is_at_war_with = event_target:raider_khanate
 		}
-		# NOT = { has_country_flag = war_in_heaven_nonaligned_league_timer }
-		exists = event_target:raider_khanate
-		NOT = { is_at_war_with = event_target:raider_khanate }
 	}
-
 	# mean_time_to_happen = { months = 3 }
-
 	immediate = {
 		set_global_flag = war_in_heaven_nonaligned_league_war
 		remove_country_flag = ai_no_wars
 	}
-
 	option = {
 		name = war_in_heaven.16.a
-
-		if = { # Not on great uprising
-			limit = {
-				has_global_flag = war_in_heaven_started
-				has_global_flag = war_in_heaven_ongoing
-			}
-			event_target:raider_khanate = {
+		event_target:raider_khanate = {
+			if = { # Not on great uprising
+				limit = {
+					OR = {
+						has_global_flag = war_in_heaven_started
+						has_global_flag = war_in_heaven_ongoing
+					}
+					NOT = { is_at_war_with = root }
+				}
 				# # Against FE
 				# random_war = {
 				# 	limit = {
@@ -498,13 +497,7 @@ country_event = {
 				}
 			}
 		}
-		if = {
-			limit = {
-				NAND = {
-					is_at_war = yes
-					is_at_war_with = event_target:raider_khanate
-				}
-			}
+		if = { limit = { NOT = { is_at_war_with = event_target:raider_khanate } }
 			declare_war = {
 				target = event_target:raider_khanate
 				name = "NAME_The_Civil_War" # "The Great Uprising"
@@ -533,6 +526,24 @@ country_event = {
 						}
 					}
 				}
+			}
+		}
+
+		if = { limit = { exists = event_target:marauders_garrison_1 }
+			event_target:marauders_garrison_1 = {
+				every_controlled_fleet = {
+					limit = { has_fleet_flag = satrapy_garrison }
+					destroy_fleet = this
+				}
+				every_controlled_fleet = {
+					limit = { has_fleet_flag = satrapy_garrison exists = solar_system }
+					random_list = {
+						5 = { destroy_fleet = this }
+						5 = { set_owner = event_target:raider_khanate }
+						2 = { set_owner = space_owner }
+					}
+				}
+				destroy_country = yes
 			}
 		}
 	}
@@ -826,6 +837,13 @@ country_event = {
 				if = { limit = { NOT = { is_hostile = root } }
 					set_faction_hostility = { target = root set_hostile = yes }
 				}
+				if = { limit = { exists = event_target:marauders_garrison_1 }
+					event_target:marauders_garrison_1 = {
+						if = { limit = { NOT = { is_hostile = root } }
+							set_faction_hostility = { target = root set_hostile = yes }
+						}
+					}
+				}
 			}
 			add_opinion_modifier = { who = from modifier = opinion_war_in_heaven_enemy }
 
@@ -908,6 +926,13 @@ country_event = {
 					add_opinion_modifier = { who = root modifier = opinion_war_in_heaven_enemy }
 					if = { limit = { NOT = { is_hostile = root } }
 						set_faction_hostility = { target = root set_hostile = yes }
+					}
+					if = { limit = { exists = event_target:marauders_garrison_1 }
+						event_target:marauders_garrison_1 = {
+							if = { limit = { NOT = { is_hostile = root } }
+								set_faction_hostility = { target = root set_hostile = yes }
+							}
+						}
 					}
 				}
 				add_opinion_modifier = { who = from modifier = opinion_war_in_heaven_enemy }
@@ -1213,6 +1238,13 @@ country_event = {
 						set_hostile = yes
 					}
 				}
+				if = { limit = { exists = event_target:marauders_garrison_1 }
+					event_target:marauders_garrison_1 = {
+						if = { limit = { NOT = { is_hostile = root } }
+							set_faction_hostility = { target = root set_hostile = yes }
+						}
+					}
+				}
 				if = { limit = { root = { has_country_flag = rebelling_satrapy } }
 					add_opinion_modifier = { who = root modifier = opinion_traitor_to_empire }
 				}
@@ -1368,6 +1400,21 @@ country_event = {
 					}
 				}
 			}
+			if = {
+				limit = { exists = event_target:marauders_garrison_1 }
+				event_target:marauders_garrison_1 = {
+					join_war = root
+					every_country = {
+						limit = {
+							is_hostile = root
+							is_subject_of_khan = no
+						}
+						prev = {
+							set_faction_hostility = { target = prev set_hostile = yes }
+						}
+					}
+				}
+			}
 		}
 		# Clear for MTTH war_in_heaven.12
 		remove_global_flag = war_in_heaven_nonaligned_league
@@ -1502,7 +1549,7 @@ country_event = {
 			}
 			country_event = { id = khan.293 days = @CmtConstKhanLifespan_2f random = @CmtConstKhanLifespan_2f } # Notify + Choose side
 		}
-		country_event = { id = khan.292 days = @CmtConstKhanLifespan_4f random = @CmtConstKhanLifespan_2f }
+		country_event = { id = khan.292 days = @CmtConstKhanLifespan_5f random = @CmtConstKhanLifespan_4f }
 		set_global_flag = war_in_heaven_debug
 	}
 }
@@ -1598,7 +1645,7 @@ country_event = {
 			# add_opinion_modifier = { who = root modifier = opinion_destroying_galaxy }
 			add_opinion_modifier = { who = root modifier = opinion_doomed_us_all }
 			add_opinion_modifier = { who = root modifier = triggered_dc_opinion_of_assimilators }
-			prev = { add_opinion_modifier = { who = root modifier = opinion_prey } }
+			root = { add_opinion_modifier = { who = prev modifier = opinion_prey } }
 		}
 		## 50% chance integrating Satrapies - sparking a galaxy wide uprising.
 		## 50% chance of a WiH with a FE.
@@ -1644,19 +1691,19 @@ country_event = {
 				event_target:raider_khanate = {
 					country_event = { id = khan.295 }
 				}
+				# modifier = {
+				# 	factor = 0
+				# 	has_global_flag = CmtFlagDebugMode # Test satrapy uprising
+				# }
 				modifier = {
 					factor = 0
-					has_global_flag = CmtFlagDebugMode # Test satrapy uprising
-				}
-				modifier = {
-					factor = 0
-					NOR = {
-						num_fallen_empires_setting > 0
-						has_leviathans = yes
-						any_country = {
+					OR = {
+						num_fallen_empires_setting < 1
+						has_leviathans = no
+						NOT = { any_country = {
 							is_fallen_empire = yes
 							is_gestalt = no
-						}
+						} }
 					}
 				}
 				modifier = {
@@ -1844,7 +1891,7 @@ country_event = {
 			}
 			weights = { base = 1 modifier = { add = 2 is_ai = no } }
 			prev = {
-				country_event = { id = khan.308 scopes = { from = prev } } # Set friendly
+				country_event = { id = khan.308 days = -1 scopes = { from = prev } } # Set friendly
 			}
 		}
 	}
@@ -1986,7 +2033,7 @@ event = {
 					remove_global_flag = marauder_crisis_ongoing
 					clear_global_event_target = raider_khanate
 					destroy_country = yes
-				} else_if = { # Fix never endingh total war
+				} else_if = { # Fix never ending total war
 					limit = { is_country_type = awakened_marauders }
 					every_controlled_planet = {
 						limit = {
@@ -1995,6 +2042,7 @@ event = {
 						}
 						set_owner = prev
 					}
+					country_event = { id = khan.312 days = 4 } # Create Garrison Dummy Country
 					# Fix cleared global targets (for unknown reason)
 					country_event = { id = marauder.78 days = 2 }	## Mercenaries Join the Great Khan.
 				} else_if = { limit = { has_global_flag = great_khan_wins }
@@ -2047,7 +2095,7 @@ event = {
 	}
 }
 
-## Create Dummy Country
+## Reduce Khan naval cap's - create dummy country.
 ## This = Khan
 country_event = {
 	id = khan.311
@@ -2090,118 +2138,8 @@ country_event = {
 			}
 		}
 
-		if = {
-			limit = {
-				NOT = { exists = event_target:marauders_garrison_1 }
-			}
-			create_country = {
-				name = root
-				type = marauders_garrison
-				flag = {
-					icon = { category = "pirate" file = "flag_pirate_11.dds" }
-					background = { category = "backgrounds" file = "00_solid.dds" }
-					colors = { "red" "red" "null" "null" }
-				}
-				species = root
-				ignore_initial_colony_error = yes
-				day_zero_contact = no
-				effect = {
-					save_global_event_target_as = marauders_garrison_1
-					copy_ethos_and_authority = root
-					every_playable_country = {
-						limit = { has_communications = root }
-						establish_communications_no_message = event_target:marauders_garrison_1
-					}
-					event_target:raider_khanate = {
-						establish_communications_no_message = prev
-						set_faction_hostility = {
-							target = prev
-							set_hostile = no
-							set_neutral = no
-							set_friendly = yes
-						}
-						prev = {
-							set_faction_hostility = {
-								target = prev
-								set_hostile = no
-								set_neutral = no
-								set_friendly = yes
-							}
-						}
-						add_trust = { amount = 100 who = prev }
-						add_intel = { amount = 100 who = prev }
-						add_opinion_modifier = { who = prev modifier = opinion_common_ground }
-						add_opinion_modifier = { who = prev modifier = opinion_ceded_starbase }
-						add_opinion_modifier = { who = prev modifier = opinion_non_aligned_league }
-						add_opinion_modifier = { who = prev modifier = opinion_crisis_fighter }
-						add_opinion_modifier = { who = prev modifier = opinion_shade_giver }
-						add_opinion_modifier = { who = prev modifier = opinion_imperial_overlord_ai_opinion }
+		country_event = { id = khan.312 days = -1 } # Create Garrison Dummy Country
 
-						prev = {
-							add_trust = { amount = 100 who = prev }
-							add_intel = { amount = 100 who = prev }
-							add_opinion_modifier = { who = prev modifier = opinion_common_ground }
-							add_opinion_modifier = { who = prev modifier = opinion_ceded_starbase }
-							add_opinion_modifier = { who = prev modifier = opinion_non_aligned_league }
-							add_opinion_modifier = { who = prev modifier = opinion_crisis_fighter }
-							add_opinion_modifier = { who = prev modifier = opinion_shade_giver }
-							add_opinion_modifier = { who = prev modifier = opinion_enlightened_us }
-							add_opinion_modifier = { who = prev modifier = opinion_liberated_us }
-							add_opinion_modifier = { who = prev modifier = opinion_imperial_vassal_ai_opinion }
-						}
-					}
-					set_subject_of = { who = event_target:raider_khanate preset = preset_bulwark }
-
-					random_agreement = {
-						limit = {
-							is_owned_by = event_target:raider_khanate
-							target = { is_same_value = prev }
-						}
-						add_loyalty = 100
-					}
-					# random_agreement = {
-					# 	limit = {
-					# 		is_owned_by = prev
-					# 		target = { is_same_value = event_target:raider_khanate }
-					# 	}
-					# 	add_loyalty = 100
-					# }
-				}
-			}
-		}
-		every_subject = {
-			limit = { is_hostile = event_target:marauders_garrison_1 }
-			event_target:marauders_garrison_1 = {
-				country_event = { id = khan.308 scopes = { from = prev } } # Set friendly
-			}
-		}
-		if = { limit = { has_federation = yes }
-			federation = {
-				every_member = {
-					limit = {
-						is_subject_of_khan = no
-						NOT = { has_country_flag = rebelling_satrapy }
-						is_hostile = event_target:marauders_garrison_1
-					}
-					event_target:marauders_garrison_1 = {
-						country_event = { id = khan.308 scopes = { from = prev } } # Set friendly
-					}
-				}
-			}
-		}
-		every_controlled_fleet = {
-			limit = {
-				OR = {
-					has_fleet_flag = satrapy_garrison
-					has_fleet_flag = satrapy_garrison_fleet
-					# has_fleet_flag = horde_auxuliaries
-				}
-			}
-			set_owner = event_target:marauders_garrison_1
-			if = { limit = { exists = leader }
-				leader = { set_owner = event_target:marauders_garrison_1 }
-			}
-		}
 		if = {
 			limit = {
 				OR = {
@@ -3317,14 +3255,14 @@ country_event = {
 							limit = { is_federation_leader = yes }
 							if = {
 								limit = {
-									NAND = {
-										is_at_war = yes
+									NOT = {
 										is_at_war_with = root
 									}
 								}
 								remove_global_flag = war_in_heaven_nonaligned_league_war
 								remove_country_flag = war_in_heaven_nonaligned_league_timer
-								country_event = { id = khan.216 days = 5 }
+								country_event = { id = khan.216 days = 50 }
+								country_event = { id = khan.216 days = 350 }
 							}
 							if = {
 								limit = {
@@ -3342,7 +3280,7 @@ country_event = {
 								}
 								remove_global_flag = war_in_heaven_nonaligned_league_war
 								remove_country_flag = war_in_heaven_nonaligned_league_timer
-								country_event = { id = war_in_heaven.16 days = 3 }
+								country_event = { id = war_in_heaven.16 days = 30 } # FE attack
 							}
 						}
 					}

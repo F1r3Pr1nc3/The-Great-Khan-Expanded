@@ -331,6 +331,18 @@ wg_marauder_expansion = {
 	}
 
 	on_wargoal_set = {
+		from = {
+			if = { limit = { is_at_war = yes }
+				every_war = {
+					limit = {
+						is_scope_type = war # TODO because of strange error.
+						is_war_participant = { who = prev side = root }
+						is_war_participant = { who = root }
+					}
+					remove_war_participant = prev
+				}
+			}
+		}
 		# log="[fromfrom.GetName]" not exists
 		event_target:raider_khanate = {
 			if = {
@@ -771,6 +783,18 @@ wg_great_expansion = {
 	}
 
 	on_wargoal_set = {
+		from = {
+			if = { limit = { is_at_war = yes }
+				every_war = {
+					limit = {
+						is_scope_type = war # TODO because of strange error.
+						is_war_participant = { who = prev side = root }
+						is_war_participant = { who = root }
+					}
+					remove_war_participant = prev
+				}
+			}
+		}
 		if = {
 			limit = {
 				exists = event_target:marauders_garrison_1

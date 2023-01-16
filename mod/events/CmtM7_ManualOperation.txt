@@ -1632,7 +1632,7 @@ country_event = {
 						}
 					} else = { save_event_target_as = former_marauder_capital }
 				}
-				if = { limit = { NOT = { exists = event_target:former_marauder_capital } }
+				if = { limit = { NOT = { exists = event_target:former_marauder_capital } exists = capital_scope }
 					capital_scope.solar_system = {
 						save_event_target_as = former_marauder_capital
 					}

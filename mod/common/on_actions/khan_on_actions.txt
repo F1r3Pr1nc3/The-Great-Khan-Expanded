@@ -88,7 +88,7 @@ on_starbase_destroyed = {
 # From = fleet that disabled the starbase
 on_starbase_disabled = {
 	events = {
-		marauder.527
+		marauder.527 # Increase counter
 	}
 }
 

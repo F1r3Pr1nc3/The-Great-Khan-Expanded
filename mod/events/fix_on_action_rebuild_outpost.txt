@@ -1,6 +1,7 @@
 #########################################
 #
 # on_action_events patch rebuild outpost for orphaned colonies
+# Fix multi colony by Fireprince
 #
 #########################################
 namespace = action
