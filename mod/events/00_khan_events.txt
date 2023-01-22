@@ -391,16 +391,11 @@ country_event = {
 			limit = { has_federation_flag = non_aligned_league }
 			random_member = {
 				limit = { is_federation_leader = yes }
-				if = {
-					limit = {
-						NOT = {
-							is_at_war_with = root
-						}
-					}
+				if = { limit = { NOT = { is_at_war_with = root } }
 					remove_global_flag = war_in_heaven_nonaligned_league_war
 					remove_country_flag = war_in_heaven_nonaligned_league_timer
-					country_event = { id = khan.216 days = 50 }
-					country_event = { id = khan.216 days = 350 }
+					country_event = { id = khan.216 days = 60 }
+					country_event = { id = khan.216 days = 360 }
 				}
 			}
 		}
@@ -3253,16 +3248,11 @@ country_event = {
 						limit = { has_federation_flag = non_aligned_league }
 						random_member = {
 							limit = { is_federation_leader = yes }
-							if = {
-								limit = {
-									NOT = {
-										is_at_war_with = root
-									}
-								}
+							if = { limit = { NOT = { is_at_war_with = root } }
 								remove_global_flag = war_in_heaven_nonaligned_league_war
 								remove_country_flag = war_in_heaven_nonaligned_league_timer
-								country_event = { id = khan.216 days = 50 }
-								country_event = { id = khan.216 days = 350 }
+								country_event = { id = khan.216 days = 60 }
+								country_event = { id = khan.216 days = 360 }
 							}
 							if = {
 								limit = {

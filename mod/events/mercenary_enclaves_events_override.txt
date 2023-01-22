@@ -205,7 +205,7 @@ event = {
 					controller = { is_country_type = awakened_marauders }
 				}
 			}
-			random_owned_fleet = {
+			random_controlled_fleet = {
 				limit = {
 					is_leased = yes
 					controller = { is_country_type = awakened_marauders }

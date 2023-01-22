@@ -8864,6 +8864,10 @@ country_event = {
 		owner_species = { save_event_target_as = marauder_species }
 		# get_marauder_species = yes (do it later for each)
 		set_update_modifiers_batch = begin
+		every_controlled_fleet = {
+			limit = { is_mobile = yes is_leased = yes }
+			end_fleet_contract = { initiator = prev reason = cancelled }
+		}
 		# every_owned_fleet = { # Delete everything except starbase_marauder
 		# 	limit = {
 		# 		count_owned_fleet = {
@@ -8978,7 +8982,7 @@ country_event = {
 		}
 		# set_diadochi_claims = yes needless wasting vanilla effect
 		set_update_modifiers_batch = end
-
+		# Notify
 		observer_event = { id = observer.20 }
 		every_playable_country = {
 			limit = { is_ai = no }
@@ -8986,6 +8990,7 @@ country_event = {
 		}
 	}
 	after = {
+		set_update_modifiers_batch = begin
 		if = { limit = { exists = event_target:raider_khanate }
 			if = {
 				limit = {
@@ -9002,12 +9007,12 @@ country_event = {
 		every_playable_country = {
 			limit = {
 				has_government = gov_diadochi
-				# has_origin = "origin_khan_successor"
+				has_origin = "origin_khan_successor"
 			}
 			every_playable_country = {
 				limit = {
 					has_government = gov_diadochi
-					# has_origin = "origin_khan_successor"
+					has_origin = "origin_khan_successor"
 					NOT = { is_same_empire = prev }
 				}
 				if = { limit = { NOT = { has_communications = prev } }
@@ -9019,10 +9024,277 @@ country_event = {
 				# every_planet_within_border = {
 				# 	set_surveyed = { surveyed = yes surveyor = prev }
 				# }
+				# Prevent extreme balcanization
+				# potential system
+				# if = { # First simple level
+				while = { count = 5
+					limit = {
+						any_system_within_border = {
+							# is_owned_by = prev
+							# exists = space_owner
+							# NOT = { space_owner = { is_same_empire = prevprevprev } }
+							# exists = starbase
+							# starbase = { is_owned_by = prevprev }
+							# any_neighbor_system = { is_owned_by = prevprevprev }
+							# any_country_neighbor_to_system = { is_same_empire = prevprevprev }
+							NOR = {
+								has_star_flag = switched_system
+								any_neighbor_system = { has_owner = yes is_owned_by = prevprev }
+							}
+							any_country_neighbor_to_system = {
+								has_government = gov_diadochi has_origin = "origin_khan_successor"
+								any_system_within_border = {
+									# is_owned_by = prev
+									# exists = space_owner
+									# NOT = { space_owner = { is_same_empire = prevprevprev } }
+									# exists = starbase
+									# starbase = { is_owned_by = prevprev }
+									NOT = { has_star_flag = switched_system }
+									any_country_neighbor_to_system = { is_same_empire = prevprevprevprev }
+									OR = {
+										NOT = { any_neighbor_system = { has_owner = yes is_owned_by = prevprev } }
+										AND = {
+											count_neighbor_system = { count = 1 limit = { has_owner = yes is_owned_by = prevprev } }
+											count_neighbor_system = { count >= 1 limit = { has_owner = yes is_owned_by = prevprevprevprev } }
+										}
+									}
+								}
+							}
+						}
+					}
+					# log="Diadochi system switch"
+					random_system_within_border = {
+						limit = {
+							# is_owned_by = prev
+							# exists = space_owner
+							# NOT = { space_owner = { is_same_empire = prevprevprev } }
+							# exists = starbase
+							# starbase = { is_owned_by = prevprev }
+							# any_neighbor_system = { is_owned_by = prevprevprev }
+							# any_country_neighbor_to_system = { is_same_empire = prevprevprev }
+							NOR = {
+								has_star_flag = switched_system
+								any_neighbor_system = { has_owner = yes is_owned_by = prevprev }
+							}
+							any_country_neighbor_to_system = {
+								has_government = gov_diadochi has_origin = "origin_khan_successor"
+								any_system_within_border = {
+									# is_owned_by = prev
+									# exists = space_owner
+									# NOT = { space_owner = { is_same_empire = prevprevprev } }
+									# exists = starbase
+									# starbase = { is_owned_by = prevprev }
+									NOT = { has_star_flag = switched_system }
+									any_country_neighbor_to_system = { is_same_empire = prevprevprevprev }
+									OR = {
+										NOT = { any_neighbor_system = { has_owner = yes is_owned_by = prevprev } }
+										AND = {
+											count_neighbor_system = { count = 1 limit = { has_owner = yes is_owned_by = prevprev } }
+											count_neighbor_system = { count >= 1 limit = { has_owner = yes is_owned_by = prevprevprevprev } }
+										}
+									}
+								}
+							}
+						}
+						random_country_neighbor_to_system = {
+							limit = {
+								has_government = gov_diadochi has_origin = "origin_khan_successor"
+								any_system_within_border = {
+									# is_owned_by = prev
+									# exists = space_owner
+									# NOT = { space_owner = { is_same_empire = prevprevprev } }
+									# exists = starbase
+									# starbase = { is_owned_by = prevprev }
+									NOT = { has_star_flag = switched_system }
+									any_country_neighbor_to_system = { is_same_empire = prevprevprevprev }
+									OR = {
+										NOT = { any_neighbor_system = { has_owner = yes is_owned_by = prevprev } }
+										AND = {
+											count_neighbor_system = { count = 1 limit = { has_owner = yes is_owned_by = prevprev } }
+											count_neighbor_system = { count >= 1 limit = { has_owner = yes is_owned_by = prevprevprevprev } }
+										}
+									}
+								}
+							}
+							random_system_within_border = {
+								limit = {
+									# is_owned_by = prev
+									# exists = space_owner
+									# NOT = { space_owner = { is_same_empire = prevprevprev } }
+									# exists = starbase
+									# starbase = { is_owned_by = prevprev }
+									NOT = { has_star_flag = switched_system }
+									any_country_neighbor_to_system = { is_same_empire = prevprevprevprev }
+									OR = {
+										NOT = { any_neighbor_system = { has_owner = yes is_owned_by = prevprev } }
+										AND = {
+											count_neighbor_system = { count = 1 limit = { has_owner = yes is_owned_by = prevprev } }
+											count_neighbor_system = { count >= 1 limit = { has_owner = yes is_owned_by = prevprevprevprev } }
+										}
+									}
+								}
+								commit_system_to = { EMPIRE = prevprevprev }
+								prevprev = { commit_system_to = { EMPIRE = prevprevprev } }
+							}
+						}
+					}
+				}
+				if = { # Second level without former Diadochi
+					limit = {
+						any_system_within_border = {
+							exists = starbase
+							starbase = { is_owned_by = prevprev }
+							NOR = {
+								has_star_flag = switched_system
+								any_neighbor_system = { is_owned_by = prevprev }
+								any_country_neighbor_to_system = { has_government = gov_diadochi has_origin = "origin_khan_successor" } # any_neighbor_system = { exists = owner owner = { has_government = gov_diadochi has_origin = "origin_khan_successor" } }
+							}
+							closest_system = {
+								min_steps = 1
+								max_steps = 5
+								# use_bypasses = yes # To much performance?
+								limit = {
+									exists = owner
+									owner = {
+										has_government = gov_diadochi
+										has_origin = "origin_khan_successor"
+										NOT = { is_same_empire = prevprevprev }
+									}
+								}
+							}
+						}
+					}
+					random_system_within_border = {
+						limit = {
+							exists = starbase
+							starbase = { is_owned_by = prevprev }
+							NOR = {
+								has_star_flag = switched_system
+								any_neighbor_system = { is_owned_by = prevprev }
+								any_country_neighbor_to_system = { has_government = gov_diadochi has_origin = "origin_khan_successor" } # any_neighbor_system = { exists = owner owner = { has_government = gov_diadochi has_origin = "origin_khan_successor" } }
+								closest_system = {
+									min_steps = 2
+									max_steps = 4
+									# use_bypasses = yes # To much performance?
+									limit = {
+										exists = owner
+										owner = {
+											has_government = gov_diadochi
+											has_origin = "origin_khan_successor"
+										}
+									}
+									owner = { is_same_empire = prevprevprev }
+								}
+							}
+						}
+						closest_system = {
+							min_steps = 2
+							max_steps = 4
+							# use_bypasses = yes # To much performance?
+							limit = {
+								exists = owner
+								owner = {
+									has_government = gov_diadochi has_origin = "origin_khan_successor"
+									NOT = { is_same_empire = prevprevprev }
+								}
+							}
+							prev = { commit_system_to = { EMPIRE = prevprev.owner } }
+						}
+					}
+				}
+				# else = { ordered_system_within_border = { position = x order_by = x }
+				while = { count = 4
+					limit = {
+						capital_scope.solar_system = {
+							closest_system = {
+								min_steps = 1
+								max_steps = 66
+								use_bypasses = yes # To much performance?
+								limit = {
+									has_owner = yes
+									NOT = { is_owned_by = prevprev }
+									is_capital_system = no
+									exists = owner
+									owner = {
+										NOT = { is_same_empire = prevprevprev }
+										is_neighbor_of = prevprevprev
+										has_government = gov_diadochi
+										has_origin = "origin_khan_successor"
+										prev = {
+											NOT = { has_star_flag = switched_system }
+											count_neighbor_system = { count < 1 limit = { has_owner = yes is_owned_by = prevprev } }
+										}
+										capital_scope.solar_system = {
+											closest_system = {
+												min_steps = 1
+												max_steps = 66
+												# use_bypasses = yes # To much performance?
+												limit = {
+													has_owner = yes
+													NOT = { is_owned_by = prev.owner }
+													is_capital_system = no
+													is_owned_by = prevprevprevprev.owner
+													NOT = { has_star_flag = switched_system }
+													NOT = { is_owned_by = prevprev.owner }
+													count_neighbor_system = { count < 2 limit = { has_owner = yes is_owned_by = prevprevprev } }
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					capital_scope.solar_system = {
+						closest_system = {
+							min_steps = 1
+							max_steps = 66
+							use_bypasses = yes # To much performance?
+							limit = {
+								has_owner = yes
+								NOT = { is_owned_by = prevprev }
+								is_capital_system = no
+								exists = owner
+								owner = {
+									NOT = { is_same_empire = prevprevprev }
+									is_neighbor_of = prevprevprev
+									has_government = gov_diadochi
+									has_origin = "origin_khan_successor"
+									prev = {
+										NOT = { has_star_flag = switched_system }
+										count_neighbor_system = { count < 1 limit = { has_owner = yes is_owned_by = prevprev } }
+									}
+								}
+							}
+							owner.capital_scope.solar_system = {
+								closest_system = {
+									min_steps = 1
+									max_steps = 66
+									# use_bypasses = yes # To much performance?
+									limit = {
+										has_owner = yes
+										NOT = { is_owned_by = prev.owner }
+										is_capital_system = no
+										is_owned_by = prevprevprevprev
+										NOT = { has_star_flag = switched_system }
+										NOT = { is_owned_by = prevprev.owner }
+										count_neighbor_system = { count < 2 limit = { has_owner = yes is_owned_by = prevprevprev.owner } }
+									}
+									commit_system_to = { EMPIRE = prevprevprevprev.prev }
+									prevprev = { commit_system_to = { EMPIRE = prevprevprevprev.prev.owner } }
+								}
+							}
+						}
+					}
+				}
 				every_system_within_border = {
 					set_surveyed = { surveyed = yes surveyor = prev }
-					add_claims = { who = prev num_of_claims = 1 show_notification = no }
+					add_claims = { who = prevprev num_of_claims = 1 show_notification = no }
 				}
+				# set_closed_borders = { who = prev status = yes forced = 5 }
+				# prev = {
+				# 	set_closed_borders = { who = prev status = yes forced = 5 }
+				# }
 			}
 			# Survey Rest of Horde's Space
 			root = {
@@ -9049,6 +9321,7 @@ country_event = {
 			}
 			country_event = { id = khan.606 days = 3 } # destroy_country
 		}
+		set_update_modifiers_batch = end
 	}
 }
 
@@ -9338,8 +9611,11 @@ country_event = {
 		# any_planet_within_border = {} does not work on game load
 	}
 	immediate = {
-
 		every_controlled_fleet = {
+			limit = { is_mobile = yes is_leased = yes }
+			end_fleet_contract = { initiator = root reason = cancelled }
+		}
+		every_owned_fleet = {
 			limit = {
 				OR = {
 					has_fleet_flag = satrapy_garrison
@@ -9735,20 +10011,50 @@ country_event = {
 				if = { limit = { NOT = { exists = event_target:marauder_capital } }
 					log = "Last fallback for \\[This.GetName]"
 					# random_planet_within_border = { limit = { solar_system = { exists = starbase starbase = { is_owned_by = root } } }
-					random_owned_starbase = {
+					if = {
 						limit = {
-							solar_system = {
-								any_system_planet = {
-									is_star = no
-									OR = {
-										is_asteroid = no
-										merg_is_gas_giant = no
-										colonizable_planet = yes
+							any_owned_starbase = {
+								solar_system = {
+									any_system_planet = {
+										is_star = no
+										OR = {
+											is_asteroid = no
+											merg_is_gas_giant = no
+											colonizable_planet = yes
+										}
 									}
 								}
 							}
 						}
-						solar_system = { save_event_target_as = marauder_capital }
+						random_owned_starbase = {
+							limit = {
+								solar_system = {
+									any_system_planet = {
+										is_star = no
+										OR = {
+											is_asteroid = no
+											merg_is_gas_giant = no
+											colonizable_planet = yes
+										}
+									}
+								}
+							}
+							solar_system = { save_event_target_as = marauder_capital }
+						}
+					} else = {
+						random_owned_planet = {
+							limit = { is_owned_by = controller }
+							weights = {
+								base = 1
+								modifier = { add = 6 solar_system = { has_star_flag = marauder_system } }
+								modifier = { add = 3 solar_system = { any_neighbor_system = { has_star_flag = marauder_system } } }
+								modifier = { add = 3 any_owned_species = { is_same_species = event_target:restored_marauders.owner_species } }
+							}
+							solar_system = {
+								save_event_target_as = marauder_capital
+								# Can't own planet due conquer conflict/restriction
+							}
+						}
 					}
 				}
 			}
@@ -9757,7 +10063,10 @@ country_event = {
 		if = { limit = { NOT = { exists = event_target:marauder_capital } }
 			log = "No place for new Marauder system found for \\[This.GetName]!?"
 		} else = {
-			if = { limit = { event_target:marauder_capital = { is_scope_type = galactic_object } }
+			if = {
+				limit = {
+					event_target:marauder_capital = { is_scope_type = galactic_object }
+				}
 				event_target:marauder_capital = {
 					random_system_planet = {
 						limit = { is_star = no }
@@ -9881,7 +10190,7 @@ country_event = {
 					random_fleet_in_system = {
 						limit = { is_ship_size = enclave_mercenary_station exists = owner }
 						owner = {
-							every_owned_fleet = {
+							every_controlled_fleet = {
 								if = { limit = { NOT = { is_within_borders_of = event_target:restored_marauders } }
 									# delete_fleet = this
 									random_country = {
@@ -9943,10 +10252,7 @@ country_event = {
 		if = { limit = { num_owned_planets > 0 }
 			# Give former owner
 			every_owned_planet = {
-				# set_owner = event_target:restored_marauders
-				limit = {
-					any_playable_country = { has_country_flag = former_owner@prev }
-				}
+				limit = { any_playable_country = { has_country_flag = former_owner@prev } }
 				random_playable_country = {
 					limit = { has_country_flag = former_owner@prev }
 					prev = {
@@ -9961,9 +10267,20 @@ country_event = {
 			# Give system owner
 			if = { limit = { num_owned_planets > 0 }
 				every_owned_planet = {
-					if = { limit = { exists = space_owner }
+					if = { limit = { exists = space_owner space_owner = { is_country_type_with_subjects = yes } }
 						set_owner = space_owner
-					} else = {
+					} else_if = { # Another colony
+						limit = {
+							solar_system = {
+								any_system_colony = {
+									exists = owner
+									NOR = {
+										is_planet = prevprev
+										is_owned_by = prevprevprevprev
+									}
+								}
+							}
+						}
 						solar_system = {
 							random_system_colony = {
 								limit = {
@@ -9975,6 +10292,126 @@ country_event = {
 								}
 								weights = { base = 1 modifier = { add = 3 is_colonizable = no } }
 								prevprev = { set_owner = prev.owner }
+							}
+						}
+					} else = {
+						# generate_late_primitives_on_planet = yes
+						if = {
+							limit = {
+								any_owned_pop = {
+									NOR = {
+										is_robot_pop = yes
+										has_trait = trait_hive_mind
+										can_think = no
+										prev = { habitability = { who = prev value < 0.5 } }
+									}
+								}
+							}
+							random_owned_pop = {
+								limit = {
+									NOR = {
+										is_robot_pop = yes
+										has_trait = trait_hive_mind
+										can_think = no
+										prev = { habitability = { who = prev value < 0.5 } }
+									}
+									exists = species
+								}
+								weights = {
+									base = 1
+									modifier = { add = 2 prev = { habitability = { who = prev value >= 0.7 } } }
+									modifier = { add = 10 species = { exists = home_planet home_planet = { is_planet = prevprevprev } } }
+								}
+								species = { save_event_target_as = primitive_world_species }
+							}
+						} else_if = {
+							limit = {
+								any_owned_pop = {
+									NOR = {
+										is_robot_pop = yes
+										has_trait = trait_hive_mind
+										can_think = no
+										prev = { habitability = { who = prev value < 0.3 } }
+									}
+								}
+							}
+							random_owned_pop = {
+								limit = {
+									NOR = {
+										is_robot_pop = yes
+										has_trait = trait_hive_mind
+										can_think = no
+										prev = { habitability = { who = prev value < 0.3 } }
+									}
+									exists = species
+								}
+								weights = {
+									base = 1
+									modifier = { add = 2 prev = { habitability = { who = prev value >= 0.6 } } }
+									modifier = { add = 10 species = { exists = home_planet home_planet = { is_planet = prevprevprev } } }
+								}
+								species = { save_event_target_as = primitive_world_species }
+							}
+						} else = { # last fallback
+							random_owned_pop = {
+								weights = {
+									base = 1
+									modifier = { add = 20 is_robot_pop = no }
+									modifier = { add = 2 prev = { habitability = { who = prev value >= 0.5 } } }
+									modifier = { add = 10 species = { exists = home_planet home_planet = { is_planet = prevprevprev } } }
+								}
+								species = { save_event_target_as = primitive_world_species }
+							}
+						}
+
+						event_target:primitive_world_species = {
+							modify_species = {
+								species = this
+								# add_trait = <key> # optional, can specify multiple
+								# remove_trait = <key> # optional, can specify multiple
+								ideal_planet_class = prev
+								change_scoped_species = yes
+							}
+						}
+						while = { limit = { has_building = building_commercial_zone } remove_building = building_commercial_zone }
+						while = { limit = { has_building = building_research_lab_1 } remove_building = building_research_lab_1 }
+						while = { limit = { has_building = building_research_lab_2 } remove_building = building_research_lab_2 }
+						while = { limit = { has_building = building_research_lab_3 } remove_building = building_research_lab_3 }
+						if = { limit = { has_building = building_institute } remove_building = building_institute }
+						if = { limit = { has_building = building_supercomputer } remove_building = building_supercomputer }
+						if = { limit = { has_building = building_clone_vats } remove_building = building_clone_vats }
+						if = { limit = { has_building = building_clone_army_clone_vat } remove_building = building_clone_army_clone_vat }
+						if = { limit = { has_building = building_posthumous_employment_center } remove_building = building_posthumous_employment_center }
+
+						create_late_primitive_empire = yes
+						setup_primitive_planet = yes
+						last_created_country = {
+							random_list = {
+								3 = { set_primitive_age_effect = { primitive_age = industrial_age } }
+								4 = { set_primitive_age_effect = { primitive_age = machine_age } }
+								5 = { set_primitive_age_effect = { primitive_age = atomic_age } }
+								6 = { set_primitive_age_effect = { primitive_age = early_space_age } }
+							}
+						}
+						# Prevent Dormant marauder own planet
+						if = {
+							limit = {
+								exists = event_target:marauder_capital
+								event_target:marauder_capital = {
+									OR = {
+										AND = {
+											is_scope_type = planet
+											solar_system = { is_same_value = prev.solar_system }
+										}
+										AND = {
+											is_scope_type = galactic_object
+											is_same_value = prev.solar_system
+										}
+									}
+								}
+							}
+							solar_system = {
+								create_starbase = { size = "starbase_marauder" owner = event_target:restored_marauders }
 							}
 						}
 					}
@@ -10143,7 +10580,7 @@ country_event = {
 				fleet_event = { id = khan.611 days = -1 }
 			}
 			if = { limit = { event_target:new_khanate = { CmtTriggerIsMarauder = no } }
-				every_controlled_fleet = {
+				every_owned_fleet = {
 					limit = {
 						is_civilian = no
 						any_owned_ship = { is_ship_class = shipclass_military }
@@ -10178,6 +10615,7 @@ country_event = {
 		every_owned_starbase = {
 			set_owner = event_target:new_khanate
 		}
+		log="Handover \\[This.GetName] to \\[event_target:new_khanate.GetName]"
 		# Full handover
 		every_owned_fleet = {
 			limit = {
@@ -10291,11 +10729,12 @@ country_event = {
 				# limit = { leader_class = ruler }
 				set_owner = event_target:new_khanate
 			}
+
 			if = { limit = { CmtTriggerIsMarauder = no }
+				owner_species = { save_event_target_as = marauder_species }
 				add_500_unity_per_year_passed = yes
 				country_event = { id = game_start.6 days = 6 random = 4 }	# advanced_empire
 				country_event = { id = game_start.9 days = 12 random = 8 }	# empire_init_create_ships civil
-				create_fleet_from_naval_cap = 0.2 # base
 				### Units
 				create_ship_design = { design = "NAME_Pirate_Transport" }
 				add_ship_design = last_created_design
@@ -10395,6 +10834,13 @@ country_event = {
 		every_country = {
 			limit = { has_communications = root }
 			establish_communications_no_message = event_target:new_khanate
+		}
+	}
+	after = {
+		event_target:new_khanate = {
+			if = { limit = { CmtTriggerIsMarauder = no used_naval_capacity_percent < 0.75 }
+				create_fleet_from_naval_cap = 0.2
+			}
 		}
 	}
 }
