@@ -133,3 +133,48 @@ on_capital_changed = {
 		khan.320
 	}
 }
+
+# This = country
+# From = opponent war leader
+on_entering_war = {
+	events = {
+		khan.1876		# sync_subjects_virtual_relation
+	}
+}
+
+# A war has ended
+# Root = Loser
+# From = Main Winner
+on_war_ended = {
+	events = {
+		khan.1876		# sync_subjects_virtual_relation
+	}
+}
+
+# This = Federation leader
+# From = Joining member
+on_join_federation = {
+	events = {
+		khan.1876		# sync_subjects_virtual_relation
+	}
+}
+
+# This = Federation leader
+# From = Leaving member
+on_leave_federation = {
+	events = {
+		khan.1876		# sync_subjects_virtual_relation
+	}
+}
+
+on_join_alliance = {
+	events = {
+		khan.1876		# sync_subjects_virtual_relation
+	}
+}
+
+on_leave_alliance = {
+	events = {
+		khan.1876		# sync_subjects_virtual_relation
+	}
+}

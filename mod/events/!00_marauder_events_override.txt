@@ -7873,31 +7873,25 @@ country_event = {
 	immediate = {
 		save_event_target_as = satrapy_empire
 		if = { limit = { exists = capital_scope }
-			capital_scope = { save_event_target_as = capital_planet }
+			capital_scope = {
+				save_event_target_as = capital_planet
+				solar_system = { save_event_target_as = capital_system }
+			}
 		} else = {
 			ordered_owned_planet = {
 				limit = { is_colony = yes }
 				position = 0
 				order_by = trigger:num_pops
 				save_event_target_as = capital_planet
+				solar_system = { save_event_target_as = capital_system }
 			}
 		}
-		event_target:capital_planet = {
-			solar_system = { save_event_target_as = capital_system }
-		}
+
 		event_target:raider_khanate = {
 			if = { limit = { is_hostile = prev }
-				set_faction_hostility = {
-					target = prev
-					set_hostile = no
-					set_neutral = yes
-				}
+				set_faction_hostility = { target = prev set_hostile = no set_neutral = yes }
 				prev = {
-					set_faction_hostility = {
-						target = prev
-						set_hostile = no
-						set_neutral = yes
-					}
+					set_faction_hostility = { target = prev set_hostile = no set_neutral = yes }
 				}
 			}
 			country_event = { id = khan.309 days = 1 } # To be sure
@@ -7915,7 +7909,7 @@ country_event = {
 			# CmtEffectCreateEncouragingBase = yes		## event_target:garrison_base
 			create_fleet = {
 				effect = {
-					set_owner = event_target:raider_khanate
+					set_owner = prev
 					create_ship = {
 						name = "NAME_Garrison_Base"
 						design = "NAME_Void_Dwelling"
@@ -7960,6 +7954,10 @@ country_event = {
 			}
 
 			last_created_fleet = {
+				if = { limit = { exists = event_target:marauders_garrison_1 }
+					set_owner = event_target:marauders_garrison_1
+					last_created_leader = { set_owner = event_target:marauders_garrison_1 }
+				}
 				# CmtEffectCreateAdmiralty_KhanEncourager
 				event_target:raider_khanate = {
 					create_fleet = {
@@ -7990,6 +7988,15 @@ country_event = {
 							garrison = yes
 							uses_naval_capacity = no
 						}
+					}
+				}
+			}
+			if = { limit = { exists = event_target:marauders_garrison_1 }
+				set_owner = event_target:marauders_garrison_1
+				last_created_leader = { set_owner = event_target:marauders_garrison_1 }
+				if = { limit = { event_target:marauders_garrison_1 = { is_hostile = root } }
+					event_target:marauders_garrison_1 = {
+						set_faction_hostility = { target = root set_friendly = yes }
 					}
 				}
 			}
@@ -8430,6 +8437,15 @@ fleet_event = {
 					set_variable = { which = "satrapy_fleet_power" value = 2 } # Min
 				} else_if = { limit = { check_variable = { which = "satrapy_fleet_power" value > 5 } }
 					set_variable = { which = "satrapy_fleet_power" value = 5 } # Max
+				}
+				if = {
+					limit = {
+						exists = event_target:marauders_garrison_1
+						event_target:marauders_garrison_1 = { is_hostile = root }
+					}
+					event_target:marauders_garrison_1 = {
+						set_faction_hostility = { target = prev set_friendly = yes }
+					}
 				}
 			}
 			if = {

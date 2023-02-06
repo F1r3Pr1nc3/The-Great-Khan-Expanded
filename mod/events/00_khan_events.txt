@@ -2075,7 +2075,15 @@ event = {
 						}
 					}
 				}
-
+				if = {
+					limit = {
+						exists = event_target:marauders_garrison_1
+						event_target:marauders_garrison_1 = { is_country_type = faction }
+					}
+					event_target:marauders_garrison_1 = {
+						set_country_type = marauders_garrison
+					}
+				}
 			}
 		}
 		## TEST raiding_marauder stuck fix
@@ -3530,6 +3538,30 @@ country_event = {
 			# if = { limit = { has_modifier = "satrapy_of_horde" }
 			# 	remove_modifier = "satrapy_of_horde"
 			# }
+		}
+	}
+}
+
+# on_action (delay needed)
+# Sync garrison virtual relations (on_war_beginning, on_war_ended)
+country_event = {
+	id = khan.1876
+	is_triggered_only = yes
+	hide_window = yes
+	trigger = {
+		has_global_flag = marauder_crisis_started
+		exists = event_target:marauders_garrison_1
+	}
+	immediate = {
+		# Kill Special Subject Country if their master is dead.
+		if = { limit = { NOT = { exists = event_target:raider_khanate } }
+			event_target:marauders_garrison_1 = {
+				destroy_country = yes
+			}
+		} else = {
+			event_target:raider_khanate = {
+				country_event = { id = khan.309 days = 2 }
+			}
 		}
 	}
 }

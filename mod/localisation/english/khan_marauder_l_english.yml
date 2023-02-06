@@ -39,6 +39,7 @@
  marauder_deal_accept: "You have saved many lives by giving us access to this technology, it will be used for the good of the galaxy."
  marauder_deal_bad_response: "No, we will not share our technology with you."
  marauder_deal_refuse: "A pity, no matter, you will become a satrap or perish."
+ marauders_garrison_admiral: "$awakened_marauders_admiral$"
  edict_force_khan_spawn: "$RT_GREAT_KHAN$ Spawn Settings"
  edict_force_khan_spawn_desc: "Activate this edict to spawn the Khan (either by force or in ordinary way)."
  force_khan_option: "Force the Khan to spawn 1 year after the mid-game start date."

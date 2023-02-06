@@ -65,6 +65,7 @@
  marauder_fabricator_threat: "Por favor, piense esto a través de, si se rebela ahora, usted mismo debe destruir, no puedo conceder de inmediato."
  marauder_uprising_now: "Que comience el levantamiento"
  marauder_uprising_stall: "Necesitamos más tiempo para prepararnos."
+ marauders_garrison_admiral: "$awakened_marauders_admiral$"
  normal_khan: "Deja que el Khan se engendró al azar."
  npc_galleon_01: "$RT_KHAN$ $npc_warship_01$"
  npc_galleon_01_plural: "$RT_KHAN$ $npc_warship_01_plural$"

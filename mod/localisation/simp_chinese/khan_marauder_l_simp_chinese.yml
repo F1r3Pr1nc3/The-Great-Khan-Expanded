@@ -65,6 +65,7 @@
  marauder_fabricator_threat: "请你好好想想，如果你现在反抗，你注定要毁灭自己，我不会第二次宽大处理。"
  marauder_uprising_now: "让我们起义吧！"
  marauder_uprising_stall: "我们需要更多时间准备。"
+ marauders_garrison_admiral: "$awakened_marauders_admiral$"
  normal_khan: "让大可汗随机生成。"
  npc_galleon_01: "$RT_KHAN$ $npc_warship_01$"
  npc_galleon_01_plural: "$RT_KHAN$ $npc_warship_01_plural$"

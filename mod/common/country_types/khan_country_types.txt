@@ -290,8 +290,8 @@ marauders_garrison = {
 		espionage = no
 	}
 	faction = {
-		neutral = no
-		hostile = no
+		neutral = yes
+		hostile = yes
 		# follow = yes wrong docu
 		needs_border_access = no
 		generate_borders = no
