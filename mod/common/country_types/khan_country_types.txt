@@ -290,7 +290,7 @@ marauders_garrison = {
 		espionage = no
 	}
 	faction = {
-		neutral = yes
+		# neutral = yes
 		hostile = yes
 		# follow = yes wrong docu
 		needs_border_access = no
@@ -303,10 +303,9 @@ marauders_garrison = {
 	hide_names_if_no_communication = yes
 	modules = {
 		exclusive_diplomacy_module = { contact_rule = on_action_only }
-		# exclusive_diplomacy_module = { contact_rule = on_action_only } # TODO!?
-		basic_technology_module = {}
-		standard_event_module = {}
-		standard_leader_module = {}
+		all_technology_module = {}
+		# standard_event_module = {}
+		# standard_leader_module = {}
 	}
 }
 

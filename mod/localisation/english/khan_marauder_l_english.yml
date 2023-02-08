@@ -94,6 +94,7 @@
  khan.710.a.tooltip: "Now rule the $gov_marauder_clans$ as the new $RT_GREAT_KHAN$ to write a new glorious galactic history.\n$food_policy_rationing_desc$"
  NAME_Outrider_4:0 "Gadnakh"
  NAME_Lancer_4:0 "Zhada-Tsereg"
+ NAME_Marauder_Citadel: "$NAME_Marauder$ $starbase_citadel$"
  NAME_Void_Champion_4:0 "Sul Avarga"
  NAME_Ancestral_Glory_4:0 "Deedes Aldar"
  NAME_R45:0 "R45"
