@@ -2465,6 +2465,20 @@ country_event = {
 	}
 }
 
+# Player Defeating the Khan and choosing to be Successor
+country_event = {
+	id = khan.605
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		# TODO: Player could chose!? Mysteric Bug Reported: Somehow player lost systems to the new new_khanate fully unrelated??
+		if = { limit = { NOT = { exists = event_target:raider_khanate } }
+			from = { save_event_target_as = raider_khanate }
+		}
+		set_player = event_target:raider_khanate
+	}
+}
+
 # # Get a new Khan? (before marauder future) now 510
 # country_event = {
 # 	id = khan.710

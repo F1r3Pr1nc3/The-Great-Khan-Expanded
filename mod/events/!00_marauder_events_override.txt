@@ -5021,35 +5021,48 @@ country_event = {
 			shift_ethic = ethic_authoritarian
 		}
 
-		if = { ### NSC SUPPORT
+		if = {
 			limit = {
 				is_ai = no
 				host_has_dlc = Apocalypse
-				has_global_flag = has_nsc_active
 			}
-			if = {
-				limit = {
-					NOT = {
-						# merg_is_default_empire = yes
-						any_playable_country = { is_same_empire = root }
+			if = { ### NSC SUPPORT
+				limit = { has_global_flag = has_nsc_active }
+				if = {
+					limit = {
+						NOT = {
+							# merg_is_default_empire = yes
+							any_playable_country = { is_same_empire = root }
+						}
 					}
+					set_country_type = default
 				}
-				set_country_type = default
+				set_origin = "origin_nsc_freebooter"
+				change_government = {
+					authority = auth_dictatorial
+					cooldown = no
+					remove_invalid_civics = yes
+				}
+				if = { limit = { is_megacorp = yes }
+					force_add_civic = nsc_freebooter_civic_freebooter_trait_change_corp
+				} else = { force_add_civic = nsc_freebooter_civic_freebooter_trait_change }
+				# force_add_civic = nsc_freebooter_civic_great_khans_vision later
+			} else = {
+				change_government = {
+					authority = auth_dictatorial
+					civics = {
+						civic = civic_great_khans_vision
+						civic = civic_shared_burden
+					}
+					cooldown = no
+					remove_invalid_civics = yes
+				}
+				force_add_civic = civic_slaver_guilds
+				force_add_civic = civic_barbaric_despoilers
 			}
-			set_origin = "origin_nsc_freebooter"
-			change_government = {
-				authority = auth_dictatorial
-				cooldown = no
-				remove_invalid_civics = yes
-			}
-			if = { limit = { is_megacorp = yes }
-				force_add_civic = nsc_freebooter_civic_freebooter_trait_change_corp
-			} else = { force_add_civic = nsc_freebooter_civic_freebooter_trait_change }
-			# force_add_civic = nsc_freebooter_civic_great_khans_vision later
 		} else = {
 			set_country_type = awakened_marauders
 			set_graphical_culture = madd_01
-
 			change_government = {
 				authority = auth_dictatorial
 				civics = {
@@ -6088,6 +6101,7 @@ country_event = {
 
 # Great Khan Dies (Notify)
 # This = player
+# From = marauder.505
 country_event = {
 	id = marauder.510
 	title = "marauder.510.name"
@@ -6132,13 +6146,13 @@ country_event = {
 		# }
 		hidden_effect = {
 			### Save old values
-			store_country_backup_data = {
-				flag = yes
-				room = yes
-				name = yes
-				ethics = yes
-				government = yes
-			}
+			# store_country_backup_data = {
+			# 	flag = yes
+			# 	room = yes
+			# 	name = yes
+			# 	ethics = yes
+			# 	government = yes
+			# }
 			# create_country = {
 			# 	name = root
 			# 	name_list = root
@@ -6152,14 +6166,14 @@ country_event = {
 			# 	exclude_day_zero_contact = root
 			# 	effect = { save_global_event_target_as = marauder_precursor }
 			# }
-
-			save_event_target_as = new_khanate
+			# save_event_target_as = new_khanate
 			remove_global_flag = marauder_crisis_ongoing
 			remove_global_flag = great_khan_wins
+			set_global_flag = horde_triggered
 			set_global_flag = khan_no_die # TODO immortal? otherwise needs set_player somewhere
 			set_country_flag = CmtFlagKhanNoDieCountry
-			country_event = { id = crisis.4099 days = 9 } # Declare Crisis
-			set_country_type = dormant_marauders # Hack for trigger?
+			country_event = { id = crisis.4099 days = 29 } # Declare Crisis
+			# set_country_type = dormant_marauders # Hack for trigger?
 			set_country_flag = new_khanate_flag
 			set_origin = "origin_khan_successor"
 			event_target:raider_khanate = {
@@ -6182,14 +6196,15 @@ country_event = {
 					}
 					capital_scope = { origin_nsc_freebooter_start_setup = yes }
 				}
-				country_event = { id = marauder.609 days = -1 }				# Fully handover?
+				# country_event = { id = marauder.609 days = -1 }				# Fully handover?
 				# set_country_type = dormant_marauders
-				country_event = { id = khan.606 days = 2 } # destroy_country
+				# country_event = { id = khan.606 days = 2 } # destroy_country
+				country_event = { id = marauder.600 } # The Future of the Horde
 			}
 			if = { limit = { NOT = { has_relic = r_khans_throne } } # (as we could decline?)
 				add_relic = r_khans_throne
 			}
-			country_event = { id = marauder.500 days = 3 }
+			country_event = { id = marauder.500 days = 7 }
 		}
 		ai_chance = { factor = 0 }
 	}
@@ -6206,9 +6221,10 @@ country_event = {
 					has_been_declared_crisis = no
 					is_gestalt = no
 				}
-				add_resource = { influence = 100 }
+				add_resource = { influence = 120 }
 			}
 		}
+		ai_chance = { factor = 1 }
 	}
 }
 
@@ -8932,9 +8948,9 @@ country_event = {
 		if = { # Four Diadochi
 			limit = {
 				OR = {
-					num_owned_planets > 11
+					num_owned_planets > 12
 					count_system_within_border = {
-						count > 4
+						count > 5
 						limit = {
 							any_system_colony = {
 								has_owner = yes
@@ -9020,8 +9036,9 @@ country_event = {
 					exists = event_target:third_diadochi
 					is_same_empire = event_target:raider_khanate
 				}
-				# TODO: Player could chose!? # Reported mysteric bug, somehow player lost systems
-				event_target:third_diadochi = { set_player = event_target:raider_khanate }
+				event_target:third_diadochi = {
+					set_player = event_target:raider_khanate
+				}
 			}
 			# clear_global_event_target = raider_khanate
 		}
@@ -9325,24 +9342,7 @@ country_event = {
 				}
 			}
 		}
-		if = {
-			limit = {
-				OR = {
-					num_owned_planets = 0
-					NOT = {
-						any_system_within_border = {
-							any_system_colony = {
-								has_owner = yes
-								is_owned_by = root
-								is_under_colonization = no
-								uses_habitat_capitals = no
-							}
-						}
-					}
-				}
-			}
-			country_event = { id = khan.606 days = 3 } # destroy_country
-		}
+		country_event = { id = khan.606 days = 2 } # destroy_country
 		set_update_modifiers_batch = end
 	}
 }
@@ -9517,8 +9517,9 @@ country_event = {
 					exists = event_target:new_khanate
 					is_same_empire = event_target:raider_khanate
 				}
-				# Reported bug, someone got the new new_khanate fully unrelated??
-				event_target:new_khanate = { set_player = event_target:raider_khanate }
+				event_target:new_khanate = {
+					set_player = event_target:raider_khanate
+				}
 			}
 			# clear_global_event_target = raider_khanate
 		}
@@ -9571,9 +9572,7 @@ country_event = {
 		if = {
 			limit = {
 				exists = event_target:khan_destroyer
-				NOT = {
-					has_active_event = { marauder.660 marauder.661 }
-				}
+				NOT = { has_active_event = { marauder.660 marauder.661 } }
 				is_ai = yes
 				is_subject_of_khan = no
 			}
@@ -9615,8 +9614,9 @@ country_event = {
 					exists = event_target:new_khanate
 					is_same_empire = event_target:raider_khanate
 				}
-				# Reported bug, someone got the new new_khanate fully unrelated??
-				event_target:new_khanate = { set_player = event_target:raider_khanate }
+				event_target:new_khanate = {
+					set_player = event_target:raider_khanate
+				}
 			}
 			# clear_global_event_target = raider_khanate
 		}
@@ -11095,18 +11095,16 @@ country_event = {
 	picture = GFX_evt_space_walk
 	show_sound = event_ship_thrusters
 	is_triggered_only = yes
-	trigger = { NOT = { has_relic = r_khans_throne } }
+	trigger = {
+		OR = {
+			is_ai = no
+			is_robot_empire = no
+		}
+		NOT = { has_relic = r_khans_throne }
+	}
 	# immediate = {}
 	option = {
 		name = EXCELLENT
-		trigger = {
-			hidden_trigger = {
-				OR = {
-					is_ai = no
-					is_robot_empire = no
-				}
-			}
-		}
 		add_relic = r_khans_throne
 	}
 }
