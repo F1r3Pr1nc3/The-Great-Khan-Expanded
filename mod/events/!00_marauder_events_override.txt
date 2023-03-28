@@ -2852,7 +2852,7 @@ country_event = {
 					root.capital_star.starbase = { is_owned_by = root }
 				}
 				set_home_base = root.capital_star.starbase
-				set_mia = yes
+				set_mia = mia_return_home
 			} else = { set_location = root.capital_scope }
 			fleet_event = { id = marauder.50 days = 1800 }
 		}
@@ -6145,27 +6145,6 @@ country_event = {
 		# 	country_event = { id = khan. } # Notify about the new Khan.
 		# }
 		hidden_effect = {
-			### Save old values
-			# store_country_backup_data = {
-			# 	flag = yes
-			# 	room = yes
-			# 	name = yes
-			# 	ethics = yes
-			# 	government = yes
-			# }
-			# create_country = {
-			# 	name = root
-			# 	name_list = root
-			# 	species = root
-			# 	type = ruined_marauders
-			# 	civics = root
-			# 	flag = root
-			# 	ethos = root
-			# 	ignore_initial_colony_error = yes
-			# 	day_zero_contact = no
-			# 	exclude_day_zero_contact = root
-			# 	effect = { save_global_event_target_as = marauder_precursor }
-			# }
 			# save_event_target_as = new_khanate
 			remove_global_flag = marauder_crisis_ongoing
 			remove_global_flag = great_khan_wins
@@ -6205,6 +6184,21 @@ country_event = {
 				add_relic = r_khans_throne
 			}
 			country_event = { id = marauder.500 days = 7 }
+			every_war = { # End Wars
+				limit = { is_war_participant = { who = root } }
+				remove_war_participant = root
+			}
+			if = { # End Subjugation
+				limit = { is_subject = yes }
+				overlord = {
+					declare_war = {
+						target = root
+						name = { key = "NAME_Declared_Crisis_War" variable_string = "[This.MainDefender.GetAdj]" }
+						attacker_war_goal = "wg_declared_crisis"
+					}
+				}
+				set_subject_of = { who = none }
+			}
 		}
 		ai_chance = { factor = 0 }
 	}
@@ -6693,7 +6687,7 @@ country_event = {
 										event_target:khan_fleet.solar_system.starbase = { is_owned_by = root }
 									}
 									set_home_base = event_target:khan_fleet.solar_system.starbase
-									set_mia = yes
+									set_mia = mia_return_home
 								} else = {
 									event_target:khan_fleet.solar_system = {
 										random_neighbor_system = {
@@ -7218,10 +7212,9 @@ starbase_event = {
 				save_event_target_as = former_starbase_owner
 				# Flip Starbase ownership (create new one)
 				prev.solar_system = {
-					system_event = { id = khan.310 days = -1 }
 					system_event = { id = khan.310 days = 2 }
 				}
-				 # Friendly to be sure
+				# Friendly to be sure
 				country_event = { id = khan.309 days = -1 }
 				country_event = { id = khan.309 days = 2 }
 			} else = {
@@ -7588,10 +7581,13 @@ country_event = {
 		}
 		allow = {
 			NOT = { has_active_event = { khan.998 } }
-			hidden_trigger = { is_variable_set = "planets_lost_to_marauder" }
 			custom_tooltip = {
-				text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
+				fail_text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
 				is_subject = no
+			}
+			custom_tooltip = {
+				fail_text = "HI_DOMINEERING_GREETING_02" # FP_HOSTILE_GREETING_02
+				hidden_trigger = { is_variable_set = "planets_lost_to_marauder" }
 			}
 		}
 		hidden_effect = {
@@ -7610,15 +7606,38 @@ country_event = {
 			has_technology = tech_ship_armor_4
 			has_technology = tech_shields_4
 			is_fallen_empire = no
+			hidden_trigger = { is_variable_set = "planets_lost_to_marauder" }
 		}
 		allow = {
-			hidden_trigger = { is_variable_set = "planets_lost_to_marauder" }
 			custom_tooltip = {
-				text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
+				fail_text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
 				is_subject = no
 			}
 		}
 		response_text = marauder.550.a.2.response
+		is_dialog_only = yes
+	}
+	option = {
+		# Submit? Already rebelled
+		name = marauder_deal_start
+		# sound = no_tut_advior_05
+		trigger = {
+			has_country_flag = rebelling_satrapy
+			has_technology = tech_mass_drivers_4
+			has_technology = tech_lasers_4
+			has_technology = tech_ship_armor_4
+			has_technology = tech_shields_4
+			is_fallen_empire = no
+			hidden_trigger = { NOT = { is_variable_set = "planets_lost_to_marauder" } }
+		}
+		allow = {
+			custom_tooltip = {
+				fail_text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
+				is_subject = no
+			}
+		}
+		response_text = "HI_DOMINEERING_GREETING_02"
+		response_text = "FP_HOSTILE_GREETING_02"
 		is_dialog_only = yes
 	}
 	option = {
@@ -7636,7 +7655,7 @@ country_event = {
 		}
 		allow = {
 			custom_tooltip = {
-				fail_text = 03_EMBASSY_HOSTILE # marauder.550.a_fail
+				fail_text = "03_EMBASSY_HOSTILE" # marauder.550.a_fail
 				hidden_trigger = {
 					OR = {
 						is_variable_set = "planets_lost_to_marauder"
@@ -7647,7 +7666,7 @@ country_event = {
 			}
 			NOT = { has_active_event = { marauder.551 } }
 			custom_tooltip = {
-				text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
+				fail_text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
 				is_subject = no
 			}
 		}
@@ -7669,12 +7688,11 @@ country_event = {
 		allow = {
 			OR = {
 				custom_tooltip = {
-					text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
+					fail_text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
 					is_subject = no
 				}
 				is_subject_of_khan = yes
 			}
-			hidden_trigger = { is_variable_set = "planets_lost_to_marauder" }
 		}
 		response_text = marauder.550.a.2.response
 		is_dialog_only = yes
@@ -7775,7 +7793,7 @@ country_event = {
 		allow = {
 			OR = {
 				custom_tooltip = {
-					text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
+					fail_text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
 					is_subject = no
 				}
 				is_subject_of_khan = yes
@@ -7824,7 +7842,7 @@ country_event = {
 		allow = {
 			OR = {
 				custom_tooltip = {
-					text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
+					fail_text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
 					is_subject = no
 				}
 				is_subject_of_khan = yes
@@ -10226,10 +10244,7 @@ country_event = {
 									}
 								} else = {
 									if = { limit = { is_leased = yes }
-										end_fleet_contract = {
-											initiator = prev
-											reason = cancelled
-										}
+										end_fleet_contract = { initiator = prev reason = cancelled }
 									}
 									remove_auto_move_target = yes
 									clear_orders = yes
@@ -10317,7 +10332,7 @@ country_event = {
 							}
 						}
 					} else = {
-						# generate_late_primitives_on_planet = yes
+						# generate_late_pre_ftls_on_planet = yes
 						if = {
 							limit = {
 								any_owned_pop = {
@@ -10405,14 +10420,14 @@ country_event = {
 						if = { limit = { has_building = building_clone_army_clone_vat } remove_building = building_clone_army_clone_vat }
 						if = { limit = { has_building = building_posthumous_employment_center } remove_building = building_posthumous_employment_center }
 
-						create_late_primitive_empire = yes
-						setup_primitive_planet = yes
+						create_late_pre_ftl_empire = yes
+						setup_pre_ftl_planet = yes
 						last_created_country = {
 							random_list = {
-								3 = { set_primitive_age_effect = { primitive_age = industrial_age } }
-								4 = { set_primitive_age_effect = { primitive_age = machine_age } }
-								5 = { set_primitive_age_effect = { primitive_age = atomic_age } }
-								6 = { set_primitive_age_effect = { primitive_age = early_space_age } }
+								3 = { set_pre_ftl_age_effect = { PRE_FTL_AGE = industrial_age } }
+								4 = { set_pre_ftl_age_effect = { PRE_FTL_AGE = machine_age } }
+								5 = { set_pre_ftl_age_effect = { PRE_FTL_AGE = atomic_age } }
+								6 = { set_pre_ftl_age_effect = { PRE_FTL_AGE = early_space_age } }
 							}
 						}
 						# Prevent Dormant marauder own planet

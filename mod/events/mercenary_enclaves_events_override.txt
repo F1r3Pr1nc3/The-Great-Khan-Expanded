@@ -150,7 +150,7 @@ event = {
 					}
 					set_name = {
 						key = NAME_Mercenary_Fleet
-						variable_string = "event_target:mercenary_enclave_country.GetName"
+						variable_string = "[event_target:mercenary_enclave_country.GetName]"
 					}
 					if = {
 						limit = {
@@ -161,7 +161,7 @@ event = {
 						if = {
 							limit = { exists = event_target:marauder_rally_point.starbase }
 							set_home_base = event_target:marauder_rally_point.starbase
-							set_mia = yes
+							set_mia = mia_return_home
 						}
 						queue_actions = {
 							wait = 5
@@ -304,7 +304,7 @@ country_event = {
 				auto_follow_fleet = { target = event_target:mercenary_enclave_station }
 			} else_if = {
 				limit = { exists = solar_system } # Otherwise CTD
-				set_mia = yes
+				set_mia = mia_return_home
 			}
 
 			root = {

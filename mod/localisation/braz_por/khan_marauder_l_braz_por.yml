@@ -1,6 +1,6 @@
 ﻿l_braz_por:
  FE_war_choice: "La elección"
- FE_war_choice_desc: "$leader_trait_great_khan$ ha declarado la guerra en una de las carreras mayores en un intento por tomar su tecnología. Curiosamente, la Carrera de Elder ha llegado a los sujetos de $ RT_GREAT_KHAN $, ofreciéndonos la oportunidad de servirlos. Ambos lados han prometido grandes regalos para aquellos que se encuentran con ellos, y la destrucción de los que están contra ellos. Alternativamente, podríamos declarar nuestra completa independencia en el caos."
+ FE_war_choice_desc: "$leader_trait_great_khan$ ha declarado la guerra en una de las carreras mayores en un intento por tomar su tecnología. Curiosamente, la Carrera de Elder ha llegado a los sujetos de $RT_GREAT_KHAN$, ofreciéndonos la oportunidad de servirlos. Ambos lados han prometido grandes regalos para aquellos que se encuentran con ellos, y la destrucción de los que están contra ellos. Alternativamente, podríamos declarar nuestra completa independencia en el caos."
  MARAUDER_CORVETTE_MID_M1S1: "$pirate_corvette$"
  MARAUDER_CORVETTE_MID_S3: "Ankhdagch"
  MARAUDER_CRUISER_TEMP: "Esquina de alma"
@@ -34,7 +34,7 @@
  great_khan_wins_announcement_response: "Buenas palabras..."
  great_khan_wins_desc: "A través de una combinación de diplomacia y poder militar abrumador, el $RT_GREAT_KHAN$ ha logrado conquistar la mayoría de la galaxia conocida, con solo las carreras mayores que permanecen independientes. Parecería como si el $RT_GREAT_KHAN$'s La visión de una comunidad galáctica se realizará, aunque en qué forma se mantiene por verse..."
  great_khan_wins_response: "Larga vida a $RT_GREAT_KHAN$..."
- khan.710.a.tooltip: "Ahora gobierna el $gov_marauder_clans $ como el nuevo $RT_GREAT_KHAN$ para escribir una nueva y gloriosa historia galáctica.\n$food_policy_rationing_desc$"
+ khan.710.a.tooltip: "Ahora gobierna el $gov_marauder_clans$ como el nuevo $RT_GREAT_KHAN$ para escribir una nueva y gloriosa historia galáctica.\n$food_policy_rationing_desc$"
  marauder.31.g: "§YThe [raid_target_6.GetName].§!"
  marauder.31.h: "§YThe [raid_target_7.GetName].§!"
  marauder.31.i: "§YThe [raid_target_8.GetName].§!"
