@@ -900,6 +900,22 @@ get_marauder_species = {
 					}
 				}
 			}
+			any_owned_pop_species = {
+				is_scope_valid = yes
+				is_scope_type = species
+				OR = {
+					species_can_be_necrophaged = yes
+					AND = {
+						exists = prev.owner_species
+						is_same_species = prev.owner_species
+					}
+				}
+				NOR = {
+					is_archetype = LITHOID
+					is_species_class = PLANT
+					is_species_class = FUN
+				}
+			}
 		}
 		random_owned_pop_species = {
 		# random_owned_species = {
@@ -936,8 +952,7 @@ get_marauder_species = {
 				# 	mode = add
 				# 	mult = 10
 				# }
-				# modifier = { factor = 0.9 is_same_species = root.owner_species }
-				# # modifier = { add = 3 is_same_species = root.owner_species }
+				modifier = { add = 3 is_same_species = root.owner_species }
 				# modifier = {
 				# 	add = 1
 				# 	prev = {
@@ -947,15 +962,15 @@ get_marauder_species = {
 				# 		}
 				# 	}
 				# }
-				# modifier = {
-				# 	add = 2
-				# 	prev = {
-				# 		count_owned_pop = {
-				# 			count > 10
-				# 			limit = { is_same_species = prevprev }
-				# 		}
-				# 	}
-				# }
+				modifier = {
+					add = 2
+					prev = {
+						count_owned_pop = {
+							count > 10
+							limit = { is_same_species = prevprev }
+						}
+					}
+				}
 				# modifier = {
 				# 	add = 3
 				# 	prev = {
@@ -1004,6 +1019,20 @@ get_marauder_species = {
 					limit = { is_same_species = event_target:marauder_species }
 				}
 			}
+			any_owned_species = {
+				OR = {
+					species_can_be_necrophaged = yes
+					AND = {
+						exists = owner_species
+						is_same_species = prev.owner_species
+					}
+				}
+				NOR = {
+					is_archetype = LITHOID
+					is_species_class = PLANT
+					is_species_class = FUN
+				}
+			}
 		}
 		random_owned_species = {
 			limit = {
@@ -1023,7 +1052,7 @@ get_marauder_species = {
 				}
 			}
 			weights = {
-				base = 100
+				base = 10
 				# complex_trigger_modifier = { # add 10 for each unhappy pop of this species
 				# 	trigger = count_owned_pop
 				# 	trigger_scope = prev

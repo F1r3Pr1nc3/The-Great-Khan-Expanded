@@ -5007,25 +5007,36 @@ country_event = {
 
 		if = { limit = { is_militarist = no }
 			# limit = { is_pacifist = yes }
-			shift_ethic = "ethic_militarist"
+			shift_ethic = ethic_militarist
 			# shift_ethic = "ethic_fanatic_militarist"
 		}
-		if = { limit = { has_ethic = "ethic_xenophobe" }
-			country_remove_ethic = "ethic_xenophobe"
+		if = { limit = { has_ethic = ethic_xenophobe }
+			country_remove_ethic = ethic_xenophobe
 		}
 		if = { limit = { is_spiritualist = no }
-			shift_ethic = "ethic_spiritualist"
+			shift_ethic = ethic_spiritualist
 		}
 		if = { limit = { is_egalitarian = yes }
+			if = { limit = { has_ethic = ethic_egalitarian }
+				country_remove_ethic = ethic_egalitarian
+			} else = { country_remove_ethic = ethic_fanatic_egalitarian }
 			# shift_ethic = ethic_fanatic_spiritualist
-			shift_ethic = ethic_authoritarian
+			country_add_ethic = ethic_authoritarian
+			# shift_ethic = ethic_fanatic_authoritarian
 		}
 
-		if = {
-			limit = {
-				is_ai = no
-				host_has_dlc = Apocalypse
+		if = { limit = { NOT = { has_authority = auth_dictatorial } }
+			if = { limit = { is_authoritarian = no }
+				shift_ethic = ethic_fanatic_authoritarian
 			}
+			change_government = {
+				authority = auth_dictatorial
+				cooldown = no
+				remove_invalid_civics = yes
+			}
+		}
+
+		if = { limit = { is_ai = no host_has_dlc = Apocalypse }
 			if = { ### NSC SUPPORT
 				limit = { has_global_flag = has_nsc_active }
 				if = {
@@ -5038,45 +5049,25 @@ country_event = {
 					set_country_type = default
 				}
 				set_origin = "origin_nsc_freebooter"
-				change_government = {
-					authority = auth_dictatorial
-					cooldown = no
-					remove_invalid_civics = yes
-				}
 				if = { limit = { is_megacorp = yes }
 					force_add_civic = nsc_freebooter_civic_freebooter_trait_change_corp
 				} else = { force_add_civic = nsc_freebooter_civic_freebooter_trait_change }
 				# force_add_civic = nsc_freebooter_civic_great_khans_vision later
 			} else = {
-				change_government = {
-					authority = auth_dictatorial
-					civics = {
-						civic = civic_great_khans_vision
-						civic = civic_shared_burden
-					}
-					cooldown = no
-					remove_invalid_civics = yes
-				}
 				force_add_civic = civic_slaver_guilds
 				force_add_civic = civic_barbaric_despoilers
 			}
 		} else = {
 			set_country_type = awakened_marauders
 			set_graphical_culture = madd_01
-			change_government = {
-				authority = auth_dictatorial
-				civics = {
-					civic = civic_great_khans_vision
-					civic = civic_shared_burden
-				}
-				cooldown = no
-				remove_invalid_civics = yes
-			}
 			# force_add_civic = civic_warrior_culture
 			# force_add_civic = civic_slaver_guilds
 			force_add_civic = civic_barbaric_despoilers
 			force_add_civic = civic_fanatic_purifiers
 		}
+
+		force_add_civic = civic_great_khans_vision
+		force_add_civic = civic_shared_burden
 
 		add_resource = {
 			energy	=	20000
@@ -10057,11 +10048,7 @@ country_event = {
 								solar_system = {
 									any_system_planet = {
 										is_star = no
-										OR = {
-											is_asteroid = no
-											merg_is_gas_giant = no
-											colonizable_planet = yes
-										}
+										is_asteroid = no
 									}
 								}
 							}
@@ -10071,15 +10058,13 @@ country_event = {
 								solar_system = {
 									any_system_planet = {
 										is_star = no
-										OR = {
-											is_asteroid = no
-											merg_is_gas_giant = no
-											colonizable_planet = yes
-										}
+										is_asteroid = no
 									}
 								}
 							}
-							solar_system = { save_event_target_as = marauder_capital }
+							solar_system = {
+								save_event_target_as = marauder_capital
+							}
 						}
 					} else = {
 						random_owned_planet = {
@@ -10090,10 +10075,8 @@ country_event = {
 								modifier = { add = 3 solar_system = { any_neighbor_system = { has_star_flag = marauder_system } } }
 								modifier = { add = 3 any_owned_species = { is_same_species = event_target:restored_marauders.owner_species } }
 							}
-							solar_system = {
-								save_event_target_as = marauder_capital
-								# Can't own planet due conquer conflict/restriction
-							}
+							save_event_target_as = marauder_capital
+							# Can't own planet due conquer conflict/restriction
 						}
 					}
 				}
@@ -10102,6 +10085,48 @@ country_event = {
 
 		if = { limit = { NOT = { exists = event_target:marauder_capital } }
 			log = "No place for new Marauder system found for \\[This.GetName]!?"
+			if = {
+				limit = {
+					any_owned_starbase = {
+						solar_system = {
+							any_system_planet = {
+								is_star = no
+								is_asteroid = no
+							}
+						}
+					}
+				}
+				random_owned_starbase = {
+					limit = {
+						solar_system = {
+							any_system_planet = {
+								is_star = no
+								is_asteroid = no
+							}
+						}
+					}
+					solar_system = {
+						random_system_planet = {
+							limit = {
+								is_star = no
+								is_asteroid = no
+							}
+							save_event_target_as = marauder_capital
+						}
+					}
+				}
+			} else = {
+				random_owned_planet = {
+					limit = { is_owned_by = controller }
+					weights = {
+						base = 1
+						modifier = { add = 6 solar_system = { has_star_flag = marauder_system } }
+						modifier = { add = 3 solar_system = { any_neighbor_system = { has_star_flag = marauder_system } } }
+						modifier = { add = 3 any_owned_species = { is_same_species = event_target:restored_marauders.owner_species } }
+					}
+					save_event_target_as = marauder_capital
+				}
+			}
 		} else = {
 			if = {
 				limit = {
@@ -10194,11 +10219,13 @@ country_event = {
 					save_global_event_target_as = marauder_country_1
 				}
 			}
-			switch = {
-				trigger = has_country_flag
-				marauder_1 = { event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_1 } }
-				marauder_2 = { event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_2 } }
-				marauder_3 = { event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_3 } }
+			if = { limit = { exists = event_target:marauder_capital }
+				switch = {
+					trigger = has_country_flag
+					marauder_1 = { event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_1 } }
+					marauder_2 = { event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_2 } }
+					marauder_3 = { event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_3 } }
+				}
 			}
 		}
 
@@ -10279,10 +10306,10 @@ country_event = {
 			owner_species = { save_event_target_as = marauder_species }
 			country_event = { id = khan.306 days = -1 }
 			# create_marauder_successor_fleet = yes
+			save_event_target_as = new_khanate
 			event_target:marauder_capital = {
 				prev = { CmtEffectCreateFleet_KhanStandard = yes }
 			}
-			save_event_target_as = new_khanate
 		}
 
 		# If Horde owns only planets on not owned system.
@@ -10872,8 +10899,6 @@ country_event = {
 			limit = { has_communications = root }
 			establish_communications_no_message = event_target:new_khanate
 		}
-	}
-	after = {
 		event_target:new_khanate = {
 			if = { limit = { CmtTriggerIsMarauder = no used_naval_capacity_percent < 0.75 }
 				create_fleet_from_naval_cap = 0.2
