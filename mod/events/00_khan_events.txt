@@ -1470,7 +1470,7 @@ country_event = {
 	title = "greatkhan_diplo_header"
 	desc = "great_khan_fe_war"
 	picture_event_data = {
-		portrait = event_target:raider_khanate
+		portrait = event_target:great_khan
 		room = khorgis_khan_1_room
 	}
 	trigger = {
@@ -1505,7 +1505,7 @@ country_event = {
 	desc = great_khan_integrate_announcement
 	diplomatic = yes
 	picture_event_data = {
-		portrait = event_target:raider_khanate
+		portrait = event_target:great_khan
 		room = khorgis_khan_1_room
 	}
 	is_triggered_only = yes
@@ -1722,7 +1722,7 @@ country_event = {
 	title = "greatkhan_diplo_header"
 	desc = "great_khan_wins_announcement"
 	picture_event_data = {
-		portrait = event_target:raider_khanate
+		portrait = event_target:great_khan
 		room = khorgis_khan_1_room
 	}
 	trigger = {
@@ -2500,7 +2500,7 @@ country_event = {
 # 	title = "greatkhan_diplo_header"
 # 	desc = marauder_fabricator_threat
 # 	picture_event_data = {
-# 		portrait = event_target:raider_khanate
+# 		portrait = event_target:great_khan
 # 		room = khorgis_khan_1_room
 # 	}
 # 	is_triggered_only = yes
@@ -2824,7 +2824,7 @@ country_event = {
 	title = "greatkhan_diplo_header"
 	desc = marauder_fabricator_offer
 	picture_event_data = {
-		portrait = event_target:raider_khanate
+		portrait = event_target:great_khan
 		room = khorgis_khan_1_room
 	}
 	is_triggered_only = yes
@@ -3335,7 +3335,7 @@ country_event = {
 	title = "greatkhan_diplo_header"
 	desc = marauder_deal_offer
 	picture_event_data = {
-		portrait = event_target:raider_khanate
+		portrait = event_target:great_khan
 		room = khorgis_khan_1_room
 	}
 	is_triggered_only = yes
@@ -3389,7 +3389,7 @@ country_event = {
 	title = "greatkhan_diplo_header"
 	desc = marauder_deal
 	picture_event_data = {
-		portrait = event_target:raider_khanate
+		portrait = event_target:great_khan
 		room = khorgis_khan_1_room
 	}
 	is_triggered_only = yes

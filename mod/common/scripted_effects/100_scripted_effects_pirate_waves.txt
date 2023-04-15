@@ -272,13 +272,10 @@ set_pirates_difficulty = {
 	if = { limit = { is_variable_set = pirate_waves_difficulty }
 		set_variable = { which = pirate_waves_difficulty value = 5 } # reset
 	} else = {
-		if = { limit = { is_difficulty > 3 }
-			set_variable = { which = pirate_waves_difficulty value = 2 }
-		} else_if = { limit = { is_difficulty > 2 }
-			set_variable = { which = pirate_waves_difficulty value = 1 }
-		} else = {
-			set_variable = { which = pirate_waves_difficulty value = 0 }
-		}
+		if		= { limit = { is_difficulty > 5 } set_variable = { which = pirate_waves_difficulty value = 3 } }
+		else_if = { limit = { is_difficulty > 4 } set_variable = { which = pirate_waves_difficulty value = 2 } }
+		else_if = { limit = { is_difficulty > 3 } set_variable = { which = pirate_waves_difficulty value = 1 } }
+		else = { set_variable = { which = pirate_waves_difficulty value = 0 } }
 	}
 	if = {
 		limit = { is_multiplayer = yes }

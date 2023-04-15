@@ -163,16 +163,21 @@ event = {
 							set_home_base = event_target:marauder_rally_point.starbase
 							set_mia = mia_return_home
 						}
-						queue_actions = {
-							wait = 5
-							move_to = event_target:khan_fleet
+						if = {
+							limit = { exists = event_target:khan_fleet }
+							queue_actions = {
+								wait = 5
+								move_to = event_target:khan_fleet
+							}
 						}
-
 					}
 					order_forced_return = yes
-					auto_follow_fleet = {
-						target = event_target:khan_fleet
-						attack_fleet = no
+					if = {
+						limit = { exists = event_target:khan_fleet }
+						auto_follow_fleet = {
+							target = event_target:khan_fleet
+							attack_fleet = no
+						}
 					}
 				}
 				set_country_flag = mercenary_enclave_rented_fleet

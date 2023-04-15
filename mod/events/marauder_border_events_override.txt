@@ -1,0 +1,725 @@
+namespace = marauder_borders
+
+######
+
+### Country Creation Before Potential Diadochi Split
+country_event = {
+	id = marauder_borders.1000
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		owner_species = { save_event_target_as = marauder_species }
+		every_owned_fleet = {
+			limit = {
+				NOT = { is_ship_size = starbase_marauder }
+				OR = {
+					has_fleet_flag = satrapy_garrison
+					has_fleet_flag = satrapy_garrison_fleet
+					has_fleet_flag = horde_auxuliaries
+					NOT = { is_within_borders_of = root }
+				}
+			}
+			destroy_fleet = this
+		}
+		every_controlled_fleet = {
+			limit = { is_mobile = yes is_leased = yes }
+			end_fleet_contract = { initiator = prev reason = cancelled }
+		}
+		restore_country_backup_data = yes
+		# CREATE_KHAN_SUCCESSOR_COUNTRY
+		if = { limit = { has_global_flag = cultural_overhaul_active }
+			if = { limit = { has_global_flag = cultural_overhaul_funefork_active }
+				random_list = {
+					90 = {
+						create_country = {
+							name_list = random
+							species = event_target:marauder_species
+							type = default
+							authority = auth_imperial
+							civics = { civic = random }
+							origin = "origin_khan_successor"
+							ethos = {
+								ethic = ethic_militarist
+								ethic = ethic_authoritarian
+							}
+							ignore_initial_colony_error = yes
+						}
+					}
+					9 = {
+						create_country = {
+							name_list = random
+							species = event_target:marauder_species
+							type = default
+							authority = auth_dictatorial
+							civics = { civic = random }
+							origin = "origin_khan_successor"
+							ethos = {
+								ethic = ethic_militarist
+								ethic = ethic_xenophobe
+							}
+							ignore_initial_colony_error = yes
+						}
+					}
+					1 = {
+						create_country = {
+							name_list = random
+							species = event_target:marauder_species
+							type = default
+							authority = auth_dict_democratic
+							civics = { civic = random }
+							origin = "origin_khan_successor"
+							ethos = {
+								ethic = ethic_militarist
+								ethic = ethic_authoritarian
+							}
+							ignore_initial_colony_error = yes
+						}
+					}
+				}
+			}
+			else = {
+				random_list = {
+					90 = {
+						create_country = {
+							name_list = random
+							species = event_target:marauder_species
+							type = default
+							authority = auth_imperial
+							civics = { civic = random }
+							origin = "origin_khan_successor"
+							ethos = {
+								ethic = ethic_militarist
+								ethic = ethic_authoritarian
+							}
+							ignore_initial_colony_error = yes
+						}
+					}
+					10 = {
+						create_country = {
+							name_list = random
+							species = event_target:marauder_species
+							type = default
+							authority = auth_dictatorial
+							civics = { civic = random }
+							origin = "origin_khan_successor"
+							ethos = {
+								ethic = ethic_militarist
+								ethic = ethic_xenophobe
+							}
+							ignore_initial_colony_error = yes
+						}
+					}
+				}
+			}
+		}
+		else = {
+			create_country = {
+				name_list = random
+				species = event_target:marauder_species
+				type = default
+				authority = auth_imperial
+				civics = { civic = random }
+				origin = "origin_khan_successor"
+				ethos = {
+					ethic = ethic_militarist
+					ethic = ethic_authoritarian
+				}
+				ignore_initial_colony_error = yes
+				day_zero_contact = no
+				exclude_day_zero_contact = root
+			}
+		}
+
+		last_created_country = {
+			save_event_target_as = new_khanate
+			set_country_flag = new_khanate_flag
+			set_country_flag = first_alien_life
+			set_country_flag = has_encountered_other_empire
+			set_name = random
+			force_add_civic = civic_great_khans_legacy
+			shift_ethic = ethic_fanatic_militarist
+
+			## ADD_KHAN_ETHICS
+			if = {
+				limit = { has_global_flag = cultural_overhaul_active }
+				if = {
+					limit = { is_imperial = yes }
+					random_list = {
+						1 = { } # Stays with Regular Auth Ethic
+						1 = { country_add_ethic = ethic_fanatic_authoritarian } # Gets Fanatic Auth Ethic
+					}
+					if = {
+						limit = { has_ethic = ethic_fanatic_authoritarian }
+						country_add_ethic = ethic_xenophobe
+					}
+					else = {
+						random_list = {
+							1 = { country_add_ethic = ethic_xenophobe }
+							1 = { country_add_ethic = ethic_fanatic_xenophobe }
+						}
+					}
+					if = {
+						limit = {
+							has_ethic = ethic_xenophobe
+							has_ethic = ethic_authoritarian
+						}
+						random_list = {
+							1 = { country_add_ethic = ethic_socialism }
+							1 = { country_add_ethic = ethic_spiritualist }
+							1 = { country_add_ethic = ethic_capitalism }
+						}
+					}
+				}
+				else_if = {
+					limit = { has_authority = auth_dictatorial }
+					random_list = {
+						1 = { country_add_ethic = ethic_authoritarian }
+						1 = { country_add_ethic = ethic_fanatic_authoritarian }
+					}
+					if = {
+						limit = { has_ethic = ethic_fanatic_authoritarian }
+						country_add_ethic = ethic_xenophobe
+					}
+					else = {
+						random_list = {
+							1 = { country_add_ethic = ethic_xenophobe }
+							1 = { country_add_ethic = ethic_fanatic_xenophobe }
+						}
+					}
+					if = {
+						limit = {
+							has_ethic = ethic_xenophobe
+							has_ethic = ethic_authoritarian
+						}
+						random_list = {
+							1 = { country_add_ethic = ethic_socialism }
+							1 = { country_add_ethic = ethic_spiritualist }
+							1 = { country_add_ethic = ethic_capitalism }
+						}
+					}
+				}
+				else_if = {
+					limit = { has_authority = auth_dict_democratic }
+					random_list = {
+						1 = { country_add_ethic = ethic_xenophobe }
+						1 = { country_add_ethic = ethic_fanatic_xenophobe }
+					}
+					if = {
+						limit = { has_ethic = ethic_xenophobe }
+						random_list = {
+							1 = { country_add_ethic = ethic_socialism }
+							1 = { country_add_ethic = ethic_spiritualist }
+							1 = { country_add_ethic = ethic_capitalism }
+						}
+					}
+				}
+			}
+			force_add_civic = civic_slaver_guilds
+		}
+
+		every_subject = {
+			# limit = { merg_is_standard_empire = yes }
+			# set_subject_of = { who = none }
+			# country_event = { id = marauder.670 days = 3 }		# Notify Satrap End
+			country_event = { id = marauder.671 days = 10 }			# Notify Garrison End
+		}
+		country_event = { id = marauder.609 days = -1 } # Fully handover
+		# every_controlled_fleet = { set_owner = event_target:original_diadochi }
+		# every_owned_planet = {
+		# 	set_owner = event_target:original_diadochi
+		# }
+		# every_system_within_border = {
+		# 	limit = { exists = starbase }
+		# 	starbase = { set_owner = event_target:original_diadochi }
+		# }
+		# event_target:original_diadochi = {
+		# 	give_technology = { tech = tech_starbase_3 message = no }
+		# 	every_owned_starbase = {
+		# 		set_starbase_size = starbase_outpost
+		# 	}
+		# 	set_diadochi_leaders_and_fleet = yes
+		# }
+		# # Establish Communications
+		# every_country = {
+		# 	limit = { has_communications = root }
+		# 	establish_communications_no_message = event_target:original_diadochi
+		# }
+
+	}
+	after = {
+		if = {
+			limit = {
+				count_subject = {
+					limit = {
+						any_agreement = { agreement_preset = preset_satrapy }
+					}
+					count > 0
+				}
+			}
+			every_subject = {
+				limit = {
+					any_agreement = { agreement_preset = preset_satrapy }
+				}
+				set_subject_of = {
+					who = event_target:new_khanate
+					preset = preset_relic_satrapy
+				}
+			}
+		}
+		event_target:new_khanate = {
+			ordered_owned_planet = {
+				limit = { num_pops > 0 }
+				position = 0
+				order_by = trigger:num_pops
+				set_capital = yes
+				starbase = {
+					if = { limit = { has_starbase_size < starbase_starhold }
+						set_starbase_size = starbase_starhold
+					}
+					set_starbase_module = { slot = 1 module = shipyard }
+					set_starbase_module = { slot = 2 module = shipyard }
+					set_starbase_module = { slot = 3 module = shipyard }
+				}
+			}
+		}
+	}
+}
+
+### 1 month later, such that sectors are set
+country_event = {
+	id = marauder_borders.1001
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		if = {
+			limit = {
+				exists = event_target:CmtGlobalVar
+				event_target:CmtGlobalVar = {
+					is_variable_set = CmtVarKhanPostDeathKhanate
+					is_variable_set = CmtVarKhanPostDeathSplinter
+				}
+				OR = {
+					event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathKhanate value != 1 } }
+					AND = {
+						num_sectors > 2
+						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathSplinter value != 1 } }
+					}
+					AND = {
+						count_country = { limit = { is_subject_of_khan = yes } count > 1 }
+						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathDemocratic value != 1 } }
+					}
+				}
+			}
+			random_list = {
+				60 = {
+					modifier = {
+						factor = 0
+						OR = {
+							num_sectors < 3
+							event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathSplinter value = 1 } }
+						}
+					}
+					modifier = {
+						factor = 0.167
+						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathSplinter value = 2 } }
+					}
+					modifier = {
+						factor = 0.334
+						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathSplinter value = 3 } }
+					}
+					modifier = {
+						factor = 2
+						OR = {
+							num_sectors >= 5
+							num_owned_planets > 15
+						}
+					}
+					country_event = { id = marauder.601 } # Fractures into Diadochi
+				}
+				10 = {
+					modifier = {
+						factor = 0
+						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathKhanate value = 1 } }
+					}
+					modifier = {
+						factor = 2
+						OR = {
+							event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathKhanate value = 3 } }
+							has_country_flag = diadochi
+							has_country_flag = new_khanate_flag
+						}
+					}
+					modifier = {
+						factor = 6
+						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathKhanate value = 4 } }
+					}
+					modifier = { factor = 0.1 num_sectors > 5 }
+					country_event = { id = marauder.602 } # Stays united in New Khanate.
+				}
+				10 = {
+					modifier = {
+						factor = 0 # Can only happen if there are enough Satrapies.
+						OR = {
+							count_country = { limit = { is_subject_of_khan = yes } count < 2 }
+							event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathDemocratic value = 1 } }
+						}
+					}
+					modifier = {
+						factor = 2
+						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathDemocratic value = 3 } }
+					}
+					modifier = {
+						factor = 6
+						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathDemocratic value = 4 } }
+					}
+					modifier = { factor = 0.1 num_sectors > 5 }
+					country_event = { id = marauder.603 } # Turns into Democratic Federation
+				}
+			}
+		}
+		else = {
+			random_list = {
+				65 = { # Fractures into Diadochi.
+					modifier = {
+						factor = 0 # Should not happen if Marauder is too small
+						num_sectors < 3
+					}
+					modifier = {
+						factor = 2
+						OR = {
+							num_sectors >= 5
+							num_owned_planets > 18
+						}
+					}
+					country_event = { id = marauder.601 }
+				}
+				20 = { # Stays united in New Khanate.
+					modifier = { factor = 0 num_sectors > 5 }
+					country_event = { id = marauder.602 }
+				}
+				15 = { # Turns into Democratic Federation.
+					modifier = {
+						factor = 0 # Can only happen if there are enough Satrapies.
+						count_country = { limit = { is_subject_of_khan = yes } count < 2 }
+					}
+					country_event = { id = marauder.603 }
+				}
+			}
+		}
+	}
+}
+
+# Diadochi: Claims, Intel, Switch Systems
+# Root Original Diadochi, New Khanat
+country_event = {
+	id = marauder_borders.2000
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_update_modifiers_batch = begin
+
+		every_playable_country = {
+			limit = {
+				has_origin = "origin_khan_successor"
+				has_government = gov_diadochi
+				# has_country_flag = diadochi
+			}
+			every_playable_country = {
+				limit = {
+					has_government = gov_diadochi
+					has_origin = "origin_khan_successor"
+					NOT = { is_same_empire = prev }
+				}
+				if = { limit = { NOT = { has_communications = prev } }
+					establish_communications_no_message = prev
+				}
+				add_trust = { amount = -100 who = prev }
+				add_intel = { amount = 100 who = prev }
+				add_opinion_modifier = { modifier = opinion_traitor_to_empire who = prev }
+
+				# Prevent extreme balcanization
+				# potential system
+				# if = { # First simple level
+				while = { count = 4
+					limit = {
+						any_system_within_border = {
+							# is_owned_by = prev
+							# exists = space_owner
+							# NOT = { space_owner = { is_same_empire = prevprevprev } }
+							# exists = starbase
+							# starbase = { is_owned_by = prevprev }
+							# any_neighbor_system = { is_owned_by = prevprevprev }
+							# any_country_neighbor_to_system = { is_same_empire = prevprevprev }
+							NOR = {
+								has_star_flag = switched_system
+								any_neighbor_system = { has_owner = yes is_owned_by = prevprev }
+							}
+							any_country_neighbor_to_system = {
+								has_government = gov_diadochi has_origin = "origin_khan_successor"
+								any_system_within_border = {
+									# is_owned_by = prev
+									# exists = space_owner
+									# NOT = { space_owner = { is_same_empire = prevprevprev } }
+									# exists = starbase
+									# starbase = { is_owned_by = prevprev }
+									NOT = { has_star_flag = switched_system }
+									any_country_neighbor_to_system = { is_same_empire = prevprevprevprev }
+									OR = {
+										NOT = { any_neighbor_system = { has_owner = yes is_owned_by = prevprev } }
+										AND = {
+											count_neighbor_system = { count = 1 limit = { has_owner = yes is_owned_by = prevprev } }
+											count_neighbor_system = { count >= 1 limit = { has_owner = yes is_owned_by = prevprevprevprev } }
+										}
+									}
+								}
+							}
+						}
+					}
+					# log="Diadochi system switch"
+					random_system_within_border = {
+						limit = {
+							# is_owned_by = prev
+							# exists = space_owner
+							# NOT = { space_owner = { is_same_empire = prevprevprev } }
+							# exists = starbase
+							# starbase = { is_owned_by = prevprev }
+							# any_neighbor_system = { is_owned_by = prevprevprev }
+							# any_country_neighbor_to_system = { is_same_empire = prevprevprev }
+							NOR = {
+								has_star_flag = switched_system
+								any_neighbor_system = { has_owner = yes is_owned_by = prevprev }
+							}
+							any_country_neighbor_to_system = {
+								has_government = gov_diadochi has_origin = "origin_khan_successor"
+								any_system_within_border = {
+									# is_owned_by = prev
+									# exists = space_owner
+									# NOT = { space_owner = { is_same_empire = prevprevprev } }
+									# exists = starbase
+									# starbase = { is_owned_by = prevprev }
+									NOT = { has_star_flag = switched_system }
+									any_country_neighbor_to_system = { is_same_empire = prevprevprevprev }
+									OR = {
+										NOT = { any_neighbor_system = { has_owner = yes is_owned_by = prevprev } }
+										AND = {
+											count_neighbor_system = { count = 1 limit = { has_owner = yes is_owned_by = prevprev } }
+											count_neighbor_system = { count >= 1 limit = { has_owner = yes is_owned_by = prevprevprevprev } }
+										}
+									}
+								}
+							}
+						}
+						random_country_neighbor_to_system = {
+							limit = {
+								has_government = gov_diadochi has_origin = "origin_khan_successor"
+								any_system_within_border = {
+									# is_owned_by = prev
+									# exists = space_owner
+									# NOT = { space_owner = { is_same_empire = prevprevprev } }
+									# exists = starbase
+									# starbase = { is_owned_by = prevprev }
+									NOT = { has_star_flag = switched_system }
+									any_country_neighbor_to_system = { is_same_empire = prevprevprevprev }
+									OR = {
+										NOT = { any_neighbor_system = { has_owner = yes is_owned_by = prevprev } }
+										AND = {
+											count_neighbor_system = { count = 1 limit = { has_owner = yes is_owned_by = prevprev } }
+											count_neighbor_system = { count >= 1 limit = { has_owner = yes is_owned_by = prevprevprevprev } }
+										}
+									}
+								}
+							}
+							random_system_within_border = {
+								limit = {
+									# is_owned_by = prev
+									# exists = space_owner
+									# NOT = { space_owner = { is_same_empire = prevprevprev } }
+									# exists = starbase
+									# starbase = { is_owned_by = prevprev }
+									NOT = { has_star_flag = switched_system }
+									any_country_neighbor_to_system = { is_same_empire = prevprevprevprev }
+									OR = {
+										NOT = { any_neighbor_system = { has_owner = yes is_owned_by = prevprev } }
+										AND = {
+											count_neighbor_system = { count = 1 limit = { has_owner = yes is_owned_by = prevprev } }
+											count_neighbor_system = { count >= 1 limit = { has_owner = yes is_owned_by = prevprevprevprev } }
+										}
+									}
+								}
+								commit_system_to = { EMPIRE = prevprevprev }
+								prevprev = { commit_system_to = { EMPIRE = prevprevprev } }
+							}
+						}
+					}
+				}
+				if = { # Second level without former Diadochi
+					limit = {
+						any_system_within_border = {
+							exists = starbase
+							starbase = { is_owned_by = prevprev }
+							NOR = {
+								has_star_flag = switched_system
+								any_neighbor_system = { is_owned_by = prevprev }
+								any_country_neighbor_to_system = { has_government = gov_diadochi has_origin = "origin_khan_successor" } # any_neighbor_system = { exists = owner owner = { has_government = gov_diadochi has_origin = "origin_khan_successor" } }
+							}
+							closest_system = {
+								min_steps = 1
+								max_steps = 5
+								use_bypasses = yes # To much performance?
+								limit = {
+									exists = owner
+									owner = {
+										has_government = gov_diadochi
+										has_origin = "origin_khan_successor"
+										NOT = { is_same_empire = prevprevprev }
+									}
+								}
+							}
+						}
+					}
+					random_system_within_border = {
+						limit = {
+							exists = starbase
+							starbase = { is_owned_by = prevprev }
+							NOR = {
+								has_star_flag = switched_system
+								any_neighbor_system = { is_owned_by = prevprev }
+								any_country_neighbor_to_system = { has_government = gov_diadochi has_origin = "origin_khan_successor" } # any_neighbor_system = { exists = owner owner = { has_government = gov_diadochi has_origin = "origin_khan_successor" } }
+								closest_system = {
+									min_steps = 2
+									max_steps = 4
+									use_bypasses = yes # To much performance?
+									limit = {
+										exists = owner
+										owner = {
+											has_government = gov_diadochi
+											has_origin = "origin_khan_successor"
+										}
+									}
+									owner = { is_same_empire = prevprevprev }
+								}
+							}
+						}
+						closest_system = {
+							min_steps = 2
+							max_steps = 4
+							use_bypasses = yes # To much performance?
+							limit = {
+								exists = owner
+								owner = {
+									has_government = gov_diadochi has_origin = "origin_khan_successor"
+									NOT = { is_same_empire = prevprevprev }
+								}
+							}
+							prev = { commit_system_to = { EMPIRE = prevprev.owner } }
+						}
+					}
+				}
+				# else = { ordered_system_within_border = { position = x order_by = x }
+				while = { count = 3
+					limit = {
+						capital_scope.solar_system = {
+							closest_system = {
+								min_steps = 1
+								max_steps = 66
+								use_bypasses = yes # To much performance?
+								limit = {
+									has_owner = yes
+									NOT = { is_owned_by = prevprev }
+									is_capital_system = no
+									exists = owner
+									owner = {
+										NOT = { is_same_empire = prevprevprev }
+										is_neighbor_of = prevprevprev
+										has_government = gov_diadochi
+										has_origin = "origin_khan_successor"
+										prev = {
+											NOT = { has_star_flag = switched_system }
+											count_neighbor_system = { count < 1 limit = { has_owner = yes is_owned_by = prevprev } }
+										}
+										capital_scope.solar_system = {
+											closest_system = {
+												min_steps = 1
+												max_steps = 66
+												use_bypasses = yes # To much performance?
+												limit = {
+													has_owner = yes
+													NOT = { is_owned_by = prev.owner }
+													is_capital_system = no
+													is_owned_by = prevprevprevprev.owner
+													NOT = { has_star_flag = switched_system }
+													NOT = { is_owned_by = prevprev.owner }
+													count_neighbor_system = { count < 2 limit = { has_owner = yes is_owned_by = prevprevprev } }
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					capital_scope.solar_system = {
+						closest_system = {
+							min_steps = 1
+							max_steps = 66
+							use_bypasses = yes # To much performance?
+							limit = {
+								has_owner = yes
+								NOT = { is_owned_by = prevprev }
+								is_capital_system = no
+								exists = owner
+								owner = {
+									NOT = { is_same_empire = prevprevprev }
+									is_neighbor_of = prevprevprev
+									has_government = gov_diadochi
+									has_origin = "origin_khan_successor"
+									prev = {
+										NOT = { has_star_flag = switched_system }
+										count_neighbor_system = { count < 1 limit = { has_owner = yes is_owned_by = prevprev } }
+									}
+								}
+							}
+							owner.capital_scope.solar_system = {
+								closest_system = {
+									min_steps = 1
+									max_steps = 66
+									use_bypasses = yes # To much performance?
+									limit = {
+										has_owner = yes
+										NOT = { is_owned_by = prev.owner }
+										is_capital_system = no
+										is_owned_by = prevprevprevprev
+										NOT = { has_star_flag = switched_system }
+										NOT = { is_owned_by = prevprev.owner }
+										count_neighbor_system = { count < 2 limit = { has_owner = yes is_owned_by = prevprevprev.owner } }
+									}
+									commit_system_to = { EMPIRE = prevprevprevprev.prev }
+									prevprev = { commit_system_to = { EMPIRE = prevprevprevprev.prev.owner } }
+								}
+							}
+						}
+					}
+				}
+				# Set claim to each other
+				every_system_within_border = {
+					set_surveyed = { surveyed = yes surveyor = prev }
+					add_claims = { who = prevprev num_of_claims = 10 show_notification = no }
+				}
+				# set_closed_borders = { who = prev status = yes forced = 5 }
+				# prev = {
+				# 	set_closed_borders = { who = prev status = yes forced = 5 }
+				# }
+			}
+			# Survey Rest of Horde's Space
+			root = {
+				every_planet_within_border = {
+					set_surveyed = { surveyed = yes surveyor = prev }
+				}
+			}
+		}
+		set_update_modifiers_batch = end
+	}
+}
