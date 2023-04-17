@@ -95,7 +95,7 @@ country_event = {
 				}
 			}
 			prev = { save_event_target_as = new_khanate }
-			country_event = { id = marauder.609 days = -1 }
+			country_event = { id = marauder.609 days = -1 }		# Fully handover
 			destroy_country = yes
 		}
 		every_subject = {
@@ -765,7 +765,7 @@ country_event = {
 				}
 			}
 			root = { save_event_target_as = new_khanate }
-			country_event = { id = marauder.609 days = 30 }
+			country_event = { id = marauder.609 days = 30 }		# Fully handover
 		}
 	}
 }

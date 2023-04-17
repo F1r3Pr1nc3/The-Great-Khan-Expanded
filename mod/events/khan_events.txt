@@ -1558,7 +1558,7 @@ country_event = {
 		set_country_flag = first_alien_life
 		set_country_flag = has_encountered_other_empire
 		log="Handover raider_khanate \\[From.GetName] to Diadochi \\[This.GetName]."
-
+		from = { save_event_target_as = raider_khanate }
 		# Return colonies that have only the starbase conquered.
 		every_system_within_border = {
 			limit = {
@@ -1567,6 +1567,8 @@ country_event = {
 					NOR = {
 						is_owned_by = root
 						is_controlled_by = root
+						is_owned_by = event_target:raider_khanate
+						is_controlled_by = event_target:raider_khanate
 						merg_is_habitat = yes
 					}
 				}
@@ -1584,10 +1586,18 @@ country_event = {
 				}
 			}
 			random_system_colony = {
-				limit = { NOR = { is_owned_by = root is_controlled_by = root } }
+				limit = {
+					NOR = {
+						is_owned_by = root
+						is_controlled_by = root
+						is_owned_by = event_target:raider_khanate
+						is_controlled_by = event_target:raider_khanate
+						merg_is_habitat = yes
+					}
+				}
 				log="Give system \\[Prev.GetName] back to \\[This.Owner.GetName]"
 				prev = {
-					commit_system_to = { EMPIRE = prevprev.planet_owner } # the target scope is sovled there (so add 1 more prev)
+					commit_system_to = { EMPIRE = prevprev.planet_owner } # the target scope is solved there (so add 1 more prev)
 					add_claims = { who = root num_of_claims = 1 show_notification = no }
 				}
 			}

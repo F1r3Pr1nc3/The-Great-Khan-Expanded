@@ -8725,114 +8725,8 @@ country_event = {
 			}
 			country_event = { id = marauder.604 } # Reverts to old ways.
 		}
-		# else = {
-		# 	if = {
-		# 		limit = {
-		# 			OR = {
-		# 				event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathKhanate value != 1 } }
-		# 				AND = {
-		# 					num_owned_planets > 6
-		# 					event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathSplinter value != 1 } }
-		# 				}
-		# 				AND = {
-		# 					count_country = { limit = { is_subject_of_khan = yes } count > 1 }
-		# 					event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathDemocratic value != 1 } }
-		# 				}
-		# 			}
-		# 		}
-		# 		random_list = {
-		# 			60 = {
-		# 				modifier = {
-		# 					factor = 0
-		# 					OR = {
-		# 						num_owned_planets < 7
-		# 						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathSplinter value = 1 } }
-		# 					}
-		# 				}
-		# 				modifier = {
-		# 					factor = 0.167
-		# 					event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathSplinter value = 2 } }
-		# 				}
-		# 				modifier = {
-		# 					factor = 0.334
-		# 					event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathSplinter value = 3 } }
-		# 				}
-		# 				modifier = { factor = 2 num_owned_planets > 11 }
-		# 				country_event = { id = marauder.601 } # Fractures into Diadochi
-		# 			}
-		# 			10 = {
-		# 				modifier = {
-		# 					factor = 0
-		# 					event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathKhanate value = 1 } }
-		# 				}
-		# 				modifier = {
-		# 					factor = 2
-		# 					OR = {
-		# 						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathKhanate value = 3 } }
-		# 						has_country_flag = diadochi
-		# 						has_country_flag = new_khanate_flag
-		# 					}
-		# 				}
-		# 				modifier = {
-		# 					factor = 6
-		# 					event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathKhanate value = 4 } }
-		# 				}
-		# 				modifier = { factor = 0.1 num_owned_planets > 15 }
-		# 				country_event = { id = marauder.602 } # Stays united in New Khanate.
-		# 			}
-		# 			10 = {
-		# 				modifier = {
-		# 					factor = 0 # Can only happen if there are enough Satrapies.
-		# 					OR = {
-		# 						count_country = { limit = { is_subject_of_khan = yes } count < 2 }
-		# 						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathDemocratic value = 1 } }
-		# 					}
-		# 				}
-		# 				modifier = {
-		# 					factor = 2
-		# 					OR = {
-		# 						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathDemocratic value = 3 } }
-		# 						has_origin = "origin_khan_successor"
-		# 					}
-		# 				}
-		# 				modifier = {
-		# 					factor = 6
-		# 					event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathDemocratic value = 4 } }
-		# 				}
-		# 				modifier = { factor = 0.1 num_owned_planets > 15 }
-		# 				country_event = { id = marauder.603 } # Turns into Democratic Federation
-		# 			}
-		# 		}
-		# 	} else = {
-		# 		random_list = {
-		# 			60 = {
-		# 				modifier = { factor = 0 num_owned_planets < 7 }
-		# 				modifier = { factor = 2 num_owned_planets > 11 }
-		# 				country_event = { id = marauder.601 } # Fractures into Diadochi
-		# 			}
-		# 			10 = {
-		# 				modifier = { factor = 0 num_owned_planets > 15 }
-		# 				modifier = { factor = 2 has_origin = "origin_khan_successor" }
-		# 				country_event = { id = marauder.602 } # Stays united in New Khanate.
-		# 			}
-		# 			10 = {
-		# 				modifier = {
-		# 					factor = 0 # Can only happen if there are enough Satrapies.
-		# 					OR = {
-		# 						num_owned_planets > 15
-		# 						count_country = { limit = { is_subject_of_khan = yes } count < 2 }
-		# 					}
-		# 				}
-		# 				modifier = { factor = 2 has_origin = "origin_khan_successor" }
-		# 				country_event = { id = marauder.603 } # Turns into Democratic Federation
-		# 			}
-		# 		}
-		# 	}
-		# }
-		else = {
-			# Can only happens if Horde owns planets.
+		else = { # Can only happen if Horde owns planets.
 			country_event = { id = marauder_borders.1000 }
-			country_event = { id = marauder_borders.1001 days = 30 }
 		}
 		# clear_global_event_target = marauder_rally_point
 		event_target:CmtGlobalVar = {
@@ -8843,7 +8737,7 @@ country_event = {
 					if = { limit = { check_variable = { which = CmtVarKhanInterval value > 0 } }
 						set_timed_global_flag = { flag = CmtFlagNowInKhanInterval days = CmtVarKhanInterval }
 					}
-					### Do nothing
+					break = yes ### Do nothing
 				} else_if = { limit = { check_variable = { which = CmtVarKhanInterval value < @CmtConstKhanInterval_T1 } }
 					set_timed_global_flag = { flag = CmtFlagNowInKhanInterval days = @CmtConstKhanInterval_D1 }
 				} else_if = { limit = { check_variable = { which = CmtVarKhanInterval value < @CmtConstKhanInterval_T2 } }
@@ -8873,7 +8767,7 @@ country_event = {
 			event_target:CmtTargetMarauderRallyPoint3 = { remove_planet_flag = CmtFlagMarauderExpRallyPoint }
 			clear_global_event_target = CmtTargetMarauderRallyPoint3
 		}
-		country_event = { id = khan.606 days = 2 } # destroy_country
+		country_event = { id = khan.606 days = 3 } # destroy_country
 	}
 }
 
@@ -8883,10 +8777,8 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		log="TGKE Diadochi"
-		# owner_species = { save_event_target_as = marauder_species }
-		# get_marauder_species = yes (do it later for each)
-		save_event_target_as = original_diadochi
+		owner_species = { save_event_target_as = marauder_species } # get_marauder_species = yes # (do it also later for each)
+		save_event_target_as = first_diadochi
 		set_update_modifiers_batch = begin
 
 		force_remove_civic = civic_great_khans_legacy
@@ -8909,22 +8801,21 @@ country_event = {
 			# country_event = { id = marauder.671 days = 8 }		# Notify Garrison End
 		}
 
-		# Cleanup possible old flags (old version)
-		every_system_within_border = {
-			limit = { is_potential_diadochi_system = no }
-			switch = { trigger = has_star_flag
-				first_diadochi_system	= { remove_star_flag = first_diadochi_system }
-				second_diadochi_system	= { remove_star_flag = second_diadochi_system }
-				third_diadochi_system	= { remove_star_flag = third_diadochi_system }
-				fourth_diadochi_system	= { remove_star_flag = fourth_diadochi_system }
-			}
-		}
+		# # Cleanup possible old flags (old version)
+		# every_system_within_border = {
+		# 	limit = { is_potential_diadochi_system = no }
+		# 	switch = { trigger = has_star_flag
+		# 		first_diadochi_system	= { remove_star_flag = first_diadochi_system }
+		# 		second_diadochi_system	= { remove_star_flag = second_diadochi_system }
+		# 		third_diadochi_system	= { remove_star_flag = third_diadochi_system }
+		# 		fourth_diadochi_system	= { remove_star_flag = fourth_diadochi_system }
+		# 	}
+		# }
 		# Cleanup temp vars
 		every_playable_country = {
 			limit = { is_variable_set = "successor_fleet_power" }
 			clear_variable = "successor_fleet_power"
 		}
-
 
 		# if = { # Four Diadochi
 		# 	limit = {
@@ -9007,6 +8898,13 @@ country_event = {
 		# Count actual sectors
 		export_trigger_value_to_variable = { trigger = num_sectors variable = actual_sector_count }
 		set_variable = { which = num_diadochi value = actual_sector_count }
+		# Calc amount Diadochi 2-6: 2=4s 3=5-6s 4=7-8s 5=9-12s 6>=13s
+		if		= { limit = { check_variable = { which = num_diadochi value > 12 }	} set_variable = { which = num_diadochi value = 5 } }	# 6
+		else_if = { limit = { check_variable = { which = num_diadochi value > 8 }	} set_variable = { which = num_diadochi value = 4 } }	# 5
+		else_if = { limit = { check_variable = { which = num_diadochi value > 6 }	} set_variable = { which = num_diadochi value = 3 } }	# 4
+		else_if = { limit = { check_variable = { which = num_diadochi value > 4 }	} set_variable = { which = num_diadochi value = 2 } }	# 3
+		else	= { set_variable = { which = num_diadochi value = 1 } }		# 2
+
 
 		# First Diadoachi is original country Capital Sector
 		set_country_flag = diadochi
@@ -9016,64 +8914,35 @@ country_event = {
 			set_sector_flag = finished_sector
 			set_sector_flag = counted_sector
 		}
-
-		if = {
-			limit = {
-				check_variable = { which = num_diadochi value < 7 }
-				# check_variable = { which = actual_sector_count value = num_diadochi }
-			}
-			every_owned_sector = {
-				limit = { NOT = { has_sector_flag = finished_sector } }
-				set_sector_flag = leader_sector
+		# subtract_variable = { which = num_diadochi value = 1 } # Remove the original diadochi
+		# if = { limit = { check_variable = { which = num_diadochi value < 5 } }
+		# 	every_owned_sector = {
+		# 		limit = { NOT = { has_sector_flag = finished_sector } }
+		# 		set_sector_flag = leader_sector
+		# 		set_sector_flag = diadochi_sector_@this
+		# 	}
+		# } else = {
+		# set_variable = { which = num_diadochi value = 5 }
+		set_variable = { which = EX_sectors_per_diadochi value = actual_sector_count }
+		subtract_variable = { which = EX_sectors_per_diadochi value = num_diadochi }
+		if = { limit = { check_variable = { which = EX_sectors_per_diadochi value > 0 } }
+			divide_variable = { which = EX_sectors_per_diadochi value = num_diadochi }
+		}
+		ceiling_variable = EX_sectors_per_diadochi
+		log="EX_sectors_per_diadochi [This.EX_sectors_per_diadochi]"
+		while = {
+			count = num_diadochi
+			ordered_owned_sector = {
+				limit = { NOT = { has_sector_flag = counted_sector } }
+				position = 0
+				order_by = trigger:num_pops
+				save_event_target_as = diadochi_leader_sector
 				set_sector_flag = diadochi_sector_@this
-			}
-			subtract_variable = { which = num_diadochi value = 1 } # Remove the original diadochi
-		} else = {
-			set_variable = { which = num_diadochi value = 6 }
-			set_variable = { which = sectors_per_diadochi value = actual_sector_count }
-			multiply_variable = { which = sectors_per_diadochi value = 0.1666 }
-			ceiling_variable = sectors_per_diadochi
-
-			while = { # Neighboring Sectors for First Diadochi
-				count = sectors_per_diadochi
-				ordered_owned_sector = {
-					limit = {
-						NOT = { has_sector_flag = counted_sector }
-						any_system_within_border = {
-							closest_system = {
-								limit = {
-									exists = sector
-									sector = { has_sector_flag = counted_sector }
-								}
-								use_bypasses = yes
-								max_steps = 1
-							}
-						}
-					}
-					position = 0
-					order_by = trigger:num_pops
-					set_sector_flag = counted_sector
-				}
-			}
-
-			set_variable = { which = diadochi_for_calc value = num_diadochi }
-			subtract_variable = { which = diadochi_for_calc value = 1 } # Remove the original diadochi
-			while = {
-				count = diadochi_for_calc
-				ordered_owned_sector = {
-					limit = {
-						NOT = { has_sector_flag = counted_sector }
-					}
-					position = 0
-					order_by = trigger:num_pops
-					save_event_target_as = diadochi_leader
-					set_sector_flag = diadochi_sector_@this
-					set_sector_flag = leader_sector
-					set_sector_flag = counted_sector
-				}
-				while = {
-					count = sectors_per_diadochi
-					if = {
+				set_sector_flag = leader_sector
+				set_sector_flag = counted_sector
+				root = {
+					while = {
+						count = EX_sectors_per_diadochi
 						limit = {
 							any_owned_sector = {
 								NOT = { has_sector_flag = counted_sector }
@@ -9081,46 +8950,91 @@ country_event = {
 									closest_system = {
 										limit = {
 											exists = sector
-											sector = { has_sector_flag = diadochi_sector_@event_target:diadochi_leader }
+											sector = { has_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector }
 										}
 										use_bypasses = yes
-										max_steps = 1
+										max_steps = 3
 									}
 								}
 							}
 						}
-						random_owned_sector = {
+						ordered_owned_sector = {
 							limit = {
 								NOT = { has_sector_flag = counted_sector }
 								any_system_within_border = {
 									closest_system = {
 										limit = {
 											exists = sector
-											sector = { has_sector_flag = diadochi_sector_@event_target:diadochi_leader }
+											sector = { has_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector }
 										}
 										use_bypasses = yes
-										max_steps = 1
+										max_steps = 3
 									}
 								}
 							}
+							position = 1
+							inverse = yes
+							order_by = trigger:num_pops
 							set_sector_flag = counted_sector
-							set_sector_flag = diadochi_sector_@event_target:diadochi_leader
-							set_sector_flag = rebel_sector_follower_@event_target:diadochi_leader
+							set_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector
+							set_sector_flag = rebel_sector_follower_@event_target:diadochi_leader_sector
 						}
 					}
 				}
 			}
 		}
+		# }
+		# Neighboring Sectors for First Diadochi (give the lowest)
+		while = {
+			count = EX_sectors_per_diadochi
+			limit = {
+				any_owned_sector = {
+					NOT = { has_sector_flag = counted_sector }
+					any_system_within_border = {
+						closest_system = {
+							limit = {
+								exists = sector
+								sector = { has_sector_flag = counted_sector }
+							}
+							use_bypasses = yes
+							max_steps = 1
+						}
+					}
+				}
+			}
+			ordered_owned_sector = {
+				limit = {
+					NOT = { has_sector_flag = counted_sector }
+					any_system_within_border = {
+						closest_system = {
+							limit = {
+								exists = sector
+								sector = { has_sector_flag = counted_sector }
+							}
+							use_bypasses = yes
+							max_steps = 1
+						}
+					}
+				}
+				position = 0
+				inverse = yes
+				order_by = trigger:num_pops
+				set_sector_flag = counted_sector
+			}
+		}
 
 		while = {
 			count = num_diadochi
-			random_owned_sector = {
+			ordered_owned_sector = {
 				limit = {
 					has_sector_flag = leader_sector
 					NOT = { has_sector_flag = finished_sector }
 				}
+				position = 0
+				inverse = yes
+				order_by = trigger:num_pops
 				set_sector_flag = finished_sector
-				save_event_target_as = new_diadochi_sector
+				save_event_target_as = diadochi_leader_sector
 				## CREATE_DIADOCHI_COUNTRY
 				if = { limit = { has_global_flag = cultural_overhaul_active }
 					if = { limit = { has_global_flag = cultural_overhaul_funefork_active }
@@ -9229,9 +9143,9 @@ country_event = {
 					set_country_flag = new_khanate_flag
 					set_country_flag = first_alien_life
 					set_country_flag = has_encountered_other_empire
-					set_name = random
 					force_add_civic = civic_diadochi
 					shift_ethic = ethic_fanatic_militarist
+					set_name = random
 
 					## SET_CULTURAL_OVERHAUL_ETHICS
 					if = { limit = { has_global_flag = cultural_overhaul_active }
@@ -9296,12 +9210,15 @@ country_event = {
 
 					if = { limit = { NOT = { any_playable_country = { has_country_flag = diadochi_2 } } }
 						set_country_flag = diadochi_2
+						save_event_target_as = second_diadochi
 					}
 					else_if = { limit = { NOT = { any_playable_country = { has_country_flag = diadochi_3 } } }
 						set_country_flag = diadochi_3
+						save_event_target_as = third_diadochi
 					}
 					else_if = { limit = { NOT = { any_playable_country = { has_country_flag = diadochi_4 } } }
 						set_country_flag = diadochi_4
+						save_event_target_as = fourth_diadochi
 					}
 					else_if = { limit = { NOT = { any_playable_country = { has_country_flag = diadochi_5 } } }
 						set_country_flag = diadochi_5
@@ -9309,9 +9226,9 @@ country_event = {
 					else_if = { limit = { NOT = { any_playable_country = { has_country_flag = diadochi_6 } } }
 						set_country_flag = diadochi_6
 					}
-					event_target:original_diadochi = {
+					event_target:first_diadochi = {
 						every_owned_sector = {
-							limit = { has_sector_flag = diadochi_sector_@event_target:new_diadochi_sector }
+							limit = { has_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector }
 							every_owned_planet = {
 								solar_system = {
 									if = { limit = { exists = starbase }
@@ -9326,56 +9243,53 @@ country_event = {
 						}
 					}
 					while = { # clean up borders by giving rebels frontier territory they wouldnt otherwise get
-						count = 50
-						if = {
-							limit = {
-								any_system_within_border = {
-									closest_system = {
-										limit = {
-											exists = space_owner
-											space_owner = { is_same_value = event_target:original_diadochi }
-											NOT = { exists = sector }
-										}
-										use_bypasses = yes
-										max_steps = 1
-									}
-								}
-							}
-							every_system_within_border = {
-								limit = {
-									closest_system = {
-										limit = {
-											exists = space_owner
-											space_owner = { is_same_value = event_target:original_diadochi }
-											NOT = { exists = sector }
-										}
-										use_bypasses = yes
-										max_steps = 1
-									}
-								}
+						count = 50 # TODO make dyn!?
+						limit = {
+							any_system_within_border = {
 								closest_system = {
 									limit = {
 										exists = space_owner
-										space_owner = { is_same_value = event_target:original_diadochi }
+										space_owner = { is_same_empire = event_target:first_diadochi }
 										NOT = { exists = sector }
 									}
 									use_bypasses = yes
-									max_steps = 1
-									starbase = { set_owner = event_target:diadochi_country }
+									max_steps = 3
 								}
+							}
+						}
+						every_system_within_border = {
+							limit = {
+								closest_system = {
+									limit = {
+										exists = space_owner
+										space_owner = { is_same_empire = event_target:first_diadochi }
+										NOT = { exists = sector }
+									}
+									use_bypasses = yes
+									max_steps = 3
+								}
+							}
+							closest_system = {
+								limit = {
+									exists = space_owner
+									space_owner = { is_same_empire = event_target:first_diadochi }
+									NOT = { exists = sector }
+								}
+								use_bypasses = yes
+								max_steps = 3
+								starbase = { set_owner = event_target:diadochi_country }
 							}
 						}
 					}
 
 					## GET_DIADOCHI_IMMEDIATE_SETUP
 					# setting graphical culture
-					set_graphical_culture = event_target:original_diadochi
-
+					set_graphical_culture = event_target:first_diadochi
 					# establish comms
 					every_country = {
 						limit = {
 							OR = {
-								has_communications = event_target:original_diadochi
+								has_communications = event_target:first_diadochi
 								intel_level = {
 									level > low
 									system = event_target:diadochi_country.capital_scope.solar_system
@@ -9388,200 +9302,192 @@ country_event = {
 					if = {
 						limit = {
 							has_opinion_modifier = {
-								who = event_target:original_diadochi
+								who = event_target:first_diadochi
 								modifier = opinion_new_contact
 							}
 						}
 						remove_opinion_modifier = {
-							who = event_target:original_diadochi
+							who = event_target:first_diadochi
 							modifier = opinion_new_contact
 						}
 					}
-
 					country_event = { id = khan.610 days = -1 } # Handover some old stuff
 				}
 			}
 		}
 		set_update_modifiers_batch = end
 
-		## SET_DIADOCHI_LEADERS_AND_FLEET start
+		## START SET_DIADOCHI_LEADERS_AND_FLEET
 		# Mining and Research Stations
-		every_planet_within_border = {
-			limit = {
-				has_deposit_for = shipclass_mining_station
-				has_mining_station = no
-			}
-			create_mining_station = { owner = root }
-		}
-		every_planet_within_border = {
-			limit = {
-				has_deposit_for = shipclass_research_station
-				has_research_station = no
-			}
-			create_research_station = { owner = root }
-		}
-
-		create_ship_design = { design = "NAME_Pirate_Transport" }
-		add_ship_design = last_created_design
-		create_ship_design = { design = "NAME_Clan_Builder" }
-		add_ship_design = last_created_design
-
-		# Science
-		create_fleet = {
-			effect = {
-				set_owner = root
-				create_ship = {
-					name = random
-					random_existing_design = science
-				}
-				set_fleet_stance = evasive
-				set_location = root.capital_scope
-				owner = {
-					create_leader = {
-						name = random
-						class = scientist
-						sub_type = survey
-						species = owner_main_species
-					}
-				}
-				set_leader = last_created_leader
-			}
-		}
-
-		# Construction Ship
-		create_fleet = {
-			effect = {
-				set_owner = root
-				create_ship = {
-					name = random
-					design = "NAME_Clan_Builder"
-				}
-				set_fleet_stance = evasive
-				set_location = root.capital_scope
-			}
-		}
-
-		# Create Leaders
-		create_leader = {
-			class = admiral
-			species = owner_main_species
-			name = random
-			skill = 10
-			leader_age_min = 35
-			leader_age_max = 60
-			traits = {
-				trait = leader_trait_mercenary_warrior
-				trait = random_trait
-			}
-			effect = { save_event_target_as = diadochi_admiral }
-		}
-		create_leader = {
-			class = general
-			species = owner_main_species
-			name = random
-			skill = 10
-			leader_age_min = 35
-			leader_age_max = 60
-			traits = { trait = random_trait }
-			effect = { save_event_target_as = diadochi_general }
-		}
-		create_leader = {
-			class = governor
-			species = owner_main_species
-			name = random
-			skill = 3
-			traits = { trait = random_trait }
-		}
-		while = {
-			count = 3
-			create_leader = {
-				class = scientist
-				species = owner_main_species
-				name = random
-				skill = 1
-				traits = { trait = random_trait }
-			}
-		}
-
-		add_resource = { # From Original code
-			minerals = 20000
-			energy = 20000
-			alloys = 20000
-			consumer_goods = 20000
-			food = 20000
-			influence = 1000
-		}
-
-		create_fleet = {
-			effect = {
-				set_owner = root
-				while = {
-					count = 30 # Original 16
-					create_ship = {
-						name = random
-						design = "NAME_Outrider"
-						prefix = no
-						graphical_culture = "pirate_01"
-					}
-				}
-				while = {
-					count = 15 # Original 8
-					create_ship = {
-						name = random
-						design = "NAME_Lancer"
-						prefix = no
-						graphical_culture = "pirate_01"
-					}
-				}
-				while = {
-					count = 10 # Original 6
-					create_ship = {
-						name = random
-						design = "NAME_Void_Champion"
-						prefix = no
-						graphical_culture = "pirate_01"
-					}
-				}
-				while = {
-					count = 2 # Original 1
-					create_ship = {
-						name = random
-						design = "NAME_Ancestral_Glory"
-						prefix = no
-						graphical_culture = "pirate_01"
-					}
-				}
-				assign_leader = event_target:diadochi_admiral
-				set_location = {
-					target = root.capital_scope
-					distance = 45
-					angle = random
-				}
-			}
-			settings = { uses_naval_capacity = no }
-		}
-
-		create_fleet = {
-			effect = {
-				set_owner = root
-				while = {
-					count = 12
-					create_army_transport = {
-						ship_name = "NAME_Pirate_Transport"
-						graphical_culture = root
-						army_type = "assault_army"
-						species = root
-					}
-				}
-				set_location = {
-					target = root.capital_scope
-					distance = 20
-					angle = random
-				}
-			}
-		}
-		last_created_army = { assign_leader = event_target:diadochi_general }
-		## SET_DIADOCHI_LEADERS_AND_FLEET end
+		# every_planet_within_border = {
+		# 	limit = {
+		# 		has_deposit_for = shipclass_mining_station
+		# 		has_mining_station = no
+		# 	}
+		# 	create_mining_station = { owner = root }
+		# }
+		# every_planet_within_border = {
+		# 	limit = {
+		# 		has_deposit_for = shipclass_research_station
+		# 		has_research_station = no
+		# 	}
+		# 	create_research_station = { owner = root }
+		# }
+		# create_ship_design = { design = "NAME_Pirate_Transport" }
+		# add_ship_design = last_created_design
+		# create_ship_design = { design = "NAME_Clan_Builder" }
+		# add_ship_design = last_created_design
+		# # Science
+		# create_fleet = {
+		# 	effect = {
+		# 		set_owner = root
+		# 		create_ship = {
+		# 			name = random
+		# 			random_existing_design = science
+		# 		}
+		# 		set_fleet_stance = evasive
+		# 		set_location = root.capital_scope
+		# 		owner = {
+		# 			create_leader = {
+		# 				name = random
+		# 				class = scientist
+		# 				sub_type = survey
+		# 				species = owner_main_species
+		# 			}
+		# 		}
+		# 		set_leader = last_created_leader
+		# 	}
+		# }
+		# # Construction Ship
+		# create_fleet = {
+		# 	effect = {
+		# 		set_owner = root
+		# 		create_ship = {
+		# 			name = random
+		# 			design = "NAME_Clan_Builder"
+		# 		}
+		# 		set_fleet_stance = evasive
+		# 		set_location = root.capital_scope
+		# 	}
+		# }
+		# # Create Leaders
+		# create_leader = {
+		# 	class = admiral
+		# 	species = owner_main_species
+		# 	name = random
+		# 	skill = 10
+		# 	leader_age_min = 35
+		# 	leader_age_max = 60
+		# 	traits = {
+		# 		trait = leader_trait_mercenary_warrior
+		# 		trait = random_trait
+		# 	}
+		# 	effect = { save_event_target_as = diadochi_admiral }
+		# }
+		# create_leader = {
+		# 	class = general
+		# 	species = owner_main_species
+		# 	name = random
+		# 	skill = 10
+		# 	leader_age_min = 35
+		# 	leader_age_max = 60
+		# 	traits = { trait = random_trait }
+		# 	effect = { save_event_target_as = diadochi_general }
+		# }
+		# create_leader = {
+		# 	class = governor
+		# 	species = owner_main_species
+		# 	name = random
+		# 	skill = 3
+		# 	traits = { trait = random_trait }
+		# }
+		# while = {
+		# 	count = 3
+		# 	create_leader = {
+		# 		class = scientist
+		# 		species = owner_main_species
+		# 		name = random
+		# 		skill = 1
+		# 		traits = { trait = random_trait }
+		# 	}
+		# }
+		# add_resource = { # From Original code
+		# 	minerals = 20000
+		# 	energy = 20000
+		# 	alloys = 20000
+		# 	consumer_goods = 20000
+		# 	food = 20000
+		# 	influence = 1000
+		# }
+		# create_fleet = {
+		# 	effect = {
+		# 		set_owner = root
+		# 		while = {
+		# 			count = 30 # Original 16
+		# 			create_ship = {
+		# 				name = random
+		# 				design = "NAME_Outrider"
+		# 				prefix = no
+		# 				graphical_culture = "pirate_01"
+		# 			}
+		# 		}
+		# 		while = {
+		# 			count = 15 # Original 8
+		# 			create_ship = {
+		# 				name = random
+		# 				design = "NAME_Lancer"
+		# 				prefix = no
+		# 				graphical_culture = "pirate_01"
+		# 			}
+		# 		}
+		# 		while = {
+		# 			count = 10 # Original 6
+		# 			create_ship = {
+		# 				name = random
+		# 				design = "NAME_Void_Champion"
+		# 				prefix = no
+		# 				graphical_culture = "pirate_01"
+		# 			}
+		# 		}
+		# 		while = {
+		# 			count = 2 # Original 1
+		# 			create_ship = {
+		# 				name = random
+		# 				design = "NAME_Ancestral_Glory"
+		# 				prefix = no
+		# 				graphical_culture = "pirate_01"
+		# 			}
+		# 		}
+		# 		assign_leader = event_target:diadochi_admiral
+		# 		set_location = {
+		# 			target = root.capital_scope
+		# 			distance = 45
+		# 			angle = random
+		# 		}
+		# 	}
+		# 	settings = { uses_naval_capacity = no }
+		# }
+		# create_fleet = {
+		# 	effect = {
+		# 		set_owner = root
+		# 		while = {
+		# 			count = 12
+		# 			create_army_transport = {
+		# 				ship_name = "NAME_Pirate_Transport"
+		# 				graphical_culture = root
+		# 				army_type = "assault_army"
+		# 				species = root
+		# 			}
+		# 		}
+		# 		set_location = {
+		# 			target = root.capital_scope
+		# 			distance = 20
+		# 			angle = random
+		# 		}
+		# 	}
+		# }
+		# last_created_army = { assign_leader = event_target:diadochi_general }
+		## END SET_DIADOCHI_LEADERS_AND_FLEET
 
 		# Notify
 		observer_event = { id = observer.20 }
@@ -9595,7 +9501,7 @@ country_event = {
 	}
 	after = {
 		if = { limit = { exists = event_target:raider_khanate }
-			if = {
+			if = { # If human player
 				limit = {
 					is_ai = no
 					exists = event_target:third_diadochi
@@ -9613,7 +9519,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		get_marauder_species = yes # country_event = { id = khan.303 days = -1 }
+		get_marauder_species = yes
 		# create_country = {
 		# 	name_list = random
 		# 	species = event_target:marauder_species
@@ -9650,6 +9556,7 @@ country_event = {
 			country_event = { id = marauder.670 days = 2 }			# Notify Satrap End
 			# country_event = { id = marauder.671 days = 8 }		# Notify Garrison End
 		}
+		set_name = random
 		save_event_target_as = new_khanate
 		# Notify
 		every_playable_country = {
@@ -9759,9 +9666,7 @@ country_event = {
 				fleet_event = { id = khan.611 days = -1 }
 			}
 		} # End restore partial Marauders
-
-		country_event = { id = marauder.609 days = -1 }		# Fully handover
-
+		# country_event = { id = marauder.609 days = -1 }		# Fully handover
 	}
 	after = {
 		if = { limit = { exists = event_target:raider_khanate }
@@ -9772,8 +9677,8 @@ country_event = {
 					is_same_empire = event_target:raider_khanate
 				}
 				event_target:new_khanate = { set_player = event_target:raider_khanate }
-				}
 			}
+		}
 	}
 }
 
@@ -9784,7 +9689,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		get_marauder_species = yes # country_event = { id = khan.303 days = -1 }
+		get_marauder_species = yes
 		# create_country = {
 		# 	name_list = random
 		# 	name = random
@@ -9886,29 +9791,7 @@ country_event = {
 				civics = random
 			}
 		}
-		# create_country = {
-		# 	name_list = random
-		# 	name = random
-		# 	species = event_target:marauder_species
-		# 	type = default
-		# 	authority = auth_democratic
-		# 	civics = random
-		# 	origin = "origin_khan_successor"
-		# 	ethos = {
-		# 		ethic = ethic_fanatic_egalitarian
-		# 		ethic = ethic_xenophile
-		# 	}
-		# 	ignore_initial_colony_error = yes
-		# 	exclude_day_zero_contact = root
-		# 	effect = {
-		# 		set_country_flag = democratic_khanate_flag
-		# 		save_event_target_as = new_khanate
-		# 		root = {
-		# 			country_event = { id = marauder.609 days = -1 } # Fully handover
-		# 		}
-		# 	}
-		# }
-		set_name = random
+
 		set_country_flag = democratic_khanate_flag
 		save_event_target_as = new_khanate
 
@@ -9963,7 +9846,7 @@ country_event = {
 					is_subject = yes
 					any_agreement = { agreement_preset = preset_satrapy }
 				}
-				country_event = { id = marauder.660 days = 2 }
+				country_event = { id = marauder.660 }
 			}
 		}
 		observer_event = { id = observer.23 }
@@ -9979,6 +9862,7 @@ country_event = {
 				event_target:new_khanate = { set_player = event_target:raider_khanate }
 			}
 		}
+		set_name = random # only after marauder.660
 	}
 }
 
@@ -10983,10 +10867,55 @@ country_event = {
 					event_target:new_khanate = { CmtTriggerIsMarauder = no }
 				}
 			}
-			every_owned_starbase = {
-				limit = { has_starbase_size = starbase_marauder }
-				set_owner = event_target:new_khanate
-				set_starbase_size = starbase_outpost
+			# Return colonies that have only the starbase conquered.
+			every_system_within_border = {
+				limit = { exists = starbase }
+				if = {
+					limit = {
+						any_system_colony = {
+							NOR = {
+								is_owned_by = root
+								is_controlled_by = root
+								is_owned_by = event_target:new_khanate
+								is_controlled_by = event_target:new_khanate
+								merg_is_habitat = yes
+							}
+						}
+						NOT = {
+							any_system_colony = {
+								is_controlled_by = root
+								OR = {
+									merg_is_habitat = no
+									AND = {
+										merg_is_habitat = yes
+										prev = { starbase = { has_starbase_size = starbase_marauder } }
+									}
+								}
+							}
+						}
+					}
+					random_system_colony = {
+						limit = {
+							NOR = {
+								is_owned_by = root
+								is_controlled_by = root
+								is_owned_by = event_target:new_khanate
+								is_controlled_by = event_target:new_khanate
+								merg_is_habitat = yes
+							}
+						}
+						log="Give system \\[Prev.GetName] back to \\[This.Owner.GetName]"
+						prev = {
+							commit_system_to = { EMPIRE = prevprev.planet_owner } # the target scope is solved there (so add 1 more prev)
+							add_claims = { who = root num_of_claims = 1 show_notification = no }
+						}
+					}
+				} # else = { starbase = { set_owner = event_target:new_khanate } }
+				starbase = {
+					if = { limit = { has_starbase_size = starbase_marauder }
+						set_starbase_size = starbase_outpost
+					}
+				}
 			}
 			event_target:new_khanate = {
 				if = { limit = { is_ai = yes }
@@ -10998,7 +10927,9 @@ country_event = {
 				}
 			}
 		}
-		every_owned_starbase = { set_owner = event_target:new_khanate }
+		every_owned_starbase = {
+			set_owner = event_target:new_khanate
+		}
 		log="Handover \\[This.GetName] to \\[event_target:new_khanate.GetName]"
 		# Full handover
 		every_owned_fleet = {
