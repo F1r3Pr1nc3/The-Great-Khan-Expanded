@@ -5779,13 +5779,38 @@ country_event = {
 	trigger = {
 		has_global_flag = marauder_crisis_ongoing
 		exists = event_target:raider_khanate
-		CmtTriggerIsKhanCountry = yes
+		# CmtTriggerIsKhanCountry = yes
+		OR = {
+			is_country_type = awakened_marauders
+			is_same_empire = event_target:raider_khanate
+		}
 		fromfrom = {
-			exists = leader
-			leader = { has_leader_flag = great_khan }
-			NAND = {
-				exists = fleet
-				fleet = { num_ships > 0 }
+			OR = {
+				AND = {
+					exists = leader
+					leader = { has_leader_flag = great_khan }
+				}
+				AND = {
+					exists = fleet
+					fleet = { has_fleet_flag = khan_fleet }
+				}
+				NOR = {
+					exists = leader
+					is_civilian = yes
+					exists = event_target:great_khan
+					prev = {
+						has_country_flag = khan_dead_event_fine
+						any_owned_leader = { leader_class = admiral has_leader_flag = great_khan }
+					}
+				}
+			}
+			OR = {
+				NOT = { exists = fleet }
+				fleet = { num_ships < 1 }
+				fleet = { # Ship exists but does not count on fleet?
+					num_ships = 1
+					any_owned_ship = { is_same_value = prevprev }
+				}
 			}
 		}
 	}
@@ -5932,15 +5957,13 @@ country_event = {
 		}
 	}
 	immediate = {
+		if = { limit = { has_country_flag = khan_dead_event_fine }
+			remove_country_flag = khan_dead_event_fine
+		}
 		if = { # To be sure (as we use this event as active fix)
 			limit = { check_variable = { which = "CmtVarKhanRemainingLive" value < 0 } }
-			# Dead
-			country_event = { id = marauder.712 }
-			break = yes
+			country_event = { id = marauder.712 } # Dead
 		} else = {
-			if = { limit = { has_country_flag = khan_dead_event_fine }
-				remove_country_flag = khan_dead_event_fine
-			}
 			if = { limit = { has_global_flag = great_khan_dead }
 				remove_global_flag = great_khan_dead
 			}
@@ -5966,8 +5989,8 @@ country_event = {
 						limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarWhileControlFleet value > 0.125 } } }
 						event_target:CmtGlobalVar = { change_variable = { which = CmtVarWhileControlFleet value = -0.25 } }
 						random_list = {
-						125 = { event_target:CmtGlobalVar = { set_variable = { which = CmtVarWhileControlFleet value = 0 } } CmtEffectCreateFleet_KhanStandard = yes CmtEffectCreateFleet_KhanArmy = yes }
-						75 = { event_target:CmtGlobalVar = { change_variable = { which = CmtVarWhileControlFleet value = -0.25 } } CmtEffectCreateFleet_KhanArmy = yes }
+							125 = { event_target:CmtGlobalVar = { set_variable = { which = CmtVarWhileControlFleet value = 0 } } CmtEffectCreateFleet_KhanStandard = yes CmtEffectCreateFleet_KhanArmy = yes }
+							75 = { event_target:CmtGlobalVar = { change_variable = { which = CmtVarWhileControlFleet value = -0.25 } } CmtEffectCreateFleet_KhanArmy = yes }
 							200 = { }
 						}
 					}
@@ -6201,12 +6224,12 @@ event = {
 			has_global_flag = great_khan_dead
 		}
 		exists = event_target:raider_khanate
-		event_target:raider_khanate = {
-			NOR = {
-				has_country_flag = CmtFlagKhanNoDieCountry
-				has_country_flag = khan_dead_event_fine
-			}
-		}
+		# event_target:raider_khanate = {
+		# 	NOR = {
+		# 		has_country_flag = CmtFlagKhanNoDieCountry
+		# 		has_country_flag = khan_dead_event_fine
+		# 	}
+		# }
 	}
 	immediate = {
 		if = {
@@ -8843,9 +8866,7 @@ country_event = {
 		# 	# assign_diadochi_planets = { NUM = second PCT = 0.33 }
 		# 	# assign_diadochi_planets = { NUM = third PCT = 0.5 }
 		# 	# assign_diadochi_planets = { NUM = fourth PCT = 1 }
-
 		# 	assign_diadochi_systems = yes
-
 		# 	create_first_diadochi = yes
 		# 	create_second_diadochi = yes
 		# 	create_third_diadochi = yes
@@ -8873,9 +8894,7 @@ country_event = {
 		# 	# assign_diadochi_planets = { NUM = second PCT = 0.33 }
 		# 	# assign_diadochi_planets = { NUM = third PCT = 0.5 }
 		# 	# assign_diadochi_planets = { NUM = fourth PCT = 1 }
-
 		# 	assign_diadochi_systems = yes
-
 		# 	create_second_diadochi = yes
 		# 	create_third_diadochi = yes
 		# 	create_fourth_diadochi = yes
@@ -8884,27 +8903,23 @@ country_event = {
 		# 	assign_fourth_diadochi_planets = yes
 		# 	# assign_diadochi_planets = { NUM = third PCT = 0.5 }
 		# 	# assign_diadochi_planets = { NUM = fourth PCT = 1 }
-
 		# 	assign_diadochi_systems = yes
-
 		# 	create_third_diadochi = yes
 		# 	create_fourth_diadochi = yes
 		# }
 		# set_diadochi_claims = yes needless wasting vanilla effect (do it later)
-
 		###
 		### We're going to initially go with 1 Diadochi/Sector (By MrFunEGUY)
 
 		# Count actual sectors
 		export_trigger_value_to_variable = { trigger = num_sectors variable = actual_sector_count }
 		set_variable = { which = num_diadochi value = actual_sector_count }
-		# Calc amount Diadochi 2-6: 2=4s 3=5-6s 4=7-8s 5=9-12s 6>=13s
-		if		= { limit = { check_variable = { which = num_diadochi value > 12 }	} set_variable = { which = num_diadochi value = 5 } }	# 6
-		else_if = { limit = { check_variable = { which = num_diadochi value > 8 }	} set_variable = { which = num_diadochi value = 4 } }	# 5
-		else_if = { limit = { check_variable = { which = num_diadochi value > 6 }	} set_variable = { which = num_diadochi value = 3 } }	# 4
-		else_if = { limit = { check_variable = { which = num_diadochi value > 4 }	} set_variable = { which = num_diadochi value = 2 } }	# 3
+		# Calc amount Diadochi 2-6: 2=3s 3=4-6s 4=7-8s 5=9-12s 6>=13s
+		if		= { limit = { check_variable = { which = num_diadochi value > 12 }	} set_variable = { which = num_diadochi value = 5 } } # 6
+		else_if = { limit = { check_variable = { which = num_diadochi value > 8 }	} set_variable = { which = num_diadochi value = 4 } } # 5
+		else_if = { limit = { check_variable = { which = num_diadochi value > 6 }	} set_variable = { which = num_diadochi value = 3 } } # 4
+		else_if = { limit = { check_variable = { which = num_diadochi value > 4 }	} set_variable = { which = num_diadochi value = 2 } } # 3
 		else	= { set_variable = { which = num_diadochi value = 1 } }		# 2
-
 
 		# First Diadoachi is original country Capital Sector
 		set_country_flag = diadochi
@@ -8929,7 +8944,7 @@ country_event = {
 			divide_variable = { which = EX_sectors_per_diadochi value = num_diadochi }
 		}
 		ceiling_variable = EX_sectors_per_diadochi
-		log="EX_sectors_per_diadochi [This.EX_sectors_per_diadochi]"
+		log="Extra sectors per Diadochi: [This.EX_sectors_per_diadochi]"
 		while = {
 			count = num_diadochi
 			ordered_owned_sector = {

@@ -1541,7 +1541,7 @@ country_event = {
 	}
 }
 
-# Handover parts of marauder country for Diadochi (HIDDEN)
+# Handover parts of marauder country for Diadochi (HIDDEN) SET_DIADOCHI_LEADERS_AND_FLEET
 # Maybe buggy because to late and raider_khanate not exists
 # Via marauder.601 and marauder.609
 # This = Diadochi

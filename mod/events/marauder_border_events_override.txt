@@ -392,7 +392,7 @@ country_event = {
 	}
 }
 
-# Diadochi: Claims, Intel, Switch Systems
+# Diadochi: Claims, Intel, Switch Systems SET_DIADOCHI_LEADERS_AND_FLEET
 # Root Original Diadochi, New Khanat
 country_event = {
 	id = marauder_borders.2000
@@ -409,6 +409,7 @@ country_event = {
 				has_government = gov_diadochi
 				# has_country_flag = diadochi
 			}
+			set_variable = { which = num_pops value = trigger:num_pops }
 			every_playable_country = {
 				limit = {
 					has_government = gov_diadochi
@@ -421,8 +422,9 @@ country_event = {
 				add_trust = { amount = -100 who = prev }
 				add_intel = { amount = 100 who = prev }
 				add_opinion_modifier = { modifier = opinion_traitor_to_empire who = prev }
+				set_variable = { which = num_pops value = trigger:num_pops }
 
-				# Prevent extreme balcanization
+				## Prevent extreme balcanization
 				# potential system
 				# if = { # First simple level
 				while = { count = 4
@@ -601,7 +603,7 @@ country_event = {
 					}
 				}
 				# else = { ordered_system_within_border = { position = x order_by = x }
-				while = { count = 3
+				while = { count = 4
 					limit = {
 						capital_scope.solar_system = {
 							closest_system = {
@@ -622,23 +624,26 @@ country_event = {
 											NOT = { has_star_flag = switched_system }
 											count_neighbor_system = { count < 1 limit = { has_owner = yes is_owned_by = prevprev } }
 										}
-										capital_scope.solar_system = {
-											closest_system = {
-												min_steps = 1
-												max_steps = 66
-												use_bypasses = yes # To much performance?
-												limit = {
-													has_owner = yes
-													NOT = { is_owned_by = prev.owner }
-													is_capital_system = no
-													is_owned_by = prevprevprevprev.owner
-													NOR = {
-														has_star_flag = switched_system
-														is_owned_by = prevprev.owner
+										OR = { # Take the same from the other country (only if more pops)
+											capital_scope.solar_system = {
+												closest_system = {
+													min_steps = 1
+													max_steps = 66
+													use_bypasses = yes # To much performance?
+													limit = {
+														has_owner = yes
+														NOT = { is_owned_by = prev.owner }
+														is_capital_system = no
+														is_owned_by = prevprevprevprev.owner
+														NOR = {
+															has_star_flag = switched_system
+															is_owned_by = prevprev.owner
+														}
+														count_neighbor_system = { count < 2 limit = { has_owner = yes is_owned_by = prevprevprev } }
 													}
-													count_neighbor_system = { count < 2 limit = { has_owner = yes is_owned_by = prevprevprev } }
 												}
 											}
+											check_variable_arithmetic = { which = num_pops add = 50 value < prevprevprev.trigger:num_pops }
 										}
 									}
 								}
@@ -666,24 +671,27 @@ country_event = {
 									}
 								}
 							}
-							owner.capital_scope.solar_system = {
-								closest_system = {
-									min_steps = 1
-									max_steps = 66
-									use_bypasses = yes # To much performance?
-									limit = {
-										has_owner = yes
-										NOT = { is_owned_by = prev.owner }
-										is_capital_system = no
-										is_owned_by = prevprevprevprev
-										NOR = {
-											has_star_flag = switched_system
-											is_owned_by = prevprev.owner
+							if = { # Take the same from the other country (only if more pops)
+								limit = { owner = { check_variable_arithmetic = { which = num_pops add = 50 value > prevprevprev.trigger:num_pops } } }
+								owner.capital_scope.solar_system = {
+									closest_system = {
+										min_steps = 1
+										max_steps = 66
+										use_bypasses = yes # To much performance?
+										limit = {
+											has_owner = yes
+											NOT = { is_owned_by = prev.owner }
+											is_capital_system = no
+											is_owned_by = prevprevprevprev
+											NOR = {
+												has_star_flag = switched_system
+												is_owned_by = prevprev.owner
+											}
+											count_neighbor_system = { count < 2 limit = { has_owner = yes is_owned_by = prevprevprev.owner } }
 										}
-										count_neighbor_system = { count < 2 limit = { has_owner = yes is_owned_by = prevprevprev.owner } }
+										commit_system_to = { EMPIRE = prevprevprevprev.prev }
+										prevprev = { commit_system_to = { EMPIRE = prevprevprevprev.prev.owner } }
 									}
-									commit_system_to = { EMPIRE = prevprevprevprev.prev }
-									prevprev = { commit_system_to = { EMPIRE = prevprevprevprev.prev.owner } }
 								}
 							}
 						}
@@ -695,9 +703,7 @@ country_event = {
 					add_claims = { who = prevprev num_of_claims = 10 show_notification = no }
 				}
 				# set_closed_borders = { who = prev status = yes forced = 5 }
-				# prev = {
-				# 	set_closed_borders = { who = prev status = yes forced = 5 }
-				# }
+				# prev = { set_closed_borders = { who = prev status = yes forced = 5 } }
 			}
 			# Survey Rest of Horde's Space
 			root = {
@@ -706,7 +712,18 @@ country_event = {
 				}
 			}
 		}
-		country_event = { id = khan.610 } # Init more stuff for first Diadochi
+		country_event = { id = khan.610 } # Init more stuff: SET_DIADOCHI_LEADERS_AND_FLEET (First Diadochi)
 		set_update_modifiers_batch = end
+	}
+	after = {
+		every_playable_country = {
+			limit = {
+				has_origin = "origin_khan_successor"
+				has_government = gov_diadochi
+				# has_country_flag = diadochi
+				is_variable_set = num_pops
+			}
+			clear_variable = num_pops
+		}
 	}
 }
