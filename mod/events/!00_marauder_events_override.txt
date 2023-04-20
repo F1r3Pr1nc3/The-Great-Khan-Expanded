@@ -6224,12 +6224,12 @@ event = {
 			has_global_flag = great_khan_dead
 		}
 		exists = event_target:raider_khanate
-		# event_target:raider_khanate = {
-		# 	NOR = {
-		# 		has_country_flag = CmtFlagKhanNoDieCountry
-		# 		has_country_flag = khan_dead_event_fine
-		# 	}
-		# }
+		event_target:raider_khanate = {
+			NOR = {
+				has_country_flag = CmtFlagKhanNoDieCountry
+				has_country_flag = khan_dead_event_fine
+			}
+		}
 	}
 	immediate = {
 		if = {
@@ -6294,7 +6294,6 @@ event = {
 			}
 			event_target:raider_khanate = { country_event = { id = marauder.512 } }
 			# event_target:CmtGlobalVar = { set_variable = { which = CmtVarKhanLifespan value = 1 } }
-			break = yes
 		} else = {
 			# every_country = { currently only one Khan
 			# limit = {
