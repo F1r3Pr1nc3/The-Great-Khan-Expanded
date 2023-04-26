@@ -113,7 +113,7 @@ country_event = {
 			# 	remove_modifier = "satrapy_of_horde"
 			# }
 			# if = { limit = { is_variable_set = "planets_lost_to_marauder" }
-			# 	divide_variable = { which = "planets_lost_to_marauder" value = 5 } # clear_variable = "planets_lost_to_marauder"
+			# 	multiply_variable = { which = "planets_lost_to_marauder" value = 0.2 }
 			# }
 			# set_country_flag = rebelling_satrapy
 			# set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
@@ -807,7 +807,7 @@ country_event = {
 				leave_alliance = { override_requirements = yes }
 			}
 			if = { limit = { is_variable_set = "planets_lost_to_marauder" }
-				divide_variable = { which = "planets_lost_to_marauder" value = 5 } # clear_variable = "planets_lost_to_marauder"
+				multiply_variable = { which = planets_lost_to_marauder value = 0.2 }
 			}
 			if = { limit = { has_country_flag = war_in_heaven_league_leader_declined }
 				remove_country_flag = war_in_heaven_league_leader_declined
@@ -897,7 +897,7 @@ country_event = {
 					leave_alliance = { override_requirements = yes }
 				}
 				if = { limit = { is_variable_set = "planets_lost_to_marauder" }
-					divide_variable = { which = "planets_lost_to_marauder" value = 5 } # clear_variable = "planets_lost_to_marauder"
+					multiply_variable = { which = "planets_lost_to_marauder" value = 0.2 }
 				}
 				if = { limit = { has_country_flag = war_in_heaven_league_leader_declined }
 					remove_country_flag = war_in_heaven_league_leader_declined
@@ -1431,7 +1431,7 @@ country_event = {
 			}
 			set_timed_country_flag = { flag = ai_no_wars days = 3592 }
 			if = { limit = { is_variable_set = "planets_lost_to_marauder" }
-				divide_variable = { which = "planets_lost_to_marauder" value = 5 } # clear_variable = "planets_lost_to_marauder"
+				multiply_variable = { which = "planets_lost_to_marauder" value = 0.2 }
 			}
 			# if = { limit = { has_modifier = "satrapy_of_horde" }
 			# 	remove_modifier = "satrapy_of_horde"
@@ -2526,7 +2526,7 @@ country_event = {
 # 				remove_modifier = "satrapy_of_horde"
 # 			}
 # 			if = { limit = { is_variable_set = "planets_lost_to_marauder" }
-# 				divide_variable = { which = "planets_lost_to_marauder" value = 5 } # clear_variable = "planets_lost_to_marauder"
+# 				multiply_variable = { which = "planets_lost_to_marauder" value = 0.2 }
 # 			}
 # 			if = {
 # 				limit = { has_federation = yes is_in_federation_with = event_target:raider_khanate }

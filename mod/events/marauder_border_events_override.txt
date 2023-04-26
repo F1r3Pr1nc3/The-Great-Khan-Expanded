@@ -410,6 +410,7 @@ country_event = {
 				# has_country_flag = diadochi
 			}
 			set_variable = { which = num_pops value = trigger:num_pops }
+			save_event_target_as = planet_owner_1
 			every_playable_country = {
 				limit = {
 					has_government = gov_diadochi
@@ -423,7 +424,7 @@ country_event = {
 				add_intel = { amount = 100 who = prev }
 				add_opinion_modifier = { modifier = opinion_traitor_to_empire who = prev }
 				set_variable = { which = num_pops value = trigger:num_pops }
-
+				save_event_target_as = planet_owner_2
 				## Prevent extreme balcanization
 				# potential system
 				# if = { # First simple level
@@ -450,12 +451,12 @@ country_event = {
 									# exists = starbase
 									# starbase = { is_owned_by = prevprev }
 									NOT = { has_star_flag = switched_system }
-									any_country_neighbor_to_system = { is_same_empire = prevprevprevprev }
+									any_country_neighbor_to_system = { is_same_empire = event_target:planet_owner_2 } # prevprevprevprev
 									OR = {
 										NOT = { any_neighbor_system = { has_owner = yes is_owned_by = prevprev } }
 										AND = {
 											count_neighbor_system = { count = 1 limit = { has_owner = yes is_owned_by = prevprev } }
-											count_neighbor_system = { count >= 1 limit = { has_owner = yes is_owned_by = prevprevprevprev } }
+											count_neighbor_system = { count >= 1 limit = { has_owner = yes is_owned_by = event_target:planet_owner_2 } } # prevprevprevprev
 										}
 									}
 								}
@@ -485,12 +486,12 @@ country_event = {
 									# exists = starbase
 									# starbase = { is_owned_by = prevprev }
 									NOT = { has_star_flag = switched_system }
-									any_country_neighbor_to_system = { is_same_empire = prevprevprevprev }
+									any_country_neighbor_to_system = { is_same_empire = event_target:planet_owner_2 } # prevprevprevprev
 									OR = {
 										NOT = { any_neighbor_system = { has_owner = yes is_owned_by = prevprev } }
 										AND = {
 											count_neighbor_system = { count = 1 limit = { has_owner = yes is_owned_by = prevprev } }
-											count_neighbor_system = { count >= 1 limit = { has_owner = yes is_owned_by = prevprevprevprev } }
+											count_neighbor_system = { count >= 1 limit = { has_owner = yes is_owned_by = event_target:planet_owner_2 } } # prevprevprevprev
 										}
 									}
 								}
@@ -506,12 +507,12 @@ country_event = {
 									# exists = starbase
 									# starbase = { is_owned_by = prevprev }
 									NOT = { has_star_flag = switched_system }
-									any_country_neighbor_to_system = { is_same_empire = prevprevprevprev }
+									any_country_neighbor_to_system = { is_same_empire = event_target:planet_owner_2 } # prevprevprevprev
 									OR = {
 										NOT = { any_neighbor_system = { has_owner = yes is_owned_by = prevprev } }
 										AND = {
 											count_neighbor_system = { count = 1 limit = { has_owner = yes is_owned_by = prevprev } }
-											count_neighbor_system = { count >= 1 limit = { has_owner = yes is_owned_by = prevprevprevprev } }
+											count_neighbor_system = { count >= 1 limit = { has_owner = yes is_owned_by = event_target:planet_owner_2 } } # prevprevprevprev
 										}
 									}
 								}
@@ -524,17 +525,19 @@ country_event = {
 									# exists = starbase
 									# starbase = { is_owned_by = prevprev }
 									NOT = { has_star_flag = switched_system }
-									any_country_neighbor_to_system = { is_same_empire = prevprevprevprev }
+									any_country_neighbor_to_system = { is_same_empire = event_target:planet_owner_2 } # prevprevprevprev
 									OR = {
 										NOT = { any_neighbor_system = { has_owner = yes is_owned_by = prevprev } }
 										AND = {
 											count_neighbor_system = { count = 1 limit = { has_owner = yes is_owned_by = prevprev } }
-											count_neighbor_system = { count >= 1 limit = { has_owner = yes is_owned_by = prevprevprevprev } }
+											count_neighbor_system = { count >= 1 limit = { has_owner = yes is_owned_by = event_target:planet_owner_2 } } # prevprevprevprev
 										}
 									}
 								}
-								commit_system_to = { EMPIRE = prevprevprev }
-								prevprev = { commit_system_to = { EMPIRE = prevprevprev } }
+								# commit_system_to = { EMPIRE = prevprevprev }
+								# prevprev = { commit_system_to = { EMPIRE = prevprevprev } }
+								commit_system_to = { EMPIRE = event_target:planet_owner_2 }
+								prevprev = { commit_system_to = { EMPIRE = event_target:planet_owner_1 } }
 							}
 						}
 					}
@@ -598,7 +601,9 @@ country_event = {
 									NOT = { is_same_empire = prevprevprev }
 								}
 							}
-							prev = { commit_system_to = { EMPIRE = prevprev.owner } }
+							owner = { save_event_target_as = planet_owner }
+							# prev = { commit_system_to = { EMPIRE = prevprev.owner } }
+							prev = { commit_system_to = { EMPIRE = event_target:planet_owner } }
 						}
 					}
 				}
@@ -612,8 +617,11 @@ country_event = {
 								use_bypasses = yes # To much performance?
 								limit = {
 									has_owner = yes
-									NOT = { is_owned_by = prevprev }
-									is_capital_system = no
+									NOR = {
+										is_owned_by = prevprev
+										has_star_flag = switched_system
+										is_capital_system = yes
+									}
 									exists = owner
 									owner = {
 										NOT = { is_same_empire = prevprevprev }
@@ -621,7 +629,6 @@ country_event = {
 										has_government = gov_diadochi
 										has_origin = "origin_khan_successor"
 										prev = {
-											NOT = { has_star_flag = switched_system }
 											count_neighbor_system = { count < 1 limit = { has_owner = yes is_owned_by = prevprev } }
 										}
 										OR = { # Take the same from the other country (only if more pops)
@@ -643,7 +650,6 @@ country_event = {
 													}
 												}
 											}
-											check_variable_arithmetic = { which = num_pops add = 50 value < prevprevprev.trigger:num_pops }
 										}
 									}
 								}
@@ -657,40 +663,52 @@ country_event = {
 							use_bypasses = yes # To much performance?
 							limit = {
 								has_owner = yes
-								NOT = { is_owned_by = prevprev }
-								is_capital_system = no
+								NOR = {
+									is_owned_by = prevprev
+									has_star_flag = switched_system
+									is_capital_system = yes
+								}
 								exists = owner
 								owner = {
-									NOT = { is_same_empire = prevprevprev }
+									NOT = { is_same_empire = event_target:planet_owner_2 } # prevprevprev
 									is_neighbor_of = prevprevprev
 									has_government = gov_diadochi
 									has_origin = "origin_khan_successor"
 									prev = {
-										NOT = { has_star_flag = switched_system }
 										count_neighbor_system = { count < 1 limit = { has_owner = yes is_owned_by = prevprev } }
 									}
 								}
 							}
-							if = { # Take the same from the other country (only if more pops)
-								limit = { owner = { check_variable_arithmetic = { which = num_pops add = 50 value > prevprevprev.trigger:num_pops } } }
-								owner.capital_scope.solar_system = {
+							owner = {
+								save_event_target_as = planet_owner
+								if = { limit = { NOT = { is_variable_set = num_pops } }
+									set_variable = { which = num_pops value = trigger:num_pops }
+								}
+								capital_scope.solar_system = {
 									closest_system = {
 										min_steps = 1
 										max_steps = 66
 										use_bypasses = yes # To much performance?
 										limit = {
 											has_owner = yes
-											NOT = { is_owned_by = prev.owner }
-											is_capital_system = no
-											is_owned_by = prevprevprevprev
 											NOR = {
+												is_owned_by = event_target:planet_owner # is_owned_by = prev.owner
 												has_star_flag = switched_system
-												is_owned_by = prevprev.owner
+												is_capital_system = yes
 											}
-											count_neighbor_system = { count < 2 limit = { has_owner = yes is_owned_by = prevprevprev.owner } }
+											is_owned_by = event_target:planet_owner_2 # prevprevprevprev
+											count_neighbor_system = { count < 2 limit = { has_owner = yes is_owned_by = event_target:planet_owner_2 } } # prevprevprev.owner
 										}
-										commit_system_to = { EMPIRE = prevprevprevprev.prev }
-										prevprev = { commit_system_to = { EMPIRE = prevprevprevprev.prev.owner } }
+										# commit_system_to = { EMPIRE = prevprevprevprev.prev }
+										# prevprev = { commit_system_to = { EMPIRE = prevprevprevprev.prev.owner } }
+										if = { # Take the same from the other country (only if more pops)
+											limit = { event_target:planet_owner_2 = { check_variable_arithmetic = { which = num_pops add = 50 value > event_target:planet_owner.num_pops } } }
+											commit_system_to = { EMPIRE = event_target:planet_owner }
+										}
+										if = { # Take the same from the other country (only if more pops)
+											limit = { event_target:planet_owner = { check_variable_arithmetic = { which = num_pops add = 50 value > event_target:planet_owner_2.num_pops } } }
+											prevprevprev = { commit_system_to = { EMPIRE = event_target:planet_owner_2 } }
+										}
 									}
 								}
 							}

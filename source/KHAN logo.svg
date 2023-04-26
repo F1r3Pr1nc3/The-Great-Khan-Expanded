@@ -8,7 +8,7 @@
    sodipodi:docname="KHAN logo.svg"
    enable-background="new"
    inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
-   inkscape:export-filename="..\..\KHAN.mod\workshop\thumbs\KHAN logo3.7.0.png"
+   inkscape:export-filename="..\..\KHAN.mod\workshop\thumbs\KHAN logo3.8.1.png"
    inkscape:export-xdpi="25.6"
    inkscape:export-ydpi="25.6"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -40,12 +40,12 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1920"
-     inkscape:window-height="1017"
+     inkscape:window-height="1061"
      id="namedview1849"
      showgrid="true"
-     inkscape:zoom="0.36315264"
-     inkscape:cx="702.18407"
-     inkscape:cy="901.82464"
+     inkscape:zoom="0.25678769"
+     inkscape:cx="667.86689"
+     inkscape:cy="313.48854"
      inkscape:window-x="-4"
      inkscape:window-y="-4"
      inkscape:window-maximized="1"
@@ -149,10 +149,10 @@
     </filter>
     <filter
        id="e"
-       x="-0.010151283"
-       y="-0.010267709"
-       width="1.0200135"
-       height="1.0202202"
+       x="-0.0099048358"
+       y="-0.010015646"
+       width="1.0195276"
+       height="1.0197238"
        color-interpolation-filters="sRGB">
       <feGaussianBlur
          stdDeviation="0.16120536"
@@ -696,22 +696,23 @@
      style="display:inline">
     <image
        xlink:href="khan_throne_room.png"
-       y="232.30417"
+       y="225.74701"
        x="-95.615341"
        id="image1547"
        style="display:inline;mix-blend-mode:normal;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;image-rendering:pixelated"
        preserveAspectRatio="none"
-       height="275.69583"
+       height="282.57501"
        width="700.61664" />
     <image
        xlink:href="pirate_armada.png"
-       y="-0.66145831"
-       x="-17.116211"
+       y="0"
+       x="-604.83752"
        id="image1536"
        style="mix-blend-mode:normal;stroke-width:0.193464;image-rendering:pixelated"
        preserveAspectRatio="none"
-       height="234.15625"
-       width="542.39581" />
+       height="227.54167"
+       width="604.83752"
+       transform="scale(-1,1)" />
     <image
        xlink:href="diplomacy_stripes.png"
        width="2639.9524"
@@ -1294,7 +1295,7 @@
            x="5"
            transform="rotate(45)"
            id="text4499"><tspan
-             id="tspan1768">3.7.⠀</tspan></text>
+             id="tspan1768">3.8.⠀</tspan></text>
       </g>
     </g>
     <use

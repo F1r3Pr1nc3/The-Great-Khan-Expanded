@@ -410,12 +410,12 @@ set_pirates_difficulty = {
 				}
 			}
 			if = { limit = { check_variable = { which = pirates_factor value > 1 } }
-				divide_variable = { which = pirates_factor value = 1.5 }
+				multiply_variable = { which = pirates_factor value = 0.666 }
 			} else = {
 				multiply_variable = { which = pirates_factor value = 2 }
 			}
 		}
-		divide_variable = { which = pirates_factor value = 2 }		# Only half
+		multiply_variable = { which = pirates_factor value = 0.5 }		# Only half
 		# switch = { # full
 		# 	trigger = has_country_flag
 		# 	pirate_waves_very_easy = {
@@ -621,7 +621,7 @@ create_pirate_waves_fleet = {
 	set_variable		= { which = pirates_fleet_factor value = prev.pirates_factor }
 	multiply_variable	= { which = pirates_fleet_factor value = 108 } # 75
 	change_variable		= { which = pirates_fleet_factor value = 72 }
-	divide_variable		= { which = pirates_fleet_factor value = 2 }
+	multiply_variable	= { which = pirates_fleet_factor value = 0.5 }
 	round_variable = pirates_fleet_factor
 	# log = "pirates_fleet_factor [This.pirates_fleet_factor]"
 
