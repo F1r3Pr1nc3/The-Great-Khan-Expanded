@@ -1,4 +1,4 @@
-version="2.5.0"
+version="2.5.2"
 tags={
 	"Events"
 	"Crisis"
@@ -9,6 +9,6 @@ tags={
 dependencies={
 	"[Salvaged+]Marauders & Menacing Remodeled"
 }
-name="The Great Khan Expanded [3.7.☠]"
-supported_version="3.7.*"
+name="The Great Khan Expanded [3.8.☠]"
+supported_version="3.8.*"
 remote_file_id="2508704523"

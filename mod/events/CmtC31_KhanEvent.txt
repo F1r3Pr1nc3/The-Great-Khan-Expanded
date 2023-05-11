@@ -21,8 +21,12 @@ event = {
 	is_triggered_only = yes
 
 	trigger = {
-		NOT = { has_global_flag = marauder_crisis_ongoing }
-		NOT = { has_global_flag = horde_triggered }
+		NOR = {
+			has_global_flag = marauder_crisis_ongoing
+			has_global_flag = horde_triggered
+			has_global_flag = great_khan_dead
+			has_global_flag = great_khan_wins
+		}
 		event_target:CmtGlobalVar = {
 			mid_game_years_passed > CmtVarKhanEarliestMgpy	# Check Earliest Year
 			end_game_years_passed < CmtVarKhanLatestEgpy	# Check Latest Year
@@ -34,12 +38,18 @@ event = {
 		if = { limit = { NOT = { has_global_flag = CmtFlagCheckKhanFirstChance } }
 			set_global_flag = CmtFlagCheckKhanFirstChance
 			event_target:CmtGlobalVar = {
+				# TODO make more dynamically
 				export_trigger_value_to_variable = { trigger = end_game_years_passed variable = CmtFlagCheckKhanLastChance }
 				change_variable = { which = CmtFlagCheckKhanLastChance value = CmtVarKhanLatestEgpy }
-				change_variable = { which = CmtFlagCheckKhanLastChance value = -3 }
+				change_variable = { which = CmtFlagCheckKhanLastChance value = -1 }
 				multiply_variable = { which = CmtFlagCheckKhanLastChance value = 360 }
-				CmtFlagCheckKhanLastChance = { DAYS = CmtFlagCheckKhanLastChance }
-				# country_event = { id = CrisisManagerControl.6111 days = 17990 }  ## 50yr - 10d
+				# Because var with days parameter not working (v3.8)
+				# CmtFlagCheckKhanLastChance = { DAYS = CmtFlagCheckKhanLastChance }
+				if		= { limit = { check_variable = { which = CmtFlagCheckKhanLastChance value >= @CmtConstKhanInterval_D5 } } country_event = { id = CrisisManagerControl.6111 days = @CmtConstKhanInterval_D5 } } # 35992
+				else_if = { limit = { check_variable = { which = CmtFlagCheckKhanLastChance value >= @CmtConstKhanInterval_D4 } } country_event = { id = CrisisManagerControl.6111 days = @CmtConstKhanInterval_D4 } } # 26992
+				else_if = { limit = { check_variable = { which = CmtFlagCheckKhanLastChance value >= @CmtConstKhanInterval_D3 } } country_event = { id = CrisisManagerControl.6111 days = @CmtConstKhanInterval_D3 } } # 17992 ~ 50yr - 10d
+				else_if = { limit = { check_variable = { which = CmtFlagCheckKhanLastChance value >= @CmtConstKhanInterval_D2 } } country_event = { id = CrisisManagerControl.6111 days = @CmtConstKhanInterval_D2 } } # 8992
+				else_if = { limit = { check_variable = { which = CmtFlagCheckKhanLastChance value >= @CmtConstKhanInterval_D1 } } country_event = { id = CrisisManagerControl.6111 days = @CmtConstKhanInterval_D1 } } # 3592
 			}
 		}
 
@@ -118,5 +128,6 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		set_global_flag = CmtFlagKhanProbabilityIncrease
+		remove_global_flag = CmtFlagCheckKhanFirstChance
 	}
 }

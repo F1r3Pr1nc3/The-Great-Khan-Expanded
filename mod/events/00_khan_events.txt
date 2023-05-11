@@ -1561,13 +1561,29 @@ country_event = {
 		exists = event_target:raider_khanate
 	}
 	immediate = {
-		if = { ## Give Khan new Life for longer War.
-			limit = { check_variable = { which = CmtVarKhanRemainingLive value < 2 } }
-			set_variable = { which = CmtVarKhanRemainingLive value = 2 } ## Not CmtGlobalVar
+		if = { limit = { has_global_flag = khan_no_die }
+			remove_global_flag = khan_no_die
 		}
 		if = { limit = { has_country_flag = marauder600_happened }
 			remove_country_flag = marauder600_happened
 		}
+		if = { limit = { has_country_flag = CmtFlagKhanNoDieCountry }
+			remove_country_flag = CmtFlagKhanNoDieCountry
+		}
+		if = { limit = { has_country_flag = khan_dead_event_fine }
+			remove_country_flag = khan_dead_event_fine
+		}
+		## Give Khan new Life for longer War?
+		if = {
+			limit = {
+				OR = {
+					check_variable = { which = CmtVarKhanRemainingLive value < 1 }
+					check_variable = { which = CmtVarKhanRemainingLive value > 3 }
+				}
+			}
+			set_variable = { which = CmtVarKhanRemainingLive value = 1 } ## Not CmtGlobalVar
+		}
+
 		event_target:CmtGlobalVar = {
 			## Give Khan check_variablevenerable Lifespan for longer War.
 			if = { limit = { check_variable = { which = CmtVarKhanLifespan value < 4 } }
@@ -1746,7 +1762,6 @@ country_event = {
 	after = {
 		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
 	}
-
 	option = { name = great_khan_wins_announcement_response }
 }
 
@@ -1759,12 +1774,12 @@ country_event = {
 	picture = GFX_evt_khan_throne_room
 	show_sound = event_radio_chatter
 	force_open = yes
-	major = yes
-	major_trigger = { is_ai = no }
+	# major = yes
+	# major_trigger = { is_ai = no }
 	trigger = {
 		has_global_flag = marauder_crisis_ongoing
 		exists = event_target:raider_khanate
-		NOT = { has_active_event = { khan.298 } }
+		NOR = { has_active_event = { khan.297 khan.298 } }
 		# NOT = { has_country_flag = marauder_diplomacy_engaged }
 	}
 	# immediate = { set_country_flag = marauder_diplomacy_engaged }
@@ -1792,8 +1807,17 @@ country_event = {
 		}
 		is_overlord = yes
 		CmtTriggerIsKhanCountry = yes
-		exists = event_target:great_khan
-		exists = event_target:great_khan.fleet
+		OR = {
+			AND = {
+				exists = event_target:great_khan
+				exists = event_target:great_khan.fleet
+			}
+			any_owned_fleet = {
+				has_fleet_flag = khan_fleet
+				exists = leader
+				leader = { has_leader_flag = great_khan }
+			}
+		}
 	}
 	immediate = {
 		if = {
@@ -1853,19 +1877,19 @@ country_event = {
 				}
 			}
 			# has_defensive_pact = root
-			country_event = { id = khan.298 } # Notify global
-			# every_playable_country = {
-			# 	if = {
-			# 		limit = {
-			# 			NOR = {
-			# 				is_ai = yes
-			# 				# has_country_flag = marauder_diplomacy_engaged
-			# 				has_active_event = { khan.298 }
-			# 			}
-			# 		}
-			# 		country_event = { id = khan.298 }
-			# 	}
-			# }
+			# country_event = { id = khan.298 } # Notify major global
+			every_playable_country = {
+				if = {
+					limit = {
+						NOR = {
+							is_ai = yes
+							# has_country_flag = marauder_diplomacy_engaged
+							has_active_event = { khan.297 khan.298 }
+						}
+					}
+					country_event = { id = khan.298 }
+				}
+			}
 			set_global_flag = great_khan_wins
 			country_event = {
 				id = khan.296
@@ -1948,74 +1972,74 @@ event = {
 			event_target:raider_khanate = {
 				# log="The Great Khan exists"
 				## Temp fix immortal Khan without Khan.
-				## TODO remove this after some time > 3.2
-				if = {
-					limit = {
-						has_global_flag = great_khan_dead
-						OR = {
-							has_country_flag = CmtFlagKhanNoDieCountry
-							has_global_flag = khan_no_die
-						}
-						NOT = { has_country_flag = khan_dead_event_fine }
-						OR = {
-							NAND = {
-								exists = event_target:great_khan_ruler
-								event_target:great_khan_ruler = { has_leader_flag = great_khan }
-							}
-							NAND = {
-								exists = event_target:great_khan
-								event_target:great_khan = { has_leader_flag = great_khan }
-							}
-						}
-					}
-					if = { limit = { exists = event_target:great_khan }
-						event_target:great_khan = {
-							set_leader_flag = great_khan
-							save_event_target_as = old_khan
-						}
-					} else_if = { limit = { exists = ruler }
-						ruler = {
-							set_leader_flag = great_khan
-							save_event_target_as = old_khan
-						}
-					} else_if = {
-						limit = {
-							any_owned_leader = { has_leader_flag = great_khan }
-						}
-						random_owned_leader = {
-							limit = { has_leader_flag = great_khan }
-							save_event_target_as = old_khan
-						}
-					} else = {
-						random_owned_leader = {
-							limit = {
-								leader_class = admiral
-								is_event_leader = no
-							}
-							weights = {
-								base = 1
-								modifier = { add = 1 leader_age > 85 }
-								modifier = { add = 2 is_idle = yes }
-								modifier = { add = 3 has_level < 3 }
-								modifier = { add = 1 gender = female } # hehe
-							}
-							set_leader_flag = great_khan
-							save_event_target_as = old_khan
-						}
-					}
-					if = { limit = { exists = event_target:old_khan }
-						country_event = {
-							id = marauder.711
-							days = 14
-							scopes = { from = event_target:old_khan }
-						}
-					} else = { log="FAIL: Can't find any current Khan!?!" }
-				}
+				## removed on v3.8
+				# if = {
+				# 	limit = {
+				# 		has_global_flag = great_khan_dead
+				# 		OR = {
+				# 			has_country_flag = CmtFlagKhanNoDieCountry
+				# 			has_global_flag = khan_no_die
+				# 		}
+				# 		NOT = { has_country_flag = khan_dead_event_fine }
+				# 		OR = {
+				# 			NAND = {
+				# 				exists = event_target:great_khan_ruler
+				# 				event_target:great_khan_ruler = { has_leader_flag = great_khan }
+				# 			}
+				# 			NAND = {
+				# 				exists = event_target:great_khan
+				# 				event_target:great_khan = { has_leader_flag = great_khan }
+				# 			}
+				# 		}
+				# 	}
+				# 	if = { limit = { exists = event_target:great_khan }
+				# 		event_target:great_khan = {
+				# 			set_leader_flag = great_khan
+				# 			save_event_target_as = old_khan
+				# 		}
+				# 	} else_if = { limit = { exists = ruler }
+				# 		ruler = {
+				# 			set_leader_flag = great_khan
+				# 			save_event_target_as = old_khan
+				# 		}
+				# 	} else_if = {
+				# 		limit = {
+				# 			any_owned_leader = { has_leader_flag = great_khan }
+				# 		}
+				# 		random_owned_leader = {
+				# 			limit = { has_leader_flag = great_khan }
+				# 			save_event_target_as = old_khan
+				# 		}
+				# 	} else = {
+				# 		random_owned_leader = {
+				# 			limit = {
+				# 				leader_class = admiral
+				# 				is_event_leader = no
+				# 			}
+				# 			weights = {
+				# 				base = 1
+				# 				modifier = { add = 1 leader_age > 85 }
+				# 				modifier = { add = 2 is_idle = yes }
+				# 				modifier = { add = 3 has_level < 3 }
+				# 				modifier = { add = 1 gender = female } # hehe
+				# 			}
+				# 			set_leader_flag = great_khan
+				# 			save_event_target_as = old_khan
+				# 		}
+				# 	}
+				# 	if = { limit = { exists = event_target:old_khan }
+				# 		country_event = {
+				# 			id = marauder.711
+				# 			days = 14
+				# 			scopes = { from = event_target:old_khan }
+				# 		}
+				# 	} else = { log="FAIL: Can't find any current Khan!?!" }
+				# }
 				# Fix ongoing hostility (is_hostile seems not immediately working on load)
-				if = { limit = { has_country_flag = declared_crisis }
-					remove_country_flag = declared_crisis
-				}
-				country_event = { id = khan.309 }
+				# if = { limit = { has_country_flag = declared_crisis }
+				# 	remove_country_flag = declared_crisis
+				# }
+				# country_event = { id = khan.309 }
 				country_event = { id = khan.309 days = 4 }
 				# TODO TEMP FIX KHAN NO RESPAWN.
 				country_event = { id = marauder.507 days = 105 random = 80 }
@@ -2129,7 +2153,7 @@ country_event = {
 		if = { limit = { exists = ruler }
 			ruler = {
 				if = { limit = { NOT = { has_trait = leader_trait_fleet_organizer } }
-					add_ruler_trait = leader_trait_fleet_organizer
+					add_trait = leader_trait_fleet_organizer
 				}
 			}
 		}
@@ -2493,7 +2517,7 @@ country_event = {
 # 	option = { name = great_khan_integrate_response }
 # }
 
-# DEPRECATED (TODO remove in 3.3 - now marauder.554)
+# DEPRECATED (removed in 3.3 - now marauder.554)
 # Uprising fabricator satrapy
 # country_event = {
 # 	id = khan.751
@@ -2555,7 +2579,6 @@ country_event = {
 # 					}
 # 				}
 # 			}
-
 # 			if = {
 # 				limit = {
 # 					has_global_flag = great_khan_wins

@@ -702,11 +702,11 @@ country_event = {
 										# commit_system_to = { EMPIRE = prevprevprevprev.prev }
 										# prevprev = { commit_system_to = { EMPIRE = prevprevprevprev.prev.owner } }
 										if = { # Take the same from the other country (only if more pops)
-											limit = { event_target:planet_owner_2 = { check_variable_arithmetic = { which = num_pops add = 50 value > event_target:planet_owner.num_pops } } }
+											limit = { event_target:planet_owner_2 = { check_variable_arithmetic = { which = num_pops add = 100 value > event_target:planet_owner.num_pops } } }
 											commit_system_to = { EMPIRE = event_target:planet_owner }
 										}
 										if = { # Take the same from the other country (only if more pops)
-											limit = { event_target:planet_owner = { check_variable_arithmetic = { which = num_pops add = 50 value > event_target:planet_owner_2.num_pops } } }
+											limit = { event_target:planet_owner = { check_variable_arithmetic = { which = num_pops add = 100 value > event_target:planet_owner_2.num_pops } } }
 											prevprevprev = { commit_system_to = { EMPIRE = event_target:planet_owner_2 } }
 										}
 									}
@@ -717,7 +717,9 @@ country_event = {
 				}
 				# Set claim to each other
 				every_system_within_border = {
-					set_surveyed = { surveyed = yes surveyor = prev }
+					if = { limit = { is_surveyed = { who = prev status = no } }
+						set_surveyed = { surveyed = yes surveyor = prev }
+					}
 					add_claims = { who = prevprev num_of_claims = 10 show_notification = no }
 				}
 				# set_closed_borders = { who = prev status = yes forced = 5 }

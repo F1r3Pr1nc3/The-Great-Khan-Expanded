@@ -1274,14 +1274,13 @@ planet_event = {
 	}
 	trigger = {
 		# has_global_flag = marauder_crisis_ongoing
-		exists = sector
-		NOT = { exists = sector.leader }
+		NOT = { exists = leader }
 		exists = owner
 		owner = {
 			CmtTriggerIsMarauder = yes
 			any_owned_leader = {
 				leader_class = governor
-				NOT = { exists = sector }
+				NOT = { exists = planet }
 			}
 		}
 		# NOT = { has_global_flag = great_khan_wins }
@@ -1291,9 +1290,10 @@ planet_event = {
 			random_owned_leader = {
 				limit = {
 					leader_class = governor
-					NOT = { exists = sector }
+					NOT = { exists = planet }
 				}
-				root.sector = { assign_leader = prev }
+				# root.sector = { assign_leader = prev } replaced in v.3.8
+				root = { assign_leader = prev }
 			}
 		}
 	}

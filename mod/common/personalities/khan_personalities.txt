@@ -11,6 +11,7 @@ hegemonic_imperialists = {
 	research_agreement_acceptance = -10
 	defensive_pact_acceptance = 10
 	migration_pact_acceptance = -50
+	loyalty_acceptance = 1
 	advanced_start_chance = 50
 	weapon_preferences = weapon_type_energy
 	armor_ratio = 0.5
@@ -57,16 +58,14 @@ hegemonic_imperialists = {
 	weight_modifier = {
 		weight = 5		# Very common, so lower weight.
 		modifier = {
-			weight = 1001
+			weight = 1000
 			OR = {
 				has_civic = civic_barbaric_despoilers
 				has_civic = civic_great_khans_vision
 				has_valid_civic = civic_nationalistic_zeal
-				has_valid_civic = civic_barbaric_despoilers
-				has_valid_civic = civic_fanatic_purifiers
 			}
 		}
-		modifier = { add = 5 has_ethic = "ethic_fanatic_authoritarian" }
-		modifier = { add = 10 has_ethic = "ethic_fanatic_militarist" }
+		modifier = { add = 1 has_ethic = "ethic_fanatic_authoritarian" }
+		modifier = { add = 4 has_ethic = "ethic_fanatic_militarist" }
 	}
 }

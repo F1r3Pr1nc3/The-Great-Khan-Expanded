@@ -2878,9 +2878,9 @@ country_event = {
 			if = { limit = { has_country_flag = marauder_diplomacy_engaged }
 				event_target:current_marauder_diplomacy = {
 					switch = { trigger = has_country_flag
-						marauder_1 = { last_created_leader = { set_leader_flag = hired_merc_leader_1 } }
-						marauder_2 = { last_created_leader = { set_leader_flag = hired_merc_leader_2 } }
-						marauder_3 = { last_created_leader = { set_leader_flag = hired_merc_leader_3 } }
+						marauder_1 = { last_created_leader = { set_leader_flag = hired_merc_leader_1 set_leader_flag = marauder_merc_leader } }
+						marauder_2 = { last_created_leader = { set_leader_flag = hired_merc_leader_2 set_leader_flag = marauder_merc_leader } }
+						marauder_3 = { last_created_leader = { set_leader_flag = hired_merc_leader_3 set_leader_flag = marauder_merc_leader } }
 					}
 				}
 				remove_country_flag = marauder_diplomacy_engaged
@@ -2915,20 +2915,7 @@ country_event = {
 		add_resource = { energy = @leadercost }
 		custom_tooltip = hire_general_merc
 		hidden_effect = {
-			create_leader = {
-				class = general
-				species = event_target:marauder_species
-				name = random
-				event_leader = yes
-				skill = 3
-				leader_age_min = 25
-				leader_age_max = 45
-				traits = {
-					trait = random_trait
-					trait = leader_trait_general_mercenary_warrior
-					trait = random_trait
-				}
-			}
+			create_marauder_general = yes
 		}
 		response_text = marauder.40.a.response
 		is_dialog_only = yes
@@ -2961,20 +2948,7 @@ country_event = {
 		add_resource = { energy = @leadercost }
 		custom_tooltip = hire_general_merc
 		hidden_effect = {
-			create_leader = {
-				class = general
-				species = event_target:marauder_species
-				name = random
-				event_leader = yes
-				skill = 3
-				leader_age_min = 25
-				leader_age_max = 45
-				traits = {
-					trait = random_trait
-					trait = leader_trait_general_mercenary_warrior
-					trait = random_trait
-				}
-			}
+			create_marauder_general = yes
 		}
 		response_text = marauder.40.b.response
 		is_dialog_only = yes
@@ -3007,20 +2981,7 @@ country_event = {
 		add_resource = { energy = @leadercost }
 		custom_tooltip = hire_general_merc
 		hidden_effect = {
-			create_leader = {
-				class = general
-				species = event_target:marauder_species
-				name = random
-				event_leader = yes
-				skill = 3
-				leader_age_min = 25
-				leader_age_max = 45
-				traits = {
-					trait = random_trait
-					trait = leader_trait_general_mercenary_warrior
-					trait = random_trait
-				}
-			}
+			create_marauder_general = yes
 		}
 		response_text = marauder.40.c.response
 		is_dialog_only = yes
@@ -3418,7 +3379,7 @@ event = {
 		# 	limit = { NOT = { exists = owner } }
 		# 	delete_fleet = this
 		# }
-		# TODO Remove me on 3.6.*
+		# Removed on 3.6.*
 		# if = {
 		# 	limit = {
 		# 		has_global_flag = marauder_crisis_started
@@ -5085,46 +5046,46 @@ country_event = {
 
 		### Ruler Khan
 		create_leader = {
-			class = ruler
+			class = admiral
 			species = owner_main_species
 			name = random
 			skill = 10
 			event_leader = yes
+			can_manually_change_location = no
+			can_see_in_list = no
 			leader_age_min = 21
 			leader_age_max = 36
 			traits = {
-				trait = leader_trait_ruler_great_khan
-				trait = leader_trait_ruler_chosen
-				trait = leader_trait_fleet_organizer
-				# trait = leader_trait_eager
+				0 = leader_trait_ruler_great_khan
+				0 = leader_trait_chosen
+				0 = leader_trait_fleet_organizer
+				# 0 = leader_trait_eager
 			}
 		}
 
 		if = { ## Compat. Khorgis Khan: Scourge of the Stars
 			limit = { is_species_class = GC_CORGI }
 			set_name = "NAME_KHORGI_KHAN"
-			# room_name_override = "khorgis_khan_1_room" FIXME not working
+			room_name_override = "khorgis_khan_1_room" # should work with 3.8
 			last_created_leader = { set_name = "NAME_Khorgis_Khan" }
 		}
 		else = {
 			set_name = random
-			# room_name_override = "ethic_spaceship_room" FIXME not working
+			# room_name_override = "ethic_spaceship_room" # should work with 3.8
 		}
-		assign_leader = last_created_leader
 
-		if = { ### NSC SUPPORT
-			limit = { has_global_flag = has_nsc_active }
-			ruler = { add_ruler_trait = nsc_freebooter_leader_trait_ruler_great_khan }
-		}
-		else = {
-			ruler = {
-				add_ruler_trait = leader_trait_ruler_great_khan
-				# add_ruler_trait = leader_trait_ruler_chosen
+		last_created_leader = {
+			root = { assign_leader = prev }
+			if = { ### NSC SUPPORT
+				limit = { has_global_flag = has_nsc_active }
+				add_trait = nsc_freebooter_leader_trait_ruler_great_khan
+			}
+			else = {
+				add_trait = leader_trait_ruler_great_khan
+				# add_trait = leader_trait_chosen
 				# add_trait = leader_trait_eager
 				add_skill = 2
 			}
-		}
-		ruler = {
 			if = { limit = { NOT = { has_trait = leader_trait_fleet_organizer } }
 				add_trait = leader_trait_fleet_organizer
 			}
@@ -5180,16 +5141,13 @@ country_event = {
 				class = admiral
 				skill = 10
 				event_leader = yes
+				can_manually_change_location = no
+				can_see_in_list = no
 				traits = {
-					trait = leader_trait_great_khan
-					trait = leader_trait_admiral_chosen
-					# trait = leader_trait_eager
+					0 = leader_trait_great_khan
+					0 = leader_trait_chosen
+					# 0 = leader_trait_eager
 				}
-				# effect = {
-				# 	set_leader_flag = great_khan
-				# 	save_global_event_target_as = great_khan
-				# 	recruitable = no
-				# }
 			}
 		}
 		else_if = { ### NSC SUPPORT
@@ -5207,17 +5165,14 @@ country_event = {
 				class = admiral
 				skill = 6
 				event_leader = yes
+				can_manually_change_location = no
+				can_see_in_list = no
 				traits = {
-					trait = leader_trait_great_khan
-					# trait = leader_trait_admiral_chosen
-					trait = leader_trait_fleet_organizer
-					# trait = leader_trait_eager
+					0 = leader_trait_great_khan
+					# 0 = leader_trait_chosen
+					0 = leader_trait_fleet_organizer
+					# 0 = leader_trait_eager
 				}
-				# effect = {
-				# 	set_leader_flag = great_khan
-				# 	save_global_event_target_as = great_khan
-				# 	recruitable = no
-				# }
 			}
 		}
 		last_created_leader = {
@@ -6218,6 +6173,7 @@ country_event = {
 				add_resource = { influence = 100 }
 			}
 		}
+		default_hide_option = yes
 		ai_chance = { factor = 1 }
 	}
 }
@@ -8625,6 +8581,7 @@ country_event = {
 		remove_global_flag = great_khan_announcement
 		remove_global_flag = horde_triggered
 		remove_country_flag = CmtFlagKhanNoDieCountry
+		clear_variable = CmtVarKhanRemainingLive
 		remove_global_flag = marauder_crisis_ongoing	# must be removed before
 		room_name_override = ""
 		set_timed_global_flag = { flag = CmtFlagKillDoubleBookingKhan years = 2 }
@@ -9373,179 +9330,6 @@ country_event = {
 			}
 		}
 		set_update_modifiers_batch = end
-
-		## START SET_DIADOCHI_LEADERS_AND_FLEET
-		# Mining and Research Stations
-		# every_planet_within_border = {
-		# 	limit = {
-		# 		has_deposit_for = shipclass_mining_station
-		# 		has_mining_station = no
-		# 	}
-		# 	create_mining_station = { owner = root }
-		# }
-		# every_planet_within_border = {
-		# 	limit = {
-		# 		has_deposit_for = shipclass_research_station
-		# 		has_research_station = no
-		# 	}
-		# 	create_research_station = { owner = root }
-		# }
-		# create_ship_design = { design = "NAME_Pirate_Transport" }
-		# add_ship_design = last_created_design
-		# create_ship_design = { design = "NAME_Clan_Builder" }
-		# add_ship_design = last_created_design
-		# # Science
-		# create_fleet = {
-		# 	effect = {
-		# 		set_owner = root
-		# 		create_ship = {
-		# 			name = random
-		# 			random_existing_design = science
-		# 		}
-		# 		set_fleet_stance = evasive
-		# 		set_location = root.capital_scope
-		# 		owner = {
-		# 			create_leader = {
-		# 				name = random
-		# 				class = scientist
-		# 				sub_type = survey
-		# 				species = owner_main_species
-		# 			}
-		# 		}
-		# 		set_leader = last_created_leader
-		# 	}
-		# }
-		# # Construction Ship
-		# create_fleet = {
-		# 	effect = {
-		# 		set_owner = root
-		# 		create_ship = {
-		# 			name = random
-		# 			design = "NAME_Clan_Builder"
-		# 		}
-		# 		set_fleet_stance = evasive
-		# 		set_location = root.capital_scope
-		# 	}
-		# }
-		# # Create Leaders
-		# create_leader = {
-		# 	class = admiral
-		# 	species = owner_main_species
-		# 	name = random
-		# 	skill = 10
-		# 	leader_age_min = 35
-		# 	leader_age_max = 60
-		# 	traits = {
-		# 		trait = leader_trait_mercenary_warrior
-		# 		trait = random_trait
-		# 	}
-		# 	effect = { save_event_target_as = diadochi_admiral }
-		# }
-		# create_leader = {
-		# 	class = general
-		# 	species = owner_main_species
-		# 	name = random
-		# 	skill = 10
-		# 	leader_age_min = 35
-		# 	leader_age_max = 60
-		# 	traits = { trait = random_trait }
-		# 	effect = { save_event_target_as = diadochi_general }
-		# }
-		# create_leader = {
-		# 	class = governor
-		# 	species = owner_main_species
-		# 	name = random
-		# 	skill = 3
-		# 	traits = { trait = random_trait }
-		# }
-		# while = {
-		# 	count = 3
-		# 	create_leader = {
-		# 		class = scientist
-		# 		species = owner_main_species
-		# 		name = random
-		# 		skill = 1
-		# 		traits = { trait = random_trait }
-		# 	}
-		# }
-		# add_resource = { # From Original code
-		# 	minerals = 20000
-		# 	energy = 20000
-		# 	alloys = 20000
-		# 	consumer_goods = 20000
-		# 	food = 20000
-		# 	influence = 1000
-		# }
-		# create_fleet = {
-		# 	effect = {
-		# 		set_owner = root
-		# 		while = {
-		# 			count = 30 # Original 16
-		# 			create_ship = {
-		# 				name = random
-		# 				design = "NAME_Outrider"
-		# 				prefix = no
-		# 				graphical_culture = "pirate_01"
-		# 			}
-		# 		}
-		# 		while = {
-		# 			count = 15 # Original 8
-		# 			create_ship = {
-		# 				name = random
-		# 				design = "NAME_Lancer"
-		# 				prefix = no
-		# 				graphical_culture = "pirate_01"
-		# 			}
-		# 		}
-		# 		while = {
-		# 			count = 10 # Original 6
-		# 			create_ship = {
-		# 				name = random
-		# 				design = "NAME_Void_Champion"
-		# 				prefix = no
-		# 				graphical_culture = "pirate_01"
-		# 			}
-		# 		}
-		# 		while = {
-		# 			count = 2 # Original 1
-		# 			create_ship = {
-		# 				name = random
-		# 				design = "NAME_Ancestral_Glory"
-		# 				prefix = no
-		# 				graphical_culture = "pirate_01"
-		# 			}
-		# 		}
-		# 		assign_leader = event_target:diadochi_admiral
-		# 		set_location = {
-		# 			target = root.capital_scope
-		# 			distance = 45
-		# 			angle = random
-		# 		}
-		# 	}
-		# 	settings = { uses_naval_capacity = no }
-		# }
-		# create_fleet = {
-		# 	effect = {
-		# 		set_owner = root
-		# 		while = {
-		# 			count = 12
-		# 			create_army_transport = {
-		# 				ship_name = "NAME_Pirate_Transport"
-		# 				graphical_culture = root
-		# 				army_type = "assault_army"
-		# 				species = root
-		# 			}
-		# 		}
-		# 		set_location = {
-		# 			target = root.capital_scope
-		# 			distance = 20
-		# 			angle = random
-		# 		}
-		# 	}
-		# }
-		# last_created_army = { assign_leader = event_target:diadochi_general }
-		## END SET_DIADOCHI_LEADERS_AND_FLEET
-
 		# Notify
 		observer_event = { id = observer.20 }
 		every_playable_country = {
@@ -10454,7 +10238,7 @@ country_event = {
 					marauder_3 = { prev = { set_country_flag = marauder_3 save_global_event_target_as = marauder_country_3 shift_ethic = ethic_fanatic_spiritualist } }
 				}
 				every_owned_leader = {
-					# limit = { leader_class = ruler }
+					# limit = { is_ruler = yes }
 					set_owner = prevprev
 				}
 			}
@@ -11111,7 +10895,7 @@ country_event = {
 			}
 			# Take all old leaders!?
 			every_owned_leader = {
-				# limit = { leader_class = ruler }
+				# limit = { is_ruler = yes }
 				set_owner = event_target:new_khanate
 			}
 
@@ -11346,7 +11130,6 @@ country_event = {
 	}
 	option = {
 		name = marauder.665.a
-		# default_hide_option = yes
 	}
 }
 
@@ -11552,17 +11335,19 @@ country_event = {
 
 			### New Ruler Khan
 			create_leader = {
-				class = ruler
+				class = random_ruler
 				species = owner_species
 				name = random
 				skill = 8
 				event_leader = yes
+				can_manually_change_location = no
+				can_see_in_list = no
 				leader_age_min = 18
 				leader_age_max = 22
 				traits = {
-					trait = leader_trait_ruler_great_khan
-					trait = leader_trait_ruler_chosen
-					# trait = leader_trait_eager
+					0 = leader_trait_ruler_great_khan
+					0 = leader_trait_chosen
+					# 0 = leader_trait_eager
 				}
 				effect = {
 					set_leader_flag = great_khan
@@ -11581,7 +11366,7 @@ country_event = {
 				}
 				event_target:great_khan_ruler = {
 					remove_trait = leader_trait_great_khan
-					add_ruler_trait = nsc_freebooter_leader_trait_ruler_child_of_great_khan
+					add_trait = nsc_freebooter_leader_trait_ruler_child_of_great_khan
 				}
 				clone_leader = {
 					target = event_target:great_khan_ruler
@@ -11590,9 +11375,9 @@ country_event = {
 					# event_leader = yes
 					traits = {
 						trait = nsc_freebooter_admiral_trait_child_of_great_khan
-						trait = leader_trait_admiral_chosen
-						# trait = leader_trait_fleet_logistician
-						# trait = leader_trait_eager
+						0 = leader_trait_chosen
+						# 0 = leader_trait_fleet_logistician
+						# 0 = leader_trait_eager
 					}
 					# effect = {
 					# 	set_leader_flag = great_khan
@@ -11606,11 +11391,13 @@ country_event = {
 					class = admiral
 					skill = 7
 					event_leader = yes
+					can_manually_change_location = no
+					can_see_in_list = no
 					traits = {
-						trait = leader_trait_great_khan
-						trait = leader_trait_admiral_chosen
-						# trait = leader_trait_fleet_logistician
-						# trait = leader_trait_eager
+						0 = leader_trait_great_khan
+						0 = leader_trait_chosen
+						# 0 = leader_trait_fleet_logistician
+						# 0 = leader_trait_eager
 					}
 					# effect = {
 					# 	set_leader_flag = great_khan
