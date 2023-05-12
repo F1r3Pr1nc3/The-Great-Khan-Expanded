@@ -7,6 +7,163 @@
 ###################################################
 namespace = enclave
 # enclave.2xxx	Mercenary enclave
+# Mercenary Enclave: HIRE FLEET
+# This = player country; event_target:mercenary_enclave_country = enclave country
+country_event = {
+	id = enclave.210
+	base = enclave.205
+	desc_clear = yes
+	option_clear = yes
+	desc = enclave.210.desc
+	immediate = {
+		event_target:mercenary_enclave_country = {
+			if = {
+				limit = {
+					count_owned_leader = {
+						count = 0
+						limit = { leader_class = admiral }
+					}
+				}
+				create_leader = {
+					class = admiral
+					species = owner_species					# event_target:mercenary_enclave_species
+					name = random
+					skill = 3
+					background_ethic = "ethic_militarist"
+					skip_background_generation = yes
+					can_manually_change_location = no
+					can_see_in_list = no
+					custom_description = "custom_mercenary_admiral_desc"
+					traits = { 0 = leader_trait_mercenary_warrior }
+				}
+			}
+			random_owned_leader = {
+				limit = { leader_class = admiral }
+				save_event_target_as = mercenary_admiral
+				set_immortal = yes
+			}
+			#Can hire only the main fleet
+			ordered_controlled_fleet = {
+				limit = {
+					is_ship_class = shipclass_military
+					is_leased = no
+				}
+				position = 0
+				order_by = trigger:fleet_power
+				save_event_target_as = mercenary_fleet
+				assign_leader = event_target:mercenary_admiral
+				set_name = {
+					key = NAME_Mercenary_Fleet
+					variable_string = "[event_target:mercenary_enclave_country.GetName]"
+				}
+				set_fleet_settings = { can_change_leader = no }
+			}
+		}
+		# without this the immediate is not invoked when the event runs in the special mode that allows AI to collect trade data
+		run_in_ai_mode = yes
+	}
+	#Discuss another matter (return to menu)
+	option = {
+		name = enclave.215.a
+		hidden_effect = {
+			country_event = { id = enclave.205 }
+		}
+	}
+	option = {
+		name = DEAL
+		ai_trade_facility = {
+			offer_hire_mercenary_fleet = yes
+			info_gathering = {
+				get_trade_data = { target = event_target:mercenary_enclave_country }
+			}
+			option_selection = {
+				if = {
+					limit = {
+						is_offer_terms_actual = { target = event_target:mercenary_enclave_country }
+					}
+					make_special_trade = { target = event_target:mercenary_enclave_country }
+					set_country_flag = mercenary_enclave_rented_fleet					#for tracking returning customers
+					event_target:mercenary_enclave_country = {
+						add_trust = {
+							who = root
+							amount = 15
+						}
+					}
+				}
+			}
+			allow = {
+				can_afford_special_offer = { target = event_target:mercenary_enclave_country }
+			}
+		}
+		custom_tooltip = opinion15
+		hidden_effect = {
+			country_event = { id = enclave.211 }
+		}
+	}
+	option = {
+		name = GOODBYE
+		default_hide_option = yes
+	}
+}
+
+#Mercenary Fleet Commandeered (patron side)
+country_event = {
+	id = enclave.290
+	title = enclave.290.name
+	desc = enclave.290.desc
+	picture = GFX_evt_mercenary_fleet
+	show_sound = evn_ove_mercenary_fleet
+	is_triggered_only = yes
+	immediate = {
+		from = {
+			if = {
+				limit = {
+					count_owned_leader = {
+						count = 0
+						limit = { leader_class = admiral }
+					}
+				}
+				create_leader = {
+					class = admiral
+					species = owner_species					# event_target:mercenary_enclave_species
+					name = random
+					skill = 3
+					background_ethic = "ethic_militarist"
+					skip_background_generation = yes
+					can_manually_change_location = no
+					can_see_in_list = no
+					custom_description = "custom_mercenary_admiral_desc"
+					traits = { 0 = leader_trait_mercenary_warrior }
+				}
+			}
+			random_owned_leader = {
+				limit = { leader_class = admiral }
+				save_event_target_as = mercenary_admiral
+			}
+			ordered_controlled_fleet = {
+				limit = {
+					is_ship_class = shipclass_military
+					is_leased = no
+				}
+				position = 0
+				order_by = trigger:fleet_power
+				save_event_target_as = mercenary_fleet
+				assign_leader = event_target:mercenary_admiral
+			}
+			remove_country_flag = fleet_commandeered
+			event_target:mercenary_fleet = {
+				give_fleet = {
+					controller = root
+					days = 3600
+				}
+				set_timed_fleet_flag = { flag = fleet_on_loan@root days = 3600 }
+			}
+		}
+		set_country_flag = mercenary_enclave_rented_fleet
+	}
+	option = { name = EXCELLENT }
+}
+
 # Khan hires available mercs
 event = {
 	id = enclave.2045
@@ -42,7 +199,8 @@ event = {
 				exists = event_target:great_khan.fleet
 			}
 			event_target:great_khan.fleet = { save_event_target_as = khan_fleet }
-		} else = {
+		}
+		else = {
 			event_target:raider_khanate = {
 				random_owned_fleet = {
 					limit = { has_fleet_flag = khan_fleet }
@@ -68,7 +226,7 @@ event = {
 		}
 		random_country = {
 			limit = {
-				merg_is_standard_empire = yes
+				is_default_or_fallen = yes
 				has_communications = event_target:raider_khanate
 				has_modifier = country_enclave_capacity_decrease_modifier
 				NOR = {
@@ -99,7 +257,7 @@ event = {
 					NOR = {
 						any_owned_fleet = { is_leased = yes }
 						any_country = {
-							merg_is_standard_empire = yes
+							is_default_or_fallen = yes
 							has_communications = event_target:raider_khanate
 							has_modifier = country_enclave_capacity_decrease_modifier
 							OR = {
@@ -137,7 +295,8 @@ event = {
 							weights = {
 								base = 1
 								modifier = { add = 2 is_a_planet = yes }
-							}							# possible inconsisent due other mods
+							}
+							# possible inconsisent due other mods
 							save_global_event_target_as = marauder_rally_point
 							set_planet_flag = marauder_rally_point
 						}
@@ -287,19 +446,16 @@ country_event = {
 			}
 			position = 0
 			order_by = trigger:fleet_power
-
 			if = {
 				limit = { has_auto_move_target = yes }
 				remove_auto_move_target = yes
 				clear_orders = yes
 				clear_fleet_actions = this
 			}
-
 			if = {
 				limit = { exists = event_target:mercenary_enclave_station.starbase }
 				set_home_base = event_target:mercenary_enclave_station.starbase
 			}
-
 			if = {
 				limit = {
 					exists = event_target:mercenary_enclave_station.solar_system
@@ -307,11 +463,11 @@ country_event = {
 				}
 				order_forced_return = yes
 				auto_follow_fleet = { target = event_target:mercenary_enclave_station }
-			} else_if = {
-				limit = { exists = solar_system } # Otherwise CTD
+			}
+			else_if = {
+				limit = { exists = solar_system }				# Otherwise CTD
 				set_mia = mia_return_home
 			}
-
 			root = {
 				random_owned_fleet = {
 					limit = { is_ship_size = enclave_mercenary_station }
@@ -320,6 +476,43 @@ country_event = {
 					}
 				}
 			}
+		}
+	}
+}
+
+# Vanilla fix
+# on_monthly_pulse_country
+country_event = {
+	# Assign an admiral to hired merc fleet if they lose theirs
+	id = enclave.2075
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_civic = civic_mercenary_enclave
+		any_owned_fleet = {
+			is_leased = yes
+			NOT = { exists = leader }
+		}
+	}
+	immediate = {
+		create_leader = {
+			class = admiral
+			species = owner_species			# event_target:mercenary_enclave_species
+			name = random
+			skill = 3
+			background_ethic = "ethic_militarist"
+			skip_background_generation = yes
+			can_manually_change_location = no
+			can_see_in_list = no
+			custom_description = "custom_mercenary_admiral_desc"
+			traits = { 0 = leader_trait_mercenary_warrior }
+		}
+		random_owned_fleet = {
+			limit = {
+				is_leased = yes
+				NOT = { exists = leader }
+			}
+			assign_leader = last_created_leader
 		}
 	}
 }

@@ -420,7 +420,7 @@ wg_marauder_expansion = {
 			}
 			every_subject = {
 				limit = {
-					merg_is_standard_empire = yes
+					is_default_or_fallen = yes
 					any_agreement = { agreement_preset = preset_war_satrapy }
 					NOT = { is_at_war_with = from }
 				}

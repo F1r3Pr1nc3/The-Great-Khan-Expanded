@@ -38,10 +38,10 @@ namespace = marauder
 ## Future of the Horde marauder.600
 	# on_ship_destroyed_victim	marauder.505 Defeated in Combat but NOT die.
 		# Only Return of the Great Khan!?! marauder.523 marauder.507
+# DEPRECATED on_ship_destroyed_victim	marauder.509 Defeated in Combat and die.
 	# on_monthly_pulse			marauder.511. - marauder.512 Dies for Other Reasons
 	# On timer start			marauder.514 Dies of Old Ages.
 
-# DEPRECATED on_ship_destroyed_victim	marauder.509 Defeated in Combat and die.
 # on_leader_death			marauder.711/.712
 # marauder.505
 
@@ -2899,7 +2899,12 @@ country_event = {
 		}
 		add_resource = { energy = @leadercost }
 		custom_tooltip = hire_admiral_merc
-		hidden_effect = { create_marauder_merc_admiral = yes }
+		hidden_effect = {
+			event_target:current_marauder_diplomacy = {
+				create_marauder_merc_admiral = yes
+				last_created_leader = { set_owner = root }
+			}
+		}
 		response_text = marauder.40.a.response
 		is_dialog_only = yes
 	}
@@ -2915,7 +2920,10 @@ country_event = {
 		add_resource = { energy = @leadercost }
 		custom_tooltip = hire_general_merc
 		hidden_effect = {
-			create_marauder_general = yes
+			event_target:current_marauder_diplomacy = {
+				create_marauder_general = yes
+				last_created_leader = { set_owner = root }
+			}
 		}
 		response_text = marauder.40.a.response
 		is_dialog_only = yes
@@ -2932,7 +2940,12 @@ country_event = {
 		}
 		add_resource = { energy = @leadercost }
 		custom_tooltip = hire_admiral_merc
-		hidden_effect = { create_marauder_merc_admiral = yes }
+		hidden_effect = {
+			event_target:current_marauder_diplomacy = {
+				create_marauder_merc_admiral = yes
+				last_created_leader = { set_owner = root }
+			}
+		}
 		response_text = marauder.40.b.response
 		is_dialog_only = yes
 	}
@@ -2948,7 +2961,10 @@ country_event = {
 		add_resource = { energy = @leadercost }
 		custom_tooltip = hire_general_merc
 		hidden_effect = {
-			create_marauder_general = yes
+			event_target:current_marauder_diplomacy = {
+				create_marauder_general = yes
+				last_created_leader = { set_owner = root }
+			}
 		}
 		response_text = marauder.40.b.response
 		is_dialog_only = yes
@@ -2965,7 +2981,12 @@ country_event = {
 		}
 		add_resource = { energy = @leadercost }
 		custom_tooltip = hire_admiral_merc
-		hidden_effect = { create_marauder_merc_admiral = yes }
+		hidden_effect = {
+			event_target:current_marauder_diplomacy = {
+				create_marauder_merc_admiral = yes
+				last_created_leader = { set_owner = root }
+			}
+		}
 		response_text = marauder.40.c.response
 		is_dialog_only = yes
 	}
@@ -2981,7 +3002,10 @@ country_event = {
 		add_resource = { energy = @leadercost }
 		custom_tooltip = hire_general_merc
 		hidden_effect = {
-			create_marauder_general = yes
+			event_target:current_marauder_diplomacy = {
+				create_marauder_general = yes
+				last_created_leader = { set_owner = root }
+			}
 		}
 		response_text = marauder.40.c.response
 		is_dialog_only = yes
@@ -3808,7 +3832,7 @@ planet_event = {
 		exists = from
 		from = { is_country_type = marauder_raiders }
 		exists = owner
-		owner = { merg_is_standard_empire = yes }
+		owner = { is_default_or_fallen = yes }
 		NOT = { has_planet_flag = planet_raided }
 		any_country = {
 			is_country_type = dormant_marauders
@@ -3848,7 +3872,7 @@ planet_event = {
 						exists = controller
 						NOT = { is_controlled_by = owner }
 						controller = {
-							merg_is_standard_empire = yes
+							is_default_or_fallen = yes
 							NOT = { has_country_flag = under_marauder_attack }
 							# OR = {
 							# 	has_relation_flag = { who = event_target:marauder_country flag = hired_fleet }
@@ -3884,7 +3908,7 @@ planet_event = {
 					exists = controller
 					NOT = { is_controlled_by = owner }
 					controller = {
-						merg_is_standard_empire = yes
+						is_default_or_fallen = yes
 						OR = {
 							has_relation_flag = { who = event_target:marauder_country flag = hired_fleet }
 							is_friendly_to = from
@@ -3921,7 +3945,7 @@ planet_event = {
 							exists = controller
 							NOT = { is_controlled_by = owner }
 							controller = {
-								merg_is_standard_empire = yes
+								is_default_or_fallen = yes
 								NOT = { has_country_flag = under_marauder_attack }
 								OR = {
 									is_friendly_to = from
@@ -3934,7 +3958,7 @@ planet_event = {
 				# log="Save New Marauder Raid Target Victim"
 				random_country = {
 					limit = {
-						merg_is_standard_empire = yes
+						is_default_or_fallen = yes
 						has_country_flag = under_marauder_attack
 						has_country_flag = raid_target_of@event_target:marauder_country
 						has_relation_flag = { who = event_target:marauder_country flag = current_hired_target }
@@ -4306,11 +4330,7 @@ event = {
 				# random_playable_country = {
 				#	limit = {
 				#		is_ai = yes
-				#		NOR = {
-				#			has_valid_civic = civic_fanatic_purifiers
-				#			has_valid_civic = civic_hive_devouring_swarm
-				#			has_valid_civic = civic_machine_terminator
-				#		}
+				#		is_homicidal = no
 				#		any_relation = {
 				#			prev = { is_rival = prev }
 				#		}
@@ -4915,7 +4935,7 @@ country_event = {
 			else_if = { limit = { is_overlord = yes }
 				every_subject = {
 					limit = {
-						merg_is_standard_empire = yes
+						is_default_or_fallen = yes
 						NOT = { is_at_war_with = overlord }
 					}
 					set_subject_of = { who = root preset = preset_satrapy }
@@ -7263,7 +7283,7 @@ planet_event = {
 		exists = event_target:raider_khanate
 		exists = from
 		exists = owner
-		# owner = { merg_is_standard_empire = yes }
+		# owner = { is_default_or_fallen = yes }
 		# count_planet_army = { count = 0 }
 		NOT = { any_planet_army = { always = yes } }
 		OR = {
@@ -8817,7 +8837,7 @@ country_event = {
 		# }
 
 		every_subject = { # "The End of the Satrapy"
-			limit = { merg_is_standard_empire = yes }
+			limit = { is_default_or_fallen = yes }
 			set_subject_of = { who = none }
 			country_event = { id = marauder.670 days = 2 }			# Notify Satrap End
 			# country_event = { id = marauder.671 days = 8 }		# Notify Garrison End
@@ -9392,7 +9412,7 @@ country_event = {
 		# 	}
 		# }
 		every_subject = {
-			limit = { merg_is_standard_empire = yes }
+			limit = { is_default_or_fallen = yes }
 			set_subject_of = { who = none }
 			country_event = { id = marauder.670 days = 2 }			# Notify Satrap End
 			# country_event = { id = marauder.671 days = 8 }		# Notify Garrison End
@@ -10570,7 +10590,7 @@ country_event = {
 			establish_communications_no_message = event_target:restored_marauders
 		}
 		every_subject = {
-			limit = { merg_is_standard_empire = yes }
+			limit = { is_default_or_fallen = yes }
 			set_subject_of = { who = none }
 			country_event = { id = marauder.670 days = 3 }			# Notify Satrap End
 			country_event = { id = marauder.671 days = 10 }			# Notify Garrison End
@@ -11027,7 +11047,7 @@ country_event = {
 	show_sound = event_conversation
 	is_triggered_only = yes
 	trigger = {
-		merg_is_standard_empire = yes
+		is_default_or_fallen = yes
 		NOT = { has_country_flag = marauder_diplomacy_engaged }
 		NOT = { has_active_event = { marauder.660 } }
 	}
@@ -11061,7 +11081,7 @@ country_event = {
 	show_sound = event_conversation
 	is_triggered_only = yes
 	trigger = {
-		merg_is_standard_empire = yes
+		is_default_or_fallen = yes
 		NOT = { has_country_flag = marauder_diplomacy_engaged }
 	}
 	immediate = { set_country_flag = marauder_diplomacy_engaged }
@@ -11141,7 +11161,7 @@ country_event = {
 	picture = GFX_evt_arguing_senate
 	show_sound = event_conversation
 	is_triggered_only = yes
-	trigger = { merg_is_standard_empire = yes }
+	trigger = { is_default_or_fallen = yes }
 	immediate = {
 		if = { limit = { is_subject = yes } set_subject_of = { who = none } }
 		if = { limit = { is_variable_set = "planets_lost_to_marauder" } clear_variable = "planets_lost_to_marauder" }
@@ -11441,7 +11461,6 @@ country_event = {
 		else = {
 			country_event = { id = marauder.712 days = 10 } # Needless Vanilla Event!?
 		}
-
 	}
 }
 

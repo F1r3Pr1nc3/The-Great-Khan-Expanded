@@ -223,7 +223,7 @@ country_event = {
 		}
 		restore_country_backup_data = yes
 		every_subject = {
-			# limit = { merg_is_standard_empire = yes }
+			# limit = { is_default_or_fallen = yes }
 			# set_subject_of = { who = none }
 			# country_event = { id = marauder.670 days = 3 }		# Notify Satrap End
 			country_event = { id = marauder.671 days = 10 }			# Notify Garrison End

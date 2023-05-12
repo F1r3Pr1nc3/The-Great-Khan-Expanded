@@ -984,11 +984,11 @@ get_marauder_species = {
 			NAND = {
 				exists = event_target:marauder_species
 				pop_percentage = {
-					percentage > 0.33
+					percentage > 0.2
 					limit = { is_same_species = prev.owner_species }
 				}
 				pop_percentage = {
-					percentage > 0.33
+					percentage > 0.4
 					limit = { is_same_species = event_target:marauder_species }
 				}
 			}
@@ -1076,8 +1076,24 @@ get_marauder_species = {
 	} else_if = {
 		limit = {
 			pop_percentage = {
-				percentage > 0.66
 				limit = { is_same_species = event_target:marauder_species }
+				percentage > 0.65
+			}
+			OR = {
+				AND = {
+					exists = event_target:great_khan
+					pop_percentage = {
+						limit = { is_same_species = event_target:great_khan.species }
+						percentage < 0.2
+					}
+				}
+				AND = {
+					NOT = { exists = event_target:great_khan.species }
+					pop_percentage = {
+						limit = { is_same_species = owner_species }
+						percentage < 0.25
+					}
+				}
 			}
 		}
 		change_dominant_species = { species = event_target:marauder_species }

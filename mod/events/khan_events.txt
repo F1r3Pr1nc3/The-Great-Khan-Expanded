@@ -1347,7 +1347,7 @@ country_event = {
 
 		if = { limit = { is_overlord = yes }
 			every_subject = {
-				limit = { merg_is_standard_empire = yes }
+				limit = { is_default_or_fallen = yes }
 				set_subject_of = { who = none }
 				change_variable = { which = "planets_lost_to_marauder" value = 1 }
 				if = {
