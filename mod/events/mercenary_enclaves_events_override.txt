@@ -7,14 +7,22 @@
 ###################################################
 namespace = enclave
 # enclave.2xxx	Mercenary enclave
+# Only vanilla fix leaders
 # Mercenary Enclave: HIRE FLEET
 # This = player country; event_target:mercenary_enclave_country = enclave country
 country_event = {
 	id = enclave.210
-	base = enclave.205
-	desc_clear = yes
-	option_clear = yes
+	title = enclave.205.name # (resolved “event inheritance” due load order)
 	desc = enclave.210.desc
+	is_triggered_only = yes
+	diplomatic = yes
+	custom_gui = "enclave_mercenary_window"
+	custom_gui_option = "enclave_mercenary_option"
+	picture_event_data = {
+		portrait = event_target:mercenary_enclave_country
+		room = mercenary_enclave_room
+	}
+	location = event_target:mercenary_enclave_system
 	immediate = {
 		event_target:mercenary_enclave_country = {
 			if = {
@@ -42,7 +50,7 @@ country_event = {
 				save_event_target_as = mercenary_admiral
 				set_immortal = yes
 			}
-			#Can hire only the main fleet
+			# Can hire only the main fleet
 			ordered_controlled_fleet = {
 				limit = {
 					is_ship_class = shipclass_military
@@ -62,7 +70,7 @@ country_event = {
 		# without this the immediate is not invoked when the event runs in the special mode that allows AI to collect trade data
 		run_in_ai_mode = yes
 	}
-	#Discuss another matter (return to menu)
+	# Discuss another matter (return to menu)
 	option = {
 		name = enclave.215.a
 		hidden_effect = {
@@ -82,7 +90,7 @@ country_event = {
 						is_offer_terms_actual = { target = event_target:mercenary_enclave_country }
 					}
 					make_special_trade = { target = event_target:mercenary_enclave_country }
-					set_country_flag = mercenary_enclave_rented_fleet					#for tracking returning customers
+					set_country_flag = mercenary_enclave_rented_fleet					# for tracking returning customers
 					event_target:mercenary_enclave_country = {
 						add_trust = {
 							who = root
@@ -106,7 +114,8 @@ country_event = {
 	}
 }
 
-#Mercenary Fleet Commandeered (patron side)
+# Only vanilla fix leaders
+# Mercenary Fleet Commandeered (patron side)
 country_event = {
 	id = enclave.290
 	title = enclave.290.name
@@ -272,8 +281,7 @@ event = {
 				save_event_target_as = mercenary_enclave_country
 			}
 		}
-		if = {
-			limit = { exists = event_target:mercenary_enclave_country }
+		if = { limit = { exists = event_target:mercenary_enclave_country }
 			event_target:mercenary_enclave_country = {
 				# Khan hires only the main fleet
 				ordered_controlled_fleet = {
@@ -317,13 +325,11 @@ event = {
 							exists = event_target:khan_fleet.solar_system
 							NOT = { can_access_system = event_target:khan_fleet.solar_system }
 						}
-						if = {
-							limit = { exists = event_target:marauder_rally_point.starbase }
+						if = { limit = { exists = event_target:marauder_rally_point.starbase }
 							set_home_base = event_target:marauder_rally_point.starbase
 							set_mia = mia_return_home
 						}
-						if = {
-							limit = { exists = event_target:khan_fleet }
+						if = { limit = { exists = event_target:khan_fleet }
 							queue_actions = {
 								wait = 5
 								move_to = event_target:khan_fleet
@@ -331,8 +337,7 @@ event = {
 						}
 					}
 					order_forced_return = yes
-					if = {
-						limit = { exists = event_target:khan_fleet }
+					if = { limit = { exists = event_target:khan_fleet }
 						auto_follow_fleet = {
 							target = event_target:khan_fleet
 							attack_fleet = no
@@ -446,14 +451,12 @@ country_event = {
 			}
 			position = 0
 			order_by = trigger:fleet_power
-			if = {
-				limit = { has_auto_move_target = yes }
+			if = { limit = { has_auto_move_target = yes }
 				remove_auto_move_target = yes
 				clear_orders = yes
 				clear_fleet_actions = this
 			}
-			if = {
-				limit = { exists = event_target:mercenary_enclave_station.starbase }
+			if = { limit = { exists = event_target:mercenary_enclave_station.starbase }
 				set_home_base = event_target:mercenary_enclave_station.starbase
 			}
 			if = {
@@ -480,7 +483,7 @@ country_event = {
 	}
 }
 
-# Vanilla fix
+# Only vanilla fix leaders
 # on_monthly_pulse_country
 country_event = {
 	# Assign an admiral to hired merc fleet if they lose theirs
