@@ -3,6 +3,7 @@ namespace = marauder_borders
 ###### (By MrFunEGUY & FirePrince)
 
 ### Country Creation Before Potential Diadochi Split
+# Root = Awakened Marauders
 country_event = {
 	id = marauder_borders.1000
 	hide_window = yes

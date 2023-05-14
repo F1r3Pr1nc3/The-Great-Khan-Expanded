@@ -4997,28 +4997,26 @@ country_event = {
 		}
 
 		if = { limit = { is_ai = no host_has_dlc = Apocalypse }
-			if = { ### NSC SUPPORT
-				limit = { has_global_flag = has_nsc_active }
-				if = {
-					limit = {
-						NOT = {
-							# merg_is_default_empire = yes
-							any_playable_country = { is_same_empire = root }
-						}
-					}
-					set_country_type = default
-				}
-				set_origin = "origin_nsc_freebooter"
-				if = { limit = { is_megacorp = yes }
-					force_add_civic = nsc_freebooter_civic_freebooter_trait_change_corp
-				}
-				else = { force_add_civic = nsc_freebooter_civic_freebooter_trait_change }
-				# force_add_civic = nsc_freebooter_civic_great_khans_vision later
-			}
-			else = {
-				force_add_civic = civic_slaver_guilds
-				force_add_civic = civic_barbaric_despoilers
-			}
+			# if = { ### NSC SUPPORT
+			# 	limit = { has_global_flag = has_nsc_active }
+			# 	if = {
+			# 		limit = {
+			# 			NOT = {
+			# 				# merg_is_default_empire = yes
+			# 				any_playable_country = { is_same_empire = root }
+			# 			}
+			# 		}
+			# 		set_country_type = default
+			# 	}
+			# 	set_origin = "origin_nsc_freebooter"
+			# 	if = { limit = { is_megacorp = yes }
+			# 		force_add_civic = nsc_freebooter_civic_freebooter_trait_change_corp
+			# 	}
+			# 	else = { force_add_civic = nsc_freebooter_civic_freebooter_trait_change }
+			# 	# force_add_civic = nsc_freebooter_civic_great_khans_vision later
+			# } else = {
+			force_add_civic = civic_slaver_guilds
+			force_add_civic = civic_barbaric_despoilers
 		}
 		else = {
 			set_country_type = awakened_marauders
@@ -5066,13 +5064,15 @@ country_event = {
 
 		### Ruler Khan
 		create_leader = {
-			class = admiral
-			species = owner_main_species
 			name = random
+			class = admiral
+			gender = male
+			species = owner_main_species
 			skill = 10
 			event_leader = yes
 			can_manually_change_location = no
 			can_see_in_list = no
+			randomize_traits = no
 			leader_age_min = 21
 			leader_age_max = 36
 			traits = {
@@ -5096,16 +5096,20 @@ country_event = {
 
 		last_created_leader = {
 			root = { assign_leader = prev }
-			if = { ### NSC SUPPORT
-				limit = { has_global_flag = has_nsc_active }
-				add_trait = nsc_freebooter_leader_trait_ruler_great_khan
-			}
-			else = {
-				add_trait = leader_trait_ruler_great_khan
-				# add_trait = leader_trait_chosen
-				# add_trait = leader_trait_eager
-				add_skill = 2
-			}
+			# if = { ### NSC SUPPORT
+			# 	limit = { has_global_flag = has_nsc_active }
+			# 	add_trait = nsc_freebooter_leader_trait_ruler_great_khan
+			# } else = {
+			add_trait = leader_trait_ruler_great_khan
+			add_trait = leader_trait_chosen
+			# add_trait = leader_trait_eager
+            add_trait = subclass_admiral_strategist
+            # Only really applicable destiny unfortunately
+            add_trait = leader_trait_armorer
+            add_trait = leader_trait_gale_speed_3
+            add_trait = leader_trait_border_guard_3
+            add_trait = leader_trait_crew_trainer_3
+			add_skill = 2
 			if = { limit = { NOT = { has_trait = leader_trait_fleet_organizer } }
 				add_trait = leader_trait_fleet_organizer
 			}
@@ -5163,22 +5167,24 @@ country_event = {
 				event_leader = yes
 				can_manually_change_location = no
 				can_see_in_list = no
+				randomize_traits = no
+				# FIXME: Vanilla bug: traits does not work
 				traits = {
-					0 = leader_trait_great_khan
+					# 0 = leader_trait_great_khan
 					0 = leader_trait_chosen
 					# 0 = leader_trait_eager
 				}
 			}
 		}
-		else_if = { ### NSC SUPPORT
-			limit = { has_global_flag = has_nsc_active }
-			clone_leader = {
-				target = ruler
-				class = admiral
-				traits = { trait = nsc_freebooter_admiral_trait_great_khan }
-				skill = 7
-			}
-		}
+		# else_if = { ### NSC SUPPORT
+		# 	limit = { has_global_flag = has_nsc_active }
+		# 	clone_leader = {
+		# 		target = ruler
+		# 		class = admiral
+		# 		traits = { trait = nsc_freebooter_admiral_trait_great_khan }
+		# 		skill = 7
+		# 	}
+		# }
 		else = {
 			clone_leader = {
 				target = event_target:great_khan_ruler
@@ -5187,21 +5193,60 @@ country_event = {
 				event_leader = yes
 				can_manually_change_location = no
 				can_see_in_list = no
+				randomize_traits = no
+				# FIXME: Vanilla bug: traits does not work
 				traits = {
-					0 = leader_trait_great_khan
 					# 0 = leader_trait_chosen
-					0 = leader_trait_fleet_organizer
+					trait = leader_trait_fleet_organizer
 					# 0 = leader_trait_eager
 				}
 			}
 		}
 		last_created_leader = {
-			if = { limit = { NOT = { has_trait = leader_trait_fleet_logistician } }
-				add_trait = leader_trait_fleet_logistician
-			}
+
 			set_leader_flag = great_khan
 			save_global_event_target_as = great_khan
 			recruitable = no
+			add_trait = leader_trait_great_khan
+			add_trait = leader_trait_chosen
+			add_trait = subclass_admiral_aggressor
+			if = {
+				limit = { owner = { has_country_flag = marauder_1 } }
+				add_trait = leader_trait_master_gunner
+			}
+			if = {
+				limit = { owner = { has_country_flag = marauder_2 } }
+				add_trait = leader_trait_demolisher_destiny
+			}
+			if = {
+				limit = { owner = { has_country_flag = marauder_3 } }
+				add_trait = leader_trait_destiny_engineer
+			}
+			random_list = {
+				1 = {
+					add_trait = leader_trait_annihilator_3
+					add_trait = leader_trait_artillerist_3
+					add_trait = leader_trait_demolisher_3
+				}
+				1 = {
+					add_trait = leader_trait_wrecker_3
+					add_trait = leader_trait_artillerist_3
+					add_trait = leader_trait_demolisher_3
+				}
+				1 = {
+					add_trait = leader_trait_wrecker_3
+					add_trait = leader_trait_annihilator_3
+					add_trait = leader_trait_demolisher_3
+				}
+				1 = {
+					add_trait = leader_trait_wrecker_3
+					add_trait = leader_trait_annihilator_3
+					add_trait = leader_trait_artillerist_3
+				}
+			}
+			if = { limit = { NOT = { has_trait = leader_trait_fleet_logistician } }
+				add_trait = leader_trait_fleet_logistician
+			}
 		}
 		owner_species = { save_event_target_as = marauder_species }
 
@@ -6146,13 +6191,13 @@ country_event = {
 					marauder_2 = { prev = { set_country_flag = marauder_2 save_global_event_target_as = marauder_country_2 } }
 					marauder_3 = { prev = { set_country_flag = marauder_3 save_global_event_target_as = marauder_country_3 } }
 				}
-				if = { ### NSC SUPPORT
-					limit = {
-						has_global_flag = has_nsc_active
-						exists = capital_scope
-					}
-					capital_scope = { origin_nsc_freebooter_start_setup = yes }
-				}
+				# if = { ### NSC SUPPORT
+				# 	limit = {
+				# 		has_global_flag = has_nsc_active
+				# 		exists = capital_scope
+				# 	}
+				# 	capital_scope = { origin_nsc_freebooter_start_setup = yes }
+				# }
 				country_event = { id = marauder.600 } # The Future of the Horde
 			}
 			if = { limit = { NOT = { has_relic = r_khans_throne } } # (as we could decline?)
@@ -8601,6 +8646,7 @@ country_event = {
 		remove_global_flag = great_khan_announcement
 		remove_global_flag = horde_triggered
 		remove_country_flag = CmtFlagKhanNoDieCountry
+		remove_global_flag = great_khan_wins
 		clear_variable = CmtVarKhanRemainingLive
 		remove_global_flag = marauder_crisis_ongoing	# must be removed before
 		room_name_override = ""
@@ -9513,6 +9559,12 @@ country_event = {
 					is_within_borders_of = event_target:restored_marauders_2
 				}
 				set_owner = event_target:restored_marauders_2
+				set_fleet_settings = {
+					can_upgrade = yes
+					can_disband = yes
+					can_change_composition = yes
+					can_change_leader = yes
+				}
 				if = { limit = { exists = leader }
 					leader = {
 						set_owner = event_target:restored_marauders_2
@@ -10775,6 +10827,8 @@ country_event = {
 								is_controlled_by = event_target:new_khanate
 								merg_is_habitat = yes
 							}
+							exists = owner
+							owner = { is_default_or_fallen = yes }
 						}
 						position = 0
 						order_by = trigger:num_pops
@@ -11032,6 +11086,24 @@ country_event = {
 		}
 		event_target:new_khanate = {
 			if = { limit = { CmtTriggerIsMarauder = no used_naval_capacity_percent < 0.75 }
+				every_owned_fleet = {
+					limit = {
+						is_mobile = yes
+						# garrison = no
+						OR = {
+							is_civilian = yes
+							num_ships > 1
+							exists = leader
+						}
+					}
+					# Normalize fleets!?
+					set_fleet_settings = {
+						can_upgrade = yes
+						can_disband = yes
+						can_change_composition = yes
+						can_change_leader = yes
+					}
+				}
 				create_fleet_from_naval_cap = 0.2
 			}
 		}
@@ -11355,21 +11427,26 @@ country_event = {
 
 			### New Ruler Khan
 			create_leader = {
-				class = random_ruler
-				species = owner_species
 				name = random
+				class = random_ruler
+				species = owner_main_species
 				skill = 8
 				event_leader = yes
 				can_manually_change_location = no
 				can_see_in_list = no
+				randomize_traits = no
 				leader_age_min = 18
 				leader_age_max = 22
-				traits = {
-					0 = leader_trait_ruler_great_khan
-					0 = leader_trait_chosen
-					# 0 = leader_trait_eager
-				}
 				effect = {
+					add_trait = leader_trait_ruler_great_khan
+					add_trait = leader_trait_chosen
+					# add_trait = leader_trait_eager
+					add_trait = subclass_admiral_strategist
+					# Only really applicable destiny unfortunately
+					add_trait = leader_trait_armorer
+					add_trait = leader_trait_gale_speed_3
+					add_trait = leader_trait_border_guard_3
+					add_trait = leader_trait_crew_trainer_3
 					set_leader_flag = great_khan
 					save_global_event_target_as = great_khan_ruler
 					recruitable = no
@@ -11378,56 +11455,89 @@ country_event = {
 			}
 			assign_leader = last_created_leader
 
-			### New Admiral Khan
-			if = { ### NSC SUPPORT
-				limit = {
-					is_ai = no
-					has_global_flag = has_nsc_active
-				}
-				event_target:great_khan_ruler = {
-					remove_trait = leader_trait_great_khan
-					add_trait = nsc_freebooter_leader_trait_ruler_child_of_great_khan
-				}
-				clone_leader = {
-					target = event_target:great_khan_ruler
-					class = admiral
-					skill = 7
-					# event_leader = yes
-					traits = {
-						trait = nsc_freebooter_admiral_trait_child_of_great_khan
-						0 = leader_trait_chosen
-						# 0 = leader_trait_fleet_logistician
-						# 0 = leader_trait_eager
-					}
-					# effect = {
-					# 	set_leader_flag = great_khan
-					# 	save_global_event_target_as = great_khan
-					# }
-				}
-			}
-			else = {
-				clone_leader = {
-					target = event_target:great_khan_ruler
-					class = admiral
-					skill = 7
-					event_leader = yes
-					can_manually_change_location = no
-					can_see_in_list = no
-					traits = {
-						0 = leader_trait_great_khan
-						0 = leader_trait_chosen
-						# 0 = leader_trait_fleet_logistician
-						# 0 = leader_trait_eager
-					}
-					# effect = {
-					# 	set_leader_flag = great_khan
-					# 	save_global_event_target_as = great_khan
-					# 	recruitable = no
-					# }
+			# ### New Admiral Khan
+			# if = { ### NSC SUPPORT
+			# 	limit = {
+			# 		is_ai = no
+			# 		has_global_flag = has_nsc_active
+			# 	}
+			# 	event_target:great_khan_ruler = {
+			# 		remove_trait = leader_trait_great_khan
+			# 		add_trait = nsc_freebooter_leader_trait_ruler_child_of_great_khan
+			# 	}
+			# 	clone_leader = {
+			# 		target = event_target:great_khan_ruler
+			# 		class = admiral
+			# 		skill = 7
+			# 		# event_leader = yes
+			# 		traits = {
+			# 			trait = nsc_freebooter_admiral_trait_child_of_great_khan
+			# 			0 = leader_trait_chosen
+			# 			# 0 = leader_trait_fleet_logistician
+			# 			# 0 = leader_trait_eager
+			# 		}
+			# 		# effect = {
+			# 		# 	set_leader_flag = great_khan
+			# 		# 	save_global_event_target_as = great_khan
+			# 		# }
+			# 	}
+			# } else = {
+			clone_leader = {
+				target = event_target:great_khan_ruler
+				class = admiral
+				skill = 7
+				event_leader = yes
+				can_manually_change_location = no
+				can_see_in_list = no
+				randomize_traits = no
+				# FIXME: Vanilla bug: traits does not work
+				traits = {
+					0 = leader_trait_great_khan
+					0 = leader_trait_chosen
+					# 0 = leader_trait_fleet_logistician
+					# 0 = leader_trait_eager
 				}
 			}
 
 			last_created_leader = {
+				add_trait = leader_trait_great_khan
+				add_trait = leader_trait_chosen
+				add_trait = subclass_admiral_aggressor
+				if = {
+					limit = { owner = { has_country_flag = marauder_1 } }
+					add_trait = leader_trait_master_gunner
+				}
+				if = {
+					limit = { owner = { has_country_flag = marauder_2 } }
+					add_trait = leader_trait_demolisher_destiny
+				}
+				if = {
+					limit = { owner = { has_country_flag = marauder_3 } }
+					add_trait = leader_trait_destiny_engineer
+				}
+				random_list = {
+					1 = {
+						add_trait = leader_trait_annihilator_3
+						add_trait = leader_trait_artillerist_3
+						add_trait = leader_trait_demolisher_3
+					}
+					1 = {
+						add_trait = leader_trait_wrecker_3
+						add_trait = leader_trait_artillerist_3
+						add_trait = leader_trait_demolisher_3
+					}
+					1 = {
+						add_trait = leader_trait_wrecker_3
+						add_trait = leader_trait_annihilator_3
+						add_trait = leader_trait_demolisher_3
+					}
+					1 = {
+						add_trait = leader_trait_wrecker_3
+						add_trait = leader_trait_annihilator_3
+						add_trait = leader_trait_artillerist_3
+					}
+				}
+
 				if = { limit = { NOT = { has_trait = leader_trait_fleet_logistician } }
 					add_trait = leader_trait_fleet_logistician
 				}
