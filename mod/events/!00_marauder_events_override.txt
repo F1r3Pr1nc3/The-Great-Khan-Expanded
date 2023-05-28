@@ -4,7 +4,7 @@
 #####		Khan (Horde Crisis) Events		#####
 #####		Vanilla by Henrik Thyrwall		#####
 #####		Replaced by Crisis Manager		#####
-#####		Edited by FirePrince			#####
+#####		Refactored by FirePrince		#####
 ##############################################
 ##############################################
 namespace = marauder
@@ -2104,7 +2104,7 @@ country_event = {
 }
 
 # Raid commences
-# Vanilla fix omit Marauders getting stuck (by FirePrince)
+# Vanilla fix omit Marauders getting stuck (Refactored by FirePrince)
 # Root = marauder_target
 # From = Hired marauder_employer
 # fromfrom = current_marauder_diplomacy = raiding_marauder
@@ -2142,8 +2142,7 @@ country_event = {
 			effect = {
 				save_event_target_as = marauder_raiding_country
 				event_target:raiding_marauder = {
-					switch = {
-						trigger = has_country_flag
+					switch = { trigger = has_country_flag
 						marauder_1 = { prev = { set_country_flag = marauder_1 } }
 						marauder_2 = { prev = { set_country_flag = marauder_2 } }
 						marauder_3 = { prev = { set_country_flag = marauder_3 } }
@@ -2613,8 +2612,7 @@ country_event = {
 		# Create global Rally Point event_targets.
 		event_target:current_marauder_diplomacy = {
 			get_marauder_species = yes
-			switch = {
-				trigger = has_country_flag
+			switch = { trigger = has_country_flag
 				marauder_1 = {
 					save_global_event_target_as = marauder_country_1
 					if = { limit = { NOT = { exists = event_target:CmtTargetMarauderRallyPoint1 } }
@@ -2666,7 +2664,7 @@ country_event = {
 	}
 }
 
-# Scope = Hiring country (by FirePrince)
+# Scope = Hiring country (Refactored by FirePrince)
 # From = current_marauder_diplomacy
 country_event = {
 	id = marauder.38
@@ -2686,8 +2684,7 @@ country_event = {
 			# Create global Rally Point event_targets.
 			event_target:current_marauder_diplomacy = {
 				get_marauder_species = yes
-				switch = {
-					trigger = has_country_flag
+				switch = { trigger = has_country_flag
 					marauder_1 = {
 						save_global_event_target_as = marauder_country_1
 						if = { limit = { NOT = { exists = event_target:CmtTargetMarauderRallyPoint1 } }
@@ -2710,8 +2707,7 @@ country_event = {
 			}
 		}
 		else = { log_error = "Missing current_marauder_diplomacy" }
-		switch = {
-			trigger = has_country_flag
+		switch = { trigger = has_country_flag
 			# Hire Armada of the Voidborn.
 			merc_fleet_1_1_hired = {
 				remove_country_flag = merc_fleet_1_1_hired
@@ -3141,7 +3137,7 @@ country_event = {
 }
 
 ### Mercenaries Leave (join the Great Khan)
-# Refund opportunity (by FirePrince)
+# Refund opportunity (Refactored by FirePrince)
 # Scope = Recruiter
 country_event = {
 	id = marauder.77
@@ -3329,8 +3325,7 @@ country_event = {
 			}
 		}
 		else = {
-			switch = {
-				trigger = has_country_flag
+			switch = { trigger = has_country_flag
 				marauder_1 = { event_target:marauder_rally_point = { CmtEffectCreateAdmiralty_KhanMercenaries1 = yes } }
 				marauder_2 = { event_target:marauder_rally_point = { CmtEffectCreateAdmiralty_KhanMercenaries2 = yes } }
 				marauder_3 = { event_target:marauder_rally_point = { CmtEffectCreateAdmiralty_KhanMercenaries3 = yes } }
@@ -3537,8 +3532,7 @@ country_event = {
 			effect = {
 				save_event_target_as = marauder_raiding_country
 				event_target:raiding_marauder = {
-					switch = {
-						trigger = has_country_flag
+					switch = { trigger = has_country_flag
 						marauder_1 = { prev = { set_country_flag = marauder_1 } }
 						marauder_2 = { prev = { set_country_flag = marauder_2 } }
 						marauder_3 = { prev = { set_country_flag = marauder_3 } }
@@ -4158,8 +4152,7 @@ planet_event = {
 		owner = {
 			set_variable = { which = destruction_amount value = 3 }
 			if = { limit = { exists = event_target:marauder_country }
-				switch = {
-					trigger = has_country_flag
+				switch = { trigger = has_country_flag
 					marauder_tribute_1@event_target:marauder_country = { set_variable = { which = destruction_amount value = 1 } }
 					marauder_tribute_2@event_target:marauder_country = { set_variable = { which = destruction_amount value = 2 } }
 					marauder_tribute_3@event_target:marauder_country = { set_variable = { which = destruction_amount value = 3 } }
@@ -4222,8 +4215,7 @@ planet_event = {
 		owner = {
 			set_variable = { which = destruction_amount value = 5 }
 			if = { limit = { exists = event_target:marauder_country }
-				switch = {
-					trigger = has_country_flag
+				switch = { trigger = has_country_flag
 					marauder_tribute_1@event_target:marauder_country = { set_variable = { which = destruction_amount value = 3 } }
 					marauder_tribute_2@event_target:marauder_country = { set_variable = { which = destruction_amount value = 4 } }
 					marauder_tribute_3@event_target:marauder_country = { set_variable = { which = destruction_amount value = 5 } }
@@ -4374,8 +4366,7 @@ event = {
 						save_event_target_as = marauder_raiding_country
 						make_moderately_hostile = yes
 						event_target:raiding_marauder = {
-							switch = {
-								trigger = has_country_flag
+							switch = { trigger = has_country_flag
 								marauder_1 = { prev = { set_country_flag = marauder_1 } }
 								marauder_2 = { prev = { set_country_flag = marauder_2 } }
 								marauder_3 = { prev = { set_country_flag = marauder_3 } }
@@ -4409,23 +4400,13 @@ event = {
 							change_variable = { which = raidcost value = pirates_factor }
 							multiply_variable = { which = raidcost value = 0.5 } # Take only 50% weight
 							multiply_variable = { which = raidcost value = pirates_factor } # As it is only half for marauders.
-							switch = { # Price depending on difficulty?
-								trigger = has_country_flag
-								pirate_waves_very_easy = {
-									multiply_variable = { which = raidcost value = 0.5 }
-								}
-								pirate_waves_easy = {
-									multiply_variable = { which = raidcost value = 0.75 }
-								}
-								pirate_waves_hard = {
-									multiply_variable = { which = raidcost value = 1.25 }
-								}
-								pirate_waves_very_hard = {
-									multiply_variable = { which = raidcost value = 1.5 }
-								}
-								pirate_waves_insane = {
-									multiply_variable = { which = raidcost value = 2 }
-								}
+							# Price depending on difficulty?
+							switch = { trigger = has_country_flag
+								pirate_waves_very_easy	= { multiply_variable = { which = raidcost value = 0.5 } }
+								pirate_waves_easy		= { multiply_variable = { which = raidcost value = 0.75 } }
+								pirate_waves_hard		= { multiply_variable = { which = raidcost value = 1.25 } }
+								pirate_waves_very_hard	= { multiply_variable = { which = raidcost value = 1.5 } }
+								pirate_waves_insane		= { multiply_variable = { which = raidcost value = 2 } }
 							}
 							round_variable_to_closest = { which = raidcost value = 0.01 }
 							# round_variable = raidcost
@@ -5072,14 +5053,15 @@ country_event = {
 			event_leader = yes
 			can_manually_change_location = no
 			can_see_in_list = no
-			randomize_traits = no
+			randomize_traits = no 			# Cloning messes with traits, so don't start with them
 			leader_age_min = 21
-			leader_age_max = 36
+			leader_age_max = 34 			# Traits can add to age so start it low
 			traits = {
-				0 = leader_trait_ruler_great_khan
-				0 = leader_trait_chosen
-				0 = leader_trait_fleet_organizer
-				# 0 = leader_trait_eager
+				trait = leader_trait_ruler_great_khan
+				trait = leader_trait_chosen
+				trait = subclass_admiral_strategist
+				# trait = leader_trait_fleet_organizer
+				# trait = leader_trait_eager
 			}
 		}
 
@@ -5089,29 +5071,35 @@ country_event = {
 			room_name_override = "khorgis_khan_1_room" # should work with 3.8
 			last_created_leader = { set_name = "NAME_Khorgis_Khan" }
 		}
-		else = {
-			set_name = random
+		# else = {
+		# 	set_name = random
 			# room_name_override = "ethic_spaceship_room" # should work with 3.8
-		}
+		# }
 
 		last_created_leader = {
 			root = { assign_leader = prev }
+			random_list = {
+				1 = { set_council_position = councilor_defense }
+				1 = { set_council_position = councilor_crusader_spirit }
+				1 = { set_council_position = councilor_distinguished_admiralty }
+				1 = { set_council_position = councilor_heroic_tales }
+			}
+
 			# if = { ### NSC SUPPORT
 			# 	limit = { has_global_flag = has_nsc_active }
-			# 	add_trait = nsc_freebooter_leader_trait_ruler_great_khan
+			# 	add_trait_no_notify = nsc_freebooter_leader_trait_ruler_great_khan
 			# } else = {
-			add_trait = leader_trait_ruler_great_khan
-			add_trait = leader_trait_chosen
-			# add_trait = leader_trait_eager
-            add_trait = subclass_admiral_strategist
-            # Only really applicable destiny unfortunately
-            add_trait = leader_trait_armorer
-            add_trait = leader_trait_gale_speed_3
-            add_trait = leader_trait_border_guard_3
-            add_trait = leader_trait_crew_trainer_3
+			# add_trait_no_notify = leader_trait_ruler_great_khan
+			# add_trait_no_notify = leader_trait_chosen
+			# add_trait_no_notify = subclass_admiral_strategist # councilor yes
+			# Only really applicable destiny unfortunately
+			add_trait_no_notify = leader_trait_armorer
+			add_trait_no_notify = leader_trait_gale_speed_3
+			add_trait_no_notify = leader_trait_border_guard_3
+			add_trait_no_notify = leader_trait_crew_trainer_3
 			add_skill = 2
 			if = { limit = { NOT = { has_trait = leader_trait_fleet_organizer } }
-				add_trait = leader_trait_fleet_organizer
+				add_trait_no_notify = leader_trait_fleet_organizer
 			}
 			set_leader_flag = great_khan
 			save_global_event_target_as = great_khan_ruler
@@ -5168,11 +5156,10 @@ country_event = {
 				can_manually_change_location = no
 				can_see_in_list = no
 				randomize_traits = no
-				# FIXME: Vanilla bug: traits does not work
+				# traits are cleared only (vanilla bug?)
 				traits = {
-					# 0 = leader_trait_great_khan
+					0 = leader_trait_great_khan
 					0 = leader_trait_chosen
-					# 0 = leader_trait_eager
 				}
 			}
 		}
@@ -5192,60 +5179,46 @@ country_event = {
 				skill = 6
 				event_leader = yes
 				can_manually_change_location = no
-				can_see_in_list = no
+				can_see_in_list = yes
 				randomize_traits = no
-				# FIXME: Vanilla bug: traits does not work
+				# traits are cleared only (vanilla bug?)
 				traits = {
-					# 0 = leader_trait_chosen
-					trait = leader_trait_fleet_organizer
-					# 0 = leader_trait_eager
+					0 = leader_trait_great_khan
+					0 = leader_trait_chosen
 				}
 			}
 		}
 		last_created_leader = {
-
 			set_leader_flag = great_khan
 			save_global_event_target_as = great_khan
 			recruitable = no
-			add_trait = leader_trait_great_khan
-			add_trait = leader_trait_chosen
-			add_trait = subclass_admiral_aggressor
-			if = {
-				limit = { owner = { has_country_flag = marauder_1 } }
-				add_trait = leader_trait_master_gunner
+			add_trait_no_notify = leader_trait_great_khan
+			add_trait_no_notify = leader_trait_chosen
+			add_trait_no_notify = subclass_admiral_aggressor # councilor no
+			add_trait_no_notify = leader_trait_armada_logistician_3
+			if = { limit = { owner = { has_country_flag = marauder_1 } }
+				add_trait_no_notify = leader_trait_master_gunner
 			}
-			if = {
-				limit = { owner = { has_country_flag = marauder_2 } }
-				add_trait = leader_trait_demolisher_destiny
+			if = { limit = { owner = { has_country_flag = marauder_2 } }
+				add_trait_no_notify = leader_trait_demolisher_destiny
 			}
-			if = {
-				limit = { owner = { has_country_flag = marauder_3 } }
-				add_trait = leader_trait_destiny_engineer
+			if = { limit = { owner = { has_country_flag = marauder_3 } }
+				add_trait_no_notify = leader_trait_destiny_engineer
 			}
 			random_list = {
-				1 = {
-					add_trait = leader_trait_annihilator_3
-					add_trait = leader_trait_artillerist_3
-					add_trait = leader_trait_demolisher_3
-				}
-				1 = {
-					add_trait = leader_trait_wrecker_3
-					add_trait = leader_trait_artillerist_3
-					add_trait = leader_trait_demolisher_3
-				}
-				1 = {
-					add_trait = leader_trait_wrecker_3
-					add_trait = leader_trait_annihilator_3
-					add_trait = leader_trait_demolisher_3
-				}
-				1 = {
-					add_trait = leader_trait_wrecker_3
-					add_trait = leader_trait_annihilator_3
-					add_trait = leader_trait_artillerist_3
-				}
+				1 = { add_trait_no_notify = leader_trait_annihilator_3 add_trait_no_notify = leader_trait_artillerist_3 add_trait_no_notify = leader_trait_demolisher_3 }
+				1 = { add_trait_no_notify = leader_trait_wrecker_3 add_trait_no_notify = leader_trait_artillerist_3 add_trait_no_notify = leader_trait_demolisher_3 }
+				1 = { add_trait_no_notify = leader_trait_wrecker_3 add_trait_no_notify = leader_trait_annihilator_3 add_trait_no_notify = leader_trait_demolisher_3 }
+				1 = { add_trait_no_notify = leader_trait_wrecker_3 add_trait_no_notify = leader_trait_annihilator_3 add_trait_no_notify = leader_trait_artillerist_3 }
 			}
-			if = { limit = { NOT = { has_trait = leader_trait_fleet_logistician } }
-				add_trait = leader_trait_fleet_logistician
+			if = { limit = { has_paragon_dlc = yes }
+				add_trait_no_notify = trait_ruler_logistic_understanding_2
+			}
+			else_if = { limit = { NOT = { has_trait = leader_trait_fleet_logistician } }
+				add_trait_no_notify = leader_trait_fleet_logistician
+			}
+			if = { limit = { NOT = { has_trait = leader_trait_fleet_organizer } }
+				add_trait_no_notify = leader_trait_fleet_organizer
 			}
 		}
 		owner_species = { save_event_target_as = marauder_species }
@@ -5906,10 +5879,10 @@ country_event = {
 			set_country_flag = khan_dead_event_fine
 			set_country_flag = great_khan_defeated_once # Possible superfluous
 			if = { limit = { exists = event_target:great_khan_ruler }
-				event_target:great_khan_ruler = { kill_leader = { show_notification = no } }
+				event_target:great_khan_ruler = { kill_leader = { show_notification = no fire = yes } }
 			}
 			if = { limit = { exists = event_target:great_khan }
-				event_target:great_khan = { kill_leader = { show_notification = no } }
+				event_target:great_khan = { kill_leader = { show_notification = no fire = yes } }
 			}
 
 			event_target:khan_destroyer = {
@@ -6361,10 +6334,10 @@ country_event = {
 		}
 
 		if = { limit = { exists = event_target:great_khan_ruler }
-			event_target:great_khan_ruler = { kill_leader = { show_notification = no } }
+			event_target:great_khan_ruler = { kill_leader = { show_notification = no fire = yes } }
 		}
 		if = { limit = { exists = event_target:great_khan }
-			event_target:great_khan = { kill_leader = { show_notification = no } }
+			event_target:great_khan = { kill_leader = { show_notification = no fire = yes } }
 		}
 
 		every_playable_country = {
@@ -6402,8 +6375,7 @@ country_event = {
 	desc = {
 		trigger = {
 			hidden:from = {
-				switch = {
-					trigger = has_country_flag
+				switch = { trigger = has_country_flag
 					khan_dead_poison	= { text = marauder.513.a.desc }
 					khan_dead_disease	= { text = marauder.513.b.desc }
 					khan_dead_assassin	= { text = marauder.513.c.desc }
@@ -6437,13 +6409,13 @@ country_event = {
 		if = { limit = { exists = event_target:great_khan_ruler }
 			event_target:great_khan_ruler = {
 				remove_leader_flag = great_khan				# Because possible loop trigger?
-				kill_leader = { show_notification = no }
+				kill_leader = { show_notification = no fire = yes }
 			}
 		}
 		if = { limit = { exists = event_target:great_khan }
 			event_target:great_khan = {
 				remove_leader_flag = great_khan				# Because possible loop trigger?
-				kill_leader = { show_notification = no }
+				kill_leader = { show_notification = no fire = yes }
 			}
 		}
 		every_playable_country = {
@@ -7583,6 +7555,7 @@ country_event = {
 	is_triggered_only = yes
 	force_open = yes
 	diplomatic = yes
+
 	trigger = {
 		exists = event_target:raider_khanate
 		OR = {
@@ -8040,8 +8013,7 @@ country_event = {
 								while = { count = 2 CmtEffectCreateShip_VoidChampion = yes }		## 8
 								prev = {
 									CmtEffectProgressLoop2 = yes
-									switch = {
-										trigger = has_country_flag
+									switch = { trigger = has_country_flag
 										CmtFlagLoopA = { prev = { CmtEffectCreateShip_Lancer = yes } }
 										CmtFlagLoopZ = { prev = { CmtEffectCreateShip_Outrider = yes } }
 									}
@@ -9870,8 +9842,7 @@ country_event = {
 				}
 			}
 
-			switch = {
-				trigger = has_country_flag
+			switch = { trigger = has_country_flag
 				marauder_1 = { random_system_within_border = { limit = { has_star_flag = marauder_capital_1 } save_event_target_as = marauder_capital } }
 				marauder_2 = { random_system_within_border = { limit = { has_star_flag = marauder_capital_2 } save_event_target_as = marauder_capital } }
 				marauder_3 = { random_system_within_border = { limit = { has_star_flag = marauder_capital_3 } save_event_target_as = marauder_capital } }
@@ -10303,8 +10274,7 @@ country_event = {
 			create_ship_design = { design = "NAME_Marauder_Starbase" }
 			add_ship_design = last_created_design
 			root = {
-				switch = {
-					trigger = has_country_flag
+				switch = { trigger = has_country_flag
 					marauder_1 = { prev = { set_country_flag = marauder_1 save_global_event_target_as = marauder_country_1 } }
 					marauder_2 = { prev = { set_country_flag = marauder_2 save_global_event_target_as = marauder_country_2 } }
 					marauder_3 = { prev = { set_country_flag = marauder_3 save_global_event_target_as = marauder_country_3 shift_ethic = ethic_fanatic_spiritualist } }
@@ -10366,8 +10336,7 @@ country_event = {
 				}
 			}
 			if = { limit = { exists = event_target:marauder_capital }
-				switch = {
-					trigger = has_country_flag
+				switch = { trigger = has_country_flag
 					marauder_1 = { event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_1 } }
 					marauder_2 = { event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_2 } }
 					marauder_3 = { event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_3 } }
@@ -10582,7 +10551,7 @@ country_event = {
 						event_target:primitive_world_species = {
 							modify_species = {
 								species = this
-								# add_trait = <key> # optional, can specify multiple
+								# add_trait_no_notify = <key> # optional, can specify multiple
 								# remove_trait = <key> # optional, can specify multiple
 								ideal_planet_class = prev
 								change_scoped_species = yes
@@ -10726,7 +10695,6 @@ country_event = {
 		}
 		if = { limit = { NOT = { has_global_flag = marauder_crisis_ongoing } }
 			# Drag military fleets except for one (or two)
-			# random_owned_fleet = { pre 3.1
 			ordered_owned_fleet = {
 				limit = {
 					is_mobile = yes
@@ -11220,9 +11188,7 @@ country_event = {
 	after = {
 		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
 	}
-	option = {
-		name = marauder.665.a
-	}
+	option = { name = marauder.665.a }
 }
 
 # Satrapy No Longer
@@ -11405,7 +11371,7 @@ country_event = {
 				limit = { exists = event_target:great_khan_ruler }
 				event_target:great_khan_ruler = {
 					remove_leader_flag = great_khan					# Because possible loop trigger?
-					kill_leader = { show_notification = no }
+					kill_leader = { show_notification = no fire = yes }
 				}
 				### Return of Khan
 				# if = { limit = { has_global_flag = CmtFlagDebugMode }
@@ -11421,39 +11387,50 @@ country_event = {
 				limit = { exists = event_target:great_khan }
 				event_target:great_khan = {
 					remove_leader_flag = great_khan					# Because possible loop trigger?
-					kill_leader = { show_notification = no }
+					kill_leader = { show_notification = no fire = yes }
 				}
 			}
 
 			### New Ruler Khan
 			create_leader = {
 				name = random
-				class = random_ruler
+				class = admiral
 				species = owner_main_species
 				skill = 8
 				event_leader = yes
 				can_manually_change_location = no
 				can_see_in_list = no
-				randomize_traits = no
+				randomize_traits = no 			# Cloning messes with traits, so don't start with them
 				leader_age_min = 18
-				leader_age_max = 22
+				leader_age_max = 22 			# Traits can add to age so start it low
+				traits = {
+					trait = leader_trait_ruler_great_khan
+					trait = leader_trait_chosen
+					trait = subclass_admiral_strategist
+					# trait = leader_trait_fleet_organizer
+					# trait = leader_trait_eager
+				}
 				effect = {
-					add_trait = leader_trait_ruler_great_khan
-					add_trait = leader_trait_chosen
-					# add_trait = leader_trait_eager
-					add_trait = subclass_admiral_strategist
 					# Only really applicable destiny unfortunately
-					add_trait = leader_trait_armorer
-					add_trait = leader_trait_gale_speed_3
-					add_trait = leader_trait_border_guard_3
-					add_trait = leader_trait_crew_trainer_3
+					add_trait_no_notify = leader_trait_armorer
+					add_trait_no_notify = leader_trait_gale_speed_3
+					add_trait_no_notify = leader_trait_border_guard_3
+					add_trait_no_notify = leader_trait_crew_trainer_3
 					set_leader_flag = great_khan
 					save_global_event_target_as = great_khan_ruler
 					recruitable = no
-					# prev = { assign_leader = prev } not working
+					# prev = { assign_leader = prev } not working!?
 				}
 			}
-			assign_leader = last_created_leader
+			last_created_leader = {
+				root = { assign_leader = prev }
+				random_list = {
+					1 = { set_council_position = councilor_defense }
+					1 = { set_council_position = councilor_crusader_spirit }
+					1 = { set_council_position = councilor_distinguished_admiralty }
+					1 = { set_council_position = councilor_heroic_tales }
+				}
+			}
 
 			# ### New Admiral Khan
 			# if = { ### NSC SUPPORT
@@ -11463,7 +11440,7 @@ country_event = {
 			# 	}
 			# 	event_target:great_khan_ruler = {
 			# 		remove_trait = leader_trait_great_khan
-			# 		add_trait = nsc_freebooter_leader_trait_ruler_child_of_great_khan
+			# 		add_trait_no_notify = nsc_freebooter_leader_trait_ruler_child_of_great_khan
 			# 	}
 			# 	clone_leader = {
 			# 		target = event_target:great_khan_ruler
@@ -11490,56 +11467,34 @@ country_event = {
 				can_manually_change_location = no
 				can_see_in_list = no
 				randomize_traits = no
-				# FIXME: Vanilla bug: traits does not work
+				# traits are cleared only (vanilla bug?)
 				traits = {
 					0 = leader_trait_great_khan
 					0 = leader_trait_chosen
-					# 0 = leader_trait_fleet_logistician
-					# 0 = leader_trait_eager
+					0 = leader_trait_fleet_logistician
 				}
 			}
 
 			last_created_leader = {
-				add_trait = leader_trait_great_khan
-				add_trait = leader_trait_chosen
-				add_trait = subclass_admiral_aggressor
-				if = {
-					limit = { owner = { has_country_flag = marauder_1 } }
-					add_trait = leader_trait_master_gunner
+				add_trait_no_notify = leader_trait_great_khan
+				add_trait_no_notify = leader_trait_chosen
+				add_trait_no_notify = subclass_admiral_aggressor # councilor no
+				owner = {
+					switch = { trigger = has_country_flag
+						marauder_1 = { prev = { add_trait_no_notify = leader_trait_master_gunner } }
+						marauder_2 = { prev = { add_trait_no_notify = leader_trait_demolisher_destiny } }
+						marauder_3 = { prev = { add_trait_no_notify = leader_trait_destiny_engineer } }
 				}
-				if = {
-					limit = { owner = { has_country_flag = marauder_2 } }
-					add_trait = leader_trait_demolisher_destiny
-				}
-				if = {
-					limit = { owner = { has_country_flag = marauder_3 } }
-					add_trait = leader_trait_destiny_engineer
 				}
 				random_list = {
-					1 = {
-						add_trait = leader_trait_annihilator_3
-						add_trait = leader_trait_artillerist_3
-						add_trait = leader_trait_demolisher_3
-					}
-					1 = {
-						add_trait = leader_trait_wrecker_3
-						add_trait = leader_trait_artillerist_3
-						add_trait = leader_trait_demolisher_3
-					}
-					1 = {
-						add_trait = leader_trait_wrecker_3
-						add_trait = leader_trait_annihilator_3
-						add_trait = leader_trait_demolisher_3
-					}
-					1 = {
-						add_trait = leader_trait_wrecker_3
-						add_trait = leader_trait_annihilator_3
-						add_trait = leader_trait_artillerist_3
-					}
+					1 = { add_trait_no_notify = leader_trait_annihilator_3 add_trait_no_notify = leader_trait_demolisher_3	add_trait_no_notify = leader_trait_artillerist_3 }
+					1 = { add_trait_no_notify = leader_trait_artillerist_3 add_trait_no_notify = leader_trait_demolisher_3	add_trait_no_notify = leader_trait_wrecker_3 }
+					1 = { add_trait_no_notify = leader_trait_annihilator_3 add_trait_no_notify = leader_trait_demolisher_3	add_trait_no_notify = leader_trait_wrecker_3 }
+					1 = { add_trait_no_notify = leader_trait_annihilator_3 add_trait_no_notify = leader_trait_artillerist_3	add_trait_no_notify = leader_trait_wrecker_3 }
 				}
 
 				if = { limit = { NOT = { has_trait = leader_trait_fleet_logistician } }
-					add_trait = leader_trait_fleet_logistician
+					add_trait_no_notify = leader_trait_fleet_logistician
 				}
 				set_leader_flag = great_khan
 				save_global_event_target_as = great_khan
@@ -11594,12 +11549,12 @@ country_event = {
 		country_event = { id = marauder.600 days = 200 random = 100 }
 		if = { limit = { exists = event_target:great_khan_ruler }
 			event_target:great_khan_ruler = {
-				kill_leader = { show_notification = no }
+				kill_leader = { show_notification = no fire = yes }
 			}
 		}
 		if = { limit = { exists = event_target:great_khan }
 			event_target:great_khan = {
-				kill_leader = { show_notification = no }
+				kill_leader = { show_notification = no fire = yes }
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 Ever felt like the Great Khan doesn't really do anything great? Then this mod is for you!
 [h3]Prolog[/h3]
-This is a continuation of [i][url=//steamcommunity.com/workshop/filedetails/2129462916]The Great Khan Expanded[/url] (2.7) by Kinneyj47[/i]. It has been completely overhauled and extended, several fixes, compatibility, +built-in [i]Crisis Manager s.b[/i]. [i][u]Note[/u]: [strike]this is still a beta,[/strike] there can probably be bugs, which are welcome to be reported.[/i]
+This is a continuation of [i][url=//steamcommunity.com/workshop/filedetails/2129462916]The Great Khan Expanded[/url] (2.7) by Kinneyj47[/i]. It has been completely overhauled and extended, several fixes, compatibility, +built-in [i]Crisis Manager s.b[/i].
 
 [img]//i.imgur.com/UA9Shht.png[/img][img]//i.imgur.com/hA90SXc.png[/img]
 This mod adds three new subject types to help you navigate the midgame crisis [spoiler](of course, only if the respective conditions are met)[/spoiler]:
@@ -23,11 +23,12 @@ This are new (AI can use) features,[strike] which are not fully tested,[/strike]
 
 [img]//i.imgur.com/tJMHF5d.png[/img]
 ⠀✔️ [url=//steamcommunity.com/workshop/filedetails/2491573516]Crisis Manager – Mid-Game Edition[/url]
-⠀✔️ [url=//steamcommunity.com/workshop/filedetails/2028826064]A Deadly Tempest[/url]
+⠀✔️ [url=//steamcommunity.com/workshop/filedetails/2028826064]A Deadly Tempest [☠][/url]
+⠀✔️ Realistic Pirates [☠]
 ⠀✔️ Marauders Remodeled (only new games)
 ⠀✔️ ZoFE
 ⠀✔️ ACE
-⠀✔️ NSC2 must be below (+support freebooter origin)
+⠀✔️ NSC2 must be below ([strike]+support freebooter origin[/strike] will be included soon for 3.8)
 ⠀✔️ BSW3 [url=//steamcommunity.com/workshop/filedetails/2608679059]- Patch[/url]
 ⠀✔️ Real Space - Ships in Scaling Lite [url=//steamcommunity.com/workshop/filedetails/2738343929]- Patch[/url]
 ⠀✔️ ACOT override (should be above)
@@ -57,15 +58,13 @@ Probably NOT compatible with mods:
 ⠀• Chinese 🇨🇳 [url=//steamcommunity.com/id/1996kid]彭定康说的[/url] (– 12.Aug.)
 ⠀• Japanese 🇯🇵 [url=//steamcommunity.com/workshop/filedetails/2618588215]Rio_Mizuhoshi via addon[/url] (– 3.Oct.)
 ⠀• Español 🇪🇸 [url=//steamcommunity.com/id/76561198199986345]Darh[/url] (– 2.Dec.)
-⠀• [strike]🇷🇺 Russian in progress[/strike]
 ⠀• All other only with fallback, if you would like to help and share translations into your language, please let me know.
 
 [h3]Minor Recommendations[/h3]
-⠀• [url=//steamcommunity.com/workshop/filedetails/2752952962]Realistic Pirates[/url]
-⠀• [url=//steamcommunity.com/workshop/filedetails/2558262194]Crisis Manager – End-Game Edition[/url]
+⠀• [url=//steamcommunity.com/workshop/filedetails/2752952962]Realistic Pirates[/url] (inbuilt compat.)
 ⠀• [url=//steamcommunity.com/workshop/filedetails/1899861671]Spaceborne Civs Expanded[/url] (inbuilt compat.)
 ⠀• [url=//steamcommunity.com/workshop/filedetails/2936292863]Marauders & Menacing Remodeled[/url] (inbuilt compat.)
-⠀• [url=//steamcommunity.com/workshop/filedetails/2584335328]Powerful & Realistic Orbital Bombardments[/url]
+⠀• [strike][url=//steamcommunity.com/workshop/filedetails/2584335328]Powerful & Realistic Orbital Bombardments [☠][/url][/strike]
 
 [h3]Changes (technically)[/h3]
 Mainly touched:[code]
@@ -82,7 +81,6 @@ Files directly affected by [i]load order[/i] (not that important – but all wit
 [h3]Possible To-Do / Planned[/h3]
 ⠀• The Marauders can conquer/board humanoid ships⁉
 [strike]⠀• Dyn. power: Khan can update his ships with conquered techs (including mod overpowered techs).[/strike]
-[strike]⠀• If Fabricator Satrapy rebell, they get one or more fleet(s) back (as vanilla has this feature with FE).[/strike] done
 
 [hr][h3]Credit[/h3]
 ⠀• Kinneyj47 – initiating this mod
@@ -91,6 +89,7 @@ Files directly affected by [i]load order[/i] (not that important – but all wit
 ⠀• [url=//steamcommunity.com/workshop/filedetails/2958996640]MrFunEGUY – Improved Diadochi[/url]
 
 [h3]Install/Uninstall[/h3]Shouldn't be a problem if the Khan has no subjects.
+[i][u]Note[/u]: If you find any bug, you are welcome to report.[/i]
 
 [img]//i.imgur.com/VvPulg4.png[/img]
 [URL=//discord.gg/3FRFkXe][IMG]//i.imgur.com/mODr6Fs.png[/IMG][/URL]
