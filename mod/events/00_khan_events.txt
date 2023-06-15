@@ -1511,8 +1511,8 @@ country_event = {
 	is_triggered_only = yes
 	# force_open = yes
 	auto_opens = yes
-	major = yes
-	major_trigger = { is_ai = no }
+	# major = yes
+	# major_trigger = { is_ai = no }
 	trigger = {
 		NOT = { has_country_flag = marauder_diplomacy_engaged }
 		exists = event_target:raider_khanate
@@ -2369,7 +2369,7 @@ country_event = {
 	# From = subject's overlord (on_becoming_subject)
 	trigger = {
 		has_global_flag = marauder_crisis_ongoing
-		any_country = { CmtTriggerIsKhanCountry = yes } # exists = event_target:raider_khanate
+		CmtTriggerNowInKhanCrisis = yes
 		OR = {
 			CmtTriggerIsKhanCountry = yes
 			AND = {

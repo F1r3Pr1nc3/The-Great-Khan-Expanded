@@ -165,7 +165,7 @@ country_event = {
 					controller = root
 					days = 3600
 				}
-				set_timed_fleet_flag = { flag = fleet_on_loan@root days = 3600 }
+				set_timed_fleet_flag = { flag = fleet_on_loan@root years = 10 }
 			}
 		}
 		set_country_flag = mercenary_enclave_rented_fleet
@@ -180,36 +180,30 @@ event = {
 	is_triggered_only = yes
 	trigger = {
 		has_global_flag = marauder_crisis_ongoing
-		OR = {
-			exists = event_target:raider_khanate
-			any_country = { is_country_type = awakened_marauders }
-		}
+		CmtTriggerNowInKhanCrisis = yes
 		NOT = { has_global_flag = great_khan_dead }
 		any_country = {
 			is_country_type = enclave_mercenary
-			NOT = {
-				any_owned_fleet = { is_leased = yes }
-			}
+			NOT = { any_owned_fleet = { is_leased = yes } }
 		}
 	}
 	immediate = {
-		if = {
-			limit = {
-				NOT = { exists = event_target:raider_khanate }
-			}
-			random_country = {
-				limit = { is_country_type = awakened_marauders }
-				save_global_event_target_as = raider_khanate
-			}
-		}
+		# if = { limit = { NOT = { exists = event_target:raider_khanate } }
+		# 	random_country = {
+		# 		limit = {
+		# 			is_country_type = awakened_marauders
+		# 			NOT = { has_country_flag = demonic_incursion_country }
+		# 		}
+		# 		save_global_event_target_as = raider_khanate
+		# 	}
+		# }
 		if = {
 			limit = {
 				exists = event_target:great_khan
 				exists = event_target:great_khan.fleet
 			}
 			event_target:great_khan.fleet = { save_event_target_as = khan_fleet }
-		}
-		else = {
+		} else = {
 			event_target:raider_khanate = {
 				random_owned_fleet = {
 					limit = { has_fleet_flag = khan_fleet }
@@ -217,8 +211,7 @@ event = {
 				}
 			}
 		}
-		if = {
-			# Fallback 3.4 saves/mods
+		if = { # Fallback 3.4 saves/mods
 			limit = {
 				NOT = { exists = event_target:khan_fleet }
 			}
@@ -371,13 +364,13 @@ event = {
 				is_country_type = enclave_mercenary
 				any_owned_fleet = {
 					is_leased = yes
-					controller = { is_country_type = awakened_marauders }
+					controller = { CmtTriggerIsKhanCountry = yes }
 				}
 			}
 			random_controlled_fleet = {
 				limit = {
 					is_leased = yes
-					controller = { is_country_type = awakened_marauders }
+					controller = { CmtTriggerIsKhanCountry = yes }
 				}
 				end_fleet_contract = {
 					initiator = event_target:raider_khanate					# controller
@@ -466,8 +459,7 @@ country_event = {
 				}
 				order_forced_return = yes
 				auto_follow_fleet = { target = event_target:mercenary_enclave_station }
-			}
-			else_if = {
+			} else_if = {
 				limit = { exists = solar_system }				# Otherwise CTD
 				set_mia = mia_return_home
 			}

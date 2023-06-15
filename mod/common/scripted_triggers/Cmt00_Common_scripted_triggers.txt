@@ -261,15 +261,10 @@ CmtTriggerIsMarauder = {
 # 	is_country_type = dormant_marauders
 # 	NOT = { has_country_flag = restored_marauders_flag }
 # }
-
 CmtTriggerIsKhanCountry = {
-	OR = {
-		is_country_type = awakened_marauders
-		AND = {
-			exists = event_target:raider_khanate
-			is_same_empire = event_target:raider_khanate
-		}
-	}
+	# OR = { is_country_type = awakened_marauders AND = {
+	exists = event_target:raider_khanate
+	is_same_empire = event_target:raider_khanate
 	NOT = { has_country_flag = khan_dead_event_fine } # CmtFlagKhanDeadCountry replaced with vanilla
 }
 
@@ -313,7 +308,7 @@ CmtTriggerExistCrisisCountry = {
 	any_country = { CmtTriggerIsCrisisCountry = yes }
 }
 
-### Mid-Game Crisis
+### Mid-Game Crisis: replaced by CmtTriggerNowInKhanCrisis
 # CmtTriggerExistKhanCountry = {
 # 	any_country = { CmtTriggerIsKhanCountry = yes }
 # }
@@ -358,9 +353,15 @@ CmtTriggerNowSleeperStayup = {
 	}
 }
 
-# CmtTriggerNowInKhanCrisis = {
-# 	any_country = { is_country_type = awakened_marauders }
-# }
+# Replaced CmtTriggerExistKhanCountry
+CmtTriggerNowInKhanCrisis = {
+	any_country = { CmtTriggerIsKhanCountry = yes }
+	# exists = event_target:raider_khanate
+	# any_country = {
+	# 	is_country_type = awakened_marauders
+	# 	is_same_empire = event_target:raider_khanate
+	# }
+}
 
 #################################
 ###- Trigger Check of Events -###
