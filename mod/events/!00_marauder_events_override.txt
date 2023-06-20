@@ -217,7 +217,8 @@ country_event = {
 				}
 			}
 			# Mercenary Desertions (Marauder 2)
-			else_if = { limit = { has_country_flag = marauder_2 }
+			else_if = {
+				limit = { has_country_flag = marauder_2 }
 				every_playable_country = {
 					limit = { any_controlled_fleet = { CmtTriggerHiredMarauderFleet2 = yes } }
 					country_event = { id = marauder.76 days = 20 random = 20 }
@@ -251,7 +252,8 @@ country_event = {
 				}
 			}
 			# Mercenary Desertions (Marauder 3)
-			else_if = { limit = { has_country_flag = marauder_3 }
+			else_if = {
+				limit = { has_country_flag = marauder_3 }
 				every_playable_country = {
 					limit = { any_controlled_fleet = { CmtTriggerHiredMarauderFleet3 = yes } }
 					country_event = { id = marauder.76 days = 20 random = 20 }
@@ -377,7 +379,8 @@ country_event = {
 						limit = { mid_game_years_passed > 40 }
 						create_dyn_marauder_fleet = { OUTRIDER = 34 LANCER = 22 CHAMPION = 16 }
 					}
-					else_if = { limit = { years_passed > 120 }
+					else_if = {
+						limit = { years_passed > 120 }
 						create_dyn_marauder_fleet = { OUTRIDER = 22 LANCER = 14 CHAMPION = 8 }
 					}
 					else = {
@@ -496,7 +499,8 @@ country_event = {
 								limit = { mid_game_years_passed > 40 }
 								create_dyn_marauder_fleet = { OUTRIDER = 34 LANCER = 22 CHAMPION = 16 }
 							}
-							else_if = { limit = { years_passed > 120 }
+							else_if = {
+								limit = { years_passed > 120 }
 								create_dyn_marauder_fleet = { OUTRIDER = 22 LANCER = 14 CHAMPION = 8 }
 							}
 							else = {
@@ -590,19 +594,20 @@ country_event = {
 		# Also by marauder.14
 		if = {
 			limit = { exists = event_target:marauder_infighting }
-			if = {
-				limit = { is_same_empire = event_target:marauder_infighting }
+			if = { limit = { is_same_empire = event_target:marauder_infighting }
 				destroy_country = yes
 			}
 			if = {
-				limit = { from = { is_same_empire = event_target:marauder_infighting }
+				limit = {
+					from = { is_same_empire = event_target:marauder_infighting }
 				}
 				set_country_type = dormant_marauders
 			}
 			clear_global_event_target = marauder_infighting
 		}
 		if = {
-			limit = { fromfromfrom = { has_fleet_flag = infighting_marauders }
+			limit = {
+				fromfromfrom = { has_fleet_flag = infighting_marauders }
 			}
 			fromfromfrom = { save_event_target_as = infighting_marauders }
 		}
@@ -624,7 +629,8 @@ country_event = {
 			}
 			event_target:infighting_target_2 = { save_event_target_as = infighting_marauders }
 		}
-		else_if = { limit = { from = { is_country_type = dormant_marauders } }
+		else_if = {
+			limit = { from = { is_country_type = dormant_marauders } }
 			random_owned_fleet = {
 				limit = { has_fleet_flag = infighting_marauders }
 				save_event_target_as = infighting_marauders
@@ -1150,7 +1156,8 @@ country_event = {
 					limit = { is_country_type = dormant_marauders }
 					save_event_target_as = current_marauder_diplomacy
 				}
-				else_if = { limit = { from = { is_country_type = dormant_marauders } }
+				else_if = {
+					limit = { from = { is_country_type = dormant_marauders } }
 					from = { save_event_target_as = current_marauder_diplomacy }
 				}
 			}
@@ -1681,7 +1688,8 @@ country_event = {
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 		if = {
-			limit = { NOT = { exists = event_target:current_marauder_diplomacy }
+			limit = {
+				NOT = { exists = event_target:current_marauder_diplomacy }
 				from = { is_country_type = dormant_marauders }
 			}
 			from = { save_event_target_as = current_marauder_diplomacy }
@@ -1985,7 +1993,8 @@ country_event = {
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 		if = {
-			limit = { NOT = { exists = event_target:current_marauder_diplomacy }
+			limit = {
+				NOT = { exists = event_target:current_marauder_diplomacy }
 				from = { is_country_type = dormant_marauders }
 			}
 			from = { save_event_target_as = current_marauder_diplomacy }
@@ -2275,7 +2284,8 @@ country_event = {
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 		if = {
-			limit = { NOT = { exists = event_target:current_marauder_diplomacy }
+			limit = {
+				NOT = { exists = event_target:current_marauder_diplomacy }
 				from = { is_country_type = dormant_marauders }
 			}
 			from = { save_event_target_as = current_marauder_diplomacy }
@@ -2569,7 +2579,8 @@ country_event = {
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 		if = {
-			limit = { NOT = { exists = event_target:current_marauder_diplomacy }
+			limit = {
+				NOT = { exists = event_target:current_marauder_diplomacy }
 				from = { is_country_type = dormant_marauders }
 			}
 			from = { save_event_target_as = current_marauder_diplomacy }
@@ -2617,7 +2628,8 @@ country_event = {
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 		if = {
-			limit = { NOT = { exists = event_target:current_marauder_diplomacy }
+			limit = {
+				NOT = { exists = event_target:current_marauder_diplomacy }
 				from = { is_country_type = dormant_marauders }
 			}
 			from = { save_event_target_as = current_marauder_diplomacy }
@@ -2694,7 +2706,8 @@ country_event = {
 	trigger = { exists = from }
 	immediate = {
 		if = {
-			limit = { NOT = { exists = event_target:current_marauder_diplomacy }
+			limit = {
+				NOT = { exists = event_target:current_marauder_diplomacy }
 				from = { is_country_type = dormant_marauders }
 			}
 			from = { save_event_target_as = current_marauder_diplomacy }
@@ -2885,7 +2898,8 @@ country_event = {
 					limit = { is_country_type = dormant_marauders }
 					save_event_target_as = current_marauder_diplomacy
 				}
-				else_if = { limit = { from = { is_country_type = dormant_marauders } }
+				else_if = {
+					limit = { from = { is_country_type = dormant_marauders } }
 					from = { save_event_target_as = current_marauder_diplomacy }
 				}
 			}
@@ -3360,10 +3374,12 @@ country_event = {
 					limit = { exists = event_target:CmtTargetMarauderRallyPoint1 is_same_value = event_target:CmtTargetMarauderRallyPoint1 }
 					CmtEffectCreateAdmiralty_KhanMercenaries1 = yes
 				}
-				else_if = { limit = { exists = event_target:CmtTargetMarauderRallyPoint2 is_same_value = event_target:CmtTargetMarauderRallyPoint2 }
+				else_if = {
+					limit = { exists = event_target:CmtTargetMarauderRallyPoint2 is_same_value = event_target:CmtTargetMarauderRallyPoint2 }
 					CmtEffectCreateAdmiralty_KhanMercenaries2 = yes
 				}
-				else_if = { limit = { exists = event_target:CmtTargetMarauderRallyPoint3 is_same_value = event_target:CmtTargetMarauderRallyPoint3 }
+				else_if = {
+					limit = { exists = event_target:CmtTargetMarauderRallyPoint3 is_same_value = event_target:CmtTargetMarauderRallyPoint3 }
 					CmtEffectCreateAdmiralty_KhanMercenaries3 = yes
 				}
 			}
@@ -4055,7 +4071,8 @@ planet_event = {
 					limit = { num_armies < 1 }
 					set_controller = owner
 					if = {
-						limit = { solar_system = { exists = starbase }
+						limit = {
+							solar_system = { exists = starbase }
 							solar_system.starbase = { is_owned_by = root.controller }
 						}
 						solar_system.starbase = { set_owner = root.owner }
@@ -4156,10 +4173,12 @@ planet_event = {
 			}
 			planet_event = { id = marauder.106 }
 		}
-		else_if = { limit = { owner = { has_valid_civic = civic_machine_servitor } }
+		else_if = {
+			limit = { owner = { has_valid_civic = civic_machine_servitor } }
 			planet_event = { id = marauder.107 }
 		}
-		else_if = { limit = { owner = { is_hive_empire = yes } }
+		else_if = {
+			limit = { owner = { is_hive_empire = yes } }
 			planet_event = { id = marauder.108 }
 		}
 	}
@@ -4224,7 +4243,8 @@ planet_event = {
 				limit = { exists = event_target:marauder_country }
 				event_target:marauder_country.owner_species = { save_event_target_as = marauder_species }
 			}
-			else_if = { limit = { exists = fromfrom exists = fromfrom.species }
+			else_if = {
+				limit = { exists = fromfrom exists = fromfrom.species }
 				fromfrom.species = { save_event_target_as = marauder_species }
 			}
 			# log="Marauder From.species exists \\[marauder_species.GetName]"
@@ -5025,7 +5045,8 @@ country_event = {
 				limit = { is_subject = yes }
 				set_subject_of = { who = none }
 			}
-			else_if = { limit = { is_overlord = yes }
+			else_if = {
+				limit = { is_overlord = yes }
 				every_subject = {
 					limit = {
 						is_default_or_fallen = yes
@@ -5245,22 +5266,26 @@ country_event = {
 			set_timed_country_flag = { flag = CmtFlagKhanNoDieCountry days = @CmtConstKhanLifespan_1a }
 			country_event = { id = marauder.514 days = @CmtConstKhanLifespan_1c random = @CmtConstKhanLifespan_1d }
 		}
-		else_if = { limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 2 } } }
+		else_if = {
+			limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 2 } } }
 			set_timed_global_flag = { flag = khan_no_die days = @CmtConstKhanLifespan_2a }
 			set_timed_country_flag = { flag = CmtFlagKhanNoDieCountry days = @CmtConstKhanLifespan_2a }
 			country_event = { id = marauder.514 days = @CmtConstKhanLifespan_2c random = @CmtConstKhanLifespan_2d }
 		}
-		else_if = { limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 4 } } }
+		else_if = {
+			limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 4 } } }
 			set_timed_global_flag = { flag = khan_no_die days = @CmtConstKhanLifespan_4a }
 			set_timed_country_flag = { flag = CmtFlagKhanNoDieCountry days = @CmtConstKhanLifespan_4a }
 			country_event = { id = marauder.514 days = @CmtConstKhanLifespan_4c random = @CmtConstKhanLifespan_4d }
 		}
-		else_if = { limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 5 } } }
+		else_if = {
+			limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 5 } } }
 			set_timed_global_flag = { flag = khan_no_die days = @CmtConstKhanLifespan_5a }
 			set_timed_country_flag = { flag = CmtFlagKhanNoDieCountry days = @CmtConstKhanLifespan_5a }
 			country_event = { id = marauder.514 days = @CmtConstKhanLifespan_5c random = @CmtConstKhanLifespan_5d }
 		}
-		else_if = { limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 6 } } }
+		else_if = {
+			limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 6 } } }
 			set_global_flag = khan_no_die
 			set_country_flag = CmtFlagKhanNoDieCountry
 		}
@@ -5356,7 +5381,8 @@ country_event = {
 				limit = { has_paragon_dlc = yes }
 				add_trait_no_notify = trait_ruler_logistic_understanding_2
 			}
-			else_if = { limit = { NOT = { has_trait = leader_trait_fleet_logistician } }
+			else_if = {
+				limit = { NOT = { has_trait = leader_trait_fleet_logistician } }
 				add_trait_no_notify = leader_trait_fleet_logistician
 			}
 			if = {
@@ -5678,8 +5704,7 @@ country_event = {
 					}
 				}
 
-				if = {
-					limit = { num_pops > 20 } # additional
+				if = { limit = { num_pops > 20 } # additional
 					prev = { change_variable = { which = "planets_lost_to_marauder" value = 1 } }
 				}
 
@@ -5696,10 +5721,12 @@ country_event = {
 					limit = { free_housing < 2 }
 					change_variable = { which = CmtVarTemp value = 3 }
 				}
-				else_if = { limit = { free_housing < 6 free_housing > 1 }
+				else_if = {
+					limit = { free_housing < 6 free_housing > 1 }
 					change_variable = { which = CmtVarTemp value = 7 }
 				}
-				else_if = { limit = { free_housing > 5 }
+				else_if = {
+					limit = { free_housing > 5 }
 					change_variable = { which = CmtVarTemp value = 11 }
 				}
 
@@ -6088,16 +6115,20 @@ country_event = {
 				limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 1 } } }
 				country_event = { id = marauder.600 days = @CmtConstKhanLifespan_1e random = @CmtConstKhanLifespan_1f }
 			}
-			else_if = { limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 2 } } }
+			else_if = {
+				limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 2 } } }
 				country_event = { id = marauder.600 days = @CmtConstKhanLifespan_2e random = @CmtConstKhanLifespan_2f }
 			}
-			else_if = { limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 4 } } }
+			else_if = {
+				limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 4 } } }
 				country_event = { id = marauder.600 days = @CmtConstKhanLifespan_4e random = @CmtConstKhanLifespan_4f }
 			}
-			else_if = { limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 5 } } }
+			else_if = {
+				limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 5 } } }
 				country_event = { id = marauder.600 days = @CmtConstKhanLifespan_5e random = @CmtConstKhanLifespan_5f }
 			}
-			else_if = { limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 6 } } }
+			else_if = {
+				limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 6 } } }
 				country_event = { id = marauder.600 days = @CmtConstKhanLifespan_6e random = @CmtConstKhanLifespan_6f }
 			}
 			else = { country_event = { id = marauder.600 days = @CmtConstKhanLifespan_3e random = @CmtConstKhanLifespan_3f } }
@@ -6540,16 +6571,20 @@ country_event = {
 			limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 1 } } }
 			country_event = { id = marauder.600 days = @CmtConstKhanLifespan_1e random = @CmtConstKhanLifespan_1f }
 		}
-		else_if = { limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 2 } } }
+		else_if = {
+			limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 2 } } }
 			country_event = { id = marauder.600 days = @CmtConstKhanLifespan_2e random = @CmtConstKhanLifespan_2f }
 		}
-		else_if = { limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 4 } } }
+		else_if = {
+			limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 4 } } }
 			country_event = { id = marauder.600 days = @CmtConstKhanLifespan_4e random = @CmtConstKhanLifespan_4f }
 		}
-		else_if = { limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 5 } } }
+		else_if = {
+			limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 5 } } }
 			country_event = { id = marauder.600 days = @CmtConstKhanLifespan_5e random = @CmtConstKhanLifespan_5f }
 		}
-		else_if = { limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 6 } } }
+		else_if = {
+			limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 6 } } }
 			country_event = { id = marauder.600 days = @CmtConstKhanLifespan_6e random = @CmtConstKhanLifespan_6f }
 		}
 		else = { country_event = { id = marauder.600 days = @CmtConstKhanLifespan_3e random = @CmtConstKhanLifespan_3f } }
@@ -6621,16 +6656,20 @@ country_event = {
 			limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 1 } } }
 			country_event = { id = marauder.600 days = @CmtConstKhanLifespan_1e random = @CmtConstKhanLifespan_1f }
 		}
-		else_if = { limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 2 } } }
+		else_if = {
+			limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 2 } } }
 			country_event = { id = marauder.600 days = @CmtConstKhanLifespan_2e random = @CmtConstKhanLifespan_2f }
 		}
-		else_if = { limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 4 } } }
+		else_if = {
+			limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 4 } } }
 			country_event = { id = marauder.600 days = @CmtConstKhanLifespan_4e random = @CmtConstKhanLifespan_4f }
 		}
-		else_if = { limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 5 } } }
+		else_if = {
+			limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 5 } } }
 			country_event = { id = marauder.600 days = @CmtConstKhanLifespan_5e random = @CmtConstKhanLifespan_5f }
 		}
-		else_if = { limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 6 } } }
+		else_if = {
+			limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanLifespan value = 6 } } }
 			country_event = { id = marauder.600 days = @CmtConstKhanLifespan_6e random = @CmtConstKhanLifespan_6f }
 		}
 		else = { country_event = { id = marauder.600 days = @CmtConstKhanLifespan_3e random = @CmtConstKhanLifespan_3f } }
@@ -6849,7 +6888,8 @@ country_event = {
 									limit = { event_target:khan_fleet = { OR = { fleet_power < 12000 count_owned_ship = { count = 1 } } } }
 									create_dyn_marauder_fleet = { OUTRIDER = 20 LANCER = 10 CHAMPION = 6 GLORY = 1 }
 								}
-								else_if = { limit = { event_target:khan_fleet = { fleet_power < 24000 } }
+								else_if = {
+									limit = { event_target:khan_fleet = { fleet_power < 24000 } }
 									create_dyn_marauder_fleet = { OUTRIDER = 18 LANCER = 8 CHAMPION = 3 }
 								}
 								else = {
@@ -8671,7 +8711,8 @@ fleet_event = {
 
 	immediate = {
 		if = {
-			limit = { NOT = { exists = event_target:satrapy_empire }
+			limit = {
+				NOT = { exists = event_target:satrapy_empire }
 				exists = space_owner
 				space_owner = {
 					is_subject_of_khan = yes
@@ -8699,7 +8740,8 @@ fleet_event = {
 					limit = { check_variable = { which = "satrapy_fleet_power" value < 2 } }
 					set_variable = { which = "satrapy_fleet_power" value = 2 } # Min
 				}
-				else_if = { limit = { check_variable = { which = "satrapy_fleet_power" value > 5 } }
+				else_if = {
+					limit = { check_variable = { which = "satrapy_fleet_power" value > 5 } }
 					set_variable = { which = "satrapy_fleet_power" value = 5 } # Max
 				}
 				if = {
@@ -8739,13 +8781,16 @@ fleet_event = {
 							limit = { event_target:satrapy_empire = { max_naval_capacity < 100 } }
 							CmtEffectCreateFleet_KhanSubReinforcement1 = yes
 						}
-						else_if = { limit = { event_target:satrapy_empire = { max_naval_capacity < 200 } }
+						else_if = {
+							limit = { event_target:satrapy_empire = { max_naval_capacity < 200 } }
 							CmtEffectCreateFleet_KhanSubReinforcement2 = yes
 						}
-						else_if = { limit = { event_target:satrapy_empire = { max_naval_capacity < 300 } }
+						else_if = {
+							limit = { event_target:satrapy_empire = { max_naval_capacity < 300 } }
 							CmtEffectCreateFleet_KhanSubReinforcement3 = yes
 						}
-						else_if = { limit = { event_target:satrapy_empire = { max_naval_capacity < 500 } }
+						else_if = {
+							limit = { event_target:satrapy_empire = { max_naval_capacity < 500 } }
 							CmtEffectCreateFleet_KhanSubReinforcement4 = yes
 						}
 						else = { CmtEffectCreateFleet_KhanSubReinforcement5 = yes }
@@ -8765,13 +8810,16 @@ fleet_event = {
 									limit = { event_target:satrapy_empire = { max_naval_capacity < 100 } }
 									CmtEffectCreateFleet_KhanSubReinforcement1 = yes
 								}
-								else_if = { limit = { event_target:satrapy_empire = { max_naval_capacity < 200 } }
+								else_if = {
+									limit = { event_target:satrapy_empire = { max_naval_capacity < 200 } }
 									CmtEffectCreateFleet_KhanSubReinforcement2 = yes
 								}
-								else_if = { limit = { event_target:satrapy_empire = { max_naval_capacity < 300 } }
+								else_if = {
+									limit = { event_target:satrapy_empire = { max_naval_capacity < 300 } }
 									CmtEffectCreateFleet_KhanSubReinforcement3 = yes
 								}
-								else_if = { limit = { event_target:satrapy_empire = { max_naval_capacity < 500 } }
+								else_if = {
+									limit = { event_target:satrapy_empire = { max_naval_capacity < 500 } }
 									CmtEffectCreateFleet_KhanSubReinforcement4 = yes
 								}
 								else = { CmtEffectCreateFleet_KhanSubReinforcement5 = yes }
@@ -9017,19 +9065,24 @@ country_event = {
 					}
 					### Do nothing
 				}
-				else_if = { limit = { check_variable = { which = CmtVarKhanInterval value < @CmtConstKhanInterval_T1 } }
+				else_if = {
+					limit = { check_variable = { which = CmtVarKhanInterval value < @CmtConstKhanInterval_T1 } }
 					set_timed_global_flag = { flag = CmtFlagNowInKhanInterval days = @CmtConstKhanInterval_D1 }
 				}
-				else_if = { limit = { check_variable = { which = CmtVarKhanInterval value < @CmtConstKhanInterval_T2 } }
+				else_if = {
+					limit = { check_variable = { which = CmtVarKhanInterval value < @CmtConstKhanInterval_T2 } }
 					set_timed_global_flag = { flag = CmtFlagNowInKhanInterval days = @CmtConstKhanInterval_D2 }
 				}
-				else_if = { limit = { check_variable = { which = CmtVarKhanInterval value < @CmtConstKhanInterval_T3 } }
+				else_if = {
+					limit = { check_variable = { which = CmtVarKhanInterval value < @CmtConstKhanInterval_T3 } }
 					set_timed_global_flag = { flag = CmtFlagNowInKhanInterval days = @CmtConstKhanInterval_D3 }
 				}
-				else_if = { limit = { check_variable = { which = CmtVarKhanInterval value < @CmtConstKhanInterval_T4 } }
+				else_if = {
+					limit = { check_variable = { which = CmtVarKhanInterval value < @CmtConstKhanInterval_T4 } }
 					set_timed_global_flag = { flag = CmtFlagNowInKhanInterval days = @CmtConstKhanInterval_D4 }
 				}
-				else_if = { limit = { check_variable = { which = CmtVarKhanInterval value < @CmtConstKhanInterval_T5 } }
+				else_if = {
+					limit = { check_variable = { which = CmtVarKhanInterval value < @CmtConstKhanInterval_T5 } }
 					set_timed_global_flag = { flag = CmtFlagNowInKhanInterval days = @CmtConstKhanInterval_D5 }
 				}
 				else = {
@@ -9104,87 +9157,27 @@ country_event = {
 			clear_variable = "successor_fleet_power"
 		}
 
-		# if = { # Four Diadochi
-		# 	limit = {
-		# 		OR = {
-		# 			num_owned_planets > 12
-		# 			count_system_within_border = {
-		# 				count > 5
-		# 				limit = {
-		# 					any_system_colony = {
-		# 						has_owner = yes
-		# 						is_owned_by = root
-		# 						uses_habitat_capitals = no
-		# 					}
-		# 					is_potential_diadochi_system = yes
-		# 				}
-		# 			}
-		# 		}
-		# 	}
-		# 	assign_first_diadochi_planets = yes
-		# 	assign_second_diadochi_planets = yes
-		# 	assign_third_diadochi_planets = yes
-		# 	assign_fourth_diadochi_planets = yes
-		# 	# TODO: does not work
-		# 	# assign_diadochi_planets = { NUM = first PCT = 0.25 }
-		# 	# assign_diadochi_planets = { NUM = second PCT = 0.33 }
-		# 	# assign_diadochi_planets = { NUM = third PCT = 0.5 }
-		# 	# assign_diadochi_planets = { NUM = fourth PCT = 1 }
-		# 	assign_diadochi_systems = yes
-		# 	create_first_diadochi = yes
-		# 	create_second_diadochi = yes
-		# 	create_third_diadochi = yes
-		# 	create_fourth_diadochi = yes
-		# } else_if = { # Three Diadochi
-		# 	limit = {
-		# 		OR = {
-		# 			num_owned_planets > 9
-		# 			count_system_within_border = {
-		# 				count > 3
-		# 				limit = {
-		# 					any_system_colony = {
-		# 						has_owner = yes
-		# 						is_owned_by = root
-		# 						uses_habitat_capitals = no
-		# 					}
-		# 					is_potential_diadochi_system = yes
-		# 				}
-		# 			}
-		# 		}
-		# 	}
-		# 	assign_second_diadochi_planets = yes
-		# 	assign_third_diadochi_planets = yes
-		# 	assign_fourth_diadochi_planets = yes
-		# 	# assign_diadochi_planets = { NUM = second PCT = 0.33 }
-		# 	# assign_diadochi_planets = { NUM = third PCT = 0.5 }
-		# 	# assign_diadochi_planets = { NUM = fourth PCT = 1 }
-		# 	assign_diadochi_systems = yes
-		# 	create_second_diadochi = yes
-		# 	create_third_diadochi = yes
-		# 	create_fourth_diadochi = yes
-		# } else = { # Two Diadochi (Marauder small)
-		# 	assign_third_diadochi_planets = yes
-		# 	assign_fourth_diadochi_planets = yes
-		# 	# assign_diadochi_planets = { NUM = third PCT = 0.5 }
-		# 	# assign_diadochi_planets = { NUM = fourth PCT = 1 }
-		# 	assign_diadochi_systems = yes
-		# 	create_third_diadochi = yes
-		# 	create_fourth_diadochi = yes
-		# }
-		# set_diadochi_claims = yes needless wasting vanilla effect (do it later)
 		###
 		### We're going to initially go with 1 Diadochi/Sector (By MrFunEGUY)
-
 		# Count actual sectors
 		export_trigger_value_to_variable = { trigger = num_sectors variable = actual_sector_count }
 		set_variable = { which = num_diadochi value = actual_sector_count }
 		# Calc amount Diadochi 2-6: 2=3s 3=4-6s 4=7-8s 5=9-12s 6>=13s
-		if = {
-			limit = { check_variable = { which = num_diadochi value > 12 }	} set_variable = { which = num_diadochi value = 5 } } # 6
+		if		= { limit = { check_variable = { which = num_diadochi value > 12 }	} set_variable = { which = num_diadochi value = 5 } } # 6
 		else_if = { limit = { check_variable = { which = num_diadochi value > 8 }	} set_variable = { which = num_diadochi value = 4 } } # 5
 		else_if = { limit = { check_variable = { which = num_diadochi value > 6 }	} set_variable = { which = num_diadochi value = 3 } } # 4
 		else_if = { limit = { check_variable = { which = num_diadochi value > 4 }	} set_variable = { which = num_diadochi value = 2 } } # 3
 		else	= { set_variable = { which = num_diadochi value = 1 } }		# 2
+
+
+		# subtract_variable = { which = num_diadochi value = 1 } # Remove the original diadochi
+		# if = { limit = { check_variable = { which = num_diadochi value < 5 } }
+		# 	every_owned_sector = {
+		# 		limit = { NOT = { has_sector_flag = finished_sector } }
+		# 		set_sector_flag = leader_sector
+		# 		set_sector_flag = diadochi_sector_@this
+		# 	}
+		# } else = { set_variable = { which = num_diadochi value = 5 }
 
 		# First Diadoachi is original country Capital Sector
 		set_country_flag = diadochi
@@ -9193,418 +9186,305 @@ country_event = {
 			set_sector_flag = leader_sector
 			set_sector_flag = finished_sector
 			set_sector_flag = counted_sector
-		}
-		# subtract_variable = { which = num_diadochi value = 1 } # Remove the original diadochi
-		# if = { limit = { check_variable = { which = num_diadochi value < 5 } }
-		# 	every_owned_sector = {
-		# 		limit = { NOT = { has_sector_flag = finished_sector } }
-		# 		set_sector_flag = leader_sector
-		# 		set_sector_flag = diadochi_sector_@this
-		# 	}
-		# } else = {
-		# set_variable = { which = num_diadochi value = 5 }
-		set_variable = { which = EX_sectors_per_diadochi value = actual_sector_count }
-		subtract_variable = { which = EX_sectors_per_diadochi value = num_diadochi }
-		if = {
-			limit = { check_variable = { which = EX_sectors_per_diadochi value > 0 } }
-			divide_variable = { which = EX_sectors_per_diadochi value = num_diadochi }
-		}
-		ceiling_variable = EX_sectors_per_diadochi
-		log="Extra sectors per Diadochi: [This.EX_sectors_per_diadochi]"
-		while = {
-			count = num_diadochi
-			ordered_owned_sector = {
-				limit = { NOT = { has_sector_flag = counted_sector } }
-				position = 0
-				order_by = trigger:num_pops
-				save_event_target_as = diadochi_leader_sector
-				set_sector_flag = diadochi_sector_@this
-				set_sector_flag = leader_sector
-				set_sector_flag = counted_sector
-				root = {
-					while = {
-						count = EX_sectors_per_diadochi
-						limit = {
-							any_owned_sector = {
-								NOT = { has_sector_flag = counted_sector }
-								any_system_within_border = {
-									closest_system = {
-										limit = {
-											exists = sector
-											sector = { has_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector }
-										}
-										use_bypasses = yes
-										max_steps = 3
-									}
-								}
-							}
-						}
-						ordered_owned_sector = {
-							limit = {
-								NOT = { has_sector_flag = counted_sector }
-								any_system_within_border = {
-									closest_system = {
-										limit = {
-											exists = sector
-											sector = { has_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector }
-										}
-										use_bypasses = yes
-										max_steps = 3
-									}
-								}
-							}
-							position = 1
-							inverse = yes
-							order_by = trigger:num_pops
-							set_sector_flag = counted_sector
-							set_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector
-							set_sector_flag = rebel_sector_follower_@event_target:diadochi_leader_sector
-						}
-					}
-				}
-			}
-		}
-		# }
-		# Neighboring Sectors for First Diadochi (give the lowest)
-		while = {
-			count = EX_sectors_per_diadochi
-			limit = {
-				any_owned_sector = {
-					NOT = { has_sector_flag = counted_sector }
-					any_system_within_border = {
-						closest_system = {
-							limit = {
-								exists = sector
-								sector = { has_sector_flag = counted_sector }
-							}
-							use_bypasses = yes
-							max_steps = 1
-						}
-					}
-				}
-			}
-			ordered_owned_sector = {
-				limit = {
-					NOT = { has_sector_flag = counted_sector }
-					any_system_within_border = {
-						closest_system = {
-							limit = {
-								exists = sector
-								sector = { has_sector_flag = counted_sector }
-							}
-							use_bypasses = yes
-							max_steps = 1
-						}
-					}
-				}
-				position = 0
-				inverse = yes
-				order_by = trigger:num_pops
-				set_sector_flag = counted_sector
+			every_system_within_border = {
+				set_star_flag = first_diadochi_system
 			}
 		}
 
-		while = {
-			count = num_diadochi
-			ordered_owned_sector = {
-				limit = {
-					has_sector_flag = leader_sector
-					NOT = { has_sector_flag = finished_sector }
+		if = { # Five Diadochi - Sector method (mainly by MrFunEGUY)
+			limit = { check_variable = { which = num_diadochi value > 4 } }
+			set_variable = { which = EX_sectors_per_diadochi value = actual_sector_count }
+			subtract_variable = { which = EX_sectors_per_diadochi value = num_diadochi }
+			if = {
+				limit = { check_variable = { which = EX_sectors_per_diadochi value > 0 } }
+				divide_variable = { which = EX_sectors_per_diadochi value = num_diadochi }
+			}
+			ceiling_variable = EX_sectors_per_diadochi
+			log="Extra sectors per Diadochi: [This.EX_sectors_per_diadochi]"
+			while = {
+				count = num_diadochi
+				ordered_owned_sector = {
+					limit = { NOT = { has_sector_flag = counted_sector } }
+					position = 0
+					order_by = trigger:num_pops
+					save_event_target_as = diadochi_leader_sector
+					set_sector_flag = diadochi_sector_@this
+					set_sector_flag = leader_sector
+					set_sector_flag = counted_sector
+					root = {
+						while = {
+							count = EX_sectors_per_diadochi
+							limit = {
+								any_owned_sector = {
+									NOT = { has_sector_flag = counted_sector }
+									any_system_within_border = {
+										closest_system = {
+											limit = {
+												exists = sector
+												sector = { has_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector }
+											}
+											use_bypasses = yes
+											max_steps = 3
+										}
+									}
+								}
+							}
+							ordered_owned_sector = {
+								limit = {
+									NOT = { has_sector_flag = counted_sector }
+									any_system_within_border = {
+										closest_system = {
+											limit = {
+												exists = sector
+												sector = { has_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector }
+											}
+											use_bypasses = yes
+											max_steps = 3
+										}
+									}
+								}
+								position = 1
+								inverse = yes
+								order_by = trigger:num_pops
+								set_sector_flag = counted_sector
+								set_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector
+								set_sector_flag = rebel_sector_follower_@event_target:diadochi_leader_sector
+							}
+						}
+					}
 				}
-				position = 0
-				inverse = yes
-				order_by = trigger:num_pops
-				set_sector_flag = finished_sector
-				save_event_target_as = diadochi_leader_sector
-				## CREATE_DIADOCHI_COUNTRY
-				if = {
-					limit = { has_global_flag = cultural_overhaul_active }
+			}
+			# Neighboring Sectors for First Diadochi (give the lowest)
+			# while = {
+			# 	count = EX_sectors_per_diadochi
+			# 	limit = {
+			# 		any_owned_sector = {
+			# 			NOT = { has_sector_flag = counted_sector }
+			# 			any_system_within_border = {
+			# 				closest_system = {
+			# 					limit = {
+			# 						exists = sector
+			# 						sector = { has_sector_flag = counted_sector }
+			# 					}
+			# 					use_bypasses = yes
+			# 					max_steps = 1
+			# 				}
+			# 			}
+			# 		}
+			# 	}
+			# 	ordered_owned_sector = {
+			# 		limit = {
+			# 			NOT = { has_sector_flag = counted_sector }
+			# 			any_system_within_border = {
+			# 				closest_system = {
+			# 					limit = {
+			# 						exists = sector
+			# 						sector = { has_sector_flag = counted_sector }
+			# 					}
+			# 					use_bypasses = yes
+			# 					max_steps = 1
+			# 				}
+			# 			}
+			# 		}
+			# 		position = 0
+			# 		inverse = yes
+			# 		order_by = trigger:num_pops
+			# 		set_sector_flag = counted_sector
+			# 	}
+			# }
+			while = {
+				count = num_diadochi
+				ordered_owned_sector = {
+					limit = {
+						has_sector_flag = leader_sector
+						NOT = { has_sector_flag = finished_sector }
+					}
+					position = 0
+					inverse = yes
+					order_by = trigger:num_pops
+					set_sector_flag = finished_sector
+					save_event_target_as = diadochi_leader_sector
+					## CREATE_DIADOCHI_COUNTRY
 					if = {
-						limit = { has_global_flag = cultural_overhaul_funefork_active }
-						random_list = {
-							90 = {
-								create_country = {
-									name_list = random
-									species = event_target:marauder_species
-									type = default
-									authority = auth_imperial
-									civics = { civic = random civic = random }
-									origin = "origin_khan_successor"
-									ethos = {
-										ethic = ethic_militarist
-										ethic = ethic_authoritarian
+						limit = { has_global_flag = cultural_overhaul_active }
+						if = {
+							limit = { has_global_flag = cultural_overhaul_funefork_active }
+							random_list = {
+								90 = {
+									create_country = {
+										name_list = random
+										species = event_target:marauder_species
+										type = default
+										authority = auth_imperial
+										civics = { civic = random civic = random }
+										origin = "origin_khan_successor"
+										ethos = {
+											ethic = ethic_militarist
+											ethic = ethic_authoritarian
+										}
+										ignore_initial_colony_error = yes
 									}
-									ignore_initial_colony_error = yes
+								}
+								9 = {
+									create_country = {
+										name_list = random
+										species = event_target:marauder_species
+										type = default
+										authority = auth_dictatorial
+										civics = { civic = random civic = random }
+										origin = "origin_khan_successor"
+										ethos = {
+											ethic = ethic_militarist
+											ethic = ethic_xenophobe
+										}
+										ignore_initial_colony_error = yes
+									}
+								}
+								1 = {
+									create_country = {
+										name_list = random
+										species = event_target:marauder_species
+										type = default
+										authority = auth_dict_democratic
+										civics = { civic = random civic = random }
+										origin = "origin_khan_successor"
+										ethos = {
+											ethic = ethic_militarist
+											ethic = ethic_authoritarian
+										}
+										ignore_initial_colony_error = yes
+									}
 								}
 							}
-							9 = {
-								create_country = {
-									name_list = random
-									species = event_target:marauder_species
-									type = default
-									authority = auth_dictatorial
-									civics = { civic = random civic = random }
-									origin = "origin_khan_successor"
-									ethos = {
-										ethic = ethic_militarist
-										ethic = ethic_xenophobe
+						}
+						else = {
+							random_list = {
+								90 = {
+									create_country = {
+										name_list = random
+										species = event_target:marauder_species
+										type = default
+										authority = auth_imperial
+										civics = { civic = random civic = random }
+										origin = "origin_khan_successor"
+										ethos = {
+											ethic = ethic_militarist
+											ethic = ethic_authoritarian
+										}
+										ignore_initial_colony_error = yes
 									}
-									ignore_initial_colony_error = yes
 								}
-							}
-							1 = {
-								create_country = {
-									name_list = random
-									species = event_target:marauder_species
-									type = default
-									authority = auth_dict_democratic
-									civics = { civic = random civic = random }
-									origin = "origin_khan_successor"
-									ethos = {
-										ethic = ethic_militarist
-										ethic = ethic_authoritarian
+								10 = {
+									create_country = {
+										name_list = random
+										species = event_target:marauder_species
+										type = default
+										authority = auth_dictatorial
+										civics = { civic = random civic = random }
+										origin = "origin_khan_successor"
+										ethos = {
+											ethic = ethic_militarist
+											ethic = ethic_xenophobe
+										}
+										ignore_initial_colony_error = yes
 									}
-									ignore_initial_colony_error = yes
 								}
 							}
 						}
 					}
 					else = {
-						random_list = {
-							90 = {
-								create_country = {
-									name_list = random
-									species = event_target:marauder_species
-									type = default
-									authority = auth_imperial
-									civics = { civic = random civic = random }
-									origin = "origin_khan_successor"
-									ethos = {
-										ethic = ethic_militarist
-										ethic = ethic_authoritarian
-									}
-									ignore_initial_colony_error = yes
-								}
+						create_country = {
+							name_list = random
+							species = event_target:marauder_species
+							type = default
+							authority = auth_imperial
+							civics = { civic = random civic = random }
+							origin = "origin_khan_successor"
+							ethos = {
+								ethic = ethic_militarist
+								ethic = ethic_authoritarian
 							}
-							10 = {
-								create_country = {
-									name_list = random
-									species = event_target:marauder_species
-									type = default
-									authority = auth_dictatorial
-									civics = { civic = random civic = random }
-									origin = "origin_khan_successor"
-									ethos = {
-										ethic = ethic_militarist
-										ethic = ethic_xenophobe
-									}
-									ignore_initial_colony_error = yes
-								}
-							}
+							ignore_initial_colony_error = yes
 						}
 					}
-				}
-				else = {
-					create_country = {
-						name_list = random
-						species = event_target:marauder_species
-						type = default
-						authority = auth_imperial
-						civics = { civic = random civic = random }
-						origin = "origin_khan_successor"
-						ethos = {
-							ethic = ethic_militarist
-							ethic = ethic_authoritarian
-						}
-						ignore_initial_colony_error = yes
+					last_created_country = {
+						force_add_civic = civic_diadochi
+						shift_ethic = ethic_fanatic_militarist
+						set_name = random
 					}
-				}
-				### DIADOCHI_COUNTRY_SETUP
-				last_created_country = {
-					save_event_target_as = diadochi_country
-					set_country_flag = diadochi
-					set_country_flag = new_khanate_flag
-					set_country_flag = first_alien_life
-					set_country_flag = has_encountered_other_empire
-					force_add_civic = civic_diadochi
-					shift_ethic = ethic_fanatic_militarist
-					set_name = random
-
-					## SET_CULTURAL_OVERHAUL_ETHICS
-					if = {
-						limit = { has_global_flag = cultural_overhaul_active }
-						random_list = {
-							1 = { country_add_ethic = ethic_xenophobe }
-							1 = { country_add_ethic = ethic_fanatic_xenophobe }
-						}
-						if = {
-							limit = {
-								OR = {
-									AND = {
-										is_imperial = yes
-										has_ethic = ethic_xenophobe
-									}
-									has_ethic = ethic_fanatic_xenophobe
-								}
-							}
-							random_list = {
-								1 = { country_add_ethic = ethic_socialism }
-								1 = { country_add_ethic = ethic_capitalism }
-								1 = { country_add_ethic = ethic_spiritualist }
-								1 = { country_add_ethic = ethic_materialist }
-							}
-						}
-						else_if = { limit = { has_ethic = ethic_xenophobe }
-							random_list = {
-								1 = { country_add_ethic = ethic_socialism }
-								1 = { country_add_ethic = ethic_fanatic_socialism }
-								1 = { country_add_ethic = ethic_capitalism }
-								1 = { country_add_ethic = ethic_fanatic_capitalism }
-								1 = { country_add_ethic = ethic_spiritualist }
-								1 = { country_add_ethic = ethic_fanatic_spiritualist }
-								1 = { country_add_ethic = ethic_materialist }
-								1 = { country_add_ethic = ethic_fanatic_materialist }
-							}
-							if = {
-								limit = { has_ethic = ethic_socialism }
-								random_list = {
-									1 = { country_add_ethic = ethic_spiritualist }
-									1 = { country_add_ethic = ethic_materialist }
-								}
-							}
-							if = {
-								limit = { has_ethic = ethic_capitalism }
-								random_list = {
-									1 = { country_add_ethic = ethic_spiritualist }
-									1 = { country_add_ethic = ethic_materialist }
-								}
-							}
-							if = {
-								limit = { has_ethic = ethic_spiritualist }
-								random_list = {
-									1 = { country_add_ethic = ethic_socialism }
-									1 = { country_add_ethic = ethic_capitalism }
-								}
-							}
-							if = {
-								limit = { has_ethic = ethic_materialist }
-								random_list = {
-									1 = { country_add_ethic = ethic_socialism }
-									1 = { country_add_ethic = ethic_capitalism }
-								}
-							}
-						}
-					}
-
-					if = {
-						limit = { NOT = { any_playable_country = { has_country_flag = diadochi_2 } } }
-						set_country_flag = diadochi_2
-						save_event_target_as = second_diadochi
-					}
-					else_if = { limit = { NOT = { any_playable_country = { has_country_flag = diadochi_3 } } }
-						set_country_flag = diadochi_3
-						save_event_target_as = third_diadochi
-					}
-					else_if = { limit = { NOT = { any_playable_country = { has_country_flag = diadochi_4 } } }
-						set_country_flag = diadochi_4
-						save_event_target_as = fourth_diadochi
-					}
-					else_if = { limit = { NOT = { any_playable_country = { has_country_flag = diadochi_5 } } }
-						set_country_flag = diadochi_5
-					}
-					else_if = { limit = { NOT = { any_playable_country = { has_country_flag = diadochi_6 } } }
-						set_country_flag = diadochi_6
-					}
-					event_target:first_diadochi = {
-						every_owned_sector = {
-							limit = { has_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector }
-							every_owned_planet = {
-								solar_system = {
-									if = {
-										limit = { exists = starbase }
-										starbase = { set_owner = event_target:diadochi_country }
-									}
-								}
-								set_owner = event_target:diadochi_country
-							}
-							every_system_within_border = { # Every other system, changing this gets weird, so just leave it cause it works fine
-								starbase = { set_owner = event_target:diadochi_country }
-							}
-						}
-					}
-					while = { # clean up borders by giving rebels frontier territory they wouldnt otherwise get
-						count = 50 # TODO make dyn!?
-						limit = {
-							any_system_within_border = {
-								closest_system = {
-									limit = {
-										exists = space_owner
-										space_owner = { is_same_empire = event_target:first_diadochi }
-										NOT = { exists = sector }
-									}
-									use_bypasses = yes
-									max_steps = 3
-								}
-							}
-						}
-						every_system_within_border = {
-							limit = {
-								closest_system = {
-									limit = {
-										exists = space_owner
-										space_owner = { is_same_empire = event_target:first_diadochi }
-										NOT = { exists = sector }
-									}
-									use_bypasses = yes
-									max_steps = 3
-								}
-							}
-							closest_system = {
-								limit = {
-									exists = space_owner
-									space_owner = { is_same_empire = event_target:first_diadochi }
-									NOT = { exists = sector }
-								}
-								use_bypasses = yes
-								max_steps = 3
-								starbase = { set_owner = event_target:diadochi_country }
-							}
-						}
-					}
-
-					## GET_DIADOCHI_IMMEDIATE_SETUP
-					# setting graphical culture
-					set_graphical_culture = event_target:first_diadochi
-					# establish comms
-					every_country = {
-						limit = {
-							OR = {
-								has_communications = event_target:first_diadochi
-								intel_level = {
-									level > low
-									system = event_target:diadochi_country.capital_scope.solar_system
-								}
-							}
-						}
-						establish_communications_no_message = event_target:diadochi_country
-					}
-					# clear new contact opinion modifier
-					if = {
-						limit = {
-							has_opinion_modifier = {
-								who = event_target:first_diadochi
-								modifier = opinion_new_contact
-							}
-						}
-						remove_opinion_modifier = {
-							who = event_target:first_diadochi
-							modifier = opinion_new_contact
-						}
-					}
-					country_event = { id = khan.610 days = -1 } # Handover some old stuff
 				}
 			}
+
+		} else_if = { # Four Diadochi
+			limit = {
+				OR = {
+					check_variable = { which = num_diadochi value > 3 }
+					num_owned_planets > 12
+					count_system_within_border = {
+						count > 5
+						limit = {
+							any_system_colony = {
+								has_owner = yes
+								is_owned_by = root
+								uses_habitat_capitals = no
+							}
+							is_potential_diadochi_system = yes
+						}
+					}
+				}
+			}
+			# assign_first_diadochi_planets = yes	is root
+			assign_second_diadochi_planets = yes
+			assign_third_diadochi_planets = yes
+			assign_fourth_diadochi_planets = yes
+			# TODO: does not work
+			# assign_diadochi_planets = { NUM = first PCT = 0.25 }
+			# assign_diadochi_planets = { NUM = second PCT = 0.33 }
+			# assign_diadochi_planets = { NUM = third PCT = 0.5 }
+			# assign_diadochi_planets = { NUM = fourth PCT = 1 }
+			assign_diadochi_systems = yes
+			# create_first_diadochi = yes	is root
+			create_second_diadochi = yes
+			create_third_diadochi = yes
+			create_fourth_diadochi = yes
+		} else_if = { # Three Diadochi
+			limit = {
+				OR = {
+					check_variable = { which = num_diadochi value > 2 }
+					num_owned_planets > 9
+					count_system_within_border = {
+						count > 3
+						limit = {
+							any_system_colony = {
+								has_owner = yes
+								is_owned_by = root
+								uses_habitat_capitals = no
+							}
+							is_potential_diadochi_system = yes
+						}
+					}
+				}
+			}
+			# assign_second_diadochi_planets = yes	is root
+			assign_third_diadochi_planets = yes
+			assign_fourth_diadochi_planets = yes
+			# assign_diadochi_planets = { NUM = second PCT = 0.33 }
+			# assign_diadochi_planets = { NUM = third PCT = 0.5 }
+			# assign_diadochi_planets = { NUM = fourth PCT = 1 }
+			assign_diadochi_systems = yes
+			# create_second_diadochi = yes	is root
+			create_third_diadochi = yes
+			create_fourth_diadochi = yes
+		} else = { # Two Diadochi (Marauder small)
+			# assign_third_diadochi_planets = yes	is root
+			assign_fourth_diadochi_planets = yes
+			# assign_diadochi_planets = { NUM = third PCT = 0.5 }
+			# assign_diadochi_planets = { NUM = fourth PCT = 1 }
+			assign_diadochi_systems = yes
+			# create_third_diadochi = yes	is root
+			create_fourth_diadochi = yes
 		}
+
 		set_update_modifiers_batch = end
 		# Notify
 		observer_event = { id = observer.20 }
@@ -9878,28 +9758,32 @@ country_event = {
 						1 = { country_add_ethic = ethic_materialist }
 					}
 				}
-				else_if = { limit = { is_socialist = yes }
+				else_if = {
+					limit = { is_socialist = yes }
 					random_list = {
 						1 = { country_add_ethic = ethic_pacifist }
 						1 = { country_add_ethic = ethic_spiritualist }
 						1 = { country_add_ethic = ethic_materialist }
 					}
 				}
-				else_if = { limit = { is_capitalism = yes }
+				else_if = {
+					limit = { is_capitalism = yes }
 					random_list = {
 						1 = { country_add_ethic = ethic_pacifist }
 						1 = { country_add_ethic = ethic_spiritualist }
 						1 = { country_add_ethic = ethic_materialist }
 					}
 				}
-				else_if = { limit = { is_spiritualist = yes }
+				else_if = {
+					limit = { is_spiritualist = yes }
 					random_list = {
 						1 = { country_add_ethic = ethic_socialism }
 						1 = { country_add_ethic = ethic_capitalism }
 						1 = { country_add_ethic = ethic_pacifist }
 					}
 				}
-				else_if = { limit = { is_materialist = yes }
+				else_if = {
+					limit = { is_materialist = yes }
 					random_list = {
 						1 = { country_add_ethic = ethic_socialism }
 						1 = { country_add_ethic = ethic_capitalism }
@@ -10051,7 +9935,8 @@ country_event = {
 
 		## Find multiple Marauder Capital Systems (Great Great Khan or conquered at great loss).
 		if = {
-			limit = { NOT = { exists = event_target:marauder_capital }
+			limit = {
+				NOT = { exists = event_target:marauder_capital }
 				calc_true_if = {
 					amount >= 2
 					AND = { exists = event_target:marauder_country_1 any_system_within_border = { has_star_flag = marauder_capital_1 } }
@@ -10702,8 +10587,7 @@ country_event = {
 		}
 
 		# If Horde owns only planets on not owned system.
-		if = {
-			limit = { num_owned_planets > 0 }
+		if = { limit = { num_owned_planets > 0 }
 			# Give former owner
 			every_owned_planet = {
 				limit = { any_playable_country = { has_country_flag = former_owner@prev } }
@@ -10945,14 +10829,16 @@ country_event = {
 	}
 	immediate = {
 		if = {
-			limit = { NOT = { exists = event_target:new_khanate }
+			limit = {
+				NOT = { exists = event_target:new_khanate }
 				exists = last_created_country
 				last_created_country = { has_origin = "origin_khan_successor" }
 			}
 			last_created_country = { save_event_target_as = new_khanate }
 		}
 		if = {
-			limit = { NOT = { exists = event_target:new_khanate }
+			limit = {
+				NOT = { exists = event_target:new_khanate }
 				exists = from
 				from = {
 					is_ai = yes
@@ -11162,7 +11048,8 @@ country_event = {
 				steal_relic = { target = root relic = all }
 			}
 			if = {
-				limit = { any_owned_starbase = { has_starbase_size < starbase_starhold }
+				limit = {
+					any_owned_starbase = { has_starbase_size < starbase_starhold }
 				}
 				random_owned_starbase = {
 					limit = { has_starbase_size < starbase_starhold }
@@ -11170,7 +11057,8 @@ country_event = {
 					starbase_event = { id = khan.302 days = 1 }
 				}
 				if = {
-					limit = { any_owned_starbase = { has_starbase_size < starbase_starhold }
+					limit = {
+						any_owned_starbase = { has_starbase_size < starbase_starhold }
 					}
 					random_owned_starbase = {
 						limit = { has_starbase_size < starbase_starhold }
@@ -11179,7 +11067,8 @@ country_event = {
 					}
 				}
 				if = {
-					limit = { any_owned_starbase = { has_starbase_size < starbase_starhold }
+					limit = {
+						any_owned_starbase = { has_starbase_size < starbase_starhold }
 					}
 					random_owned_starbase = {
 						limit = { has_starbase_size < starbase_starhold }
@@ -11247,7 +11136,8 @@ country_event = {
 						fleet_power > 40000
 					}
 					if = {
-						limit = { any_owned_planet = { has_planet_flag = fallen_empire_world }
+						limit = {
+							any_owned_planet = { has_planet_flag = fallen_empire_world }
 						}
 						set_variable = { which = "successor_fleet_power" value = 220000 }
 					}
@@ -11392,10 +11282,8 @@ country_event = {
 	}
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
-		if = {
-			limit = { is_subject = yes } set_subject_of = { who = none } }
-		if = {
-			limit = { is_variable_set = "planets_lost_to_marauder" } clear_variable = "planets_lost_to_marauder" }
+		if = { limit = { is_subject = yes } set_subject_of = { who = none } }
+		if = { limit = { is_variable_set = "planets_lost_to_marauder" } clear_variable = "planets_lost_to_marauder" }
 		# if = { limit = { has_modifier = "satrapy_of_horde" } remove_modifier = "satrapy_of_horde" }
 	}
 	after = {
@@ -11498,10 +11386,8 @@ country_event = {
 	is_triggered_only = yes
 	trigger = { is_default_or_fallen = yes }
 	immediate = {
-		if = {
-			limit = { is_subject = yes } set_subject_of = { who = none } }
-		if = {
-			limit = { is_variable_set = "planets_lost_to_marauder" } clear_variable = "planets_lost_to_marauder" }
+		if = { limit = { is_subject = yes } set_subject_of = { who = none } }
+		if = { limit = { is_variable_set = "planets_lost_to_marauder" } clear_variable = "planets_lost_to_marauder" }
 		# if = { limit = { has_modifier = "satrapy_of_horde" } remove_modifier = "satrapy_of_horde" }
 	}
 	option = { name = marauder.670.a }
@@ -12005,7 +11891,8 @@ ship_event = {
 				}
 			}
 		}
-		else_if = { limit = { owner = { is_pirate = yes } }
+		else_if = {
+			limit = { owner = { is_pirate = yes } }
 			starbase = { destroy_fleet = fleet }
 			# log="destroy pirate station"
 		}

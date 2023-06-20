@@ -2135,12 +2135,22 @@ country_event = {
 			random_system_within_border = {
 				limit = {
 					exists = starbase
-					any_system_planet = {
-						is_star = no
-						NOR = {
-							has_planet_flag = megastructure
-							has_planet_flag = has_megastructure
+					NOT = {
+						any_system_planet = {
+							OR = {
+								has_planet_flag = habitat
+								has_planet_flag = megastructure
+								has_planet_flag = has_megastructure
+							}
 						}
+					}
+					any_system_planet = {
+						# is_star = no
+						is_a_planet = yes # possible inconsisent due other mods
+						# NOR = {
+						# 	has_planet_flag = megastructure
+						# 	has_planet_flag = has_megastructure
+						# }
 					}
 				}
 				weights = {
@@ -2149,11 +2159,6 @@ country_event = {
 					modifier = { add = 1 starbase = { has_starbase_size >= starbase_starhold } }
 					modifier = { add = 3
 						any_system_planet = {
-							is_a_planet = yes # possible inconsisent due other mods
-							NOR = {
-								has_planet_flag = megastructure
-								has_planet_flag = has_megastructure
-							}
 							OR = {
 								is_colony = yes
 								has_planet_flag = marauder_rally_point

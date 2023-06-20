@@ -272,7 +272,7 @@ country_event = {
 					set_starbase_module = { slot = 3 module = shipyard }
 				}
 			}
-			country_event = { id = marauder_borders.1001 days = 29 }
+			country_event = { id = marauder_borders.1001 days = 40 } # Wait to build sectors
 		}
 	}
 }
@@ -412,6 +412,186 @@ country_event = {
 			}
 			set_variable = { which = num_pops value = trigger:num_pops }
 			save_event_target_as = planet_owner_1
+
+			### START DIADOCHI_COUNTRY_SETUP
+			save_event_target_as = diadochi_country
+			set_country_flag = new_khanate_flag
+
+			## SET_CULTURAL_OVERHAUL_ETHICS
+			if = {
+				limit = { has_global_flag = cultural_overhaul_active }
+				random_list = {
+					1 = { country_add_ethic = ethic_xenophobe }
+					1 = { country_add_ethic = ethic_fanatic_xenophobe }
+				}
+				if = {
+					limit = {
+						OR = {
+							AND = {
+								is_imperial = yes
+								has_ethic = ethic_xenophobe
+							}
+							has_ethic = ethic_fanatic_xenophobe
+						}
+					}
+					random_list = {
+						1 = { country_add_ethic = ethic_socialism }
+						1 = { country_add_ethic = ethic_capitalism }
+						1 = { country_add_ethic = ethic_spiritualist }
+						1 = { country_add_ethic = ethic_materialist }
+					}
+				}
+				else_if = {
+					limit = { has_ethic = ethic_xenophobe }
+					random_list = {
+						1 = { country_add_ethic = ethic_socialism }
+						1 = { country_add_ethic = ethic_fanatic_socialism }
+						1 = { country_add_ethic = ethic_capitalism }
+						1 = { country_add_ethic = ethic_fanatic_capitalism }
+						1 = { country_add_ethic = ethic_spiritualist }
+						1 = { country_add_ethic = ethic_fanatic_spiritualist }
+						1 = { country_add_ethic = ethic_materialist }
+						1 = { country_add_ethic = ethic_fanatic_materialist }
+					}
+					if = {
+						limit = { has_ethic = ethic_socialism }
+						random_list = {
+							1 = { country_add_ethic = ethic_spiritualist }
+							1 = { country_add_ethic = ethic_materialist }
+						}
+					}
+					if = {
+						limit = { has_ethic = ethic_capitalism }
+						random_list = {
+							1 = { country_add_ethic = ethic_spiritualist }
+							1 = { country_add_ethic = ethic_materialist }
+						}
+					}
+					if = {
+						limit = { has_ethic = ethic_spiritualist }
+						random_list = {
+							1 = { country_add_ethic = ethic_socialism }
+							1 = { country_add_ethic = ethic_capitalism }
+						}
+					}
+					if = {
+						limit = { has_ethic = ethic_materialist }
+						random_list = {
+							1 = { country_add_ethic = ethic_socialism }
+							1 = { country_add_ethic = ethic_capitalism }
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = { NOT = { any_playable_country = { has_country_flag = diadochi_2 } } }
+				set_country_flag = diadochi_2
+				save_event_target_as = second_diadochi
+			}
+			else_if = {
+				limit = { NOT = { any_playable_country = { has_country_flag = diadochi_3 } } }
+				set_country_flag = diadochi_3
+				save_event_target_as = third_diadochi
+			}
+			else_if = {
+				limit = { NOT = { any_playable_country = { has_country_flag = diadochi_4 } } }
+				set_country_flag = diadochi_4
+				save_event_target_as = fourth_diadochi
+			}
+			else_if = {
+				limit = { NOT = { any_playable_country = { has_country_flag = diadochi_5 } } }
+				set_country_flag = diadochi_5
+			}
+			event_target:first_diadochi = {
+				every_owned_sector = {
+					limit = { has_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector }
+					every_owned_planet = {
+						solar_system = {
+							if = {
+								limit = { exists = starbase }
+								starbase = { set_owner = event_target:diadochi_country }
+							}
+						}
+						set_owner = event_target:diadochi_country
+					}
+					every_system_within_border = { # Every other system, changing this gets weird, so just leave it cause it works fine
+						starbase = { set_owner = event_target:diadochi_country }
+					}
+				}
+			}
+			while = { # clean up borders by giving rebels frontier territory they wouldnt otherwise get
+				count = 50 # TODO make dyn!?
+				limit = {
+					any_system_within_border = {
+						closest_system = {
+							limit = {
+								exists = space_owner
+								space_owner = { is_same_empire = event_target:first_diadochi }
+								NOT = { exists = sector }
+							}
+							use_bypasses = yes
+							max_steps = 3
+						}
+					}
+				}
+				every_system_within_border = {
+					limit = {
+						closest_system = {
+							limit = {
+								exists = space_owner
+								space_owner = { is_same_empire = event_target:first_diadochi }
+								NOT = { exists = sector }
+							}
+							use_bypasses = yes
+							max_steps = 3
+						}
+					}
+					closest_system = {
+						limit = {
+							exists = space_owner
+							space_owner = { is_same_empire = event_target:first_diadochi }
+							NOT = { exists = sector }
+						}
+						use_bypasses = yes
+						max_steps = 3
+						starbase = { set_owner = event_target:diadochi_country }
+					}
+				}
+			}
+
+			## GET_DIADOCHI_IMMEDIATE_SETUP
+			# setting graphical culture
+			set_graphical_culture = event_target:first_diadochi
+			# establish comms
+			every_country = {
+				limit = {
+					OR = {
+						has_communications = event_target:first_diadochi
+						intel_level = {
+							level > low
+							system = event_target:diadochi_country.capital_scope.solar_system
+						}
+					}
+				}
+				establish_communications_no_message = event_target:diadochi_country
+			}
+			# clear new contact opinion modifier
+			if = {
+				limit = {
+					has_opinion_modifier = {
+						who = event_target:first_diadochi
+						modifier = opinion_new_contact
+					}
+				}
+				remove_opinion_modifier = {
+					who = event_target:first_diadochi
+					modifier = opinion_new_contact
+				}
+			}
+			country_event = { id = khan.610 days = -1 } # Handover some old stuff
+			## END DIADOCHI_COUNTRY_SETUP
+
 			every_playable_country = {
 				limit = {
 					has_government = gov_diadochi

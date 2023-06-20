@@ -457,6 +457,7 @@ assign_first_diadochi_planets = {
 		limit = {
 			is_potential_diadochi_system = yes
 			any_system_colony = {
+				has_owner = yes
 				is_owned_by = root
 				merg_is_habitat = no
 				OR = {
@@ -526,9 +527,9 @@ create_first_diadochi = {
 			}
 			remove_star_flag = first_diadochi_system
 		}
-		event_target:first_diadochi = {
-			country_event = { id = khan.610 days = -1 } # Handover some old stuff
-		}
+		# event_target:first_diadochi = {
+		# 	country_event = { id = khan.610 days = -1 } # Handover some old stuff
+		# }
 	}
 }
 
@@ -538,6 +539,7 @@ assign_second_diadochi_planets = {
 		limit = {
 			is_potential_diadochi_system = yes
 			any_system_colony = {
+				has_owner = yes
 				is_owned_by = root
 				merg_is_habitat = no
 				OR = {
@@ -606,9 +608,9 @@ create_second_diadochi = {
 			}
 			remove_star_flag = second_diadochi_system
 		}
-		event_target:second_diadochi = {
-			country_event = { id = khan.610 days = -1 } # Handover some old stuff
-		}
+		# event_target:second_diadochi = {
+		# 	country_event = { id = khan.610 days = -1 } # Handover some old stuff
+		# }
 	}
 }
 
@@ -619,6 +621,7 @@ assign_third_diadochi_planets = {
 		limit = {
 			is_potential_diadochi_system = yes
 			any_system_colony = {
+				has_owner = yes
 				is_owned_by = root
 				merg_is_habitat = no
 				OR = {
@@ -687,9 +690,9 @@ create_third_diadochi = {
 			}
 			remove_star_flag = third_diadochi_system
 		}
-		event_target:third_diadochi = {
-			country_event = { id = khan.610 days = -1 } # Handover some old stuff
-		}
+		# event_target:third_diadochi = {
+		# 	country_event = { id = khan.610 days = -1 } # Handover some old stuff
+		# }
 	}
 }
 
@@ -699,6 +702,7 @@ assign_fourth_diadochi_planets = {
 		limit = {
 			is_potential_diadochi_system = yes
 			any_system_colony = {
+				has_owner = yes
 				is_owned_by = root
 				merg_is_habitat = no
 				OR = {
@@ -767,9 +771,9 @@ create_fourth_diadochi = {
 			}
 			remove_star_flag = fourth_diadochi_system
 		}
-		event_target:fourth_diadochi = {
-			country_event = { id = khan.610 days = -1 } # Handover some old stuff
-		}
+		# event_target:fourth_diadochi = {
+		# 	country_event = { id = khan.610 days = -1 } # Handover some old stuff
+		# }
 	}
 }
 
