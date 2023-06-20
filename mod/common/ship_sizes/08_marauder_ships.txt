@@ -366,13 +366,13 @@ marauder_void_dwelling = {
 	rotation_speed = 0
 	modifier = {
 		ship_evasion_mult = -1
-		ship_armor_add = 3500
-		ship_shield_add = 1800
+		ship_armor_add = 2500 # 1000 Ariphaos patch
+		ship_shield_add = 1200 # 0
 		ships_upkeep_mult = -1
 		# ship_hull_regen_add_static = 1 too powerfull since v3.4
 		ship_armor_regen_add_static = 1
 	}
-	max_hitpoints = 12000
+	max_hitpoints = 10000 # 8000
 	size_multiplier = -20 # 8
 	fleet_slot_size = 1 # 4
 	section_slots = { "mid" = { locator = "part1" } }

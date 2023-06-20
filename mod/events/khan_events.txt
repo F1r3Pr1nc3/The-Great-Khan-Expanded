@@ -89,11 +89,17 @@ system_event = {
 	immediate = {
 		if = {
 			limit = {
-				NAND = {
-					exists = starbase
-					starbase = { has_starbase_size >= starbase_citadel }
+				NOR = {
+					has_star_flag = marauder_starbase_destroyed
+					has_star_flag = starbase_destroyed
+				}
+				OR = {
+					NOT = { exists = starbase }
+					starbase = { has_starbase_size < starbase_citadel }
 				}
 			}
+			set_timed_star_flag = { flag = marauder_starbase_destroyed months = 2 }
+			set_timed_star_flag = { flag = marauder_starbase_destroyed days = 10 }
 			# space_owner = {
 			# 	if = {
 			# 		limit = { graphical_culture = pirate_01 }
@@ -1733,7 +1739,7 @@ country_event = {
 							modifier = { factor = 3 is_bottleneck_system = yes }
 							modifier = {
 								factor = 5
-								any_system_colony = { is_under_colonization = no }
+								any_system_colony = { exists = owner is_under_colonization = no }
 							}
 						}
 						starbase = {
@@ -2333,7 +2339,7 @@ system_event = {
 						add = 3
 						OR = {
 							uses_district_set = habitat
-							uses_district_set = ring_world
+							is_ringworld = yes
 						}
 					}
 				}
