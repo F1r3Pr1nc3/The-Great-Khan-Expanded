@@ -1,0 +1,336 @@
+### By 0.01 KD (New Generation of the World)
+namespace = mod_horde_capturing
+# on_system_gained
+# From = system
+# fromfrom = country (previous owner)
+# This = country (new owner)
+country_event = {
+	id = mod_horde_capturing.1
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_country_type = awakened_marauders
+		is_difficulty > 2
+	}
+	immediate = {
+		from = {
+			every_system_colony = {
+				# limit = { }
+				# remove 1
+				if = {
+					limit = { has_building = building_fortress }
+					remove_building = building_fortress
+				}
+				# remove 2
+				if = {
+					limit = { has_building = building_fortress }
+					remove_building = building_fortress
+				}
+				root = {
+					change_variable = { which = horde_planet_captured value = 1 }
+					if = {
+						limit = {
+							check_variable = { which = horde_planet_captured value > 9 }
+						}
+						set_variable = { which = horde_planet_captured value = 9 }
+					}
+				}
+				# check 1
+				if = {
+					limit = { num_pops < 14 }
+					set_variable = { which = temp_size value = 3 }
+				}
+				else_if = {
+					limit = { num_pops < 27 }
+					set_variable = { which = temp_size value = 4 }
+				}
+				else_if = {
+					limit = { num_pops < 40 }
+					set_variable = { which = temp_size value = 5 }
+				}
+				else_if = {
+					limit = { num_pops < 53 }
+					set_variable = { which = temp_size value = 6 }
+				}
+				else = {
+					set_variable = { which = temp_size value = 7 }
+				}
+				# check 2
+				if = {
+					limit = { is_difficulty < 5 }
+					multiply_variable = { which = temp_size value = 2 }
+				}
+				else_if = {
+					limit = { is_difficulty = 5 }
+					multiply_variable = { which = temp_size value = 3 }
+				}
+				else = {
+					multiply_variable = { which = temp_size value = 4 }
+				}
+				# sum
+				subtract_variable = { which = temp_size value = root.horde_planet_captured }
+				if = {
+					limit = {
+						check_variable = { which = temp_size value < 2 }
+					}
+					set_variable = { which = temp_size value = 2 }
+				}
+				subtract_variable = { which = temp_size value = 1 }
+				if = {
+					limit = { is_difficulty < 5 }
+					root = {
+						create_leader = {
+							class = general
+							species = owner_main_species
+							name = random
+							skill = 4
+							leader_age_min = 25
+							leader_age_max = 45
+						}
+					}
+					create_army = {
+						owner = root
+						name = NAME_Horde_ground_troops
+						species = root.species
+						type = "basic_horde"
+						effect = { assign_leader = last_created_leader }
+					}
+					while = {
+						count = temp_size
+						create_army = {
+							owner = root
+							name = NAME_Horde_ground_troops
+							species = root.species
+							type = "basic_horde"
+						}
+					}
+				}
+				else_if = {
+					limit = { is_difficulty = 5 }
+					root = {
+						create_leader = {
+							class = general
+							species = owner_main_species
+							name = random
+							skill = 5
+							leader_age_min = 25
+							leader_age_max = 45
+						}
+					}
+					create_army = {
+						owner = root
+						name = NAME_Horde_ground_troops
+						species = root.species
+						type = "admiral_horde"
+						effect = { assign_leader = last_created_leader }
+					}
+					while = {
+						count = temp_size
+						create_army = {
+							owner = root
+							name = NAME_Horde_ground_troops
+							species = root.species
+							type = "admiral_horde"
+						}
+					}
+				}
+				else = {
+					root = {
+						create_leader = {
+							class = general
+							species = owner_main_species
+							name = random
+							skill = 6
+							leader_age_min = 25
+							leader_age_max = 45
+						}
+					}
+					create_army = {
+						owner = root
+						name = NAME_Horde_ground_troops
+						species = root.species
+						type = "gros_horde"
+						effect = { assign_leader = last_created_leader }
+					}
+					while = {
+						count = temp_size
+						create_army = {
+							owner = root
+							name = NAME_Horde_ground_troops
+							species = root.species
+							type = "gros_horde"
+						}
+					}
+				}
+				clear_variable = temp_size
+				if = {
+					limit = { num_pops < 10 }
+					planet_event = { id = mod_horde_capturing.2 days = 1080 }
+				}
+				else_if = {
+					limit = { num_pops < 20 }
+					planet_event = { id = mod_horde_capturing.2 days = 972 }
+				}
+				else_if = {
+					limit = { num_pops < 30 }
+					planet_event = { id = mod_horde_capturing.2 days = 864 }
+				}
+				else_if = {
+					limit = { num_pops < 40 }
+					planet_event = { id = mod_horde_capturing.2 days = 756 }
+				}
+				else_if = {
+					limit = { num_pops < 50 }
+					planet_event = { id = mod_horde_capturing.2 days = 648 }
+				}
+				else = {
+					planet_event = { id = mod_horde_capturing.2 days = 540 }
+				}
+			}
+		}
+	}
+}
+
+planet_event = {
+	id = mod_horde_capturing.2
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		exists = owner
+		owner = { is_country_type = awakened_marauders }
+	}
+	immediate = {
+		add_building = building_fortress
+		set_variable = { which = temp_size value = 0 }
+		if = {
+			limit = { is_difficulty < 5 }
+			change_variable = { which = temp_size value = 4 }
+		}
+		else_if = {
+			limit = { is_difficulty = 5 }
+			change_variable = { which = temp_size value = 6 }
+		}
+		else = {
+			change_variable = { which = temp_size value = 8 }
+		}
+		# substract
+		owner = {
+			set_variable = { which = temp_var_horde value = root.temp_size }
+			if = {
+				limit = {
+					check_variable = { which = horde_planet_captured value > 8 }
+				}
+				subtract_variable = { which = temp_var_horde value = 3 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = horde_planet_captured value > 5 }
+				}
+				subtract_variable = { which = temp_var_horde value = 2 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = horde_planet_captured value > 2 }
+				}
+				subtract_variable = { which = temp_var_horde value = 1 }
+			}
+		}
+		set_variable = { which = temp_size value = owner.temp_var_horde }
+		owner = { clear_variable = temp_var_horde }
+		if = {
+			limit = { is_difficulty < 5 }
+			while = {
+				count = temp_size
+				create_army = {
+					owner = root.owner
+					name = NAME_Elite_horde_squad
+					species = root.owner_species
+					type = "elite_basic_horde"
+				}
+			}
+		}
+		else_if = {
+			limit = { is_difficulty = 5 }
+			while = {
+				count = temp_size
+				create_army = {
+					owner = root.owner
+					name = NAME_Elite_horde_squad
+					species = root.owner_species
+					type = "elite_admiral_horde"
+				}
+			}
+		}
+		else = {
+			while = {
+				count = temp_size
+				create_army = {
+					owner = root.owner
+					name = NAME_Elite_horde_squad
+					species = root.owner_species
+					type = "elite_gros_horde"
+				}
+			}
+		}
+		clear_variable = temp_size
+		planet_event = { id = mod_horde_capturing.3 days = 720 }
+	}
+}
+
+planet_event = {
+	id = mod_horde_capturing.3
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		exists = owner
+		owner = { is_country_type = awakened_marauders }
+	}
+	immediate = {
+		create_fleet = {
+			effect = {
+				set_owner = root.owner
+				create_ship = {
+					name = random
+					design = "NAME_Void_Dwelling"
+					graphical_culture = "pirate_01"
+				}
+				set_location = {
+					target = prev
+					distance = 10
+					angle = 0
+				}
+				add_modifier = { modifier = advanced_debuff days = -1 }
+				add_modifier = { modifier = big_debuff days = -1 }
+			}
+		}
+	}
+}
+
+# on_planet_defenders_lose
+# This = country, planet owner
+# From = country, attack leader
+# fromfrom = planet
+country_event = {
+	id = mod_horde_capturing.4
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_country_type = awakened_marauders
+		is_difficulty > 2
+	}
+	immediate = {
+		subtract_variable = { which = horde_planet_captured value = 1 }
+		if = {
+			limit = {
+				check_variable = { which = horde_planet_captured value < 0 }
+			}
+			set_variable = { which = horde_planet_captured value = 0 }
+		}
+		fromfrom = {
+			if = {
+				limit = { has_building = building_fortress }
+				remove_building = building_fortress
+			}
+		}
+	}
+}

@@ -2,6 +2,7 @@
 #########################################
 #####			Marauder			#####
 #####	Khan (Horde Crisis) Events	#####
+#####	Khan (War in Heaven) Events	#####
 #####		By FirePrince			#####
 #####								#####
 #########################################
@@ -58,7 +59,7 @@
 
 namespace = khan
 
-### Start prepare final Uprising
+### START PREPARE FINAL UPRISING
 # This = Marauder
 country_event = {
 	id = khan.203
@@ -1025,6 +1026,7 @@ country_event = {
 							}
 						}
 					}
+					prev = { set_truce = { target = prev type = war } }
 					remove_war_participant = root
 				}
 			}
@@ -1584,8 +1586,8 @@ country_event = {
 			set_variable = { which = CmtVarKhanRemainingLive value = 1 } ## Not CmtGlobalVar
 		}
 
+		## Give Khan Lifespan for longer War (check_variablevenerable)
 		event_target:CmtGlobalVar = {
-			## Give Khan check_variablevenerable Lifespan for longer War.
 			if = { limit = { check_variable = { which = CmtVarKhanLifespan value < 4 } }
 				set_variable = { which = CmtVarKhanLifespan value = 2 }
 				set_timed_global_flag = { flag = khan_no_die days = @CmtConstKhanLifespan_2a }
@@ -1927,17 +1929,18 @@ event = {
 		# Config only for minimal compatibility Crisis Manager.
 		if = {
 			limit = {
+				exists = event_target:global_event_country
 				host_has_dlc = "Apocalypse"
 				NOR = {
 					exists = event_target:CmtGlobalVar
 					has_global_flag = CmtFlagActivated
 				}
 			}
-			if = { limit = { NOT = { exists = event_target:global_event_country } }
-				random_country = { limit = { is_country_type = global_event }
-					save_global_event_target_as = global_event_country
-				}
-			}
+			# if = { limit = { NOT = { exists = event_target:global_event_country } }
+			# 	random_country = { limit = { is_country_type = global_event }
+			# 		save_global_event_target_as = global_event_country
+			# 	}
+			# }
 			event_target:global_event_country = {
 				set_variable = { which = CmtVarKhanMultiple value = 2 }
 				set_variable = { which = CmtVarKhanInterval value = 0 }
@@ -2074,6 +2077,7 @@ event = {
 									prev = { using_war_goal = { type = wg_marauder_expansion owner = prev } }
 								}
 							}
+							prev = { set_truce = { target = prev type = war } }
 							end_war_effect = yes
 						}
 						random_war = {
@@ -2084,6 +2088,7 @@ event = {
 									prev = { using_war_goal = { type = wg_great_expansion owner = prev } }
 								}
 							}
+							prev = { set_truce = { target = prev type = war } }
 							remove_war_participant = root
 						}
 					}

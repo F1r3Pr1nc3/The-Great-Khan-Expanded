@@ -12,8 +12,11 @@ namespace = enclave
 # This = player country; event_target:mercenary_enclave_country = enclave country
 country_event = {
 	id = enclave.210
-	title = enclave.205.name # (resolved “event inheritance” due load order)
+	title = enclave.205.name
 	desc = enclave.210.desc
+	# base = enclave.205 # (resolved “event inheritance” due load order)
+	# desc_clear = yes
+	# option_clear = yes
 	is_triggered_only = yes
 	diplomatic = yes
 	custom_gui = "enclave_mercenary_window"
@@ -29,7 +32,11 @@ country_event = {
 				limit = {
 					count_owned_leader = {
 						count = 0
-						limit = { leader_class = admiral }
+						limit = {
+							leader_class = admiral
+							is_councilor = no
+							is_ruler = no
+						}
 					}
 				}
 				create_leader = {
@@ -41,12 +48,20 @@ country_event = {
 					skip_background_generation = yes
 					can_manually_change_location = no
 					can_see_in_list = no
+					event_leader = yes
 					custom_description = "custom_mercenary_admiral_desc"
-					traits = { 0 = leader_trait_mercenary_warrior }
+					traits = {
+						0 = leader_trait_mercenary_warrior
+						1 = leader_trait_aggressive_2
+					}
 				}
 			}
 			random_owned_leader = {
-				limit = { leader_class = admiral }
+				limit = {
+					leader_class = admiral
+					is_councilor = no
+					is_ruler = no
+				}
 				save_event_target_as = mercenary_admiral
 				set_immortal = yes
 			}
@@ -67,7 +82,7 @@ country_event = {
 				set_fleet_settings = { can_change_leader = no }
 			}
 		}
-		# without this the immediate is not invoked when the event runs in the special mode that allows AI to collect trade data
+		# Without this, the 'immediate' will not be invoked when the event runs in the special mode that allows the AI to collect trade data.
 		run_in_ai_mode = yes
 	}
 	# Discuss another matter (return to menu)
@@ -129,7 +144,11 @@ country_event = {
 				limit = {
 					count_owned_leader = {
 						count = 0
-						limit = { leader_class = admiral }
+						limit = {
+							leader_class = admiral
+							is_councilor = no
+							is_ruler = no
+						}
 					}
 				}
 				create_leader = {
@@ -141,12 +160,20 @@ country_event = {
 					skip_background_generation = yes
 					can_manually_change_location = no
 					can_see_in_list = no
+					event_leader = yes
 					custom_description = "custom_mercenary_admiral_desc"
-					traits = { 0 = leader_trait_mercenary_warrior }
+					traits = {
+						0 = leader_trait_mercenary_warrior
+						1 = leader_trait_aggressive_2
+					}
 				}
 			}
 			random_owned_leader = {
-				limit = { leader_class = admiral }
+				limit = {
+					leader_class = admiral
+					is_councilor = no
+					is_ruler = no
+				}
 				save_event_target_as = mercenary_admiral
 			}
 			ordered_controlled_fleet = {
@@ -500,7 +527,7 @@ country_event = {
 			can_manually_change_location = no
 			can_see_in_list = no
 			custom_description = "custom_mercenary_admiral_desc"
-			traits = { 0 = leader_trait_mercenary_warrior }
+			traits = { trait = leader_trait_mercenary_warrior }
 		}
 		random_owned_fleet = {
 			limit = {

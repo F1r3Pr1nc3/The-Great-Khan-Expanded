@@ -31,12 +31,16 @@ origin_khan_successor = {
 	possible = {
 	}
 	modifier = {
-		# planet_stability_add = 10
-		army_damage_mult = 0.10
+		# planet_pops_consumer_goods_upkeep_mult = -0.1
+		# army_damage_mult = 0.1
 		country_naval_cap_mult = 0.1
-		planet_pops_consumer_goods_upkeep_mult = -0.10
+		ship_home_territory_fire_rate_mult = 0.1
+		shipclass_starbase_damage_mult = 0.1
+		shipclass_starbase_hull_mult = 0.2
+		starbase_shipyard_build_cost_mult = -0.1
 	}
 	# description = origin_no_effect
+	description = allow_raiding
 	random_weight = {
 		base = 0
 	}

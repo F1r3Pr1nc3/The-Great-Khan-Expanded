@@ -1,0 +1,185 @@
+### By 0.01 KD (New Generation of the World)
+# Horde Armies
+basic_horde = {
+	defensive = yes
+	is_pop_spawned = no
+	damage = 1
+	health = 1
+	morale = 1
+	icon = GFX_army_type_rebel
+	potential_country = { has_country_flag = awakened_marauders }
+}
+
+admiral_horde = {
+	defensive = yes
+	is_pop_spawned = no
+	damage = 1.2
+	health = 1.2
+	morale = 1.2
+	icon = GFX_army_type_rebel
+	potential_country = { has_country_flag = awakened_marauders }
+}
+
+gros_horde = {
+	defensive = yes
+	is_pop_spawned = no
+	damage = 1.4
+	health = 1.4
+	morale = 1.4
+	icon = GFX_army_type_rebel
+	potential_country = { has_country_flag = awakened_marauders }
+}
+
+elite_basic_horde = {
+	defensive = yes
+	is_pop_spawned = no
+	damage = 1.6
+	health = 1.3
+	morale = 1.9
+	icon = GFX_army_type_imperial
+	potential_country = { has_country_flag = awakened_marauders }
+}
+
+elite_admiral_horde = {
+	defensive = yes
+	is_pop_spawned = no
+	damage = 1.9
+	health = 1.6
+	morale = 2.3
+	icon = GFX_army_type_imperial
+	potential_country = { has_country_flag = awakened_marauders }
+}
+
+elite_gros_horde = {
+	defensive = yes
+	is_pop_spawned = no
+	damage = 2.2
+	health = 1.8
+	morale = 2.7
+	icon = GFX_army_type_imperial
+	potential_country = { has_country_flag = awakened_marauders }
+}
+
+# (Marauder) Occupation Armies
+# marauder_defense_army = {
+newgen_occupation_army = {
+	defensive = yes
+	is_pop_spawned = no
+	damage = 1.5
+	morale = 1.25
+	morale_damage = 1.5
+	health = 1.25
+	has_morale = yes
+	time = 180
+	collateral_damage = 0
+	war_exhaustion = 0 # No WE from occupation armies
+	icon = GFX_army_type_defensive
+	# has_species = no
+	# potential = { always = no }
+	potential_country = {
+		# CmtTriggerIsMarauder = yes
+		OR = {
+			is_pirate = yes
+			# is_country_type = dormant_marauders
+			# is_country_type = ruined_marauders
+			is_country_type = awakened_marauders
+			is_country_type = marauder_raiders
+		}
+	}
+}
+
+# Robotic Armies
+newgen_robotic_occupation_army = {
+	defensive = yes
+	is_pop_spawned = no
+	damage = 1
+	health = 1.25
+	morale_damage = 1
+	collateral_damage = 0
+	war_exhaustion = 0	# No WE from occupation armies
+	has_morale = no
+	icon = GFX_army_type_robot
+	has_species = yes
+	potential = { always = no }
+}
+
+### Machine Empire Armies
+newgen_machine_occupation_army = {
+	defensive = yes
+	is_pop_spawned = no
+	health = 1.1
+	damage = 1.1
+	has_morale = no
+	morale_damage = 1
+	collateral_damage = 0
+	war_exhaustion = 0	# No WE from occupation armies
+	icon = GFX_army_type_machine_defensive
+	has_species = yes
+	potential = { always = no }
+}
+
+newgen_primitive_assault_army = {
+	defensive = yes
+	damage = 0.4
+	health = 0.5
+	morale = 0.8
+	morale_damage = 1.2
+	collateral_damage = 0.8
+	war_exhaustion = 0
+	icon = GFX_army_type_rebel
+	potential = { always = no }
+}
+
+# newgen_sakit_army = {
+# 	damage = 0.4
+# 	health = 0.6
+# 	morale = 0.8
+# 	morale_damage = 0.5
+# 	collateral_damage = 0
+# 	icon = GFX_army_sakit
+# 	defensive = yes
+# 	is_pop_spawned = no
+# 	potential = { always = no }
+# 	resources = {
+# 		category = armies
+# 		cost = { minerals = 100 }
+# 		upkeep = { food = 1 }
+# 	}
+# }
+
+# ketling_army1 = {
+# 	damage = 0.7
+# 	health = 1.3
+# 	morale = 1.3
+# 	icon = GFX_army_type_primitive
+# 	defensive = yes
+# 	is_pop_spawned = no
+# 	potential_country = { always = no }
+# }
+
+# newgen_defense_army = {
+# 	defensive = yes
+# 	is_pop_spawned = no
+# 	health = 1
+# 	damage = 1.2
+# 	morale = 1
+# 	collateral_damage = 0
+# 	war_exhaustion = 0	# No WE from occupation armies
+# 	icon = GFX_army_type_defensive
+# 	has_species = yes
+# 	potential = { always = no }
+# }
+
+# newgen_machine_defense = {
+# 	defensive = yes
+# 	is_pop_spawned = no
+# 	health = 0.88
+# 	damage = 0.88
+# 	has_morale = no
+# 	morale_damage = 1
+# 	collateral_damage = 0
+# 	war_exhaustion = 0	# No WE from occupation armies
+# 	icon = GFX_army_type_machine_defensive
+# 	has_species = yes
+# 	potential = { always = no }
+# }

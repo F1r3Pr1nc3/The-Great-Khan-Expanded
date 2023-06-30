@@ -1,0 +1,3645 @@
+### By 0.01 KD (New Generation of the World)
+namespace = mod_planet_conquering
+# Triggers country_event for the defender upon defeat
+# This = country, planet owner
+# From = country, attack leader
+# FromFrom = planet
+country_event = {
+	id = mod_planet_conquering.1
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { is_difficulty > 3 }
+	immediate = {
+		if = {
+			limit = {
+				NOR = {
+					is_same_value = from
+					fromfrom = { has_planet_flag = revolt_in_progress }
+				}
+			}
+			root = {
+				if = {
+					limit = {
+						NOT = { is_variable_set = newgen_expansion_score }
+					}
+					set_variable = { which = newgen_expansion_score value = 0 }
+				}
+				set_variable = { which = newgen_calc2 value = newgen_expansion_score }
+				every_subject = {
+					root = {
+						change_variable = { which = newgen_calc2 value = 10 }
+					}
+				}
+				if = {
+					limit = { is_primitive = yes }
+					subtract_variable = { which = newgen_calc2 value = 10 }
+				}
+				if = {
+					limit = {
+						has_federation = yes
+						is_federation_leader = yes
+					}
+					change_variable = { which = newgen_calc2 value = 10 }
+				}
+				if = {
+					limit = { is_homicidal = yes }
+					change_variable = { which = newgen_calc2 value = 15 }
+				}
+				if = {
+					limit = { has_ascension_perk = ap_become_the_crisis }
+					change_variable = { which = newgen_calc2 value = 5 }
+				}
+				if = {
+					limit = { is_ai = no }
+					if = {
+						limit = {
+							is_difficulty > 4
+							years_passed > 50
+						}
+						change_variable = { which = newgen_calc2 value = 5 }
+					}
+					if = {
+						limit = {
+							is_difficulty = 6
+							years_passed > 75
+						}
+						change_variable = { which = newgen_calc2 value = 5 }
+					}
+					if = {
+						limit = { years_passed > 100 }
+						change_variable = { which = newgen_calc2 value = 5 }
+					}
+					if = {
+						limit = { has_federation = yes }
+						change_variable = { which = newgen_calc2 value = 5 }
+						if = {
+							limit = { is_federation_leader = yes }
+							change_variable = { which = newgen_calc2 value = 5 }
+						}
+					}
+					if = {
+						limit = { num_defensive_pacts > 0 }
+						change_variable = { which = newgen_calc2 value = 5 }
+					}
+					if = {
+						limit = { is_homicidal = yes }
+						change_variable = { which = newgen_calc2 value = 15 }
+						if = {
+							limit = { years_passed > 100 }
+							change_variable = { which = newgen_calc2 value = 5 }
+						}
+					}
+					if = {
+						limit = { has_ascension_perk = ap_become_the_crisis }
+						change_variable = { which = newgen_calc2 value = 5 }
+					}
+				}
+				if = {
+					limit = {
+						is_subject = yes
+						NOR = {
+							has_origin = origin_scion
+							has_origin = origin_imperial_vassal
+						}
+					}
+					subtract_variable = { which = newgen_calc2 value = 5 }
+				}
+			}
+			from = {
+				if = {
+					limit = {
+						NOT = { is_variable_set = newgen_expansion_score }
+					}
+					set_variable = { which = newgen_expansion_score value = 0 }
+				}
+				set_variable = { which = newgen_calc2 value = newgen_expansion_score }
+				every_subject = {
+					prev = {
+						change_variable = { which = newgen_calc2 value = 10 }
+					}
+				}
+				if = {
+					limit = {
+						has_federation = yes
+						is_federation_leader = yes
+					}
+					change_variable = { which = newgen_calc2 value = 15 }
+				}
+				if = {
+					limit = { is_homicidal = yes }
+					change_variable = { which = newgen_calc2 value = 15 }
+				}
+				if = {
+					limit = { has_ascension_perk = ap_become_the_crisis }
+					change_variable = { which = newgen_calc2 value = 5 }
+				}
+				if = {
+					limit = { is_ai = no }
+					if = {
+						limit = {
+							is_difficulty > 4
+							years_passed > 50
+						}
+						change_variable = { which = newgen_calc2 value = 5 }
+					}
+					if = {
+						limit = {
+							is_difficulty = 6
+							years_passed > 75
+						}
+						change_variable = { which = newgen_calc2 value = 5 }
+					}
+					if = {
+						limit = { years_passed > 100 }
+						change_variable = { which = newgen_calc2 value = 5 }
+					}
+					if = {
+						limit = { has_federation = yes }
+						change_variable = { which = newgen_calc2 value = 5 }
+						if = {
+							limit = { is_federation_leader = yes }
+							change_variable = { which = newgen_calc2 value = 5 }
+						}
+					}
+					if = {
+						limit = { num_defensive_pacts > 0 }
+						change_variable = { which = newgen_calc2 value = 5 }
+					}
+					if = {
+						limit = { is_homicidal = yes }
+						change_variable = { which = newgen_calc2 value = 15 }
+						if = {
+							limit = { years_passed > 100 }
+							change_variable = { which = newgen_calc2 value = 5 }
+						}
+					}
+					if = {
+						limit = { has_ascension_perk = ap_become_the_crisis }
+						change_variable = { which = newgen_calc2 value = 5 }
+					}
+				}
+				if = {
+					limit = {
+						is_subject = yes
+						NOR = {
+							has_origin = origin_scion
+							has_origin = origin_imperial_vassal
+						}
+					}
+					subtract_variable = { which = newgen_calc2 value = 10 }
+				}
+			}
+			fromfrom = {
+				set_variable = { which = newgen_temp4 value = root.from.newgen_calc2 }
+			}
+			fromfrom = {
+				subtract_variable = { which = newgen_temp4 value = root.newgen_calc2 }
+			}
+			clear_variable = newgen_calc2
+			from = { clear_variable = newgen_calc2 }
+		}
+		else = {
+			fromfrom = {
+				set_variable = { which = newgen_temp4 value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					from = { has_country_flag = newgen_owner@root.fromfrom }
+					fromfrom = { has_planet_flag = revolt_in_progress }
+				}
+			}
+			# if = { # Debug
+			# 	limit = {
+			# 		from = { has_country_flag = newgen_owner@root.fromfrom }
+			# 	}
+			# 	log =  "previous owner has returned planet [from.from.GetName] with partisans camp, without battle"
+			# }
+			# else = {
+			# 	log =  "separatists win on planet [from.from.GetName]"
+			# }
+			from = { remove_country_flag = newgen_owner@root.fromfrom }
+			fromfrom = {
+				remove_modifier = newgen_partisans_camp
+				remove_planet_flag = fresh_camp
+				remove_planet_flag = newgen_revolt_preparation1
+				remove_planet_flag = newgen_revolt_preparation2
+				set_variable = { which = was_happy value = 0 }
+				set_variable = { which = newgen_num_garrisons value = 0 }
+			}
+		}
+		else = {
+			save_event_target_as = newgen_defender
+			from = { save_event_target_as = ataker }
+			fromfrom = {
+				save_event_target_as = field
+				# MOD_SET_HAPPINES
+				set_variable = { which = was_happy value = 0 }
+				if = {
+					limit = { event_target:newgen_defender = { is_gestalt = yes } }
+					if = {
+						limit = { is_difficulty = 6 }
+						if = {
+							limit = { planet_stability > 97 }
+							change_variable = { which = was_happy value = 12 }
+						}
+						else_if = {
+							limit = { planet_stability > 95 }
+							change_variable = { which = was_happy value = 11 }
+						}
+						else_if = {
+							limit = { planet_stability > 93 }
+							change_variable = { which = was_happy value = 10 }
+						}
+						else_if = {
+							limit = { planet_stability > 91 }
+							change_variable = { which = was_happy value = 9 }
+						}
+						else_if = {
+							limit = { planet_stability > 89 }
+							change_variable = { which = was_happy value = 8 }
+						}
+						else_if = {
+							limit = { planet_stability > 87 }
+							change_variable = { which = was_happy value = 7 }
+						}
+						else_if = {
+							limit = { planet_stability > 85 }
+							change_variable = { which = was_happy value = 6 }
+						}
+						else_if = {
+							limit = { planet_stability > 83 }
+							change_variable = { which = was_happy value = 5 }
+						}
+						else_if = {
+							limit = { planet_stability > 81 }
+							change_variable = { which = was_happy value = 4 }
+						}
+						else_if = {
+							limit = { planet_stability > 79 }
+							change_variable = { which = was_happy value = 3 }
+						}
+						else_if = {
+							limit = { planet_stability > 77 }
+							change_variable = { which = was_happy value = 2 }
+						}
+						else_if = {
+							limit = { planet_stability > 75 }
+							change_variable = { which = was_happy value = 1 }
+						}
+					}
+					else_if = {
+						limit = { is_difficulty = 5 }
+						if = {
+							limit = { planet_stability > 92 }
+							change_variable = { which = was_happy value = 12 }
+						}
+						else_if = {
+							limit = { planet_stability > 90 }
+							change_variable = { which = was_happy value = 11 }
+						}
+						else_if = {
+							limit = { planet_stability > 88 }
+							change_variable = { which = was_happy value = 10 }
+						}
+						else_if = {
+							limit = { planet_stability > 86 }
+							change_variable = { which = was_happy value = 9 }
+						}
+						else_if = {
+							limit = { planet_stability > 84 }
+							change_variable = { which = was_happy value = 8 }
+						}
+						else_if = {
+							limit = { planet_stability > 82 }
+							change_variable = { which = was_happy value = 7 }
+						}
+						else_if = {
+							limit = { planet_stability > 80 }
+							change_variable = { which = was_happy value = 6 }
+						}
+						else_if = {
+							limit = { planet_stability > 78 }
+							change_variable = { which = was_happy value = 5 }
+						}
+						else_if = {
+							limit = { planet_stability > 76 }
+							change_variable = { which = was_happy value = 4 }
+						}
+						else_if = {
+							limit = { planet_stability > 74 }
+							change_variable = { which = was_happy value = 3 }
+						}
+						else_if = {
+							limit = { planet_stability > 72 }
+							change_variable = { which = was_happy value = 2 }
+						}
+						else_if = {
+							limit = { planet_stability > 70 }
+							change_variable = { which = was_happy value = 1 }
+						}
+					}
+					else_if = {
+						limit = { is_difficulty = 4 }
+						if = {
+							limit = { planet_stability > 87 }
+							change_variable = { which = was_happy value = 12 }
+						}
+						else_if = {
+							limit = { planet_stability > 85 }
+							change_variable = { which = was_happy value = 11 }
+						}
+						else_if = {
+							limit = { planet_stability > 83 }
+							change_variable = { which = was_happy value = 10 }
+						}
+						else_if = {
+							limit = { planet_stability > 81 }
+							change_variable = { which = was_happy value = 9 }
+						}
+						else_if = {
+							limit = { planet_stability > 79 }
+							change_variable = { which = was_happy value = 8 }
+						}
+						else_if = {
+							limit = { planet_stability > 77 }
+							change_variable = { which = was_happy value = 7 }
+						}
+						else_if = {
+							limit = { planet_stability > 75 }
+							change_variable = { which = was_happy value = 6 }
+						}
+						else_if = {
+							limit = { planet_stability > 73 }
+							change_variable = { which = was_happy value = 5 }
+						}
+						else_if = {
+							limit = { planet_stability > 71 }
+							change_variable = { which = was_happy value = 4 }
+						}
+						else_if = {
+							limit = { planet_stability > 69 }
+							change_variable = { which = was_happy value = 3 }
+						}
+						else_if = {
+							limit = { planet_stability > 67 }
+							change_variable = { which = was_happy value = 2 }
+						}
+						else_if = {
+							limit = { planet_stability > 65 }
+							change_variable = { which = was_happy value = 1 }
+						}
+					}
+					if = {
+						limit = { event_target:newgen_defender = { has_modifier = newgen_infected_by_virus_3 } }
+						subtract_variable = { which = was_happy value = 9 }
+					}
+					else_if = {
+						limit = { event_target:newgen_defender = { has_modifier = newgen_infected_by_virus_2 } }
+						subtract_variable = { which = was_happy value = 6 }
+					}
+					else_if = {
+						limit = { event_target:newgen_defender = { has_modifier = newgen_infected_by_virus_1 } }
+						subtract_variable = { which = was_happy value = 3 }
+					}
+				}
+				else = {
+					if = {
+						limit = {
+							pop_percentage = {
+								limit = { happiness > 0.59 }
+								percentage > 0.15
+							}
+						}
+						change_variable = { which = was_happy value = 1 }
+						if = {
+							limit = {
+								pop_percentage = {
+									limit = { happiness > 0.59 }
+									percentage > 0.31
+								}
+							}
+							change_variable = { which = was_happy value = 1 }
+							if = {
+								limit = {
+									pop_percentage = {
+										limit = { happiness > 0.59 }
+										percentage > 0.47
+									}
+								}
+								change_variable = { which = was_happy value = 1 }
+								if = {
+									limit = {
+										pop_percentage = {
+											limit = { happiness > 0.59 }
+											percentage > 0.63
+										}
+									}
+									change_variable = { which = was_happy value = 1 }
+									if = {
+										limit = {
+											pop_percentage = {
+												limit = { happiness > 0.59 }
+												percentage > 0.79
+											}
+										}
+										change_variable = { which = was_happy value = 1 }
+										if = {
+											limit = {
+												pop_percentage = {
+													limit = { happiness > 0.59 }
+													percentage > 0.95
+												}
+											}
+											change_variable = { which = was_happy value = 1 }
+										}
+									}
+								}
+							}
+						}
+					}
+					if = {
+						limit = {
+							pop_percentage = {
+								limit = { happiness > 0.69 }
+								percentage > 0.11
+							}
+						}
+						change_variable = { which = was_happy value = 1 }
+						if = {
+							limit = {
+								pop_percentage = {
+									limit = { happiness > 0.69 }
+									percentage > 0.23
+								}
+							}
+							change_variable = { which = was_happy value = 1 }
+							if = {
+								limit = {
+									pop_percentage = {
+										limit = { happiness > 0.69 }
+										percentage > 0.35
+									}
+								}
+								change_variable = { which = was_happy value = 1 }
+								if = {
+									limit = {
+										pop_percentage = {
+											limit = { happiness > 0.69 }
+											percentage > 0.47
+										}
+									}
+									change_variable = { which = was_happy value = 1 }
+									if = {
+										limit = {
+											pop_percentage = {
+												limit = { happiness > 0.69 }
+												percentage > 0.59
+											}
+										}
+										change_variable = { which = was_happy value = 1 }
+										if = {
+											limit = {
+												pop_percentage = {
+													limit = { happiness > 0.69 }
+													percentage > 0.71
+												}
+											}
+											change_variable = { which = was_happy value = 1 }
+											if = {
+												limit = {
+													pop_percentage = {
+														limit = { happiness > 0.69 }
+														percentage > 0.83
+													}
+												}
+												change_variable = { which = was_happy value = 1 }
+												if = {
+													limit = {
+														pop_percentage = {
+															limit = { happiness > 0.69 }
+															percentage > 0.95
+														}
+													}
+													change_variable = { which = was_happy value = 1 }
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					if = {
+						limit = {
+							pop_percentage = {
+								limit = { happiness > 0.79 }
+								percentage > 0.7
+							}
+						}
+						change_variable = { which = was_happy value = 1 }
+						if = {
+							limit = {
+								pop_percentage = {
+									limit = { happiness > 0.79 }
+									percentage > 0.15
+								}
+							}
+							change_variable = { which = was_happy value = 1 }
+							if = {
+								limit = {
+									pop_percentage = {
+										limit = { happiness > 0.79 }
+										percentage > 0.23
+									}
+								}
+								change_variable = { which = was_happy value = 1 }
+								if = {
+									limit = {
+										pop_percentage = {
+											limit = { happiness > 0.79 }
+											percentage > 0.31
+										}
+									}
+									change_variable = { which = was_happy value = 1 }
+									if = {
+										limit = {
+											pop_percentage = {
+												limit = { happiness > 0.79 }
+												percentage > 0.39
+											}
+										}
+										change_variable = { which = was_happy value = 1 }
+										if = {
+											limit = {
+												pop_percentage = {
+													limit = { happiness > 0.79 }
+													percentage > 0.47
+												}
+											}
+											change_variable = { which = was_happy value = 1 }
+											if = {
+												limit = {
+													pop_percentage = {
+														limit = { happiness > 0.79 }
+														percentage > 0.55
+													}
+												}
+												change_variable = { which = was_happy value = 1 }
+												if = {
+													limit = {
+														pop_percentage = {
+															limit = { happiness > 0.79 }
+															percentage > 0.63
+														}
+													}
+													change_variable = { which = was_happy value = 1 }
+													if = {
+														limit = {
+															pop_percentage = {
+																limit = { happiness > 0.79 }
+																percentage > 0.71
+															}
+														}
+														change_variable = { which = was_happy value = 1 }
+														if = {
+															limit = {
+																pop_percentage = {
+																	limit = { happiness > 0.79 }
+																	percentage > 0.79
+																}
+															}
+															change_variable = { which = was_happy value = 1 }
+															if = {
+																limit = {
+																	pop_percentage = {
+																		limit = { happiness > 0.79 }
+																		percentage > 0.87
+																	}
+																}
+																change_variable = { which = was_happy value = 1 }
+																if = {
+																	limit = {
+																		pop_percentage = {
+																			limit = { happiness > 0.79 }
+																			percentage > 0.95
+																		}
+																	}
+																	change_variable = { which = was_happy value = 1 }
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { is_primitive = yes }
+						}
+					}
+					set_timed_planet_flag = { flag = sieged_primitives years = 10 }
+					every_owned_pop = {
+						root = { event_target:field = { change_variable = { which = was_happy value = 1 } } }
+					}
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { very_bad_dudes = yes }
+						}
+					}
+					every_owned_pop = {
+						limit = { is_same_species = event_target:newgen_defender.owner_main_species }
+						root = { event_target:field = { change_variable = { which = was_happy value = 1 } } }
+					}
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_civic = civic_agrarian_idyll }
+						}
+					}
+					change_variable = { which = was_happy value = 1 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_civic = civic_aristocratic_elite }
+						}
+					}
+					change_variable = { which = was_happy value = 1 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_civic = civic_free_haven }
+						}
+					}
+					change_variable = { which = was_happy value = 1 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_civic = civic_philosopher_king }
+						}
+					}
+					change_variable = { which = was_happy value = 1 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_civic = civic_barbaric_despoilers }
+						}
+					}
+					change_variable = { which = was_happy value = 1 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_civic = civic_shared_burden }
+						}
+					}
+					change_variable = { which = was_happy value = 1 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { is_reanimator = yes }
+						}
+					}
+					change_variable = { which = was_happy value = 1 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_civic = civic_death_cult }
+						}
+					}
+					change_variable = { which = was_happy value = 1 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_civic = civic_brand_loyalty }
+						}
+					}
+					change_variable = { which = was_happy value = 1 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_civic = civic_criminal_heritage }
+						}
+					}
+					change_variable = { which = was_happy value = 1 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_civic = civic_media_conglomerate }
+						}
+					}
+					change_variable = { which = was_happy value = 1 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_civic = civic_public_relations_specialists }
+						}
+					}
+					change_variable = { which = was_happy value = 1 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_civic = civic_death_cult_corporate }
+						}
+					}
+					change_variable = { which = was_happy value = 1 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_civic = civic_beacon_of_liberty }
+						}
+					}
+					change_variable = { which = was_happy value = 2 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_civic = civic_exalted_priesthood }
+						}
+					}
+					change_variable = { which = was_happy value = 2 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_civic = civic_idealistic_foundation }
+						}
+					}
+					change_variable = { which = was_happy value = 2 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_civic = civic_imperial_cult }
+						}
+					}
+					change_variable = { which = was_happy value = 2 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_civic = civic_inwards_perfection }
+						}
+					}
+					change_variable = { which = was_happy value = 2 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_civic = civic_nationalistic_zeal }
+						}
+					}
+					change_variable = { which = was_happy value = 2 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_civic = civic_warrior_culture }
+						}
+					}
+					change_variable = { which = was_happy value = 2 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_civic = civic_gospel_of_the_masses }
+						}
+					}
+					change_variable = { which = was_happy value = 2 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_civic = civic_fanatic_purifiers }
+						}
+					}
+					change_variable = { which = was_happy value = 4 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_ethic = ethic_fanatic_militarist }
+						}
+					}
+					change_variable = { which = was_happy value = 2 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { has_ethic = ethic_militarist }
+						}
+					}
+					change_variable = { which = was_happy value = 1 }
+				}
+				if = {
+					limit = { planet_devastation > 90 }
+					change_variable = { which = was_happy value = 9 }
+				}
+				else_if = {
+					limit = { planet_devastation > 80 }
+					change_variable = { which = was_happy value = 8 }
+				}
+				else_if = {
+					limit = { planet_devastation > 70 }
+					change_variable = { which = was_happy value = 7 }
+				}
+				else_if = {
+					limit = { planet_devastation > 60 }
+					change_variable = { which = was_happy value = 6 }
+				}
+				else_if = {
+					limit = { planet_devastation > 50 }
+					change_variable = { which = was_happy value = 5 }
+				}
+				else_if = {
+					limit = { planet_devastation > 40 }
+					change_variable = { which = was_happy value = 4 }
+				}
+				else_if = {
+					limit = { planet_devastation > 30 }
+					change_variable = { which = was_happy value = 3 }
+				}
+				else_if = {
+					limit = { planet_devastation > 20 }
+					change_variable = { which = was_happy value = 2 }
+				}
+				else_if = {
+					limit = { planet_devastation > 10 }
+					change_variable = { which = was_happy value = 1 }
+				}
+				if = {
+					limit = {
+						root = {
+							event_target:newgen_defender = { is_gestalt = yes }
+						}
+					}
+					set_variable = { which = was_happy value = 0 }
+				}
+				if = {
+					limit = {
+						is_difficulty = 4
+						root = { event_target:newgen_defender = { is_ai = yes } }
+						check_variable = { which = was_happy value > 0 }
+					}
+					change_variable = { which = was_happy value = 1 }
+				}
+				else_if = {
+					limit = {
+						is_difficulty = 5
+						root = { event_target:newgen_defender = { is_ai = yes } }
+						check_variable = { which = was_happy value > 0 }
+					}
+					change_variable = { which = was_happy value = 2 }
+				}
+				else_if = {
+					limit = {
+						is_difficulty = 6
+						root = { event_target:newgen_defender = { is_ai = yes } }
+						check_variable = { which = was_happy value > 0 }
+					}
+					change_variable = { which = was_happy value = 3 }
+				}
+			}
+			if = {
+				limit = { from = { very_bad_dudes = yes } }
+				fromfrom = {
+					change_variable = { which = was_happy value = 5 }
+				}
+			}
+			if = {
+				limit = {
+					from = { is_ai = no }
+					fromfrom = {
+						check_variable = { which = was_happy value > 0 }
+					}
+				}
+				if = {
+					limit = { is_difficulty = 4 }
+					fromfrom = {
+						change_variable = { which = was_happy value = 1 }
+					}
+				}
+				else_if = {
+					limit = { is_difficulty = 5 }
+					fromfrom = {
+						change_variable = { which = was_happy value = 2 }
+					}
+				}
+				else_if = {
+					limit = { is_difficulty = 6 }
+					fromfrom = {
+						change_variable = { which = was_happy value = 3 }
+					}
+				}
+				if = {
+					limit = {
+						from = { has_ethic = ethic_fanatic_authoritarian }
+					}
+					fromfrom = {
+						change_variable = { which = was_happy value = -6 }
+					}
+				}
+				else_if = {
+					limit = {
+						from = { has_ethic = ethic_authoritarian }
+					}
+					fromfrom = {
+						change_variable = { which = was_happy value = -3 }
+					}
+				}
+			}
+			fromfrom = {
+				# log = "before partisans camp appear check, temp4 was [This.newgen_temp4]"
+				reroll_random = yes
+				random_list = {
+					5 = {
+						modifier = {
+							add = -4
+							check_variable = { which = was_happy value < 4 }
+							check_variable = { which = newgen_temp4 value < 20 }
+							controller = { very_bad_dudes = no }
+						}
+						modifier = {
+							add = 5
+							owner = { has_modifier = newgen_defense_war_1 }
+						}
+						modifier = {
+							add = 10
+							owner = { has_modifier = newgen_defense_war_2 }
+						}
+						modifier = {
+							add = 15
+							owner = { has_modifier = newgen_defense_war_3 }
+						}
+						modifier = { factor = 0 has_modifier = newgen_partisans_camp }
+						modifier = {
+							factor = 1.5
+							check_variable = { which = newgen_temp4 value >= 110 }
+						}
+						modifier = {
+							factor = 1.5
+							check_variable = { which = newgen_temp4 value >= 75 }
+						}
+						modifier = {
+							factor = 1.5
+							check_variable = { which = newgen_temp4 value >= 45 }
+						}
+						modifier = {
+							factor = 1.5
+							check_variable = { which = newgen_temp4 value >= 20 }
+						}
+						modifier = {
+							factor = 0.5
+							check_variable = { which = was_happy value < 4 }
+							check_variable = { which = newgen_temp4 value >= 20 }
+						}
+						modifier = {
+							factor = 2
+							check_variable = { which = was_happy value > 7 }
+						}
+						modifier = {
+							factor = 2
+							check_variable = { which = was_happy value > 11 }
+						}
+						modifier = {
+							factor = 2
+							check_variable = { which = was_happy value > 15 }
+						}
+						modifier = {
+							factor = 2
+							check_variable = { which = was_happy value > 19 }
+						}
+						modifier = { factor = 1.5 planet_devastation > 24 }
+						modifier = { factor = 1.5 planet_devastation > 49 }
+						modifier = { factor = 1.5 planet_devastation > 74 }
+						modifier = {
+							factor = 1.5
+							is_variable_set = newgen_res_level
+							check_variable = { which = newgen_res_level value = 2 }
+						}
+						modifier = {
+							factor = 2
+							is_variable_set = newgen_res_level
+							check_variable = { which = newgen_res_level value = 3 }
+						}
+						modifier = {
+							factor = 3
+							is_variable_set = newgen_res_level
+							check_variable = { which = newgen_res_level value > 3 }
+						}
+						modifier = {
+							factor = 2
+							OR = {
+								root = { is_primitive = yes }
+								has_modifier = planet_culture_shock
+							}
+						}
+						modifier = {
+							factor = 1.3
+							owner = { has_ethic = ethic_militarist }
+						}
+						modifier = {
+							factor = 1.6
+							owner = { has_ethic = ethic_fanatic_militarist }
+						}
+						root = {
+							if = { limit = { is_ai = no } # Warning msg
+								from = { country_event = { id = mod_planet_conquering.8 days = 30 } }
+							}
+							set_country_flag = newgen_owner@fromfrom
+						}
+						add_modifier = { modifier = newgen_partisans_camp days = -1 }
+						# log =  "on planet [This.GetName], owned by country [This.Owner.GetName] appear partisans camp"
+						if = {
+							limit = {
+								planet_devastation < 25
+								OR = {
+									AND = {
+										controller = { is_ai = no }
+										planet_stability <= 10
+									}
+									AND = {
+										controller = { is_ai = yes }
+										planet_stability <= 25
+									}
+								}
+							}
+							set_timed_planet_flag = { flag = newgen_revolt_preparation1 months = 6 }
+							set_timed_planet_flag = { flag = newgen_revolt_preparation2 years = 1 }
+						}
+						else_if = {
+							limit = {
+								planet_devastation < 50
+								OR = {
+									AND = {
+										controller = { is_ai = no }
+										planet_stability <= 25
+									}
+									AND = {
+										controller = { is_ai = yes }
+										planet_stability <= 40
+									}
+								}
+							}
+							set_timed_planet_flag = { flag = newgen_revolt_preparation1 months = 9 }
+							set_timed_planet_flag = { flag = newgen_revolt_preparation2 months = 18 }
+						}
+						else_if = {
+							limit = {
+								planet_devastation < 75
+								OR = {
+									AND = {
+										controller = { is_ai = no }
+										planet_stability <= 40
+									}
+									AND = {
+										controller = { is_ai = yes }
+										planet_stability <= 55
+									}
+								}
+							}
+							set_timed_planet_flag = { flag = newgen_revolt_preparation1 years = 1 }
+							set_timed_planet_flag = { flag = newgen_revolt_preparation2 years = 2 }
+						}
+						else = {
+							set_timed_planet_flag = { flag = newgen_revolt_preparation1 months = 15 }
+							set_timed_planet_flag = { flag = newgen_revolt_preparation2 months = 30 }
+						}
+						if = {
+							limit = {
+								root = { is_ai = yes }
+							}
+							remove_planet_flag = fresh_camp
+							set_timed_planet_flag = { flag = fresh_camp years = 1 }
+						}
+						else = {
+							remove_planet_flag = fresh_camp
+							set_timed_planet_flag = { flag = fresh_camp years = 2 }
+						}
+						if = {
+							limit = {
+								root.from = { is_ai = yes }
+							}
+							if = {
+								limit = {
+									root.from = {
+										OR = {
+											has_country_flag = flesh_weakened
+											has_country_flag = synthetic_empire
+										}
+									}
+								}
+								while = {
+									count = 2
+									create_army = {
+										name = robotic_occupation_army
+										owner = root.from
+										species = owner_main_species
+										type = "newgen_robotic_occupation_army"
+									}
+									last_created_army = {
+										set_variable = { which = newgen_garrison value = 0 }
+									}
+								}
+								if = {
+									limit = {
+										root.from = { is_homicidal = yes }
+									}
+									while = {
+										count = 2
+										create_army = {
+											name = robotic_occupation_army
+											owner = root.from
+											species = owner_main_species
+											type = "newgen_robotic_occupation_army"
+										}
+										last_created_army = {
+											set_variable = { which = newgen_garrison value = 0 }
+										}
+									}
+								}
+							}
+							else_if = {
+								limit = {
+									root.from = { is_machine_empire = yes }
+								}
+								while = {
+									count = 2
+									create_army = {
+										name = machine_occupation_army
+										owner = root.from
+										species = owner_main_species
+										type = "newgen_machine_occupation_army"
+									}
+									last_created_army = {
+										set_variable = { which = newgen_garrison value = 0 }
+									}
+								}
+								if = {
+									limit = {
+										root.from = { is_homicidal = yes }
+									}
+									while = {
+										count = 2
+										create_army = {
+											name = machine_occupation_army
+											owner = root.from
+											species = owner_main_species
+											type = "newgen_machine_occupation_army"
+										}
+										last_created_army = {
+											set_variable = { which = newgen_garrison value = 0 }
+										}
+									}
+								}
+							}
+							else = {
+								while = {
+									count = 2
+									create_army = {
+										name = occupation_army
+										owner = root.from
+										species = owner_main_species
+										type = "newgen_occupation_army"
+									}
+									last_created_army = {
+										set_variable = { which = newgen_garrison value = 0 }
+									}
+								}
+								if = {
+									limit = {
+										root.from = { is_homicidal = yes }
+									}
+									while = {
+										count = 2
+										create_army = {
+											name = occupation_army
+											owner = root.from
+											species = owner_main_species
+											type = "newgen_occupation_army"
+										}
+										last_created_army = {
+											set_variable = { which = newgen_garrison value = 0 }
+										}
+									}
+								}
+							}
+							planet_event = { id = mod_planet_conquering.5 days = 360 }
+						}
+					}
+					50 = {
+						modifier = {
+							add = -10
+							check_variable = { which = was_happy value > 7 }
+						}
+						modifier = {
+							add = -10
+							check_variable = { which = was_happy value > 11 }
+						}
+						modifier = {
+							add = -10
+							check_variable = { which = was_happy value > 15 }
+						}
+						modifier = {
+							add = -10
+							check_variable = { which = was_happy value > 19 }
+						}
+						# log =  "fail rendom or already has camp (was happy: [This.was_happy], newgen_temp4: [This.newgen_temp4]) on planet [This.GetName], owned by country [This.Owner.GetName] NOT appear partisans camp, after losing"
+						if = {
+							limit = {
+								root.from = {
+									is_ai = yes
+									is_homicidal = yes
+								}
+							}
+							if = {
+								limit = {
+									root.from = {
+										OR = {
+											has_country_flag = flesh_weakened
+											has_country_flag = synthetic_empire
+										}
+									}
+								}
+								while = {
+									count = 2
+									create_army = {
+										name = robotic_occupation_army
+										owner = root.from
+										species = owner_main_species
+										type = "newgen_robotic_occupation_army"
+									}
+									last_created_army = {
+										set_variable = { which = newgen_garrison value = 0 }
+									}
+								}
+							}
+							else_if = {
+								limit = {
+									root.from = { is_machine_empire = yes }
+								}
+								while = {
+									count = 2
+									create_army = {
+										name = machine_occupation_army
+										owner = root.from
+										species = owner_main_species
+										type = "newgen_machine_occupation_army"
+									}
+									last_created_army = {
+										set_variable = { which = newgen_garrison value = 0 }
+									}
+								}
+							}
+							else = {
+								while = {
+									count = 2
+									create_army = {
+										name = occupation_army
+										owner = root.from
+										species = owner_main_species
+										type = "newgen_occupation_army"
+									}
+									last_created_army = {
+										set_variable = { which = newgen_garrison value = 0 }
+									}
+								}
+							}
+							planet_event = { id = mod_planet_conquering.5 days = 360 }
+						}
+					}
+				}
+				clear_variable = newgen_temp4
+			}
+		}
+	}
+}
+
+# Fired whenever a new owner is set for a planet,
+# be it after a war or through a trade
+# from = Country scope (new owner)
+# This = Planet scope
+planet_event = {
+	id = mod_planet_conquering.2
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_difficulty > 3
+		from = {
+			OR = {
+				merg_is_default_empire = yes
+				is_country_type = awakened_marauders
+				merg_is_awakened_fe = yes
+			}
+			is_primitive = no
+		}
+	}
+	immediate = {
+		if = {
+			limit = { is_variable_set = was_happy }
+			set_timed_planet_flag = { flag = newgen_conquered days = 355 }
+			# MOD_CHECK_HAPPINES
+			if = {
+				limit = { NOT = { is_variable_set = newgen_num_garrisons } }
+				set_variable = { which = newgen_num_garrisons value = 0 }
+			}
+			ceiling_variable = was_happy
+			if = {
+				limit = {
+					check_variable = { which = "was_happy" value >= 20 }
+				}
+				if = {
+					limit = {
+						From = {
+							NOT = { is_gestalt = yes }
+						}
+					}
+					add_modifier = { modifier = "crime_15x" months = 80 }
+				}
+				else = {
+					add_modifier = { modifier = "unhappy_5" months = 120 }
+				}
+				change_variable = { which = newgen_num_garrisons value = 3 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = was_happy value > 16 }
+				}
+				if = {
+					limit = {
+						From = {
+							NOT = { is_gestalt = yes }
+						}
+					}
+					add_modifier = { modifier = "crime_10x" months = 60 }
+				}
+				else = {
+					add_modifier = { modifier = "unhappy_4" months = 90 }
+				}
+				change_variable = { which = newgen_num_garrisons value = 2 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = was_happy value > 12 }
+				}
+				if = {
+					limit = {
+						From = {
+							NOT = { is_gestalt = yes }
+						}
+					}
+					add_modifier = { modifier = "crime_6x" months = 40 }
+				}
+				else = {
+					add_modifier = { modifier = "unhappy_3" months = 60 }
+				}
+				change_variable = { which = newgen_num_garrisons value = 1 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = was_happy value > 8 }
+				}
+				if = {
+					limit = {
+						From = {
+							NOT = { is_gestalt = yes }
+						}
+					}
+					add_modifier = { modifier = "crime_3x" days = 800 }
+				}
+				else = { add_modifier = { modifier = "unhappy_2" months = 40 } }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = was_happy value > 4 }
+				}
+				if = {
+					limit = {
+						From = {
+							NOT = { is_gestalt = yes }
+						}
+					}
+					add_modifier = { modifier = "crime_1x" days = 550 }
+				}
+				else = {
+					add_modifier = { modifier = "unhappy_1" days = 825 }
+				}
+			}
+			if = {
+				limit = { has_modifier = planet_culture_shock }
+				change_variable = { which = newgen_num_garrisons value = 1 }
+			}
+			if = {
+				limit = {
+					check_variable = { which = newgen_num_garrisons value > 3 }
+					From = {
+						NOT = { has_technology = tech_centralized_command }
+					}
+				}
+				set_variable = { which = newgen_num_garrisons value = 3 }
+			}
+			if = {
+				limit = {
+					From = { is_ai = yes }
+				}
+				if = {
+					limit = { num_pops < 10 }
+					change_variable = { which = newgen_num_garrisons value = 1 }
+				}
+				else_if = {
+					limit = { num_pops < 20 }
+					change_variable = { which = newgen_num_garrisons value = 2 }
+				}
+				else_if = {
+					limit = { num_pops < 30 }
+					change_variable = { which = newgen_num_garrisons value = 3 }
+				}
+				else_if = {
+					limit = { num_pops < 40 }
+					change_variable = { which = newgen_num_garrisons value = 4 }
+				}
+				else_if = {
+					limit = { num_pops < 50 }
+					change_variable = { which = newgen_num_garrisons value = 5 }
+				}
+				else = {
+					change_variable = { which = newgen_num_garrisons value = 6 }
+				}
+			}
+			if = {
+				limit = { check_variable = { which = newgen_num_garrisons value > 0 } }
+				if = {
+					limit = {
+						From = {
+							OR = {
+								has_country_flag = flesh_weakened
+								has_country_flag = synthetic_empire
+							}
+						}
+					}
+					while = {
+						count = newgen_num_garrisons
+						create_army = {
+							name = robotic_occupation_army
+							owner = from
+							species = owner_main_species
+							type = "newgen_robotic_occupation_army"
+						}
+						last_created_army = { set_variable = { which = newgen_garrison value = 0 } }
+					}
+				}
+				else_if = {
+					limit = {
+						From = { is_machine_empire = yes }
+					}
+					while = {
+						count = newgen_num_garrisons
+						create_army = {
+							name = machine_occupation_army
+							owner = from
+							species = owner_main_species
+							type = "newgen_machine_occupation_army"
+						}
+						last_created_army = { set_variable = { which = newgen_garrison value = 0 } }
+					}
+				}
+				else = {
+					while = {
+						count = newgen_num_garrisons
+						create_army = {
+							name = occupation_army
+							owner = from
+							species = owner_main_species
+							type = "newgen_occupation_army"
+						}
+						last_created_army = { set_variable = { which = newgen_garrison value = 0 } }
+					}
+				}
+			}
+			if = {
+				limit = { any_planet_army = { is_variable_set = newgen_garrison } }
+				planet_event = { id = mod_planet_conquering.5 days = 360 }
+			}
+			clear_variable = newgen_num_garrisons
+			planet_event = { id = mod_planet_conquering.7 days = 360 }
+		}
+	}
+}
+
+# This = country, leader attacker
+# from = country, planet owner
+# fromfrom = planet
+country_event = {
+	id = mod_planet_conquering.3
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { is_difficulty > 3 }
+	immediate = {
+		if = {
+			limit = {
+				FROM = { is_country_type = ratlings }
+			}
+			fromfrom = {
+				if = {
+					limit = {
+						root = { has_ethic = ethic_fanatic_authoritarian }
+					}
+					every_owned_pop = {
+						limit = { is_same_species = event_target:ratling_species }
+						add_modifier = { modifier = shock_3 years = 5 }
+					}
+				}
+				else_if = {
+					limit = {
+						root = { has_ethic = ethic_authoritarian }
+					}
+					every_owned_pop = {
+						limit = { is_same_species = event_target:ratling_species }
+						add_modifier = { modifier = shock_4 years = 5 }
+					}
+				}
+				else = {
+					every_owned_pop = {
+						limit = { is_same_species = event_target:ratling_species }
+						add_modifier = { modifier = shock_5 years = 5 }
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				FROM = { is_primitive = yes }
+			}
+			if = {
+				limit = {
+					FROM = { has_country_flag = stone_age }
+				}
+				fromfrom = {
+					if = {
+						limit = {
+							root = { has_ethic = ethic_fanatic_authoritarian }
+						}
+						every_owned_pop = {
+							add_modifier = { modifier = shock_1 days = 648 }
+						}
+					}
+					else_if = {
+						limit = {
+							root = { has_ethic = ethic_authoritarian }
+						}
+						every_owned_pop = {
+							add_modifier = { modifier = shock_1 days = 864 }
+						}
+					}
+					else = {
+						every_owned_pop = {
+							add_modifier = { modifier = shock_1 years = 3 }
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					FROM = { has_country_flag = bronze_age }
+				}
+				fromfrom = {
+					if = {
+						limit = {
+							root = { has_ethic = ethic_fanatic_authoritarian }
+						}
+						every_owned_pop = {
+							add_modifier = { modifier = shock_2 days = 864 }
+						}
+					}
+					else_if = {
+						limit = {
+							root = { has_ethic = ethic_authoritarian }
+						}
+						every_owned_pop = {
+							add_modifier = { modifier = shock_2 days = 1152 }
+						}
+					}
+					else = {
+						every_owned_pop = {
+							add_modifier = { modifier = shock_2 years = 4 }
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					FROM = { has_country_flag = iron_age }
+				}
+				fromfrom = {
+					if = {
+						limit = {
+							root = { has_ethic = ethic_fanatic_authoritarian }
+						}
+						every_owned_pop = {
+							add_modifier = { modifier = shock_3 years = 3 }
+						}
+					}
+					else_if = {
+						limit = {
+							root = { has_ethic = ethic_authoritarian }
+						}
+						every_owned_pop = {
+							add_modifier = { modifier = shock_3 years = 4 }
+						}
+					}
+					else = {
+						every_owned_pop = {
+							add_modifier = { modifier = shock_3 years = 5 }
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					FROM = { has_country_flag = late_medieval_age }
+				}
+				fromfrom = {
+					if = {
+						limit = {
+							root = { has_ethic = ethic_fanatic_authoritarian }
+						}
+						every_owned_pop = {
+							add_modifier = { modifier = shock_4 days = 1296 }
+						}
+					}
+					else_if = {
+						limit = {
+							root = { has_ethic = ethic_authoritarian }
+						}
+						every_owned_pop = {
+							add_modifier = { modifier = shock_4 days = 1728 }
+						}
+					}
+					else = {
+						every_owned_pop = {
+							add_modifier = { modifier = shock_4 years = 6 }
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					FROM = { has_country_flag = renaissance_age }
+				}
+				fromfrom = {
+					if = {
+						limit = {
+							root = { has_ethic = ethic_fanatic_authoritarian }
+						}
+						every_owned_pop = {
+							add_modifier = { modifier = shock_5 days = 1512 }
+						}
+					}
+					else_if = {
+						limit = {
+							root = { has_ethic = ethic_authoritarian }
+						}
+						every_owned_pop = {
+							add_modifier = { modifier = shock_5 days = 2016 }
+						}
+					}
+					else = {
+						every_owned_pop = {
+							add_modifier = { modifier = shock_5 years = 7 }
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					FROM = { has_country_flag = steam_age }
+				}
+				fromfrom = {
+					if = {
+						limit = {
+							root = { has_ethic = ethic_fanatic_authoritarian }
+						}
+						every_owned_pop = {
+							add_modifier = { modifier = shock_6 days = 1728 }
+						}
+					}
+					else_if = {
+						limit = {
+							root = { has_ethic = ethic_authoritarian }
+						}
+						every_owned_pop = {
+							add_modifier = { modifier = shock_6 days = 2304 }
+						}
+					}
+					else = {
+						every_owned_pop = {
+							add_modifier = { modifier = shock_6 years = 8 }
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					FROM = { has_country_flag = industrial_age }
+				}
+				fromfrom = {
+					if = {
+						limit = {
+							root = { has_ethic = ethic_fanatic_authoritarian }
+						}
+						every_owned_pop = {
+							add_modifier = { modifier = shock_7 days = 1944 }
+						}
+					}
+					else_if = {
+						limit = {
+							root = { has_ethic = ethic_authoritarian }
+						}
+						every_owned_pop = {
+							add_modifier = { modifier = shock_7 days = 2592 }
+						}
+					}
+					else = {
+						every_owned_pop = {
+							add_modifier = { modifier = shock_7 years = 9 }
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					FROM = { has_country_flag = machine_age }
+				}
+				fromfrom = {
+					if = {
+						limit = {
+							root = { has_ethic = ethic_fanatic_authoritarian }
+						}
+						every_owned_pop = {
+							add_modifier = { modifier = shock_8 years = 6 }
+						}
+					}
+					else_if = {
+						limit = {
+							root = { has_ethic = ethic_authoritarian }
+						}
+						every_owned_pop = {
+							add_modifier = { modifier = shock_8 years = 8 }
+						}
+					}
+					else = {
+						every_owned_pop = {
+							add_modifier = { modifier = shock_8 years = 10 }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = mod_planet_conquering.4
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		if = {
+			limit = { is_ai = yes }
+			owner_main_species = {
+				if = {
+					limit = { has_trait = trait_quick_learners }
+					prev = {
+						every_owned_leader = {
+							limit = {
+								species = { is_same_value = owner_main_species }
+							}
+							add_experience = 200
+						}
+					}
+				}
+				if = {
+					limit = { has_trait = trait_talented }
+					prev = {
+						every_owned_leader = {
+							limit = {
+								species = { is_same_value = owner_main_species }
+							}
+							add_experience = 100
+						}
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				is_ai = yes
+				OR = {
+					is_galactic_emperor = yes
+					is_galactic_custodian = yes
+					is_part_of_galactic_council = yes
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_modifier = resolution_passed_diplomatic_weight
+						has_modifier = resolution_failed_diplomatic_weight
+					}
+					NOT = { has_country_flag = newgen_anti_reset }
+				}
+				remove_country_flag = newgen_proporse_something
+				remove_country_flag = newgen_unpopular_check
+				remove_country_flag = newgen_important_resolution
+				set_timed_country_flag = { flag = newgen_anti_reset years = 6 }
+			}
+			if = {
+				limit = {
+					NOT = { has_country_flag = newgen_proporse_something }
+					is_proposing_resolution = "any"
+				}
+				set_timed_country_flag = { flag = newgen_proporse_something years = 11 }
+				set_timed_country_flag = { flag = newgen_unpopular_check years = 10 }
+			}
+			if = {
+				limit = {
+					has_country_flag = newgen_proporse_something
+					NOR = {
+						has_country_flag = newgen_unpopular_check
+						has_country_flag = newgen_important_resolution
+					}
+					OR = {
+						is_proposing_resolution = resolution_galacticreforms_enable_council_veto
+						is_proposing_resolution = resolution_declare_crisis
+						is_proposing_resolution = resolution_declare_crisis_empire
+						is_proposing_resolution = resolution_galacticreforms_nominate_custodian
+						is_proposing_resolution = resolution_custodian_form_empire
+						is_proposing_resolution = resolution_custodian_galactic_mobilization
+						is_proposing_resolution = resolution_custodian_gdf
+						is_proposing_resolution = resolution_custodian_expand_gdf
+						is_proposing_resolution = resolution_custodian_ina
+						is_proposing_resolution = resolution_galactic_empire_imperial_crusade
+						is_proposing_resolution = resolution_emperor_imperial_armada
+						is_proposing_resolution = resolution_emperor_expand_ia
+						is_proposing_resolution = resolution_emperor_imperial_legions
+						is_proposing_resolution = resolution_emperor_ina
+					}
+				}
+				remove_country_flag = newgen_proporse_something
+				remove_country_flag = newgen_unpopular_check
+				set_timed_country_flag = { flag = newgen_proporse_something years = 5 }
+				set_timed_country_flag = { flag = newgen_unpopular_check years = 4 }
+				set_timed_country_flag = { flag = newgen_important_resolution years = 5 }
+			}
+			else_if = {
+				limit = {
+					has_country_flag = newgen_proporse_something
+					NOT = { has_country_flag = newgen_unpopular_check }
+				}
+				if = {
+					limit = { is_galactic_emperor = yes }
+					set_country_flag = newgen_was_emperor
+					set_galactic_emperor = no
+					if = {
+						limit = { is_part_of_galactic_council = yes }
+						set_country_flag = newgen_was_council
+						remove_from_galactic_council = yes
+					}
+				}
+				else_if = {
+					limit = { is_galactic_custodian = yes }
+					set_country_flag = newgen_was_custodian
+					set_galactic_custodian = no
+					if = {
+						limit = { is_part_of_galactic_council = yes }
+						set_country_flag = newgen_was_council
+						remove_from_galactic_council = yes
+					}
+				}
+				else = {
+					remove_from_galactic_council = yes
+					set_country_flag = newgen_was_council
+				}
+				remove_from_galactic_community = yes
+				remove_country_flag = newgen_proporse_something
+				remove_country_flag = newgen_unpopular_check
+				remove_country_flag = newgen_important_resolution
+				remove_country_flag = newgen_anti_reset
+				country_event = { id = mod_planet_conquering.9 days = 2 }
+			}
+		}
+		every_controlled_planet = {
+			limit = { has_modifier = newgen_partisans_camp }
+			save_event_target_as = target_planet
+			reroll_random = yes
+			random_list = {
+				5 = {
+					modifier = {
+						factor = 0
+						NOT = { has_planet_flag = newgen_revolt_fail }
+						OR = {
+							has_planet_flag = fresh_camp
+							count_planet_army = { count < 6 }
+						}
+					}
+					modifier = { factor = 3 has_planet_flag = newgen_revolt_fail }
+					modifier = {
+						factor = 2
+						OR = {
+							AND = {
+								controller = { is_ai = no }
+								planet_stability > 40
+							}
+							AND = {
+								controller = { is_ai = yes }
+								planet_stability > 55
+							}
+						}
+					}
+					modifier = {
+						factor = 2
+						OR = {
+							AND = {
+								controller = { is_ai = no }
+								planet_stability > 60
+							}
+							AND = {
+								controller = { is_ai = yes }
+								planet_stability > 75
+							}
+						}
+					}
+					modifier = {
+						factor = 2
+						OR = {
+							has_modifier = revolt_suppressed
+							has_modifier = revolt_suppressed_2
+						}
+					}
+					modifier = {
+						factor = 2
+						controller = { is_xenophile = yes }
+					}
+					modifier = {
+						factor = 1.5
+						controller = {
+							OR = {
+								is_egalitarian = yes
+								is_megacorp = yes
+							}
+						}
+					}
+					modifier = {
+						factor = 1.5
+						controller = { is_slaver = yes }
+						OR = {
+							AND = {
+								controller = { is_ai = no }
+								planet_stability > 50
+							}
+							AND = {
+								controller = { is_ai = yes }
+								planet_stability > 65
+							}
+						}
+					}
+					modifier = {
+						factor = 1.5
+						count_planet_army = { count > 8 }
+					}
+					modifier = {
+						factor = 1.5
+						count_planet_army = { count > 11 }
+					}
+					modifier = {
+						factor = 1.5
+						count_planet_army = { count > 14 }
+					}
+					modifier = {
+						factor = 1.2
+						root = {
+							is_ai = yes
+							has_modifier = newgen_defense_war_1
+						}
+					}
+					modifier = {
+						factor = 1.4
+						root = {
+							is_ai = yes
+							has_modifier = newgen_defense_war_2
+						}
+					}
+					modifier = {
+						factor = 1.6
+						root = {
+							is_ai = yes
+							has_modifier = newgen_defense_war_3
+						}
+					}
+					modifier = {
+						factor = 0.5
+						OR = {
+							AND = {
+								controller = { is_ai = no }
+								planet_stability <= 10
+							}
+							AND = {
+								controller = { is_ai = yes }
+								planet_stability <= 25
+							}
+						}
+					}
+					modifier = {
+						factor = 0.5
+						OR = {
+							AND = {
+								controller = { is_ai = no }
+								planet_stability <= 25
+							}
+							AND = {
+								controller = { is_ai = yes }
+								planet_stability <= 40
+							}
+						}
+					}
+					modifier = { factor = 0.8 has_planet_flag = newgen_revolt_preparation1 }
+					modifier = { factor = 0.8 has_planet_flag = newgen_revolt_preparation2 }
+					modifier = {
+						factor = 0.6
+						controller = { has_ethic = ethic_fanatic_xenophobe }
+						OR = {
+							AND = {
+								controller = { is_ai = no }
+								planet_stability < 50
+							}
+							AND = {
+								controller = { is_ai = yes }
+								planet_stability < 65
+							}
+						}
+					}
+					modifier = {
+						factor = 0.8
+						controller = { has_ethic = ethic_xenophobe }
+						OR = {
+							AND = {
+								controller = { is_ai = no }
+								planet_stability < 50
+							}
+							AND = {
+								controller = { is_ai = yes }
+								planet_stability < 65
+							}
+						}
+					}
+					modifier = {
+						factor = 0.5
+						controller = {
+							is_ai = no
+							OR = {
+								has_ethic = ethic_fanatic_militarist
+								very_bad_dudes = yes
+								has_valid_civic = civic_distinguished_admiralty
+							}
+						}
+					}
+					modifier = {
+						factor = 0.8
+						controller = {
+							NOT = { is_same_empire = prev.owner }
+						}
+						owner = { has_modifier = newgen_defense_war_1 }
+					}
+					modifier = {
+						factor = 0.6
+						controller = {
+							NOT = { is_same_empire = prev.owner }
+						}
+						owner = { has_modifier = newgen_defense_war_2 }
+					}
+					modifier = {
+						factor = 0.4
+						controller = {
+							NOT = { is_same_empire = prev.owner }
+						}
+						owner = { has_modifier = newgen_defense_war_3 }
+					}
+					# log =  "random rolled, garrisons have destroyed partisans on planet [This.GetName]"
+					remove_modifier = newgen_partisans_camp
+				}
+				10 = {
+					modifier = {
+						factor = 0
+						OR = {
+							has_planet_flag = newgen_revolt_fail
+							AND = {
+								count_planet_army = { count > 11 }
+								controller = { very_bad_dudes = no }
+							}
+						}
+					}
+					modifier = {
+						factor = 2
+						OR = {
+							has_modifier = "unhappy_5"
+							has_modifier = "crime_15x"
+						}
+					}
+					modifier = {
+						factor = 1.5
+						OR = {
+							has_modifier = "unhappy_4"
+							has_modifier = "crime_10x"
+						}
+					}
+					modifier = {
+						factor = 2
+						count_planet_army = { count < 4 }
+					}
+					modifier = {
+						factor = 1.5
+						count_planet_army = { count < 6 }
+					}
+					modifier = {
+						factor = 2
+						OR = {
+							AND = {
+								controller = { is_ai = no }
+								planet_stability <= 10
+							}
+							AND = {
+								controller = { is_ai = yes }
+								planet_stability <= 25
+							}
+						}
+					}
+					modifier = {
+						factor = 2
+						OR = {
+							AND = {
+								controller = { is_ai = no }
+								planet_stability <= 25
+							}
+							AND = {
+								controller = { is_ai = yes }
+								planet_stability <= 40
+							}
+						}
+					}
+					modifier = {
+						factor = 0.5
+						OR = {
+							AND = {
+								controller = { is_ai = no }
+								planet_stability > 40
+							}
+							AND = {
+								controller = { is_ai = yes }
+								planet_stability > 55
+							}
+						}
+					}
+					modifier = {
+						factor = 0.5
+						OR = {
+							AND = {
+								controller = { is_ai = no }
+								planet_stability > 60
+							}
+							AND = {
+								controller = { is_ai = yes }
+								planet_stability > 75
+							}
+						}
+					}
+					modifier = {
+						factor = 0.5
+						OR = {
+							has_modifier = revolt_suppressed
+							has_modifier = revolt_suppressed_2
+						}
+					}
+					modifier = {
+						factor = 0.8
+						count_planet_army = { count > 9 }
+					}
+					modifier = { factor = 0.8 has_planet_flag = newgen_revolt_preparation1 }
+					modifier = { factor = 0.8 has_planet_flag = newgen_revolt_preparation2 }
+					modifier = {
+						factor = 1.5
+						num_pops < 10
+						controller = {
+							is_ai = no
+							very_bad_dudes = yes
+						}
+					}
+					modifier = {
+						factor = 2
+						num_pops < 5
+						controller = {
+							is_ai = no
+							very_bad_dudes = yes
+						}
+					}
+					# log = "random rolled, now will be revolt on planet [This.GetName]"
+					set_planet_flag = revolt_in_progress
+					add_planet_devastation = 5
+					set_variable = { which = unrest_50 value = 0 }
+					set_variable = { which = rebel_armies_var value = 2 }
+					set_variable = { which = newgen_temp value = 0 }
+					if = {
+						limit = {
+							OR = {
+								has_modifier = "unhappy_5"
+								has_modifier = "crime_15x"
+							}
+						}
+						change_variable = { which = rebel_armies_var value = 5 }
+					}
+					else_if = {
+						limit = {
+							OR = {
+								has_modifier = "unhappy_4"
+								has_modifier = "crime_10x"
+							}
+						}
+						change_variable = { which = rebel_armies_var value = 4 }
+					}
+					else_if = {
+						limit = {
+							OR = {
+								has_modifier = "unhappy_3"
+								has_modifier = "crime_6x"
+							}
+						}
+						change_variable = { which = rebel_armies_var value = 3 }
+					}
+					else_if = {
+						limit = {
+							OR = {
+								has_modifier = "unhappy_2"
+								has_modifier = "crime_3x"
+							}
+						}
+						change_variable = { which = rebel_armies_var value = 2 }
+					}
+					else_if = {
+						limit = {
+							OR = {
+								has_modifier = "unhappy_1"
+								has_modifier = "crime_1x"
+							}
+						}
+						change_variable = { which = rebel_armies_var value = 1 }
+					}
+					if = {
+						limit = {
+							is_variable_set = newgen_res_level
+							check_variable = { which = newgen_res_level value = 2 }
+						}
+						change_variable = { which = rebel_armies_var value = 1 }
+					}
+					else_if = {
+						limit = {
+							is_variable_set = newgen_res_level
+							check_variable = { which = newgen_res_level value = 3 }
+						}
+						change_variable = { which = rebel_armies_var value = 2 }
+					}
+					else_if = {
+						limit = {
+							is_variable_set = newgen_res_level
+							check_variable = { which = newgen_res_level value > 3 }
+						}
+						change_variable = { which = rebel_armies_var value = 3 }
+					}
+					if = {
+						limit = { has_modifier = planet_culture_shock }
+						multiply_variable = { which = rebel_armies_var value = 1.5 }
+					}
+					every_owned_pop = {
+						planet = {
+							change_variable = { which = newgen_temp value = 1 }
+						}
+					}
+					if = {
+						limit = {
+							controller = { is_ai = no }
+						}
+						if = {
+							limit = {
+								controller = { very_bad_dudes = yes }
+							}
+							multiply_variable = { which = newgen_temp value = 0.08 }
+							change_variable = { which = newgen_temp value = 3 }
+						}
+						else_if = {
+							limit = {
+								controller = { is_militarist = yes }
+							}
+							multiply_variable = { which = newgen_temp value = 0.06 }
+							change_variable = { which = newgen_temp value = 2 }
+						}
+						else = {
+							multiply_variable = { which = newgen_temp value = 0.04 }
+							change_variable = { which = newgen_temp value = 1 }
+						}
+					}
+					else = {
+						multiply_variable = { which = newgen_temp value = 0.02 }
+						change_variable = { which = newgen_temp value = 1 }
+					}
+					multiply_variable = { which = rebel_armies_var value = newgen_temp }
+					if = {
+						limit = {
+							OR = {
+								AND = {
+									controller = { is_ai = no }
+									planet_stability > 25
+								}
+								AND = {
+									controller = { is_ai = yes }
+									planet_stability > 40
+								}
+							}
+						}
+						multiply_variable = { which = rebel_armies_var value = 0.5 }
+					}
+					if = {
+						limit = {
+							OR = {
+								AND = {
+									controller = { is_ai = no }
+									planet_stability > 10
+								}
+								AND = {
+									controller = { is_ai = yes }
+									planet_stability > 25
+								}
+							}
+						}
+						multiply_variable = { which = rebel_armies_var value = 0.5 }
+					}
+					if = {
+						limit = {
+							controller = { is_ai = no }
+							is_difficulty = 6
+						}
+						change_variable = { which = rebel_armies_var value = 1 }
+					}
+					if = {
+						limit = {
+							controller = { is_ai = no }
+							is_difficulty > 4
+						}
+						change_variable = { which = rebel_armies_var value = 1 }
+					}
+					if = {
+						limit = {
+							controller = {
+								OR = {
+									is_unfriendly = yes
+									is_slaver = yes
+									is_xenophobe = yes
+									AND = {
+										is_ai = no
+										is_militarist = yes
+									}
+								}
+							}
+						}
+						change_variable = { which = rebel_armies_var value = 1 }
+					}
+					if = {
+						limit = {
+							controller = {
+								is_ai = no
+								NOT = { is_same_empire = prev.owner }
+							}
+							owner = { has_modifier = newgen_defense_war_3 }
+						}
+						change_variable = { which = rebel_armies_var value = 3 }
+					}
+					else_if = {
+						limit = {
+							controller = {
+								is_ai = no
+								NOT = { is_same_empire = prev.owner }
+							}
+							owner = { has_modifier = newgen_defense_war_2 }
+						}
+						change_variable = { which = rebel_armies_var value = 2 }
+					}
+					else_if = {
+						limit = {
+							controller = {
+								is_ai = no
+								NOT = { is_same_empire = prev.owner }
+							}
+							owner = { has_modifier = newgen_defense_war_1 }
+						}
+						change_variable = { which = rebel_armies_var value = 1 }
+					}
+					if = {
+						limit = {
+							NOT = { has_planet_flag = newgen_revolt_preparation1 }
+						}
+						multiply_variable = { which = rebel_armies_var value = 1.5 }
+						# log =  "first stage of revolt preparation - finished"
+					}
+					# else = { log = "first stage of revolt preparation - not finished" }
+					if = {
+						limit = {
+							NOT = { has_planet_flag = newgen_revolt_preparation2 }
+						}
+						multiply_variable = { which = rebel_armies_var value = 1.5 }
+						# log =  "second stage of revolt preparation - finished"
+					}
+					else = { log = "second stage of revolt preparation - not finished" }
+					ceiling_variable = rebel_armies_var
+					set_variable = { which = newgen_temp value = 0 }
+					every_planet_army = {
+						prev = {
+							change_variable = { which = newgen_temp value = 1 }
+						}
+					}
+					# log =  "before battle, on planet [This.GetName], where is current owner [This.Owner.GetName] rebels: [This.rebel_armies_var], defenses:[This.newgen_temp]"
+					clear_variable = newgen_temp
+					if = {
+						limit = {
+							# has original owner
+							any_playable_country = {
+								has_country_flag = newgen_owner@prev
+								NOT = { is_same_value = root }
+							}
+						}
+						# log = "original owner of rebels founded"
+						random_playable_country = {
+							limit = {
+								has_country_flag = newgen_owner@prev
+								NOT = { is_same_value = root }
+							}
+							save_event_target_as = fatherland
+						}
+						random_owned_pop = {
+							limit = { is_same_species = event_target:fatherland }
+							save_event_target_as = nationalist_pop
+						}
+						create_rebels = {
+							name = random
+							ethos = event_target:fatherland
+							authority = event_target:fatherland
+							# civics = event_target:fatherland
+							civics = random
+							origin = "origin_separatists"
+							species = event_target:fatherland
+							flag = random
+							effect = {
+								if = {
+									limit = { has_trait = trait_necrophage }
+									set_origin = origin_necrophage
+								}
+								set_country_flag = standard_unrest_rebels
+								save_event_target_as = nationalist_rebels
+								establish_communications_no_message = event_target:target_planet.owner
+								establish_communications_no_message = event_target:fatherland
+								event_target:target_planet = {
+									owner = {
+										every_relation = { establish_communications_no_message = prevprevprev }
+									}
+								}
+							}
+						}
+						while = {
+							limit = {
+								check_variable = { which = rebel_armies_var value > 0 }
+							}
+							if = {
+								limit = { has_modifier = planet_culture_shock }
+								reroll_random = yes
+								random_list = {
+									4 = { create_army = { owner = event_target:nationalist_rebels species = event_target:fatherland type = "assault_army" } }
+									12 = { create_army = { name = "Enraged Primitives" owner = event_target:nationalist_rebels species = event_target:fatherland type = "newgen_primitive_assault_army" } }
+								}
+							}
+							else = {
+								create_army = {
+									owner = event_target:nationalist_rebels
+									species = event_target:fatherland
+									type = "assault_army"
+								}
+							}
+							subtract_variable = { which = rebel_armies_var value = 1 }
+						}
+						if = {
+							limit = { has_modifier = newgen_partisans_camp }
+							if = {
+								limit = { has_modifier = planet_culture_shock }
+								create_army = {
+									owner = event_target:nationalist_rebels
+									species = event_target:fatherland
+									type = "assault_army"
+								}
+								while = {
+									count = 3
+									create_army = {
+										name = "Enraged Primitives"
+										owner = event_target:nationalist_rebels
+										species = event_target:fatherland
+										type = "newgen_primitive_assault_army"
+									}
+								}
+							}
+							else = {
+								while = {
+									count = 4
+									create_army = {
+										owner = event_target:nationalist_rebels
+										species = event_target:fatherland
+										type = "assault_army"
+									}
+								}
+							}
+						}
+						set_planet_flag = nationalist_revolt
+						set_timed_planet_flag = { flag = recent_unrest_event years = 2 }
+					}
+					else = {
+						# no original owner
+						# log = "original owner not found"
+						random_owned_pop = {
+							limit = {
+								is_sapient = yes
+								pop_has_happiness = yes
+							}
+							save_event_target_as = rebel_pop1
+						}
+						if = {
+							limit = {
+								NOT = { exists = event_target:rebel_pop1 }
+							}
+							random_owned_pop = {
+								limit = { is_sapient = yes }
+								save_event_target_as = rebel_pop1
+							}
+						}
+						if = {
+							limit = {
+								NOT = { exists = event_target:rebel_pop1 }
+							}
+							random_owned_pop = { save_event_target_as = rebel_pop1 }
+						}
+						create_rebels = {
+							species = event_target:rebel_pop1.species
+							ethos = random
+							authority = random
+							origin = "origin_separatists"
+							name = random
+							flag = random
+							effect = {
+								if = {
+									limit = { has_trait = trait_necrophage }
+									set_origin = origin_necrophage
+								}
+								set_country_flag = standard_unrest_rebels
+								save_event_target_as = secessionist_rebels
+								establish_communications_no_message = event_target:target_planet.owner
+								event_target:target_planet = {
+									owner = {
+										every_relation = { establish_communications_no_message = prevprevprev }
+									}
+								}
+							}
+						}
+						while = {
+							limit = {
+								check_variable = { which = rebel_armies_var value > 0 }
+							}
+							if = {
+								limit = { has_modifier = planet_culture_shock }
+								reroll_random = yes
+								random_list = {
+									4 = { create_army = { owner = event_target:secessionist_rebels species = event_target:secessionist_rebels type = "assault_army" } }
+									12 = { create_army = { name = "Enraged Primitives" owner = event_target:secessionist_rebels species = event_target:secessionist_rebels type = "newgen_primitive_assault_army" } }
+								}
+							}
+							else = {
+								create_army = {
+									owner = event_target:secessionist_rebels
+									species = event_target:secessionist_rebels
+									type = "assault_army"
+								}
+							}
+							subtract_variable = { which = rebel_armies_var value = 1 }
+						}
+						if = {
+							limit = { has_modifier = newgen_partisans_camp }
+							if = {
+								limit = { has_modifier = planet_culture_shock }
+								create_army = {
+									owner = event_target:secessionist_rebels
+									species = event_target:secessionist_rebels
+									type = "assault_army"
+								}
+								while = {
+									count = 3
+									create_army = {
+										name = "Enraged Primitives"
+										owner = event_target:secessionist_rebels
+										species = event_target:secessionist_rebels
+										type = "newgen_primitive_assault_army"
+									}
+								}
+							}
+							else = {
+								while = {
+									count = 4
+									create_army = {
+										owner = event_target:secessionist_rebels
+										species = event_target:secessionist_rebels
+										type = "assault_army"
+									}
+								}
+							}
+						}
+						set_planet_flag = secessionist_revolt
+						set_timed_planet_flag = { flag = recent_unrest_event years = 2 }
+					}
+					set_variable = { which = rebel_armies_var value = 0 }
+				}
+				50 = {
+					modifier = {
+						add = 5
+						OR = {
+							has_modifier = crime_1x
+							has_modifier = unhappy_1
+						}
+					}
+					modifier = {
+						add = 10
+						OR = {
+							has_modifier = crime_3x
+							has_modifier = unhappy_2
+						}
+					}
+					modifier = {
+						add = 15
+						OR = {
+							has_modifier = crime_6x
+							has_modifier = unhappy_3
+						}
+					}
+					modifier = {
+						add = 25
+						OR = {
+							has_modifier = crime_10x
+							has_modifier = unhappy_4
+						}
+					}
+					modifier = {
+						add = 35
+						OR = {
+							has_modifier = crime_15x
+							has_modifier = unhappy_5
+						}
+					}
+					modifier = { add = 30 has_modifier = planet_culture_shock }
+					# log = "random rolled, no revolt, no camp destroying on planet [This.GetName]"
+				}
+			}
+		}
+		if = {
+			limit = { is_ai = yes }
+			if = {
+				limit = {
+					has_country_flag = mod_prescripted_3
+					years_passed >= 30
+				}
+				if = {
+					limit = { years_passed >= 65 }
+					every_owned_fleet = {
+						add_modifier = { modifier = bloodborn_grow_2 years = 1 }
+					}
+				}
+				else = {
+					every_owned_fleet = {
+						add_modifier = { modifier = bloodborn_grow_1 years = 1 }
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = mod_prescripted_4
+					years_passed >= 65
+				}
+				every_owned_fleet = {
+					add_modifier = { modifier = bloodborn_grow_1 years = 1 }
+				}
+			}
+			if = {
+				limit = { has_country_flag = newgen_pr_war }
+				every_owned_fleet = {
+					limit = { is_ship_class = shipclass_transport }
+					add_modifier = { modifier = newgen_carry years = 1 }
+				}
+			}
+			if = {
+				limit = { has_country_flag = custom_wars }
+				every_owned_fleet = {
+					limit = { is_ship_class = shipclass_constructor }
+					add_modifier = { modifier = newgen_carry years = 1 }
+				}
+			}
+			else_if = {
+				limit = {
+					years_passed < 40
+					OR = {
+						has_country_flag = mod_prescripted_6
+						has_country_flag = mod_prescripted_13
+						has_origin = origin_doomsday
+						has_origin = origin_life_seeded
+						has_origin = origin_shattered_ring
+					}
+				}
+				add_resource = { influence = 15 }
+				every_owned_fleet = {
+					limit = { is_ship_class = shipclass_constructor }
+					add_modifier = { modifier = newgen_carry years = 1 }
+				}
+				every_owned_fleet = {
+					limit = { is_ship_class = shipclass_science_ship }
+					add_modifier = { modifier = newgen_nature_grow years = 1 }
+				}
+			}
+			else_if = {
+				limit = {
+					years_passed < 40
+					has_origin = origin_void_dwellers
+				}
+				add_resource = { influence = 5 }
+			}
+		}
+	}
+}
+
+planet_event = {
+	id = mod_planet_conquering.5
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		exists = controller
+		NOR = {
+			has_planet_flag = newgen_conquered
+			has_planet_flag = newgen_gar_check_enabled
+		}
+	}
+	immediate = {
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						controller = { is_ai = no }
+						planet_stability > 40
+					}
+					AND = {
+						controller = { is_ai = yes }
+						planet_stability > 55
+					}
+				}
+				has_ground_combat = no
+				NOT = { has_modifier = newgen_partisans_camp }
+			}
+			every_planet_army = {
+				limit = { is_variable_set = newgen_garrison }
+				remove_army = yes
+			}
+		}
+		else = {
+			set_timed_planet_flag = { flag = newgen_gar_check_enabled days = 359 }
+			planet_event = { id = mod_planet_conquering.5 days = 360 }
+		}
+	}
+}
+
+planet_event = {
+	id = mod_planet_conquering.6
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		# log =  "partisans camp dissapear after colony destroying"
+		remove_modifier = crime_1x
+		remove_modifier = unhappy_1
+		remove_modifier = crime_3x
+		remove_modifier = unhappy_2
+		remove_modifier = crime_6x
+		remove_modifier = unhappy_3
+		remove_modifier = crime_10x
+		remove_modifier = unhappy_4
+		remove_modifier = crime_15x
+		remove_modifier = unhappy_5
+		remove_modifier = newgen_partisans_camp
+		remove_planet_flag = fresh_camp
+		remove_planet_flag = newgen_revolt_preparation1
+		remove_planet_flag = newgen_revolt_preparation2
+		remove_planet_flag = revolt_in_progress
+		every_playable_country = { remove_country_flag = newgen_owner@root }
+	}
+}
+
+planet_event = {
+	id = mod_planet_conquering.7
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		if = {
+			limit = {
+				exists = owner
+				OR = {
+					AND = {
+						controller = { is_ai = no }
+						planet_stability <= 45
+					}
+					AND = {
+						controller = { is_ai = yes }
+						planet_stability <= 60
+					}
+				}
+				free_building_slots > 0
+				num_pops > 4
+				NOR = {
+					has_planet_flag = newgen_conquered
+					owner = { has_origin = origin_separatists }
+				}
+				owner = {
+					is_ai = yes
+					has_resource = { type = minerals amount > 400 }
+				}
+			}
+			if = {
+				limit = {
+					owner = { is_gestalt = no }
+				}
+				add_building = building_precinct_house
+			}
+			else_if = {
+				limit = {
+					owner = { is_gestalt = yes }
+				}
+				add_building = building_sentinel_posts
+			}
+			while = {
+				count = 3
+				create_pop = { species = owner_main_species }
+			}
+			owner = {
+				add_resource = { minerals = -200 }
+			}
+		}
+	}
+}
+
+country_event = {
+	id = mod_planet_conquering.8
+	title = "mod_planet_conquering.8"
+	desc = "mod_planet_conquering.8.desc"
+	picture = GFX_evt_open_revolt
+	show_sound = event_ground_battle
+	location = capital_scope
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_country_flag = newgen_warned_rebels }
+	}
+	immediate = { set_country_flag = newgen_warned_rebels }
+	option = { name = "mod_planet_conquering.8.a" }
+}
+
+country_event = {
+	id = mod_planet_conquering.9
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		add_to_galactic_community_no_message = yes
+		if = {
+			limit = { has_country_flag = newgen_was_council }
+			remove_country_flag = newgen_was_council
+			add_to_galactic_council = yes
+		}
+		if = {
+			limit = { has_country_flag = newgen_was_emperor }
+			remove_country_flag = newgen_was_emperor
+			set_galactic_emperor = yes
+		}
+		else_if = {
+			limit = { has_country_flag = newgen_was_custodian }
+			remove_country_flag = newgen_was_custodian
+			set_galactic_custodian = yes
+		}
+	}
+}
+
+# Root = Planet
+# from = Planet Owner
+# fromfrom = Planet Controller (the one occupying)
+planet_event = {
+	id = mod_planet_conquering.10
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		fromfrom = { merg_is_default_empire = yes }
+	}
+	immediate = {
+		if = {
+			limit = { galaxy_size = tiny }
+			set_variable = { which = newgen_temp2 value = 2 }
+		}
+		else_if = {
+			limit = { galaxy_size = small }
+			set_variable = { which = newgen_temp2 value = 1 }
+		}
+		else_if = {
+			limit = { galaxy_size = medium }
+			set_variable = { which = newgen_temp2 value = 0.666 }
+		}
+		else_if = {
+			limit = { galaxy_size = large }
+			set_variable = { which = newgen_temp2 value = 0.444 }
+		}
+		else = {
+			set_variable = { which = newgen_temp2 value = 0.295 }
+		}
+		if = {
+			limit = { num_pops > 19 }
+			multiply_variable = { which = newgen_temp2 value = 1.5 }
+		}
+		if = {
+			limit = { num_pops > 39 }
+			multiply_variable = { which = newgen_temp2 value = 1.5 }
+		}
+		if = {
+			limit = {
+				OR = {
+					merg_is_hab_ringworld = yes
+					merg_is_arcology = yes
+					is_planet_class = pc_relic
+					is_planet_class = pc_gaia
+					is_planet_class = pc_relic
+					merg_is_machine_world = yes
+					has_deposit = d_tree_of_life_home
+					has_deposit = d_lithoid_crater
+					AND = {
+						is_planet_class = pc_ocean
+						planet_size > 29
+					}
+				}
+			}
+			multiply_variable = { which = newgen_temp2 value = 2 }
+		}
+		if = {
+			limit = { is_capital = yes }
+			multiply_variable = { which = newgen_temp2 value = 1.5 }
+		}
+		if = {
+			limit = { merg_is_habitat = yes }
+			divide_variable = { which = newgen_temp2 value = 2 }
+		}
+		fromfrom = {
+			if = {
+				limit = {
+					NOT = { is_variable_set = newgen_expansion_score }
+				}
+				set_variable = { which = newgen_expansion_score value = 0 }
+			}
+			change_variable = { which = newgen_expansion_score value = root.newgen_temp2 }
+		}
+		clear_variable = newgen_temp2
+	}
+}
+
+# THIS = System: system being occupied
+# FROM = Country: Conqueror of the system
+# fromfrom = Country: Original owner of the system
+system_event = {
+	id = mod_planet_conquering.11
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		from = { merg_is_default_empire = yes }
+	}
+	immediate = {
+		from = {
+			if = {
+				limit = {
+					NOT = { is_variable_set = newgen_expansion_score }
+				}
+				set_variable = { which = newgen_expansion_score value = 0 }
+			}
+			if = {
+				limit = { galaxy_size = tiny }
+				change_variable = { which = newgen_expansion_score value = 0.333 }
+			}
+			else_if = {
+				limit = { galaxy_size = small }
+				change_variable = { which = newgen_expansion_score value = 0.167 }
+			}
+			else_if = {
+				limit = { galaxy_size = medium }
+				change_variable = { which = newgen_expansion_score value = 0.111 }
+			}
+			else_if = {
+				limit = { galaxy_size = large }
+				change_variable = { which = newgen_expansion_score value = 0.074 }
+			}
+			else = {
+				change_variable = { which = newgen_expansion_score value = 0.049 }
+			}
+		}
+	}
+}
+
+# Root = Country
+# from = War
+country_event = {
+	id = mod_planet_conquering.12
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { merg_is_default_empire = yes }
+	immediate = {
+		if = {
+			limit = {
+				has_country_flag = mod_prescripted_11
+				is_ai = yes
+				is_subject = no
+			}
+			if = {
+				limit = { exists = event_target:newgen_visitors_system1 } # mod exists
+				country_event = { id = mod_sacrfice_event.4 }
+			}
+			else = {
+				every_owned_pop = {
+					limit = { has_job = mortal_initiate }
+					reroll_random = yes
+					random_list = {
+						30 = {
+							modifier = { factor = 3 pop_has_ethic = ethic_spiritualist }
+							modifier = { factor = 5 pop_has_ethic = ethic_fanatic_spiritualist }
+						}
+						60 = { kill_pop = yes }
+					}
+				}
+			}
+		}
+		set_variable = { which = newgen_temp_goal value = 0 }
+		if = {
+			limit = {
+				from = {
+					OR = {
+						using_war_goal = { type = wg_cleansing owner = root }
+						using_war_goal = { type = wg_absorption owner = root }
+						using_war_goal = { type = wg_assimilation owner = root }
+						using_war_goal = { type = wg_cleansing_vs_fe owner = root }
+						using_war_goal = { type = wg_absorption_vs_fe owner = root }
+						using_war_goal = { type = wg_assimilation_vs_fe owner = root }
+						using_war_goal = { type = wg_wipe_them_out owner = root }
+					}
+				}
+			}
+			set_variable = { which = newgen_temp_goal value = 3 }
+		}
+		else_if = {
+			limit = {
+				from = {
+					OR = {
+						using_war_goal = { type = wg_colossus owner = root }
+						using_war_goal = { type = wg_subjugation owner = root }
+						using_war_goal = { type = wg_tribute owner = root }
+						using_war_goal = { type = wg_megacorp_subjugate owner = root }
+						using_war_goal = { type = wg_conquest owner = root }
+						using_war_goal = { type = wg_bring_into_the_fold owner = root }
+						using_war_goal = { type = wg_hegemon owner = root }
+					}
+				}
+			}
+			set_variable = { which = newgen_temp_goal value = 2 }
+		}
+		else_if = {
+			limit = {
+				from = {
+					OR = {
+						using_war_goal = { type = wg_plunder owner = root }
+						using_war_goal = { type = wg_force_ideology owner = root }
+						using_war_goal = { type = wg_hostile_takeover owner = root }
+						using_war_goal = { type = wg_hostile_takeover_imperium owner = root }
+						using_war_goal = { type = wg_imperial_crusade owner = root }
+						using_war_goal = { type = wg_seize_council_seat owner = root }
+					}
+				}
+			}
+			set_variable = { which = newgen_temp_goal value = 1 }
+		}
+		else_if = {
+			limit = {
+				from = {
+					OR = {
+						using_war_goal = { type = wg_humiliation owner = root }
+						using_war_goal = { type = wg_imperial_rebuke owner = root }
+					}
+				}
+				is_war_participant = { who = root war = from side = attackers }
+			}
+			set_variable = { which = newgen_temp_goal value = 1 }
+		}
+		if = {
+			limit = {
+				is_war_participant = { who = root war = from side = defenders }
+			}
+			divide_variable = { which = newgen_temp_goal value = 2 }
+		}
+		if = {
+			limit = {
+				NOT = { is_variable_set = newgen_expansion_score }
+			}
+			set_variable = { which = newgen_expansion_score value = 0 }
+		}
+		change_variable = { which = newgen_expansion_score value = newgen_temp_goal }
+		clear_variable = newgen_temp_goal
+	}
+}
+
+# A war has been won
+# Root = Winner Warleader
+# from = Loser Warleader
+# fromfrom = War
+country_event = {
+	id = mod_planet_conquering.13
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { merg_is_default_empire = yes }
+	immediate = {
+		set_variable = { which = newgen_temp_goal1 value = 0 }
+		if = {
+			limit = {
+				fromfrom = {
+					OR = {
+						using_war_goal = { type = wg_cleansing owner = root }
+						using_war_goal = { type = wg_absorption owner = root }
+						using_war_goal = { type = wg_assimilation owner = root }
+						using_war_goal = { type = wg_cleansing_vs_fe owner = root }
+						using_war_goal = { type = wg_absorption_vs_fe owner = root }
+						using_war_goal = { type = wg_assimilation_vs_fe owner = root }
+						using_war_goal = { type = wg_wipe_them_out owner = root }
+					}
+				}
+			}
+			set_variable = { which = newgen_temp_goal1 value = 3 }
+		}
+		else_if = {
+			limit = {
+				fromfrom = {
+					OR = {
+						using_war_goal = { type = wg_colossus owner = root }
+						using_war_goal = { type = wg_subjugation owner = root }
+						using_war_goal = { type = wg_tribute owner = root }
+						using_war_goal = { type = wg_megacorp_subjugate owner = root }
+						using_war_goal = { type = wg_conquest owner = root }
+						using_war_goal = { type = wg_bring_into_the_fold owner = root }
+						using_war_goal = { type = wg_hegemon owner = root }
+					}
+				}
+			}
+			set_variable = { which = newgen_temp_goal1 value = 2 }
+		}
+		else_if = {
+			limit = {
+				fromfrom = {
+					OR = {
+						using_war_goal = { type = wg_plunder owner = root }
+						using_war_goal = { type = wg_force_ideology owner = root }
+						using_war_goal = { type = wg_hostile_takeover owner = root }
+						using_war_goal = { type = wg_hostile_takeover_imperium owner = root }
+						using_war_goal = { type = wg_imperial_crusade owner = root }
+						using_war_goal = { type = wg_seize_council_seat owner = root }
+					}
+				}
+			}
+			set_variable = { which = newgen_temp_goal1 value = 1 }
+		}
+		else_if = {
+			limit = {
+				fromfrom = {
+					OR = {
+						using_war_goal = { type = wg_humiliation owner = root }
+						using_war_goal = { type = wg_imperial_rebuke owner = root }
+					}
+				}
+				is_war_participant = { who = root war = fromfrom side = attackers }
+			}
+			set_variable = { which = newgen_temp_goal1 value = 1 }
+		}
+		if = {
+			limit = {
+				is_war_participant = { who = root war = fromfrom side = defenders }
+			}
+			divide_variable = { which = newgen_temp_goal1 value = 2 }
+		}
+		if = {
+			limit = {
+				NOT = { is_variable_set = newgen_expansion_score }
+			}
+			set_variable = { which = newgen_expansion_score value = 0 }
+		}
+		change_variable = { which = newgen_expansion_score value = newgen_temp_goal1 }
+		clear_variable = newgen_temp_goal1
+	}
+}
+
+# This = destroyed country
+# from = optional, destroyer (country)
+country_event = {
+	id = mod_planet_conquering.14
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		exists = from
+		NOT = { has_origin = origin_separatists }
+	}
+	immediate = {
+		from = {
+			change_variable = { which = newgen_expansion_score value = 5 }
+		}
+	}
+}
+
+# from.owner
+planet_event = {
+	id = mod_planet_conquering.15
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		from = {
+			owner = { merg_is_default_empire = yes }
+		}
+	}
+	immediate = {
+		from = {
+			owner = {
+				if = {
+					limit = {
+						NOT = { is_variable_set = newgen_expansion_score }
+					}
+					set_variable = { which = newgen_expansion_score value = 5 }
+				}
+				else = {
+					change_variable = { which = newgen_expansion_score value = 5 }
+				}
+			}
+		}
+	}
+}
+
+# Triggers country_event for the defender upon victory
+# Root = country, planet owner
+# from = country, attack leader
+# fromfrom = planet
+country_event = {
+	id = mod_planet_conquering.16
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		fromfrom = { has_planet_flag = revolt_in_progress }
+	}
+	immediate = {
+		fromfrom = {
+			remove_planet_flag = revolt_in_progress
+			reroll_random = yes
+			random_list = {
+				60 = {
+					modifier = {
+						factor = 2
+						OR = {
+							AND = {
+								controller = { is_ai = no }
+								planet_stability > 40
+							}
+							AND = {
+								controller = { is_ai = yes }
+								planet_stability > 55
+							}
+						}
+					}
+					modifier = {
+						factor = 2
+						OR = {
+							AND = {
+								controller = { is_ai = no }
+								planet_stability > 60
+							}
+							AND = {
+								controller = { is_ai = yes }
+								planet_stability > 75
+							}
+						}
+					}
+					modifier = {
+						factor = 2
+						controller = { is_authoritarian = yes }
+					}
+					modifier = {
+						factor = 1.5
+						is_difficulty = 5
+						root.from = { is_ai = no }
+					}
+					modifier = {
+						factor = 2
+						is_difficulty = 6
+						root.from = { is_ai = no }
+					}
+					modifier = { factor = 0.5 planet_stability <= 10 }
+					modifier = { factor = 0.5 planet_stability <= 25 }
+					modifier = {
+						factor = 0.6
+						OR = {
+							has_modifier = "unhappy_5"
+							has_modifier = "crime_15x"
+						}
+					}
+					modifier = {
+						factor = 0.8
+						OR = {
+							has_modifier = "unhappy_4"
+							has_modifier = "crime_10x"
+						}
+					}
+					modifier = { factor = 0.65 has_planet_flag = newgen_crime_unrest }
+					# log =  "partisans camp destroyed after fail revolt on planet [This.GetName]"
+					root.from = { remove_country_flag = newgen_owner@root }
+					remove_modifier = newgen_partisans_camp
+					remove_planet_flag = fresh_camp
+					remove_planet_flag = newgen_revolt_preparation1
+					remove_planet_flag = newgen_revolt_preparation2
+					set_variable = { which = was_happy value = 0 }
+					set_variable = { which = newgen_num_garrisons value = 0 }
+				}
+				40 = {
+					# log =  "partisans camp survived after fail revolt on planet [This.GetName]"
+					if = {
+						limit = {
+							root.from = { is_ai = no }
+						}
+						set_timed_planet_flag = { flag = newgen_revolt_fail years = 2 }
+					}
+					else = {
+						set_timed_planet_flag = { flag = newgen_revolt_fail years = 1 }
+					}
+					remove_planet_flag = fresh_camp
+					remove_planet_flag = newgen_revolt_preparation1
+					remove_planet_flag = newgen_revolt_preparation2
+					if = {
+						limit = {
+							planet_devastation < 25
+							OR = {
+								AND = {
+									controller = { is_ai = no }
+									planet_stability <= 10
+								}
+								AND = {
+									controller = { is_ai = yes }
+									planet_stability <= 25
+								}
+							}
+						}
+						set_timed_planet_flag = { flag = newgen_revolt_preparation1 months = 9 }
+						set_timed_planet_flag = { flag = newgen_revolt_preparation2 months = 16 }
+					}
+					else_if = {
+						limit = {
+							planet_devastation < 50
+							OR = {
+								AND = {
+									controller = { is_ai = no }
+									planet_stability <= 25
+								}
+								AND = {
+									controller = { is_ai = yes }
+									planet_stability <= 40
+								}
+							}
+						}
+						set_timed_planet_flag = { flag = newgen_revolt_preparation1 days = 405 }
+						set_timed_planet_flag = { flag = newgen_revolt_preparation2 months = 27 }
+					}
+					else_if = {
+						limit = {
+							planet_devastation < 75
+							OR = {
+								AND = {
+									controller = { is_ai = no }
+									planet_stability <= 40
+								}
+								AND = {
+									controller = { is_ai = yes }
+									planet_stability <= 55
+								}
+							}
+						}
+						set_timed_planet_flag = { flag = newgen_revolt_preparation1 months = 16 }
+						set_timed_planet_flag = { flag = newgen_revolt_preparation2 years = 3 }
+					}
+					else = {
+						set_timed_planet_flag = { flag = newgen_revolt_preparation1 days = 675 }
+						set_timed_planet_flag = { flag = newgen_revolt_preparation2 months = 45 }
+					}
+				}
+			}
+		}
+	}
+}
+
+planet_event = {
+	id = mod_planet_conquering.17
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { }
+	immediate = {
+		if = {
+			limit = {
+				exists = controller
+				controller = { has_country_flag = newgen_owner@root }
+			}
+			# log =  "partisans camp dissapear on planet [This.GetName] after war, because owner is native"
+			controller = { remove_country_flag = newgen_owner@root }
+			remove_modifier = newgen_partisans_camp
+			remove_planet_flag = fresh_camp
+			remove_planet_flag = newgen_revolt_preparation1
+			remove_planet_flag = newgen_revolt_preparation2
+			set_variable = { which = was_happy value = 0 }
+			set_variable = { which = newgen_num_garrisons value = 0 }
+		}
+	}
+}
+
+# This = Planet
+# from = Bombarder
+planet_event = {
+	id = mod_planet_conquering.18
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		exists = owner
+		NOT = { has_planet_flag = newgen_ass_arm }
+	}
+	immediate = {
+		set_timed_planet_flag = { flag = newgen_ass_arm days = 15 }
+		if = {
+			limit = {
+				exists = controller
+				controller = {
+					is_ai = yes
+					is_same_value = owner
+				}
+			}
+			reroll_random = yes
+			random_list = {
+				5 = {
+					modifier = { add = 5 is_difficulty = 5 }
+					modifier = { add = 10 is_difficulty = 6 }
+					modifier = {
+						add = 5
+						owner = { is_militarist = yes }
+					}
+					modifier = {
+						add = 5
+						owner = { is_unfriendly = yes }
+					}
+					remove_planet_flag = newgen_ass_arm
+					set_timed_planet_flag = { flag = newgen_ass_arm months = 4 }
+					owner = { save_event_target_as = newgen_bombarded_owner }
+					planet_event = { id = mod_planet_conquering.19 days = 90 random = 30 }
+				}
+				95 = { }
+			}
+		}
+	}
+}
+
+planet_event = {
+	id = mod_planet_conquering.19
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		exists = controller
+		exists = event_target:newgen_bombarded_owner
+		controller = { is_same_value = event_target:newgen_bombarded_owner }
+	}
+	immediate = {
+		if = {
+			limit = {
+				controller = {
+					OR = {
+						has_origin = origin_clone_army
+						AND = {
+							has_technology = tech_gene_banks
+							OR = {
+								is_machine_empire = no
+								has_civic = civic_machine_assimilator
+							}
+							NOR = {
+								is_fallen_empire = yes
+								has_technology = tech_telepathy
+								has_technology = tech_gene_seed_purification
+								NAND = {
+
+									is_militarist = yes
+									has_technology = tech_gene_banks
+								}
+							}
+						}
+					}
+				}
+			}
+			create_army = {
+				owner = controller
+				species = owner_main_species
+				name = random
+				type = "clone_army"
+			}
+		}
+		else_if = {
+			limit = {
+				controller = {
+					OR = {
+						has_country_flag = flesh_weakened
+						has_country_flag = synthetic_empire
+					}
+					NOR = {
+						NOT = { has_policy_flag = robots_outlawed }
+						has_technology = tech_telepathy
+						has_technology = tech_gene_seed_purification
+						NAND = {
+							has_ai_personality_behaviour = robot_liberator
+							has_technology = tech_droid_workers
+						}
+					}
+				}
+			}
+			create_army = {
+				owner = controller
+				species = owner_main_species
+				name = random
+				type = "robotic_army"
+			}
+		}
+		else_if = {
+			limit = {
+				controller = { has_valid_civic = civic_reanimated_armies }
+				has_active_building = building_dread_encampment
+			}
+			create_army = {
+				owner = controller
+				species = owner_main_species
+				name = random
+				type = "undead_army"
+			}
+		}
+		else_if = {
+			limit = {
+				controller = { is_machine_empire = yes }
+			}
+			create_army = {
+				owner = controller
+				species = owner_main_species
+				name = random
+				type = "machine_assault_2"
+			}
+		}
+		else = {
+			create_army = {
+				owner = controller
+				species = owner_main_species
+				name = random
+				type = "assault_army"
+			}
+		}
+	}
+}

@@ -17,6 +17,7 @@ event = {
 		# Config only for minimal compatibility Crisis Manager.
 		if = {
 			limit = {
+				exists = event_target:global_event_country
 				NOT = { has_global_flag = CmtFlagActivated }
 				NAND = {
 					exists = event_target:CmtGlobalVar
@@ -24,11 +25,11 @@ event = {
 					event_target:CmtGlobalVar = { is_variable_set = CmtVarFleetPower_Khan }
 				}
 			}
-			if = { limit = { NOT = { exists = event_target:global_event_country } }
-				random_country = { limit = { is_country_type = global_event }
-					save_global_event_target_as = global_event_country
-				}
-			}
+			# if = { limit = { NOT = { exists = event_target:global_event_country } }
+			# 	random_country = { limit = { is_country_type = global_event }
+			# 		save_global_event_target_as = global_event_country
+			# 	}
+			# }
 			event_target:global_event_country = {
 				set_variable = { which = CmtVarKhanMultiple value = 2 }
 				set_variable = { which = CmtVarKhanInterval value = 0 }
@@ -1739,7 +1740,7 @@ country_event = {
 							modifier = { factor = 3 is_bottleneck_system = yes }
 							modifier = {
 								factor = 5
-								any_system_colony = { exists = owner is_under_colonization = no }
+								any_system_colony = { is_under_colonization = no }
 							}
 						}
 						starbase = {
@@ -2200,13 +2201,19 @@ fleet_event = {
 					is_idle = yes
 					has_leader_flag = restored_admiral@root
 				}
+				is_councilor = no
+				is_ruler = no
 			}
 		}
 	}
 	immediate = {
 		owner = {
 			random_owned_leader = {
-				limit = { leader_class = admiral }
+				limit = {
+					leader_class = admiral
+					is_councilor = no
+					is_ruler = no
+				}
 				weights = {
 					base = 1
 					modifier = { add = 9 has_leader_flag = restored_admiral@root }
@@ -2344,7 +2351,7 @@ system_event = {
 						add = 3
 						OR = {
 							uses_district_set = habitat
-							is_ringworld = yes
+							has_ringworld_output_boost = yes
 						}
 					}
 				}

@@ -1,0 +1,52 @@
+# By 0.01 KD (New Generation of the World)
+# This = planet/fleet
+# is_within_border_system = {
+# 	solar_system = {
+# 		any_neighbor_system = {
+# 			NAND = {
+# 				exists = starbase
+# 				exists = starbase.controller
+# 				starbase.controller = { is_same_empire = prevprevprev.owner }
+# 			}
+# 		}
+# 	}
+# }
+
+very_bad_dudes = {
+	OR = {
+		is_homicidal = yes
+		has_valid_civic = civic_machine_assimilator
+	}
+}
+
+# enemy_is_near = {
+# 	solar_system = {
+# 		check_variable = { which = danger_level value > 0 }
+# 	}
+# }
+
+# can_build_station = {
+# 	solar_system = {
+# 		check_variable = { which = defence_platform_max value > defence_platform_count }
+# 	}
+# }
+
+# is_shipyard = {
+# 	count_starbase_modules = {
+# 		type = shipyard
+# 		count > 1
+# 	}
+# }
+
+# need_defence_platform = {
+# 	check_variable = {
+# 		which = defence_platform_max
+# 		value > defence_platform_count
+# 	}
+# }
+
+# is_habitable_system = {
+# 	solar_system = {
+# 		any_system_colony = { is_owned_by = prevprev.owner }
+# 	}
+# }

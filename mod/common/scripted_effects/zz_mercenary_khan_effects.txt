@@ -372,17 +372,7 @@ create_very_large_marauder_auxiliaries = {
 }
 
 create_marauder_successor_fleet = {
-	optimize_memory
 	random_owned_planet = { save_event_target_as = fleet_position }
-	create_leader = {
-		class = admiral
-		species = owner_species
-		name = random
-		skill = 3
-		leader_age_min = 25
-		leader_age_max = 45
-		traits = { 0 = leader_trait_mercenary_warrior }
-	}
 	create_fleet = {
 		effect = {
 			set_owner = prev
@@ -398,7 +388,7 @@ create_marauder_successor_fleet = {
 			else = {
 				create_dyn_marauder_fleet = { OUTRIDER = 16 LANCER = 8 }
 			}
-			assign_leader = last_created_leader
+			# assign_leader = last_created_leader
 			set_location = {
 				target = event_target:fleet_position
 				distance = 45
@@ -410,6 +400,50 @@ create_marauder_successor_fleet = {
 			uses_naval_capacity = no
 			can_upgrade = no
 			can_change_composition = no
+		}
+	}
+	# Fix unlimited leader creation
+	if = {
+		limit = {
+			NOR = {
+				count_owned_leader = {
+					count > 10
+					limit = {
+						leader_class = admiral
+						is_event_leader = no
+					}
+				}
+				any_owned_leader = {
+					leader_class = admiral
+					is_idle = yes
+					is_event_leader = no
+					is_councilor = no
+					is_ruler = no
+				}
+			}
+		}
+		create_leader = {
+			class = admiral
+			species = owner_species
+			name = random
+			skill = 3
+			leader_age_min = 25
+			leader_age_max = 45
+			traits = { trait = leader_trait_mercenary_warrior }
+		}
+		last_created_fleet = { assign_leader = last_created_leader }
+	}
+	else = {
+		random_owned_leader = {
+			limit = {
+				leader_class = admiral
+				is_idle = yes
+				is_event_leader = no
+				is_councilor = no
+				is_ruler = no
+			}
+			weights = { base = 1 modifier = { add = 4 NOT = { exists = fleet } } }
+			last_created_fleet = { assign_leader = prev }
 		}
 	}
 }
@@ -457,7 +491,6 @@ assign_first_diadochi_planets = {
 		limit = {
 			is_potential_diadochi_system = yes
 			any_system_colony = {
-				has_owner = yes
 				is_owned_by = root
 				merg_is_habitat = no
 				OR = {
@@ -539,7 +572,6 @@ assign_second_diadochi_planets = {
 		limit = {
 			is_potential_diadochi_system = yes
 			any_system_colony = {
-				has_owner = yes
 				is_owned_by = root
 				merg_is_habitat = no
 				OR = {
@@ -621,7 +653,6 @@ assign_third_diadochi_planets = {
 		limit = {
 			is_potential_diadochi_system = yes
 			any_system_colony = {
-				has_owner = yes
 				is_owned_by = root
 				merg_is_habitat = no
 				OR = {
@@ -702,7 +733,6 @@ assign_fourth_diadochi_planets = {
 		limit = {
 			is_potential_diadochi_system = yes
 			any_system_colony = {
-				has_owner = yes
 				is_owned_by = root
 				merg_is_habitat = no
 				OR = {
