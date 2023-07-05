@@ -115,7 +115,7 @@ create_marauder_merc_admiral = {
 		traits = {
 			trait = leader_trait_mercenary_warrior
 		}
-		background_ethic = "ethic_militarist"
+		background_ethic = "ethic_fanatic_militarist"
 		skip_background_generation = yes
 		custom_description = "custom_mercenary_admiral_desc"
 		effect = {
@@ -124,7 +124,7 @@ create_marauder_merc_admiral = {
 	}
 }
 
-create_marauder_general = {
+create_marauder_merc_general = {
 	create_leader = {
 		class = general
 		species = event_target:marauder_species
@@ -136,7 +136,7 @@ create_marauder_general = {
 		traits = {
 			trait = leader_trait_mercenary_warrior
 		}
-		background_ethic = "ethic_militarist"
+		background_ethic = "ethic_fanatic_militarist"
 		skip_background_generation = yes
 		custom_description = "custom_mercenary_admiral_desc"
 	}

@@ -102,7 +102,7 @@ wg_satrapy_independence = {
 					# every_war_participant = {
 					every_attacker = {
 						limit = {
-							is_subject = yes
+							is_subject = yes # exists = overlord
 							# from = { is_overlord_to = prev } not working for Khan
 							overlord = { is_same_empire = from }
 							# prev = {

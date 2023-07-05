@@ -1373,7 +1373,7 @@ country_event = {
 				}
 			}
 			leave_alliance = { override_requirements = yes }
-		} else_if = { limit = { is_subject = yes exists = overlord }
+		} else_if = { limit = { is_subject = yes }
 			overlord = { # Much less likely
 				change_variable = { which = "planets_lost_to_marauder" value = 2 }
 			}

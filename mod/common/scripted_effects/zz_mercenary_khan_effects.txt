@@ -538,9 +538,6 @@ create_first_diadochi = {
 				save_event_target_as = first_diadochi
 				set_country_flag = diadochi_1
 				set_name = random
-				event_target:raider_khanate = {
-					set_faction_hostility = { target = prev set_friendly = yes }
-				}
 				shift_ethic = ethic_fanatic_militarist
 			}
 		}
@@ -560,9 +557,14 @@ create_first_diadochi = {
 			}
 			remove_star_flag = first_diadochi_system
 		}
-		# event_target:first_diadochi = {
-		# 	country_event = { id = khan.610 days = -1 } # Handover some old stuff
-		# }
+		if = { limit = { exists = event_target:raider_khanate }
+			event_target:first_diadochi = {
+				event_target:raider_khanate = {
+					set_faction_hostility = { target = prev set_friendly = yes }
+				}
+				country_event = { id = khan.610 days = -1 } # Handover some old stuff
+			}
+		}
 	}
 }
 
@@ -618,9 +620,6 @@ create_second_diadochi = {
 				save_event_target_as = second_diadochi
 				set_country_flag = diadochi_2
 				set_name = random
-				event_target:raider_khanate = {
-					set_faction_hostility = { target = prev set_friendly = yes }
-				}
 				shift_ethic = ethic_fanatic_militarist
 			}
 		}
@@ -640,9 +639,14 @@ create_second_diadochi = {
 			}
 			remove_star_flag = second_diadochi_system
 		}
-		# event_target:second_diadochi = {
-		# 	country_event = { id = khan.610 days = -1 } # Handover some old stuff
-		# }
+		if = { limit = { exists = event_target:raider_khanate }
+			event_target:second_diadochi = {
+				event_target:raider_khanate = {
+					set_faction_hostility = { target = prev set_friendly = yes }
+				}
+				country_event = { id = khan.610 days = -1 } # Handover some old stuff
+			}
+		}
 	}
 }
 
@@ -699,9 +703,6 @@ create_third_diadochi = {
 				save_event_target_as = third_diadochi
 				set_country_flag = diadochi_3
 				set_name = random
-				event_target:raider_khanate = {
-					set_faction_hostility = { target = prev set_friendly = yes }
-				}
 				shift_ethic = ethic_fanatic_militarist
 			}
 		}
@@ -721,9 +722,14 @@ create_third_diadochi = {
 			}
 			remove_star_flag = third_diadochi_system
 		}
-		# event_target:third_diadochi = {
-		# 	country_event = { id = khan.610 days = -1 } # Handover some old stuff
-		# }
+		if = { limit = { exists = event_target:raider_khanate }
+			event_target:third_diadochi = {
+				event_target:raider_khanate = {
+					set_faction_hostility = { target = prev set_friendly = yes }
+				}
+				country_event = { id = khan.610 days = -1 } # Handover some old stuff
+			}
+		}
 	}
 }
 
@@ -779,9 +785,6 @@ create_fourth_diadochi = {
 				save_event_target_as = fourth_diadochi
 				set_country_flag = diadochi_4
 				set_name = random
-				event_target:raider_khanate = {
-					set_faction_hostility = { target = prev set_friendly = yes }
-				}
 				shift_ethic = ethic_fanatic_militarist
 			}
 		}
@@ -801,9 +804,14 @@ create_fourth_diadochi = {
 			}
 			remove_star_flag = fourth_diadochi_system
 		}
-		# event_target:fourth_diadochi = {
-		# 	country_event = { id = khan.610 days = -1 } # Handover some old stuff
-		# }
+		if = { limit = { exists = event_target:raider_khanate }
+			event_target:fourth_diadochi = {
+				event_target:raider_khanate = {
+					set_faction_hostility = { target = prev set_friendly = yes }
+				}
+				country_event = { id = khan.610 days = -1 } # Handover some old stuff
+			}
+		}
 	}
 }
 

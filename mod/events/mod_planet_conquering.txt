@@ -1159,6 +1159,7 @@ country_event = {
 										owner = root.from
 										species = owner_main_species
 										type = "newgen_robotic_occupation_army"
+										land_army = yes
 									}
 									last_created_army = {
 										set_variable = { which = newgen_garrison value = 0 }
@@ -1175,6 +1176,7 @@ country_event = {
 											owner = root.from
 											species = owner_main_species
 											type = "newgen_robotic_occupation_army"
+											land_army = yes
 										}
 										last_created_army = {
 											set_variable = { which = newgen_garrison value = 0 }
@@ -1193,6 +1195,7 @@ country_event = {
 										owner = root.from
 										species = owner_main_species
 										type = "newgen_machine_occupation_army"
+										land_army = yes
 									}
 									last_created_army = {
 										set_variable = { which = newgen_garrison value = 0 }
@@ -1209,6 +1212,7 @@ country_event = {
 											owner = root.from
 											species = owner_main_species
 											type = "newgen_machine_occupation_army"
+											land_army = yes
 										}
 										last_created_army = {
 											set_variable = { which = newgen_garrison value = 0 }
@@ -1224,6 +1228,7 @@ country_event = {
 										owner = root.from
 										species = owner_main_species
 										type = "newgen_occupation_army"
+										land_army = yes
 									}
 									last_created_army = {
 										set_variable = { which = newgen_garrison value = 0 }
@@ -1240,6 +1245,7 @@ country_event = {
 											owner = root.from
 											species = owner_main_species
 											type = "newgen_occupation_army"
+											land_army = yes
 										}
 										last_created_army = {
 											set_variable = { which = newgen_garrison value = 0 }
@@ -1291,6 +1297,7 @@ country_event = {
 										owner = root.from
 										species = owner_main_species
 										type = "newgen_robotic_occupation_army"
+										land_army = yes
 									}
 									last_created_army = {
 										set_variable = { which = newgen_garrison value = 0 }
@@ -1308,6 +1315,7 @@ country_event = {
 										owner = root.from
 										species = owner_main_species
 										type = "newgen_machine_occupation_army"
+										land_army = yes
 									}
 									last_created_army = {
 										set_variable = { which = newgen_garrison value = 0 }
@@ -1322,6 +1330,7 @@ country_event = {
 										owner = root.from
 										species = owner_main_species
 										type = "newgen_occupation_army"
+										land_army = yes
 									}
 									last_created_army = {
 										set_variable = { which = newgen_garrison value = 0 }
@@ -1507,6 +1516,7 @@ planet_event = {
 							owner = from
 							species = owner_main_species
 							type = "newgen_robotic_occupation_army"
+							land_army = yes
 						}
 						last_created_army = { set_variable = { which = newgen_garrison value = 0 } }
 					}
@@ -1522,6 +1532,7 @@ planet_event = {
 							owner = from
 							species = owner_main_species
 							type = "newgen_machine_occupation_army"
+							land_army = yes
 						}
 						last_created_army = { set_variable = { which = newgen_garrison value = 0 } }
 					}
@@ -1534,6 +1545,7 @@ planet_event = {
 							owner = from
 							species = owner_main_species
 							type = "newgen_occupation_army"
+							land_army = yes
 						}
 						last_created_army = { set_variable = { which = newgen_garrison value = 0 } }
 					}
@@ -2541,7 +2553,7 @@ country_event = {
 								reroll_random = yes
 								random_list = {
 									4 = { create_army = { owner = event_target:nationalist_rebels species = event_target:fatherland type = "assault_army" } }
-									12 = { create_army = { name = "Enraged Primitives" owner = event_target:nationalist_rebels species = event_target:fatherland type = "newgen_primitive_assault_army" } }
+									12 = { create_army = { name = NAME_primitive_assault_army owner = event_target:nationalist_rebels species = event_target:fatherland type = "newgen_primitive_assault_army" } }
 								}
 							}
 							else = {
@@ -2565,7 +2577,7 @@ country_event = {
 								while = {
 									count = 3
 									create_army = {
-										name = "Enraged Primitives"
+										name = NAME_primitive_assault_army
 										owner = event_target:nationalist_rebels
 										species = event_target:fatherland
 										type = "newgen_primitive_assault_army"
@@ -2642,7 +2654,7 @@ country_event = {
 								reroll_random = yes
 								random_list = {
 									4 = { create_army = { owner = event_target:secessionist_rebels species = event_target:secessionist_rebels type = "assault_army" } }
-									12 = { create_army = { name = "Enraged Primitives" owner = event_target:secessionist_rebels species = event_target:secessionist_rebels type = "newgen_primitive_assault_army" } }
+									12 = { create_army = { name = NAME_primitive_assault_army owner = event_target:secessionist_rebels species = event_target:secessionist_rebels type = "newgen_primitive_assault_army" } }
 								}
 							}
 							else = {
@@ -2666,7 +2678,7 @@ country_event = {
 								while = {
 									count = 3
 									create_army = {
-										name = "Enraged Primitives"
+										name = NAME_primitive_assault_army
 										owner = event_target:secessionist_rebels
 										species = event_target:secessionist_rebels
 										type = "newgen_primitive_assault_army"

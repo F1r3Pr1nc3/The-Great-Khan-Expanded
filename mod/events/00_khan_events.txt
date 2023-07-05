@@ -815,7 +815,6 @@ country_event = {
 			}
 			if = {
 				limit = {
-					is_subject = yes
 					is_subject_of_khan = yes
 					# has_modifier = "satrapy_of_horde"
 					NOT = { has_active_event = { marauder.554 } }
@@ -905,7 +904,6 @@ country_event = {
 				}
 				if = {
 					limit = {
-						is_subject = yes
 						is_subject_of_khan = yes
 						# has_modifier = "satrapy_of_horde"
 						NOT = { has_active_event = { marauder.554 } }
@@ -1483,7 +1481,6 @@ country_event = {
 		set_country_flag = marauder_diplomacy_engaged
 		if = {
 			limit = {
-				is_subject = yes
 				is_subject_of_khan = yes
 				# has_modifier = "satrapy_of_horde"
 				NOT = { has_active_event = { marauder.554 } }
@@ -3013,19 +3010,14 @@ country_event = {
 			has_country_flag = has_machinesmith
 			has_global_flag = great_khan_wins
 		}
+		NOT = {
+			has_global_flag = war_in_heaven_started
+		}
 	}
 	immediate = {
 		country_event = { id = khan.306 days = -1 } # Check/Create fallback rally_point
 		# log="khan.870 Cycle"
-		if = {
-			limit = {
-				count_owned_fleet = {
-					count < 10
-					limit = { is_civilian = yes is_ship_class = shipclass_constructor }
-				}
-			}
-			create_marauder_constructors = yes
-		}
+		create_marauder_constructors = yes # full check included
 
 		if = {
 			limit = {
@@ -3349,11 +3341,11 @@ country_event = {
 				}
 			}
 			log = "Improved Machinesmith sold"
-			country_event = { id = khan.870 days = 210 } # Improved cycle
+			country_event = { id = khan.870 days = 420 } # Improved cycle
 			break = yes
 		}
 		remove_country_flag = has_machinesmith # Regular cycle
-		country_event = { id = khan.870 days = 210 }
+		country_event = { id = khan.870 days = 420 }
 	}
 }
 

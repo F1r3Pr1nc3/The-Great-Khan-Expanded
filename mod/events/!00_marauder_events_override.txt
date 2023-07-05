@@ -1588,8 +1588,8 @@ fleet_event = {
 					# distance_compare = { MAX = "[root.raid_target_distance]" }
 					# distance = {
 					# 	source = event_target:raid_planet
-					# 	min_distance > 5
-					# 	max_distance < root.raid_target_distance
+					# 	min_distance = 5
+					# 	max_distance = root.raid_target_distance
 					# 	type = hyperlane
 					# 	bypass_empire = root.owner
 					# 	# min_jumps = 1
@@ -2958,7 +2958,7 @@ country_event = {
 		custom_tooltip = hire_general_merc
 		hidden_effect = {
 			event_target:current_marauder_diplomacy = {
-				create_marauder_general = yes
+				create_marauder_merc_general = yes
 				last_created_leader = { set_owner = root }
 			}
 		}
@@ -2999,7 +2999,7 @@ country_event = {
 		custom_tooltip = hire_general_merc
 		hidden_effect = {
 			event_target:current_marauder_diplomacy = {
-				create_marauder_general = yes
+				create_marauder_merc_general = yes
 				last_created_leader = { set_owner = root }
 			}
 		}
@@ -3040,7 +3040,7 @@ country_event = {
 		custom_tooltip = hire_general_merc
 		hidden_effect = {
 			event_target:current_marauder_diplomacy = {
-				create_marauder_general = yes
+				create_marauder_merc_general = yes
 				last_created_leader = { set_owner = root }
 			}
 		}
@@ -5230,12 +5230,6 @@ country_event = {
 
 		last_created_leader = {
 			root = { assign_leader = prev }
-			random_list = {
-				1 = { set_council_position = councilor_defense }
-				1 = { set_council_position = councilor_crusader_spirit }
-				1 = { set_council_position = councilor_distinguished_admiralty }
-				1 = { set_council_position = councilor_heroic_tales }
-			}
 
 			# if = { ### NSC SUPPORT
 			# 	limit = { has_global_flag = has_nsc_active }
@@ -5867,6 +5861,7 @@ country_event = {
 							owner = root
 							species = event_target:marauder_country_1.owner_species
 							type = "newgen_occupation_army"
+							land_army = yes
 						}
 						change_variable = { which = CmtVarTemp value = -1 }
 					}
@@ -5880,6 +5875,7 @@ country_event = {
 							owner = root
 							species = event_target:marauder_country_2.owner_species
 							type = "newgen_occupation_army"
+							land_army = yes
 						}
 						change_variable = { which = CmtVarTemp value = -1 }
 					}
@@ -5893,6 +5889,7 @@ country_event = {
 							owner = root
 							species = event_target:marauder_country_3.owner_species
 							type = "newgen_occupation_army"
+							land_army = yes
 						}
 						change_variable = { which = CmtVarTemp value = -1 }
 					}
@@ -5904,6 +5901,7 @@ country_event = {
 						owner = root
 						species = root.species
 						type = "newgen_occupation_army"
+						land_army = yes
 					}
 					change_variable = { which = CmtVarTemp value = -1 }
 				}
@@ -5955,6 +5953,7 @@ country_event = {
 						owner = from
 						species = prev
 						type = "newgen_occupation_army"
+						land_army = yes
 					}
 				}
 			}
@@ -6945,7 +6944,7 @@ country_event = {
 								move_to = prev
 								wait = { duration = 1 }
 								merge_fleet = {
-									target = prev # Error?
+									target = event_target:khan_fleet # prev # False error claim?
 									allow_ftl = yes
 								}
 							}
@@ -7096,15 +7095,7 @@ country_event = {
 
 			if = {
 				limit = { fleet_power < 250000 has_country_flag = has_machinesmith }
-				if = {
-					limit = {
-						count_controlled_fleet = {
-							limit = { is_ship_size = constructor }
-							count < 10
-						}
-					}
-					create_marauder_constructors = yes
-				}
+				create_marauder_constructors = yes # full check included
 				if = {
 					limit = { num_armies < 40 }
 					create_marauder_armies = yes
@@ -7742,14 +7733,14 @@ country_event = {
 	}
 	desc = {
 		trigger = {
-			is_subject = yes
+			is_subject = yes # exists = overlord
 			any_agreement = { agreement_preset = preset_satrapy }
 		}
 		text = "marauder.550.j.desc"
 	}
 	desc = {
 		trigger = {
-			is_subject = yes
+			is_subject = yes # exists = overlord
 			any_agreement = { agreement_preset = preset_satrapy }
 		}
 		text = "marauder.550.k.desc"
@@ -8379,7 +8370,7 @@ country_event = {
 			if = {
 				limit = {
 					exists = capital_scope
-					capital_scope = {
+					capital_scope.solar_system = {
 						any_fleet_in_system = { is_mobile = no has_fleet_flag = satrapy_garrison any_owned_ship = { is_ship_size = marauder_void_dwelling } }
 					}
 				}
@@ -8437,7 +8428,7 @@ country_event = {
 					weights = {
 						base = 1
 						modifier = { add = 20 is_capital = yes }
-						modifier = { add = 40 any_fleet_in_system = { has_fleet_flag = satrapy_garrison_fleet } }
+						modifier = { add = 40 solar_system = { any_fleet_in_system = { has_fleet_flag = satrapy_garrison_fleet } } }
 					}
 					solar_system = { save_event_target_as = garrison_base_system }
 				}
@@ -8478,11 +8469,46 @@ country_event = {
 							}
 						}
 					}
+					# 2nd fleet try
+					if = {
+						limit = { used_naval_capacity_percent < 0.85 }
+						event_target:garrison_base_system = {
+							random_fleet_in_system = { # Own 2nd garrison
+								limit = {
+									is_mobile = yes
+									has_fleet_flag = satrapy_garrison_fleet
+									NOT = { is_owned_by = root }
+								}
+								set_owner = root
+								if = {
+									limit = { exists = leader }
+									leader = { set_owner = root }
+								}
+							}
+						}
+						event_target:raider_khanate = {
+							ordered_owned_fleet = { # Own 2nd auxuliaries
+								limit = {
+									is_mobile = yes
+									has_fleet_flag = horde_auxuliaries
+									exists = leader
+									exists = solar_system
+									solar_system = { is_owned_by = root }
+									leader = { is_same_species = root }
+								}
+								position = 0
+								order_by = trigger:fleet_power
+								set_owner = root
+								leader = { set_owner = root }
+							}
+						}
+					}
 				}
+				# 3rd fleet try (1st for non-ai)
 				if = {
 					limit = { used_naval_capacity_percent < 0.85 }
 					event_target:garrison_base_system = {
-						random_fleet_in_system = { # Own 2nd garrison
+						random_fleet_in_system = { # Own 3nd garrison
 							limit = {
 								is_mobile = yes
 								has_fleet_flag = satrapy_garrison_fleet
@@ -8496,7 +8522,7 @@ country_event = {
 						}
 					}
 					event_target:raider_khanate = {
-						ordered_owned_fleet = { # Own 2nd auxuliaries
+						ordered_owned_fleet = { # Own 3nd auxuliaries
 							limit = {
 								is_mobile = yes
 								has_fleet_flag = horde_auxuliaries
@@ -9973,7 +9999,7 @@ country_event = {
 			limit = {
 				count_country = {
 					limit = {
-						is_subject = yes
+						is_subject = yes # exists = overlord
 						any_agreement = { agreement_preset = preset_satrapy }
 					}
 					count > 0
@@ -9981,7 +10007,7 @@ country_event = {
 			}
 			every_country = {
 				limit = {
-					is_subject = yes
+					is_subject = yes # exists = overlord
 					any_agreement = { agreement_preset = preset_satrapy }
 				}
 				country_event = { id = marauder.660 }
