@@ -1851,15 +1851,14 @@ country_event = {
 		if = {
 			limit = {
 				# galaxy_percentage > 0.33
-				check_variable = { which = khan_galaxy_pct value > 0.5 }
 				OR = {
+					check_variable = { which = khan_galaxy_pct value > 0.5 }
 					check_variable = { which = khan_fleet_power value > inc_fleet_power }
 					count_playable_country = {
 						limit = {
-							# merg_is_default_empire = yes
-							has_been_declared_crisis = no
 							is_subject = no
-							fleet_power > 26000
+							has_been_declared_crisis = no
+							fleet_power > 28000
 							OR = {
 								check_variable = { which = exists_federation value = 0 }
 								AND = {
@@ -1871,7 +1870,7 @@ country_event = {
 								}
 							}
 						}
-						count < 2
+						count < 3
 					}
 				}
 			}

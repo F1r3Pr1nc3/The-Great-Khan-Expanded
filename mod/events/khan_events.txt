@@ -1405,11 +1405,18 @@ country_event = {
 			# Khan wins immediately
 			if = {
 				limit = {
-					count_playable_country = {
-						limit = { is_subject = no }
-						count < 3
-					}
 					has_global_flag = gf_great_khan_active
+					OR = {
+						galaxy_percentage > 0.5
+						count_playable_country = {
+							limit = {
+								is_subject = no
+								has_been_declared_crisis = no
+								fleet_power > 40000
+							}
+							count < 3
+						}
+					}
 				}
 				country_event = { id = khan.298 days = 7 } # Notify global
 				set_global_flag = great_khan_wins

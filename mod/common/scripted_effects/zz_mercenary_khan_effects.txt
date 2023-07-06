@@ -407,7 +407,7 @@ create_marauder_successor_fleet = {
 		limit = {
 			NOR = {
 				count_owned_leader = {
-					count > 10
+					count > 12
 					limit = {
 						leader_class = admiral
 						is_event_leader = no
@@ -977,15 +977,7 @@ get_marauder_species = {
 						is_same_species = root.owner_species
 					}
 				}
-				# modifier = {
-				# 	add = 2
-				# 	prev = {
-				# 		count_owned_pop = {
-				# 			count > 10
-				# 			limit = { is_same_species = prevprev }
-				# 		}
-				# 	}
-				# }
+				# modifier = { add = 2 prev = { count_owned_pop = { count > 10 limit = { is_same_species = prevprev } } } }
 				modifier = {
 					add = 3
 					prev = {
