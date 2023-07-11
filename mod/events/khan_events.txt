@@ -100,7 +100,7 @@ system_event = {
 				}
 			}
 			set_timed_star_flag = { flag = marauder_starbase_destroyed months = 2 }
-			set_timed_star_flag = { flag = marauder_starbase_destroyed days = 10 }
+			set_timed_star_flag = { flag = starbase_destroyed days = 10 }
 			# space_owner = {
 			# 	if = {
 			# 		limit = { graphical_culture = pirate_01 }
