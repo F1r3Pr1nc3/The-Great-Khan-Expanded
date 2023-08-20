@@ -22,6 +22,7 @@ utility_component_template = {
 	ship_behavior = "default"
 	hidden = yes
 
+	class_restriction = { shipclass_military }
 	component_set = "combat_computers"
 
 	ai_weight = {
@@ -1354,6 +1355,16 @@ utility_component_template = {
 	power = 0
 
 	class_restriction = { shipclass_starbase }
+	size_restriction = {
+		starbase_outpost
+		starbase_starport
+		starbase_starhold
+		starbase_starfortress
+		starbase_citadel
+		orbital_ring_tier_1
+		orbital_ring_tier_2
+		orbital_ring_tier_3
+	}
 	component_set = "combat_computers"
 	ship_behavior = "platform"
 	upgrades_to = "STARBASE_COMBAT_COMPUTER_2"
@@ -1376,6 +1387,16 @@ utility_component_template = {
 	power = 0
 
 	class_restriction = { shipclass_starbase }
+	size_restriction = {
+		starbase_outpost
+		starbase_starport
+		starbase_starhold
+		starbase_starfortress
+		starbase_citadel
+		orbital_ring_tier_1
+		orbital_ring_tier_2
+		orbital_ring_tier_3
+	}
 	component_set = "combat_computers"
 	ship_behavior = "platform"
 	prerequisites = { "tech_combat_computers_1" }
@@ -1399,6 +1420,16 @@ utility_component_template = {
 	power = 0
 
 	class_restriction = { shipclass_starbase }
+	size_restriction = {
+		starbase_outpost
+		starbase_starport
+		starbase_starhold
+		starbase_starfortress
+		starbase_citadel
+		orbital_ring_tier_1
+		orbital_ring_tier_2
+		orbital_ring_tier_3
+	}
 	component_set = "combat_computers"
 	ship_behavior = "platform"
 	prerequisites = { "tech_combat_computers_2" }

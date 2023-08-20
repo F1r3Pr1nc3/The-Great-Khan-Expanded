@@ -1,6 +1,6 @@
 ### By 0.01 KD (New Generation of the World)
 namespace = mod_planet_conquering
-# Triggers country_event for the defender upon defeat
+# Triggers country_event for the defender upon defeat (on_planet_defenders_lose)
 # This = country, planet owner
 # From = country, attack leader
 # FromFrom = planet
@@ -12,10 +12,11 @@ country_event = {
 	immediate = {
 		if = {
 			limit = {
-				NOR = {
-					is_same_value = from
-					fromfrom = { has_planet_flag = revolt_in_progress }
+				NAND = {
+					exists = from
+					is_same_empire = from
 				}
+				fromfrom = { NOT = { has_planet_flag = revolt_in_progress } }
 			}
 			root = {
 				if = {
@@ -227,11 +228,14 @@ country_event = {
 				remove_planet_flag = newgen_revolt_preparation2
 				set_variable = { which = was_happy value = 0 }
 				set_variable = { which = newgen_num_garrisons value = 0 }
+				if = {
+					limit = { has_modifier = planet_culture_shock }
+					remove_modifier = planet_culture_shock
+				}
 			}
 		}
 		else = {
 			save_event_target_as = newgen_defender
-			from = { save_event_target_as = ataker }
 			fromfrom = {
 				save_event_target_as = field
 				# MOD_SET_HAPPINES
@@ -391,18 +395,19 @@ country_event = {
 							change_variable = { which = was_happy value = 1 }
 						}
 					}
-					if = {
-						limit = { event_target:newgen_defender = { has_modifier = newgen_infected_by_virus_3 } }
-						subtract_variable = { which = was_happy value = 9 }
-					}
-					else_if = {
-						limit = { event_target:newgen_defender = { has_modifier = newgen_infected_by_virus_2 } }
-						subtract_variable = { which = was_happy value = 6 }
-					}
-					else_if = {
-						limit = { event_target:newgen_defender = { has_modifier = newgen_infected_by_virus_1 } }
-						subtract_variable = { which = was_happy value = 3 }
-					}
+					# TODO?
+					# if = {
+					# 	limit = { event_target:newgen_defender = { has_modifier = newgen_infected_by_virus_3 } }
+					# 	subtract_variable = { which = was_happy value = 9 }
+					# }
+					# else_if = {
+					# 	limit = { event_target:newgen_defender = { has_modifier = newgen_infected_by_virus_2 } }
+					# 	subtract_variable = { which = was_happy value = 6 }
+					# }
+					# else_if = {
+					# 	limit = { event_target:newgen_defender = { has_modifier = newgen_infected_by_virus_1 } }
+					# 	subtract_variable = { which = was_happy value = 3 }
+					# }
 				}
 				else = {
 					if = {
@@ -972,10 +977,10 @@ country_event = {
 				}
 			}
 			fromfrom = {
-				# log = "before partisans camp appear check, temp4 was [This.newgen_temp4]"
+				log = "before partisans camp appear check, temp4 was \\[This.newgen_temp4]"
 				reroll_random = yes
 				random_list = {
-					5 = {
+					4 = {
 						modifier = {
 							add = -4
 							check_variable = { which = was_happy value < 4 }
@@ -1065,14 +1070,14 @@ country_event = {
 							factor = 1.6
 							owner = { has_ethic = ethic_fanatic_militarist }
 						}
-						root = {
+						root.from = {
 							if = { limit = { is_ai = no } # Warning msg
-								from = { country_event = { id = mod_planet_conquering.8 days = 30 } }
+								country_event = { id = mod_planet_conquering.8 days = 30 }
 							}
 							set_country_flag = newgen_owner@fromfrom
 						}
-						add_modifier = { modifier = newgen_partisans_camp days = -1 }
-						# log =  "on planet [This.GetName], owned by country [This.Owner.GetName] appear partisans camp"
+						add_modifier = { modifier = newgen_partisans_camp years = 2 }
+						log =  "on planet \\[This.GetName], owned by country \\[This.Owner.GetName] appear partisans camp"
 						if = {
 							limit = {
 								planet_devastation < 25
@@ -1160,9 +1165,7 @@ country_event = {
 										species = owner_main_species
 										type = "newgen_robotic_occupation_army"
 										land_army = yes
-									}
-									last_created_army = {
-										set_variable = { which = newgen_garrison value = 0 }
+										effect = { set_variable = { which = newgen_garrison value = 0 } }
 									}
 								}
 								if = {
@@ -1177,9 +1180,7 @@ country_event = {
 											species = owner_main_species
 											type = "newgen_robotic_occupation_army"
 											land_army = yes
-										}
-										last_created_army = {
-											set_variable = { which = newgen_garrison value = 0 }
+											effect = { set_variable = { which = newgen_garrison value = 0 } }
 										}
 									}
 								}
@@ -1196,9 +1197,7 @@ country_event = {
 										species = owner_main_species
 										type = "newgen_machine_occupation_army"
 										land_army = yes
-									}
-									last_created_army = {
-										set_variable = { which = newgen_garrison value = 0 }
+										effect = { set_variable = { which = newgen_garrison value = 0 } }
 									}
 								}
 								if = {
@@ -1213,9 +1212,7 @@ country_event = {
 											species = owner_main_species
 											type = "newgen_machine_occupation_army"
 											land_army = yes
-										}
-										last_created_army = {
-											set_variable = { which = newgen_garrison value = 0 }
+											effect = { set_variable = { which = newgen_garrison value = 0 } }
 										}
 									}
 								}
@@ -1229,9 +1226,7 @@ country_event = {
 										species = owner_main_species
 										type = "newgen_occupation_army"
 										land_army = yes
-									}
-									last_created_army = {
-										set_variable = { which = newgen_garrison value = 0 }
+										effect = { set_variable = { which = newgen_garrison value = 0 } }
 									}
 								}
 								if = {
@@ -1246,9 +1241,7 @@ country_event = {
 											species = owner_main_species
 											type = "newgen_occupation_army"
 											land_army = yes
-										}
-										last_created_army = {
-											set_variable = { which = newgen_garrison value = 0 }
+											effect = { set_variable = { which = newgen_garrison value = 0 } }
 										}
 									}
 								}
@@ -1256,7 +1249,7 @@ country_event = {
 							planet_event = { id = mod_planet_conquering.5 days = 360 }
 						}
 					}
-					50 = {
+					96 = {
 						modifier = {
 							add = -10
 							check_variable = { which = was_happy value > 7 }
@@ -1273,7 +1266,7 @@ country_event = {
 							add = -10
 							check_variable = { which = was_happy value > 19 }
 						}
-						# log =  "fail rendom or already has camp (was happy: [This.was_happy], newgen_temp4: [This.newgen_temp4]) on planet [This.GetName], owned by country [This.Owner.GetName] NOT appear partisans camp, after losing"
+						# log =  "fail random or already has camp (was happy: \\[This.was_happy], newgen_temp4: \\[This.newgen_temp4]) on planet \\[This.GetName], owned by country \\[This.Owner.GetName] NOT appear partisans camp, after losing"
 						if = {
 							limit = {
 								root.from = {
@@ -1298,9 +1291,7 @@ country_event = {
 										species = owner_main_species
 										type = "newgen_robotic_occupation_army"
 										land_army = yes
-									}
-									last_created_army = {
-										set_variable = { which = newgen_garrison value = 0 }
+										effect = { set_variable = { which = newgen_garrison value = 0 } }
 									}
 								}
 							}
@@ -1316,9 +1307,7 @@ country_event = {
 										species = owner_main_species
 										type = "newgen_machine_occupation_army"
 										land_army = yes
-									}
-									last_created_army = {
-										set_variable = { which = newgen_garrison value = 0 }
+										effect = { set_variable = { which = newgen_garrison value = 0 } }
 									}
 								}
 							}
@@ -1331,9 +1320,7 @@ country_event = {
 										species = owner_main_species
 										type = "newgen_occupation_army"
 										land_army = yes
-									}
-									last_created_army = {
-										set_variable = { which = newgen_garrison value = 0 }
+										effect = { set_variable = { which = newgen_garrison value = 0 } }
 									}
 								}
 							}
@@ -1347,23 +1334,22 @@ country_event = {
 	}
 }
 
-# Fired whenever a new owner is set for a planet,
-# be it after a war or through a trade
+# (on_planet_transfer) Fired whenever a new owner is set for a planet
 # from = Country scope (new owner)
-# This = Planet scope
 planet_event = {
 	id = mod_planet_conquering.2
 	hide_window = yes
 	is_triggered_only = yes
+	pre_triggers = { has_owner = yes }
 	trigger = {
 		is_difficulty > 3
 		from = {
+			is_primitive = no
 			OR = {
 				merg_is_default_empire = yes
 				is_country_type = awakened_marauders
 				merg_is_awakened_fe = yes
 			}
-			is_primitive = no
 		}
 	}
 	immediate = {
@@ -1517,8 +1503,8 @@ planet_event = {
 							species = owner_main_species
 							type = "newgen_robotic_occupation_army"
 							land_army = yes
+							effect = { set_variable = { which = newgen_garrison value = 0 } }
 						}
-						last_created_army = { set_variable = { which = newgen_garrison value = 0 } }
 					}
 				}
 				else_if = {
@@ -1533,8 +1519,8 @@ planet_event = {
 							species = owner_main_species
 							type = "newgen_machine_occupation_army"
 							land_army = yes
+							effect = { set_variable = { which = newgen_garrison value = 0 } }
 						}
-						last_created_army = { set_variable = { which = newgen_garrison value = 0 } }
 					}
 				}
 				else = {
@@ -1546,8 +1532,8 @@ planet_event = {
 							species = owner_main_species
 							type = "newgen_occupation_army"
 							land_army = yes
+							effect = { set_variable = { which = newgen_garrison value = 0 } }
 						}
-						last_created_army = { set_variable = { which = newgen_garrison value = 0 } }
 					}
 				}
 			}
@@ -1570,9 +1556,36 @@ country_event = {
 	is_triggered_only = yes
 	trigger = { is_difficulty > 3 }
 	immediate = {
+		# if = {
+		# 	limit = {
+		# 		fromfrom = { has_modifier = newgen_envi_4 }
+		# 		NOT = { has_country_flag = newgen_wild }
+		# 	}
+		# 	random_situation = {
+		# 		limit = {
+		# 			is_situation_type = situation_newgen_hostile_environment
+		# 			target = { is_same_value = root.fromfrom }
+		# 		}
+		# 		set_situation_locked = no
+		# 	}
+		# 	fromfrom = {
+		# 		remove_modifier = newgen_envi_4
+		# 		add_modifier = { modifier = newgen_envi_1 days = -1 clear_on_owner_change = yes }
+		# 		random_country = {
+		# 			limit = {
+		# 				has_country_flag = newgen_wild
+		# 				count_owned_army = {
+		# 					count = 0
+		# 					limit = { exists = planet }
+		# 				}
+		# 			}
+		# 			destroy_country = yes
+		# 		}
+		# 	}
+		# }
 		if = {
 			limit = {
-				FROM = { is_country_type = ratlings }
+				from = { is_country_type = ratlings }
 			}
 			fromfrom = {
 				if = {
@@ -1603,11 +1616,11 @@ country_event = {
 		}
 		else_if = {
 			limit = {
-				FROM = { is_primitive = yes }
+				from = { is_primitive = yes }
 			}
 			if = {
 				limit = {
-					FROM = { has_country_flag = stone_age }
+					from = { has_country_flag = stone_age }
 				}
 				fromfrom = {
 					if = {
@@ -1635,7 +1648,7 @@ country_event = {
 			}
 			else_if = {
 				limit = {
-					FROM = { has_country_flag = bronze_age }
+					from = { has_country_flag = bronze_age }
 				}
 				fromfrom = {
 					if = {
@@ -1663,7 +1676,7 @@ country_event = {
 			}
 			else_if = {
 				limit = {
-					FROM = { has_country_flag = iron_age }
+					from = { has_country_flag = iron_age }
 				}
 				fromfrom = {
 					if = {
@@ -1691,7 +1704,7 @@ country_event = {
 			}
 			else_if = {
 				limit = {
-					FROM = { has_country_flag = late_medieval_age }
+					from = { has_country_flag = late_medieval_age }
 				}
 				fromfrom = {
 					if = {
@@ -1719,7 +1732,7 @@ country_event = {
 			}
 			else_if = {
 				limit = {
-					FROM = { has_country_flag = renaissance_age }
+					from = { has_country_flag = renaissance_age }
 				}
 				fromfrom = {
 					if = {
@@ -1747,7 +1760,7 @@ country_event = {
 			}
 			else_if = {
 				limit = {
-					FROM = { has_country_flag = steam_age }
+					from = { has_country_flag = steam_age }
 				}
 				fromfrom = {
 					if = {
@@ -1775,7 +1788,7 @@ country_event = {
 			}
 			else_if = {
 				limit = {
-					FROM = { has_country_flag = industrial_age }
+					from = { has_country_flag = industrial_age }
 				}
 				fromfrom = {
 					if = {
@@ -1803,7 +1816,7 @@ country_event = {
 			}
 			else_if = {
 				limit = {
-					FROM = { has_country_flag = machine_age }
+					from = { has_country_flag = machine_age }
 				}
 				fromfrom = {
 					if = {
@@ -2158,7 +2171,7 @@ country_event = {
 						}
 						owner = { has_modifier = newgen_defense_war_3 }
 					}
-					# log =  "random rolled, garrisons have destroyed partisans on planet [This.GetName]"
+					log =  "random rolled, garrisons have destroyed partisans on planet \\[This.GetName]"
 					remove_modifier = newgen_partisans_camp
 				}
 				10 = {
@@ -2275,7 +2288,7 @@ country_event = {
 							very_bad_dudes = yes
 						}
 					}
-					# log = "random rolled, now will be revolt on planet [This.GetName]"
+					log = "random rolled, now will be revolt on planet \\[This.GetName]"
 					set_planet_flag = revolt_in_progress
 					add_planet_devastation = 5
 					set_variable = { which = unrest_50 value = 0 }
@@ -2479,7 +2492,7 @@ country_event = {
 							NOT = { has_planet_flag = newgen_revolt_preparation1 }
 						}
 						multiply_variable = { which = rebel_armies_var value = 1.5 }
-						# log =  "first stage of revolt preparation - finished"
+						log =  "first stage of revolt preparation - finished"
 					}
 					# else = { log = "first stage of revolt preparation - not finished" }
 					if = {
@@ -2487,7 +2500,7 @@ country_event = {
 							NOT = { has_planet_flag = newgen_revolt_preparation2 }
 						}
 						multiply_variable = { which = rebel_armies_var value = 1.5 }
-						# log =  "second stage of revolt preparation - finished"
+						log =  "second stage of revolt preparation - finished"
 					}
 					else = { log = "second stage of revolt preparation - not finished" }
 					ceiling_variable = rebel_armies_var
@@ -2497,7 +2510,7 @@ country_event = {
 							change_variable = { which = newgen_temp value = 1 }
 						}
 					}
-					# log =  "before battle, on planet [This.GetName], where is current owner [This.Owner.GetName] rebels: [This.rebel_armies_var], defenses:[This.newgen_temp]"
+					log =  "before battle, on planet \\[This.GetName], where is current owner \\[This.Owner.GetName] rebels: \\[This.rebel_armies_var], defenses:[This.newgen_temp]"
 					clear_variable = newgen_temp
 					if = {
 						limit = {
@@ -2507,7 +2520,7 @@ country_event = {
 								NOT = { is_same_value = root }
 							}
 						}
-						# log = "original owner of rebels founded"
+						log = "original owner of rebels founded"
 						random_playable_country = {
 							limit = {
 								has_country_flag = newgen_owner@prev
@@ -2600,7 +2613,7 @@ country_event = {
 					}
 					else = {
 						# no original owner
-						# log = "original owner not found"
+						log = "original owner not found"
 						random_owned_pop = {
 							limit = {
 								is_sapient = yes
@@ -2738,7 +2751,7 @@ country_event = {
 						}
 					}
 					modifier = { add = 30 has_modifier = planet_culture_shock }
-					# log = "random rolled, no revolt, no camp destroying on planet [This.GetName]"
+					log = "random rolled, no revolt, no camp destroying on planet \\[This.GetName]"
 				}
 			}
 		}
@@ -2820,11 +2833,12 @@ planet_event = {
 	id = mod_planet_conquering.5
 	hide_window = yes
 	is_triggered_only = yes
+	pre_triggers = { has_owner = yes }
 	trigger = {
 		exists = controller
 		NOR = {
 			has_planet_flag = newgen_conquered
-			has_planet_flag = newgen_gar_check_enabled
+			# has_planet_flag = newgen_gar_check_enabled
 		}
 	}
 	immediate = {
@@ -2848,8 +2862,11 @@ planet_event = {
 				remove_army = yes
 			}
 		}
-		else = {
-			set_timed_planet_flag = { flag = newgen_gar_check_enabled days = 359 }
+		else_if = {
+			limit = {
+				any_planet_army = { is_variable_set = newgen_garrison }
+			}
+			# set_timed_planet_flag = { flag = newgen_gar_check_enabled days = 359 }
 			planet_event = { id = mod_planet_conquering.5 days = 360 }
 		}
 	}
@@ -2860,7 +2877,7 @@ planet_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		# log =  "partisans camp dissapear after colony destroying"
+		log =  "partisans camp dissapear after colony destroying"
 		remove_modifier = crime_1x
 		remove_modifier = unhappy_1
 		remove_modifier = crime_3x
@@ -2876,6 +2893,95 @@ planet_event = {
 		remove_planet_flag = newgen_revolt_preparation1
 		remove_planet_flag = newgen_revolt_preparation2
 		remove_planet_flag = revolt_in_progress
+		# if = {
+		# 	limit = { has_planet_flag = pl_bm_check }
+		# 	clear_variable = newgen_damaged_canon
+		# 	clear_variable = newgen_num_cannons
+		# 	clear_variable = newgen_damage
+		# 	clear_variable = newgen_damage2
+		# 	newgen_remove_pl_bm = yes
+		# }
+		# if = {
+		# 	limit = {
+		# 		OR = {
+		# 			has_planet_flag = newgen_propag_here
+		# 			has_planet_flag = newgen_hiden_propag_here
+		# 			has_planet_flag = newgen_faction_planet
+		# 		}
+		# 	}
+		# 	if = {
+		# 		limit = { has_modifier = newgen_supremacist }
+		# 		newgen_arest3_prop = { FACTION = supremacist }
+		# 	}
+		# 	else_if = {
+		# 		limit = { has_modifier = newgen_hidden_supremacist }
+		# 		newgen_arest3_prop = { FACTION = supremacist }
+		# 	}
+		# 	else_if = {
+		# 		limit = { has_modifier = newgen_imperialist }
+		# 		newgen_arest3_prop = { FACTION = imperialist }
+		# 	}
+		# 	else_if = {
+		# 		limit = { has_modifier = newgen_hidden_imperialist }
+		# 		newgen_arest3_prop = { FACTION = imperialist }
+		# 	}
+		# 	else_if = {
+		# 		limit = { has_modifier = newgen_isolationist }
+		# 		newgen_arest3_prop = { FACTION = isolationist }
+		# 	}
+		# 	else_if = {
+		# 		limit = { has_modifier = newgen_hidden_isolationist }
+		# 		newgen_arest3_prop = { FACTION = isolationist }
+		# 	}
+		# 	else_if = {
+		# 		limit = { has_modifier = newgen_totalitarian }
+		# 		newgen_arest3_prop = { FACTION = totalitarian }
+		# 	}
+		# 	else_if = {
+		# 		limit = { has_modifier = newgen_hidden_totalitarian }
+		# 		newgen_arest3_prop = { FACTION = totalitarian }
+		# 	}
+		# 	else_if = {
+		# 		limit = { has_modifier = newgen_progressive }
+		# 		newgen_arest3_prop = { FACTION = progressive }
+		# 	}
+		# 	else_if = {
+		# 		limit = { has_modifier = newgen_hidden_progressive }
+		# 		newgen_arest3_prop = { FACTION = progressive }
+		# 	}
+		# 	else_if = {
+		# 		limit = { has_modifier = newgen_prosperity }
+		# 		newgen_arest3_prop = { FACTION = prosperity }
+		# 	}
+		# 	else_if = {
+		# 		limit = { has_modifier = newgen_hidden_prosperity }
+		# 		newgen_arest3_prop = { FACTION = prosperity }
+		# 	}
+		# 	else_if = {
+		# 		limit = { has_modifier = newgen_technologist }
+		# 		newgen_arest3_prop = { FACTION = technologist }
+		# 	}
+		# 	else_if = {
+		# 		limit = { has_modifier = newgen_hidden_technologist }
+		# 		newgen_arest3_prop = { FACTION = technologist }
+		# 	}
+		# 	else_if = {
+		# 		limit = { has_modifier = newgen_traditionalist }
+		# 		newgen_arest3_prop = { FACTION = traditionalist }
+		# 	}
+		# 	else_if = {
+		# 		limit = { has_modifier = newgen_hidden_traditionalist }
+		# 		newgen_arest3_prop = { FACTION = traditionalist }
+		# 	}
+		# 	else_if = {
+		# 		limit = { has_modifier = newgen_xenoist }
+		# 		newgen_arest3_prop = { FACTION = xenoist }
+		# 	}
+		# 	else_if = {
+		# 		limit = { has_modifier = newgen_hidden_xenoist }
+		# 		newgen_arest3_prop = { FACTION = xenoist }
+		# 	}
+		# }
 		every_playable_country = { remove_country_flag = newgen_owner@root }
 	}
 }
@@ -2884,10 +2990,11 @@ planet_event = {
 	id = mod_planet_conquering.7
 	hide_window = yes
 	is_triggered_only = yes
+	pre_triggers = { has_owner = yes }
+	trigger = { exists = owner }
 	immediate = {
 		if = {
 			limit = {
-				exists = owner
 				OR = {
 					AND = {
 						controller = { is_ai = no }
@@ -3050,7 +3157,7 @@ planet_event = {
 }
 
 # THIS = System: system being occupied
-# FROM = Country: Conqueror of the system
+# from = Country: Conqueror of the system
 # fromfrom = Country: Original owner of the system
 system_event = {
 	id = mod_planet_conquering.11
@@ -3113,10 +3220,7 @@ country_event = {
 					limit = { has_job = mortal_initiate }
 					reroll_random = yes
 					random_list = {
-						30 = {
-							modifier = { factor = 3 pop_has_ethic = ethic_spiritualist }
-							modifier = { factor = 5 pop_has_ethic = ethic_fanatic_spiritualist }
-						}
+						30 = { modifier = { factor = 3 pop_has_ethic = ethic_spiritualist } modifier = { factor = 5 pop_has_ethic = ethic_fanatic_spiritualist } }
 						60 = { kill_pop = yes }
 					}
 				}
@@ -3303,28 +3407,26 @@ country_event = {
 	}
 }
 
-# from.owner
+# (on_destroy_planet_xxx)
+# from = fleet that fired
 planet_event = {
 	id = mod_planet_conquering.15
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		from = {
-			owner = { merg_is_default_empire = yes }
-		}
+		exists = from.owner
+		from.owner = { merg_is_default_empire = yes }
 	}
 	immediate = {
-		from = {
-			owner = {
-				if = {
-					limit = {
-						NOT = { is_variable_set = newgen_expansion_score }
-					}
-					set_variable = { which = newgen_expansion_score value = 5 }
+		from.owner = {
+			if = {
+				limit = {
+					NOT = { is_variable_set = newgen_expansion_score }
 				}
-				else = {
-					change_variable = { which = newgen_expansion_score value = 5 }
-				}
+				set_variable = { which = newgen_expansion_score value = 5 }
+			}
+			else = {
+				change_variable = { which = newgen_expansion_score value = 5 }
 			}
 		}
 	}
@@ -3404,7 +3506,7 @@ country_event = {
 						}
 					}
 					modifier = { factor = 0.65 has_planet_flag = newgen_crime_unrest }
-					# log =  "partisans camp destroyed after fail revolt on planet [This.GetName]"
+					log =  "partisans camp destroyed after fail revolt on planet \\[This.GetName]"
 					root.from = { remove_country_flag = newgen_owner@root }
 					remove_modifier = newgen_partisans_camp
 					remove_planet_flag = fresh_camp
@@ -3414,7 +3516,7 @@ country_event = {
 					set_variable = { which = newgen_num_garrisons value = 0 }
 				}
 				40 = {
-					# log =  "partisans camp survived after fail revolt on planet [This.GetName]"
+					log =  "partisans camp survived after fail revolt on planet \\[This.GetName]"
 					if = {
 						limit = {
 							root.from = { is_ai = no }
@@ -3492,22 +3594,20 @@ planet_event = {
 	id = mod_planet_conquering.17
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = { }
+	pre_triggers = { has_owner = yes }
+	trigger = {
+		exists = controller
+		controller = { has_country_flag = newgen_owner@root }
+	}
 	immediate = {
-		if = {
-			limit = {
-				exists = controller
-				controller = { has_country_flag = newgen_owner@root }
-			}
-			# log =  "partisans camp dissapear on planet [This.GetName] after war, because owner is native"
-			controller = { remove_country_flag = newgen_owner@root }
-			remove_modifier = newgen_partisans_camp
-			remove_planet_flag = fresh_camp
-			remove_planet_flag = newgen_revolt_preparation1
-			remove_planet_flag = newgen_revolt_preparation2
-			set_variable = { which = was_happy value = 0 }
-			set_variable = { which = newgen_num_garrisons value = 0 }
-		}
+		log =  "partisans camp dissapear on planet \\[This.GetName] after war, because owner is native"
+		controller = { remove_country_flag = newgen_owner@root }
+		remove_modifier = newgen_partisans_camp
+		remove_planet_flag = fresh_camp
+		remove_planet_flag = newgen_revolt_preparation1
+		remove_planet_flag = newgen_revolt_preparation2
+		set_variable = { which = was_happy value = 0 }
+		set_variable = { which = newgen_num_garrisons value = 0 }
 	}
 }
 
@@ -3517,6 +3617,7 @@ planet_event = {
 	id = mod_planet_conquering.18
 	hide_window = yes
 	is_triggered_only = yes
+	pre_triggers = { has_owner = yes }
 	trigger = {
 		exists = owner
 		NOT = { has_planet_flag = newgen_ass_arm }
@@ -3559,6 +3660,7 @@ planet_event = {
 	id = mod_planet_conquering.19
 	hide_window = yes
 	is_triggered_only = yes
+	pre_triggers = { has_owner = yes }
 	trigger = {
 		exists = controller
 		exists = event_target:newgen_bombarded_owner

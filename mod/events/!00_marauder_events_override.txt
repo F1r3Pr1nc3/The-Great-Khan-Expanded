@@ -9342,7 +9342,7 @@ country_event = {
 		}
 
 		if = { # Five Diadochi - Sector method (mainly by MrFunEGUY)
-			limit = { check_variable = { which = num_diadochi value >= 4 } }
+			limit = { check_variable = { which = num_diadochi value >= 3 } }
 			set_variable = { which = EX_sectors_per_diadochi value = actual_sector_count }
 			subtract_variable = { which = EX_sectors_per_diadochi value = num_diadochi }
 			if = {

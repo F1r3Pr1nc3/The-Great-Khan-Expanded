@@ -559,9 +559,7 @@ create_first_diadochi = {
 		}
 		if = { limit = { exists = event_target:raider_khanate }
 			event_target:first_diadochi = {
-				event_target:raider_khanate = {
-					set_faction_hostility = { target = prev set_friendly = yes }
-				}
+
 				country_event = { id = khan.610 days = -1 } # Handover some old stuff
 			}
 		}
@@ -641,9 +639,6 @@ create_second_diadochi = {
 		}
 		if = { limit = { exists = event_target:raider_khanate }
 			event_target:second_diadochi = {
-				event_target:raider_khanate = {
-					set_faction_hostility = { target = prev set_friendly = yes }
-				}
 				country_event = { id = khan.610 days = -1 } # Handover some old stuff
 			}
 		}
@@ -724,9 +719,6 @@ create_third_diadochi = {
 		}
 		if = { limit = { exists = event_target:raider_khanate }
 			event_target:third_diadochi = {
-				event_target:raider_khanate = {
-					set_faction_hostility = { target = prev set_friendly = yes }
-				}
 				country_event = { id = khan.610 days = -1 } # Handover some old stuff
 			}
 		}
@@ -806,9 +798,6 @@ create_fourth_diadochi = {
 		}
 		if = { limit = { exists = event_target:raider_khanate }
 			event_target:fourth_diadochi = {
-				event_target:raider_khanate = {
-					set_faction_hostility = { target = prev set_friendly = yes }
-				}
 				country_event = { id = khan.610 days = -1 } # Handover some old stuff
 			}
 		}
@@ -821,10 +810,13 @@ create_fourth_diadochi = {
 commit_system_to = {
 	if = {
 		limit = {
+			has_owner = yes
+			is_capital_system = no
 			exists = starbase
 			NAND = {
 				exists = space_owner
 				space_owner = { is_same_empire = $EMPIRE$ }
+				space_owner = { is_ai = no }
 			}
 		}
 		set_timed_star_flag = { flag = switched_system days = 3 }

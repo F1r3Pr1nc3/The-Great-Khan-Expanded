@@ -1,0 +1,3188 @@
+# newgen_infected_by_virus_1 = {
+# 	pop_growth_speed = -0.1
+# 	planet_jobs_produces_mult = -0.1
+# 	starbase_shipyard_build_speed_mult = -0.1
+# 	planet_stability_add = -5
+# }
+# newgen_infected_by_virus_2 = {
+# 	pop_growth_speed = -0.15
+# 	planet_jobs_produces_mult = -0.15
+# 	starbase_shipyard_build_speed_mult = -0.15
+# 	planet_stability_add = -10
+# }
+# newgen_infected_by_virus_3 = {
+# 	pop_growth_speed = -0.2
+# 	planet_jobs_produces_mult = -0.2
+# 	starbase_shipyard_build_speed_mult = -0.2
+# 	planet_stability_add = -15
+# }
+# drone_destroyer = {
+# 	damage_vs_country_type_drone_mult = 0.1
+# 	damage_vs_country_type_reprogrammed_demolishers_mult = 0.1
+# 	damage_vs_country_type_drone_faction_mult = 0.1
+# }
+# drone_hunting_buff = {
+# 	damage_vs_country_type_drone_mult = 0.33
+# 	damage_vs_country_type_reprogrammed_demolishers_mult = 0.33
+# 	damage_vs_country_type_drone_faction_mult = 0.33
+# }
+# dimensional_horror_weak_points_1 = {
+# 	damage_vs_country_type_guardian_horror_mult = 0.35
+# }
+# newgen_rich_drone_system1 = {
+# 	ship_armor_mult = 0.1
+# 	ship_hull_mult = 0.2
+# 	ship_weapon_damage = 0.1
+# }
+# newgen_rich_drone_system2 = {
+# 	ship_armor_mult = 0.2
+# 	ship_hull_mult = 0.4
+# 	ship_weapon_damage = 0.2
+# }
+# newgen_rich_drone_system3 = {
+# 	ship_armor_mult = 0.3
+# 	ship_hull_mult = 0.6
+# 	ship_weapon_damage = 0.3
+# }
+# drone_crisis_buff1 = {
+# 	ship_weapon_range_mult = 0.2
+# 	ship_tracking_add = 10
+# 	ship_shield_damage_mult = 0.3
+# 	ship_armor_damage_mult = 0.3
+# 	ship_shield_add = 100
+# 	ship_shield_regen_add_static = 30
+# 	ship_shield_mult = 0.3
+# 	ship_armor_regen_add_static = 10
+# 	ship_hull_regen_add_static = 10
+# 	ship_speed_mult = 0.3
+# }
+# nanits_collected_1 = {
+# 	ship_weapon_damage = 0.1
+# }
+# hungry_stelar = {
+# 	ship_fire_rate_mult = 0.5
+# }
+# fed_stelar = {
+# 	ship_fire_rate_mult = -0.4
+# 	ship_tracking_add = -10
+# }
+# newgen_experiments_1 = {
+# 	pop_environment_tolerance = 0.20
+# 	planet_stability_add = 20
+# 	pop_happiness = 0.20
+# 	planet_jobs_produces_mult = 0.3
+# 	planet_jobs_physics_research_produces_mult = 0.50
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_unity_symbol.dds"
+# 	icon_frame = 2
+# }
+# newgen_experiments_2 = {
+# 	pop_environment_tolerance = -0.20
+# 	pop_happiness = -0.20
+# 	planet_jobs_food_produces_mult = -0.3
+# 	planet_jobs_engineering_research_produces_mult = 0.5
+# 	planet_jobs_physics_research_produces_mult = 3.0
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_starvation.dds"
+# 	icon_frame = 3
+# }
+# newgen_experimentator = {
+# 	pop_environment_tolerance = 0.50
+# 	pop_happiness = 0.30
+# 	planet_jobs_produces_mult = 0.3
+# 	pop_amenities_usage_mult = -0.5
+# 	planet_jobs_physics_research_produces_mult = 5.0
+# }
+# stellarite_1 = {
+# 	pop_environment_tolerance = -0.10
+# 	planet_stability_add = -10
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_stellarite_hunger.dds"
+# 	icon_frame = 3
+# }
+# newgen_more_adepts1 = {
+# 	pop_environment_tolerance = 0.20
+# 	planet_immigration_pull_add = 30
+# 	planet_immigration_pull_mult = 0.3
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_atmospheric_hallucinogen.dds"
+# 	icon_frame = 1
+# }
+# newgen_more_adepts2 = {
+# 	pop_environment_tolerance = 0.30
+# 	planet_immigration_pull_add = 45
+# 	planet_immigration_pull_mult = 0.45
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_atmospheric_hallucinogen.dds"
+# 	icon_frame = 1
+# }
+# stellarite_2 = {
+# 	pop_environment_tolerance = -0.20
+# 	planet_stability_add = -20
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_stellarite_hunger.dds"
+# 	icon_frame = 3
+# }
+# stellarite_3 = {
+# 	pop_environment_tolerance = -0.30
+# 	planet_stability_add = -30
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_stellarite_hunger.dds"
+# 	icon_frame = 3
+# }
+# energy_relocator_1 = {
+# 	ship_weapon_damage = 0.1
+# 	ship_fire_rate_mult = 0.1
+# 	ship_weapon_range_mult = 0.1
+# 	ship_shield_damage_mult = 0.05
+# 	ship_armor_damage_mult = 0.05
+# 	ship_shield_regen_add_static = 100
+# 	ship_shield_mult = 0.1
+# 	ship_hull_regen_add_static = 10
+# }
+# energy_relocator_2 = {
+# 	ship_weapon_damage = 0.2
+# 	ship_fire_rate_mult = 0.2
+# 	ship_weapon_range_mult = 0.2
+# 	ship_shield_damage_mult = 0.1
+# 	ship_armor_damage_mult = 0.1
+# 	ship_shield_regen_add_static = 200
+# 	ship_shield_mult = 0.2
+# 	ship_hull_regen_add_static = 20
+# }
+# energy_relocator_3 = {
+# 	ship_weapon_damage = 0.3
+# 	ship_fire_rate_mult = 0.3
+# 	ship_weapon_range_mult = 0.3
+# 	ship_shield_damage_mult = 0.15
+# 	ship_armor_damage_mult = 0.15
+# 	ship_shield_regen_add_static = 300
+# 	ship_shield_mult = 0.3
+# 	ship_hull_regen_add_static = 30
+# }
+# energy_relocator_4 = {
+# 	ship_weapon_damage = 0.4
+# 	ship_fire_rate_mult = 0.4
+# 	ship_weapon_range_mult = 0.4
+# 	ship_shield_damage_mult = 0.2
+# 	ship_armor_damage_mult = 0.2
+# 	ship_shield_regen_add_static = 400
+# 	ship_shield_mult = 0.4
+# 	ship_hull_regen_add_static = 40
+# }
+# drednout_1 = {
+# 	ship_weapon_damage = 0.2
+# 	ship_fire_rate_mult = 0.2
+# 	ship_tracking_add = 10
+# 	ship_weapon_range_mult = 0.2
+# 	ship_shield_damage_mult = 0.1
+# 	ship_armor_damage_mult = 0.1
+# }
+# drednout_2 = {
+# 	ship_weapon_damage = 0.4
+# 	ship_fire_rate_mult = 0.4
+# 	ship_tracking_add = 20
+# 	ship_weapon_range_mult = 0.4
+# 	ship_shield_damage_mult = 0.2
+# 	ship_armor_damage_mult = 0.2
+# }
+# drednout_3 = {
+# 	ship_weapon_damage = -0.1
+# 	ship_fire_rate_mult = -0.1
+# 	ship_shield_add = 25000
+# 	ship_shield_mult = 0.2
+# 	ship_shield_regen_add_static = 4000
+# 	ship_evasion_add = 15
+# }
+# tiyanki_anger = {
+# 	ship_fire_rate_mult = 0.3
+# 	ship_evasion_add = 10
+# 	ship_speed_mult = 1.0
+# }
+# drednout_4 = {
+# 	ship_weapon_damage = -0.2
+# 	ship_fire_rate_mult = -0.2
+# 	ship_shield_add = 50000
+# 	ship_shield_mult = 0.4
+# 	ship_shield_regen_add_static = 8000
+# 	ship_evasion_add = 30
+# }
+# drednout_5 = {
+# 	ship_armor_add = 10000
+# 	ship_armor_regen_add_static = 1000
+# 	ship_hull_regen_add_static = 1000
+# }
+# drednout_6 = {
+# 	ship_armor_add = 20000
+# 	ship_armor_regen_add_static = 2000
+# 	ship_hull_regen_add_static = 2000
+# }
+# drednout_7 = {
+# 	ship_fire_rate_mult = -0.2
+# 	ship_tracking_add = -15
+# 	ship_evasion_add = -15
+# 	ship_speed_mult = -0.2
+# }
+# drednout_8 = {
+# 	ship_fire_rate_mult = -0.4
+# 	ship_tracking_add = -30
+# 	ship_evasion_add = -30
+# 	ship_speed_mult = -0.4
+# }
+# horror_effect2 = {
+# 	planet_stability_add = -35
+# 	planet_pops_robotics_upkeep_mult = 0.8
+# 	planet_jobs_robotic_produces_mult = -0.8
+# 	pop_growth_speed = -3.0
+# 	pop_amenities_usage_mult = 1
+# 	planet_emigration_push_add = 100
+# 	#show_only_custom_tooltip = yes
+# 	custom_tooltip = horror_effect2_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_horror_fear.dds"
+# 	icon_frame = 3
+# }
+# horror_effect = {
+# 	pop_happiness = -0.25
+# 	planet_stability_add = -10
+# 	planet_crime_add = 30
+# 	planet_immigration_pull_mult = -0.5
+# 	planet_emigration_push_add = 100
+# 	planet_pops_upkeep_mult = 0.5
+# 	planet_jobs_produces_mult = -0.4
+# 	pop_growth_speed = -0.5
+# 	pop_amenities_usage_mult = 0.5
+# 	custom_tooltip = horror_effect_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_horror_fear.dds"
+# 	icon_frame = 3
+# 	#show_only_custom_tooltip = yes
+# }
+# suicide_1_buff = {
+# 	ship_fire_rate_mult = 0.2
+# 	ship_weapon_damage = 0.2
+# 	ship_weapon_range_mult = 0.2
+# 	ship_tracking_add = 5
+# 	ship_evasion_add = 5
+# 	ship_shield_damage_mult = 0.1
+# 	ship_armor_damage_mult = 0.1
+# 	ship_shield_mult = 0.3
+# 	ship_armor_mult = 0.3
+# 	damage_vs_country_type_pirate_mult = 0.1
+# }
+# suicide_2_buff = {
+# 	ship_fire_rate_mult = 0.3
+# 	ship_weapon_damage = 0.3
+# 	ship_weapon_range_mult = 0.3
+# 	ship_tracking_add = 10
+# 	ship_evasion_add = 10
+# 	ship_shield_damage_mult = 0.15
+# 	ship_armor_damage_mult = 0.15
+# 	ship_shield_mult = 0.45
+# 	ship_armor_mult = 0.45
+# 	damage_vs_country_type_pirate_mult = 0.2
+# }
+# suicide_3_buff = {
+# 	ship_fire_rate_mult = 0.4
+# 	ship_weapon_damage = 0.4
+# 	ship_weapon_range_mult = 0.4
+# 	ship_tracking_add = 15
+# 	ship_evasion_add = 15
+# 	ship_shield_damage_mult = 0.2
+# 	ship_armor_damage_mult = 0.2
+# 	ship_shield_mult = 0.6
+# 	ship_armor_mult = 0.6
+# 	damage_vs_country_type_pirate_mult = 0.3
+# }
+# suicide_4_buff = {
+# 	ship_fire_rate_mult = 0.5
+# 	ship_weapon_damage = 0.5
+# 	ship_weapon_range_mult = 0.5
+# 	ship_tracking_add = 20
+# 	ship_evasion_add = 20
+# 	ship_shield_damage_mult = 0.25
+# 	ship_armor_damage_mult = 0.25
+# 	ship_shield_mult = 0.75
+# 	ship_armor_mult = 0.75
+# 	damage_vs_country_type_pirate_mult = 0.4
+# }
+# mod_upgrade_components_1 = {
+# 	ship_weapon_damage = 0.1
+# 	ship_fire_rate_mult = 0.2
+# 	ship_tracking_add = 5
+# 	ship_evasion_add = 5
+# 	ship_weapon_range_mult = 0.2
+# }
+# mod_upgrade_components_2 = {
+# 	ship_weapon_damage = 0.2
+# 	ship_fire_rate_mult = 0.4
+# 	ship_tracking_add = 10
+# 	ship_evasion_add = 10
+# 	ship_weapon_range_mult = 0.4
+# }
+# nanits_collected_2 = {
+# 	ship_weapon_damage = 0.1
+# 	ship_evasion_add = 5
+# 	ship_speed_mult = 0.1
+# }
+# nanits_collected_3 = {
+# 	ship_weapon_damage = 0.1
+# 	ship_evasion_add = 5
+# 	ship_speed_mult = 0.1
+# 	ship_weapon_range_mult = 0.1
+# 	ship_hull_mult = 0.1
+# }
+# nanits_collected_4 = {
+# 	ship_weapon_damage = 0.1
+# 	ship_evasion_add = 5
+# 	ship_speed_mult = 0.1
+# 	ship_weapon_range_mult = 0.1
+# 	ship_fire_rate_mult = 0.1
+# 	ship_hull_mult = 0.1
+# }
+# nanits_collected_5 = {
+# 	ship_weapon_damage = 0.1
+# 	ship_evasion_add = 5
+# 	ship_speed_mult = 0.1
+# 	ship_weapon_range_mult = 0.1
+# 	ship_fire_rate_mult = 0.1
+# 	ship_shield_mult = 0.1
+# 	ship_armor_mult = 0.1
+# 	ship_hull_mult = 0.1
+# }
+# levi_enraged = {
+# 	ship_weapon_damage = 0.5
+# 	ship_evasion_add = 10
+# 	ship_weapon_range_mult = 0.5
+# 	ship_fire_rate_mult = 1.0
+# }
+# marad_defends = {
+# 	ship_weapon_damage = 1.0
+# 	ship_evasion_add = 15
+# 	ship_weapon_range_mult = 1.0
+# 	ship_fire_rate_mult = 1.5
+# }
+# nanits_collected_6 = {
+# 	ship_weapon_damage = 0.25
+# 	ship_evasion_add = 5
+# 	ship_speed_mult = 0.1
+# 	ship_weapon_range_mult = 0.1
+# 	ship_fire_rate_mult = 0.1
+# 	ship_shield_mult = 0.1
+# 	ship_armor_mult = 0.1
+# 	ship_hull_mult = 0.1
+# }
+# nanits_collected_7 = {
+# 	ship_weapon_damage = 0.25
+# 	ship_evasion_add = 10
+# 	ship_speed_mult = 0.2
+# 	ship_weapon_range_mult = 0.1
+# 	ship_fire_rate_mult = 0.1
+# 	ship_shield_mult = 0.1
+# 	ship_armor_mult = 0.1
+# 	ship_hull_mult = 0.1
+# }
+# nanits_collected_8 = {
+# 	ship_weapon_damage = 0.25
+# 	ship_evasion_add = 10
+# 	ship_speed_mult = 0.2
+# 	ship_weapon_range_mult = 0.25
+# 	ship_fire_rate_mult = 0.1
+# 	ship_shield_mult = 0.1
+# 	ship_armor_mult = 0.1
+# 	ship_hull_mult = 0.25
+# }
+# nanits_collected_9 = {
+# 	ship_weapon_damage = 0.25
+# 	ship_evasion_add = 10
+# 	ship_speed_mult = 0.2
+# 	ship_weapon_range_mult = 0.25
+# 	ship_fire_rate_mult = 0.25
+# 	ship_shield_mult = 0.1
+# 	ship_armor_mult = 0.1
+# 	ship_hull_mult = 0.25
+# }
+# nanits_collected_10 = {
+# 	ship_weapon_damage = 0.25
+# 	ship_evasion_add = 10
+# 	ship_speed_mult = 0.2
+# 	ship_weapon_range_mult = 0.25
+# 	ship_fire_rate_mult = 0.25
+# 	ship_shield_mult = 0.25
+# 	ship_armor_mult = 0.25
+# 	ship_hull_mult = 0.25
+# }
+# nanits_collected_11 = {
+# 	ship_weapon_damage = 0.45
+# 	ship_evasion_add = 10
+# 	ship_speed_mult = 0.2
+# 	ship_weapon_range_mult = 0.25
+# 	ship_fire_rate_mult = 0.25
+# 	ship_shield_mult = 0.25
+# 	ship_armor_mult = 0.25
+# 	ship_hull_mult = 0.25
+# }
+# nanits_collected_12 = {
+# 	ship_weapon_damage = 0.45
+# 	ship_evasion_add = 15
+# 	ship_speed_mult = 0.3
+# 	ship_weapon_range_mult = 0.25
+# 	ship_fire_rate_mult = 0.25
+# 	ship_shield_mult = 0.25
+# 	ship_armor_mult = 0.25
+# 	ship_hull_mult = 0.25
+# }
+# nanits_collected_13 = {
+# 	ship_weapon_damage = 0.45
+# 	ship_evasion_add = 15
+# 	ship_speed_mult = 0.3
+# 	ship_weapon_range_mult = 0.45
+# 	ship_fire_rate_mult = 0.25
+# 	ship_shield_mult = 0.25
+# 	ship_armor_mult = 0.25
+# 	ship_hull_mult = 0.45
+# }
+# nanits_collected_14 = {
+# 	ship_weapon_damage = 0.45
+# 	ship_evasion_add = 15
+# 	ship_speed_mult = 0.3
+# 	ship_weapon_range_mult = 0.45
+# 	ship_fire_rate_mult = 0.45
+# 	ship_shield_mult = 0.25
+# 	ship_armor_mult = 0.25
+# 	ship_hull_mult = 0.45
+# }
+# nanits_collected_15 = {
+# 	ship_weapon_damage = 0.45
+# 	ship_evasion_add = 15
+# 	ship_speed_mult = 0.3
+# 	ship_weapon_range_mult = 0.45
+# 	ship_fire_rate_mult = 0.45
+# 	ship_shield_mult = 0.45
+# 	ship_armor_mult = 0.45
+# 	ship_hull_mult = 0.45
+# }
+# nanits_collected_16 = {
+# 	ship_weapon_damage = 0.60
+# 	ship_evasion_add = 20
+# 	ship_speed_mult = 0.4
+# 	ship_weapon_range_mult = 0.60
+# 	ship_fire_rate_mult = 0.60
+# 	ship_shield_mult = 0.60
+# 	ship_armor_mult = 0.60
+# 	ship_hull_mult = 0.60
+# }
+# nanits_collected_17 = {
+# 	ship_weapon_damage = 0.80
+# 	ship_evasion_add = 25
+# 	ship_speed_mult = 0.5
+# 	ship_weapon_range_mult = 0.80
+# 	ship_fire_rate_mult = 0.80
+# 	ship_shield_mult = 0.80
+# 	ship_armor_mult = 0.80
+# 	ship_hull_mult = 0.80
+# }
+# army_100_year = {
+# 	army_health = 0.15
+# 	army_damage_mult = 0.15
+# }
+# army_150_year = {
+# 	army_health = 0.3
+# 	army_damage_mult = 0.3
+# }
+
+# basic_debuff_1 = {
+# 	ship_shield_mult = -0.1
+# 	ship_armor_mult = -0.1
+# 	ship_hull_mult = -0.1
+# 	ship_weapon_damage = -0.1
+# 	ship_fire_rate_mult = -0.1
+# }
+# test_weaker_raid = {
+# 	ship_shield_mult = -0.2
+# 	ship_armor_mult = -0.2
+# 	ship_hull_mult = -0.2
+# 	ship_weapon_damage = -0.2
+# 	ship_fire_rate_mult = -0.2
+# }
+# newgen_surv_prim1 = {
+# 	planet_orbital_bombardment_damage = -0.2
+# }
+# newgen_surv_prim2 = {
+# 	planet_orbital_bombardment_damage = -0.3
+# }
+# advanced_debuff = {
+# 	ship_shield_mult = -0.2
+# 	ship_armor_mult = -0.2
+# 	ship_hull_mult = -0.2
+# 	ship_weapon_damage = -0.2
+# 	ship_fire_rate_mult = -0.2
+# }
+# big_debuff = {
+# 	ship_shield_mult = -0.3
+# 	ship_armor_mult = -0.3
+# 	ship_hull_mult = -0.3
+# 	ship_weapon_damage = -0.3
+# 	ship_fire_rate_mult = -0.3
+# }
+# newgen_unfriendly_st = {
+# 	ship_weapon_damage = 0.1
+# 	ship_fire_rate_mult = 0.2
+# 	ship_weapon_range_mult = 0.2
+# }
+bloodborn_grow_1 = {
+	ship_speed_mult = 0.10
+	ships_upkeep_mult = -0.1
+}
+bloodborn_grow_2 = {
+	ship_speed_mult = 0.20
+	ships_upkeep_mult = -0.2
+}
+newgen_carry = {
+	ship_speed_mult = 0.50
+}
+# newgen_prescr_2 = {
+# 	diplo_weight_mult = 0.3
+# }
+# newgen_prescr_8 = {
+# 	country_base_minerals_produces_add = 100
+# 	country_base_energy_produces_add = 50
+# 	country_base_food_produces_add = 50
+# 	country_base_rare_crystals_produces_add = 5
+# 	country_base_volatile_motes_produces_add = 5
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_prescr_8_tooltip
+# }
+timed_for_rebels = {
+	planet_stability_add = 20
+	planet_crime_add = -15
+	country_base_energy_produces_add = 20
+	starbase_shipyard_build_cost_mult = -0.3
+	starbase_shipyard_build_speed_mult = 0.6
+}
+rebels_buff_1 = {
+	planet_stability_add = 10
+	ships_upkeep_mult = -0.1
+	country_base_energy_produces_add = 100
+	country_base_alloys_produces_add = 50
+}
+rebels_buff_2 = {
+	planet_stability_add = 15
+	ships_upkeep_mult = -0.15
+	country_base_energy_produces_add = 200
+	country_base_alloys_produces_add = 100
+}
+rebels_buff_3 = {
+	planet_stability_add = 20
+	ships_upkeep_mult = -0.2
+	country_base_energy_produces_add = 300
+	country_base_alloys_produces_add = 150
+}
+# nomads_buff = {
+# 	pop_growth_speed = 0.15
+# 	trade_value_mult = 0.40
+# 	planet_jobs_consumer_goods_produces_mult = 0.3
+# 	starbase_shipyard_build_speed_mult = 0.15
+# 	ships_upkeep_mult = -0.3
+# 	country_naval_cap_add = 20
+# 	country_naval_cap_mult = 0.1
+# }
+# coop_with_nomads = {
+# 	pop_happiness = 0.05
+# 	planet_jobs_energy_produces_mult = 0.10
+# 	starbase_shipyard_build_speed_mult = 0.10
+# }
+# advanced_coop_with_nomads = {
+# 	pop_happiness = 0.10
+# 	planet_jobs_energy_produces_mult = 0.20
+# 	starbase_shipyard_build_speed_mult = 0.20
+# }
+# happy_nomads1 = {
+# 	pop_happiness = 0.05
+# 	pop_growth_speed = 0.15
+# 	planet_jobs_minerals_produces_mult = 0.10
+# 	planet_jobs_energy_produces_mult = 0.10
+# 	planet_jobs_food_produces_mult = 0.10
+# }
+# happy_nomads2 = {
+# 	pop_happiness = 0.10
+# 	pop_growth_speed = 0.30
+# 	planet_jobs_minerals_produces_mult = 0.20
+# 	planet_jobs_energy_produces_mult = 0.20
+# 	planet_jobs_food_produces_mult = 0.20
+# }
+# happy_nomads3 = {
+# 	pop_happiness = 0.15
+# 	pop_growth_speed = 0.45
+# 	planet_jobs_minerals_produces_mult = 0.30
+# 	planet_jobs_energy_produces_mult = 0.30
+# 	planet_jobs_food_produces_mult = 0.30
+# }
+# happy_nomads4 = {
+# 	pop_happiness = 0.20
+# 	pop_growth_speed = 0.60
+# 	planet_jobs_minerals_produces_mult = 0.40
+# 	planet_jobs_energy_produces_mult = 0.40
+# 	planet_jobs_food_produces_mult = 0.40
+# }
+# happy_nomads5 = {
+# 	pop_happiness = 0.25
+# 	pop_growth_speed = 0.75
+# 	planet_jobs_minerals_produces_mult = 0.50
+# 	planet_jobs_energy_produces_mult = 0.50
+# 	planet_jobs_food_produces_mult = 0.50
+# }
+# bemat_here = {
+# 	pop_happiness = -0.20
+# 	planet_stability_add = -20
+# 	planet_crime_add = 30
+# 	planet_amenities_mult = -0.5
+# 	planet_jobs_energy_produces_mult = -0.50
+# 	trade_value_mult = -0.70
+# 	planet_housing_mult	= -0.3
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = bemat_here_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_bemat_here.dds"
+# 	icon_frame = 3
+# }
+# bemat_here_gestalt = {
+# 	planet_stability_add = -40
+# 	planet_amenities_mult = -0.6
+# 	planet_jobs_energy_produces_mult = -0.60
+# 	planet_housing_mult	= -0.4
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = bemat_here_gestalt_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_bemat_here.dds"
+# 	icon_frame = 3
+# }
+# primitive_late_start = {
+# 	planet_stability_add = 10
+# 	planet_crime_add = -10
+# 	pop_growth_speed = 0.3
+# 	envoys_add = 1
+# 	country_base_energy_produces_add = 150
+# 	country_base_alloys_produces_add = 100
+# }
+newgen_nature_grow = {
+	ship_speed_mult = 0.3
+	science_ship_survey_speed = 0.4
+	ship_anomaly_research_speed_mult = 0.4
+}
+# nature_boom = {
+# 	pop_environment_tolerance = 0.05
+# 	pop_growth_speed = 0.2
+# 	pop_housing_usage_mult = -0.10
+# 	planet_immigration_pull_mult = 0.3
+# 	planet_pops_organics_food_upkeep_mult = -0.30
+# }
+# newgen_nature_boom = {
+# 	pop_environment_tolerance = 0.1
+# 	pop_growth_speed = 0.3
+# 	pop_housing_usage_mult = -0.15
+# 	planet_immigration_pull_mult = 0.45
+# 	planet_pops_organics_food_upkeep_mult = -0.45
+# }
+# bloodborn_grow = {
+# 	pop_growth_speed = 0.1
+# 	pop_housing_usage_mult = -0.10
+# 	pop_amenities_usage_mult = -0.10
+# 	planet_immigration_pull_mult = 0.15
+# 	planet_pops_organics_food_upkeep_mult = -0.15
+# 	country_admin_cap_mult = 0.10
+# 	country_naval_cap_add = 10
+# }
+# bloodborn_grow2 = {
+# 	pop_growth_speed = 0.15
+# 	pop_housing_usage_mult = -0.15
+# 	pop_amenities_usage_mult = -0.15
+# 	planet_immigration_pull_mult = 0.30
+# 	planet_pops_organics_food_upkeep_mult = -0.25
+# 	country_base_energy_produces_add = 30
+# 	country_admin_cap_mult = 0.20
+# 	country_naval_cap_add = 20
+# }
+# bloodborn_grow3 = {
+# 	pop_growth_speed = 0.20
+# 	pop_housing_usage_mult = -0.20
+# 	pop_amenities_usage_mult = -0.20
+# 	planet_immigration_pull_mult = 0.40
+# 	planet_pops_organics_food_upkeep_mult = -0.30
+# 	country_base_energy_produces_add = 50
+# 	country_admin_cap_mult = 0.35
+# 	country_naval_cap_add = 30
+# }
+# mod_bounty_1 = {
+# 	pop_growth_speed = 0.10
+# 	country_minerals_produces_mult = 0.05
+# 	country_energy_produces_mult = 0.05
+# 	country_food_produces_mult = 0.05
+# 	icon = "gfx/interface/icons/modifiers/mod_produces_mult.dds"
+# }
+# mod_bounty_2 = {
+# 	pop_growth_speed = 0.20
+# 	country_minerals_produces_mult = 0.10
+# 	country_energy_produces_mult = 0.10
+# 	country_food_produces_mult = 0.10
+# 	icon = "gfx/interface/icons/modifiers/mod_produces_mult.dds"
+# }
+# mod_bounty_3 = {
+# 	pop_growth_speed = 0.30
+# 	country_minerals_produces_mult = 0.15
+# 	country_energy_produces_mult = 0.15
+# 	country_food_produces_mult = 0.15
+# 	icon = "gfx/interface/icons/modifiers/mod_produces_mult.dds"
+# }
+# mod_bounty_4 = {
+# 	pop_growth_speed = 0.40
+# 	country_minerals_produces_mult = 0.20
+# 	country_energy_produces_mult = 0.20
+# 	country_food_produces_mult = 0.20
+# 	icon = "gfx/interface/icons/modifiers/mod_produces_mult.dds"
+# }
+# mod_bounty_5 = {
+# 	pop_growth_speed = 0.50
+# 	country_minerals_produces_mult = 0.25
+# 	country_energy_produces_mult = 0.25
+# 	country_food_produces_mult = 0.25
+# 	icon = "gfx/interface/icons/modifiers/mod_produces_mult.dds"
+# }
+# mod_bounty_6 = {
+# 	pop_growth_speed = 0.60
+# 	country_minerals_produces_mult = 0.3
+# 	country_energy_produces_mult = 0.3
+# 	country_food_produces_mult = 0.3
+# 	icon = "gfx/interface/icons/modifiers/mod_produces_mult.dds"
+# }
+# mod_bounty_7 = {
+# 	pop_growth_speed = 0.70
+# 	country_minerals_produces_mult = 0.35
+# 	country_energy_produces_mult = 0.35
+# 	country_food_produces_mult = 0.35
+# 	icon = "gfx/interface/icons/modifiers/mod_produces_mult.dds"
+# }
+# mod_bounty_8 = {
+# 	pop_growth_speed = 0.80
+# 	country_minerals_produces_mult = 0.4
+# 	country_energy_produces_mult = 0.4
+# 	country_food_produces_mult = 0.4
+# 	icon = "gfx/interface/icons/modifiers/mod_produces_mult.dds"
+# }
+# mod_harmony_1 = {
+# 	pop_growth_speed = 0.1
+# 	pop_happiness = 0.1
+# 	planet_immigration_pull_add = 10
+# 	icon = "gfx/interface/icons/modifiers/mod_pop_happiness.dds"
+# }
+# mod_harmony_2 = {
+# 	pop_growth_speed = 0.2
+# 	pop_happiness = 0.2
+# 	planet_immigration_pull_add = 20
+# 	icon = "gfx/interface/icons/modifiers/mod_pop_happiness.dds"
+# }
+# mod_harmony_3 = {
+# 	pop_growth_speed = 0.3
+# 	pop_happiness = 0.15
+# 	planet_immigration_pull_add = 30
+# 	icon = "gfx/interface/icons/modifiers/mod_pop_happiness.dds"
+# }
+# mod_harmony_4 = {
+# 	pop_growth_speed = 0.4
+# 	pop_happiness = 0.2
+# 	planet_immigration_pull_add = 40
+# 	icon = "gfx/interface/icons/modifiers/mod_pop_happiness.dds"
+# }
+# mod_harmony_5 = {
+# 	pop_growth_speed = 0.5
+# 	pop_happiness = 0.25
+# 	planet_immigration_pull_add = 50
+# 	icon = "gfx/interface/icons/modifiers/mod_pop_happiness.dds"
+# }
+# mod_harmony_6 = {
+# 	pop_growth_speed = 0.6
+# 	pop_happiness = 0.30
+# 	planet_immigration_pull_add = 60
+# 	icon = "gfx/interface/icons/modifiers/mod_pop_happiness.dds"
+# }
+# mod_harmony_7 = {
+# 	pop_growth_speed = 0.7
+# 	pop_happiness = 0.35
+# 	planet_immigration_pull_add = 70
+# 	icon = "gfx/interface/icons/modifiers/mod_pop_happiness.dds"
+# }
+# mod_harmony_8 = {
+# 	pop_growth_speed = 0.8
+# 	pop_happiness = 0.4
+# 	planet_immigration_pull_add = 80
+# 	icon = "gfx/interface/icons/modifiers/mod_pop_happiness.dds"
+# }
+# mod_togetherness_1 = {
+# 	country_unity_produces_mult = 0.10
+# 	pop_growth_speed = 0.05
+# 	pop_government_ethic_attraction = 0.05
+# 	icon = "gfx/interface/icons/modifiers/mod_resource_unity_mult.dds"
+# }
+# mod_togetherness_2 = {
+# 	country_unity_produces_mult = 0.20
+# 	pop_growth_speed = 0.10
+# 	pop_government_ethic_attraction = 0.10
+# 	icon = "gfx/interface/icons/modifiers/mod_resource_unity_mult.dds"
+# }
+# mod_togetherness_3 = {
+# 	country_unity_produces_mult = 0.30
+# 	pop_growth_speed = 0.15
+# 	pop_government_ethic_attraction = 0.15
+# 	icon = "gfx/interface/icons/modifiers/mod_resource_unity_mult.dds"
+# }
+# mod_togetherness_4 = {
+# 	country_unity_produces_mult = 0.40
+# 	pop_growth_speed = 0.20
+# 	pop_government_ethic_attraction = 0.20
+# 	icon = "gfx/interface/icons/modifiers/mod_resource_unity_mult.dds"
+# }
+# mod_togetherness_5 = {
+# 	country_unity_produces_mult = 0.50
+# 	pop_growth_speed = 0.2
+# 	pop_government_ethic_attraction = 0.25
+# 	icon = "gfx/interface/icons/modifiers/mod_resource_unity_mult.dds"
+# }
+# mod_togetherness_6 = {
+# 	country_unity_produces_mult = 0.60
+# 	pop_growth_speed = 0.30
+# 	pop_government_ethic_attraction = 0.30
+# 	icon = "gfx/interface/icons/modifiers/mod_resource_unity_mult.dds"
+# }
+# mod_togetherness_7 = {
+# 	country_unity_produces_mult = 0.70
+# 	pop_growth_speed = 0.35
+# 	pop_government_ethic_attraction = 0.35
+# 	icon = "gfx/interface/icons/modifiers/mod_resource_unity_mult.dds"
+# }
+# mod_togetherness_8 = {
+# 	country_unity_produces_mult = 0.80
+# 	pop_growth_speed = 0.40
+# 	pop_government_ethic_attraction = 0.40
+# 	icon = "gfx/interface/icons/modifiers/mod_resource_unity_mult.dds"
+# }
+# newgen_great_sacrfice = {
+# 	pop_growth_speed = 1
+# 	country_minerals_produces_mult = 0.25
+# 	country_energy_produces_mult = 0.25
+# 	country_food_produces_mult = 0.25
+# 	pop_happiness = 0.25
+# 	planet_immigration_pull_add = 50
+# 	country_unity_produces_mult = 0.50
+# 	pop_government_ethic_attraction = 0.25
+# 	diplo_weight_mult = 0.5
+# 	country_influence_produces_mult = 0.5
+# }
+# newgen_great_sacrfice2 = {
+# 	pop_growth_speed = 1.5
+# 	country_minerals_produces_mult = 0.40
+# 	country_energy_produces_mult = 0.40
+# 	country_food_produces_mult = 0.40
+# 	pop_happiness = 0.40
+# 	planet_immigration_pull_add = 75
+# 	country_unity_produces_mult = 0.75
+# 	pop_government_ethic_attraction = 0.40
+# 	diplo_weight_mult = 0.75
+# 	country_influence_produces_mult = 0.75
+# }
+# newgen_necro_weight1 = {
+# 	diplo_weight_naval_mult = 0.2
+# 	diplo_weight_economy_mult = 0.3
+# }
+# newgen_necro_weight2 = {
+# 	diplo_weight_naval_mult = 0.3
+# 	diplo_weight_economy_mult = 0.4
+# }
+# newgen_migr_sacr_1 = {
+# 	diplo_weight_mult = 0.1
+# 	country_influence_produces_mult = 0.1
+# }
+# newgen_migr_sacr_2 = {
+# 	diplo_weight_mult = 0.2
+# 	country_influence_produces_mult = 0.2
+# }
+# newgen_migr_sacr_3 = {
+# 	diplo_weight_mult = 0.3
+# 	country_influence_produces_mult = 0.3
+# }
+# newgen_migr_sacr_4 = {
+# 	diplo_weight_mult = 0.4
+# 	country_influence_produces_mult = 0.4
+# }
+# newgen_migr_sacr_5 = {
+# 	diplo_weight_mult = 0.5
+# 	country_influence_produces_mult = 0.5
+# }
+# newgen_war_sacr_1 = {
+# 	ship_speed_mult = 0.05
+# 	ships_upkeep_mult = -0.03
+# 	starbase_shipyard_build_speed_mult = 0.04
+# 	country_war_exhaustion_mult = -0.04
+# 	country_naval_cap_add = 5
+# 	country_naval_cap_mult = 0.02
+# 	pop_growth_speed = 0.05
+# }
+# newgen_war_sacr_2 = {
+# 	ship_speed_mult = 0.10
+# 	ships_upkeep_mult = -0.06
+# 	starbase_shipyard_build_speed_mult = 0.08
+# 	country_war_exhaustion_mult = -0.08
+# 	country_naval_cap_add = 10
+# 	country_naval_cap_mult = 0.04
+# 	pop_growth_speed = 0.10
+# }
+# newgen_war_sacr_3 = {
+# 	ship_speed_mult = 0.15
+# 	ships_upkeep_mult = -0.09
+# 	starbase_shipyard_build_speed_mult = 0.12
+# 	country_war_exhaustion_mult = -0.12
+# 	country_naval_cap_add = 15
+# 	country_naval_cap_mult = 0.06
+# 	pop_growth_speed = 0.15
+# }
+# newgen_war_sacr_4 = {
+# 	ship_speed_mult = 0.20
+# 	ships_upkeep_mult = -0.12
+# 	starbase_shipyard_build_speed_mult = 0.16
+# 	country_war_exhaustion_mult = -0.16
+# 	country_naval_cap_add = 20
+# 	country_naval_cap_mult = 0.08
+# 	pop_growth_speed = 0.20
+# }
+# newgen_war_sacr_5 = {
+# 	ship_speed_mult = 0.25
+# 	ships_upkeep_mult = -0.15
+# 	starbase_shipyard_build_speed_mult = 0.20
+# 	country_war_exhaustion_mult = -0.20
+# 	country_naval_cap_add = 25
+# 	country_naval_cap_mult = 0.10
+# 	pop_growth_speed = 0.25
+# }
+# newgen_war_sacr_6 = {
+# 	ship_speed_mult = 0.30
+# 	ships_upkeep_mult = -0.18
+# 	starbase_shipyard_build_speed_mult = 0.24
+# 	country_war_exhaustion_mult = -0.24
+# 	country_naval_cap_add = 30
+# 	country_naval_cap_mult = 0.12
+# 	pop_growth_speed = 0.30
+# }
+# newgen_war_sacr_7 = {
+# 	ship_speed_mult = 0.35
+# 	ships_upkeep_mult = -0.21
+# 	starbase_shipyard_build_speed_mult = 0.28
+# 	country_war_exhaustion_mult = -0.28
+# 	country_naval_cap_add = 35
+# 	country_naval_cap_mult = 0.14
+# 	pop_growth_speed = 0.35
+# }
+# newgen_war_sacr_8 = {
+# 	ship_speed_mult = 0.40
+# 	ships_upkeep_mult = -0.24
+# 	starbase_shipyard_build_speed_mult = 0.32
+# 	country_war_exhaustion_mult = -0.32
+# 	country_naval_cap_add = 40
+# 	country_naval_cap_mult = 0.16
+# 	pop_growth_speed = 0.40
+# }
+# newgen_war_sacr_8 = {
+# 	ship_speed_mult = 0.40
+# 	ships_upkeep_mult = -0.24
+# 	starbase_shipyard_build_speed_mult = 0.32
+# 	country_war_exhaustion_mult = -0.32
+# 	country_naval_cap_add = 40
+# 	country_naval_cap_mult = 0.16
+# 	pop_growth_speed = 0.40
+# }
+# newgen_great_war = {
+# 	country_war_exhaustion_mult = -0.30
+# 	ship_speed_mult = 0.20
+# 	ship_fire_rate_mult = 0.20
+# 	army_damage_mult = 0.30
+# 	country_edict_fund_add = 50
+# }
+# human_spies = {
+# 	intel_encryption_add = 1
+# 	intel_decryption_add = 1
+# 	envoys_add = 1
+# 	spy_network_daily_value_mult = 0.2
+# 	planet_crime_add = 5
+# }
+# human_spies1 = {
+# 	intel_encryption_add = 1
+# 	intel_decryption_add = 2
+# 	envoys_add = 2
+# 	trade_value_mult = 0.2
+# 	country_energy_produces_mult = 0.2
+# 	spy_network_daily_value_mult = 0.3
+# 	planet_crime_add = 10
+# }
+# prescripted_preparation_1 = {
+# 	ships_upkeep_mult = -0.1
+# 	country_base_alloys_produces_add = 50
+# 	country_naval_cap_add = 10
+# 	country_naval_cap_mult = 0.05
+# }
+# prescripted_preparation_2 = {
+# 	ships_upkeep_mult = -0.2
+# 	country_base_alloys_produces_add = 75
+# 	country_naval_cap_add = 20
+# 	country_naval_cap_mult = 0.10
+# }
+# prescripted_preparation_3 = {
+# 	ships_upkeep_mult = -0.3
+# 	country_base_alloys_produces_add = 100
+# 	country_naval_cap_add = 35
+# 	country_naval_cap_mult = 0.18
+# }
+# prescripted_preparation_4 = {
+# 	ships_upkeep_mult = -0.4
+# 	country_base_alloys_produces_add = 125
+# 	country_naval_cap_add = 50
+# 	country_naval_cap_mult = 0.25
+# }
+# newgen_anti_exp_1 = {
+# 	country_base_alloys_produces_add = 100
+# 	country_alloys_produces_mult = 0.1
+# 	command_limit_add = 5
+# 	country_naval_cap_add = 10
+# 	starbase_shipyard_build_speed_mult = 0.1
+# 	country_edict_fund_add = 20
+# }
+# newgen_anti_exp_2 = {
+# 	country_base_alloys_produces_add = 200
+# 	country_alloys_produces_mult = 0.15
+# 	command_limit_add = 10
+# 	country_naval_cap_add = 30
+# 	starbase_shipyard_build_speed_mult = 0.2
+# 	country_edict_fund_add = 40
+# }
+# newgen_anti_exp_3 = {
+# 	country_base_alloys_produces_add = 300
+# 	country_alloys_produces_mult = 0.2
+# 	command_limit_add = 15
+# 	country_naval_cap_add = 50
+# 	starbase_shipyard_build_speed_mult = 0.3
+# 	country_edict_fund_add = 60
+# }
+# newgen_anti_exp_4 = {
+# 	country_base_alloys_produces_add = 400
+# 	country_alloys_produces_mult = 0.25
+# 	command_limit_add = 20
+# 	country_naval_cap_add = 70
+# 	starbase_shipyard_build_speed_mult = 0.4
+# 	country_edict_fund_add = 80
+# }
+# newgen_anti_exp_5 = {
+# 	country_base_alloys_produces_add = 500
+# 	country_alloys_produces_mult = 0.3
+# 	command_limit_add = 25
+# 	country_naval_cap_add = 90
+# 	starbase_shipyard_build_speed_mult = 0.5
+# 	country_edict_fund_add = 100
+# }
+newgen_defense_war_1 = {
+	planet_stability_add = 10
+	country_minerals_produces_mult = 0.20
+	country_alloys_produces_mult = 0.30
+	ship_speed_mult = 0.10
+	ship_home_territory_fire_rate_mult = 0.10
+	ship_evasion_add = 10
+	ships_upkeep_mult = -0.1
+	army_defense_damage_mult = 0.15
+	starbase_shipyard_build_cost_mult = -0.1
+	starbase_shipyard_build_speed_mult = 0.15
+	country_edict_fund_add = 30
+}
+newgen_defense_war_2 = {
+	planet_stability_add = 20
+	country_minerals_produces_mult = 0.40
+	country_alloys_produces_mult = 0.60
+	ship_speed_mult = 0.20
+	ship_home_territory_fire_rate_mult = 0.20
+	ship_evasion_add = 20
+	ships_upkeep_mult = -0.2
+	army_defense_damage_mult = 0.3
+	starbase_shipyard_build_cost_mult = -0.2
+	starbase_shipyard_build_speed_mult = 0.30
+	country_edict_fund_add = 60
+}
+newgen_defense_war_3 = {
+	planet_stability_add = 20
+	country_minerals_produces_mult = 0.60
+	country_alloys_produces_mult = 0.90
+	ship_speed_mult = 0.30
+	ship_home_territory_fire_rate_mult = 0.30
+	ship_evasion_add = 30
+	ships_upkeep_mult = -0.3
+	army_defense_damage_mult = 0.3
+	starbase_shipyard_build_cost_mult = -0.3
+	starbase_shipyard_build_speed_mult = 0.45
+	country_edict_fund_add = 90
+}
+# newgen_tribute_to_pirates = {
+# 	pop_happiness = -0.10
+# 	pop_government_ethic_attraction = -0.3
+# 	local_trade_protection_add = 20
+# 	damage_vs_country_type_pirate_mult = 0.5
+# }
+# newgen_gestalt_tribute_to_pirates = {
+# 	planet_stability_add = -10
+# 	pop_amenities_usage_mult = 0.15
+# 	local_trade_protection_add = 20
+# 	damage_vs_country_type_pirate_mult = 0.5
+# }
+# newgen_pirate_coexist = {
+# 	pop_happiness = -0.05
+# 	pop_government_ethic_attraction = -0.15
+# 	planet_jobs_produces_mult = -0.05
+# 	trade_value_mult = -0.15
+# 	local_trade_protection_add = 10
+# 	planet_pops_upkeep_mult = -0.1
+# 	pop_amenities_usage_mult = -0.1
+# 	damage_vs_country_type_pirate_mult = 0.3
+# }
+# newgen_plundered_by_pirates = {
+# 	pop_happiness = -0.15
+# 	pop_government_ethic_attraction = -0.5
+# 	planet_jobs_produces_mult = -0.15
+# 	local_trade_protection_add = 30
+# }
+# newgen_gestalt_plundered_by_pirates = {
+# 	planet_stability_add = -15
+# 	pop_amenities_usage_mult = 0.20
+# 	planet_jobs_produces_mult = -0.15
+# 	local_trade_protection_add = 30
+# }
+# newgen_holy_win = {
+# 	pop_happiness = 0.15
+# 	planet_immigration_pull_add = 10
+# 	pop_government_ethic_attraction = 0.50
+# 	pop_amenities_usage_mult = -0.2
+# 	planet_jobs_produces_mult = 0.1
+# 	country_unity_produces_mult = 0.30
+# }
+# newgen_scion_war = {
+# 	country_war_exhaustion_mult = -0.3
+# }
+# newgen_robotic_masters = {
+# 	planet_pops_robotics_upkeep_mult = -0.20
+# 	planet_jobs_robotic_produces_mult = 0.2
+# 	#bio_pop_growth_speed_reduction = 0.3
+# 	pop_growth_speed = 0.3
+# }
+# newgen_asim_war = {
+# 	country_war_exhaustion_mult = -0.3
+# 	starbase_shipyard_build_cost_mult = -0.2
+# 	starbase_shipyard_build_speed_mult = 0.3
+# 	planet_army_build_speed_mult = 0.3
+# 	army_damage_mult = 0.3
+# 	army_morale_damage_mult = 0.6
+# 	country_edict_fund_add = 50
+# }
+# prescripted_war0 = {
+# 	ship_home_territory_fire_rate_mult = 0.1
+# 	ship_speed_mult = 0.1
+# 	planet_stability_add = 5
+# 	country_base_alloys_produces_add = 50
+# 	ships_upkeep_mult = -0.15
+# 	planet_army_build_speed_mult = 0.2
+# 	starbase_shipyard_build_cost_mult = -0.1
+# 	starbase_shipyard_build_speed_mult = 0.15
+# 	country_war_exhaustion_mult = -0.2
+# 	country_naval_cap_add = 15
+# 	country_naval_cap_mult = 0.08
+# 	country_edict_fund_add = 30
+# }
+# newgen_upkeep1 = {
+# 	ships_upkeep_mult = -0.2
+# }
+# newgen_upkeep2 = {
+# 	ships_upkeep_mult = -0.5
+# }
+# newgen_upkeep3 = {
+# 	ships_upkeep_mult = -0.8
+# }
+# newgen_primit_str1 = {
+# 	army_defense_damage_mult = 0.10
+# }
+# newgen_primit_str2 = {
+# 	army_defense_damage_mult = 0.10
+# }
+# newgen_primit_str3 = {
+# 	army_defense_damage_mult = 0.10
+# }
+# defensive_trader = {
+# 	starbases_upkeep_mult = -0.3
+# 	starbase_defense_platform_capacity_add = 2
+# 	shipclass_starbase_damage_mult = 0.1
+# 	shipclass_starbase_hull_mult = 0.1
+# 	shipclass_military_station_damage_mult = 0.1
+# 	shipsize_military_station_small_hull_mult = 0.2
+# 	shipsize_military_station_medium_hull_mult = 0.2
+# 	shipsize_military_station_large_hull_mult = 0.2
+# 	starbase_defensive_war_ship_build_speed_mult = 0.2
+# 	diplo_weight_economy_mult = 0.15
+# 	custom_tooltip = defensive_trader_tooltip
+# 	show_only_custom_tooltip = yes
+# }
+# defensive_trader1 = {
+# 	starbases_upkeep_mult = -0.4
+# 	starbase_defense_platform_capacity_add = 4
+# 	shipclass_starbase_damage_mult = 0.2
+# 	shipclass_starbase_hull_mult = 0.2
+# 	shipclass_military_station_damage_mult = 0.2
+# 	shipsize_military_station_small_hull_mult = 0.4
+# 	shipsize_military_station_medium_hull_mult = 0.4
+# 	shipsize_military_station_large_hull_mult = 0.4
+# 	starbase_defensive_war_ship_build_speed_mult = 0.3
+# 	diplo_weight_economy_mult = 0.3
+# 	custom_tooltip = defensive_trader_tooltip
+# 	show_only_custom_tooltip = yes
+# }
+# defensive_trader2 = {
+# 	starbases_upkeep_mult = -0.5
+# 	starbase_defense_platform_capacity_add = 6
+# 	shipclass_starbase_damage_mult = 0.3
+# 	shipclass_starbase_hull_mult = 0.3
+# 	shipclass_military_station_damage_mult = 0.3
+# 	shipsize_military_station_small_hull_mult = 0.6
+# 	shipsize_military_station_medium_hull_mult = 0.6
+# 	shipsize_military_station_large_hull_mult = 0.6
+# 	starbase_defensive_war_ship_build_speed_mult = 0.4
+# 	diplo_weight_economy_mult = 0.45
+# 	custom_tooltip = defensive_trader_tooltip
+# 	show_only_custom_tooltip = yes
+# }
+# atmospheric_aphrodisiac1 = {
+# 	biological_pop_happiness = 0.1
+# 	pop_growth_speed = 0.20
+# 	pop_government_ethic_attraction = 0.20
+
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_atmospheric_aphrodisiac.dds"
+# 	icon_frame = 1
+# }
+# prescripted_war = {
+# 	ship_fire_rate_mult = 0.1
+# 	ship_speed_mult = 0.2
+# 	planet_stability_add = 10
+# 	country_base_alloys_produces_add = 100
+# 	ships_upkeep_mult = -0.3
+# 	planet_army_build_speed_mult = 0.4
+# 	starbase_shipyard_build_cost_mult = -0.2
+# 	starbase_shipyard_build_speed_mult = 0.3
+# 	country_war_exhaustion_mult = -0.3
+# 	country_naval_cap_add = 30
+# 	country_naval_cap_mult = 0.16
+# 	country_edict_fund_add = 60
+# }
+# prescripted_war1 = {
+# 	ship_fire_rate_mult = 0.2
+# 	ship_speed_mult = 0.2
+# 	planet_stability_add = 15
+# 	country_base_alloys_produces_add = 150
+# 	ships_upkeep_mult = -0.45
+# 	planet_army_build_speed_mult = 0.6
+# 	starbase_shipyard_build_cost_mult = -0.3
+# 	starbase_shipyard_build_speed_mult = 0.45
+# 	country_war_exhaustion_mult = -0.4
+# 	country_naval_cap_add = 45
+# 	country_naval_cap_mult = 0.24
+# 	country_edict_fund_add = 90
+# }
+# isolated_buff_1 = {
+# 	country_base_energy_produces_add = 10
+# 	country_naval_cap_add = 10
+# 	command_limit_add = 5
+# 	ships_upkeep_mult = -0.1
+# 	envoys_add = 1
+# 	intel_encryption_add = 1
+# }
+# isolated_buff_2 = {
+# 	country_base_energy_produces_add = 20
+# 	country_naval_cap_add = 20
+# 	command_limit_add = 10
+# 	ships_upkeep_mult = -0.2
+# 	envoys_add = 1
+# 	intel_encryption_add = 2
+# 	intel_decryption_add = 1
+# }
+# isolated_buff_3 = {
+# 	country_base_energy_produces_add = 30
+# 	country_naval_cap_add = 30
+# 	command_limit_add = 15
+# 	ships_upkeep_mult = -0.3
+# 	envoys_add = 2
+# 	intel_encryption_add = 3
+# 	intel_decryption_add = 2
+# }
+# wraith_debuff_1 = {
+# 	ship_armor_mult = -0.2
+# 	ship_hull_mult = -0.3
+# 	ship_weapon_damage = -0.2
+# 	ship_fire_rate_mult = -0.2
+# }
+# wraith_debuff_2 = {
+# 	ship_armor_mult = -0.1
+# 	ship_hull_mult = -0.2
+# 	ship_weapon_damage = -0.1
+# 	ship_fire_rate_mult = -0.1
+# }
+
+# basic_buff_1 = {
+# 	ship_evasion_add = 3
+# 	ship_shield_mult = 0.1
+# 	ship_armor_mult = 0.1
+# 	ship_hull_mult = 0.2
+# 	ship_weapon_damage = 0.1
+# 	ship_fire_rate_mult = 0.1
+# 	ship_weapon_range_mult = 0.05
+# 	ship_tracking_add = 3
+# }
+# tier2_drone_buff = {
+# 	ship_evasion_add = 5
+# 	ship_shield_mult = 0.1
+# 	ship_armor_mult = 0.2
+# 	ship_hull_mult = 0.4
+# 	ship_weapon_damage = 0.1
+# 	ship_fire_rate_mult = 0.1
+# 	ship_weapon_range_mult = 0.1
+# 	ship_tracking_add = 5
+# }
+# basic_buff_2 = {
+# 	ship_evasion_add = 3
+# 	ship_shield_mult = 0.1
+# 	ship_armor_mult = 0.1
+# 	ship_hull_mult = 0.2
+# 	ship_weapon_damage = 0.1
+# 	ship_fire_rate_mult = 0.1
+# 	ship_weapon_range_mult = 0.05
+# 	ship_tracking_add = 3
+# }
+# basic_buff_3 = {
+# 	ship_evasion_add = 3
+# 	ship_shield_mult = 0.1
+# 	ship_armor_mult = 0.1
+# 	ship_hull_mult = 0.2
+# 	ship_weapon_damage = 0.1
+# 	ship_fire_rate_mult = 0.1
+# 	ship_weapon_range_mult = 0.05
+# 	ship_tracking_add = 3
+# }
+# basic_buff_4 = {
+# 	ship_evasion_add = 3
+# 	ship_shield_mult = 0.1
+# 	ship_armor_mult = 0.1
+# 	ship_hull_mult = 0.2
+# 	ship_weapon_damage = 0.1
+# 	ship_fire_rate_mult = 0.1
+# 	ship_weapon_range_mult = 0.05
+# 	ship_tracking_add = 3
+# }
+# basic_buff_5 = {
+# 	ship_evasion_add = 3
+# 	ship_shield_mult = 0.1
+# 	ship_armor_mult = 0.1
+# 	ship_hull_mult = 0.2
+# 	ship_weapon_damage = 0.1
+# 	ship_fire_rate_mult = 0.1
+# 	ship_weapon_range_mult = 0.05
+# 	ship_tracking_add = 3
+# }
+# basic_buff_6 = {
+# 	ship_evasion_add = 3
+# 	ship_shield_mult = 0.2
+# 	ship_armor_mult = 0.2
+# 	ship_hull_mult = 0.4
+# 	ship_weapon_damage = 0.2
+# 	ship_fire_rate_mult = 0.2
+# 	ship_weapon_range_mult = 0.05
+# 	ship_tracking_add = 3
+# }
+# basic_buff_7 = {
+# 	ship_evasion_add = 3
+# 	ship_shield_mult = 0.2
+# 	ship_armor_mult = 0.2
+# 	ship_hull_mult = 0.4
+# 	ship_weapon_damage = 0.2
+# 	ship_fire_rate_mult = 0.2
+# 	ship_weapon_range_mult = 0.05
+# 	ship_tracking_add = 3
+# }
+# basic_buff_8 = {
+# 	ship_evasion_add = 3
+# 	ship_shield_mult = 0.2
+# 	ship_armor_mult = 0.2
+# 	ship_hull_mult = 0.4
+# 	ship_weapon_damage = 0.2
+# 	ship_fire_rate_mult = 0.2
+# 	ship_weapon_range_mult = 0.05
+# 	ship_tracking_add = 3
+# }
+# basic_buff_9 = {
+# 	ship_evasion_add = 3
+# 	ship_shield_mult = 0.2
+# 	ship_armor_mult = 0.2
+# 	ship_hull_mult = 0.4
+# 	ship_weapon_damage = 0.2
+# 	ship_fire_rate_mult = 0.2
+# 	ship_weapon_range_mult = 0.05
+# 	ship_tracking_add = 3
+# }
+# basic_buff_10 = {
+# 	ship_evasion_add = 3
+# 	ship_shield_mult = 0.3
+# 	ship_armor_mult = 0.3
+# 	ship_hull_mult = 0.6
+# 	ship_weapon_damage = 0.3
+# 	ship_fire_rate_mult = 0.3
+# 	ship_weapon_range_mult = 0.05
+# 	ship_tracking_add = 3
+# }
+# for_solo_buff_1 = {
+# 	ship_shield_mult = 0.1
+# 	ship_armor_mult = 0.1
+# 	ship_hull_mult = 0.2
+# 	ship_fire_rate_mult = 0.1
+# 	ship_tracking_add = 3
+# }
+# for_solo_buff_2 = {
+# 	ship_shield_mult = 0.1
+# 	ship_armor_mult = 0.1
+# 	ship_hull_mult = 0.2
+# 	ship_weapon_damage = 0.1
+# 	ship_tracking_add = 3
+# 	ship_weapon_range_mult = 0.1
+# }
+# for_solo_buff_3 = {
+# 	ship_shield_mult = 0.2
+# 	ship_armor_mult = 0.2
+# 	ship_hull_mult = 0.3
+# 	ship_fire_rate_mult = 0.2
+# 	ship_tracking_add = 3
+# }
+# for_solo_buff_4 = {
+# 	ship_shield_mult = 0.2
+# 	ship_armor_mult = 0.2
+# 	ship_hull_mult = 0.3
+# 	ship_weapon_damage = 0.2
+# 	ship_tracking_add = 3
+# 	ship_weapon_range_mult = 0.1
+# }
+# for_solo_buff_5 = {
+# 	ship_shield_mult = 0.3
+# 	ship_armor_mult = 0.3
+# 	ship_hull_mult = 0.5
+# 	ship_fire_rate_mult = 0.3
+# 	ship_tracking_add = 3
+# }
+# for_solo_buff_6 = {
+# 	ship_shield_mult = 0.3
+# 	ship_armor_mult = 0.3
+# 	ship_hull_mult = 0.5
+# 	ship_fire_rate_mult = 0.3
+# 	ship_tracking_add = 3
+# 	ship_weapon_range_mult = 0.1
+# }
+# newgen_pr_plat = {
+# 	ship_shield_mult = 0.4
+# 	ship_armor_mult = 0.4
+# 	ship_hull_mult = 0.3
+# 	ship_fire_rate_mult = 0.3
+# 	ship_tracking_add = 5
+# 	ship_weapon_range_mult = 0.3
+# }
+# mod_primitive_buff = {
+# 	army_damage_mult = 0.1
+# 	army_morale = 0.1
+# 	army_health = 0.1
+# 	planet_orbital_bombardment_damage = -0.1
+# }
+# mod_primitive_buff2 = {
+# 	army_damage_mult = 0.1
+# 	army_morale = 0.1
+# 	army_health = 0.1
+# 	planet_orbital_bombardment_damage = -0.1
+# }
+# ratling_buff_1 = {
+# 	army_damage_mult = 0.2
+# 	army_morale = 0.2
+# 	army_health = 0.3
+# }
+# ratling_buff_2 = {
+# 	army_damage_mult = 0.2
+# 	army_morale = 0.2
+# 	army_health = 0.3
+# 	ship_evasion_add = 5
+# 	ship_shield_mult = 0.1
+# 	ship_armor_mult = 0.1
+# 	ship_hull_mult = 0.2
+# 	ship_weapon_damage = 0.1
+# 	ship_fire_rate_mult = 0.1
+# 	ship_weapon_range_mult = 0.1
+# 	ship_tracking_add = 5
+# }
+# platform_buff_1 = {
+# 	custom_tooltip = platform_buff_tooltip
+# 	show_only_custom_tooltip = yes
+# 	country_base_influence_produces_add = 2
+# 	shipsize_military_station_small_hull_add = 600
+# 	shipsize_military_station_medium_hull_add = 1200
+# 	shipsize_ion_cannon_hull_add = 1800
+# 	shipsize_military_station_large_hull_add = 2400
+# 	shipclass_military_station_damage_mult = 0.1
+# 	country_edict_fund_add = 20
+# }
+# platform_buff_2 = {
+# 	custom_tooltip = platform_buff_tooltip
+# 	show_only_custom_tooltip = yes
+# 	country_base_influence_produces_add = 2
+# 	envoys_add = 1
+# 	shipsize_military_station_small_hull_add = 1200
+# 	shipsize_military_station_medium_hull_add = 2160
+# 	shipsize_ion_cannon_hull_add = 2880
+# 	shipsize_military_station_large_hull_add = 3360
+# 	shipclass_military_station_damage_mult = 0.2
+# 	country_edict_fund_add = 40
+# }
+# platform_buff_3 = {
+# 	custom_tooltip = platform_buff_tooltip
+# 	show_only_custom_tooltip = yes
+# 	country_base_influence_produces_add = 4
+# 	envoys_add = 1
+# 	shipsize_military_station_small_hull_add = 2400
+# 	shipsize_military_station_medium_hull_add = 3888
+# 	shipsize_ion_cannon_hull_add = 4608
+# 	shipsize_military_station_large_hull_add = 4704
+# 	shipclass_military_station_damage_mult = 0.4
+# 	country_edict_fund_add = 60
+# }
+# platform_buff_4 = {
+# 	custom_tooltip = platform_buff_tooltip
+# 	show_only_custom_tooltip = yes
+# 	country_base_influence_produces_add = 4
+# 	envoys_add = 2
+# 	shipsize_military_station_small_hull_add = 4800
+# 	shipsize_military_station_medium_hull_add = 6998
+# 	shipsize_ion_cannon_hull_add = 7373
+# 	shipsize_military_station_large_hull_add = 6586
+# 	shipclass_military_station_damage_mult = 0.8
+# 	country_edict_fund_add = 80
+# }
+# naval_buff_1 = {
+# 	country_energy_produces_mult = 0.10
+# 	country_alloys_produces_mult = 0.10
+# 	ships_upkeep_mult = -0.1
+# 	ship_speed_mult = 0.05
+# 	country_naval_cap_add = 10
+# }
+# naval_buff_2 = {
+# 	country_energy_produces_mult = 0.15
+# 	country_alloys_produces_mult = 0.15
+# 	ships_upkeep_mult = -0.15
+# 	ship_speed_mult = 0.1
+# 	country_naval_cap_add = 20
+# 	country_naval_cap_mult = 0.1
+# }
+# naval_buff_3 = {
+# 	country_energy_produces_mult = 0.2
+# 	country_alloys_produces_mult = 0.2
+# 	ships_upkeep_mult = -0.2
+# 	ship_speed_mult = 0.15
+# 	country_naval_cap_add = 30
+# 	country_naval_cap_mult = 0.2
+# }
+# naval_buff_4 = {
+# 	country_energy_produces_mult = 0.3
+# 	country_alloys_produces_mult = 0.3
+# 	ships_upkeep_mult = -0.3
+# 	ship_speed_mult = 0.2
+# 	country_naval_cap_add = 40
+# 	country_naval_cap_mult = 0.3
+# }
+# goo_buff_1 = {
+# 	ship_shield_mult = 0.1
+# 	ship_armor_mult = 0.1
+# 	ship_hull_mult = 0.2
+# 	ship_weapon_damage = 0.1
+# 	ship_fire_rate_mult = 0.1
+# }
+# goo_buff_2 = {
+# 	ship_shield_mult = 0.1
+# 	ship_armor_mult = 0.1
+# 	ship_hull_mult = 0.2
+# 	ship_weapon_damage = 0.1
+# 	ship_fire_rate_mult = 0.1
+# }
+# khan_buff_1 = {
+# 	ship_evasion_add = 4
+# 	ship_shield_mult = 0.2
+# 	ship_armor_mult = 0.2
+# 	ship_hull_mult = 0.3
+# 	ship_weapon_damage = 0.2
+# 	ship_fire_rate_mult = 0.2
+# 	ship_tracking_add = 5
+# 	ship_weapon_range_mult = 0.1
+# }
+# khan_buff_2 = {
+# 	ship_shield_mult = 0.2
+# 	ship_armor_mult = 0.2
+# 	ship_hull_mult = 0.3
+# 	ship_weapon_damage = 0.2
+# 	ship_fire_rate_mult = 0.2
+# }
+# khan_buff_3 = {
+# 	ship_shield_mult = 0.2
+# 	ship_armor_mult = 0.2
+# 	ship_hull_mult = 0.3
+# 	ship_weapon_damage = 0.2
+# 	ship_fire_rate_mult = 0.2
+# }
+# khan_angered = {
+# 	ship_shield_mult = 0.3
+# 	ship_armor_mult = 0.3
+# 	ship_hull_mult = 0.5
+# 	ship_weapon_damage = 0.3
+# 	ship_fire_rate_mult = 0.3
+# 	ship_tracking_add = 5
+# 	ship_weapon_range_mult = 0.10
+# }
+# newgen_pir_cris_stations = {
+# 	ship_shield_mult = 0.5
+# 	ship_armor_mult = 0.5
+# 	ship_hull_mult = 0.5
+# 	ship_weapon_damage = 0.5
+# 	ship_fire_rate_mult = 0.5
+# 	ship_weapon_range_mult = 0.5
+# }
+
+crime_1 = {
+	planet_crime_add = 3
+	pop_government_ethic_attraction = -0.20
+	custom_tooltip = pm_fraction_influence1_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence2.dds"
+	show_only_custom_tooltip = yes
+}
+crime_2 = {
+	planet_crime_add = 6
+	pop_government_ethic_attraction = -0.20
+	custom_tooltip = pm_fraction_influence1_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence2.dds"
+	show_only_custom_tooltip = yes
+}
+crime_3 = {
+	planet_crime_add = 9
+	pop_government_ethic_attraction = -0.20
+	custom_tooltip = pm_fraction_influence1_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence2.dds"
+	show_only_custom_tooltip = yes
+}
+crime_4 = {
+	planet_crime_add = 12
+	pop_government_ethic_attraction = -0.20
+	custom_tooltip = pm_fraction_influence1_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence2.dds"
+	show_only_custom_tooltip = yes
+}
+crime_5 = {
+	planet_crime_add = 15
+	pop_government_ethic_attraction = -0.30
+	custom_tooltip = pm_fraction_influence1_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence2.dds"
+	show_only_custom_tooltip = yes
+}
+crime_6 = {
+	planet_crime_add = 18
+	pop_government_ethic_attraction = -0.30
+	custom_tooltip = pm_fraction_influence_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence.dds"
+	show_only_custom_tooltip = yes
+}
+crime_7 = {
+	planet_crime_add = 21
+	pop_government_ethic_attraction = -0.30
+	custom_tooltip = pm_fraction_influence_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence.dds"
+	show_only_custom_tooltip = yes
+}
+crime_8 = {
+	planet_crime_add = 24
+	pop_government_ethic_attraction = -0.30
+	custom_tooltip = pm_fraction_influence_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence.dds"
+	show_only_custom_tooltip = yes
+}
+crime_9 = {
+	planet_crime_add = 27
+	pop_government_ethic_attraction = -0.30
+	custom_tooltip = pm_fraction_influence_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence.dds"
+	show_only_custom_tooltip = yes
+}
+crime_10 = {
+	planet_crime_add = 30
+	pop_government_ethic_attraction = -0.40
+	custom_tooltip = pm_fraction_influence_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+crime_11 = {
+	planet_crime_add = 33
+	pop_government_ethic_attraction = -0.40
+	custom_tooltip = pm_fraction_influence_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+crime_12 = {
+	planet_crime_add = 36
+	pop_government_ethic_attraction = -0.40
+	custom_tooltip = pm_fraction_influence2_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence3.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+crime_13 = {
+	planet_crime_add = 39
+	pop_government_ethic_attraction = -0.40
+	custom_tooltip = pm_fraction_influence2_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence3.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+crime_14 = {
+	planet_crime_add = 42
+	pop_government_ethic_attraction = -0.40
+	custom_tooltip = pm_fraction_influence2_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence3.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+crime_15 = {
+	planet_crime_add = 45
+	pop_government_ethic_attraction = -0.60
+	custom_tooltip = pm_fraction_influence2_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence3.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+crime_16 = {
+	planet_crime_add = 48
+	pop_government_ethic_attraction = -0.60
+	custom_tooltip = pm_fraction_influence2_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence3.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+crime_17 = {
+	planet_crime_add = 51
+	pop_government_ethic_attraction = -0.60
+	custom_tooltip = pm_fraction_influence2_desc
+	icon_frame = 3
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence3.dds"
+	show_only_custom_tooltip = yes
+}
+crime_18 = {
+	planet_crime_add = 54
+	pop_government_ethic_attraction = -0.60
+	custom_tooltip = pm_fraction_influence2_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence3.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+crime_19 = {
+	planet_crime_add = 57
+	pop_government_ethic_attraction = -0.60
+	custom_tooltip = pm_fraction_influence2_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence4.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+crime_20 = {
+	planet_crime_add = 60
+	pop_government_ethic_attraction = -0.70
+	custom_tooltip = pm_fraction_influence2_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence4.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+crime_21 = {
+	planet_crime_add = 63
+	pop_government_ethic_attraction = -0.70
+	custom_tooltip = pm_fraction_influence2_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence4.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+crime_22 = {
+	planet_crime_add = 68
+	pop_government_ethic_attraction = -0.70
+	custom_tooltip = pm_fraction_influence2_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence4.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+crime_23 = {
+	planet_crime_add = 72
+	pop_government_ethic_attraction = -0.70
+	custom_tooltip = pm_fraction_influence2_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence4.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+crime_24 = {
+	planet_crime_add = 77
+	pop_government_ethic_attraction = -0.80
+	custom_tooltip = pm_fraction_influence2_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence4.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+crime_25 = {
+	planet_crime_add = 81
+	pop_government_ethic_attraction = -0.80
+	custom_tooltip = pm_fraction_influence2_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence4.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+crime_26 = {
+	planet_crime_add = 86
+	pop_government_ethic_attraction = -0.80
+	custom_tooltip = pm_fraction_influence2_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence4.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+crime_27 = {
+	planet_crime_add = 90
+	pop_government_ethic_attraction = -0.80
+	custom_tooltip = pm_fraction_influence2_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_fraction_influence4.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+
+unhappy_1 = {
+	pop_happiness = -0.03
+	planet_crime_add = 5
+	planet_pops_upkeep_mult = 0.2
+	planet_jobs_produces_mult = -0.1
+	custom_tooltip = unhappy_x_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_city_ruins.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+unhappy_2 = {
+	pop_happiness = -0.07
+	planet_crime_add = 10
+	planet_pops_upkeep_mult = 0.4
+	planet_jobs_produces_mult = -0.2
+	custom_tooltip = unhappy_x_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_city_ruins.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+unhappy_3 = {
+	pop_happiness = -0.12
+	planet_crime_add = 15
+	planet_pops_upkeep_mult = 0.6
+	planet_jobs_produces_mult = -0.3
+	custom_tooltip = unhappy_x_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_city_ruins.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+unhappy_4 = {
+	pop_happiness = -0.18
+	planet_crime_add = 20
+	planet_pops_upkeep_mult = 0.8
+	planet_jobs_produces_mult = -0.4
+	custom_tooltip = unhappy_xx_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_burning_settlement.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+unhappy_5 = {
+	pop_happiness = -0.25
+	planet_crime_add = 25
+	planet_pops_upkeep_mult = 1.0
+	planet_jobs_produces_mult = -0.5
+	custom_tooltip = unhappy_xx_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_burning_settlement.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+newgen_partisans_camp = {
+	planet_jobs_minerals_produces_mult = -0.30
+	planet_jobs_alloys_produces_mult = -0.20
+	planet_jobs_energy_produces_mult = -0.20
+	planet_stability_add = -15
+	planet_crime_add = 10
+	pop_government_ethic_attraction = -0.30
+	icon = "gfx/interface/icons/planet_modifiers/pm_partisans_camp.dds"
+	icon_frame = 3
+}
+# newgen_materialist = {
+# 	planet_pops_robotics_upkeep_mult = -0.05
+# 	planet_jobs_robotic_produces_mult = 0.05
+# }
+# newgen_fanatic_materialist = {
+# 	planet_pops_robotics_upkeep_mult = -0.1
+# 	planet_jobs_robotic_produces_mult = 0.1
+# }
+crime_1x = {
+	planet_crime_add = 3
+	pop_happiness = -0.03
+	pop_government_ethic_attraction = -0.08
+	custom_tooltip = unhappy_x_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_city_ruins.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+crime_3x = {
+	planet_crime_add = 9
+	pop_happiness = -0.07
+	pop_government_ethic_attraction = -0.16
+	custom_tooltip = unhappy_x_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_city_ruins.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+crime_6x = {
+	planet_crime_add = 18
+	pop_happiness = -0.12
+	pop_government_ethic_attraction = -0.24
+	custom_tooltip = unhappy_x_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_city_ruins.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+crime_10x = {
+	planet_crime_add = 30
+	pop_happiness = -0.18
+	pop_government_ethic_attraction = -0.32
+	custom_tooltip = unhappy_xx_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_burning_settlement.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+crime_15x = {
+	planet_crime_add = 45
+	pop_happiness = -0.25
+	pop_government_ethic_attraction = -0.40
+	custom_tooltip = unhappy_xx_desc
+	icon = "gfx/interface/icons/planet_modifiers/pm_burning_settlement.dds"
+	icon_frame = 3
+	show_only_custom_tooltip = yes
+}
+shock_8 = {
+	pop_happiness = -0.31
+	planet_crime_add = 18
+	planet_jobs_minerals_produces_mult = -0.45
+	planet_jobs_energy_produces_mult = -0.45
+	planet_jobs_engineering_research_produces_mult = -1
+	planet_jobs_physics_research_produces_mult = -1
+	planet_jobs_society_research_produces_mult = -1
+}
+
+shock_7 = {
+	pop_happiness = -0.28
+	planet_crime_add = 15
+	planet_jobs_minerals_produces_mult = -0.40
+	planet_jobs_energy_produces_mult = -0.40
+	planet_jobs_engineering_research_produces_mult = -1
+	planet_jobs_physics_research_produces_mult = -1
+	planet_jobs_society_research_produces_mult = -1
+}
+
+shock_6 = {
+	pop_happiness = -0.25
+	planet_crime_add = 12
+	planet_jobs_minerals_produces_mult = -0.35
+	planet_jobs_energy_produces_mult = -0.35
+	planet_jobs_engineering_research_produces_mult = -1
+	planet_jobs_physics_research_produces_mult = -1
+	planet_jobs_society_research_produces_mult = -1
+}
+
+shock_5 = {
+	pop_happiness = -0.22
+	planet_crime_add = 9
+	planet_jobs_minerals_produces_mult = -0.30
+	planet_jobs_energy_produces_mult = -0.30
+	planet_jobs_engineering_research_produces_mult = -1
+	planet_jobs_physics_research_produces_mult = -1
+	planet_jobs_society_research_produces_mult = -1
+}
+
+shock_4 = {
+	pop_happiness = -0.19
+	planet_crime_add = 6
+	planet_jobs_minerals_produces_mult = -0.25
+	planet_jobs_energy_produces_mult = -0.25
+	planet_jobs_engineering_research_produces_mult = -0.80
+	planet_jobs_physics_research_produces_mult = -0.80
+	planet_jobs_society_research_produces_mult = -0.80
+}
+
+shock_3 = {
+	pop_happiness = -0.16
+	planet_crime_add = 3
+	planet_jobs_minerals_produces_mult = -0.20
+	planet_jobs_energy_produces_mult = -0.20
+	planet_jobs_engineering_research_produces_mult = -0.60
+	planet_jobs_physics_research_produces_mult = -0.60
+	planet_jobs_society_research_produces_mult = -0.60
+}
+
+shock_2 = {
+	pop_happiness = -0.13
+	planet_jobs_minerals_produces_mult = -0.15
+	planet_jobs_energy_produces_mult = -0.15
+	planet_jobs_engineering_research_produces_mult = -0.40
+	planet_jobs_physics_research_produces_mult = -0.40
+	planet_jobs_society_research_produces_mult = -0.40
+}
+
+shock_1 = {
+	pop_happiness = -0.10
+	planet_jobs_minerals_produces_mult = -0.10
+	planet_jobs_energy_produces_mult = -0.10
+	planet_jobs_engineering_research_produces_mult = -0.20
+	planet_jobs_physics_research_produces_mult = -0.20
+	planet_jobs_society_research_produces_mult = -0.20
+}
+# newgen_suvival_tactic1 = {
+# 	ship_home_territory_fire_rate_mult = 0.05
+# 	ship_evasion_add = 7
+# 	ship_weapon_range_mult = 0.05
+# 	ship_tracking_add = 5
+# 	ship_shield_damage_mult = 0.05
+# 	ship_armor_damage_mult = 0.05
+# 	ship_hull_damage_mult = 0.05
+# 	ship_shield_regen_add_static = 5
+# 	ship_armor_regen_add_static = 5
+# 	ship_hull_regen_add_static = 5
+# }
+# newgen_suvival_tactic2 = {
+# 	ship_home_territory_fire_rate_mult = 0.1
+# 	ship_evasion_add = 14
+# 	ship_weapon_range_mult = 0.1
+# 	ship_tracking_add = 10
+# 	ship_shield_damage_mult = 0.1
+# 	ship_armor_damage_mult = 0.1
+# 	ship_hull_damage_mult = 0.1
+# 	ship_shield_regen_add_static = 10
+# 	ship_armor_regen_add_static = 10
+# 	ship_hull_regen_add_static = 10
+# }
+# newgen_suvival_tactic3 = {
+# 	ship_home_territory_fire_rate_mult = 0.15
+# 	ship_evasion_add = 21
+# 	ship_weapon_range_mult = 0.15
+# 	ship_tracking_add = 15
+# 	ship_shield_damage_mult = 0.15
+# 	ship_armor_damage_mult = 0.15
+# 	ship_hull_damage_mult = 0.15
+# 	ship_shield_regen_add_static = 15
+# 	ship_armor_regen_add_static = 15
+# 	ship_hull_regen_add_static = 15
+# }
+# newgen_suvival_tactic4 = {
+# 	ship_home_territory_fire_rate_mult = 0.2
+# 	ship_evasion_add = 28
+# 	ship_weapon_range_mult = 0.2
+# 	ship_tracking_add = 20
+# 	ship_shield_damage_mult = 0.2
+# 	ship_armor_damage_mult = 0.2
+# 	ship_hull_damage_mult = 0.2
+# 	ship_shield_regen_add_static = 20
+# 	ship_armor_regen_add_static = 20
+# 	ship_hull_regen_add_static = 20
+# }
+# newgen_survival_defense1 = {
+# 	army_health = 0.1
+# 	army_morale = 0.08
+# 	army_damage_mult = 0.05
+# 	army_morale_damage_mult = 0.1
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = suvival_defense_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_fight for survival.dds"
+# 	icon_frame = 2
+# }
+# newgen_survival_defense2 = {
+# 	army_health = 0.2
+# 	army_morale = 0.16
+# 	army_damage_mult = 0.1
+# 	army_morale_damage_mult = 0.2
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = suvival_defense_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_fight for survival.dds"
+# 	icon_frame = 2
+# }
+# newgen_survival_defense3 = {
+# 	army_health = 0.3
+# 	army_morale = 0.24
+# 	army_damage_mult = 0.15
+# 	army_morale_damage_mult = 0.3
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = suvival_defense_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_fight for survival.dds"
+# 	icon_frame = 2
+# }
+# newgen_survival_defense4 = {
+# 	army_health = 0.4
+# 	army_morale = 0.32
+# 	army_damage_mult = 0.2
+# 	army_morale_damage_mult = 0.4
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = suvival_defense_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_fight for survival.dds"
+# 	icon_frame = 2
+# }
+# newgen_eaters_fleet_modifier = {
+# 	ship_evasion_add = 10
+# 	ship_weapon_range_mult = 0.2
+# 	ship_shield_mult = 0.4
+# 	ship_armor_mult = 0.4
+# 	ship_hull_mult = 0.4
+# 	ship_shield_regen_add_static = 15
+# 	ship_armor_regen_add_static = 15
+# 	ship_hull_regen_add_static = 15
+# }
+# newgen_eaters_late_game = {
+# 	ship_fire_rate_mult = 0.2
+# 	ship_weapon_damage = 0.2
+# 	ship_shield_mult = 0.3
+# 	ship_armor_mult = 0.3
+# 	ship_hull_mult = 0.3
+# 	ship_shield_regen_add_static = 20
+# 	ship_armor_regen_add_static = 20
+# 	ship_hull_regen_add_static = 20
+# 	army_health = 0.2
+# 	army_damage_mult = 0.1
+# }
+# newgen_eaters_big_buff = {
+# 	ship_fire_rate_mult = 0.4
+# 	ship_weapon_damage = 0.4
+# 	ship_shield_damage_mult = 0.4
+# 	ship_armor_damage_mult = 0.4
+# 	ship_shield_mult = 0.4
+# 	ship_armor_mult = 0.4
+# 	ship_hull_mult = 0.4
+# 	ship_shield_regen_add_static = 10
+# 	ship_armor_regen_add_static = 10
+# 	ship_hull_regen_add_static = 10
+# }
+# newgen_eaters_small_buff = {
+# 	ship_fire_rate_mult = 0.2
+# 	ship_weapon_damage = 0.2
+# 	ship_shield_damage_mult = 0.2
+# 	ship_armor_damage_mult = 0.2
+# 	ship_shield_mult = 0.2
+# 	ship_armor_mult = 0.2
+# 	ship_hull_mult = 0.2
+# 	ship_shield_regen_add_static = 5
+# 	ship_armor_regen_add_static = 5
+# 	ship_hull_regen_add_static = 5
+# }
+# newgen_eaters_vs_rob = {
+# 	army_damage_mult = 0.4
+# }
+# newgen_eaters_angered = {
+# 	army_health = 0.3
+# 	army_damage_mult = 0.3
+# }
+# newgen_fear_1 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_fear_1_tooltip
+# }
+# newgen_fear_10 = {
+# 	ship_fire_rate_mult = -0.1
+# }
+# newgen_fear_2 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_fear_2_tooltip
+# }
+# newgen_fear_20 = {
+# 	ship_fire_rate_mult = -0.15
+# }
+# newgen_fear_3 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_fear_3_tooltip
+# }
+# newgen_fear_30 = {
+# 	ship_fire_rate_mult = -0.2
+# }
+# newgen_fear_4 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_fear_4_tooltip
+# }
+# newgen_fear_40 = {
+# 	ship_fire_rate_mult = -0.25
+# }
+# newgen_fear_5 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_fear_5_tooltip
+# }
+# newgen_fear_50 = {
+# 	ship_fire_rate_mult = -0.3
+# }
+# newgen_anti_fear = {
+# 	ship_fire_rate_mult = 0.2
+# 	ship_weapon_damage = 0.2
+# }
+# newgen_unhap_serv1 = {
+# 	planet_jobs_produces_mult = -0.25
+# }
+# newgen_unhap_serv2 = {
+# 	planet_jobs_produces_mult = -0.5
+# }
+# newgen_unhap_serv3 = {
+# 	planet_jobs_produces_mult = -0.75
+# }
+# newgen_unhap_serv4 = {
+# 	planet_jobs_produces_mult = -0.95
+# }
+# newgen_fear_eradicators = {
+# 	ship_evasion_add = -15
+# 	ship_tracking_add = -15
+# 	ship_fire_rate_mult = -0.15
+# }
+# newgen_eradicators = {
+# 	ship_evasion_add = 15
+# 	ship_tracking_add = 15
+# 	ship_fire_rate_mult = 0.15
+# 	damage_vs_country_type_gray_goo_mult = 0.3
+# 	damage_vs_country_type_gate_builders_mult = 0.3
+# }
+# newgen_pir_cris_anger1 = {
+# 	ship_shield_mult = 0.3
+# 	ship_armor_mult = 0.3
+# 	ship_hull_mult = 0.5
+# 	ship_fire_rate_mult = 0.3
+# 	ship_weapon_range_mult = 0.2
+# 	ship_speed_mult = 0.15
+# 	army_damage_mult = 0.15
+# 	army_morale_damage_mult = 0.15
+# 	army_health = 0.15
+# }
+# newgen_pir_cris_anger2 = {
+# 	ship_shield_mult = 0.6
+# 	ship_armor_mult = 0.6
+# 	ship_hull_mult = 1.0
+# 	ship_fire_rate_mult = 0.6
+# 	ship_weapon_range_mult = 0.4
+# 	ship_speed_mult = 0.3
+# 	army_damage_mult = 0.3
+# 	army_morale_damage_mult = 0.3
+# 	army_health = 0.3
+# }
+# newgen_fraction_piracy1 = {
+# 	local_trade_protection_add = -1
+# 	custom_tooltip = newgen_fraction_piracy01
+# 	icon = "gfx/interface/icons/modifiers/mod_max_trade_piracy_mult.dds"
+# }
+# newgen_fraction_piracy2 = {
+# 	local_trade_protection_add = -2
+# 	custom_tooltip = newgen_fraction_piracy01
+# 	icon = "gfx/interface/icons/modifiers/mod_max_trade_piracy_mult.dds"
+# }
+# newgen_fraction_piracy3 = {
+# 	local_trade_protection_add = -3
+# 	custom_tooltip = newgen_fraction_piracy01
+# 	icon = "gfx/interface/icons/modifiers/mod_max_trade_piracy_mult.dds"
+# }
+# newgen_fraction_piracy4 = {
+# 	local_trade_protection_add = -5
+# 	custom_tooltip = newgen_fraction_piracy02
+# 	icon = "gfx/interface/icons/modifiers/mod_max_trade_piracy_mult.dds"
+# }
+# newgen_fraction_piracy5 = {
+# 	local_trade_protection_add = -7
+# 	custom_tooltip = newgen_fraction_piracy02
+# 	icon = "gfx/interface/icons/modifiers/mod_max_trade_piracy_mult.dds"
+# }
+# newgen_fraction_piracy6 = {
+# 	local_trade_protection_add = -9
+# 	custom_tooltip = newgen_fraction_piracy02
+# 	icon = "gfx/interface/icons/modifiers/mod_max_trade_piracy_mult.dds"
+# }
+# newgen_fraction_piracy7 = {
+# 	local_trade_protection_add = -12
+# 	custom_tooltip = newgen_fraction_piracy03
+# 	icon = "gfx/interface/icons/modifiers/mod_max_trade_piracy_mult1.dds"
+# }
+# newgen_fraction_piracy8 = {
+# 	local_trade_protection_add = -15
+# 	custom_tooltip = newgen_fraction_piracy03
+# 	icon = "gfx/interface/icons/modifiers/mod_max_trade_piracy_mult1.dds"
+# }
+# newgen_fraction_piracy9 = {
+# 	local_trade_protection_add = -18
+# 	custom_tooltip = newgen_fraction_piracy03
+# 	icon = "gfx/interface/icons/modifiers/mod_max_trade_piracy_mult1.dds"
+# }
+# newgen_fraction_piracy10 = {
+# 	local_trade_protection_add = -22
+# 	custom_tooltip = newgen_fraction_piracy04
+# 	icon = "gfx/interface/icons/modifiers/mod_max_trade_piracy_mult1.dds"
+# }
+# newgen_fraction_piracy11 = {
+# 	local_trade_protection_add = -26
+# 	custom_tooltip = newgen_fraction_piracy04
+# 	icon = "gfx/interface/icons/modifiers/mod_max_trade_piracy_mult1.dds"
+# }
+# newgen_fraction_piracy12 = {
+# 	local_trade_protection_add = -30
+# 	custom_tooltip = newgen_fraction_piracy04
+# 	icon = "gfx/interface/icons/modifiers/mod_max_trade_piracy_mult1.dds"
+# }
+# newgen_deformed_1 = {
+# 	army_health = 0.4
+# 	army_damage_mult = 0.2
+# 	army_morale_damage_mult = 0.3
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = suvival_defense_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_fight for survival.dds"
+# 	icon_frame = 2
+# }
+# newgen_deformed_2 = {
+# 	army_health = 0.8
+# 	army_damage_mult = 0.4
+# 	army_morale_damage_mult = 0.6
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = suvival_defense_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_fight for survival.dds"
+# 	icon_frame = 2
+# }
+# newgen_deformed_3 = {
+# 	army_health = 1.2
+# 	army_damage_mult = 0.6
+# 	army_morale_damage_mult = 0.9
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = suvival_defense_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_fight for survival.dds"
+# 	icon_frame = 2
+# }
+# newgen_deformed_country_1 = {
+# 	planet_stability_add = 10
+# 	army_defense_health_mult = 0.1
+# 	army_defense_damage_mult = 0.1
+# 	army_morale_damage_mult = 0.1
+# 	ship_weapon_damage = 0.05
+# 	ship_weapon_range_mult = 0.05
+# 	ship_fire_rate_mult = 0.05
+# 	ship_shield_mult = 0.1
+# 	ship_armor_mult = 0.1
+# 	ship_hull_mult = 0.1
+# 	country_base_energy_produces_add = 200
+# 	country_base_alloys_produces_add = 100
+# 	starbase_shipyard_build_speed_mult = 0.2
+# }
+# newgen_deformed_country_2 = {
+# 	planet_stability_add = 10
+# 	army_defense_health_mult = 0.2
+# 	army_defense_damage_mult = 0.2
+# 	army_morale_damage_mult = 0.2
+# 	ship_weapon_damage = 0.1
+# 	ship_weapon_range_mult = 0.1
+# 	ship_fire_rate_mult = 0.1
+# 	ship_shield_mult = 0.2
+# 	ship_armor_mult = 0.2
+# 	ship_hull_mult = 0.2
+# 	country_base_energy_produces_add = 400
+# 	country_base_alloys_produces_add = 200
+# 	starbase_shipyard_build_speed_mult = 0.4
+# }
+# newgen_deformed_country_3 = {
+# 	planet_stability_add = 15
+# 	army_defense_health_mult = 0.3
+# 	army_defense_damage_mult = 0.3
+# 	army_morale_damage_mult = 0.3
+# 	ship_weapon_damage = 0.15
+# 	ship_weapon_range_mult = 0.15
+# 	ship_fire_rate_mult = 0.15
+# 	ship_shield_mult = 0.3
+# 	ship_armor_mult = 0.3
+# 	ship_hull_mult = 0.3
+# 	country_base_energy_produces_add = 600
+# 	country_base_alloys_produces_add = 300
+# 	starbase_shipyard_build_speed_mult = 0.6
+# }
+# newgen_deformed_country_4 = {
+# 	planet_stability_add = 20
+# 	army_defense_health_mult = 0.4
+# 	army_defense_damage_mult = 0.4
+# 	army_morale_damage_mult = 0.4
+# 	ship_weapon_damage = 0.2
+# 	ship_weapon_range_mult = 0.2
+# 	ship_fire_rate_mult = 0.2
+# 	ship_shield_mult = 0.4
+# 	ship_armor_mult = 0.4
+# 	ship_hull_mult = 0.4
+# 	country_base_energy_produces_add = 800
+# 	country_base_alloys_produces_add = 400
+# 	starbase_shipyard_build_speed_mult = 0.8
+# }
+# newgen_deformed_country_5 = {
+# 	planet_stability_add = 25
+# 	army_defense_health_mult = 0.5
+# 	army_defense_damage_mult = 0.5
+# 	army_morale_damage_mult = 0.5
+# 	ship_weapon_damage = 0.25
+# 	ship_weapon_range_mult = 0.25
+# 	ship_fire_rate_mult = 0.25
+# 	ship_shield_mult = 0.5
+# 	ship_armor_mult = 0.5
+# 	ship_hull_mult = 0.5
+# 	country_base_energy_produces_add = 1000
+# 	country_base_alloys_produces_add = 500
+# 	starbase_shipyard_build_speed_mult = 1.0
+# }
+# newgen_deformed_country_6 = {
+# 	planet_stability_add = 30
+# 	army_defense_health_mult = 0.6
+# 	army_defense_damage_mult = 0.6
+# 	army_morale_damage_mult = 0.6
+# 	ship_weapon_damage = 0.3
+# 	ship_weapon_range_mult = 0.3
+# 	ship_fire_rate_mult = 0.3
+# 	ship_shield_mult = 0.6
+# 	ship_armor_mult = 0.6
+# 	ship_hull_mult = 0.6
+# 	country_base_energy_produces_add = 1200
+# 	country_base_alloys_produces_add = 600
+# 	starbase_shipyard_build_speed_mult = 1.2
+# }
+# newgen_recon_up = {
+# 	ship_weapon_range_mult = 0.3
+# 	ship_tracking_add = 10
+# 	ship_shield_damage_mult = 0.3
+# 	ship_armor_damage_mult = 0.3
+# 	ship_shield_add = 50000
+# 	ship_shield_regen_add_static = 300
+# 	ship_shield_mult = 0.3
+# 	ship_armor_regen_add_static = 100
+# 	ship_armor_mult = 0.3
+# 	ship_hull_add = 25000
+# 	ship_hull_regen_add_static = 200
+# 	ship_hull_mult = 0.3
+# 	ship_weapon_damage = 0.5
+# 	ship_fire_rate_mult = 0.5
+# }
+# newgen_reclues_mod = {
+# 	damage_vs_country_type_amoeba_mult = 3.0
+# 	damage_vs_country_type_tiyanki_mult = 3.0
+# 	damage_vs_country_type_faction_mult = 2.0
+# 	damage_vs_country_type_caravaneer_fleet_mult = 2.0
+# }
+# newgen_wan_shields = {
+# 	ship_shield_add = 100
+# 	ship_shield_regen_add_static = 3
+# 	ship_shield_mult = 0.5
+# 	ship_weapon_damage = 0.1
+# }
+# newgen_wan_armor = {
+# 	ship_armor_add = 100
+# 	ship_armor_regen_add_static = 3
+# 	ship_armor_mult = 0.5
+# 	ship_weapon_damage = 0.1
+# }
+# newgen_wan_hull = {
+# 	ship_hull_add = 800
+# 	ship_hull_regen_add_static = 3
+# 	ship_weapon_damage = 0.1
+# }
+# newgen_wan_thusters = {
+# 	ship_tracking_add = 5
+# 	ship_evasion_add = 15
+# 	ship_speed_mult = 0.2
+# 	ship_weapon_damage = 0.1
+# }
+# newgen_wan_weapons1 = {
+# 	ship_weapon_damage = 0.4
+# 	ship_fire_rate_mult = 0.1
+# }
+# newgen_wan_weapons2 = {
+# 	ship_tracking_add = 5
+# 	ship_weapon_range_mult = 0.1
+# 	ship_weapon_damage = 0.4
+# 	ship_fire_rate_mult = 0.1
+# }
+# newgen_amoeba_visitors1 = {
+# 	ship_evasion_add = 20
+# 	ship_armor_regen_add_static = 5
+# 	ship_hull_regen_add_static = 7
+# }
+# newgen_amoeba_visitors2 = {
+# 	ship_evasion_add = 40
+# 	ship_armor_regen_add_static = 10
+# 	ship_hull_regen_add_static = 14
+# }
+# newgen_tyanki_visitors = {
+# 	ship_weapon_damage = 1.0
+# 	ship_armor_mult = 0.3
+# 	ship_hull_mult = 0.4
+# }
+# newgen_cloud_visitors = {
+# 	ship_shield_damage_mult = 0.5
+# 	ship_fire_rate_mult = 0.3
+# 	ship_armor_mult = 0.3
+# 	ship_hull_mult = 0.4
+# 	ship_shield_mult = 0.5
+# 	ship_shield_regen_add_static = 30
+# }
+# newgen_cherep_visitors = {
+# 	ship_evasion_add = 10
+# 	ship_fire_rate_mult = 0.3
+# 	ship_weapon_damage = 1.0
+# 	ship_armor_mult = 1.5
+# 	ship_hull_mult = 2.0
+# 	ship_armor_regen_add_static = 100
+# 	ship_hull_regen_add_static = 50
+# }
+# newgen_custom_late_start = {
+# 	planet_stability_add = 10
+# 	planet_crime_add = -10
+# 	pop_growth_speed = 0.3
+# 	envoys_add = 1
+# 	intel_decryption_add = 1
+# 	ship_home_territory_fire_rate_mult = 0.20
+# 	command_limit_add = 10
+# 	country_naval_cap_add = 20
+# 	country_base_energy_produces_add = 150
+# 	country_base_minerals_produces_add = 100
+# 	country_base_alloys_produces_add = 100
+# 	country_base_influence_produces_add = 10
+# 	country_base_unity_produces_add = 150
+# 	country_edict_fund_add = 50
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_custom_late_start_tooltip
+# }
+# newgen_vs_overlord = {
+# 	ship_home_territory_fire_rate_mult = 0.1
+# 	ship_fire_rate_mult = 0.1
+# 	ship_evasion_add = 10
+# 	ship_tracking_add = 10
+# 	ship_shield_damage_mult = 0.1
+# 	ship_armor_damage_mult = 0.1
+# 	ship_shield_regen_add_static = 10
+# 	ship_armor_regen_add_static = 10
+# 	ship_hull_regen_add_static = 10
+# }
+# newgen_vs_adv_overlord = {
+# 	ship_home_territory_fire_rate_mult = 0.15
+# 	ship_fire_rate_mult = 0.15
+# 	ship_evasion_add = 15
+# 	ship_tracking_add = 15
+# 	ship_shield_damage_mult = 0.15
+# 	ship_armor_damage_mult = 0.15
+# 	ship_shield_regen_add_static = 20
+# 	ship_armor_regen_add_static = 20
+# 	ship_hull_regen_add_static = 20
+# }
+# newgen_pl_def_st_1 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_pl_def_st_1_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_pl_def_status.dds"
+# 	icon_frame = 2
+# }
+# newgen_pl_def_st_2 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_pl_def_st_2_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_pl_def_status.dds"
+# 	icon_frame = 2
+# }
+# newgen_pl_def_st_3 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_pl_def_st_3_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_pl_def_status.dds"
+# 	icon_frame = 2
+# }
+# newgen_pl_def_st_4 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_pl_def_st_4_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_pl_def_status.dds"
+# 	icon_frame = 2
+# }
+# newgen_pl_def_st_5 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_pl_def_st_5_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_pl_def_status.dds"
+# 	icon_frame = 2
+# }
+# newgen_pl_def_st_6 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_pl_def_st_6_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_pl_def_status.dds"
+# 	icon_frame = 2
+# }
+# newgen_pl_def_st_7 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_pl_def_st_7_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_pl_def_status.dds"
+# 	icon_frame = 2
+# }
+# newgen_pl_def_st_8 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_pl_def_st_8_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_pl_def_status.dds"
+# 	icon_frame = 2
+# }
+# newgen_pl_def_st_9 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_pl_def_st_9_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_pl_def_status.dds"
+# 	icon_frame = 2
+# }
+# newgen_pl_def_st_10 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_pl_def_st_10_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_pl_def_status.dds"
+# 	icon_frame = 2
+# }
+# newgen_pl_def_st_11 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_pl_def_st_11_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_pl_def_status.dds"
+# 	icon_frame = 2
+# }
+# newgen_pl_def_st_12 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_pl_def_st_12_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_pl_def_status.dds"
+# 	icon_frame = 2
+# }
+# newgen_pl_def_st_13 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_pl_def_st_13_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_pl_def_status.dds"
+# 	icon_frame = 2
+# }
+# newgen_pl_def_st_14 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_pl_def_st_14_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_pl_def_status.dds"
+# 	icon_frame = 2
+# }
+# newgen_pl_def_st_15 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_pl_def_st_15_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_pl_def_status.dds"
+# 	icon_frame = 2
+# }
+# newgen_pl_def_st_16 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_pl_def_st_16_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_pl_def_status.dds"
+# 	icon_frame = 2
+# }
+# newgen_pl_def_st_17 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_pl_def_st_17_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_pl_def_status.dds"
+# 	icon_frame = 2
+# }
+# newgen_pl_def_st_18 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_pl_def_st_18_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_pl_def_status.dds"
+# 	icon_frame = 2
+# }
+# newgen_pl_def_st_19 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_pl_def_st_19_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_pl_def_status.dds"
+# 	icon_frame = 2
+# }
+# newgen_pl_def_st_20 = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_pl_def_st_20_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_pl_def_status.dds"
+# 	icon_frame = 2
+# }
+# newgen_propag_1 = {
+# 	faction_approval = -0.1
+# }
+# newgen_supremacist = {
+# 	planet_stability_add = 20
+# 	pop_ethic_xenophobe_attraction_mult = 2
+# 	pop_government_ethic_attraction = -0.5
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_propag.dds"
+# 	icon_frame = 2
+# }
+# newgen_hidden_supremacist = {
+# 	planet_stability_add = 10
+# 	pop_ethic_xenophobe_attraction_mult = 3
+# 	pop_government_ethic_attraction = -1
+# 	planet_army_build_speed_mult = -0.75
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_faction_mutiny.dds"
+# 	icon_frame = 3
+# }
+# newgen_mutiny_supremacist = {
+# 	pop_government_ethic_attraction = -0.25
+# 	planet_stability_add = 10
+# 	pop_ethic_xenophobe_attraction_mult = 0.5
+# }
+# newgen_supremacist_planet = {
+# 	pop_ethic_xenophobe_attraction_mult = 1
+# 	pop_government_ethic_attraction = -0.5
+# 	planet_jobs_energy_produces_mult = -0.20
+# 	planet_jobs_produces_mult = -0.2
+# 	icon = "gfx/interface/icons/faction_icons/faction_icons_supremacists.dds"
+# 	icon_frame = 2
+# }
+# newgen_imperialist = {
+# 	planet_stability_add = 20
+# 	pop_ethic_militarist_attraction_mult = 2
+# 	pop_government_ethic_attraction = -0.5
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_propag.dds"
+# 	icon_frame = 2
+# }
+# newgen_hidden_imperialist = {
+# 	planet_stability_add = 30
+# 	pop_ethic_militarist_attraction_mult = 3
+# 	pop_government_ethic_attraction = -1
+# 	planet_army_build_speed_mult = -0.75
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_faction_mutiny.dds"
+# 	icon_frame = 3
+# }
+# newgen_mutiny_imperialist = {
+# 	pop_government_ethic_attraction = -0.25
+# 	planet_stability_add = 10
+# 	pop_ethic_militarist_attraction_mult = 0.5
+# }
+# newgen_imperialist_planet = {
+# 	pop_ethic_militarist_attraction_mult = 1
+# 	pop_government_ethic_attraction = -0.5
+# 	planet_jobs_energy_produces_mult = -0.20
+# 	planet_jobs_produces_mult = -0.2
+# 	icon = "gfx/interface/icons/faction_icons/faction_icons_imperialists.dds"
+# 	icon_frame = 2
+# }
+# newgen_isolationist = {
+# 	planet_stability_add = 20
+# 	pop_ethic_xenophobe_attraction_mult = 2
+# 	pop_government_ethic_attraction = -0.5
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_propag.dds"
+# 	icon_frame = 2
+# }
+# newgen_hidden_isolationist = {
+# 	planet_stability_add = 30
+# 	pop_ethic_xenophobe_attraction_mult = 3
+# 	pop_government_ethic_attraction = -1
+# 	planet_army_build_speed_mult = -0.75
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_faction_mutiny.dds"
+# 	icon_frame = 3
+# }
+# newgen_mutiny_isolationist = {
+# 	pop_government_ethic_attraction = -0.25
+# 	planet_stability_add = 10
+# 	pop_ethic_xenophobe_attraction_mult = 0.5
+# }
+# newgen_isolationist_planet = {
+# 	pop_ethic_xenophobe_attraction_mult = 1
+# 	pop_government_ethic_attraction = -0.5
+# 	planet_jobs_energy_produces_mult = -0.20
+# 	planet_jobs_produces_mult = -0.2
+# 	icon = "gfx/interface/icons/faction_icons/faction_icons_isolationists.dds"
+# 	icon_frame = 2
+# }
+# newgen_totalitarian = {
+# 	planet_stability_add = 20
+# 	pop_ethic_authoritarian_attraction_mult = 2
+# 	pop_government_ethic_attraction = -0.5
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_propag.dds"
+# 	icon_frame = 2
+# }
+# newgen_hidden_totalitarian = {
+# 	planet_stability_add = 30
+# 	pop_ethic_authoritarian_attraction_mult = 3
+# 	pop_government_ethic_attraction = -1
+# 	planet_army_build_speed_mult = -0.75
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_faction_mutiny.dds"
+# 	icon_frame = 3
+# }
+# newgen_mutiny_totalitarian = {
+# 	pop_government_ethic_attraction = -0.25
+# 	planet_stability_add = 10
+# 	pop_ethic_authoritarian_attraction_mult = 0.5
+# }
+# newgen_totalitarian_planet = {
+# 	pop_ethic_authoritarian_attraction_mult = 1
+# 	pop_government_ethic_attraction = -0.5
+# 	planet_jobs_energy_produces_mult = -0.20
+# 	planet_jobs_produces_mult = -0.2
+# 	icon = "gfx/interface/icons/faction_icons/faction_icons_totalitarians.dds"
+# 	icon_frame = 2
+# }
+# newgen_progressive = {
+# 	planet_stability_add = 20
+# 	pop_ethic_egalitarian_attraction_mult = 2
+# 	pop_government_ethic_attraction = -0.5
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_propag.dds"
+# 	icon_frame = 2
+# }
+# newgen_hidden_progressive = {
+# 	planet_stability_add = 30
+# 	pop_ethic_egalitarian_attraction_mult = 3
+# 	pop_government_ethic_attraction = -1
+# 	planet_army_build_speed_mult = -0.75
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_faction_mutiny.dds"
+# 	icon_frame = 3
+# }
+# newgen_mutiny_progressive = {
+# 	pop_government_ethic_attraction = -0.25
+# 	planet_stability_add = 10
+# 	pop_ethic_egalitarian_attraction_mult = 0.5
+# }
+# newgen_progressive_planet = {
+# 	pop_ethic_egalitarian_attraction_mult = 1
+# 	pop_government_ethic_attraction = -0.5
+# 	planet_jobs_energy_produces_mult = -0.20
+# 	planet_jobs_produces_mult = -0.2
+# 	icon = "gfx/interface/icons/faction_icons/faction_icons_progressives.dds"
+# 	icon_frame = 2
+# }
+# newgen_prosperity = {
+# 	planet_stability_add = 20
+# 	pop_ethic_pacifist_attraction_mult = 2
+# 	pop_government_ethic_attraction = -0.5
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_propag.dds"
+# 	icon_frame = 2
+# }
+# newgen_hidden_prosperity = {
+# 	planet_stability_add = 30
+# 	pop_ethic_pacifist_attraction_mult = 3
+# 	pop_government_ethic_attraction = -1
+# 	planet_army_build_speed_mult = -0.75
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_faction_mutiny.dds"
+# 	icon_frame = 3
+# }
+# newgen_mutiny_prosperity = {
+# 	pop_government_ethic_attraction = -0.25
+# 	planet_stability_add = 10
+# 	pop_ethic_pacifist_attraction_mult = 0.5
+# }
+# newgen_prosperity_planet = {
+# 	pop_ethic_pacifist_attraction_mult = 1
+# 	pop_government_ethic_attraction = -0.5
+# 	planet_jobs_energy_produces_mult = -0.20
+# 	planet_jobs_produces_mult = -0.2
+# 	icon = "gfx/interface/icons/faction_icons/faction_icons_prosperity.dds"
+# 	icon_frame = 2
+# }
+# newgen_technologist = {
+# 	planet_stability_add = 20
+# 	pop_ethic_materialist_attraction_mult = 2
+# 	pop_government_ethic_attraction = -0.5
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_propag.dds"
+# 	icon_frame = 2
+# }
+# newgen_hidden_technologist = {
+# 	planet_stability_add = 30
+# 	pop_ethic_materialist_attraction_mult = 3
+# 	pop_government_ethic_attraction = -1
+# 	planet_army_build_speed_mult = -0.75
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_faction_mutiny.dds"
+# 	icon_frame = 3
+# }
+# newgen_mutiny_technologist = {
+# 	pop_government_ethic_attraction = -0.25
+# 	planet_stability_add = 10
+# 	pop_ethic_materialist_attraction_mult = 0.5
+# }
+# newgen_technologist_planet = {
+# 	pop_ethic_materialist_attraction_mult = 1
+# 	pop_government_ethic_attraction = -0.5
+# 	planet_jobs_energy_produces_mult = -0.20
+# 	planet_jobs_produces_mult = -0.2
+# 	icon = "gfx/interface/icons/faction_icons/faction_icons_technologists.dds"
+# 	icon_frame = 2
+# }
+# newgen_traditionalist = {
+# 	planet_stability_add = 20
+# 	pop_ethic_spiritualist_attraction_mult = 2
+# 	pop_government_ethic_attraction = -0.5
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_propag.dds"
+# 	icon_frame = 2
+# }
+# newgen_hidden_traditionalist = {
+# 	planet_stability_add = 30
+# 	pop_ethic_spiritualist_attraction_mult = 3
+# 	pop_government_ethic_attraction = -1
+# 	planet_army_build_speed_mult = -0.75
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_faction_mutiny.dds"
+# 	icon_frame = 3
+# }
+# newgen_mutiny_traditionalist = {
+# 	pop_government_ethic_attraction = -0.25
+# 	planet_stability_add = 10
+# 	pop_ethic_spiritualist_attraction_mult = 0.5
+# }
+# newgen_traditionalist_planet = {
+# 	pop_ethic_spiritualist_attraction_mult = 1
+# 	pop_government_ethic_attraction = -0.5
+# 	planet_jobs_energy_produces_mult = -0.20
+# 	planet_jobs_produces_mult = -0.2
+# 	icon = "gfx/interface/icons/faction_icons/faction_icons_traditionalists.dds"
+# 	icon_frame = 2
+# }
+# newgen_xenoist = {
+# 	planet_stability_add = 20
+# 	pop_ethic_xenophile_attraction_mult = 2
+# 	pop_government_ethic_attraction = -0.5
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_propag.dds"
+# 	icon_frame = 2
+# }
+# newgen_hidden_xenoist = {
+# 	planet_stability_add = 30
+# 	pop_ethic_xenophile_attraction_mult = 3
+# 	pop_government_ethic_attraction = -1
+# 	planet_army_build_speed_mult = -0.75
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_faction_mutiny.dds"
+# 	icon_frame = 3
+# }
+# newgen_mutiny_xenoist = {
+# 	pop_government_ethic_attraction = -0.25
+# 	planet_stability_add = 10
+# 	pop_ethic_xenophile_attraction_mult = 0.5
+# }
+# newgen_xenoist_planet = {
+# 	pop_ethic_xenophile_attraction_mult = 1
+# 	pop_government_ethic_attraction = -0.5
+# 	planet_jobs_energy_produces_mult = -0.20
+# 	planet_jobs_produces_mult = -0.2
+# 	icon = "gfx/interface/icons/faction_icons/faction_icons_xenoists.dds"
+# 	icon_frame = 2
+# }
+# newgen_prop_arested = {
+# 	pop_happiness = -0.1
+# 	planet_jobs_produces_mult = -0.15
+# }
+# newgen_hidden_prop = {
+# 	pop_happiness = -0.1
+# 	planet_jobs_produces_mult = -0.2
+# }
+# newgen_arrested_propag = {
+# 	planet_stability_add = 30
+# 	pop_government_ethic_attraction = 0.5
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_arrested_propag.dds"
+# 	icon_frame = 2
+# }
+# newgen_esp_victim = {
+# 	show_only_custom_tooltip = yes
+# 	custom_tooltip = newgen_esp_victim_tooltip
+# 	icon = "gfx/interface/icons/planet_modifiers/newgen_esp_victim.dds"
+# 	icon_frame = 3
+# }
+# newgen_weak_ruler = {
+# 	planet_stability_add = -20
+# 	pop_government_ethic_attraction = -0.5
+# 	local_trade_protection_add = -10
+# 	planet_crime_add = 30
+# }
+# newgen_stable_planet = {
+# 	pop_government_ethic_attraction = 0.3
+# 	planet_stability_add = 10
+# 	planet_crime_add = -10
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_specialist_orator_neighbor.dds"
+# 	icon_frame = 1
+# }
+# newgen_suppression = {
+# 	pop_government_ethic_attraction = -1.0
+# 	planet_stability_add = -30
+# 	pop_happiness = -0.5
+# 	pop_growth_speed_reduction = 1
+# 	planet_immigration_pull_mult = -1
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_burning_settlement.dds"
+# 	icon_frame = 3
+# }
+# newgen_fac_battue = {
+# 	faction_approval = -0.2
+# }
+# newgen_was_suppressed = {
+# 	faction_approval = -0.1
+# }
+# newgen_prom = {
+# 	faction_approval = 0.05
+# }
+# newgen_priv_faction = {
+# 	faction_approval = 0.1
+# }
+# newgen_priv_others = {
+# 	faction_approval = -0.1
+# }
+# newgen_prom_pop = {
+# 	pop_happiness = 0.1
+# 	pop_amenities_usage_mult = 0.5
+# }
+# newgen_suport_civil = {
+# 	planet_stability_add = -30
+# 	planet_crime_add = 30
+# 	planet_jobs_produces_mult = -0.3
+# 	planet_army_build_speed_mult = -0.5
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_free_at_last.dds"
+# 	icon_frame = 3
+# }
+# newgen_fac_acept = {
+# 	faction_approval = 0.1
+# }
+# newgen_fac_refuse = {
+# 	faction_approval = -0.15
+# }
+# newgen_fac_refuse2 = {
+# 	faction_approval = -0.15
+# }
+# newgen_fac_refuse3 = {
+# 	faction_approval = -0.15
+# }
+# newgen_sup_monum = {
+# 	country_base_energy_produces_add = -10
+# 	country_base_minerals_produces_add = -20
+# }
+# newgen_sup_monum2 = {
+# 	country_base_energy_produces_add = -20
+# 	country_base_minerals_produces_add = -40
+# }
+# newgen_sup_monum3 = {
+# 	country_base_energy_produces_add = -30
+# 	country_base_minerals_produces_add = -60
+# }
+# newgen_monum1 = {
+# 	pop_ethic_xenophobe_attraction_mult = 0.5
+# 	pop_government_ethic_attraction = 0.3
+# }
+# newgen_monum2 = {
+# 	pop_ethic_militarist_attraction_mult = 0.5
+# 	pop_government_ethic_attraction = 0.3
+# }
+# newgen_monum3 = {
+# 	pop_ethic_authoritarian_attraction_mult = 0.5
+# 	pop_government_ethic_attraction = 0.3
+# }
+# newgen_monum4 = {
+# 	pop_ethic_egalitarian_attraction_mult = 0.5
+# 	pop_government_ethic_attraction = 0.3
+# }
+# newgen_monum5 = {
+# 	pop_ethic_pacifist_attraction_mult = 0.5
+# 	pop_government_ethic_attraction = 0.3
+# }
+# newgen_monum6 = {
+# 	pop_ethic_materialist_attraction_mult = 0.5
+# 	pop_government_ethic_attraction = 0.3
+# }
+# newgen_monum7 = {
+# 	pop_ethic_spiritualist_attraction_mult = 0.5
+# 	pop_government_ethic_attraction = 0.3
+# }
+# newgen_monum8 = {
+# 	pop_ethic_xenophile_attraction_mult = 0.5
+# 	pop_government_ethic_attraction = 0.3
+# }
+# newgen_cultist_country = {
+# 	ship_evasion_add = 21
+# 	ship_weapon_range_mult = 0.2
+# 	ship_tracking_add = 15
+# 	ship_shield_mult = 0.3
+# 	ship_armor_mult = 0.3
+# 	ship_hull_mult = 0.3
+# 	ship_fire_rate_mult = 0.3
+# 	ship_shield_regen_add_static = 5
+# 	ship_armor_regen_add_static = 5
+# 	ship_hull_regen_add_static = 5
+# }
+# newgen_insult = {
+# 	faction_approval = -0.2
+# }
+# newgen_insult_councilor = {
+# 	councilor_exp_gain = -0.5
+# 	intel_encryption_add = -1
+# 	spy_network_daily_value_mult = -0.2
+# }
+# newgen_support_councilor = {
+# 	councilor_exp_gain = 0.5
+# }
+# newgen_help_enemy = {
+# 	faction_approval = -0.2
+# }
+# newgen_envi_1 = {
+# 	planet_stability_add = -30
+# 	planet_jobs_produces_mult = -0.3
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_bleak.dds"
+# 	icon_frame = 3
+# }
+# newgen_envi_2 = {
+# 	planet_stability_add = -30
+# 	planet_jobs_produces_mult = -0.3
+# 	planet_crime_no_happiness_add = 30
+# 	job_deviant_drone_add = 2
+# 	job_deviant_drone_per_crime = 0.05
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_hunger_strike.dds"
+# 	icon_frame = 3
+# }
+# newgen_envi_6 = {
+# 	planet_stability_add = -30
+# 	planet_jobs_produces_mult = -0.3
+# 	planet_crime_no_happiness_add = 60
+# 	job_deviant_drone_add = 4
+# 	job_deviant_drone_per_crime = 0.1
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_hunger_strike.dds"
+# 	icon_frame = 3
+# }
+# newgen_envi_3 = {
+# 	planet_stability_add = -30
+# 	planet_jobs_produces_mult = -0.3
+# 	planet_crime_no_happiness_add = 30
+# 	job_corrupt_drone_add = 2
+# 	job_corrupt_drone_per_crime = 0.05
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_hunger_strike.dds"
+# 	icon_frame = 3
+# }
+# newgen_envi_5 = {
+# 	planet_stability_add = -30
+# 	planet_jobs_produces_mult = -0.3
+# 	planet_crime_no_happiness_add = 60
+# 	job_corrupt_drone_add = 4
+# 	job_corrupt_drone_per_crime = 0.1
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_hunger_strike.dds"
+# 	icon_frame = 3
+# }
+# newgen_envi_4 = {
+# 	planet_stability_add = -30
+# 	planet_jobs_produces_mult = -1.0
+# 	planet_army_build_speed_mult = -1.0
+# 	icon = "gfx/interface/icons/planet_modifiers/pm_dangerous_wildlife.dds"
+# 	icon_frame = 3
+# }
+# newgen_governor_failure = {
+# 	councilor_gestalt_governor_exp_gain = -0.5
+# 	planet_pop_assembly_organic_mult = -0.09
+# 	planet_pop_assembly_mult = -0.09
+# }
+# newgen_scientist_failure = {
+# 	councilor_gestalt_scientist_exp_gain = -0.5
+# 	all_technology_research_speed = -0.06
+# }
+# newgen_admiral_failure = {
+# 	councilor_gestalt_admiral_exp_gain = -0.5
+# 	country_base_influence_produces_add = -0.3
+# }
+# newgen_general_failure = {
+# 	councilor_gestalt_general_exp_gain = -0.5
+# 	planet_crime_no_happiness_add = 9
+# }
+# newgen_critical_governor_failure = {
+# 	councilor_gestalt_governor_exp_gain = -0.8
+# 	planet_pop_assembly_organic_mult = -0.18
+# 	planet_pop_assembly_mult = -0.18
+# }
+# newgen_critical_scientist_failure = {
+# 	councilor_gestalt_scientist_exp_gain = -0.8
+# 	all_technology_research_speed = -0.12
+# }
+# newgen_critical_admiral_failure = {
+# 	councilor_gestalt_admiral_exp_gain = -0.8
+# 	country_base_influence_produces_add = -0.6
+# }
+# newgen_critical_general_failure = {
+# 	councilor_gestalt_general_exp_gain = -0.8
+# 	planet_crime_no_happiness_add = 18
+# }

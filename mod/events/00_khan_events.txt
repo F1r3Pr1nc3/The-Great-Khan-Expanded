@@ -1709,6 +1709,7 @@ country_event = {
 					factor = 0
 					OR = {
 						num_fallen_empires_setting < 1
+						mid_game_years_passed < 50 # since v3.8.4
 						has_leviathans = no
 						NOT = { any_country = {
 							is_fallen_empire = yes
@@ -1799,6 +1800,7 @@ country_event = {
 	hide_window = yes
 	trigger = {
 		has_global_flag = marauder_crisis_ongoing
+		mid_game_years_passed > 1
 		NOR = {
 			has_global_flag = great_khan_wins
 			has_global_flag = war_in_heaven_ongoing
