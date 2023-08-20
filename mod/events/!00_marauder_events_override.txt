@@ -848,7 +848,7 @@ country_event = {
 		}
 	}
 	picture_event_data = {
-		portrait = event_target:current_marauder_diplomacy
+		portrait = from # event_target:current_marauder_diplomacy
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
@@ -1141,7 +1141,7 @@ country_event = {
 		}
 	}
 	picture_event_data = {
-		portrait = event_target:current_marauder_diplomacy
+		portrait = from # event_target:current_marauder_diplomacy
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
@@ -1337,7 +1337,7 @@ fleet_event = {
 				save_event_target_as = raid_planet
 			}
 		}
-
+		set_event_locked = no
 		if = {
 			limit = { exists = event_target:raid_planet }
 			set_location = {
@@ -1676,7 +1676,7 @@ country_event = {
 	}
 	diplomatic = yes
 	picture_event_data = {
-		portrait = event_target:current_marauder_diplomacy
+		portrait = from # event_target:current_marauder_diplomacy
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
@@ -1688,11 +1688,17 @@ country_event = {
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 		if = {
-			limit = {
-				NOT = { exists = event_target:current_marauder_diplomacy }
-				from = { is_country_type = dormant_marauders }
+			limit = { NOT = { exists = event_target:current_marauder_diplomacy } }
+			from = {
+				if = {
+					limit = { is_country_type = dormant_marauders }
+					save_event_target_as = current_marauder_diplomacy
+				}
+				else_if = {
+					limit = { from = { is_country_type = dormant_marauders } }
+					from = { save_event_target_as = current_marauder_diplomacy }
+				}
 			}
-			from = { save_event_target_as = current_marauder_diplomacy }
 		}
 		event_target:current_marauder_diplomacy = { owner_species = { save_event_target_as = marauder_species } }
 		random_rival_country = {
@@ -1985,7 +1991,7 @@ country_event = {
 	}
 	diplomatic = yes
 	picture_event_data = {
-		portrait = event_target:current_marauder_diplomacy
+		portrait = from # event_target:current_marauder_diplomacy
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
@@ -1993,11 +1999,17 @@ country_event = {
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 		if = {
-			limit = {
-				NOT = { exists = event_target:current_marauder_diplomacy }
-				from = { is_country_type = dormant_marauders }
+			limit = { NOT = { exists = event_target:current_marauder_diplomacy } }
+			from = {
+				if = {
+					limit = { is_country_type = dormant_marauders }
+					save_event_target_as = current_marauder_diplomacy
+				}
+				else_if = {
+					limit = { from = { is_country_type = dormant_marauders } }
+					from = { save_event_target_as = current_marauder_diplomacy }
+				}
 			}
-			from = { save_event_target_as = current_marauder_diplomacy }
 		}
 		## Dynamic raid costs TODO needs update each effect.
 		event_target:current_marauder_diplomacy = {
@@ -2128,7 +2140,7 @@ country_event = {
 }
 
 # Raid commences
-# Vanilla fix omit Marauders getting stuck (Refactored by FirePrince)
+# Vanilla (partial) fix omit Marauders getting stuck (Refactored by FirePrince)
 # Root = marauder_target
 # From = Hired marauder_employer
 # fromfrom = current_marauder_diplomacy = raiding_marauder
@@ -2276,7 +2288,7 @@ country_event = {
 	}
 	diplomatic = yes
 	picture_event_data = {
-		portrait = event_target:current_marauder_diplomacy
+		portrait = from # event_target:current_marauder_diplomacy
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
@@ -2284,11 +2296,17 @@ country_event = {
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 		if = {
-			limit = {
-				NOT = { exists = event_target:current_marauder_diplomacy }
-				from = { is_country_type = dormant_marauders }
+			limit = { NOT = { exists = event_target:current_marauder_diplomacy } }
+			from = {
+				if = {
+					limit = { is_country_type = dormant_marauders }
+					save_event_target_as = current_marauder_diplomacy
+				}
+				else_if = {
+					limit = { from = { is_country_type = dormant_marauders } }
+					from = { save_event_target_as = current_marauder_diplomacy }
+				}
 			}
-			from = { save_event_target_as = current_marauder_diplomacy }
 		}
 		event_target:current_marauder_diplomacy = { owner_species = { save_event_target_as = marauder_species } }
 		## Dynamic hiring costs TODO needs update each effect.
@@ -2571,7 +2589,7 @@ country_event = {
 	}
 	diplomatic = yes
 	picture_event_data = {
-		portrait = event_target:current_marauder_diplomacy
+		portrait = from # event_target:current_marauder_diplomacy
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
@@ -2579,11 +2597,17 @@ country_event = {
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 		if = {
-			limit = {
-				NOT = { exists = event_target:current_marauder_diplomacy }
-				from = { is_country_type = dormant_marauders }
+			limit = { NOT = { exists = event_target:current_marauder_diplomacy } }
+			from = {
+				if = {
+					limit = { is_country_type = dormant_marauders }
+					save_event_target_as = current_marauder_diplomacy
+				}
+				else_if = {
+					limit = { from = { is_country_type = dormant_marauders } }
+					from = { save_event_target_as = current_marauder_diplomacy }
+				}
 			}
-			from = { save_event_target_as = current_marauder_diplomacy }
 		}
 		event_target:current_marauder_diplomacy = { owner_species = { save_event_target_as = marauder_species } }
 	}
@@ -2620,7 +2644,7 @@ country_event = {
 	}
 	diplomatic = yes
 	picture_event_data = {
-		portrait = event_target:current_marauder_diplomacy
+		portrait = from # event_target:current_marauder_diplomacy
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
@@ -2628,11 +2652,17 @@ country_event = {
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 		if = {
-			limit = {
-				NOT = { exists = event_target:current_marauder_diplomacy }
-				from = { is_country_type = dormant_marauders }
+			limit = { NOT = { exists = event_target:current_marauder_diplomacy } }
+			from = {
+				if = {
+					limit = { is_country_type = dormant_marauders }
+					save_event_target_as = current_marauder_diplomacy
+				}
+				else_if = {
+					limit = { from = { is_country_type = dormant_marauders } }
+					from = { save_event_target_as = current_marauder_diplomacy }
+				}
 			}
-			from = { save_event_target_as = current_marauder_diplomacy }
 		}
 		random_relation = {
 			limit = { is_fallen_empire = yes }
@@ -2676,7 +2706,7 @@ country_event = {
 			country_event = { id = marauder.38 days = 20 scopes = { from = event_target:current_marauder_diplomacy } }
 		}
 		else = {
-			country_event = { id = marauder.38 scopes = { from = event_target:current_marauder_diplomacy } }			# Use mia
+			country_event = { id = marauder.38 scopes = { from = event_target:current_marauder_diplomacy } }
 		}
 	}
 	after = {
@@ -2706,11 +2736,17 @@ country_event = {
 	trigger = { exists = from }
 	immediate = {
 		if = {
-			limit = {
-				NOT = { exists = event_target:current_marauder_diplomacy }
-				from = { is_country_type = dormant_marauders }
+			limit = { NOT = { exists = event_target:current_marauder_diplomacy } }
+			from = {
+				if = {
+					limit = { is_country_type = dormant_marauders }
+					save_event_target_as = current_marauder_diplomacy
+				}
+				else_if = {
+					limit = { from = { is_country_type = dormant_marauders } }
+					from = { save_event_target_as = current_marauder_diplomacy }
+				}
 			}
-			from = { save_event_target_as = current_marauder_diplomacy }
 		}
 		if = {
 			limit = { exists = event_target:current_marauder_diplomacy }
@@ -2742,7 +2778,7 @@ country_event = {
 				}
 			}
 		}
-		else = { log_error = "Missing current_marauder_diplomacy" }
+		else = { log = "ERROR: Missing current_marauder_diplomacy" }
 		switch = { trigger = has_country_flag
 			# Hire Armada of the Voidborn.
 			merc_fleet_1_1_hired = {
@@ -2860,6 +2896,7 @@ country_event = {
 				set_mia = mia_return_home
 			}
 			else = { set_location = root.capital_scope }
+			set_event_locked = no
 			fleet_event = { id = marauder.50 days = 1800 }
 		}
 	}
@@ -2884,7 +2921,7 @@ country_event = {
 	}
 	diplomatic = yes
 	picture_event_data = {
-		portrait = event_target:current_marauder_diplomacy
+		portrait = from # event_target:current_marauder_diplomacy
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
@@ -3651,6 +3688,7 @@ country_event = {
 						save_event_target_as = raid_planet
 					}
 				}
+				set_event_locked = no
 				if = {
 					limit = {
 						exists = event_target:raid_planet

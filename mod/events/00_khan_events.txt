@@ -1659,7 +1659,7 @@ country_event = {
 		}
 		## 50% chance integrating Satrapies - sparking a galaxy wide uprising.
 		## 50% chance of a WiH with a FE.
-		locked_random_list = {
+		random_list = {
 			50 = { # Final immediately
 				every_playable_country = {
 					limit = {
@@ -1711,15 +1711,30 @@ country_event = {
 						num_fallen_empires_setting < 1
 						mid_game_years_passed < 50 # since v3.8.4
 						has_leviathans = no
+						AND = {
+							NOT = { has_global_flag = endgame_crisis_early_start }
+							default_endgame_early_start_triggers = yes
+						}
 						NOT = { any_country = {
-							is_fallen_empire = yes
-							is_gestalt = no
+							OR = {
+								is_valid_fallen_empire_for_task = yes
+								AND = {
+									is_fallen_empire = yes
+									is_gestalt = no
+									fleet_power > 90000
+								}
+							}
 						} }
+
 					}
 				}
 				modifier = {
+					factor = 0.5
+					end_game_years_passed < 0 # since v3.8.4
+				}
+				modifier = {
 					factor = 1.5
-					any_playable_country = { fleet_power > 120000 }
+					any_playable_country = { fleet_power > 140000 }
 				}
 				modifier = { factor = 1.5 num_fallen_empires > 1 num_fallen_empires < 3 }
 				modifier = { factor = 2 num_fallen_empires > 2 num_fallen_empires < 4 }

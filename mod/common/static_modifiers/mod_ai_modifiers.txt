@@ -229,7 +229,7 @@
 # 	pop_growth_speed = -3.0
 # 	pop_amenities_usage_mult = 1
 # 	planet_emigration_push_add = 100
-# 	#show_only_custom_tooltip = yes
+# 	# show_only_custom_tooltip = yes
 # 	custom_tooltip = horror_effect2_tooltip
 # 	icon = "gfx/interface/icons/planet_modifiers/pm_horror_fear.dds"
 # 	icon_frame = 3
@@ -247,7 +247,7 @@
 # 	custom_tooltip = horror_effect_tooltip
 # 	icon = "gfx/interface/icons/planet_modifiers/pm_horror_fear.dds"
 # 	icon_frame = 3
-# 	#show_only_custom_tooltip = yes
+# 	# show_only_custom_tooltip = yes
 # }
 # suicide_1_buff = {
 # 	ship_fire_rate_mult = 0.2
@@ -1161,7 +1161,7 @@ newgen_defense_war_3 = {
 # newgen_robotic_masters = {
 # 	planet_pops_robotics_upkeep_mult = -0.20
 # 	planet_jobs_robotic_produces_mult = 0.2
-# 	#bio_pop_growth_speed_reduction = 0.3
+# 	# bio_pop_growth_speed_reduction = 0.3
 # 	pop_growth_speed = 0.3
 # }
 # newgen_asim_war = {

@@ -75,7 +75,7 @@ newgen_occupation_army = {
 	war_exhaustion = 0 # No WE from occupation armies
 	icon = GFX_army_type_defensive
 	# has_species = no
-	# potential = { always = no }
+	# potential_country = { always = no }
 	potential_country = {
 		# CmtTriggerIsMarauder = yes
 		OR = {
@@ -100,7 +100,7 @@ newgen_robotic_occupation_army = {
 	has_morale = no
 	icon = GFX_army_type_robot
 	has_species = yes
-	potential = { always = no }
+	potential_country = { always = no }
 }
 
 ### Machine Empire Armies
@@ -115,7 +115,7 @@ newgen_machine_occupation_army = {
 	war_exhaustion = 0	# No WE from occupation armies
 	icon = GFX_army_type_machine_defensive
 	has_species = yes
-	potential = { always = no }
+	potential_country = { always = no }
 }
 
 newgen_primitive_assault_army = {
@@ -127,7 +127,7 @@ newgen_primitive_assault_army = {
 	collateral_damage = 0.8
 	war_exhaustion = 0
 	icon = GFX_army_type_rebel
-	potential = { always = no }
+	potential_country = { always = no }
 }
 
 # newgen_sakit_army = {
@@ -139,7 +139,7 @@ newgen_primitive_assault_army = {
 # 	icon = GFX_army_sakit
 # 	defensive = yes
 # 	is_pop_spawned = no
-# 	potential = { always = no }
+# 	potential_country = { always = no }
 # 	resources = {
 # 		category = armies
 # 		cost = { minerals = 100 }
@@ -167,7 +167,7 @@ newgen_primitive_assault_army = {
 # 	war_exhaustion = 0	# No WE from occupation armies
 # 	icon = GFX_army_type_defensive
 # 	has_species = yes
-# 	potential = { always = no }
+# 	potential_country = { always = no }
 # }
 
 # newgen_machine_defense = {
@@ -181,5 +181,5 @@ newgen_primitive_assault_army = {
 # 	war_exhaustion = 0	# No WE from occupation armies
 # 	icon = GFX_army_type_machine_defensive
 # 	has_species = yes
-# 	potential = { always = no }
+# 	potential_country = { always = no }
 # }
