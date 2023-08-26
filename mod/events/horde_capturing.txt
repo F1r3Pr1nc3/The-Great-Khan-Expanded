@@ -93,7 +93,6 @@ country_event = {
 						name = NAME_Horde_ground_troops
 						species = root.species
 						type = "basic_horde"
-						land_army = yes
 						effect = { assign_leader = last_created_leader }
 					}
 					while = {
@@ -103,7 +102,6 @@ country_event = {
 							name = NAME_Horde_ground_troops
 							species = root.species
 							type = "basic_horde"
-							land_army = yes
 						}
 					}
 				}
@@ -124,7 +122,6 @@ country_event = {
 						name = NAME_Horde_ground_troops
 						species = root.species
 						type = "admiral_horde"
-						land_army = yes
 						effect = { assign_leader = last_created_leader }
 					}
 					while = {
@@ -134,7 +131,6 @@ country_event = {
 							name = NAME_Horde_ground_troops
 							species = root.species
 							type = "admiral_horde"
-							land_army = yes
 						}
 					}
 				}
@@ -154,7 +150,6 @@ country_event = {
 						name = NAME_Horde_ground_troops
 						species = root.species
 						type = "gros_horde"
-						land_army = yes
 						effect = { assign_leader = last_created_leader }
 					}
 					while = {
@@ -164,7 +159,6 @@ country_event = {
 							name = NAME_Horde_ground_troops
 							species = root.species
 							type = "gros_horde"
-							land_army = yes
 						}
 					}
 				}
@@ -252,7 +246,6 @@ planet_event = {
 					name = NAME_Elite_horde_squad
 					species = root.owner_species
 					type = "elite_basic_horde"
-					land_army = yes
 				}
 			}
 		}
@@ -265,7 +258,6 @@ planet_event = {
 					name = NAME_Elite_horde_squad
 					species = root.owner_species
 					type = "elite_admiral_horde"
-					land_army = yes
 				}
 			}
 		}
@@ -277,7 +269,6 @@ planet_event = {
 					name = NAME_Elite_horde_squad
 					species = root.owner_species
 					type = "elite_gros_horde"
-					land_army = yes
 				}
 			}
 		}

@@ -8,7 +8,7 @@
    sodipodi:docname="KHAN logo.svg"
    enable-background="new"
    inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
-   inkscape:export-filename="..\..\KHAN.mod\workshop\thumbs\KHAN logo3.8.1.png"
+   inkscape:export-filename="KHAN logo3.9.0.png"
    inkscape:export-xdpi="25.6"
    inkscape:export-ydpi="25.6"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -40,12 +40,12 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1920"
-     inkscape:window-height="1061"
+     inkscape:window-height="1017"
      id="namedview1849"
      showgrid="true"
      inkscape:zoom="0.25678769"
-     inkscape:cx="667.86689"
-     inkscape:cy="313.48854"
+     inkscape:cx="517.9376"
+     inkscape:cy="313.48855"
      inkscape:window-x="-4"
      inkscape:window-y="-4"
      inkscape:window-maximized="1"
@@ -149,10 +149,10 @@
     </filter>
     <filter
        id="e"
-       x="-0.0099048358"
-       y="-0.010015646"
-       width="1.0195276"
-       height="1.0197238"
+       x="-0.0099131353"
+       y="-0.010024133"
+       width="1.019544"
+       height="1.0197405"
        color-interpolation-filters="sRGB">
       <feGaussianBlur
          stdDeviation="0.16120536"
@@ -1295,7 +1295,7 @@
            x="5"
            transform="rotate(45)"
            id="text4499"><tspan
-             id="tspan1768">3.8.⠀</tspan></text>
+             id="tspan1768">3.9.⠀</tspan></text>
       </g>
     </g>
     <use

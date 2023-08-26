@@ -3241,10 +3241,13 @@ country_event = {
 			limit = { has_country_flag = CmtFlagHiringMarauder1 }
 			every_controlled_fleet = {
 				limit = { CmtTriggerHiredMarauderFleet1 = yes }
-				leader = {
-					remove_leader_flag = marauder_merc_leader
-					# kill_leader = { show_notification = no }
-					set_owner = event_target:raider_khanate
+				if = {
+					limit = { exists = leader }
+					leader = {
+						remove_leader_flag = marauder_merc_leader
+						# kill_leader = { show_notification = no }
+						set_owner = event_target:raider_khanate
+					}
 				}
 				switch = { # Refund of Mercenary
 					trigger = has_fleet_flag
@@ -3276,10 +3279,13 @@ country_event = {
 			limit = { has_country_flag = CmtFlagHiringMarauder2 }
 			every_controlled_fleet = {
 				limit = { CmtTriggerHiredMarauderFleet2 = yes }
-				leader = {
-					remove_leader_flag = marauder_merc_leader
-					# kill_leader = { show_notification = no }
-					set_owner = event_target:raider_khanate
+				if = {
+					limit = { exists = leader }
+					leader = {
+						remove_leader_flag = marauder_merc_leader
+						# kill_leader = { show_notification = no }
+						set_owner = event_target:raider_khanate
+					}
 				}
 				switch = { # Refund of Mercenary
 					trigger = has_fleet_flag
@@ -3311,10 +3317,13 @@ country_event = {
 			limit = { has_country_flag = CmtFlagHiringMarauder3 }
 			every_controlled_fleet = {
 				limit = { CmtTriggerHiredMarauderFleet3 = yes }
-				leader = {
-					remove_leader_flag = marauder_merc_leader
-					# kill_leader = { show_notification = no }
-					set_owner = event_target:raider_khanate
+				if = {
+					limit = { exists = leader }
+					leader = {
+						remove_leader_flag = marauder_merc_leader
+						# kill_leader = { show_notification = no }
+						set_owner = event_target:raider_khanate
+					}
 				}
 				switch = { # Refund of Mercenary
 					trigger = has_fleet_flag
@@ -5899,7 +5908,6 @@ country_event = {
 							owner = root
 							species = event_target:marauder_country_1.owner_species
 							type = "newgen_occupation_army"
-							land_army = yes
 						}
 						change_variable = { which = CmtVarTemp value = -1 }
 					}
@@ -5913,7 +5921,6 @@ country_event = {
 							owner = root
 							species = event_target:marauder_country_2.owner_species
 							type = "newgen_occupation_army"
-							land_army = yes
 						}
 						change_variable = { which = CmtVarTemp value = -1 }
 					}
@@ -5927,7 +5934,6 @@ country_event = {
 							owner = root
 							species = event_target:marauder_country_3.owner_species
 							type = "newgen_occupation_army"
-							land_army = yes
 						}
 						change_variable = { which = CmtVarTemp value = -1 }
 					}
@@ -5939,7 +5945,6 @@ country_event = {
 						owner = root
 						species = root.species
 						type = "newgen_occupation_army"
-						land_army = yes
 					}
 					change_variable = { which = CmtVarTemp value = -1 }
 				}
@@ -5991,7 +5996,6 @@ country_event = {
 						owner = from
 						species = prev
 						type = "newgen_occupation_army"
-						land_army = yes
 					}
 				}
 			}

@@ -1028,9 +1028,19 @@ country_event = {
 						}
 						add_modifier = { modifier = newgen_partisans_camp years = 3 }
 						log =  "on planet \\[This.GetName], owned by country \\[This.Owner.GetName] appear partisans camp"
-						root = {
-							# if = { limit = { NOT = { from = { any_situation = { is_situation_type = situation_planetary_revolt } } } }
-							planet_event = { id = unrest.55 days = 60 } }
+						random_list = {
+							5 = {
+								modifier = {
+									factor = 2
+									root.from = {
+										OR = {
+											is_ai = yes
+											any_situation = { is_situation_type = situation_planetary_revolt }
+										}
+									}
+								}
+							}
+							5 = { planet_event = { id = unrest.55 days = 60 } }
 						}
 						if = {
 							limit = {
@@ -1118,7 +1128,6 @@ country_event = {
 										owner = root.from
 										species = owner_main_species
 										type = "newgen_robotic_occupation_army"
-										land_army = yes
 										effect = { set_variable = { which = newgen_garrison value = 0 } }
 									}
 								}
@@ -1133,7 +1142,6 @@ country_event = {
 											owner = root.from
 											species = owner_main_species
 											type = "newgen_robotic_occupation_army"
-											land_army = yes
 											effect = { set_variable = { which = newgen_garrison value = 0 } }
 										}
 									}
@@ -1150,7 +1158,6 @@ country_event = {
 										owner = root.from
 										species = owner_main_species
 										type = "newgen_machine_occupation_army"
-										land_army = yes
 										effect = { set_variable = { which = newgen_garrison value = 0 } }
 									}
 								}
@@ -1165,7 +1172,6 @@ country_event = {
 											owner = root.from
 											species = owner_main_species
 											type = "newgen_machine_occupation_army"
-											land_army = yes
 											effect = { set_variable = { which = newgen_garrison value = 0 } }
 										}
 									}
@@ -1179,7 +1185,6 @@ country_event = {
 										owner = root.from
 										species = owner_main_species
 										type = "newgen_occupation_army"
-										land_army = yes
 										effect = { set_variable = { which = newgen_garrison value = 0 } }
 									}
 								}
@@ -1194,7 +1199,6 @@ country_event = {
 											owner = root.from
 											species = owner_main_species
 											type = "newgen_occupation_army"
-											land_army = yes
 											effect = { set_variable = { which = newgen_garrison value = 0 } }
 										}
 									}
@@ -1244,7 +1248,6 @@ country_event = {
 										owner = root.from
 										species = owner_main_species
 										type = "newgen_robotic_occupation_army"
-										land_army = yes
 										effect = { set_variable = { which = newgen_garrison value = 0 } }
 									}
 								}
@@ -1260,7 +1263,6 @@ country_event = {
 										owner = root.from
 										species = owner_main_species
 										type = "newgen_machine_occupation_army"
-										land_army = yes
 										effect = { set_variable = { which = newgen_garrison value = 0 } }
 									}
 								}
@@ -1273,7 +1275,6 @@ country_event = {
 										owner = root.from
 										species = owner_main_species
 										type = "newgen_occupation_army"
-										land_army = yes
 										effect = { set_variable = { which = newgen_garrison value = 0 } }
 									}
 								}
@@ -1442,7 +1443,6 @@ planet_event = {
 							owner = from
 							species = owner_main_species
 							type = "newgen_robotic_occupation_army"
-							land_army = yes
 							effect = { set_variable = { which = newgen_garrison value = 0 } }
 						}
 					}
@@ -1458,7 +1458,6 @@ planet_event = {
 							owner = from
 							species = owner_main_species
 							type = "newgen_machine_occupation_army"
-							land_army = yes
 							effect = { set_variable = { which = newgen_garrison value = 0 } }
 						}
 					}
@@ -1471,7 +1470,6 @@ planet_event = {
 							owner = from
 							species = owner_main_species
 							type = "newgen_occupation_army"
-							land_army = yes
 							effect = { set_variable = { which = newgen_garrison value = 0 } }
 						}
 					}

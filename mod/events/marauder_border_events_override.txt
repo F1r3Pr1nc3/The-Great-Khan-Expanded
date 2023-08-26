@@ -28,7 +28,8 @@ country_event = {
 			end_fleet_contract = { initiator = prev reason = cancelled }
 		}
 		# CREATE_KHAN_SUCCESSOR_COUNTRY
-		if = { limit = { has_global_flag = cultural_overhaul_active }
+		if = {
+			limit = { has_global_flag = cultural_overhaul_active }
 			if = { limit = { has_global_flag = cultural_overhaul_funefork_active }
 				random_list = {
 					90 = {
@@ -232,7 +233,8 @@ country_event = {
 		country_event = { id = marauder.609 }						# Fully handover + empire init
 	}
 	after = {
-		if = { limit = { exists = event_target:raider_khanate }
+		if = {
+			limit = { exists = event_target:raider_khanate }
 			if = { # If human player
 				limit = {
 					is_ai = no
@@ -264,7 +266,8 @@ country_event = {
 				order_by = trigger:num_pops
 				set_capital = yes
 				starbase = {
-					if = { limit = { has_starbase_size < starbase_starhold }
+					if = {
+						limit = { has_starbase_size < starbase_starhold }
 						set_starbase_size = starbase_starhold
 					}
 					set_starbase_module = { slot = 1 module = shipyard }
@@ -504,42 +507,45 @@ country_event = {
 				set_country_flag = diadochi_5
 			}
 			event_target:first_diadochi = {
-				every_owned_sector = {
-					limit = { has_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector }
-					every_owned_planet = {
-						limit = {
-							has_owner = yes
-							owner = {
-								is_ai = yes
-								NOT = { is_same_empire = event_target:diadochi_country }
-							}
-						}
-						solar_system = {
-							if = {
-								limit = {
-									has_owner = yes
-									owner = {
-										is_ai = yes
-										NOT = { is_same_empire = event_target:diadochi_country }
-									}
-									exists = starbase
-								}
-								starbase = { set_owner = event_target:diadochi_country }
-							}
-						}
-						set_owner = event_target:diadochi_country
+				if = {
+					limit = {
+						any_owned_sector = { has_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector }
 					}
-					every_system_within_border = { # Every other system, changing this gets weird, so just leave it cause it works fine
-						limit = {
-							has_owner = yes
-							owner = {
-								is_ai = yes
+					every_owned_sector = {
+						limit = { has_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector }
+						every_owned_planet = {
+							limit = {
+								has_owner = yes
+								owner = {
+									is_ai = yes
+									NOT = { is_same_empire = event_target:diadochi_country }
+								}
 							}
-							exists = starbase
-							starbase.owner = { NOT = { is_same_empire = event_target:diadochi_country } }
-
+							solar_system = {
+								if = {
+									limit = {
+										has_owner = yes
+										owner = {
+											is_ai = yes
+											NOT = { is_same_empire = event_target:diadochi_country }
+										}
+										exists = starbase
+									}
+									starbase = { set_owner = event_target:diadochi_country }
+								}
+							}
+							set_owner = event_target:diadochi_country
 						}
-						starbase = { set_owner = event_target:diadochi_country }
+						every_system_within_border = { # Every other system, changing this gets weird, so just leave it cause it works fine
+							limit = {
+								has_owner = yes
+								owner = { is_ai = yes }
+								exists = starbase
+								starbase.owner = { NOT = { is_same_empire = event_target:diadochi_country } }
+
+							}
+							starbase = { set_owner = event_target:diadochi_country }
+						}
 					}
 				}
 			}
@@ -576,7 +582,8 @@ country_event = {
 							exists = space_owner
 							exists = starbase
 							space_owner = { is_same_empire = event_target:first_diadochi }
-							starbase = { is_same_empire = event_target:first_diadochi }
+							# exists = starbase.controller
+							starbase.controller = { is_same_empire = event_target:first_diadochi }
 						}
 						use_bypasses = yes
 						max_steps = 3
@@ -604,15 +611,9 @@ country_event = {
 			# clear new contact opinion modifier
 			if = {
 				limit = {
-					has_opinion_modifier = {
-						who = event_target:first_diadochi
-						modifier = opinion_new_contact
-					}
+					has_opinion_modifier = { who = event_target:first_diadochi modifier = opinion_new_contact }
 				}
-				remove_opinion_modifier = {
-					who = event_target:first_diadochi
-					modifier = opinion_new_contact
-				}
+				remove_opinion_modifier = { who = event_target:first_diadochi modifier = opinion_new_contact }
 			}
 			country_event = { id = khan.610 days = -1 } # Handover some old stuff
 			## END DIADOCHI_COUNTRY_SETUP
@@ -623,7 +624,8 @@ country_event = {
 					has_origin = "origin_khan_successor"
 					NOT = { is_same_empire = prev }
 				}
-				if = { limit = { NOT = { has_communications = prev } }
+				if = {
+					limit = { NOT = { has_communications = prev } }
 					establish_communications_no_message = prev
 				}
 				add_trust = { amount = -100 who = prev }
@@ -888,7 +890,8 @@ country_event = {
 							}
 							owner = {
 								save_event_target_as = planet_owner
-								if = { limit = { NOT = { is_variable_set = num_pops } }
+								if = {
+									limit = { NOT = { is_variable_set = num_pops } }
 									set_variable = { which = num_pops value = trigger:num_pops }
 								}
 								capital_scope.solar_system = {
@@ -924,7 +927,8 @@ country_event = {
 				}
 				# Set claim to each other
 				every_system_within_border = {
-					if = { limit = { is_surveyed = { who = prev status = no } }
+					if = {
+						limit = { is_surveyed = { who = prev status = no } }
 						set_surveyed = { surveyed = yes surveyor = prev }
 					}
 					add_claims = { who = prevprev num_of_claims = 10 show_notification = no }
