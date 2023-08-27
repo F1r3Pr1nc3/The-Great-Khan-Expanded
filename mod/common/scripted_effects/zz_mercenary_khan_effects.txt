@@ -812,23 +812,25 @@ commit_system_to = {
 		limit = {
 			has_owner = yes
 			is_capital_system = no
-			exists = starbase
-			NAND = {
-				exists = space_owner
-				space_owner = { is_same_empire = $EMPIRE$ }
-				space_owner = { is_ai = no }
+			exists = space_owner
+			space_owner = {
+				is_ai = yes
+				NOT = { is_same_empire = $EMPIRE$ }
 			}
 		}
 		set_timed_star_flag = { flag = switched_system days = 3 }
-		starbase = { set_owner = $EMPIRE$ }
 		every_system_colony = {
 			limit = {
 				has_ground_combat = no
 				is_occupied_flag = no
-				is_owned_by = prev.starbase.owner
+				is_owned_by = space_owner # prev.starbase.owner
 			}
 			set_owner = $EMPIRE$
 			set_controller = $EMPIRE$
+		}
+		if = {
+			limit = { exists = starbase }
+			starbase = { set_owner = $EMPIRE$ }
 		}
 		log="Balcanization preventation: Diadochi system \\[This.GetName] switched to \\[This.starbase.fleet.Owner.GetName]!"
 	}

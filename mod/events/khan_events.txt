@@ -2267,24 +2267,86 @@ system_event = {
 			# log = "--- Habitat build site chosen on planet \\[This.GetName], proceeding..."
 			prev = {
 				# Spawn marauder habitat
-				spawn_megastructure = {
-					type = "habitat_0"
-					planet = prev
-					owner = from # space_owner
-					graphical_culture = from # "mammalian_01"
-				}
+				# spawn_megastructure = { < v.3.9
+				# 	type = "habitat_0" major_orbital
+				# 	planet = prev
+				# 	owner = from # space_owner
+				# 	graphical_culture = from # "mammalian_01"
+				# }
 				# set_planet_entity = {
 				# 	entity = "habitat_phase_02_entity"
 				# 	graphical_culture = from
 				# }
-
+				spawn_planet = {
+					class = pc_habitat
+					location = prev
+					orbit_location = yes
+					orbit_angle_offset = 45
+					orbit_distance_offset = 9.899
+					size = 6
+					has_ring = no
+					init_effect = {
+						set_planet_flag = megastructure
+						set_planet_flag = habitat
+						set_planet_flag = habitat_level_1
+						set_planet_entity = {
+							entity = habitat_phase_03_entity
+							graphical_culture = from
+						}
+						set_surveyed = {
+							surveyed = yes
+							surveyor = from
+						}
+						set_all_comms_surveyed = yes
+						clear_blockers = yes
+						# if = {
+						# 	limit = {
+						# 		prev = {
+						# 			NOT = { has_star_flag = research_habitat_spawned }
+						# 		}
+						# 	}
+						# 	prev = { set_star_flag = research_habitat_spawned }
+						# 	add_deposit = d_hab_crystal_2
+						# 	add_modifier = {
+						# 		modifier = paradisiacal_habitat_science
+						# 	}
+						# }
+						# else_if = {
+						# 	limit = {
+						# 		prev = {
+						# 			NOT = { has_star_flag = mining_habitat_spawned }
+						# 		}
+						# 	}
+						# 	prev = { set_star_flag = mining_habitat_spawned }
+						# 	add_deposit = d_hab_alloy_4
+						# 	add_deposit = d_hab_mote_2
+						# 	add_modifier = {
+						# 		modifier = paradisiacal_habitat_mining
+						# 	}
+						# }
+						# else_if = {
+						# 	limit = {
+						# 		prev = {
+						# 			NOT = { has_star_flag = energy_habitat_spawned }
+						# 		}
+						# 	}
+						# 	prev = { set_star_flag = energy_habitat_spawned }
+						# 	add_deposit = d_hab_alloy_4
+						# 	add_deposit = d_hab_gas_2
+						# 	add_modifier = {
+						# 		modifier = paradisiacal_habitat_energy
+						# 	}
+						# }
+					}
+				}
+				set_star_flag = has_habitat
 				# set_star_flag = marauder_habitat_placed
 			}
 			# Populate marauder habitat
 			random_moon = {
 				limit = {
-					uses_district_set = habitat
-					# merg_is_habitat = yes
+					# uses_district_set = habitat
+					merg_is_habitat = yes
 					is_colony = no
 					is_colonizable = yes
 				}
@@ -2299,7 +2361,7 @@ system_event = {
 				# 	2 = { set_planet_flag = research_habitat }
 				# 	3 = { set_planet_flag = energy_habitat }
 				# }
-				change_planet_size = 2
+				# change_planet_size = 2
 				set_planet_flag = advanced_habitat
 
 				while = {
@@ -2344,6 +2406,7 @@ system_event = {
 					# ethos = random
 				}
 			}
+			set_planet_flag = has_megastructure
 		}
 		# Unknown "Unexpected token: country_event, near line: 3543
 		from = {

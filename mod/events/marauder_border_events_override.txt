@@ -513,38 +513,13 @@ country_event = {
 					}
 					every_owned_sector = {
 						limit = { has_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector }
-						every_owned_planet = {
-							limit = {
-								has_owner = yes
-								owner = {
-									is_ai = yes
-									NOT = { is_same_empire = event_target:diadochi_country }
-								}
-							}
-							solar_system = {
-								if = {
-									limit = {
-										has_owner = yes
-										owner = {
-											is_ai = yes
-											NOT = { is_same_empire = event_target:diadochi_country }
-										}
-										exists = starbase
-									}
-									starbase = { set_owner = event_target:diadochi_country }
-								}
-							}
-							set_owner = event_target:diadochi_country
-						}
 						every_system_within_border = { # Every other system, changing this gets weird, so just leave it cause it works fine
 							limit = {
-								has_owner = yes
-								owner = { is_ai = yes }
-								exists = starbase
-								starbase.owner = { NOT = { is_same_empire = event_target:diadochi_country } }
-
+								has_owner = yes # exists = space_owner
+								NOT = { is_owned_by = event_target:diadochi_country }
+								# space_owner = { is_ai = yes NOT = { is_same_empire = event_target:diadochi_country } }
 							}
-							starbase = { set_owner = event_target:diadochi_country }
+							commit_system_to = { EMPIRE = event_target:diadochi_country } # starbase = { set_owner = event_target:diadochi_country }
 						}
 					}
 				}
