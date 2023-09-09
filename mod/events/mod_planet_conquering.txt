@@ -35,7 +35,7 @@ country_event = {
 					limit = { is_primitive = yes }
 					subtract_variable = { which = newgen_calc2 value = 10 }
 				}
-				if = {
+				else_if = {
 					limit = {
 						has_federation = yes
 						is_federation_leader = yes
@@ -58,13 +58,13 @@ country_event = {
 							years_passed > 50
 						}
 						change_variable = { which = newgen_calc2 value = 5 }
-					}
-					if = {
-						limit = {
-							is_difficulty = 6
-							years_passed > 75
+						if = {
+							limit = {
+								is_difficulty = 6
+								years_passed > 75
+							}
+							change_variable = { which = newgen_calc2 value = 5 }
 						}
-						change_variable = { which = newgen_calc2 value = 5 }
 					}
 					if = {
 						limit = { years_passed > 100 }
@@ -142,13 +142,13 @@ country_event = {
 							years_passed > 50
 						}
 						change_variable = { which = newgen_calc2 value = 5 }
-					}
-					if = {
-						limit = {
-							is_difficulty = 6
-							years_passed > 75
+						if = {
+							limit = {
+								is_difficulty = 6
+								years_passed > 75
+							}
+							change_variable = { which = newgen_calc2 value = 5 }
 						}
-						change_variable = { which = newgen_calc2 value = 5 }
 					}
 					if = {
 						limit = { years_passed > 100 }
@@ -238,161 +238,38 @@ country_event = {
 			fromfrom = {
 				# MOD_SET_HAPPINES
 				set_variable = { which = was_happy value = 0 }
+
 				if = {
 					limit = { root = { is_gestalt = yes } }
+					export_trigger_value_to_variable = { trigger = planet_stability variable = tmp_planet_stability }
+
 					if = {
 						limit = { is_difficulty = 6 }
-						if = {
-							limit = { planet_stability > 97 }
-							change_variable = { which = was_happy value = 12 }
-						}
-						else_if = {
-							limit = { planet_stability > 95 }
-							change_variable = { which = was_happy value = 11 }
-						}
-						else_if = {
-							limit = { planet_stability > 93 }
-							change_variable = { which = was_happy value = 10 }
-						}
-						else_if = {
-							limit = { planet_stability > 91 }
-							change_variable = { which = was_happy value = 9 }
-						}
-						else_if = {
-							limit = { planet_stability > 89 }
-							change_variable = { which = was_happy value = 8 }
-						}
-						else_if = {
-							limit = { planet_stability > 87 }
-							change_variable = { which = was_happy value = 7 }
-						}
-						else_if = {
-							limit = { planet_stability > 85 }
-							change_variable = { which = was_happy value = 6 }
-						}
-						else_if = {
-							limit = { planet_stability > 83 }
-							change_variable = { which = was_happy value = 5 }
-						}
-						else_if = {
-							limit = { planet_stability > 81 }
-							change_variable = { which = was_happy value = 4 }
-						}
-						else_if = {
-							limit = { planet_stability > 79 }
-							change_variable = { which = was_happy value = 3 }
-						}
-						else_if = {
-							limit = { planet_stability > 77 }
-							change_variable = { which = was_happy value = 2 }
-						}
-						else_if = {
-							limit = { planet_stability > 75 }
-							change_variable = { which = was_happy value = 1 }
-						}
+						subtract_variable = { which = tmp_planet_stability value = 75 }
 					}
 					else_if = {
 						limit = { is_difficulty = 5 }
-						if = {
-							limit = { planet_stability > 92 }
-							change_variable = { which = was_happy value = 12 }
-						}
-						else_if = {
-							limit = { planet_stability > 90 }
-							change_variable = { which = was_happy value = 11 }
-						}
-						else_if = {
-							limit = { planet_stability > 88 }
-							change_variable = { which = was_happy value = 10 }
-						}
-						else_if = {
-							limit = { planet_stability > 86 }
-							change_variable = { which = was_happy value = 9 }
-						}
-						else_if = {
-							limit = { planet_stability > 84 }
-							change_variable = { which = was_happy value = 8 }
-						}
-						else_if = {
-							limit = { planet_stability > 82 }
-							change_variable = { which = was_happy value = 7 }
-						}
-						else_if = {
-							limit = { planet_stability > 80 }
-							change_variable = { which = was_happy value = 6 }
-						}
-						else_if = {
-							limit = { planet_stability > 78 }
-							change_variable = { which = was_happy value = 5 }
-						}
-						else_if = {
-							limit = { planet_stability > 76 }
-							change_variable = { which = was_happy value = 4 }
-						}
-						else_if = {
-							limit = { planet_stability > 74 }
-							change_variable = { which = was_happy value = 3 }
-						}
-						else_if = {
-							limit = { planet_stability > 72 }
-							change_variable = { which = was_happy value = 2 }
-						}
-						else_if = {
-							limit = { planet_stability > 70 }
-							change_variable = { which = was_happy value = 1 }
-						}
+						subtract_variable = { which = tmp_planet_stability value = 70 }
 					}
 					else_if = {
 						limit = { is_difficulty = 4 }
-						if = {
-							limit = { planet_stability > 87 }
-							change_variable = { which = was_happy value = 12 }
-						}
-						else_if = {
-							limit = { planet_stability > 85 }
-							change_variable = { which = was_happy value = 11 }
-						}
-						else_if = {
-							limit = { planet_stability > 83 }
-							change_variable = { which = was_happy value = 10 }
-						}
-						else_if = {
-							limit = { planet_stability > 81 }
-							change_variable = { which = was_happy value = 9 }
-						}
-						else_if = {
-							limit = { planet_stability > 79 }
-							change_variable = { which = was_happy value = 8 }
-						}
-						else_if = {
-							limit = { planet_stability > 77 }
-							change_variable = { which = was_happy value = 7 }
-						}
-						else_if = {
-							limit = { planet_stability > 75 }
-							change_variable = { which = was_happy value = 6 }
-						}
-						else_if = {
-							limit = { planet_stability > 73 }
-							change_variable = { which = was_happy value = 5 }
-						}
-						else_if = {
-							limit = { planet_stability > 71 }
-							change_variable = { which = was_happy value = 4 }
-						}
-						else_if = {
-							limit = { planet_stability > 69 }
-							change_variable = { which = was_happy value = 3 }
-						}
-						else_if = {
-							limit = { planet_stability > 67 }
-							change_variable = { which = was_happy value = 2 }
-						}
-						else_if = {
-							limit = { planet_stability > 65 }
-							change_variable = { which = was_happy value = 1 }
-						}
+						subtract_variable = { which = tmp_planet_stability value = 64 }
 					}
+					# else = {
+					# 	subtract_variable = { which = tmp_planet_stability value = 50 }
+					# }
+
+					if = {
+						limit = { check_variable = { which = tmp_planet_stability value > 0 } } # min
+						divide_variable = { which = tmp_planet_stability value = 2 }
+						ceiling_variable = tmp_planet_stability
+						if = {
+							limit = { check_variable = { which = tmp_planet_stability value > 12 } }
+							set_variable = { which = tmp_planet_stability value = 12 } # max
+						}
+						change_variable = { which = was_happy value = tmp_planet_stability }
+					}
+					clear_variable = tmp_planet_stability
 					# TODO?
 					# if = {
 					# 	limit = { root = { has_modifier = newgen_infected_by_virus_3 } }
@@ -538,7 +415,7 @@ country_event = {
 						limit = {
 							pop_percentage = {
 								limit = { happiness > 0.79 }
-								percentage > 0.7
+								percentage > 0.07
 							}
 						}
 						change_variable = { which = was_happy value = 1 }
@@ -795,52 +672,23 @@ country_event = {
 				}
 				if = {
 					limit = {
-						root = { has_ethic = ethic_fanatic_militarist }
-					}
-					change_variable = { which = was_happy value = 2 }
-				}
-				if = {
-					limit = {
 						root = { has_ethic = ethic_militarist }
 					}
 					change_variable = { which = was_happy value = 1 }
 				}
-				if = {
-					limit = { planet_devastation > 90 }
-					change_variable = { which = was_happy value = 9 }
-				}
 				else_if = {
-					limit = { planet_devastation > 80 }
-					change_variable = { which = was_happy value = 8 }
-				}
-				else_if = {
-					limit = { planet_devastation > 70 }
-					change_variable = { which = was_happy value = 7 }
-				}
-				else_if = {
-					limit = { planet_devastation > 60 }
-					change_variable = { which = was_happy value = 6 }
-				}
-				else_if = {
-					limit = { planet_devastation > 50 }
-					change_variable = { which = was_happy value = 5 }
-				}
-				else_if = {
-					limit = { planet_devastation > 40 }
-					change_variable = { which = was_happy value = 4 }
-				}
-				else_if = {
-					limit = { planet_devastation > 30 }
-					change_variable = { which = was_happy value = 3 }
-				}
-				else_if = {
-					limit = { planet_devastation > 20 }
+					limit = {
+						root = { has_ethic = ethic_fanatic_militarist }
+					}
 					change_variable = { which = was_happy value = 2 }
 				}
-				else_if = {
-					limit = { planet_devastation > 10 }
-					change_variable = { which = was_happy value = 1 }
-				}
+
+				export_trigger_value_to_variable = { trigger = planet_devastation variable = tmp_planet_devastation }
+				multiply_variable = { which = tmp_planet_devastation value = 0.1 }
+				floor_variable = tmp_planet_devastation
+				change_variable = { which = was_happy value = tmp_planet_devastation }
+				clear_variable = tmp_planet_devastation
+
 				if = {
 					limit = {
 						root = { is_gestalt = yes }
@@ -849,27 +697,21 @@ country_event = {
 				}
 				if = {
 					limit = {
-						is_difficulty = 4
 						root = { is_ai = yes }
 						check_variable = { which = was_happy value > 0 }
 					}
-					change_variable = { which = was_happy value = 1 }
-				}
-				else_if = {
-					limit = {
-						is_difficulty = 5
-						root = { is_ai = yes }
-						check_variable = { which = was_happy value > 0 }
+					if = {
+						limit = { is_difficulty = 4 }
+						change_variable = { which = was_happy value = 1 }
 					}
-					change_variable = { which = was_happy value = 2 }
-				}
-				else_if = {
-					limit = {
-						is_difficulty = 6
-						root = { is_ai = yes }
-						check_variable = { which = was_happy value > 0 }
+					else_if = {
+						limit = { is_difficulty = 5 }
+						change_variable = { which = was_happy value = 2 }
 					}
-					change_variable = { which = was_happy value = 3 }
+					else_if = {
+						limit = { is_difficulty = 6 }
+						change_variable = { which = was_happy value = 3 }
+					}
 				}
 			}
 			if = {
@@ -1401,29 +1243,11 @@ planet_event = {
 				limit = {
 					from = { is_ai = yes }
 				}
-				if = {
-					limit = { num_pops < 10 }
-					change_variable = { which = newgen_num_garrisons value = 1 }
-				}
-				else_if = {
-					limit = { num_pops < 20 }
-					change_variable = { which = newgen_num_garrisons value = 2 }
-				}
-				else_if = {
-					limit = { num_pops < 30 }
-					change_variable = { which = newgen_num_garrisons value = 3 }
-				}
-				else_if = {
-					limit = { num_pops < 40 }
-					change_variable = { which = newgen_num_garrisons value = 4 }
-				}
-				else_if = {
-					limit = { num_pops < 50 }
-					change_variable = { which = newgen_num_garrisons value = 5 }
-				}
-				else = {
-					change_variable = { which = newgen_num_garrisons value = 6 }
-				}
+				export_trigger_value_to_variable = { trigger = num_pops variable = tmp_num_pops }
+				multiply_variable = { which = tmp_num_pops value = 0.1 }
+				floor_variable = tmp_num_pops
+				change_variable = { which = newgen_num_garrisons value = tmp_num_pops }
+				clear_variable = tmp_num_pops
 			}
 			if = {
 				limit = { check_variable = { which = newgen_num_garrisons value > 0 } }

@@ -84,9 +84,7 @@ system_event = {
 	id = khan.301
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {
-		exists = event_target:raider_khanate
-	}
+	trigger = { exists = event_target:raider_khanate }
 	immediate = {
 		if = {
 			limit = {
@@ -1075,8 +1073,7 @@ system_event = {
 				log="khan.310 starbase owned by \\[event_target:former_starbase_owner.GetName] or \\[Fromfrom.Owner.GetName]"
 			}
 			break = yes
-		}
-		else_if = {
+		} else_if = {
 			limit = {
 				NAND = {
 					exists = fromfrom
@@ -1092,8 +1089,7 @@ system_event = {
 					starbase_event = { id = khan.302 days = 20 } # workaround
 				}
 			}
-		}
-		else = {
+		} else = {
 			create_starbase = {
 				size = "starbase_citadel"
 				owner = event_target:former_starbase_owner
@@ -1106,9 +1102,7 @@ system_event = {
 		if = {
 			limit = {
 				exists = starbase
-				event_target:former_starbase_owner = {
-					is_subject_of_khan = no
-				}
+				event_target:former_starbase_owner = { is_subject_of_khan = no }
 			}
 			last_created_fleet = {
 				set_event_locked = yes
@@ -1301,8 +1295,16 @@ planet_event = {
 					leader_class = governor
 					NOT = { exists = planet }
 				}
-				# root.sector = { assign_leader = prev } replaced in v.3.8
-				root = { assign_leader = prev }
+				if = {
+					limit = {
+						exists = root.sector
+						exists = root.sector.sector_capital
+						NOT = { exists = root.sector.sector_capital.leader }
+					}
+					root.sector.sector_capital = { assign_leader = prev } # root.sector = { assign_leader = prev } replaced in v.3.8
+				} else = {
+					root = { assign_leader = prev }
+				}
 			}
 		}
 	}
@@ -1515,8 +1517,7 @@ country_event = {
 					}
 				}
 				country_event = { id = marauder.604 days = 1 } # Old Ways
-			}
-			else = {
+			} else = {
 				every_owned_fleet = {
 					limit = {
 						OR = {
@@ -1533,9 +1534,7 @@ country_event = {
 				}
 				country_event = { id = marauder.602 days = 1 } # New Khanate
 			}
-		} else = {
-			destroy_country = yes
-		}
+		} else = { destroy_country = yes }
 
 		if = { limit = { exists = event_target:great_khan }
 			if = { limit = { exists = event_target:great_khan.fleet }
@@ -1962,9 +1961,7 @@ country_event = {
 				log = "DIADOCHI RECHECK MARAUDER SPECIES"
 				get_marauder_species = yes
 			}
-			1 = {
-				log="DIADOCHI OLD MARAUDER SPECIES"
-			}
+			1 = { log="DIADOCHI OLD MARAUDER SPECIES" }
 		}
 		if = {
 			limit = {
@@ -2273,10 +2270,6 @@ system_event = {
 				# 	owner = from # space_owner
 				# 	graphical_culture = from # "mammalian_01"
 				# }
-				# set_planet_entity = {
-				# 	entity = "habitat_phase_02_entity"
-				# 	graphical_culture = from
-				# }
 				spawn_planet = {
 					class = pc_habitat
 					location = prev
@@ -2290,14 +2283,11 @@ system_event = {
 						set_planet_flag = habitat
 						set_planet_flag = habitat_level_1
 						set_planet_entity = {
-							entity = habitat_phase_03_entity
+							entity = habitat_phase_02_entity
 							graphical_culture = from
 						}
-						set_surveyed = {
-							surveyed = yes
-							surveyor = from
-						}
-						set_all_comms_surveyed = yes
+						set_surveyed = { surveyed = yes surveyor = from }
+						# set_all_comms_surveyed = yes
 						clear_blockers = yes
 						# if = {
 						# 	limit = {
@@ -2380,7 +2370,7 @@ system_event = {
 				# add_building = building_factory_1			# 2
 				# add_building = building_hydroponics_farm	# 3
 				add_district = district_hab_housing
-				add_district = district_hab_cultural		# 3
+				# add_district = district_hab_cultural		# 3
 				if = { # 6 jobs
 					limit = { has_planet_flag = mining_habitat }
 					add_district = district_hab_mining
@@ -2391,9 +2381,10 @@ system_event = {
 				} else_if = { limit = { has_planet_flag = research_habitat }
 					add_district = district_hab_science
 					add_district = district_hab_science
-				} else = {
-					add_district = district_hab_commercial
-					add_district = district_hab_commercial
+				}
+				else = {
+					add_district = district_hab_industrial
+					add_district = district_hab_energy
 				}
 				from = {
 					change_variable = { which = marauder_habitat_count value = -1 }
