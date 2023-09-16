@@ -2873,7 +2873,7 @@ planet_event = {
 		if = {
 			limit = {
 				OR = {
-					merg_is_hab_ringworld = yes
+					is_ringworld = yes
 					merg_is_arcology = yes
 					is_planet_class = pc_relic
 					is_planet_class = pc_gaia
@@ -2965,20 +2965,20 @@ country_event = {
 				is_ai = yes
 				is_subject = no
 			}
-			if = {
-				limit = { exists = event_target:newgen_visitors_system1 } # mod exists
-				country_event = { id = mod_sacrfice_event.4 }
-			}
-			else = {
-				every_owned_pop = {
-					limit = { has_job = mortal_initiate }
-					reroll_random = yes
-					random_list = {
-						30 = { modifier = { factor = 3 pop_has_ethic = ethic_spiritualist } modifier = { factor = 5 pop_has_ethic = ethic_fanatic_spiritualist } }
-						60 = { kill_pop = yes }
-					}
+			# if = {
+			# 	limit = { exists = event_target:newgen_visitors_system1 } # mod exists
+			# 	country_event = { id = mod_sacrfice_event.4 }
+			# }
+			# else = {
+			every_owned_pop = {
+				limit = { has_job = mortal_initiate }
+				reroll_random = yes
+				random_list = {
+					30 = { modifier = { factor = 3 pop_has_ethic = ethic_spiritualist } modifier = { factor = 5 pop_has_ethic = ethic_fanatic_spiritualist } }
+					60 = { kill_pop = yes }
 				}
 			}
+			# }
 		}
 		set_variable = { which = newgen_temp_goal value = 0 }
 		if = {

@@ -50,7 +50,7 @@ has_total_war_cb = {
 	}
 }
 
-# Snyced with Merger
+# Sync with Merger
 planet_is_hostile_or_crisis = {
 	exists = owner
 	owner = {

@@ -47,7 +47,7 @@ country_event = {
 					background_ethic = "ethic_militarist"
 					skip_background_generation = yes
 					can_manually_change_location = no
-					can_see_in_list = no
+					hide_leader = yes
 					event_leader = yes
 					custom_description = "custom_mercenary_admiral_desc"
 					traits = {
@@ -159,7 +159,7 @@ country_event = {
 					background_ethic = "ethic_militarist"
 					skip_background_generation = yes
 					can_manually_change_location = no
-					can_see_in_list = no
+					hide_leader = yes
 					event_leader = yes
 					custom_description = "custom_mercenary_admiral_desc"
 					traits = {
@@ -525,7 +525,7 @@ country_event = {
 			background_ethic = "ethic_militarist"
 			skip_background_generation = yes
 			can_manually_change_location = no
-			can_see_in_list = no
+			hide_leader = yes
 			custom_description = "custom_mercenary_admiral_desc"
 			traits = { trait = leader_trait_mercenary_warrior }
 		}
