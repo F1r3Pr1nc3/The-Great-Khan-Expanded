@@ -5002,7 +5002,7 @@ country_event = {
 				skill = 6
 				event_leader = yes
 				can_manually_change_location = no
-				can_see_in_list = yes
+				# can_see_in_list = no
 				randomize_traits = no
 				# traits are cleared only (vanilla bug?)
 				# traits = {

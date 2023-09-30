@@ -29,11 +29,11 @@ event = {
 					event_target:CmtGlobalVar = { is_variable_set = CmtVarFleetPower_Khan }
 				}
 			}
-			# if = { limit = { NOT = { exists = event_target:global_event_country } }
-			# 	random_country = { limit = { is_country_type = global_event }
-			# 		save_global_event_target_as = global_event_country
-			# 	}
-			# }
+			if = { limit = { NOT = { exists = event_target:global_event_country } }
+				random_country = { limit = { is_country_type = global_event }
+					save_global_event_target_as = global_event_country
+				}
+			}
 			event_target:global_event_country = {
 				set_variable = { which = CmtVarKhanMultiple value = 2 }
 				set_variable = { which = CmtVarKhanInterval value = 0 }
@@ -282,7 +282,10 @@ starbase_event = {
 			set_starbase_building = { slot = 2 building = "resource_silo" }
 		}
 		if = {
-			limit = { has_starbase_size > starbase_starfortress }
+			limit = {
+				has_starbase_size > starbase_starfortress
+				count_starbase_modules = { include_being_constructed = yes count < 6 }
+			}
 			if = {
 				limit = {
 					count_starbase_modules = { count < 4 include_being_constructed = yes }
@@ -339,8 +342,7 @@ starbase_event = {
 }
 
 # Deprecated / Legacy (replaced by effect)
-# Get marauder_species
-# country_event = { id = khan.303
+# country_event = { id = khan.303 # Get marauder_species
 
 # Marauder System Liberated - on_disabled Marauder starbase (HIDDEN)
 # This = Ship
@@ -352,9 +354,12 @@ ship_event = {
 	trigger = {
 		is_scope_valid = yes
 		exists = owner
-		owner = { is_country_type = awakened_marauders }
 		exists = from
-		is_ship_class = shipclass_starbase
+		owner = { is_country_type = awakened_marauders }
+		OR = {
+			is_ship_class = shipclass_starbase
+			is_ship_class = shipclass_habitat_station # v.3.9
+		}
 		# NOT = {
 		# 	is_ship_size = starbase_marauder
 			# solar_system = {
@@ -510,7 +515,10 @@ ship_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		is_ship_class = shipclass_starbase
+		OR = {
+			is_ship_class = shipclass_starbase
+			is_ship_class = shipclass_habitat_station # v.3.9
+		}
 		has_global_flag = marauder_crisis_ongoing
 		exists = event_target:raider_khanate
 		NOR = {
@@ -519,6 +527,7 @@ ship_event = {
 				any_fleet_in_system = {
 					is_owned_by = root.owner
 					NOT = { is_same_value = root.fleet }
+					is_disabled = no
 				}
 				# any_fleet_in_system = {
 				# 	NOT = { is_owned_by = root.owner }
@@ -540,6 +549,7 @@ ship_event = {
 						is_mobile = yes
 						NOT = { is_owned_by = root.owner }
 						owner = { is_hostile = root.owner }
+						is_disabled = no
 					}
 				}
 			}
@@ -552,6 +562,7 @@ ship_event = {
 								exists = owner
 								is_civilian = no
 								is_mobile = yes
+								is_disabled = no
 								owner = {
 									NOT = { is_same_empire = root.owner }
 									is_hostile = root.owner

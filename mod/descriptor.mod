@@ -1,4 +1,4 @@
-version="2.6.9b"
+version="2.7.1"
 tags={
 	"Events"
 	"Crisis"
