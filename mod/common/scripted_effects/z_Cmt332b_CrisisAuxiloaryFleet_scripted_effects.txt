@@ -32,20 +32,8 @@ CmtEffectCreateFleet_KhanArmy = {
 				limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarWhileControlShip value > 0.125 } } }
 				event_target:CmtGlobalVar = { change_variable = { which = CmtVarWhileControlShip value = -0.25 } }
 				random_list = {
-					4 = {
-						while = { count = 4 CmtEffectCreateShip_KhanArmy = { TYPE = "gene_warrior_army" } }
-						modifier = {
-							factor = 0
-							prev = { NOT = { has_technology = tech_gene_seed_purification } }
-						}
-					}
-					3 = {
-						while = { count = 4 CmtEffectCreateShip_KhanArmy = { TYPE = "psionic_army" } }
-						modifier = {
-							factor = 0
-							prev = { NOT = { has_technology = tech_telepathy } }
-						}
-					}
+					4 = { while = { count = 4 CmtEffectCreateShip_KhanArmy = { TYPE = "gene_warrior_army" } } modifier = { factor = 0 prev = { NOT = { has_technology = tech_gene_seed_purification } } } }
+					3 = { while = { count = 4 CmtEffectCreateShip_KhanArmy = { TYPE = "psionic_army" } } modifier = { factor = 0 prev = { NOT = { has_technology = tech_telepathy } } } }
 					2 = {
 						while = { count = 6 CmtEffectCreateShip_KhanArmy = { TYPE = "clone_army" } }
 						modifier = {
@@ -76,9 +64,7 @@ CmtEffectCreateFleet_KhanArmy = {
 							}
 						}
 					}
-					1 = {
-						while = { count = 5 CmtEffectCreateShip_KhanArmy = yes }
-					}
+					1 = { while = { count = 5 CmtEffectCreateShip_KhanArmy = yes } }
 				}
 			}
 			CmtFleetSetAuxParam_KhanAuxiliary = yes
@@ -96,11 +82,8 @@ CmtEffectCreateFleet_KhanArmy = {
 		limit = {
 			NOR = {
 				count_owned_leader = {
-					count > 10
-					limit = {
-						leader_class = general
-						# is_event_leader = no
-					}
+					count > 9
+					limit = { leader_class = general }
 				}
 				any_owned_leader = {
 					leader_class = general
@@ -119,9 +102,7 @@ CmtEffectCreateFleet_KhanArmy = {
 			skill = 3
 			leader_age_min = 25
 			leader_age_max = 45
-			traits = {
-				trait = leader_trait_mercenary_warrior
-			}
+			traits = { trait = leader_trait_mercenary_warrior }
 			background_ethic = "ethic_fanatic_militarist"
 			skip_background_generation = yes
 			custom_description = "custom_mercenary_admiral_desc"
@@ -169,8 +150,7 @@ CmtEffectCreateShip_KhanConstructor = {
 				# effect = { CmtEffectFasterKhanConstructor = yes }
 			}
 			CmtFleetSetAuxParam_KhanAuxiliary = yes
-			random = {
-				chance = 50
+			random = { chance = 50
 				set_fleet_stance = evasive # AI does not handle this well too.
 			}
 		}

@@ -1,0 +1,72 @@
+civic_anarcho_tribalism = {
+	modification = no
+	icon = "gfx/interface/icons/governments/civics/civic_warrior_culture.dds"
+	potential = {
+		country_type = { value = dormant_marauders }
+	}
+	random_weight = { base = @civic_default_random_weight }
+	modifier = { ship_speed_mult = 0.2 }
+}
+
+civic_great_khans_vision = {
+	modification = no
+	icon = "gfx/interface/icons/governments/civics/civic_warrior_culture.dds"
+	# description = origin_no_effect
+	potential = {
+		country_type = { value = awakened_marauders }
+	}
+	random_weight = { base = @civic_default_random_weight }
+	modifier = {
+		ship_speed_mult = 0.1
+		edicts_cost_mult = -0.1
+		army_damage_mult = 0.1
+		planet_jobs_slave_produces_mult = 0.1
+		planet_jobs_worker_produces_mult = 0.1
+		country_government_civic_points_add = 1
+		pop_government_ethic_attraction = 0.2
+		planet_stability_add = 10
+		country_naval_cap_mult = 0.2
+	}
+}
+
+origin_khan_successor = {
+	is_origin = yes
+	icon = "gfx/interface/icons/origins/origins_khan_successor.dds"
+	playable = {
+		always = no		# Non-player origin
+	}
+	possible = {  }
+	modifier = {
+		# planet_pops_consumer_goods_upkeep_mult = -0.1
+		# army_damage_mult = 0.1
+		country_naval_cap_mult = 0.1
+		ship_home_territory_fire_rate_mult = 0.1
+		shipclass_starbase_damage_mult = 0.1
+		shipclass_starbase_hull_mult = 0.2
+		starbase_shipyard_build_cost_mult = -0.1
+	}
+	# description = origin_no_effect
+	description = allow_raiding
+	random_weight = { base = 0 }
+}
+
+civic_diadochi = {
+	modification = no
+	icon = "gfx/interface/icons/governments/civics/civic_warrior_culture.dds"
+	description = origin_no_effect
+	potential = {
+		origin = { value = origin_khan_successor }
+	}
+	random_weight = { base = 0 }
+	modifier = { country_naval_cap_mult = 0.15 ship_speed_mult = 0.1 }
+}
+
+civic_great_khans_legacy = {
+	modification = no
+	icon = "gfx/interface/icons/governments/civics/civic_warrior_culture.dds"
+	potential = {
+		origin = { value = origin_khan_successor }
+	}
+	random_weight = { base = 0 }
+	modifier = { ship_fire_rate_mult = 0.1 ship_speed_mult = 0.1 }
+}

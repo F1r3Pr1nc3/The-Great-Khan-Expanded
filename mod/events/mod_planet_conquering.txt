@@ -1621,7 +1621,7 @@ country_event = {
 					prev = {
 						every_owned_leader = {
 							limit = {
-								species = { is_same_value = owner_main_species }
+								species = { is_same_species = owner_main_species }
 							}
 							add_experience = 200
 						}
@@ -1632,7 +1632,7 @@ country_event = {
 					prev = {
 						every_owned_leader = {
 							limit = {
-								species = { is_same_value = owner_main_species }
+								species = { is_same_species = owner_main_species }
 							}
 							add_experience = 100
 						}
@@ -2873,7 +2873,7 @@ planet_event = {
 		if = {
 			limit = {
 				OR = {
-					is_ringworld = yes
+					has_ringworld_output_boost = yes
 					merg_is_arcology = yes
 					is_planet_class = pc_relic
 					is_planet_class = pc_gaia

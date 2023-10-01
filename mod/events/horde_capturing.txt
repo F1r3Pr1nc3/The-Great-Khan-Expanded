@@ -8,10 +8,7 @@ country_event = {
 	id = mod_horde_capturing.1
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {
-		is_country_type = awakened_marauders
-		is_difficulty > 2
-	}
+	trigger = { is_country_type = awakened_marauders is_difficulty > 2 }
 	immediate = {
 		from = {
 			every_system_colony = {
@@ -29,9 +26,7 @@ country_event = {
 				root = {
 					change_variable = { which = horde_planet_captured value = 1 }
 					if = {
-						limit = {
-							check_variable = { which = horde_planet_captured value > 9 }
-						}
+						limit = { check_variable = { which = horde_planet_captured value > 9 } }
 						set_variable = { which = horde_planet_captured value = 9 }
 					}
 				}
@@ -70,9 +65,7 @@ country_event = {
 				# sum
 				subtract_variable = { which = temp_size value = root.horde_planet_captured }
 				if = {
-					limit = {
-						check_variable = { which = temp_size value < 2 }
-					}
+					limit = { check_variable = { which = temp_size value < 2 } }
 					set_variable = { which = temp_size value = 2 }
 				}
 				subtract_variable = { which = temp_size value = 1 }
@@ -95,8 +88,7 @@ country_event = {
 						type = "basic_horde"
 						effect = { assign_leader = last_created_leader }
 					}
-					while = {
-						count = temp_size
+					while = { count = temp_size
 						create_army = {
 							owner = root
 							name = NAME_Horde_ground_troops
@@ -124,8 +116,7 @@ country_event = {
 						type = "admiral_horde"
 						effect = { assign_leader = last_created_leader }
 					}
-					while = {
-						count = temp_size
+					while = { count = temp_size
 						create_army = {
 							owner = root
 							name = NAME_Horde_ground_troops
@@ -152,8 +143,7 @@ country_event = {
 						type = "gros_horde"
 						effect = { assign_leader = last_created_leader }
 					}
-					while = {
-						count = temp_size
+					while = { count = temp_size
 						create_army = {
 							owner = root
 							name = NAME_Horde_ground_troops
@@ -217,21 +207,15 @@ planet_event = {
 		owner = {
 			set_variable = { which = temp_var_horde value = root.temp_size }
 			if = {
-				limit = {
-					check_variable = { which = horde_planet_captured value > 8 }
-				}
+				limit = { check_variable = { which = horde_planet_captured value > 8 } }
 				subtract_variable = { which = temp_var_horde value = 3 }
 			}
 			else_if = {
-				limit = {
-					check_variable = { which = horde_planet_captured value > 5 }
-				}
+				limit = { check_variable = { which = horde_planet_captured value > 5 } }
 				subtract_variable = { which = temp_var_horde value = 2 }
 			}
 			else_if = {
-				limit = {
-					check_variable = { which = horde_planet_captured value > 2 }
-				}
+				limit = { check_variable = { which = horde_planet_captured value > 2 } }
 				subtract_variable = { which = temp_var_horde value = 1 }
 			}
 		}
@@ -239,8 +223,7 @@ planet_event = {
 		owner = { clear_variable = temp_var_horde }
 		if = {
 			limit = { is_difficulty < 5 }
-			while = {
-				count = temp_size
+			while = { count = temp_size
 				create_army = {
 					owner = root.owner
 					name = NAME_Elite_horde_squad
@@ -251,8 +234,7 @@ planet_event = {
 		}
 		else_if = {
 			limit = { is_difficulty = 5 }
-			while = {
-				count = temp_size
+			while = { count = temp_size
 				create_army = {
 					owner = root.owner
 					name = NAME_Elite_horde_squad
@@ -262,8 +244,7 @@ planet_event = {
 			}
 		}
 		else = {
-			while = {
-				count = temp_size
+			while = { count = temp_size
 				create_army = {
 					owner = root.owner
 					name = NAME_Elite_horde_squad
@@ -315,16 +296,11 @@ country_event = {
 	id = mod_horde_capturing.4
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {
-		is_country_type = awakened_marauders
-		is_difficulty > 2
-	}
+	trigger = { is_country_type = awakened_marauders is_difficulty > 2 }
 	immediate = {
 		subtract_variable = { which = horde_planet_captured value = 1 }
 		if = {
-			limit = {
-				check_variable = { which = horde_planet_captured value < 0 }
-			}
+			limit = { check_variable = { which = horde_planet_captured value < 0 } }
 			set_variable = { which = horde_planet_captured value = 0 }
 		}
 		fromfrom = {

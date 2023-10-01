@@ -5002,7 +5002,7 @@ country_event = {
 				skill = 6
 				event_leader = yes
 				can_manually_change_location = no
-				# can_see_in_list = no
+				# hide_leader = yes
 				randomize_traits = no
 				# traits are cleared only (vanilla bug?)
 				# traits = {
@@ -5093,25 +5093,25 @@ country_event = {
 			country_event = { id = marauder.78 days = 20 }
 			### Should not attack: the Khan is not that bad!
 			make_moderately_hostile = yes
-			# Addition to make_moderately_hostile
-			every_country = {
-				limit = {
-					merg_is_fallen_empire = yes
-					OR = {
-						is_hostile = prev
-						prev = { is_hostile = prev }
-					}
-				}
-				establish_communications_no_message = prev
-				root = {
-					set_faction_hostility = {
-						target = prev
-						set_hostile = no
-						set_neutral = yes
-						set_friendly = no
-					}
-				}
-			}
+			# FE Addition to make_moderately_hostile - should now handled in game rules
+			# every_country = {
+			# 	limit = {
+			# 		merg_is_fallen_empire = yes
+			# 		OR = {
+			# 			is_hostile = prev
+			# 			prev = { is_hostile = prev }
+			# 		}
+			# 	}
+			# 	establish_communications_no_message = prev
+			# 	root = {
+			# 		set_faction_hostility = {
+			# 			target = prev
+			# 			set_hostile = no
+			# 			set_neutral = yes
+			# 			set_friendly = no
+			# 		}
+			# 	}
+			# }
 		}
 		else = {
 			# Should not attack Enclaves
