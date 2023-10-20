@@ -31,7 +31,7 @@ preset_satrapy_scholarium_nice_01 = {
 		}
 		modifier = {
 			factor = 1.5
-			FROM = { is_specialist_subject_type = { TYPE = scholarium } }
+			from = { is_specialist_subject_type = { TYPE = scholarium } }
 		}
 		modifier = { add = @specialist_unaligned_ethics_value is_spiritualist = yes }
 	}
@@ -47,10 +47,10 @@ preset_satrapy_scholarium_nice_01 = {
 		# has_overlord_dlc = yes
 		NOR = {
 			has_civic = civic_inwards_perfection
-			FROM = { has_civic = civic_inwards_perfection }
+			from = { has_civic = civic_inwards_perfection }
 		}
 		OR = {
-			FROM = { has_origin = origin_khan_successor }
+			from = { has_origin = origin_khan_successor }
 			is_specialist_subject_type = { TYPE = scholarium }
 			has_country_flag = specialistion_subject_conversion_flag
 			tech_unlocked_ratio = { who = from ratio >= @protectorate_tech_threshold }
@@ -90,7 +90,7 @@ preset_satrapy_scholarium_nice_02 = {
 		}
 		modifier = {
 			factor = 1.5
-			FROM = { is_specialist_subject_type = { TYPE = scholarium } }
+			from = { is_specialist_subject_type = { TYPE = scholarium } }
 		}
 		modifier = { add = @specialist_unaligned_ethics_value is_spiritualist = yes }
 	}
@@ -106,10 +106,10 @@ preset_satrapy_scholarium_nice_02 = {
 		# has_overlord_dlc = yes
 		NOR = {
 			has_civic = civic_inwards_perfection
-			FROM = { has_civic = civic_inwards_perfection }
+			from = { has_civic = civic_inwards_perfection }
 		}
 		OR = {
-			FROM = { has_origin = origin_khan_successor }
+			from = { has_origin = origin_khan_successor }
 			is_specialist_subject_type = { TYPE = scholarium }
 			has_country_flag = specialistion_subject_conversion_flag
 			tech_unlocked_ratio = { who = from ratio >= @protectorate_tech_threshold }
@@ -148,7 +148,7 @@ preset_satrapy_scholarium_mean_01 = {
 		}
 		modifier = {
 			factor = 1.5
-			FROM = { is_specialist_subject_type = { TYPE = scholarium } }
+			from = { is_specialist_subject_type = { TYPE = scholarium } }
 		}
 		modifier = { add = @specialist_unaligned_ethics_value is_spiritualist = yes }
 	}
@@ -164,10 +164,10 @@ preset_satrapy_scholarium_mean_01 = {
 		# has_overlord_dlc = yes
 		NOR = {
 			has_civic = civic_inwards_perfection
-			FROM = { has_civic = civic_inwards_perfection }
+			from = { has_civic = civic_inwards_perfection }
 		}
 		OR = {
-			FROM = { has_origin = origin_khan_successor }
+			from = { has_origin = origin_khan_successor }
 			is_specialist_subject_type = { TYPE = scholarium }
 			has_country_flag = specialistion_subject_conversion_flag
 			tech_unlocked_ratio = { who = from ratio >= @protectorate_tech_threshold }
@@ -206,7 +206,7 @@ preset_satrapy_scholarium_mean_02 = {
 		}
 		modifier = {
 			factor = 1.5
-			FROM = { is_specialist_subject_type = { TYPE = scholarium } }
+			from = { is_specialist_subject_type = { TYPE = scholarium } }
 		}
 		modifier = { add = @specialist_unaligned_ethics_value is_spiritualist = yes }
 	}
@@ -222,10 +222,10 @@ preset_satrapy_scholarium_mean_02 = {
 		# has_overlord_dlc = yes
 		NOR = {
 			has_civic = civic_inwards_perfection
-			FROM = { has_civic = civic_inwards_perfection }
+			from = { has_civic = civic_inwards_perfection }
 		}
 		OR = {
-			FROM = { has_origin = origin_khan_successor }
+			from = { has_origin = origin_khan_successor }
 			is_specialist_subject_type = { TYPE = scholarium }
 			has_country_flag = specialistion_subject_conversion_flag
 			tech_unlocked_ratio = { who = from ratio >= @protectorate_tech_threshold }
@@ -264,7 +264,7 @@ preset_satrapy_scholarium_mean_03 = {
 		}
 		modifier = {
 			factor = 1.5
-			FROM = { is_specialist_subject_type = { TYPE = scholarium } }
+			from = { is_specialist_subject_type = { TYPE = scholarium } }
 		}
 		modifier = { add = @specialist_unaligned_ethics_value is_spiritualist = yes }
 	}
@@ -279,10 +279,10 @@ preset_satrapy_scholarium_mean_03 = {
 		# has_overlord_dlc = yes
 		NOR = {
 			has_civic = civic_inwards_perfection
-			FROM = { has_civic = civic_inwards_perfection }
+			from = { has_civic = civic_inwards_perfection }
 		}
 		OR = {
-			FROM = { has_origin = origin_khan_successor }
+			from = { has_origin = origin_khan_successor }
 			is_specialist_subject_type = { TYPE = scholarium }
 			has_country_flag = specialistion_subject_conversion_flag
 			tech_unlocked_ratio = { who = from ratio >= @protectorate_tech_threshold }
@@ -318,7 +318,7 @@ preset_satrapy_prospectorium_nice_01 = {
 		}
 		modifier = {
 			factor = 1.5
-			FROM = { is_specialist_subject_type = { TYPE = prospectorium } }
+			from = { is_specialist_subject_type = { TYPE = prospectorium } }
 		}
 		modifier = { add = @specialist_unaligned_ethics_value is_militarist = yes }
 	}
@@ -333,10 +333,10 @@ preset_satrapy_prospectorium_nice_01 = {
 		# has_overlord_dlc = yes
 		NOR = {
 			has_civic = civic_inwards_perfection
-			FROM = { has_civic = civic_inwards_perfection }
+			from = { has_civic = civic_inwards_perfection }
 		}
 		OR = {
-			FROM = { has_origin = origin_khan_successor }
+			from = { has_origin = origin_khan_successor }
 			is_specialist_subject_type = { TYPE = prospectorium }
 			has_country_flag = specialistion_subject_conversion_flag
 			tech_unlocked_ratio = { who = from ratio >= @protectorate_tech_threshold }
@@ -376,7 +376,7 @@ preset_satrapy_prospectorium_nice_02 = {
 		}
 		modifier = {
 			factor = 1.5
-			FROM = { is_specialist_subject_type = { TYPE = prospectorium } }
+			from = { is_specialist_subject_type = { TYPE = prospectorium } }
 		}
 		modifier = { add = @specialist_unaligned_ethics_value is_militarist = yes }
 	}
@@ -391,10 +391,10 @@ preset_satrapy_prospectorium_nice_02 = {
 		# has_overlord_dlc = yes
 		NOR = {
 			has_civic = civic_inwards_perfection
-			FROM = { has_civic = civic_inwards_perfection }
+			from = { has_civic = civic_inwards_perfection }
 		}
 		OR = {
-			FROM = { has_origin = origin_khan_successor }
+			from = { has_origin = origin_khan_successor }
 			is_specialist_subject_type = { TYPE = prospectorium }
 			has_country_flag = specialistion_subject_conversion_flag
 			tech_unlocked_ratio = { who = from ratio >= @protectorate_tech_threshold }
@@ -434,7 +434,7 @@ preset_satrapy_prospectorium_mean_01 = {
 		}
 		modifier = {
 			factor = 1.5
-			FROM = { is_specialist_subject_type = { TYPE = prospectorium } }
+			from = { is_specialist_subject_type = { TYPE = prospectorium } }
 		}
 		modifier = { add = @specialist_unaligned_ethics_value is_militarist = yes }
 	}
@@ -449,10 +449,10 @@ preset_satrapy_prospectorium_mean_01 = {
 		# has_overlord_dlc = yes
 		NOR = {
 			has_civic = civic_inwards_perfection
-			FROM = { has_civic = civic_inwards_perfection }
+			from = { has_civic = civic_inwards_perfection }
 		}
 		OR = {
-			FROM = { has_origin = origin_khan_successor }
+			from = { has_origin = origin_khan_successor }
 			is_specialist_subject_type = { TYPE = prospectorium }
 			has_country_flag = specialistion_subject_conversion_flag
 			tech_unlocked_ratio = { who = from ratio >= @protectorate_tech_threshold }
@@ -493,7 +493,7 @@ preset_satrapy_prospectorium_mean_02 = {
 		}
 		modifier = {
 			factor = 1.5
-			FROM = { is_specialist_subject_type = { TYPE = prospectorium } }
+			from = { is_specialist_subject_type = { TYPE = prospectorium } }
 		}
 		modifier = { add = @specialist_unaligned_ethics_value is_militarist = yes }
 	}
@@ -508,10 +508,10 @@ preset_satrapy_prospectorium_mean_02 = {
 		# has_overlord_dlc = yes
 		NOR = {
 			has_civic = civic_inwards_perfection
-			FROM = { has_civic = civic_inwards_perfection }
+			from = { has_civic = civic_inwards_perfection }
 		}
 		OR = {
-			FROM = { has_origin = origin_khan_successor }
+			from = { has_origin = origin_khan_successor }
 			is_specialist_subject_type = { TYPE = prospectorium }
 			has_country_flag = specialistion_subject_conversion_flag
 			tech_unlocked_ratio = { who = from ratio >= @protectorate_tech_threshold }
@@ -552,7 +552,7 @@ preset_satrapy_prospectorium_mean_03 = {
 		}
 		modifier = {
 			factor = 1.5
-			FROM = { is_specialist_subject_type = { TYPE = prospectorium } }
+			from = { is_specialist_subject_type = { TYPE = prospectorium } }
 		}
 		modifier = { add = @specialist_unaligned_ethics_value is_militarist = yes }
 	}
@@ -567,10 +567,10 @@ preset_satrapy_prospectorium_mean_03 = {
 		# has_overlord_dlc = yes
 		NOR = {
 			has_civic = civic_inwards_perfection
-			FROM = { has_civic = civic_inwards_perfection }
+			from = { has_civic = civic_inwards_perfection }
 		}
 		OR = {
-			FROM = { has_origin = origin_khan_successor }
+			from = { has_origin = origin_khan_successor }
 			is_specialist_subject_type = { TYPE = prospectorium }
 			has_country_flag = specialistion_subject_conversion_flag
 			tech_unlocked_ratio = { who = from ratio >= @protectorate_tech_threshold }
@@ -606,7 +606,7 @@ preset_satrapy_bulwark_nice_01 = {
 		}
 		modifier = {
 			factor = 1.5
-			FROM = { is_specialist_subject_type = { TYPE = bulwark } }
+			from = { is_specialist_subject_type = { TYPE = bulwark } }
 		}
 		modifier = { factor = 1.2 num_rivals > 0 }
 		modifier = { add = @specialist_unaligned_ethics_value is_pacifist = yes }
@@ -623,11 +623,11 @@ preset_satrapy_bulwark_nice_01 = {
 		# has_overlord_dlc = yes
 		NOR = {
 			has_civic = civic_inwards_perfection
-			FROM = { has_civic = civic_inwards_perfection }
+			from = { has_civic = civic_inwards_perfection }
 		}
 		is_militarist = yes
 		OR = {
-			FROM = { has_origin = origin_khan_successor }
+			from = { has_origin = origin_khan_successor }
 			is_specialist_subject_type = { TYPE = bulwark }
 			has_country_flag = specialistion_subject_conversion_flag
 			tech_unlocked_ratio = { who = from ratio < 0.8 }
@@ -667,7 +667,7 @@ preset_satrapy_bulwark_nice_02 = {
 		}
 		modifier = {
 			factor = 1.5
-			FROM = { is_specialist_subject_type = { TYPE = bulwark } }
+			from = { is_specialist_subject_type = { TYPE = bulwark } }
 		}
 		modifier = { factor = 1.2 num_rivals > 0 }
 		modifier = { add = @specialist_unaligned_ethics_value is_pacifist = yes }
@@ -684,11 +684,11 @@ preset_satrapy_bulwark_nice_02 = {
 		# has_overlord_dlc = yes
 		NOR = {
 			has_civic = civic_inwards_perfection
-			FROM = { has_civic = civic_inwards_perfection }
+			from = { has_civic = civic_inwards_perfection }
 		}
 		is_militarist = yes
 		OR = {
-			FROM = { has_origin = origin_khan_successor }
+			from = { has_origin = origin_khan_successor }
 			is_specialist_subject_type = { TYPE = bulwark }
 			has_country_flag = specialistion_subject_conversion_flag
 			tech_unlocked_ratio = { who = from ratio < 0.8 }
@@ -724,7 +724,7 @@ preset_satrapy_bulwark_mean_01 = {
 		}
 		modifier = {
 			factor = 1.5
-			FROM = { is_specialist_subject_type = { TYPE = bulwark } }
+			from = { is_specialist_subject_type = { TYPE = bulwark } }
 		}
 		modifier = { factor = 1.2 num_rivals > 0 }
 		modifier = { add = @specialist_unaligned_ethics_value is_pacifist = yes }
@@ -741,11 +741,11 @@ preset_satrapy_bulwark_mean_01 = {
 		# has_overlord_dlc = yes
 		NOR = {
 			has_civic = civic_inwards_perfection
-			FROM = { has_civic = civic_inwards_perfection }
+			from = { has_civic = civic_inwards_perfection }
 		}
 		is_militarist = yes
 		OR = {
-			FROM = { has_origin = origin_khan_successor }
+			from = { has_origin = origin_khan_successor }
 			is_specialist_subject_type = { TYPE = bulwark }
 			has_country_flag = specialistion_subject_conversion_flag
 			tech_unlocked_ratio = { who = from ratio < 0.8 }
@@ -781,7 +781,7 @@ preset_satrapy_bulwark_mean_02 = {
 		}
 		modifier = {
 			factor = 1.5
-			FROM = { is_specialist_subject_type = { TYPE = bulwark } }
+			from = { is_specialist_subject_type = { TYPE = bulwark } }
 		}
 		modifier = { factor = 1.2 num_rivals > 0 }
 		modifier = { add = @specialist_unaligned_ethics_value is_pacifist = yes }
@@ -798,11 +798,11 @@ preset_satrapy_bulwark_mean_02 = {
 		# has_overlord_dlc = yes
 		NOR = {
 			has_civic = civic_inwards_perfection
-			FROM = { has_civic = civic_inwards_perfection }
+			from = { has_civic = civic_inwards_perfection }
 		}
 		is_militarist = yes
 		OR = {
-			FROM = { has_origin = origin_khan_successor }
+			from = { has_origin = origin_khan_successor }
 			is_specialist_subject_type = { TYPE = bulwark }
 			has_country_flag = specialistion_subject_conversion_flag
 			tech_unlocked_ratio = { who = from ratio < 0.8 }
@@ -838,7 +838,7 @@ preset_satrapy_bulwark_mean_03 = {
 		}
 		modifier = {
 			factor = 1.5
-			FROM = { is_specialist_subject_type = { TYPE = bulwark } }
+			from = { is_specialist_subject_type = { TYPE = bulwark } }
 		}
 		modifier = { factor = 1.2 num_rivals > 0 }
 		modifier = { add = @specialist_unaligned_ethics_value is_pacifist = yes }
@@ -855,11 +855,11 @@ preset_satrapy_bulwark_mean_03 = {
 		# has_overlord_dlc = yes
 		NOR = {
 			has_civic = civic_inwards_perfection
-			FROM = { has_civic = civic_inwards_perfection }
+			from = { has_civic = civic_inwards_perfection }
 		}
 		is_militarist = yes
 		OR = {
-			FROM = { has_origin = origin_khan_successor }
+			from = { has_origin = origin_khan_successor }
 			is_specialist_subject_type = { TYPE = bulwark }
 			has_country_flag = specialistion_subject_conversion_flag
 			tech_unlocked_ratio = { who = from ratio < 0.8 }

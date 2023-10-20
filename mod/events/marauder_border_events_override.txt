@@ -84,7 +84,7 @@ country_event = {
 				limit = {
 					is_mobile = yes
 					is_civilian = no
-					exists = leader # somehow gets ignored sometimes (if juggernaut?)
+					exists = leader # Somehow gets ignored sometimes (if juggernaut?)
 					any_owned_ship = { is_ship_class = shipclass_military }
 				}
 				position = 1
@@ -191,7 +191,7 @@ country_event = {
 						log="Give system \\[Prev.GetName] back to \\[This.Owner.GetName]"
 						owner = { save_event_target_as = planet_owner }
 						prev = {
-							# commit_system_to = { EMPIRE = prevprev.planet_owner } # the target scope is solved there (so add 1 more prev)
+							# commit_system_to = { EMPIRE = prevprev.planet_owner } # The target scope is solved there (so add 1 more prev)
 							commit_system_to = { EMPIRE = event_target:planet_owner }
 							add_claims = { who = root num_of_claims = 1 show_notification = no }
 						}
@@ -625,7 +625,7 @@ country_event = {
 			set_country_flag = first_alien_life
 			set_country_flag = has_encountered_other_empire
 			set_timed_country_flag = { flag = ai_no_wars months = 1 }
-			set_name = root # change later
+			set_name = root # Change later
 			## ADD_KHAN_ETHICS
 			if = {
 				limit = { has_global_flag = cultural_overhaul_active }
@@ -794,12 +794,12 @@ country_event = {
 				}
 			}
 			random_list = {
-				66 = { # Fractures into Diadochi
+				66 = { # Fractures into Diadochi.
 					modifier = {
-						factor = 0  # Should not happen if Marauder is too small
+						factor = 0	# Should not happen if Marauders are too small
 						OR = {
-							num_sectors < 3
-							num_owned_planets < 8
+							AND = { num_sectors < 3 num_owned_planets < 10 }
+							num_owned_planets < 6
 							event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathSplinter value = 1 } }
 						}
 					}
@@ -812,14 +812,14 @@ country_event = {
 						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathSplinter value = 3 } }
 					}
 					modifier = { factor = 2 OR = { num_sectors > 4 num_owned_planets > 18 } }
-					# log="TGKE Fractures into Diadochi"
+					log="TGKE Fractures into Diadochi"
 					country_event = { id = marauder.601 }
 				}
 				18 = { # Stays united in New Khanate.
 					modifier = {
 						factor = 0
 						OR = {
-							num_sectors > 5
+							num_sectors > 4
 							event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathKhanate value = 1 } }
 						}
 					}
@@ -835,10 +835,10 @@ country_event = {
 						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathKhanate value = 4 } }
 					}
 					modifier = { factor = 0.2 OR = { num_sectors > 4 num_owned_planets > 15 } }
-					# log="TGKE Fractures into Diadochi"
+					log="TGKE Stays united in New Khanate"
 					country_event = { id = marauder.602 }
 				}
-				16 = { # Turns into Democratic Federation
+				16 = { # Turns into Democratic Federation.
 					modifier = {
 						factor = 0 # Can only happen if there are enough Satrapies.
 						OR = {
@@ -855,7 +855,7 @@ country_event = {
 						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathDemocratic value = 4 } }
 					}
 					modifier = { factor = 0.2 OR = { num_sectors > 4 num_owned_planets > 15 } }
-					# log="TGKE Turns into Democratic Federation"
+					log="TGKE Turns into Democratic Federation"
 					country_event = { id = marauder.603 }
 				}
 			}
@@ -863,7 +863,7 @@ country_event = {
 		else = {
 			random_list = {
 				66 = { # Fractures into Diadochi.
-					modifier = { factor = 0 num_sectors < 3 } # Should not happen if Marauder is too small
+					modifier = { factor = 0 num_sectors < 3 num_owned_planets < 10 }	# Should not happen if Marauders are too small
 					modifier = { factor = 2 OR = { num_sectors > 4 num_owned_planets > 18 } }
 					country_event = { id = marauder.601 }
 				}
@@ -892,7 +892,7 @@ country_event = {
 
 	immediate = {
 		set_update_modifiers_batch = begin
-		set_name = random # only after marauder.620
+		set_name = random # Only after marauder.620
 
 		every_playable_country = {
 			limit = {
@@ -1011,7 +1011,7 @@ country_event = {
 					}
 				}
 			}
-			while = { # clean up borders by giving rebels frontier territory they wouldnt otherwise get
+			while = { # Clean up borders by giving rebels frontier territory they wouldnt otherwise get
 				count = 50 # TODO make dyn!?
 				limit = {
 					any_system_within_border = {
@@ -1055,9 +1055,9 @@ country_event = {
 			}
 
 			## GET_DIADOCHI_IMMEDIATE_SETUP
-			# setting graphical culture
+			# Setting graphical culture
 			set_graphical_culture = event_target:first_diadochi
-			# establish comms
+			# Establish comms
 			every_country = {
 				limit = {
 					OR = {
@@ -1070,7 +1070,7 @@ country_event = {
 				}
 				establish_communications_no_message = event_target:diadochi_country
 			}
-			# clear new contact opinion modifier
+			# Clear new contact opinion modifier
 			if = {
 				limit = {
 					has_opinion_modifier = { who = event_target:first_diadochi modifier = opinion_new_contact }
@@ -1096,7 +1096,7 @@ country_event = {
 				set_variable = { which = num_pops value = trigger:num_pops }
 				save_event_target_as = planet_owner_2
 				## Prevent extreme balcanization
-				# potential system
+				# Potential system
 				# if = { # First simple level
 				while = { count = 4
 					limit = {

@@ -31,6 +31,7 @@ CmtEffectCreateFleet_KhanArmy = {
 			while = {
 				limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarWhileControlShip value > 0.125 } } }
 				event_target:CmtGlobalVar = { change_variable = { which = CmtVarWhileControlShip value = -0.25 } }
+				reroll_random = yes
 				random_list = {
 					4 = { while = { count = 4 CmtEffectCreateShip_KhanArmy = { TYPE = "gene_warrior_army" } } modifier = { factor = 0 prev = { NOT = { has_technology = tech_gene_seed_purification } } } }
 					3 = { while = { count = 4 CmtEffectCreateShip_KhanArmy = { TYPE = "psionic_army" } } modifier = { factor = 0 prev = { NOT = { has_technology = tech_telepathy } } } }

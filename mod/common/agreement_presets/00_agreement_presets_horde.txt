@@ -36,7 +36,7 @@ preset_machinesmith_satrapy = {
 		}
 		modifier = {
 			factor = 1.5
-			FROM = { is_specialist_subject_type = { TYPE = scholarium } }
+			from = { is_specialist_subject_type = { TYPE = scholarium } }
 		}
 	}
 
@@ -57,7 +57,7 @@ preset_machinesmith_satrapy = {
 			}
 		}
 		OR = {
-			FROM = { has_origin = origin_khan_successor }
+			from = { has_origin = origin_khan_successor }
 			is_specialist_subject_type = { TYPE = scholarium }
 			has_country_flag = specialistion_subject_conversion_flag
 			tech_unlocked_ratio = { who = from ratio >= @protectorate_tech_threshold }
@@ -97,7 +97,7 @@ preset_fabricator_satrapy = {
 		}
 		modifier = {
 			factor = 1.5
-			FROM = { is_specialist_subject_type = { TYPE = prospectorium } }
+			from = { is_specialist_subject_type = { TYPE = prospectorium } }
 		}
 	}
 
@@ -118,7 +118,7 @@ preset_fabricator_satrapy = {
 			}
 		}
 		OR = {
-			FROM = { has_origin = origin_khan_successor }
+			from = { has_origin = origin_khan_successor }
 			is_specialist_subject_type = { TYPE = prospectorium }
 			has_country_flag = specialistion_subject_conversion_flag
 			tech_unlocked_ratio = { who = from ratio >= @protectorate_tech_threshold }
@@ -158,7 +158,7 @@ preset_war_satrapy = {
 		}
 		modifier = {
 			factor = 1.5
-			FROM = { is_specialist_subject_type = { TYPE = bulwark } }
+			from = { is_specialist_subject_type = { TYPE = bulwark } }
 		}
 		modifier = { factor = 1.2 num_rivals > 0 }
 	}
@@ -181,7 +181,7 @@ preset_war_satrapy = {
 		NOT = { has_civic = civic_inwards_perfection }
 		is_militarist = yes
 		OR = {
-			FROM = { has_origin = origin_khan_successor }
+			from = { has_origin = origin_khan_successor }
 			is_specialist_subject_type = { TYPE = bulwark }
 			has_country_flag = specialistion_subject_conversion_flag
 			tech_unlocked_ratio = { who = from ratio < 0.8 }

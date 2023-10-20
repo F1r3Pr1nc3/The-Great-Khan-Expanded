@@ -13,12 +13,12 @@ country_event = {
 		from = {
 			every_system_colony = {
 				# limit = { }
-				# remove 1
+				# Remove 1
 				if = {
 					limit = { has_building = building_fortress }
 					remove_building = building_fortress
 				}
-				# remove 2
+				# Remove 2
 				if = {
 					limit = { has_building = building_fortress }
 					remove_building = building_fortress
@@ -30,7 +30,7 @@ country_event = {
 						set_variable = { which = horde_planet_captured value = 9 }
 					}
 				}
-				# check 1
+				# Check 1
 				if = {
 					limit = { num_pops < 14 }
 					set_variable = { which = temp_size value = 3 }
@@ -50,7 +50,7 @@ country_event = {
 				else = {
 					set_variable = { which = temp_size value = 7 }
 				}
-				# check 2
+				# Check 2
 				if = {
 					limit = { is_difficulty < 5 }
 					multiply_variable = { which = temp_size value = 2 }
@@ -298,9 +298,10 @@ country_event = {
 	is_triggered_only = yes
 	trigger = { is_country_type = awakened_marauders is_difficulty > 2 }
 	immediate = {
-		subtract_variable = { which = horde_planet_captured value = 1 }
 		if = {
-			limit = { check_variable = { which = horde_planet_captured value < 0 } }
+			limit = { check_variable = { which = horde_planet_captured value > 0 } }
+			subtract_variable = { which = horde_planet_captured value = 1 }
+		} else = {
 			set_variable = { which = horde_planet_captured value = 0 }
 		}
 		fromfrom = {

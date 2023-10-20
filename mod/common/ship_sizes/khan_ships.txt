@@ -19,7 +19,7 @@ npc_galleon_01 = {
 	collision_radius = 12 # 9
 	modifier = {
 		# ship_evasion_add = 35
-		ship_armor_add = 16000 # vanilla 0 # ariphaos 20000
+		ship_armor_add = 12000 # Vanilla 0 # Ariphaos 20000
 		ships_upkeep_mult = -1
 		ship_weapon_damage = 2
 		ship_shield_mult = 3
@@ -103,7 +103,7 @@ starbase_marauder = {
 		ship_tracking_add = 15
 		ship_accuracy_add = 15
 	}
-	max_hitpoints = 25000	# 20000 vanilla
+	max_hitpoints = 20000 # vanilla
 	base_buildtime = 730
 	combat_size_multiplier = 50
 	size_multiplier = -30 # 4

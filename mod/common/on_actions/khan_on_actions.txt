@@ -121,11 +121,11 @@ on_war_beginning = {
 # From = optional, destroyer (country)
 on_country_destroyed = {
 	events = {
-		marauder.609 # handover marauder
+		marauder.609 # Handover marauder
 	}
 }
 
-# You have changed the location of your capital. Also called when a country's capital is first set e.g. during galaxy creation (but then FROM is not set)
+# You have changed the location of your capital. Also called when a country's capital is first set e.g. During galaxy creation (but then FROM is not set)
 # this/root = new capital
 # from = old capital
 on_capital_changed = {
@@ -176,5 +176,23 @@ on_join_alliance = {
 on_leave_alliance = {
 	events = {
 		khan.1876		# sync_subjects_virtual_relation
+	}
+}
+# From = system
+# fromfrom = country (previous owner)
+# This = country (new owner)
+on_system_gained = {
+	events = {
+		mod_horde_capturing.1
+	}
+}
+
+# Triggers country_event for the defender upon defeat
+# This = country, planet owner
+# From = country, attack leader
+# fromfrom = planet
+on_planet_defenders_lose = {
+	events = {
+		mod_horde_capturing.4
 	}
 }

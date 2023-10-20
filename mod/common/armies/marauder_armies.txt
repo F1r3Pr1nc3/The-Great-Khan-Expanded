@@ -15,9 +15,7 @@ marauder_defense_army = {
 	potential_country = {
 		# CmtTriggerIsMarauder = yes
 		OR = {
-			is_pirate = yes
-			# is_country_type = dormant_marauders
-			# is_country_type = ruined_marauders
+			is_pirate_country = yes
 			is_country_type = awakened_marauders
 			is_country_type = marauder_raiders
 		}

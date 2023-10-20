@@ -12,11 +12,11 @@ madd_01 = {
 		intensity_far = 1
 		near_value = 700
 		far_value = 4000
-		rim_start_near = 0.3 # pirate is 0.2 # reptilian is 0.5
+		rim_start_near = 0.3 # Pirate is 0.2 # Reptilian is 0.5
 		rim_stop_near = 0.99
 		rim_start_far = 0.3
 		rim_stop_far = 0.99
 		ambient_near = 0.1
-		ambient_far = 10.0 # pirate is 1.0 # reptilian/mammalian is 20.0 # fungoid is 50.0
+		ambient_far = 10.0 # Pirate is 1.0 # reptilian/mammalian is 20.0 # Fungoid is 50.0
 	}
 }

@@ -8,7 +8,7 @@
 ##################################
 ##################################
 #
-#	This template can be applied automatially on game start.
+#	this template can be applied automatially on game start.
 #	You can omit set configurations on game start if you activate this template and set value.
 #	How to use: See ''ReadMe_for_making_template.txt''
 
@@ -244,14 +244,14 @@
 		### Resurface Standardly = 3 (Default), Resurface Early = 4, Power State S1 = 5
 
 ######################################################
-### Advanced Configurations: Forced End of Cycle	###
+###  Advanced Configurations: Forced End of the Cycle  ###
 ######################################################
 #
 #	Required for activating: Crisis Manager - End-Game Edition
 #	Required for activating: @CmtT001_ConstActivatedEventEndgame = yes
 #
 
-### Allow Forced End of Cycle.
+### Allow Forced End of the Cycle.
 	@CmtT001_ConstAllowForcedEoc = no
 		### yes: Allow to happen
 		### no : Forbid to happen (Default)
@@ -274,7 +274,7 @@
 		### Prefer to Empire Owing Larger Territory = 3 (Default)
 		### Prefer to Empire with Many POPs = 4
 
-### Term of Covenant End of Cycle.
+### Term of Covenant End of the Cycle.
 	@CmtT001_ConstForcedEocCrisisTerm = no
 		### yes: Term of the covenant conforms to ''Progress Speed of Opening Event Chain''
 		### no:		Term of the covenant is 50 years (Default)
@@ -470,7 +470,7 @@
 		### High = 4, Do Vengeance at Any Cost = 5
 
 ### Resurgence of Khan
-	@CmtT001_ConstKhanResurgence = 2
+	@CmtT001_ConstKhanResurgence = 1
 		### Set the one of followings (Default = 1)
 		### -1: Never
 		### 1 ~ 509: Once, Twice, Thrice, ...
@@ -478,7 +478,7 @@
 		### (0, 510, 511: Not Applicable)
 
 ### Lifespan of Khan
-	@CmtT001_ConstKhanLifespan = 4
+	@CmtT001_ConstKhanLifespan = 3
 		### Critical = 1, Fleeting = 2, Standard Lifespan = 3 (Default)
 		### Enduring = 4, Venerable = 5, Immortality = 6
 
@@ -516,7 +516,7 @@
 		### no : All playable empires can access (Default)
 
 ### What Lurks Beyond L-Gates
-	@CmtT001_ConstLgateForbidSilence	= yes		## Eerie Silence
+	@CmtT001_ConstLgateForbidSilence	= no		## Eerie Silence
 	@CmtT001_ConstLgateForbidLdrake		= no		## L-Drake
 	@CmtT001_ConstLgateForbidDessanu	= no		## Dessanu
 	@CmtT001_ConstLgateForbidGraygoo	= no		## Gray Tempest

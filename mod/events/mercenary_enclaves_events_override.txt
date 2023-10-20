@@ -105,7 +105,7 @@ country_event = {
 						is_offer_terms_actual = { target = event_target:mercenary_enclave_country }
 					}
 					make_special_trade = { target = event_target:mercenary_enclave_country }
-					set_country_flag = mercenary_enclave_rented_fleet					# for tracking returning customers
+					set_country_flag = mercenary_enclave_rented_fleet					# For tracking returning customers
 					event_target:mercenary_enclave_country = {
 						add_trust = {
 							who = root
@@ -324,7 +324,7 @@ event = {
 								base = 1
 								modifier = { add = 2 is_a_planet = yes }
 							}
-							# possible inconsisent due other mods
+							# Possible inconsisent due other mods
 							save_global_event_target_as = marauder_rally_point
 							set_planet_flag = marauder_rally_point
 						}

@@ -138,7 +138,7 @@ create_2nd_khan_fleet = {
 }
 
 create_marauder_fleet = {
-	optimize_memory # as replaced and not used by this mod
+	optimize_memory # As replaced and not used by this mod
 	CmtEffectCreateAdmiral_MarauderStandard = yes
 	create_fleet = {
 		effect = {
@@ -922,7 +922,7 @@ get_marauder_species = {
 			}
 			weights = {
 				base = 2
-				# complex_trigger_modifier = { # add 10 for each unhappy pop of this species
+				# complex_trigger_modifier = { # Add 10 for each unhappy pop of this species
 				# 	trigger = count_owned_pop
 				# 	trigger_scope = root
 				# 	potential = {
@@ -930,7 +930,7 @@ get_marauder_species = {
 				# 	}
 				# 	parameters = {
 				# 		limit = {
-				# 			is_same_species = prevprev # prev should be root.target, prevprev the species
+				# 			is_same_species = prevprev # Prev should be root.target, prevprev the species
 				# 			happiness > 0.5
 				# 		}
 				# 	}
@@ -962,7 +962,7 @@ get_marauder_species = {
 					add = 6
 					prev = { any_owned_planet = { is_homeworld = yes is_same_value = prevprev.home_planet } }
 				}
-				complex_trigger_modifier = { # multiply it by the percentage of pops of the country
+				complex_trigger_modifier = { # Multiply it by the percentage of pops of the country
 					trigger = pop_percentage
 					trigger_scope = prev
 					parameters = {
@@ -1023,7 +1023,7 @@ get_marauder_species = {
 			}
 			weights = {
 				base = 10
-				# complex_trigger_modifier = { # add 10 for each unhappy pop of this species
+				# complex_trigger_modifier = { # Add 10 for each unhappy pop of this species
 				# 	trigger = count_owned_pop
 				# 	trigger_scope = prev
 				# 	potential = {
@@ -1031,7 +1031,7 @@ get_marauder_species = {
 				# 	}
 				# 	parameters = {
 				# 		limit = {
-				# 			is_same_species = prevprev # prev should be prev.target, prevprev the species
+				# 			is_same_species = prevprev # Prev should be prev.target, prevprev the species
 				# 			happiness > 0.5
 				# 		}
 				# 	}
@@ -1045,7 +1045,7 @@ get_marauder_species = {
 						is_same_species = root.owner_species
 					}
 				}
-				complex_trigger_modifier = { # multiply it by the percentage of pops of the country
+				complex_trigger_modifier = { # Multiply it by the percentage of pops of the country
 					trigger = pop_percentage
 					trigger_scope = prev
 					parameters = {

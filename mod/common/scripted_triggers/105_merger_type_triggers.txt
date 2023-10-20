@@ -82,6 +82,7 @@ merg_is_fallen_empire = {
 		# is_country_type = kuat_fallen_empire
 		# The Empty Vagrant
 		# is_country_type = fallen_empire_ev
+		is_country_type = the_sleeper_fallen # The Sleeper
 	}
 }
 
@@ -94,6 +95,7 @@ merg_is_awakened_fe = {
 		# is_country_type = awakened_return_kuat_empire
 		# A Deadly Tempest
 		is_country_type = awakened_gate_builders
+		is_country_type = awakened_sleeper # The Sleeper
 		# ZOFE With its last submod, ZOFE's fallen and awakened empires work differently and should not be here.
 		# is_country_type = ascended_empire
 		# The Empty Vagrant
@@ -103,5 +105,29 @@ merg_is_awakened_fe = {
 		# 	hfe_trigger_is_human_fallen = yes # is_country_type = hfe_fallen
 		# 	has_civic = hfe_civic_egypt_fury
 		# }
+	}
+}
+
+### Mid-Game Crises general trigger ###
+is_marauder = {
+	OR = {
+		is_country_type = dormant_marauders
+		is_country_type = ruined_marauders
+		is_country_type = awakened_marauders
+		is_country_type = awakened_marauders_ev
+		is_country_type = marauder_raiders
+	}
+}
+
+is_endgame_crisis = {
+	OR = {
+		is_country_type = extradimensional
+		is_country_type = extradimensional_2
+		is_country_type = extradimensional_3
+		is_country_type = swarm
+		is_country_type = ai_empire
+		# # ACOT
+		# is_country_type = sbtg_stellarborne_empire
+		# # Gigastructural Engineering & More
 	}
 }
