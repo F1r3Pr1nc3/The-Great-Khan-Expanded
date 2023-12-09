@@ -18,13 +18,13 @@ fleet_event = {
 			limit = {
 				any_system_colony = {
 					is_owned_by = from
-					num_pops > 1
+					num_sapient_pops > 1
 				}
 			}
 			random_system_colony = {
 				limit = {
 					is_owned_by = from
-					num_pops > 1
+					num_sapient_pops > 1
 				}
 				save_event_target_as = raid_planet
 			}
@@ -114,7 +114,7 @@ country_event = {
 								limit = {
 									any_system_colony = {
 										is_owned_by = event_target:marauder_target
-										num_pops > 1
+										num_sapient_pops > 1
 									}
 									# prev = { can_access_system = prev }
 								}
@@ -128,14 +128,14 @@ country_event = {
 							limit = {
 								any_system_colony = {
 									is_owned_by = event_target:marauder_target
-									num_pops > 1
+									num_sapient_pops > 1
 								}
 								# prev = { can_access_system = prev }
 							}
 							random_system_colony = {
 								limit = {
 									is_owned_by = event_target:marauder_target
-									num_pops > 1
+									num_sapient_pops > 1
 								}
 								save_event_target_as = raid_planet
 							}
@@ -184,14 +184,14 @@ fleet_event = {
 			limit = {
 				any_system_colony = {
 					is_owned_by = from
-					num_pops > 1
+					num_sapient_pops > 1
 				}
 				prev = { can_access_system = prev }
 			}
 			random_system_colony = {
 				limit = {
 					is_owned_by = from
-					num_pops > 1
+					num_sapient_pops > 1
 				}
 				save_event_target_as = attacked_planet
 			}
@@ -238,7 +238,7 @@ fleet_event = {
 				NOR = {
 					any_system_colony = {
 						is_owned_by = from
-						num_pops > 0
+						num_sapient_pops > 0
 					}
 				}
 				root = { can_access_system = prev }

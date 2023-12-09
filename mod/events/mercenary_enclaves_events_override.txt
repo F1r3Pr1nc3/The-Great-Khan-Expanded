@@ -33,14 +33,14 @@ country_event = {
 					count_owned_leader = {
 						count = 0
 						limit = {
-							leader_class = admiral
+							leader_class = commander
 							is_councilor = no
 							is_ruler = no
 						}
 					}
 				}
 				create_leader = {
-					class = admiral
+					class = commander
 					species = owner_species					# event_target:mercenary_enclave_species
 					name = random
 					skill = 3
@@ -58,7 +58,7 @@ country_event = {
 			}
 			random_owned_leader = {
 				limit = {
-					leader_class = admiral
+					leader_class = commander
 					is_councilor = no
 					is_ruler = no
 				}
@@ -145,14 +145,14 @@ country_event = {
 					count_owned_leader = {
 						count = 0
 						limit = {
-							leader_class = admiral
+							leader_class = commander
 							is_councilor = no
 							is_ruler = no
 						}
 					}
 				}
 				create_leader = {
-					class = admiral
+					class = commander
 					species = owner_species					# event_target:mercenary_enclave_species
 					name = random
 					skill = 3
@@ -170,7 +170,7 @@ country_event = {
 			}
 			random_owned_leader = {
 				limit = {
-					leader_class = admiral
+					leader_class = commander
 					is_councilor = no
 					is_ruler = no
 				}
@@ -487,7 +487,7 @@ country_event = {
 				order_forced_return = yes
 				auto_follow_fleet = { target = event_target:mercenary_enclave_station }
 			} else_if = {
-				limit = { exists = solar_system }				# Otherwise CTD
+				limit = { exists = solar_system can_go_mia = yes }				# Otherwise CTD
 				set_mia = mia_return_home
 			}
 			root = {
@@ -518,7 +518,7 @@ country_event = {
 	}
 	immediate = {
 		create_leader = {
-			class = admiral
+			class = commander
 			species = owner_species			# event_target:mercenary_enclave_species
 			name = random
 			skill = 3

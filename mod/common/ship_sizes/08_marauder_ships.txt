@@ -1,3 +1,4 @@
+## Buffed with Ariphaos armor values
 ## Vanilla global vars
 # @civilian_ships_combat_speed = 0.5
 # @corvette_combat_speed = 1.5 	# Assault ships
@@ -52,7 +53,7 @@ marauder_corvette = {
 	rotation_speed = 0.1
 	collision_radius = @corvette_collision_radius
 	modifier = {
-		ship_armor_add = 10
+		ship_armor_add = 100 # 10
 		ship_evasion_add = 60
 		ships_upkeep_mult = -1
 	}
@@ -110,7 +111,7 @@ marauder_destroyer = {
 	collision_radius = @destroyer_collision_radius
 	modifier = {
 		ship_evasion_add = 25
-		ship_armor_add = 100
+		ship_armor_add = 200 # 100
 		ship_shield_add = 50
 		ships_upkeep_mult = -1
 	}
@@ -169,7 +170,7 @@ marauder_cruiser = {
 	collision_radius = @destroyer_collision_radius
 	modifier = {
 		ship_evasion_add = 10
-		ship_armor_add = 700
+		ship_armor_add = 1000 # 700
 		ship_shield_add = 100
 		ships_upkeep_mult = -1
 	}
@@ -229,7 +230,7 @@ marauder_galleon = {
 	collision_radius = @titan_collision_radius
 	modifier = {
 		ship_evasion_add = 35
-		ship_armor_add = 14000
+		ship_armor_add = 12000 #  Vanilla 0; Ariphaos 20000;
 		ships_upkeep_mult = -1
 	}
 	max_hitpoints = 40000
@@ -330,7 +331,7 @@ marauder_station = {
 	rotation_speed = 0
 	modifier = {
 		ship_evasion_mult = -1
-		ship_armor_add = 1400
+		ship_armor_add = 1400 # Ariphaos 2000
 		ship_shield_add = 700
 		# Ship_weapon_range_mult = 0.20 vanilla bug?
 		ships_upkeep_mult = -1
@@ -366,13 +367,13 @@ marauder_void_dwelling = {
 	rotation_speed = 0
 	modifier = {
 		ship_evasion_mult = -1
-		ship_armor_add = 2500 # 1000 Ariphaos patch
-		ship_shield_add = 1200 # 0
+		ship_armor_add = 2000 # Vanilla 0; 1000 Ariphaos;
+		ship_shield_add = 1200 # Vanilla 0
 		ships_upkeep_mult = -1
 		# ship_hull_regen_add_static = 1 too powerfull since v3.4
 		ship_armor_regen_add_static = 1
 	}
-	max_hitpoints = 10000 # 8000
+	max_hitpoints = 8000 # Vanilla 
 	size_multiplier = -20 # 8
 	fleet_slot_size = 1 # 4
 	section_slots = { "mid" = { locator = "part1" } }

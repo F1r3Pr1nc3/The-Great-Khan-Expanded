@@ -4,7 +4,7 @@
 #####	Crisis Manager										#####
 #####															#####
 #####	Scripted Effects for Creating Auxiliary Fleets		#####
-#####	of Mid-Game Crises (Army, Constructor, Colonizer)	#####
+#####	Of Mid-Game Crises (Army, Constructor, Colonizer)	#####
 #####															#####
 ###################################################################
 ###################################################################
@@ -84,10 +84,10 @@ CmtEffectCreateFleet_KhanArmy = {
 			NOR = {
 				count_owned_leader = {
 					count > 9
-					limit = { leader_class = general }
+					limit = { leader_class = commander }
 				}
 				any_owned_leader = {
-					leader_class = general
+					leader_class = commander
 					is_idle = yes
 					# is_event_leader = no
 					is_councilor = no
@@ -97,7 +97,7 @@ CmtEffectCreateFleet_KhanArmy = {
 		}
 		# CREATE_MARAUDER_GENERAL
 		create_leader = {
-			class = general
+			class = commander
 			species = event_target:marauder_species
 			name = random
 			skill = 3
@@ -113,7 +113,7 @@ CmtEffectCreateFleet_KhanArmy = {
 	else = {
 		random_owned_leader = {
 			limit = {
-				leader_class = general
+				leader_class = commander
 				is_idle = yes
 				# is_event_leader = no
 				is_councilor = no

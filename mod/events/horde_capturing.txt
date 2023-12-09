@@ -13,15 +13,14 @@ country_event = {
 		from = {
 			every_system_colony = {
 				# limit = { }
-				# Remove 1
-				if = {
+				if = { # Remove 1
 					limit = { has_building = building_fortress }
 					remove_building = building_fortress
-				}
-				# Remove 2
-				if = {
-					limit = { has_building = building_fortress }
-					remove_building = building_fortress
+
+					if = { # Remove 2
+						limit = { has_building = building_fortress }
+						remove_building = building_fortress
+					}
 				}
 				root = {
 					change_variable = { which = horde_planet_captured value = 1 }
@@ -32,19 +31,19 @@ country_event = {
 				}
 				# Check 1
 				if = {
-					limit = { num_pops < 14 }
+					limit = { num_sapient_pops < 14 }
 					set_variable = { which = temp_size value = 3 }
 				}
 				else_if = {
-					limit = { num_pops < 27 }
+					limit = { num_sapient_pops < 27 }
 					set_variable = { which = temp_size value = 4 }
 				}
 				else_if = {
-					limit = { num_pops < 40 }
+					limit = { num_sapient_pops < 40 }
 					set_variable = { which = temp_size value = 5 }
 				}
 				else_if = {
-					limit = { num_pops < 53 }
+					limit = { num_sapient_pops < 53 }
 					set_variable = { which = temp_size value = 6 }
 				}
 				else = {
@@ -73,7 +72,7 @@ country_event = {
 					limit = { is_difficulty < 5 }
 					root = {
 						create_leader = {
-							class = general
+							class = commander
 							species = owner_main_species
 							name = random
 							skill = 4
@@ -101,7 +100,7 @@ country_event = {
 					limit = { is_difficulty = 5 }
 					root = {
 						create_leader = {
-							class = general
+							class = commander
 							species = owner_main_species
 							name = random
 							skill = 5
@@ -128,7 +127,7 @@ country_event = {
 				else = {
 					root = {
 						create_leader = {
-							class = general
+							class = commander
 							species = owner_main_species
 							name = random
 							skill = 6
@@ -154,23 +153,23 @@ country_event = {
 				}
 				clear_variable = temp_size
 				if = {
-					limit = { num_pops < 10 }
+					limit = { num_sapient_pops < 10 }
 					planet_event = { id = mod_horde_capturing.2 days = 1080 }
 				}
 				else_if = {
-					limit = { num_pops < 20 }
+					limit = { num_sapient_pops < 20 }
 					planet_event = { id = mod_horde_capturing.2 days = 972 }
 				}
 				else_if = {
-					limit = { num_pops < 30 }
+					limit = { num_sapient_pops < 30 }
 					planet_event = { id = mod_horde_capturing.2 days = 864 }
 				}
 				else_if = {
-					limit = { num_pops < 40 }
+					limit = { num_sapient_pops < 40 }
 					planet_event = { id = mod_horde_capturing.2 days = 756 }
 				}
 				else_if = {
-					limit = { num_pops < 50 }
+					limit = { num_sapient_pops < 50 }
 					planet_event = { id = mod_horde_capturing.2 days = 648 }
 				}
 				else = {

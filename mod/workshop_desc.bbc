@@ -28,17 +28,16 @@ This are new (AI can use) features,[strike] which are not fully tested,[/strike]
 ⠀✔️ Marauders Remodeled (only new games)
 ⠀✔️ ZoFE 4.0
 ⠀✔️ ACE
-⠀✔️ NSC2 must be below ([strike]+support freebooter origin[/strike] will be included soon for 3.9)
+⠀✔️ NSC3 must be below ([strike]+support freebooter origin[/strike] will be included soon for 3.9)
 ⠀✔️ BSW3 [url=//steamcommunity.com/workshop/filedetails/2608679059]- Patch[/url]
 ⠀✔️ Real Space - Ships in Scaling Lite [url=//steamcommunity.com/workshop/filedetails/2738343929]- Patch[/url]
+⠀✔️ Real System Scale 6x [url=//steamcommunity.com/workshop/filedetails/2991974361]- Patch[/url]
 ⠀✔️ ACOT override (should be above)
 ⠀✔️ Khorgis Khan (should be below)
 ⠀• probably mods modifying AI, ships of Horde or Gray Tempest.
+⠀✖️ Probably NOT compatible with mods:⠀modifying Marauders before Great Khan reigns.
 
-Probably NOT compatible with mods:
-⠀✖️ modifying Marauders before Great Khan reigns.
-
-[b]Load order[/b]: should be below all Crisis Managers and ADT and above NSC2
+[b]Load order[/b]: should be below all Crisis Managers and ADT and above NSC3
 
 [h3][b]Included Vanilla Fixes[/b][/h3]
 ⠀• [URL=//forum.paradoxplaza.com/forum/threads/1544573]Great Khan hires hostile Mercenary[/URL] (3.5)
@@ -53,19 +52,19 @@ Probably NOT compatible with mods:
 ⠀• and more…
 
 [h3]Localisations[/h3]
-⠀• English mainly Kinneyj47 🇺🇸
-⠀• German 🇩🇪
-⠀• Chinese 🇨🇳 [url=//steamcommunity.com/id/1996kid]彭定康说的[/url] (– 12.Aug.)
-⠀• Japanese 🇯🇵 [url=//steamcommunity.com/workshop/filedetails/2618588215]Rio_Mizuhoshi via addon[/url] (– 3.Oct.)
-⠀• Español 🇪🇸 [url=//steamcommunity.com/id/76561198199986345]Darh[/url] (– 2.Dec.)
-⠀• Русский 🇷🇺 [url=//steamcommunity.com/workshop/filedetails/3038910324]Hann[/url] (– 21.Sep.2023)
+⠀• 🇺🇸 mainly Kinneyj47
+⠀• 🇩🇪
+⠀• 🇨🇳 [url=//steamcommunity.com/id/1996kid]彭定康说的[/url] (– 12.Aug.)
+⠀• 🇯🇵 [url=//steamcommunity.com/workshop/filedetails/2618588215]Rio_Mizuhoshi[/url] (– 3.Oct.)
+⠀• 🇪🇸 [url=//steamcommunity.com/id/76561198199986345]Darh[/url] (– 2.Dec.)
+⠀• 🇷🇺 [url=//steamcommunity.com/workshop/filedetails/3038910324]Hann[/url] (– 21.Sep.2023)
 ⠀• All other only with fallback, if you would like to help and share translations into your language, please let me know.
 
 [h3]Minor Recommendations[/h3]
 ⠀• [url=//steamcommunity.com/workshop/filedetails/2752952962]Realistic Pirates[/url] (inbuilt compat.)
 ⠀• [url=//steamcommunity.com/workshop/filedetails/1899861671]Spaceborne Civs Expanded[/url] (inbuilt compat.)
 ⠀• [url=//steamcommunity.com/workshop/filedetails/2936292863]Marauders & Menacing Remodeled[/url] (inbuilt compat.)
-⠀• [strike][url=//steamcommunity.com/workshop/filedetails/2584335328]Powerful & Realistic Orbital Bombardments [☠][/url][/strike]
+⠀• [url=//steamcommunity.com/workshop/filedetails/2584335328]Powerful & Realistic Orbital Bombardments [☠][/url]
 
 [h3]Changes (technically)[/h3]
 Mainly touched:[code]
@@ -80,14 +79,15 @@ Files directly affected by [i]load order[/i] (not that important – but all wit
 [/code]
 
 [h3]Possible To-Do / Planned[/h3]
-⠀• The Marauders can conquer/board humanoid ships⁉
+⠀• Marauder can conquer/board humanoid ships⁉
+⠀• Marauder origin
 [strike]⠀• Dyn. power: Khan can update his ships with conquered techs (including mod overpowered techs).[/strike]
 
 [hr][h3]Credit[/h3]
 ⠀• Kinneyj47 – initiating this mod
 ⠀• NaK1119 – the Crisis Manager
-⠀• [url=//www.illustratjon.com]Jon Dunham[/url] – [url=//steamcommunity.com/workshop/filedetails/2855533605]Khan room[/url]
-⠀• [url=//steamcommunity.com/workshop/filedetails/2958996640]MrFunEGUY – Improved Diadochi[/url]
+⠀• Jon Dunham – [url=//steamcommunity.com/workshop/filedetails/2855533605]Khan room[/url]
+⠀• MrFunEGUY – Alternate Diadochi creation 
 
 [h3]Install/Uninstall[/h3]Shouldn't be a problem if the Khan has no subjects.
 [i][u]Note[/u]: If you find any bug, you are welcome to report.[/i]

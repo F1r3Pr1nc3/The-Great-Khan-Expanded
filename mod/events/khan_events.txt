@@ -835,7 +835,7 @@ country_event = {
 			}
 			add_loyalty = 25
 		}
-		# Why here?
+		# Why here? Root & From can be anything!?
 		if = {
 			limit = {
 				exists = event_target:marauders_garrison_1
@@ -849,7 +849,7 @@ country_event = {
 			}
 			event_target:marauders_garrison_1 = {
 				if = {
-					limit = { root = { is_hostile_to = prev } }
+					limit = { is_hostile = root }
 					set_faction_hostility = { target = root set_hostile = no set_neutral = no set_friendly = yes }
 					add_trust = { amount = 90 who = root }
 					root = {
@@ -857,12 +857,12 @@ country_event = {
 					}
 				}
 				if = {
-					limit = { root.from = { is_hostile_to = prev } }
+					limit = { is_hostile = root.from }
 					set_faction_hostility = { target = from set_hostile = no set_neutral = no set_friendly = yes }
 					add_trust = { amount = 90 who = root.from }
 					root.from = {
 						add_trust = { amount = 90 who = prev }
-						set_faction_hostility = { target = prev set_friendly = yes } # Superfluous?
+						# set_faction_hostility = { target = prev set_friendly = yes } # Superfluous?
 					}
 				}
 				random_agreement = {
@@ -900,16 +900,16 @@ country_event = {
 		if = {
 			limit = { is_war_leader = yes }
 			every_war = {
-				limit = { any_attacker = { is_same_empire = prevprev } }
+				limit = { any_attacker = { is_same_empire = root } }
 				every_attacker = {
-					limit = { is_hostile = prevprev }
+					limit = { is_hostile = root }
 					# set_faction_hostility = { target = prevprev set_friendly = yes }
 					root = {
 						country_event = { id = khan.308 scopes = { from = prev } days = -1 } # Set friendly
 					}
 				}
 				every_defender = {
-					limit = { NOT = { is_hostile = prevprev } }
+					limit = { NOT = { is_hostile = root } }
 					root = { set_faction_hostility = { target = prev set_hostile = yes } }
 					if = {
 						limit = { exists = event_target:marauders_garrison_1 }
@@ -918,9 +918,9 @@ country_event = {
 				}
 			}
 			every_war = { # Less probably
-				limit = { any_defender = { is_same_empire = prevprev } }
+				limit = { any_defender = { is_same_empire = root } }
 				every_defender = {
-					limit = { is_hostile = prevprev }
+					limit = { is_hostile = root }
 					# set_faction_hostility = { target = prevprev set_friendly = yes }
 					root = {
 						country_event = { id = khan.308 scopes = { from = prev } days = -1 } # Set friendly
@@ -964,76 +964,98 @@ country_event = {
 						limit = {
 							is_subject_of_khan = no
 							NOT = { has_country_flag = rebelling_satrapy }
-							prevprev = { is_hostile = prev }
+							is_hostile = root
 						}
-						prevprev = {
+						root = {
 							country_event = { id = khan.308 days = -1 scopes = { from = prev } } # Set friendly
 						}
 					}
 				}
 			}
-
+			# Sync Khan relation with his Garrison
 			if = {
 				limit = { exists = event_target:marauders_garrison_1 }
-				event_target:marauders_garrison_1 = {
+				event_target:marauders_garrison_1 = { # Performance: Just use custom event target once in favor of native engine scopes.
 					root = {
+						## Set_neutral
 						every_country = {
 							limit = {
-								has_communications = prev
-								# OR = {
-								# 	is_friendly_to = prev
-								# 	is_neutral_to = prev
-								# 	# prevprev = { is_hostile = prev }
-								# 	# is_subject_of_khan = yes
-								# }
+								has_communications = root
 								NOR = {
-									is_same_empire = prev
-									is_same_empire = prevprev
-									is_hostile = prev
-									has_attitude_behavior = { target = prev behavior = attack }
+									is_same_empire = root
+									is_same_empire = prevprev # Garrison
+									is_hostile = root
+									is_hostile_to = root
+									has_attitude_behavior = { target = root behavior = attack }
+									prevprev = { # Garrison fine - nothing to do
+										OR = {
+											is_neutral_to = prev
+											is_forced_neutral = prev
+											is_forced_friendly = prev
+											is_friendly_to = prev
+										}
+									}
+									is_subject_of_khan = yes
 								}
 							}
 							prevprev = { set_faction_hostility = { target = prev set_hostile = no set_neutral = yes } }
 						}
+						## Set_hostile
 						every_relation = {
 							limit = {
 								merg_is_default_empire = yes
 								OR = {
-									is_hostile = prev
-									has_attitude_behavior = { target = prev behavior = attack }
+									is_hostile = root
+									has_attitude_behavior = { target = root behavior = attack }
 								}
 								NOR = {
-									is_same_empire = prev
-									is_same_empire = prevprev
-									is_friendly_to = prev
-									prevprev = { is_hostile = prev }
+									is_same_empire = root
+									is_same_empire = prevprev # Garrison
+									is_friendly_to = root
+									is_forced_friendly = root
+									is_loyal_to = root
+									prevprev = { is_hostile = prev } # Garrison fine - nothing to do
 									is_subject_of_khan = yes
 								}
 							}
 							prevprev = { set_faction_hostility = { target = prev set_hostile = yes set_neutral = no set_friendly = no } }
 						}
-						prev = { # Garrison always friendly
-							if = {
-								limit = { is_hostile = prev }
-								set_faction_hostility = { target = prev set_hostile = no set_neutral = no set_friendly = yes }
-								country_event = { id = khan.308 scopes = { from = prev } } # Set friendly
-							}
-						}
+						## Set_friendly
 						every_subject = {
 							limit = {
 								# is_subject_of_khan = yes
-								NOT = { has_country_flag = rebelling_satrapy }
+								NOR = {
+									is_same_empire = prevprev
+									has_country_flag = rebelling_satrapy
+									is_friendly_to = prevprev
+									is_forced_friendly = prevprev
+									is_loyal_to = prevprev
+								}
 								OR = {
 									is_hostile = prevprev
-									prevprev = { is_hostile = prev }
+									is_hostile_to = prevprev
+									has_attitude_behavior = { target = prevprev behavior = attack }
+									prevprev = {
+										OR = {
+											is_hostile = prev
+											is_hostile_to = prev
+											has_attitude_behavior = { target = prev behavior = attack }
+										}
+									}
 								}
 							}
 							log = "Fix Garrison hostility for \\[This.GetName]"
 							prevprev = {
 								set_faction_hostility = { target = prev set_hostile = no set_neutral = no set_friendly = yes }
-								country_event = { id = khan.308 scopes = { from = prev } } # Set friendly
+								country_event = { id = khan.308 scopes = { from = prev } days = 1 } # Set friendly again
 							}
 						}
+					}
+					## Always set Garrison friendly to Khan
+					if = {
+						limit = { is_hostile = root }
+						set_faction_hostility = { target = root set_hostile = no set_neutral = no set_friendly = yes }
+						country_event = { id = khan.308 scopes = { from = root } days = 1 } # Set friendly again
 					}
 				}
 			}
@@ -1227,8 +1249,11 @@ country_event = {
 			federation = {
 				every_member = {
 					limit = {
-						is_subject_of_khan = no
-						NOT = { has_country_flag = rebelling_satrapy }
+						NOR = {
+							is_subject_of_khan = yes
+							has_country_flag = rebelling_satrapy
+							is_hostile = root
+						}
 						is_hostile = event_target:marauders_garrison_1
 					}
 					event_target:marauders_garrison_1 = {
@@ -1242,8 +1267,17 @@ country_event = {
 				NOR = {
 					has_federation = yes
 					is_hostile_to = prev
+					is_hostile = prev
+					is_unfriendly_to = prev
 					is_subject_of_khan = yes
 					has_country_flag = rebelling_satrapy
+				}
+				OR = {
+					is_forced_neutral = prev
+					is_forced_friendly = prev
+					is_neutral_to = prev
+					is_friendly_to = prev
+					is_loyal_to = prev
 				}
 			}
 			event_target:marauders_garrison_1 = {
@@ -1281,7 +1315,7 @@ planet_event = {
 		owner = {
 			CmtTriggerIsMarauder = yes
 			any_owned_leader = {
-				leader_class = governor
+				leader_class = official
 				NOT = { exists = planet }
 			}
 		}
@@ -1291,7 +1325,7 @@ planet_event = {
 		owner = {
 			random_owned_leader = {
 				limit = {
-					leader_class = governor
+					leader_class = official
 					NOT = { exists = planet }
 				}
 				if = {
@@ -1328,7 +1362,7 @@ country_event = {
 			ordered_owned_planet = {
 				limit = { is_colony = yes }
 				position = 0
-				order_by = trigger:num_pops
+				order_by = trigger:num_sapient_pops
 				save_event_target_as = capital_planet
 			}
 		}
@@ -1628,7 +1662,7 @@ country_event = {
 					owner = { is_default_or_fallen = yes }
 				}
 				position = 0
-				order_by = trigger:num_pops
+				order_by = trigger:num_sapient_pops
 				log="Give system \\[Prev.GetName] back to \\[This.Owner.GetName]"
 				owner = { save_event_target_as = planet_owner }
 				prev = {
@@ -1791,13 +1825,22 @@ country_event = {
 
 			# Mining and Research Stations
 			every_planet_within_border = {
-				limit = { has_deposit_for = shipclass_mining_station has_mining_station = no }
-				create_mining_station = { owner = root }
+				limit = {
+					has_owner = no
+					OR = {
+						has_deposit_for = shipclass_mining_station
+						has_deposit_for = shipclass_research_station
+					}
+				}
+				if = {
+					limit = { has_deposit_for = shipclass_mining_station has_mining_station = no }
+					create_mining_station = { owner = root }
+				} else_if = {
+					limit = { has_deposit_for = shipclass_research_station has_research_station = no }
+					create_research_station = { owner = root }
+				}
 			}
-			every_planet_within_border = {
-				limit = { has_deposit_for = shipclass_research_station has_research_station = no }
-				create_research_station = { owner = root }
-			}
+
 			# Take all old leaders!?
 			random_owned_leader = {
 				limit = { leader_class = scientist }
@@ -1897,7 +1940,7 @@ country_event = {
 				}
 			}
 			position = 0
-			order_by = trigger:num_pops
+			order_by = trigger:num_sapient_pops
 			set_capital = yes
 			save_event_target_as = new_diadochi_capital
 		}
@@ -2192,7 +2235,7 @@ fleet_event = {
 		exists = owner
 		owner = {
 			any_owned_leader = {
-				leader_class = admiral
+				leader_class = commander
 				OR = { is_idle = yes has_leader_flag = restored_admiral@root }
 				is_councilor = no
 				is_ruler = no
@@ -2203,7 +2246,7 @@ fleet_event = {
 		owner = {
 			random_owned_leader = {
 				limit = {
-					leader_class = admiral
+					leader_class = commander
 					is_councilor = no
 					is_ruler = no
 				}
@@ -2419,7 +2462,7 @@ system_event = {
 			}
 		}
 		random_system_planet = {
-			limit = { has_deposit_for = shipclass_mining_station }
+			limit = { has_owner = no has_deposit_for = shipclass_mining_station has_mining_station = no }
 			create_mining_station = { owner = prevprev.owner }
 		}
 	}

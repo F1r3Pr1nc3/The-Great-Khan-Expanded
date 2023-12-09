@@ -1962,7 +1962,7 @@ event = {
 				# 	} else = {
 				# 		random_owned_leader = {
 				# 			limit = {
-				# 				leader_class = admiral
+				# 				leader_class = commander
 				# 				is_event_leader = no
 				# 			}
 				# 			weights = {
@@ -1988,8 +1988,7 @@ event = {
 				# if = { limit = { has_country_flag = declared_crisis }
 				# 	remove_country_flag = declared_crisis
 				# }
-				# country_event = { id = khan.309 }
-				country_event = { id = khan.309 days = 4 }
+				country_event = { id = khan.309 days = 4 } # Friendly to be sure
 				# TODO TEMP FIX KHAN NO RESPAWN.
 				country_event = { id = marauder.507 days = 105 random = 80 }
 
@@ -2237,7 +2236,7 @@ country_event = {
 					is_colony = yes
 					is_under_colonization = no
 					num_unemployed > 2
-					num_pops > 20
+					num_sapient_pops > 20
 					NOR = {
 						num_buildings = { type = building_stronghold value > 1 }
 						has_building = building_fortress
@@ -3144,19 +3143,28 @@ country_event = {
 					has_country_flag = CmtFlagKhanNoDieCountry
 				}
 				exists = event_target:great_khan
+				is_scope_set = event_target:great_khan
+				event_target:great_khan = { is_scope_valid = yes }
 				NAND = {
 					exists = event_target:great_khan.fleet
 					event_target:great_khan.fleet = { num_ships > 0 }
 				}
 			}
+			event_target:great_khan = { exile_leader_as = great_khan }
 			if = { # Put him on a fleet.
 				limit = {
 					any_owned_fleet = {
 						exists = solar_system
 						is_mobile = yes
-						is_in_combat = no
-						NOR = { exists = leader has_fleet_flag = satrapy_garrison_fleet }
-						fleet_power > 20000
+						NOR = {
+							is_civilian = yes
+							is_in_combat = yes
+							exists = leader
+							has_fleet_flag = satrapy_garrison_fleet
+							fleet_power < 20000
+						}
+						exists = controller
+						controller = { is_same_empire = prevprev }
 					}
 				}
 				# Assign him on the strongest fleet.
@@ -3164,12 +3172,19 @@ country_event = {
 					limit = {
 						exists = solar_system
 						is_mobile = yes
-						is_in_combat = no
-						NOR = { exists = leader has_fleet_flag = satrapy_garrison_fleet }
-						fleet_power > 20000
+						NOR = {
+							is_civilian = yes
+							is_in_combat = yes
+							exists = leader
+							has_fleet_flag = satrapy_garrison_fleet
+							fleet_power < 20000
+						}
+						exists = controller
+						controller = { is_same_empire = prevprev }
 					}
 					position = 0
 					order_by = trigger:fleet_power
+					set_leader = great_khan # previously-exiled leader
 					assign_leader = event_target:great_khan
 					set_fleet_flag = khan_fleet
 				}

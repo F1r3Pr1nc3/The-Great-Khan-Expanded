@@ -8,7 +8,7 @@
 ##################################
 ##################################
 #
-#	this template can be applied automatially on game start.
+# This template can be applied automatially on game start.
 #	You can omit set configurations on game start if you activate this template and set value.
 #	How to use: See ''ReadMe_for_making_template.txt''
 
@@ -588,7 +588,7 @@
 	### - All factors must be positive number that is multiple of 0.25.
 	### - Caution
 	###		> Immoderate factor makes heavy load on CPU and GPU
-	###			because these configurations modify the number of ships.
+	### Because these configurations modify the number of ships.
 	###		> Also factors grater than 3 can be inputted if you endure processing load excessive.
 	###
 

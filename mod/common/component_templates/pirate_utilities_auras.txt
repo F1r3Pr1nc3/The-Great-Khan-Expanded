@@ -19,7 +19,7 @@
 #	UPDATED Reworked Auras	#
 # ######################### #
 
-# Offensive
+#	Offensive
 utility_component_template = {
 	key = "SHIP_AURA_SHIELD_DAMPENER_1"
 	size = medium

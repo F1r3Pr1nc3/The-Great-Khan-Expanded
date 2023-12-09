@@ -106,7 +106,7 @@ create_marauder_starbase = {
 
 create_marauder_merc_admiral = {
 	create_leader = {
-		class = admiral
+		class = commander
 		species = event_target:marauder_species
 		name = random
 		event_leader = yes
@@ -127,7 +127,7 @@ create_marauder_merc_admiral = {
 
 create_marauder_merc_general = {
 	create_leader = {
-		class = general
+		class = commander
 		species = event_target:marauder_species
 		name = random
 		event_leader = yes
