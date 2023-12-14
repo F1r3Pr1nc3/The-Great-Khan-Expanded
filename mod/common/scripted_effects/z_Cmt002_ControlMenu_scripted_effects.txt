@@ -25,7 +25,7 @@ CmtEffectExitMenu = {
 	# default_hide_option = yes
 }
 
-### For ''We are Crisis''
+###	For ''We are Crisis''
 CmtEffectSaveOriginalCountry = {
 	optimize_memory
 	if = { limit = { merg_is_default_empire = yes }

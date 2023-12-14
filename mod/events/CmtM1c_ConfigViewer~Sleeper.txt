@@ -6,7 +6,7 @@ namespace = CrisisManagerMenu
 #####	Crisis Manager						#####
 #####										#####
 #####	Configutation Viewer				#####
-##### For Awakening of Fallen Empires		#####
+#####	For Awakening of Fallen Empires		#####
 #####										#####
 #################################################
 #################################################

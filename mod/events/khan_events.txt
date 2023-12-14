@@ -624,8 +624,7 @@ country_event = {
 					any_fleet_in_system = { is_owned_by = root is_mobile = yes }
 					count_neighbor_system = { count > 1 limit = { has_access_fleet = root } }
 				}
-				weights = {
-					base = 1
+				weights = { base = 1
 					modifier = { add = 2 starbase = { has_starbase_size >= starbase_starhold } }
 					modifier = {
 						add = 1
@@ -638,13 +637,12 @@ country_event = {
 							}
 						}
 					}
-					modifier = { add = 1 CmtTriggerMarauderCapitalSystem = yes }
-					modifier = { add = 1 is_capital_system = yes }
+					modifier = { add = 2 CmtTriggerMarauderCapitalSystem = yes }
+					modifier = { add = 2 is_capital_system = yes }
 				}
 				random_system_planet = {
 					limit = { is_star = no }
-					weights = {
-						base = 1
+					weights = { base = 1
 						modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
 						modifier = { add = 2 has_planet_flag = raid_source }
 						modifier = { add = 2 is_colony = yes }
@@ -1792,8 +1790,7 @@ country_event = {
 							exists = starbase
 							starbase = { has_starbase_size < starbase_starhold }
 						}
-						weights = {
-							base = 1
+						weights = { base = 1
 							modifier = { add = 1 is_inside_nebula = yes }
 							modifier = { add = 2 has_natural_wormhole = yes }
 							modifier = { factor = 3 is_bottleneck_system = yes }
@@ -1827,15 +1824,13 @@ country_event = {
 			every_planet_within_border = {
 				limit = {
 					has_owner = no
-					OR = {
-						has_deposit_for = shipclass_mining_station
-						has_deposit_for = shipclass_research_station
-					}
+					OR = { has_deposit_for = shipclass_mining_station has_deposit_for = shipclass_research_station }
 				}
 				if = {
 					limit = { has_deposit_for = shipclass_mining_station has_mining_station = no }
 					create_mining_station = { owner = root }
-				} else_if = {
+				}
+				else_if = {
 					limit = { has_deposit_for = shipclass_research_station has_research_station = no }
 					create_research_station = { owner = root }
 				}
@@ -1873,8 +1868,7 @@ country_event = {
 			}
 			random_owned_planet = {
 				limit = { solar_system = { exists = starbase } }
-				weights = {
-					base = 1
+				weights = { base = 1
 					modifier = { add = 1 is_colony = yes }
 					modifier = { add = 2 is_capital = yes }
 					modifier = { add = 3 solar_system = { is_potential_diadochi_system = no } }
@@ -2193,8 +2187,7 @@ country_event = {
 						is_a_planet = yes # Possible inconsisent due other mods
 					}
 				}
-				weights = {
-					base = 1
+				weights = { base = 1
 					modifier = { add = 3 any_system_planet = { colonizable_planet = yes } } # Prefer to place with existing planets.
 					modifier = { add = 1 starbase = { has_starbase_size >= starbase_starhold } }
 					modifier = { add = 3
@@ -2250,8 +2243,7 @@ fleet_event = {
 					is_councilor = no
 					is_ruler = no
 				}
-				weights = {
-					base = 1
+				weights = { base = 1
 					modifier = { add = 9 has_leader_flag = restored_admiral@root }
 					modifier = { add = 4 NOT = { exists = fleet } }
 					modifier = { add = 1 is_idle = yes }
@@ -2290,155 +2282,159 @@ system_event = {
 
 			}
 			weights = { base = 1 modifier = { add = 2 is_a_planet = yes } }
-			# log = "--- Habitat build site chosen on planet \\[This.GetName], proceeding..."
-			prev = {
-				# Spawn marauder habitat
-				# spawn_megastructure = { < v.3.9
-				# 	type = "habitat_0" major_orbital
-				# 	planet = prev
-				# 	owner = from # space_owner
-				# 	graphical_culture = from # "mammalian_01"
-				# }
-				spawn_planet = {
-					class = pc_habitat
-					location = prev
-					orbit_location = yes
-					orbit_angle_offset = 45
-					orbit_distance_offset = 9.899
-					size = 6
-					has_ring = no
-					init_effect = {
-						set_planet_flag = megastructure
-						set_planet_flag = habitat
-						set_planet_flag = habitat_level_1
-						set_planet_entity = { entity = habitat_phase_02_entity graphical_culture = from }
-						set_surveyed = { surveyed = yes surveyor = from }
-						# set_all_comms_surveyed = yes
-						clear_blockers = yes
-						# if = {
-						# 	limit = {
-						# 		prev = {
-						# 			NOT = { has_star_flag = research_habitat_spawned }
-						# 		}
-						# 	}
-						# 	prev = { set_star_flag = research_habitat_spawned }
-						# 	add_deposit = d_hab_crystal_2
-						# 	add_modifier = {
-						# 		modifier = paradisiacal_habitat_science
-						# 	}
-						# }
-						# else_if = {
-						# 	limit = {
-						# 		prev = {
-						# 			NOT = { has_star_flag = mining_habitat_spawned }
-						# 		}
-						# 	}
-						# 	prev = { set_star_flag = mining_habitat_spawned }
-						# 	add_deposit = d_hab_alloy_4
-						# 	add_deposit = d_hab_mote_2
-						# 	add_modifier = {
-						# 		modifier = paradisiacal_habitat_mining
-						# 	}
-						# }
-						# else_if = {
-						# 	limit = {
-						# 		prev = {
-						# 			NOT = { has_star_flag = energy_habitat_spawned }
-						# 		}
-						# 	}
-						# 	prev = { set_star_flag = energy_habitat_spawned }
-						# 	add_deposit = d_hab_alloy_4
-						# 	add_deposit = d_hab_gas_2
-						# 	add_modifier = {
-						# 		modifier = paradisiacal_habitat_energy
-						# 	}
-						# }
+			random = { chance = 50
+				# log = "--- Habitat build site chosen on planet \\[This.GetName], proceeding..."
+				save_event_target_as = target_habitat
+				prev = {
+					set_star_flag = has_habitat
+					# Spawn marauder habitat
+					spawn_megastructure = {
+						type = habitat_central_complex # "habitat_0" major_orbital  < v.3.9
+						planet = prev
+						owner = from # space_owner
+						graphical_culture = from # "mammalian_01"
+						# coords_from = prev
 					}
+					# spawn_planet = {
+					# 	class = pc_habitat
+					# 	location = prev
+					# 	orbit_location = yes
+					# 	orbit_angle_offset = 45
+					# 	orbit_distance_offset = 9.899
+					# 	size = 6
+					# 	has_ring = no
+					# 	init_effect = {
+					# 		set_planet_flag = megastructure
+					# 		set_planet_flag = habitat
+					# 		set_planet_flag = habitat_level_1
+					# 		set_planet_entity = { entity = habitat_phase_03_entity graphical_culture = from }
+					# 		set_surveyed = { surveyed = yes surveyor = from }
+					# 		# set_all_comms_surveyed = yes
+					# 		clear_blockers = yes
+					# 		# if = {
+					# 		# 	limit = {
+					# 		# 		prev = {
+					# 		# 			NOT = { has_star_flag = research_habitat_spawned }
+					# 		# 		}
+					# 		# 	}
+					# 		# 	prev = { set_star_flag = research_habitat_spawned }
+					# 		# 	add_deposit = d_hab_crystal_2
+					# 		# 	add_modifier = {
+					# 		# 		modifier = paradisiacal_habitat_science
+					# 		# 	}
+					# 		# }
+					# 		# else_if = {
+					# 		# 	limit = {
+					# 		# 		prev = {
+					# 		# 			NOT = { has_star_flag = mining_habitat_spawned }
+					# 		# 		}
+					# 		# 	}
+					# 		# 	prev = { set_star_flag = mining_habitat_spawned }
+					# 		# 	add_deposit = d_hab_alloy_4
+					# 		# 	add_deposit = d_hab_mote_2
+					# 		# 	add_modifier = {
+					# 		# 		modifier = paradisiacal_habitat_mining
+					# 		# 	}
+					# 		# }
+					# 		# else_if = {
+					# 		# 	limit = {
+					# 		# 		prev = {
+					# 		# 			NOT = { has_star_flag = energy_habitat_spawned }
+					# 		# 		}
+					# 		# 	}
+					# 		# 	prev = { set_star_flag = energy_habitat_spawned }
+					# 		# 	add_deposit = d_hab_alloy_4
+					# 		# 	add_deposit = d_hab_gas_2
+					# 		# 	add_modifier = {
+					# 		# 		modifier = paradisiacal_habitat_energy
+					# 		# 	}
+					# 		# }
+					# 	}
+					# }
+					# set_star_flag = marauder_habitat_placed
 				}
-				set_star_flag = has_habitat
-				# set_star_flag = marauder_habitat_placed
-			}
-			# Populate marauder habitat
-			random_moon = {
-				limit = {
-					# uses_district_set = habitat
-					merg_is_habitat = yes
-					is_colony = no
-					is_colonizable = yes
-				}
-				# log = "--- Habitat \\[This.GetName] is being populated..."
-				# space_owner = {
-				# 	save_event_target_as = colony_country
-				# 	species = { save_event_target_as = colony_species }
-				# }
-				# TODO: Force-set to random/mining habitat?
-				# random_list = { # Hackely hack! ^_^
-				# 	3 = { set_planet_flag = mining_habitat }
-				# 	2 = { set_planet_flag = research_habitat }
-				# 	3 = { set_planet_flag = energy_habitat }
-				# }
-				# change_planet_size = 2
-				set_planet_flag = advanced_habitat
+				# Populate marauder habitat
+				random_moon = {
+					limit = {
+						# uses_district_set = habitat
+						merg_is_habitat = yes
+						is_colony = no
+						is_colonizable = yes
+					}
+					# log = "--- Habitat \\[This.GetName] is being populated..."
+					# space_owner = {
+					# 	save_event_target_as = colony_country
+					# 	species = { save_event_target_as = colony_species }
+					# }
+					# TODO: Force-set to random/mining habitat?
+					# random_list = { # Hackely hack! ^_^
+					# 	3 = { set_planet_flag = mining_habitat }
+					# 	2 = { set_planet_flag = research_habitat }
+					# 	3 = { set_planet_flag = energy_habitat }
+					# }
+					# change_planet_size = 2
+					set_planet_flag = advanced_habitat
 
-				while = { count = 5
-					create_pop = {
+					while = { count = 5
+						create_pop = {
+							species = from.owner_main_species
+							ethos = { ethic = "ethic_militarist" } # ethic = "ethic_egalitarian"
+						}
+					}
+					# set_owner = space_owner
+					set_controller = from # space_owner
+					set_name = random # TODO more variations?
+					add_building = building_hab_major_capital	# 3 jobs
+					# add_building = building_foundry_1			# 2
+					# add_building = building_foundry_1			# 2
+					# add_building = building_factory_1			# 2
+					# add_building = building_hydroponics_farm	# 3
+					add_district = district_hab_housing
+					# add_district = district_hab_cultural		# 3
+					if = { # 6 jobs
+						limit = { has_planet_flag = mining_habitat }
+						if = {
+							limit = { check_modifier_value = { modifier = district_hab_mining_max value > 0 } }
+							add_district = district_hab_mining
+							add_district = district_hab_mining
+						}
+					}
+					else_if = {
+						limit = { has_planet_flag = energy_habitat }
+						if = {
+							limit = { check_modifier_value = { modifier = district_hab_energy_max value > 0 } }
+							add_district = district_hab_energy
+							add_district = district_hab_energy
+						}
+					}
+					else_if = {
+						limit = { has_planet_flag = research_habitat }
+						if = {
+							limit = { check_modifier_value = { modifier = district_hab_science_max value > 0 } }
+							add_district = district_hab_science
+							add_district = district_hab_science
+						}
+					}
+					else = {
+						add_district = district_hab_industrial
+						if = {
+							limit = { check_modifier_value = { modifier = district_hab_energy_max value > 0 } }
+							add_district = { district_type = district_hab_energy ignore_cap = yes }
+						}
+					}
+					# TODO: Add negative modifier that needs to be removed with expensive decision?
+					start_colony = {
+						owner = from
 						species = from.owner_main_species
-						ethos = { ethic = "ethic_militarist" } # ethic = "ethic_egalitarian"
+						# ethos = random
 					}
 				}
-				# set_owner = space_owner
-				set_controller = from # space_owner
-				set_name = random # TODO more variations?
-				add_building = building_hab_major_capital	# 3 jobs
-				# add_building = building_foundry_1			# 2
-				# add_building = building_foundry_1			# 2
-				# add_building = building_factory_1			# 2
-				# add_building = building_hydroponics_farm	# 3
-				add_district = district_hab_housing
-				# add_district = district_hab_cultural		# 3
-				if = { # 6 jobs
-					limit = { has_planet_flag = mining_habitat }
-					if = {
-						limit = { check_modifier_value = { modifier = district_hab_mining_max value > 0 } }
-						add_district = district_hab_mining
-						add_district = district_hab_mining
-					}
-				}
-				else_if = {
-					limit = { has_planet_flag = energy_habitat }
-					if = {
-						limit = { check_modifier_value = { modifier = district_hab_energy_max value > 0 } }
-						add_district = district_hab_energy
-						add_district = district_hab_energy
-					}
-				}
-				else_if = {
-					limit = { has_planet_flag = research_habitat }
-					if = {
-						limit = { check_modifier_value = { modifier = district_hab_science_max value > 0 } }
-						add_district = district_hab_science
-						add_district = district_hab_science
-					}
-				}
-				else = {
-					add_district = district_hab_industrial
-					if = {
-						limit = { check_modifier_value = { modifier = district_hab_energy_max value > 0 } }
-						add_district = { district_type = district_hab_energy ignore_cap = yes }
-					}
-				}
-				from = {
-					change_variable = { which = marauder_habitat_count value = -1 }
-					country_event = { id = khan.612 days = 480 }		# Build Habitats
-				}
-				# TODO: Add negative modifier that needs to be removed with expensive decision?
-				start_colony = {
-					owner = from
-					species = from.owner_main_species
-					# ethos = random
-				}
+				set_planet_flag = has_megastructure
 			}
-			set_planet_flag = has_megastructure
+			from = {
+				change_variable = { which = marauder_habitat_count value = -1 }
+				country_event = { id = khan.612 days = 480 }		# Build Habitats
+			}
 		}
 		# Unknown "Unexpected token: country_event, near line: 3543
 		from = {
@@ -2447,8 +2443,7 @@ system_event = {
 					is_colonizable = yes
 					habitability = { who = prev.owner_main_species value > 0.65 }
 				}
-				weights = {
-					base = 1
+				weights = { base = 1
 					modifier = {
 						add = 3
 						OR = { uses_district_set = habitat has_ringworld_output_boost = yes }

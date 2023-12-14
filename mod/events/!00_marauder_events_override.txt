@@ -3637,7 +3637,7 @@ planet_event = {
 					planet_event = { id = marauder.104 } # Taking resources
 				}
 				50 = {
-					modifier = { factor = 0 num_sapient_popsent_pops = 1 }
+					modifier = { factor = 0 num_sapient_pops = 1 }
 					planet_event = { id = marauder.105 } # Taking Pops
 				}
 			}
@@ -4601,15 +4601,15 @@ country_event = {
 			# }
 			randomize_traits = no
 			traits = {
-				trait = leader_trait_ruler_great_khan
-				trait = leader_trait_chosen
-				trait = leader_trait_master_gunner
+				# trait = leader_trait_ruler_great_khan
+				# trait = leader_trait_chosen
+				# trait = leader_trait_master_gunner
+				# trait = leader_trait_demolisher_3
+				# trait = leader_trait_wrecker_3
+				# trait = leader_trait_artillerist_3
 				trait = subclass_commander_admiral
 				trait = leader_trait_gunship_specialization_3
-				trait = leader_trait_wrecker_3
 				trait = leader_trait_reckless_2
-				trait = leader_trait_artillerist_3
-				trait = leader_trait_demolisher_3
 			}
 		}
 
@@ -4625,15 +4625,26 @@ country_event = {
 		# }
 
 		last_created_leader = {
-			root = { assign_leader = prev }
-			set_council_position = councilor_defense
-
-			# random_list = { # Does not exists
-			# 	1 = { set_council_position = councilor_defense }
-			# 	1 = { set_council_position = councilor_crusader_spirit }
-			# 	1 = { set_council_position = councilor_distinguished_admiralty }
-			# 	1 = { set_council_position = councilor_heroic_tales }
-			# }
+			root = {
+				assign_leader = prev
+				if = {
+					limit = {
+						has_paragon_dlc = yes
+					}
+					unlock_council_slots = 2
+					set_council_position_to_council = councilor_defense
+					set_council_position_to_council = councilor_state
+					prev = {
+						set_council_position = councilor_defense
+						# random_list = { # Does not exists
+						# 	1 = { set_council_position = councilor_defense }
+						# 	1 = { set_council_position = councilor_crusader_spirit }
+						# 	1 = { set_council_position = councilor_distinguished_admiralty }
+						# 	1 = { set_council_position = councilor_heroic_tales }
+						# }
+					}
+				}
+			}
 
 			# if = { ### NSC SUPPORT
 			# 	limit = { has_global_flag = has_nsc_active }
@@ -4647,7 +4658,7 @@ country_event = {
 			add_trait_no_notify = leader_trait_gale_speed_3
 			add_trait_no_notify = leader_trait_border_guard_3
 			add_trait_no_notify = leader_trait_crew_trainer_3
-			add_skill = 2
+			add_skill_without_trait_selection = 2
 			if = {
 				limit = { NOT = { has_trait = leader_trait_fleet_organizer } }
 				add_trait_no_notify = leader_trait_fleet_organizer
@@ -4739,11 +4750,6 @@ country_event = {
 				can_manually_change_location = no
 				# hide_leader = yes
 				randomize_traits = no
-				# Traits are cleared only (vanilla bug?)
-				# traits = {
-				# 	0 = leader_trait_great_khan
-				# 	0 = leader_trait_chosen
-				# }
 			}
 		}
 		last_created_leader = {
@@ -4755,7 +4761,7 @@ country_event = {
 			add_trait_no_notify = leader_trait_great_khan
 			add_trait_no_notify = leader_trait_chosen
 			add_trait_no_notify = subclass_commander_admiral # Councilor no
-			add_trait_no_notify = subclass_commander_admiral
+			# add_trait_no_notify = subclass_commander_admiral
 			add_trait_no_notify = leader_trait_armada_logistician_3
 			if = {
 				limit = { owner = { has_country_flag = marauder_1 } }
@@ -8638,7 +8644,7 @@ country_event = {
 			ordered_owned_sector = {
 				limit = { NOT = { has_sector_flag = counted_sector } }
 				position = 0
-				order_by = trigger:num_sapient_pops
+				order_by = trigger:num_pops
 				save_event_target_as = diadochi_leader_sector
 				set_sector_flag = diadochi_sector_@this
 				set_sector_flag = leader_sector
@@ -8676,7 +8682,7 @@ country_event = {
 							}
 							position = 1
 							inverse = yes
-							order_by = trigger:num_sapient_pops
+							order_by = trigger:num_pops
 							set_sector_flag = counted_sector
 							set_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector
 							set_sector_flag = rebel_sector_follower_@event_target:diadochi_leader_sector
@@ -8719,7 +8725,7 @@ country_event = {
 		# 		}
 		# 		position = 0
 		# 		inverse = yes
-		# 		order_by = trigger:num_sapient_pops
+		# 		order_by = trigger:num_pops
 		# 		set_sector_flag = counted_sector
 		# 	}
 		# }
@@ -8731,7 +8737,7 @@ country_event = {
 				}
 				position = 0
 				inverse = yes
-				order_by = trigger:num_sapient_pops
+				order_by = trigger:num_pops
 				set_sector_flag = finished_sector
 				save_event_target_as = diadochi_leader_sector
 				## CREATE_DIADOCHI_COUNTRY

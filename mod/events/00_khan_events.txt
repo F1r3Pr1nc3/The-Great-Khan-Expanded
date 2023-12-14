@@ -2961,7 +2961,7 @@ country_event = {
 				if = {
 					limit = { fleet_power < 450000 }
 					# create_marauder_fleet = yes
-					event_target:marauder_rally_point = { CmtEffectCreateAdmiralty_KhanReinforcement = yes }
+					CmtEffectKhanReinforceOnCapital = yes
 				}
 			}
 			# country_event = { id = khan.869 days = 340 }

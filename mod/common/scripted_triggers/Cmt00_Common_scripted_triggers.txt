@@ -13,7 +13,7 @@
 ###- Basic Trigger -###
 #######################
 
-### For Spawning Each Countries, Scope: this = Stellar System
+###	For Spawning Each Countries, Scope: this = Stellar System
 CmtTriggerSpawnableSystem = {
 	optimize_memory
 	NOR = {

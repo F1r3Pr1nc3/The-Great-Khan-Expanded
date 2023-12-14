@@ -6,7 +6,7 @@ namespace = CrisisManagerMenu
 #####	Crisis Manager			#####
 #####							#####
 #####	Configutation Viewer	#####
-##### For Mid-Game Crisis		#####
+#####	For Mid-Game Crisis		#####
 #####							#####
 #####################################
 #####################################

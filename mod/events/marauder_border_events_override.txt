@@ -1309,7 +1309,7 @@ country_event = { # Make most populous planet of most populous sector the capita
 
 	immediate = {
 		ordered_owned_sector = {
-			order_by = trigger:num_sapient_pops
+			order_by = trigger:num_pops
 			position = 0
 			ordered_owned_planet = {
 				order_by = trigger:num_sapient_pops
