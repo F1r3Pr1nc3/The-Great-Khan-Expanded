@@ -246,7 +246,7 @@ utility_component_template = {
 	icon_frame = 1
 	power = 0
 
-	size_restriction = { playable_pirate_station }
+	size_restriction = { pirate_station } # playable_pirate_station
 	component_set = "station_medium_aura_components"
 
 	friendly_aura = {

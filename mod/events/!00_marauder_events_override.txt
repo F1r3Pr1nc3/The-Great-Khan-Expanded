@@ -164,8 +164,7 @@ country_event = {
 						save_event_target_as = attacked_system
 						random_system_planet = {
 							limit = { is_star = no }
-							weights = {
-								base = 1
+							weights = { base = 1
 								# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
@@ -191,14 +190,12 @@ country_event = {
 							has_star_flag = marauder_system
 							OR = { has_owner = no is_owned_by = root }
 						}
-						weights = {
-							base = 1
+						weights = { base = 1
 							modifier = { add = 3 has_star_flag = marauder_capital_1 }
 						}
 						random_system_planet = {
 							limit = { is_star = no }
-							weights = {
-								base = 1
+							weights = { base = 1
 								# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
@@ -223,14 +220,12 @@ country_event = {
 							has_star_flag = marauder_system
 							OR = { has_owner = no is_owned_by = root }
 						}
-						weights = {
-							base = 1
+						weights = { base = 1
 							modifier = { add = 3 has_star_flag = marauder_capital_2 }
 						}
 						random_system_planet = {
 							limit = { is_star = no }
-							weights = {
-								base = 1
+							weights = { base = 1
 								# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
@@ -255,14 +250,12 @@ country_event = {
 							has_star_flag = marauder_system
 							OR = { has_owner = no is_owned_by = root }
 						}
-						weights = {
-							base = 1
+						weights = { base = 1
 							modifier = { add = 3 has_star_flag = marauder_capital_3 }
 						}
 						random_system_planet = {
 							limit = { is_star = no }
-							weights = {
-								base = 1
+							weights = { base = 1
 								# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
@@ -322,10 +315,7 @@ event = {
 		OR = {
 			exists = event_target:marauder_country_1
 			AND = { num_marauder_empires_to_spawn > 1 exists = event_target:marauder_country_2 }
-			AND = {
-				num_marauder_empires_to_spawn > 2
-				exists = event_target:marauder_country_3
-			}
+			AND = { num_marauder_empires_to_spawn > 2 exists = event_target:marauder_country_3 }
 		}
 	}
 	immediate = {
@@ -635,10 +625,7 @@ country_event = {
 					wait = 5
 					find_closest_planet = {
 						trigger = { id = "marauder_infighting.t2[infighting_marauders.GetName]" is_same_value = event_target:return_point }
-						found_planet = {
-							move_to = this
-							orbit_planet = this
-						}
+						found_planet = { move_to = this orbit_planet = this }
 					}
 					effect = { id = "marauder_infighting.e2[infighting_marauders.GetName]" destroy_fleet = this }
 				}
@@ -3594,10 +3581,7 @@ planet_event = {
 							# queue_actions = { wait = 2 }
 							if = {
 								limit = { exists = event_target:raid_planet can_access_system = event_target:raid_planet.solar_system }
-								auto_move_to_planet = {
-									target = event_target:raid_planet
-									clear_auto_move_on_arrival = no
-								}
+								auto_move_to_planet = { target = event_target:raid_planet clear_auto_move_on_arrival = no }
 							}
 							else = {
 								fleet_event = { id = marauder.29 scopes = { from = event_target:raid_victim } }
@@ -3734,8 +3718,7 @@ planet_event = {
 			limit = { num_sapient_pops > 1 }
 			random_owned_pop = {
 				limit = { is_robot_pop = no is_sapient = yes }
-				weights = {
-					base = 3
+				weights = { base = 3
 					modifier = { add = 2 OR = { is_pop_category = slave is_pop_category = purge } }
 					modifier = { add = 2 is_unemployed = yes }
 					modifier = { add = 3 exists = event_target:marauder_species NOT = { is_same_species = event_target:marauder_species } }
@@ -3795,8 +3778,7 @@ planet_event = {
 			limit = { num_sapient_pops > 1 }
 			random_owned_pop = {
 				limit = { is_robot_pop = no is_sapient = yes }
-				weights = {
-					base = 3
+				weights = { base = 3
 					modifier = { add = 1 OR = { is_pop_category = slave is_pop_category = purge } }
 					modifier = { add = 1 is_unemployed = yes }
 					# modifier = { add = -2 is_same_species = fromfrom }
@@ -4049,8 +4031,7 @@ country_event = {
 						else = {	## Backup Code: raid_source NOT Found in Capital System
 							random_system_planet = {
 								limit = { is_star = no }
-								weights = {
-									base = 1
+								weights = { base = 1
 									modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
 									modifier = { add = 2 is_colony = yes }
 									modifier = { add = 1 is_colonizable = yes }
@@ -4064,8 +4045,7 @@ country_event = {
 				else = {	## Backup Code: Capital System NOT Found
 					random_planet_within_border = {
 						limit = { is_star = no }
-						weights = {
-							base = 1
+						weights = { base = 1
 							# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
 							modifier = { add = 3 has_planet_flag = raid_source }
 							modifier = { add = 2 is_colony = yes }
@@ -4110,8 +4090,7 @@ country_event = {
 						else = {	## Backup Code: raid_source NOT found in Capital System
 							random_system_planet = {
 								limit = { is_star = no }
-								weights = {
-									base = 1
+								weights = { base = 1
 									modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
 									modifier = { add = 2 is_colony = yes }
 									modifier = { add = 1 is_colonizable = yes }
@@ -4126,8 +4105,7 @@ country_event = {
 					## Backup Code: Capital System NOT Found
 					random_planet_within_border = {
 						limit = { is_star = no }
-						weights = {
-							base = 1
+						weights = { base = 1
 							# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
 							modifier = { add = 3 has_planet_flag = raid_source }
 							modifier = { add = 2 is_colony = yes }
@@ -4172,8 +4150,7 @@ country_event = {
 						else = {	## Backup Code: raid_source NOT Found in Capital System
 							random_system_planet = {
 								limit = { is_star = no }
-								weights = {
-									base = 1
+								weights = { base = 1
 									modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
 									modifier = { add = 2 is_colony = yes }
 									modifier = { add = 1 is_colonizable = yes }
@@ -4187,8 +4164,7 @@ country_event = {
 				else = {	## Backup Code: Capital System NOT Found
 					random_planet_within_border = {
 						limit = { is_star = no }
-						weights = {
-							base = 1
+						weights = { base = 1
 							# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
 							modifier = { add = 3 has_planet_flag = raid_source }
 							modifier = { add = 2 is_colony = yes }
@@ -4628,9 +4604,7 @@ country_event = {
 			root = {
 				assign_leader = prev
 				if = {
-					limit = {
-						has_paragon_dlc = yes
-					}
+					limit = { has_paragon_dlc = yes }
 					unlock_council_slots = 2
 					set_council_position_to_council = councilor_defense
 					set_council_position_to_council = councilor_state
@@ -4808,20 +4782,6 @@ country_event = {
 		else = {
 			event_target:marauder_rally_point = { CmtEffectCreateAdmiralty_KhanStarterPack = yes }
 		}
-
-		### Compat. Replace hack for CM.
-		# event_target:great_khan.fleet = {
-		# 	create_ship = {
-		# 		design = "NAME_JuukTidir"
-		# 		graphical_culture = "npf_01_dirty"
-		# 		prefix = no
-		# 		# upgradable = no
-		# 	}
-		# 	random_owned_ship = {
-		# 		limit = { is_ship_size = marauder_galleon }
-		# 		delete_ship = this
-		# 	}
-		# }
 
 		## Reinforcement cycle
 		country_event = { id = marauder.520 days = 210 }
@@ -5078,8 +5038,7 @@ country_event = {
 							is_sapient = yes
 							NOT = { is_same_species = root.species }
 						}
-						weights = {
-							base = 5
+						weights = { base = 5
 							# modifier = { add = 1 OR = { is_pop_category = slave is_pop_category = purge } }
 							modifier = { add = 1 is_unemployed = yes }
 							modifier = { add = 1 NOT = { ideal_planet_class = prev } }
@@ -5604,26 +5563,34 @@ country_event = {
 			}
 
 			if = {
+				limit = { exists = event_target:great_khan.fleet }
+				### Compat. Replace hack for CM.
+				event_target:great_khan.fleet = {
+					create_ship = {
+						# name = "NAME_Glorious_Might"
+						design = "NAME_Glorious_Might"
+						graphical_culture = "npf_01_dirty"
+						prefix = no
+						upgradable = yes
+					}
+					# Not too strong
+					random_owned_ship = {
+						limit = { is_ship_size = marauder_galleon }
+						delete_ship = this
+					}
+				}
+			}
+			if = { # Maybe after deleting the marauder_galleon
 				limit = { NOT = { exists = event_target:great_khan.fleet } }
 				last_created_fleet = { assign_leader = event_target:great_khan set_fleet_flag = khan_fleet }
 			}
+
 			# Notify: needs event_target:khan_destroyer
 			every_playable_country = {
 				limit = { is_ai = no }
 				country_event = { id = marauder.508 }
 			}
 			observer_event = { id = observer.15 }
-
-			### Compat. Hack for CM
-			event_target:great_khan.fleet = {
-				create_ship = {
-					# name = "NAME_Glorious_Might"
-					design = "NAME_Glorious_Might"
-					graphical_culture = "npf_01_dirty"
-					prefix = no
-					upgradable = yes
-				}
-			}
 		}
 	}
 }
@@ -6297,8 +6264,7 @@ country_event = {
 									prev.solar_system = {
 										random_neighbor_system = {
 											limit = { prevprevprev = { can_access_system = prevprev } }
-											weights = {
-												base = 1
+											weights = { base = 1
 												modifier = { add = 20 has_owner = no }
 												modifier = { add = 10 NOT = { has_star_flag = guardian } }
 											}
@@ -6314,10 +6280,11 @@ country_event = {
 								move_to = prev
 								wait = { duration = 1 }
 								merge_fleet = {
-									target = event_target:khan_fleet # prev # False error claim?
+									target = event_target:great_khan.fleet # khan_fleet # prev # False error claim?
 									allow_ftl = yes
 								}
 							}
+							auto_follow_fleet = { target = prev }
 						}
 					}
 				}
@@ -6356,8 +6323,7 @@ country_event = {
 									is_councilor = no
 									is_ruler = no
 								}
-								weights = {
-									base = 1
+								weights = { base = 1
 									modifier = { add = 4 NOT = { exists = fleet } }
 								}
 								prevprev = { assign_leader = prev }
@@ -6404,8 +6370,7 @@ country_event = {
 										is_councilor = no
 										is_ruler = no
 									}
-									weights = {
-										base = 1
+									weights = { base = 1
 										modifier = { add = 4 NOT = { exists = fleet } }
 									}
 									prevprev = {
@@ -6448,8 +6413,7 @@ country_event = {
 										is_councilor = no
 										is_ruler = no
 									}
-									weights = {
-										base = 1
+									weights = { base = 1
 										modifier = { add = 4 NOT = { exists = fleet } }
 									}
 									prevprev = {
@@ -7741,8 +7705,7 @@ country_event = {
 			else = {
 				random_owned_planet = {
 					limit = { exists = solar_system.starbase }
-					weights = {
-						base = 1
+					weights = { base = 1
 						modifier = { add = 20 is_capital = yes }
 						modifier = { add = 40 solar_system = { any_fleet_in_system = { has_fleet_flag = satrapy_garrison_fleet } } }
 					}
@@ -8848,10 +8811,7 @@ country_event = {
 						if = {
 							limit = {
 								OR = {
-									AND = {
-										is_imperial = yes
-										has_ethic = ethic_xenophobe
-									}
+									AND = { is_imperial = yes has_ethic = ethic_xenophobe }
 									has_ethic = ethic_fanatic_xenophobe
 								}
 							}
@@ -9728,10 +9688,7 @@ country_event = {
 				every_owned_starbase = {
 					limit = {
 						check_variable_arithmetic = { which = value:marauder_distance|SOURCE|event_target:third_marauder_system|max_distance|event_target:third_marauder_system.marauder_distance_1| value < event_target:third_marauder_system.marauder_distance_1 }
-						check_variable_arithmetic = {
-							which = value:marauder_distance|SOURCE|event_target:third_marauder_system|max_distance|event_target:third_marauder_system.marauder_distance_2|
-							value < event_target:third_marauder_system.marauder_distance_2
-						}
+						check_variable_arithmetic = { which = value:marauder_distance|SOURCE|event_target:third_marauder_system|max_distance|event_target:third_marauder_system.marauder_distance_2| value < event_target:third_marauder_system.marauder_distance_2 }
 					}
 					set_owner = event_target:restored_marauders_3
 				}
@@ -9781,8 +9738,7 @@ country_event = {
 				## Find Marauder Capital System
 				random_system_within_border = {
 					limit = { exists = starbase starbase = { is_owned_by = root } }
-					weights = {
-						base = 1
+					weights = { base = 1
 						modifier = { add = 6 has_star_flag = marauder_system }
 						modifier = { add = 2 is_pirate_system = yes }
 						modifier = { add = 2 is_valid_crystal_splitter_system = yes }
@@ -9814,8 +9770,7 @@ country_event = {
 								}
 								any_system_planet = { is_star = no }
 							}
-							weights = {
-								base = 1
+							weights = { base = 1
 								modifier = { add = 1 any_system_planet = { is_asteroid = no } }
 								modifier = { add = 2 any_system_planet = { colonizable_planet = yes } }
 								modifier = {
@@ -9865,8 +9820,7 @@ country_event = {
 					else = {
 						random_owned_planet = {
 							limit = { is_owned_by = controller }
-							weights = {
-								base = 1
+							weights = { base = 1
 								modifier = { add = 6 solar_system = { has_star_flag = marauder_system } }
 								modifier = { add = 3 solar_system = { any_neighbor_system = { has_star_flag = marauder_system } } }
 								modifier = { add = 3 any_owned_species = { is_same_species = event_target:restored_marauders.owner_species } }
@@ -9907,8 +9861,7 @@ country_event = {
 			else = {
 				random_owned_planet = {
 					limit = { is_owned_by = controller }
-					weights = {
-						base = 1
+					weights = { base = 1
 						modifier = { add = 6 solar_system = { has_star_flag = marauder_system } }
 						modifier = { add = 3 solar_system = { any_neighbor_system = { has_star_flag = marauder_system } } }
 						modifier = { add = 3 any_owned_species = { is_same_species = event_target:restored_marauders.owner_species } }
@@ -9923,8 +9876,7 @@ country_event = {
 				event_target:marauder_capital = {
 					random_system_planet = {
 						limit = { is_star = no }
-						weights = {
-							base = 1
+						weights = { base = 1
 							modifier = { add = 1 is_asteroid = no }
 							modifier = { add = 2 merg_is_gas_giant = no }
 							modifier = { add = 3 colonizable_planet = yes }
@@ -10168,8 +10120,7 @@ country_event = {
 									}
 									exists = species
 								}
-								weights = {
-									base = 1
+								weights = { base = 1
 									modifier = { add = 2 prev = { habitability = { who = prev value >= 0.7 } } }
 									modifier = { add = 10 species = { exists = home_planet home_planet = { is_planet = prevprevprev } } }
 								}
@@ -10197,8 +10148,7 @@ country_event = {
 									}
 									exists = species
 								}
-								weights = {
-									base = 1
+								weights = { base = 1
 									modifier = { add = 2 prev = { habitability = { who = prev value >= 0.6 } } }
 									modifier = { add = 10 species = { exists = home_planet home_planet = { is_planet = prevprevprev } } }
 								}
@@ -10207,8 +10157,7 @@ country_event = {
 						}
 						else = { # Last fallback
 							random_owned_pop = {
-								weights = {
-									base = 1
+								weights = { base = 1
 									modifier = { add = 20 is_robot_pop = no }
 									modifier = { add = 2 prev = { habitability = { who = prev value >= 0.5 } } }
 									modifier = { add = 10 species = { exists = home_planet home_planet = { is_planet = prevprevprev } } }
