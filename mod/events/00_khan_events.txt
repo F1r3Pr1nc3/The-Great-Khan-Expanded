@@ -2622,6 +2622,7 @@ country_event = {
 		is_subject = yes
 		any_agreement = { agreement_preset = preset_fabricator_satrapy }
 		exists = event_target:raider_khanate
+		NOT = { has_global_flag = great_khan_wins }
 	}
 	immediate = {
 		if = {
@@ -2961,7 +2962,7 @@ country_event = {
 				if = {
 					limit = { fleet_power < 450000 }
 					# create_marauder_fleet = yes
-					CmtEffectKhanReinforceOnCapital = yes
+					event_target:CmtGlobalVar = { CmtEffectKhanReinforceOnCapital = yes }
 				}
 			}
 			# country_event = { id = khan.869 days = 340 }
@@ -3048,11 +3049,11 @@ country_event = {
 				}
 			}
 			else = { # _if = { limit = { fleet_power < 400000 }
-				CmtEffectKhanReinforceOnCapital = yes
+				event_target:CmtGlobalVar = { CmtEffectKhanReinforceOnCapital = yes }
 			}
 		}
 		else = { # _if = { limit = { fleet_power < 550000 }
-			CmtEffectKhanReinforceOnCapital = yes
+			event_target:CmtGlobalVar = { CmtEffectKhanReinforceOnCapital = yes }
 		}
 		# Force to war
 		if = {
@@ -3143,7 +3144,6 @@ country_event = {
 					has_country_flag = CmtFlagKhanNoDieCountry
 				}
 				exists = event_target:great_khan
-				is_scope_set = event_target:great_khan
 				event_target:great_khan = { is_scope_valid = yes }
 				NAND = {
 					exists = event_target:great_khan.fleet
@@ -3313,7 +3313,15 @@ country_event = {
 			break = yes
 		}
 		remove_country_flag = has_machinesmith # Regular cycle
-		country_event = { id = khan.870 days = 420 }
+		if = { # Only one cycle for Khan Endgame
+			limit = {
+				OR = {
+					NOT = { has_global_flag = great_khan_wins }
+					has_global_flag = war_in_heaven_ongoing
+				}
+			}
+			country_event = { id = khan.870 days = 420 }
+		}
 	}
 }
 

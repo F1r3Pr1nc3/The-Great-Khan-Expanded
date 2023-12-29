@@ -8,10 +8,7 @@ system_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		NOR = {
-			exists = starbase
-			has_star_flag = marauder_starbase_destroyed
-		}
+		NOR = { exists = starbase has_star_flag = marauder_starbase_destroyed }
 		has_star_flag = marauder_system
 	}
 	immediate = {
@@ -28,10 +25,7 @@ system_event = {
 					owner = { is_country_type = dormant_marauders }
 				}
 				prev = {
-					create_starbase = {
-						size = "starbase_marauder"
-						owner = prev.owner
-					}
+					create_starbase = { size = "starbase_marauder" owner = prev.owner }
 				}
 			}
 			set_timed_star_flag = { flag = marauder_starbase_destroyed months = 3 }
@@ -66,10 +60,7 @@ country_event = {
 				exists = from
 				from = {
 					is_ai = yes
-					OR = {
-						CmtTriggerIsMarauder = yes
-						is_subject_of_khan = yes
-					}
+					OR = { CmtTriggerIsMarauder = yes is_subject_of_khan = yes }
 				}
 			}
 			from = { save_event_target_as = new_khanate }
@@ -270,18 +261,14 @@ country_event = {
 				steal_relic = { target = root relic = all }
 			}
 			if = {
-				limit = {
-					any_owned_starbase = { has_starbase_size < starbase_starhold }
-				}
+				limit = { any_owned_starbase = { has_starbase_size < starbase_starhold } }
 				random_owned_starbase = {
 					limit = { has_starbase_size < starbase_starhold }
 					set_starbase_size = starbase_starhold
 					starbase_event = { id = khan.302 days = 1 }
 				}
 				if = {
-					limit = {
-						any_owned_starbase = { has_starbase_size < starbase_starhold }
-					}
+					limit = { any_owned_starbase = { has_starbase_size < starbase_starhold } }
 					random_owned_starbase = {
 						limit = { has_starbase_size < starbase_starhold }
 						set_starbase_size = starbase_starhold
@@ -289,9 +276,7 @@ country_event = {
 					}
 				}
 				if = {
-					limit = {
-						any_owned_starbase = { has_starbase_size < starbase_starhold }
-					}
+					limit = { any_owned_starbase = { has_starbase_size < starbase_starhold } }
 					random_owned_starbase = {
 						limit = { has_starbase_size < starbase_starhold }
 						set_starbase_size = starbase_starhold
@@ -301,33 +286,25 @@ country_event = {
 			}
 			# Survey Own Space
 			every_planet_within_border = {
-				set_surveyed = {
-					surveyed = yes
-					surveyor = event_target:new_khanate
-				}
+				set_surveyed = { surveyed = yes surveyor = event_target:new_khanate }
 			}
 			# Survey Rest of Horde's Space
 			root = {
 				every_planet_within_border = {
-					set_surveyed = {
-						surveyed = yes
-						surveyor = event_target:new_khanate
-					}
+					set_surveyed = { surveyed = yes surveyor = event_target:new_khanate }
 				}
 			}
 			# Mining and Research Stations
 			every_planet_within_border = {
 				limit = {
 					has_owner = no
-					OR = {
-						has_deposit_for = shipclass_mining_station
-						has_deposit_for = shipclass_research_station
-					}
+					OR = { has_deposit_for = shipclass_mining_station has_deposit_for = shipclass_research_station }
 				}
 				if = {
 					limit = { has_deposit_for = shipclass_mining_station has_mining_station = no }
 					create_mining_station = { owner = event_target:new_khanate }
-				} else_if = {
+				}
+				else_if = {
 					limit = { has_deposit_for = shipclass_research_station has_research_station = no }
 					create_research_station = { owner = event_target:new_khanate }
 				}
@@ -360,9 +337,7 @@ country_event = {
 						fleet_power > 40000
 					}
 					if = {
-						limit = {
-							any_owned_planet = { has_planet_flag = fallen_empire_world }
-						}
+						limit = { any_owned_planet = { has_planet_flag = fallen_empire_world } }
 						set_variable = { which = "successor_fleet_power" value = 220000 }
 					}
 					else = {
@@ -371,8 +346,7 @@ country_event = {
 				}
 				random_owned_planet = {
 					limit = { solar_system = { exists = starbase } }
-					weights = {
-						base = 1
+					weights = { base = 1
 						modifier = { add = 1 is_colony = yes }
 						modifier = { add = 2 is_capital = yes }
 					}
@@ -381,8 +355,7 @@ country_event = {
 						CmtEffectCreateFleet_KhanArmy = yes
 						CmtEffectCreateFleet_KhanConstructor = yes
 					}
-					while = {
-						count = 4
+					while = { count = 4
 						limit = {
 							any_playable_country = {
 								is_variable_set = "successor_fleet_power"
@@ -409,9 +382,7 @@ country_event = {
 				### Do automatic claims if planet has belonged to an empire.
 				# TODO also former systems?
 				every_owned_planet = {
-					limit = {
-						any_playable_country = { has_country_flag = former_owner@prev }
-					}
+					limit = { any_playable_country = { has_country_flag = former_owner@prev } }
 					random_playable_country = {
 						limit = { has_country_flag = former_owner@prev }
 						prev.solar_system = {
@@ -530,10 +501,7 @@ country_event = {
 							authority = auth_imperial
 							civics = { civic = random }
 							origin = "origin_khan_successor"
-							ethos = {
-								ethic = ethic_militarist
-								ethic = ethic_authoritarian
-							}
+							ethos = { ethic = ethic_militarist ethic = ethic_authoritarian }
 							ignore_initial_colony_error = yes
 						}
 					}
@@ -545,10 +513,7 @@ country_event = {
 							authority = auth_dictatorial
 							civics = { civic = random }
 							origin = "origin_khan_successor"
-							ethos = {
-								ethic = ethic_militarist
-								ethic = ethic_xenophobe
-							}
+							ethos = { ethic = ethic_militarist ethic = ethic_xenophobe }
 							ignore_initial_colony_error = yes
 						}
 					}
@@ -560,10 +525,7 @@ country_event = {
 							authority = auth_dict_democratic
 							civics = { civic = random }
 							origin = "origin_khan_successor"
-							ethos = {
-								ethic = ethic_militarist
-								ethic = ethic_authoritarian
-							}
+							ethos = { ethic = ethic_militarist ethic = ethic_authoritarian }
 							ignore_initial_colony_error = yes
 						}
 					}
@@ -579,10 +541,7 @@ country_event = {
 							authority = auth_imperial
 							civics = { civic = random }
 							origin = "origin_khan_successor"
-							ethos = {
-								ethic = ethic_militarist
-								ethic = ethic_authoritarian
-							}
+							ethos = { ethic = ethic_militarist ethic = ethic_authoritarian }
 							ignore_initial_colony_error = yes
 						}
 					}
@@ -594,10 +553,7 @@ country_event = {
 							authority = auth_dictatorial
 							civics = { civic = random }
 							origin = "origin_khan_successor"
-							ethos = {
-								ethic = ethic_militarist
-								ethic = ethic_xenophobe
-							}
+							ethos = { ethic = ethic_militarist ethic = ethic_xenophobe }
 							ignore_initial_colony_error = yes
 						}
 					}
@@ -612,10 +568,7 @@ country_event = {
 				authority = auth_imperial
 				civics = { civic = random }
 				origin = "origin_khan_successor"
-				ethos = {
-					ethic = ethic_militarist
-					ethic = ethic_authoritarian
-				}
+				ethos = { ethic = ethic_militarist ethic = ethic_authoritarian }
 				ignore_initial_colony_error = yes
 				day_zero_contact = no
 				exclude_day_zero_contact = root
@@ -649,10 +602,7 @@ country_event = {
 						}
 					}
 					if = {
-						limit = {
-							has_ethic = ethic_xenophobe
-							has_ethic = ethic_authoritarian
-						}
+						limit = { has_ethic = ethic_xenophobe has_ethic = ethic_authoritarian }
 						random_list = {
 							1 = { country_add_ethic = ethic_socialism }
 							1 = { country_add_ethic = ethic_spiritualist }
@@ -677,10 +627,7 @@ country_event = {
 						}
 					}
 					if = {
-						limit = {
-							has_ethic = ethic_xenophobe
-							has_ethic = ethic_authoritarian
-						}
+						limit = { has_ethic = ethic_xenophobe has_ethic = ethic_authoritarian }
 						random_list = {
 							1 = { country_add_ethic = ethic_socialism }
 							1 = { country_add_ethic = ethic_spiritualist }
@@ -743,10 +690,7 @@ country_event = {
 			}
 			every_subject = {
 				limit = { any_agreement = { agreement_preset = preset_satrapy } }
-				set_subject_of = {
-					who = event_target:new_khanate
-					preset = preset_relic_satrapy
-				}
+				set_subject_of = { who = event_target:new_khanate preset = preset_relic_satrapy }
 			}
 		}
 		event_target:new_khanate = {
@@ -943,19 +887,14 @@ country_event = {
 				limit = {
 					OR = {
 						has_communications = event_target:first_diadochi
-						intel_level = {
-							level > low
-							system = event_target:diadochi_country.capital_scope.solar_system
-						}
+						intel_level = { level > low system = event_target:diadochi_country.capital_scope.solar_system }
 					}
 				}
 				establish_communications_no_message = event_target:diadochi_country
 			}
 			# Clear new contact opinion modifier
 			if = {
-				limit = {
-					has_opinion_modifier = { who = event_target:first_diadochi modifier = opinion_new_contact }
-				}
+				limit = { has_opinion_modifier = { who = event_target:first_diadochi modifier = opinion_new_contact } }
 				remove_opinion_modifier = { who = event_target:first_diadochi modifier = opinion_new_contact }
 			}
 			country_event = { id = khan.610 days = -1 } # Handover some old stuff
@@ -1132,10 +1071,7 @@ country_event = {
 									use_bypasses = yes # To much performance?
 									limit = {
 										exists = owner
-										owner = {
-											has_government = gov_diadochi
-											has_origin = "origin_khan_successor"
-										}
+										owner = { has_government = gov_diadochi has_origin = "origin_khan_successor" }
 									}
 									is_owned_by = prevprevprev
 								}
@@ -1194,10 +1130,7 @@ country_event = {
 														NOT = { is_owned_by = prev.owner }
 														is_capital_system = no
 														is_owned_by = prevprevprevprev.owner
-														NOR = {
-															has_star_flag = switched_system
-															is_owned_by = prevprev.owner
-														}
+														NOR = { has_star_flag = switched_system is_owned_by = prevprev.owner }
 														count_neighbor_system = { count < 2 limit = { has_owner = yes is_owned_by = prevprevprev } }
 													}
 												}

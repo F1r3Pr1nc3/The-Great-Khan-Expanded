@@ -3956,8 +3956,8 @@ event = {
 					}
 					last_created_fleet = {
 						set_owner = prev	# Real owner
-						# assign_leader = last_created_leader		# FIXME sometimes fail!?
 						set_leader = last_created_leader
+						assign_leader = last_created_leader		# FIXME sometimes fail!?
 						closest_system = {
 							use_bypasses = yes
 							limit = {
@@ -5381,8 +5381,11 @@ country_event = {
 			fromfrom = {
 				solar_system = { save_event_target_as = khan_death_system }
 				if = {
-					limit = { exists = leader }
-					leader = { save_event_target_as = great_khan exile_leader_as = exiled_khan }
+					limit = {
+						exists = leader
+						NOT = { exists = event_target:great_khan }
+					}
+					leader = { save_global_event_target_as = great_khan exile_leader_as = exiled_khan }
 				}
 			}
 			every_playable_country = {
@@ -5561,11 +5564,76 @@ country_event = {
 					}
 				}
 			}
+			# Try fix khan_fleet without Khan
+			if = {
+				limit = {
+					NOT = { exists = event_target:khan_fleet }
+					exists = last_created_fleet
+					last_created_fleet = { has_fleet_flag = khan_fleet }
+				}
+				last_created_fleet = { save_event_target_as = khan_fleet }
+			}
+			else_if = {
+				limit = { NOT = { exists = event_target:khan_fleet } }
+				random_owned_fleet = {
+					limit = { has_fleet_flag = khan_fleet }
+					save_event_target_as = khan_fleet
+				}
+			}
+			if = {
+				limit = { NOT = { exists = event_target:khan_fleet } } # Assign the strongest fleet
+				ordered_owned_fleet = {
+					limit = {
+						exists = solar_system
+						is_mobile = yes
+						NOR = {
+							is_civilian = yes
+							is_in_combat = yes
+							exists = leader
+							has_fleet_flag = satrapy_garrison_fleet
+							fleet_power < 16000
+						}
+						exists = controller
+						controller = { is_same_empire = root }
+					}
+					position = 0
+					order_by = trigger:fleet_power
+					save_event_target_as = khan_fleet
+				}
+			}
+
+			event_target:khan_fleet = {
+				set_fleet_flag = khan_fleet
+				if = {
+					limit = {
+						exists = leader
+						leader = { has_leader_flag = great_khan }
+						NOT = { exists = event_target:great_khan }
+					}
+					leader = { save_global_event_target_as = great_khan }
+				}
+			}
 
 			if = {
-				limit = { exists = event_target:great_khan.fleet }
+				limit = {
+					NAND = {
+						exists = event_target:great_khan
+						event_target:great_khan = { is_scope_valid = yes }
+					}
+				}
+				if = {
+					limit = { any_owned_leader = { has_leader_flag = great_khan } }
+					random_owned_leader = {
+						limit = { has_leader_flag = great_khan }
+						save_global_event_target_as = great_khan
+					}
+				}
+			}
+
+			if = {
+				limit = { event_target:khan_fleet = { any_owned_ship = { is_ship_size = marauder_galleon } } }
 				### Compat. Replace hack for CM.
-				event_target:great_khan.fleet = {
+				event_target:khan_fleet = {
 					create_ship = {
 						# name = "NAME_Glorious_Might"
 						design = "NAME_Glorious_Might"
@@ -5580,10 +5648,32 @@ country_event = {
 					}
 				}
 			}
+
 			if = { # Maybe after deleting the marauder_galleon
-				limit = { NOT = { exists = event_target:great_khan.fleet } }
-				last_created_fleet = { assign_leader = event_target:great_khan set_fleet_flag = khan_fleet }
+				limit = {
+					exists = event_target:great_khan
+					NOT = { exists = event_target:khan_fleet.leader }
+				}
+				event_target:khan_fleet = { assign_leader = event_target:great_khan }
 			}
+			if = { # 2nd Fallback
+				limit = { NOT = { exists = event_target:khan_fleet.leader } }
+				event_target:khan_fleet = { set_leader = exiled_khan }
+			}
+			if = { # 3nd Fallback
+				limit = { NOT = { exists = event_target:khan_fleet.leader } }
+				if = { limit = { exists = event_target:great_khan }
+					event_target:great_khan = { exile_leader_as = great_khan }
+				}
+				event_target:khan_fleet = { set_leader = great_khan }
+			}
+			if = { # dead
+				limit = { NOT = { exists = event_target:khan_fleet.leader } }
+				country_event = { id = marauder.512 days = 30 }
+			} else_if = { limit = { exists = event_target:great_khan }
+				event_target:khan_fleet.leader = { save_global_event_target_as = great_khan }
+			}
+
 
 			# Notify: needs event_target:khan_destroyer
 			every_playable_country = {
@@ -5781,7 +5871,10 @@ event = {
 	is_triggered_only = yes
 	trigger = {
 		has_global_flag = marauder_crisis_started
-		NOR = { has_global_flag = khan_no_die has_global_flag = great_khan_dead }
+		NOR = {
+			has_global_flag = khan_no_die
+			has_global_flag = great_khan_dead
+		}
 		exists = event_target:raider_khanate
 		event_target:raider_khanate = {
 			NOR = { has_country_flag = CmtFlagKhanNoDieCountry has_country_flag = khan_dead_event_fine }
@@ -5791,7 +5884,6 @@ event = {
 		if = {
 			limit = {
 				exists = event_target:great_khan
-				is_scope_set = event_target:great_khan
 				event_target:great_khan = { is_scope_valid = yes }
 				NAND = {
 					exists = event_target:great_khan.fleet
@@ -5835,8 +5927,8 @@ event = {
 						}
 						position = 0
 						order_by = trigger:fleet_power
-						set_leader = great_khan # previously-exiled leader
 						assign_leader = event_target:great_khan
+						set_leader = great_khan # previously-exiled leader
 						set_fleet_flag = khan_fleet
 					}
 				}
@@ -5885,6 +5977,12 @@ country_event = {
 	id = marauder.512
 	hide_window = yes
 	is_triggered_only = yes
+	trigger = {
+		NAND = {
+			has_global_flag = great_khan_dead
+			has_country_flag = khan_dead_event_fine
+		}
+	}
 	immediate = {
 		set_global_flag = great_khan_dead
 		set_country_flag = khan_dead_event_fine
@@ -7561,7 +7659,16 @@ country_event = {
 									}
 								}
 							}
-							CmtFleetSetAuxParam_KhanEncourager = yes
+							# CmtFleetSetAuxParam_KhanEncourager
+							set_formation_scale = 2
+							set_fleet_stance = aggressive
+							# set_aggro_range_measure_from = self
+							set_aggro_range = 250
+							set_location = {
+								target = prevprev
+								distance = 20
+								angle = random
+							}
 						}
 						settings = { garrison = yes uses_naval_capacity = no }
 					}
@@ -8888,7 +8995,7 @@ country_event = {
 						if = {
 							limit = {
 								exists = event_target:diadochi_leader_sector
-								is_scope_set = event_target:diadochi_leader_sector
+								event_target:diadochi_leader_sector = { is_scope_valid = yes }
 								any_owned_sector = { has_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector }
 							}
 							every_owned_sector = {

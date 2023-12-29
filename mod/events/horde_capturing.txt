@@ -225,7 +225,7 @@ planet_event = {
 			while = { count = temp_size
 				create_army = {
 					owner = root.owner
-					name = NAME_Elite_horde_squad
+					name = elite_basic_horde
 					species = root.owner_species
 					type = "elite_basic_horde"
 				}
@@ -236,7 +236,7 @@ planet_event = {
 			while = { count = temp_size
 				create_army = {
 					owner = root.owner
-					name = NAME_Elite_horde_squad
+					name = elite_admiral_horde
 					species = root.owner_species
 					type = "elite_admiral_horde"
 				}
@@ -246,7 +246,7 @@ planet_event = {
 			while = { count = temp_size
 				create_army = {
 					owner = root.owner
-					name = NAME_Elite_horde_squad
+					name = elite_gros_horde
 					species = root.owner_species
 					type = "elite_gros_horde"
 				}

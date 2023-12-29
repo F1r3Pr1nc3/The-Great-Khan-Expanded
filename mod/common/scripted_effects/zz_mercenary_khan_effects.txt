@@ -9,9 +9,8 @@
 # This = Fleet
 create_dyn_marauder_fleet = {
 	# default: OUTRIDER = 18 LANCER = 12 CHAMPION = 6 GLORY = 1
-	while = {
+	while = { count = $OUTRIDER|18$
 		# count = @\[ $AMOUNT|3$ * 6 ]
-		count = $OUTRIDER|18$
 		create_ship = {
 			name = random
 			design = NAME_Outrider$VARIANT$
@@ -117,7 +116,7 @@ create_2nd_khan_fleet = {
 				create_dyn_marauder_fleet = { OUTRIDER = 36 LANCER = 24 CHAMPION = 12 }
 			}
 			else = { create_dyn_marauder_fleet = yes }
-
+			save_event_target_as = khan_fleet
 			set_location = {
 				target = event_target:marauder_rally_point
 				distance = 45
@@ -867,7 +866,6 @@ get_marauder_species = {
 				# This error log turns me crazy: is_same_species/is_exact_same_species: Unable to resolve species from 'event_target:marauder_species' (no_scope scope)
 				NAND = {
 					exists = event_target:marauder_species
-					is_scope_set = event_target:marauder_species
 					event_target:marauder_species = { is_scope_valid = yes }
 					event_target:marauder_species = { is_scope_type = species }
 					event_target:marauder_species = { species_can_be_necrophaged = yes }
@@ -974,7 +972,6 @@ get_marauder_species = {
 			# This error log turns me crazy: is_same_species/is_exact_same_species: Unable to resolve species from 'event_target:marauder_species' (no_scope scope)
 			NAND = {
 				exists = event_target:marauder_species
-				is_scope_set = event_target:marauder_species
 				event_target:marauder_species = { is_scope_valid = yes }
 				event_target:marauder_species = { is_scope_type = species }
 				pop_percentage = { percentage > 0.2 limit = { is_same_species = prev.owner_species } }
@@ -1050,7 +1047,6 @@ get_marauder_species = {
 			# This error log turns me crazy: is_same_species/is_exact_same_species: Unable to resolve species from 'event_target:marauder_species' (no_scope scope)
 			NAND = {
 				exists = event_target:marauder_species
-				is_scope_set = event_target:marauder_species
 				event_target:marauder_species = { is_scope_valid = yes }
 				event_target:marauder_species = { is_scope_type = species }
 			}
