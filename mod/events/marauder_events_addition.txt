@@ -30,6 +30,10 @@ fleet_event = {
 			}
 		}
 		set_event_locked = no
+		every_owned_ship = {
+			limit = { is_disabled = yes }
+			set_disabled = no
+		}
 		if = {
 			limit = { exists = event_target:raid_planet }
 			set_location = {

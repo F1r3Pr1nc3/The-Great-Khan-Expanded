@@ -8,7 +8,7 @@
 #########################################
 namespace = khan
 
-# Placeholder since 3.9.1 (parser crashes if missing)
+# Placeholder since v.3.9.1 (parser crashes if missing)
 country_event = { id = khan.296 hide_window = yes is_triggered_only = yes is_test_event = yes trigger = { always = no } immediate = { } }
 country_event = { id = khan.298 hide_window = yes is_triggered_only = yes is_test_event = yes trigger = { always = no } immediate = { } }
 
@@ -55,7 +55,7 @@ event = {
 			}
 		}
 
-		if = { # Workaround bugfix (unknown reason on saveload): Khan fights own subjects (seems since 3.1)
+		if = { # Workaround bugfix (unknown reason on saveload): Khan fights own subjects (seems since v.3.1)
 			limit = { has_global_flag = marauder_crisis_ongoing exists = event_target:raider_khanate }
 			event_target:raider_khanate = {
 				# Fix ongoing hostility (is_hostile seems not immediately working on load)
@@ -678,11 +678,11 @@ country_event = {
 					any_owned_ship = { is_disabled = yes }
 				}
 			}
+			set_event_locked = no
 			every_owned_ship = {
 				limit = { is_disabled = yes }
 				set_disabled = no
 			}
-			set_event_locked = no
 		}
 		if = {
 			limit = { exists = from }
@@ -696,7 +696,14 @@ country_event = {
 				remove_army_flag = attacking_fleets_stopped@event_target:former_opponent
 				if = {
 					limit = { fleet = { NOT = { is_owned_by = event_target:former_opponent } } }
-					fleet = { set_owner = event_target:former_opponent set_event_locked = no }
+					fleet = {
+						set_owner = event_target:former_opponent
+						set_event_locked = no
+						every_owned_ship = {
+							limit = { is_disabled = yes }
+							set_disabled = no
+						}
+					}
 				}
 			}
 		}
@@ -1625,6 +1632,7 @@ country_event = {
 		every_system_within_border = {
 			limit = {
 				exists = starbase
+				starbase = { is_owned_by = root }
 				any_system_colony = {
 					NOR = {
 						is_owned_by = root
@@ -1788,7 +1796,7 @@ country_event = {
 					random_system_within_border = {
 						limit = {
 							exists = starbase
-							starbase = { has_starbase_size < starbase_starhold }
+							starbase = { is_owned_by = prev has_starbase_size < starbase_starhold }
 						}
 						weights = { base = 1
 							modifier = { add = 1 is_inside_nebula = yes }
@@ -2005,8 +2013,11 @@ country_event = {
 
 		give_tech_no_error_effect = { MESSAGE = no TECH = tech_hyper_drive_1 }
 		give_tech_no_error_effect = { MESSAGE = no TECH = tech_hyper_drive_2 }
+		# give_tech_no_error_effect = { MESSAGE = no TECH = tech_physics_2 }
 		give_tech_no_error_effect = { MESSAGE = no TECH = tech_starbase_3 }
-		give_tech_no_error_effect = { MESSAGE = no TECH = tech_wormhole_stabilization }
+		add_research_option = tech_wormhole_stabilization	# Tier 3 later prerequisites = { "tech_hyper_drive_2" }
+		add_tech_progress = { tech = tech_wormhole_stabilization progress = 0.95 }
+		give_tech_no_error_effect = { MESSAGE = yes TECH = tech_wormhole_stabilization }
 		set_country_flag = encountered_first_wormhole
 		add_seen_bypass_type = wormhole
 

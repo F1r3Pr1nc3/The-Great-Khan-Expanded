@@ -2728,7 +2728,7 @@ country_event = {
 # 	option = {
 # 		name = CrisisManagerMenu.5134b1.name
 # 		custom_tooltip = CrisisManagerMenu.5134b1.tooltip
-# 		trigger = { event_target:CmtGlobalVar = { NOT = { check_variable = { which = CmtVarUprisingUnwarned value = 3 } } } }
+# 		trigger = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarUprisingUnwarned value != 3 } } }
 # 		hidden_effect = {
 # 			event_target:CmtGlobalVar = {
 # 				set_variable = { which = CmtVarUprisingWarProbability value = 2 }
@@ -2745,7 +2745,7 @@ country_event = {
 # 	option = {
 # 		name = CrisisManagerMenu.5134c1.name
 # 		custom_tooltip = CrisisManagerMenu.5134c1.tooltip
-# 		trigger = { event_target:CmtGlobalVar = { NOT = { check_variable = { which = CmtVarUprisingUnwarned value = 3 } } } }
+# 		trigger = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarUprisingUnwarned value != 3 } } }
 # 		hidden_effect = {
 # 			event_target:CmtGlobalVar = {
 # 				set_variable = { which = CmtVarUprisingWarProbability value = 3 }
@@ -2762,7 +2762,7 @@ country_event = {
 # 	option = {
 # 		name = CrisisManagerMenu.5134d1.name
 # 		custom_tooltip = CrisisManagerMenu.5134d1.tooltip
-# 		trigger = { event_target:CmtGlobalVar = { NOT = { check_variable = { which = CmtVarUprisingUnwarned value = 3 } } } }
+# 		trigger = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarUprisingUnwarned value != 3 } } }
 # 		hidden_effect = {
 # 			event_target:CmtGlobalVar = {
 # 				set_variable = { which = CmtVarUprisingWarProbability value = 4 }

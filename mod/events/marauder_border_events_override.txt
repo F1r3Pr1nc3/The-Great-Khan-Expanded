@@ -1,7 +1,7 @@
 namespace = marauder
 namespace = marauder_borders
 
-# Placeholder since 3.9.1 (parser crashes if missing)
+# Placeholder since v.3.9.1 (parser crashes if missing, but again ok with v.3.10)
 # Rebuild marauder starbase
 system_event = {
 	id = marauder.17
@@ -132,6 +132,7 @@ country_event = {
 			}
 		}
 		# Normalize Starbases
+		# Note: system_within_border caching is quite funky at a time like this when many borders are changing hands. The starbase ownership is checked to be extra sure, since it is not cached (unlike system ownership - though that probably would have worked too)
 		if = {
 			limit = {
 				OR = {
@@ -141,7 +142,11 @@ country_event = {
 			}
 			# Return colonies that have only the starbase conquered.
 			every_system_within_border = {
-				limit = { exists = starbase }
+				limit = {
+					exists = starbase
+					starbase = { is_owned_by = prev }
+					is_capital_system = no
+				}
 				if = {
 					limit = {
 						any_system_colony = {
@@ -207,7 +212,16 @@ country_event = {
 				}
 			}
 		}
-		every_owned_starbase = { set_owner = event_target:new_khanate }
+		every_owned_starbase = {
+			limit = {
+				solar_system = {
+					has_owner = yes
+					is_owned_by = root		# Note: caching is quite funky at a time like this when many borders are changing hands. The starbase ownership is checked to be extra sure, since it is not cached (unlike system ownership - though that probably would have worked too)
+					is_capital_system = no
+				}
+			}
+			set_owner = event_target:new_khanate
+		}
 		log="Handover \\[This.GetName] to \\[event_target:new_khanate.GetName]"
 		# Full handover
 		every_owned_fleet = {
@@ -238,6 +252,11 @@ country_event = {
 
 		# Needs to be last (as the country gets destroyed without planet)
 		every_owned_planet = {
+			limit = {
+				has_owner = yes
+				is_owned_by = root		# Note: caching is quite funky at a time like this when many borders are changing hands. The starbase ownership is checked to be extra sure, since it is not cached (unlike system ownership - though that probably would have worked too)
+				solar_system = { is_capital_system = no }
+			}
 			set_owner = event_target:new_khanate
 			set_controller = event_target:new_khanate
 			# Just to keep the initial conquered planets in line while they stabilize.
@@ -460,6 +479,31 @@ country_event = {
 			}
 		}
 	}
+	after = {
+		every_owned_fleet = {
+			limit = {
+				is_mobile = no
+				exists = starbase
+				starbase = { has_starbase_size = starbase_marauder }
+			}
+			destroy_fleet = this
+		}
+		event_target:new_khanate = {
+			every_owned_fleet = {
+				limit = {
+					is_mobile = no
+					exists = starbase
+					starbase = { has_starbase_size = starbase_marauder }
+				}
+				destroy_fleet = this
+			}
+			every_owned_fleet = {
+				limit = { is_disabled = yes }
+				set_event_locked = no
+				every_owned_ship = { set_disabled = no }
+			}
+		}
+	}
 }
 
 ###### (By MrFunEGUY & FirePrince)
@@ -474,13 +518,13 @@ country_event = {
 		owner_species = { save_event_target_as = marauder_species }
 		every_owned_fleet = {
 			limit = {
-				NOT = { is_ship_size = starbase_marauder }
 				OR = {
 					has_fleet_flag = satrapy_garrison
 					has_fleet_flag = satrapy_garrison_fleet
 					has_fleet_flag = horde_auxuliaries
 					NOT = { is_within_borders_of = root }
 				}
+				NOT = { any_owned_ship = { is_ship_size = starbase_marauder } }
 			}
 			destroy_fleet = this
 		}
@@ -921,26 +965,30 @@ country_event = {
 				while = { count = 4
 					limit = {
 						any_system_within_border = {
-							# is_owned_by = prev
-							# exists = space_owner
-							# NOT = { space_owner = { is_same_empire = prevprevprev } }
-							# exists = starbase
-							# starbase = { is_owned_by = prevprev }
+							exists = space_owner
+							exists = starbase
+							is_owned_by = prev
+							starbase = { is_owned_by = prevprev }
 							# any_neighbor_system = { is_owned_by = prevprevprev }
 							# any_country_neighbor_to_system = { is_same_empire = prevprevprev }
 							NOR = {
+								space_owner = { is_same_empire = prevprevprev }
+								is_capital_system = yes
 								has_star_flag = switched_system
 								any_neighbor_system = { has_owner = yes is_owned_by = prevprev }
 							}
 							any_country_neighbor_to_system = {
 								has_government = gov_diadochi has_origin = "origin_khan_successor"
 								any_system_within_border = {
-									# is_owned_by = prev
-									# exists = space_owner
-									# NOT = { space_owner = { is_same_empire = prevprevprev } }
-									# exists = starbase
-									# starbase = { is_owned_by = prevprev }
-									NOT = { has_star_flag = switched_system }
+									exists = space_owner
+									exists = starbase
+									is_owned_by = prev
+									starbase = { is_owned_by = prevprev }
+									NOR = {
+										space_owner = { is_same_empire = prevprevprev }
+										is_capital_system = yes
+										has_star_flag = switched_system
+									}
 									any_country_neighbor_to_system = { is_same_empire = event_target:planet_owner_2 } # prevprevprevprev
 									OR = {
 										NOT = { any_neighbor_system = { has_owner = yes is_owned_by = prevprev } }
@@ -954,28 +1002,34 @@ country_event = {
 						}
 					}
 					# log="Diadochi system switch"
+					 # Note: caching is quite funky at a time like this when many borders are changing hands. The starbase ownership is checked to be extra sure, since it is not cached (unlike system ownership - though that probably would have worked too)
 					random_system_within_border = {
 						limit = {
-							# is_owned_by = prev
-							# exists = space_owner
-							# NOT = { space_owner = { is_same_empire = prevprevprev } }
-							# exists = starbase
-							# starbase = { is_owned_by = prevprev }
+							exists = space_owner
+							exists = starbase
+							is_owned_by = prev
+							starbase = { is_owned_by = prevprev }
 							# any_neighbor_system = { is_owned_by = prevprevprev }
 							# any_country_neighbor_to_system = { is_same_empire = prevprevprev }
 							NOR = {
+								space_owner = { is_same_empire = prevprevprev }
+								is_capital_system = yes
 								has_star_flag = switched_system
 								any_neighbor_system = { has_owner = yes is_owned_by = prevprev }
 							}
 							any_country_neighbor_to_system = {
-								has_government = gov_diadochi has_origin = "origin_khan_successor"
+								has_government = gov_diadochi
+								has_origin = "origin_khan_successor"
 								any_system_within_border = {
-									# is_owned_by = prev
-									# exists = space_owner
-									# NOT = { space_owner = { is_same_empire = prevprevprev } }
-									# exists = starbase
-									# starbase = { is_owned_by = prevprev }
-									NOT = { has_star_flag = switched_system }
+									exists = space_owner
+									exists = starbase
+									is_owned_by = prev
+									starbase = { is_owned_by = prevprev }
+									NOR = {
+										is_capital_system = yes
+										space_owner = { is_same_empire = prevprevprev }
+										has_star_flag = switched_system
+									}
 									any_country_neighbor_to_system = { is_same_empire = event_target:planet_owner_2 } # prevprevprevprev
 									OR = {
 										NOT = { any_neighbor_system = { has_owner = yes is_owned_by = prevprev } }
@@ -989,14 +1043,18 @@ country_event = {
 						}
 						random_country_neighbor_to_system = {
 							limit = {
-								has_government = gov_diadochi has_origin = "origin_khan_successor"
+								has_government = gov_diadochi
+								has_origin = "origin_khan_successor"
 								any_system_within_border = {
-									# is_owned_by = prev
-									# exists = space_owner
-									# NOT = { space_owner = { is_same_empire = prevprevprev } }
-									# exists = starbase
-									# starbase = { is_owned_by = prevprev }
-									NOT = { has_star_flag = switched_system }
+									exists = space_owner
+									exists = starbase
+									is_owned_by = prev
+									starbase = { is_owned_by = prevprev }
+									NOR = {
+										is_capital_system = yes
+										space_owner = { is_same_empire = prevprevprev }
+										has_star_flag = switched_system
+									}
 									any_country_neighbor_to_system = { is_same_empire = event_target:planet_owner_2 } # prevprevprevprev
 									OR = {
 										NOT = { any_neighbor_system = { has_owner = yes is_owned_by = prevprev } }
@@ -1009,12 +1067,15 @@ country_event = {
 							}
 							random_system_within_border = {
 								limit = {
-									# is_owned_by = prev
-									# exists = space_owner
-									# NOT = { space_owner = { is_same_empire = prevprevprev } }
-									# exists = starbase
-									# starbase = { is_owned_by = prevprev }
-									NOT = { has_star_flag = switched_system }
+									exists = space_owner
+									exists = starbase
+									is_owned_by = prev
+									starbase = { is_owned_by = prevprev }
+									NOR = {
+										is_capital_system = yes
+										space_owner = { is_same_empire = prevprevprev }
+										has_star_flag = switched_system
+									}
 									any_country_neighbor_to_system = { is_same_empire = event_target:planet_owner_2 } # prevprevprevprev
 									OR = {
 										NOT = { any_neighbor_system = { has_owner = yes is_owned_by = prevprev } }
@@ -1038,6 +1099,7 @@ country_event = {
 							exists = starbase
 							starbase = { is_owned_by = prevprev }
 							NOR = {
+								is_capital_system = yes
 								has_star_flag = switched_system
 								any_neighbor_system = { is_owned_by = prevprev }
 								any_country_neighbor_to_system = { has_government = gov_diadochi has_origin = "origin_khan_successor" } # any_neighbor_system = { exists = owner owner = { has_government = gov_diadochi has_origin = "origin_khan_successor" } }
@@ -1051,7 +1113,7 @@ country_event = {
 									owner = {
 										has_government = gov_diadochi
 										has_origin = "origin_khan_successor"
-										NOT = { is_same_empire = prevprevprev }
+										NOR = { is_same_empire = prevprevprev is_capital_system = yes }
 									}
 								}
 							}
@@ -1062,6 +1124,7 @@ country_event = {
 							exists = starbase
 							starbase = { is_owned_by = prevprev }
 							NOR = {
+								is_capital_system = yes
 								has_star_flag = switched_system
 								any_neighbor_system = { is_owned_by = prevprev }
 								any_country_neighbor_to_system = { has_government = gov_diadochi has_origin = "origin_khan_successor" } # any_neighbor_system = { exists = owner owner = { has_government = gov_diadochi has_origin = "origin_khan_successor" } }
@@ -1072,6 +1135,7 @@ country_event = {
 									limit = {
 										exists = owner
 										owner = { has_government = gov_diadochi has_origin = "origin_khan_successor" }
+										is_capital_system = no
 									}
 									is_owned_by = prevprevprev
 								}
@@ -1087,6 +1151,7 @@ country_event = {
 									has_government = gov_diadochi has_origin = "origin_khan_successor"
 									NOT = { is_same_empire = prevprevprev }
 								}
+								is_capital_system = no
 							}
 							space_owner = {
 								save_event_target_as = planet_owner
@@ -1127,10 +1192,13 @@ country_event = {
 													use_bypasses = yes # To much performance?
 													limit = {
 														has_owner = yes
-														NOT = { is_owned_by = prev.owner }
-														is_capital_system = no
 														is_owned_by = prevprevprevprev.owner
-														NOR = { has_star_flag = switched_system is_owned_by = prevprev.owner }
+														NOR = {
+															is_capital_system = yes
+															has_star_flag = switched_system
+															is_owned_by = prev.owner
+															is_owned_by = prevprev.owner
+														}
 														count_neighbor_system = { count < 2 limit = { has_owner = yes is_owned_by = prevprevprev } }
 													}
 												}
@@ -1179,8 +1247,8 @@ country_event = {
 											has_owner = yes
 											NOR = {
 												is_owned_by = event_target:planet_owner # is_owned_by = prev.owner
-												has_star_flag = switched_system
 												is_capital_system = yes
+												has_star_flag = switched_system
 											}
 											is_owned_by = event_target:planet_owner_2 # prevprevprevprev
 											count_neighbor_system = { count < 2 limit = { has_owner = yes is_owned_by = event_target:planet_owner_2 } } # prevprevprev.owner

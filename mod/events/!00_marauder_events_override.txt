@@ -121,7 +121,7 @@ country_event = {
 				num_starbases < 2 # Last one still counts as alive when this fires.
 			}
 			count_owned_fleet = {
-				limit = { is_ship_size = starbase_marauder }
+				limit = { any_owned_ship = { is_ship_size = starbase_marauder } }
 				count = 0
 			}
 		}
@@ -2955,10 +2955,52 @@ event = {
 			limit = { is_country_type = dormant_marauders has_country_flag = raid_ongoing }
 			country_event = { id = marauder.28 days = 8 }
 		}
-		# every_galaxy_fleet = {
-		# 	limit = { NOT = { exists = owner } }
-		# 	delete_fleet = this
-		# }
+		every_galaxy_fleet = {
+			limit = { NOT = { exists = owner } }
+			delete_fleet = this
+		}
+		if = {
+			limit = {
+				has_global_flag = marauder_crisis_started
+				NOR = { has_global_flag = marauder_crisis_ongoing exists = event_target:raider_khanate }
+				any_galaxy_fleet = {
+					is_mobile = no
+					exists = starbase
+					starbase = { has_starbase_size = starbase_marauder }
+					NAND = {
+						exists = owner
+						owner = { is_pirate_country = yes }
+						is_disabled = no
+					}
+				}
+			}
+			# every_playable_country = {
+			# 	limit = { any_owned_starbase = { has_starbase_size = starbase_marauder } }
+			# 	every_owned_starbase = {
+			# 		limit = { has_starbase_size = starbase_marauder }
+			# 		destroy_fleet = fleet
+			# 	}
+			# }
+			every_galaxy_fleet = {
+				limit = {
+					is_mobile = no
+					exists = starbase
+					starbase = { has_starbase_size = starbase_marauder }
+					NAND = {
+						exists = owner
+						owner = { is_pirate_country = yes }
+						is_disabled = no
+					}
+				}
+				if = {
+					limit = { has_owner = yes is_disabled = yes }
+					set_event_locked = no
+					every_owned_ship = { set_disabled = no }
+				}
+				else = { destroy_fleet = this }
+			}
+		}
+
 		# Removed on 3.6.*
 		# if = {
 		# 	limit = {
@@ -5662,7 +5704,8 @@ country_event = {
 			}
 			if = { # 3nd Fallback
 				limit = { NOT = { exists = event_target:khan_fleet.leader } }
-				if = { limit = { exists = event_target:great_khan }
+				if = {
+					limit = { exists = event_target:great_khan }
 					event_target:great_khan = { exile_leader_as = great_khan }
 				}
 				event_target:khan_fleet = { set_leader = great_khan }
@@ -5670,10 +5713,11 @@ country_event = {
 			if = { # dead
 				limit = { NOT = { exists = event_target:khan_fleet.leader } }
 				country_event = { id = marauder.512 days = 30 }
-			} else_if = { limit = { exists = event_target:great_khan }
+			}
+			else_if = {
+				limit = { exists = event_target:great_khan }
 				event_target:khan_fleet.leader = { save_global_event_target_as = great_khan }
 			}
-
 
 			# Notify: needs event_target:khan_destroyer
 			every_playable_country = {
@@ -5871,10 +5915,7 @@ event = {
 	is_triggered_only = yes
 	trigger = {
 		has_global_flag = marauder_crisis_started
-		NOR = {
-			has_global_flag = khan_no_die
-			has_global_flag = great_khan_dead
-		}
+		NOR = { has_global_flag = khan_no_die has_global_flag = great_khan_dead }
 		exists = event_target:raider_khanate
 		event_target:raider_khanate = {
 			NOR = { has_country_flag = CmtFlagKhanNoDieCountry has_country_flag = khan_dead_event_fine }
@@ -5978,10 +6019,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		NAND = {
-			has_global_flag = great_khan_dead
-			has_country_flag = khan_dead_event_fine
-		}
+		NAND = { has_global_flag = great_khan_dead has_country_flag = khan_dead_event_fine }
 	}
 	immediate = {
 		set_global_flag = great_khan_dead
@@ -6791,7 +6829,10 @@ country_event = {
 		fromfrom = {
 			exists = solar_system
 			solar_system = { has_star_flag = marauder_system }
-			OR = { is_ship_size = marauder_void_dwelling is_ship_size = starbase_marauder }
+			exists = starbase
+			any_owned_ship = {
+				OR = { is_ship_size = marauder_void_dwelling is_ship_size = starbase_marauder }
+			}
 		}
 		OR = {
 			from = { merg_is_default_empire = yes } # There are some unpredictable possiblities.
@@ -8165,10 +8206,7 @@ country_event = {
 				is_part_of_galactic_council = yes
 			}
 		}
-		modifier = {
-			factor = 0.6
-			OR = { has_ai_personality = peaceful_traders has_origin = "origin_khan_successor" }
-		}
+		modifier = { factor = 0.6 OR = { has_ai_personality = peaceful_traders has_origin = "origin_khan_successor" } }
 		modifier = {
 			factor = 0.4
 			OR = {
@@ -8634,7 +8672,7 @@ country_event = {
 			# country_event = { id = marauder.671 days = 8 }		# Notify Garrison End
 		}
 
-		# # Cleanup possible old flags (previous reign)
+		## Cleanup possible old flags (previous reign)
 		every_system_within_border = {
 			limit = { is_potential_diadochi_system = no }
 			switch = { trigger = has_star_flag
@@ -9512,13 +9550,13 @@ country_event = {
 		owner_species = { save_event_target_as = marauder_species }
 		every_owned_fleet = {
 			limit = {
-				NOT = { is_ship_size = starbase_marauder }
 				OR = {
 					has_fleet_flag = satrapy_garrison
 					has_fleet_flag = satrapy_garrison_fleet
 					has_fleet_flag = horde_auxuliaries
 					NOT = { is_within_borders_of = root }
 				}
+				NOT = { any_owned_ship = { is_ship_size = starbase_marauder } }
 			}
 			destroy_fleet = this
 		}
@@ -9829,7 +9867,6 @@ country_event = {
 						clear_variable = marauder_distance_2
 					}
 				}
-
 			}
 			# break = yes
 		}
@@ -10306,6 +10343,7 @@ country_event = {
 							limit = {
 								exists = event_target:marauder_capital
 								event_target:marauder_capital = {
+									is_scope_valid = yes
 									OR = {
 										AND = {
 											is_scope_type = planet
@@ -10383,8 +10421,10 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		is_default_or_fallen = yes
-		NOT = { has_country_flag = marauder_diplomacy_engaged }
-		NOT = { has_active_event = { marauder.660 } }
+		NOR = {
+			has_country_flag = marauder_diplomacy_engaged
+			has_active_event = { marauder.660 }
+		}
 	}
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
@@ -10682,7 +10722,7 @@ country_event = {
 			create_leader = {
 				name = random
 				class = commander
-				species = owner_species
+				species = owner_main_species
 				skill = 3
 				event_leader = yes
 				can_manually_change_location = no
@@ -10698,7 +10738,7 @@ country_event = {
 					# trait = leader_trait_eager
 				}
 				effect = {
-					add_skill = 5
+					add_skill = 4
 					# Only really applicable destiny unfortunately
 					add_trait_no_notify = leader_trait_armorer
 					add_trait_no_notify = leader_trait_gale_speed_3

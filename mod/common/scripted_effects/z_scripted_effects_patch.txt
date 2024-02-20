@@ -74,7 +74,7 @@ make_moderately_hostile = {
 				is_country_type = guardian_sphere
 				is_country_type = ratlings
 				is_country_type = ldragon_country
-				is_primitive = yes
+				# is_primitive = yes
 			}
 			OR = {
 				is_hostile = prev
@@ -98,10 +98,7 @@ make_moderately_hostile = {
 ### Marauders ###
 create_marauder_starbase = {
 	optimize_memory
-	create_starbase = {
-		size = "starbase_marauder"
-		owner = event_target:marauder_starbase_owner
-	}
+	create_starbase = { size = "starbase_marauder" owner = event_target:marauder_starbase_owner }
 }
 
 create_marauder_merc_admiral = {
@@ -113,15 +110,11 @@ create_marauder_merc_admiral = {
 		skill = 3
 		leader_age_min = 25
 		leader_age_max = 45
-		traits = {
-			trait = leader_trait_mercenary_warrior
-		}
+		traits = { trait = leader_trait_mercenary_warrior }
 		background_ethic = "ethic_fanatic_militarist"
 		skip_background_generation = yes
 		custom_description = "custom_mercenary_admiral_desc"
-		effect = {
-			set_leader_flag = marauder_merc_leader
-		}
+		effect = { set_leader_flag = marauder_merc_leader }
 	}
 }
 
@@ -134,9 +127,7 @@ create_marauder_merc_general = {
 		skill = 3
 		leader_age_min = 25
 		leader_age_max = 45
-		traits = {
-			trait = leader_trait_mercenary_warrior
-		}
+		traits = { trait = leader_trait_mercenary_warrior }
 		background_ethic = "ethic_fanatic_militarist"
 		skip_background_generation = yes
 		custom_description = "custom_mercenary_admiral_desc"
