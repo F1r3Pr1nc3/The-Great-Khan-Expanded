@@ -47,7 +47,7 @@ is_default_or_fallen = {
 		# # is_country_type = fallen_empire
 		# # Scripted Triggers Undercoat
 		# has_country_flag = is_playable
-		has_country_flag = is_empire
+		# has_country_flag = is_empire # Underscore
 		# # ZOFE
 		# is_zofe_country = yes
 		# # The Empty Vagrant

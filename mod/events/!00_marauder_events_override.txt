@@ -1227,11 +1227,11 @@ country_event = {
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
-	trigger = {
-		# exists = event_target:current_marauder_diplomacy
-		exists = from
-		from = { any_owned_fleet = { is_mobile = yes } }
-	}
+	# trigger = {
+	# 	# exists = event_target:current_marauder_diplomacy
+	# 	exists = from
+	# 	from = { any_owned_fleet = { is_mobile = yes } }
+	# }
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 		if = {
@@ -1287,11 +1287,11 @@ country_event = {
 					has_crisis_level = crisis_level_5
 				}
 				NOR = {
+					is_same_empire = root
 					AND = { exists = event_target:raid_target_1 is_same_empire = event_target:raid_target_1 }
 					AND = { exists = event_target:raid_target_2 is_same_empire = event_target:raid_target_2 }
 					AND = { exists = event_target:raid_target_3 is_same_empire = event_target:raid_target_3 }
 					AND = { exists = event_target:raid_target_4 is_same_empire = event_target:raid_target_4 }
-					is_same_empire = root
 				}
 			}
 			save_event_target_as = raid_target_5
@@ -1322,12 +1322,12 @@ country_event = {
 						limit = {
 							OR = { is_galactic_custodian = yes is_galactic_emperor = yes }
 							NOR = {
+								is_same_empire = root
 								AND = { exists = event_target:raid_target_1 is_same_empire = event_target:raid_target_1 }
 								AND = { exists = event_target:raid_target_2 is_same_empire = event_target:raid_target_2 }
 								AND = { exists = event_target:raid_target_3 is_same_empire = event_target:raid_target_3 }
 								AND = { exists = event_target:raid_target_4 is_same_empire = event_target:raid_target_4 }
 								AND = { exists = event_target:raid_target_5 is_same_empire = event_target:raid_target_5 }
-								is_same_empire = root
 							}
 						}
 						save_event_target_as = raid_target_6
@@ -1375,6 +1375,7 @@ country_event = {
 					has_opposing_ethics = { COUNTRY1 = root COUNTRY2 = this }
 				}
 				NOR = {
+					is_same_empire = root
 					AND = { exists = event_target:raid_target_1 is_same_empire = event_target:raid_target_1 }
 					AND = { exists = event_target:raid_target_2 is_same_empire = event_target:raid_target_2 }
 					AND = { exists = event_target:raid_target_3 is_same_empire = event_target:raid_target_3 }
@@ -1383,7 +1384,6 @@ country_event = {
 					AND = { exists = event_target:raid_target_6 is_same_empire = event_target:raid_target_6 }
 					AND = { exists = event_target:raid_target_7 is_same_empire = event_target:raid_target_7 }
 					AND = { exists = event_target:raid_target_8 is_same_empire = event_target:raid_target_8 }
-					is_same_empire = root
 				}
 			}
 			save_event_target_as = raid_target_9
@@ -1399,7 +1399,7 @@ country_event = {
 	after = {
 		hidden_effect = {
 			if = {
-				limit = { exists = event_target:preliminary_target }
+				limit = { exists = event_target:preliminary_target exists = event_target:current_marauder_diplomacy }
 				if = {
 					limit = { event_target:preliminary_target = { is_fallen_empire = yes } }
 					country_event = { id = marauder.35 } # scopes = { from = event_target:current_marauder_diplomacy }
@@ -1502,7 +1502,7 @@ country_event = {
 }
 
 # Preliminary Raiding Target
-# From = current_marauder_diplomacy
+# Needs current_marauder_diplomacy
 country_event = {
 	id = marauder.32
 	title = "marauder_diplo_header"
@@ -1519,11 +1519,10 @@ country_event = {
 	}
 	diplomatic = yes
 	picture_event_data = {
-		portrait = from # event_target:current_marauder_diplomacy
+		portrait = event_target:current_marauder_diplomacy
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
-	trigger = { exists = from }
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 		if = {
@@ -1536,6 +1535,10 @@ country_event = {
 				else_if = {
 					limit = { from = { is_country_type = dormant_marauders } }
 					from = { save_event_target_as = current_marauder_diplomacy }
+				}
+				else_if = {
+					limit = { fromfrom = { is_country_type = dormant_marauders } }
+					fromfrom = { save_event_target_as = current_marauder_diplomacy }
 				}
 			}
 		}
@@ -1583,7 +1586,7 @@ country_event = {
 			event_target:current_marauder_diplomacy = {
 				if = {
 					limit = { is_variable_set = raidcost }
-					log="Dyn. Raidcost \\[This.raidcost] and difficulty \\[This.pirate_waves_difficulty]"
+					# log="Dyn. Raidcost \\[This.raidcost] and difficulty \\[This.pirate_waves_difficulty]"
 					clear_variable = raidcost
 				}
 			}
@@ -1606,7 +1609,7 @@ country_event = {
 		hidden_effect = {
 			event_target:current_marauder_diplomacy = { save_event_target_as = raiding_marauder }
 			event_target:preliminary_target = {
-				country_event = { id = marauder.33 scopes = { fromfrom = event_target:current_marauder_diplomacy } }
+				country_event = { id = marauder.33 scopes = { from = root fromfrom = event_target:current_marauder_diplomacy } }
 			}
 		}
 	}
@@ -1627,7 +1630,7 @@ country_event = {
 		hidden_effect = {
 			event_target:current_marauder_diplomacy = { save_event_target_as = raiding_marauder }
 			event_target:preliminary_target = {
-				country_event = { id = marauder.33 scopes = { fromfrom = event_target:current_marauder_diplomacy } }
+				country_event = { id = marauder.33 scopes = { from = root fromfrom = event_target:current_marauder_diplomacy } }
 			}
 		}
 	}
@@ -1648,7 +1651,7 @@ country_event = {
 		hidden_effect = {
 			event_target:current_marauder_diplomacy = { save_event_target_as = raiding_marauder }
 			event_target:preliminary_target = {
-				country_event = { id = marauder.33 scopes = { fromfrom = event_target:current_marauder_diplomacy } }
+				country_event = { id = marauder.33 scopes = { from = root fromfrom = event_target:current_marauder_diplomacy } }
 			}
 		}
 	}
@@ -1679,6 +1682,7 @@ country_event = {
 	}
 	immediate = {
 		save_event_target_as = marauder_target
+
 		if = {
 			limit = { NOT = { exists = event_target:raiding_marauder } }
 			fromfrom = { save_event_target_as = raiding_marauder }
@@ -1703,21 +1707,13 @@ country_event = {
 			flag = event_target:raiding_marauder
 			effect = {
 				save_event_target_as = marauder_raiding_country
-				event_target:raiding_marauder = {
-					switch = { trigger = has_country_flag
-						marauder_1 = { prev = { set_country_flag = marauder_1 } }
-						marauder_2 = { prev = { set_country_flag = marauder_2 } }
-						marauder_3 = { prev = { set_country_flag = marauder_3 } }
-					}
-				}
-				set_country_flag = raid_ongoing
-				set_faction_hostility = { set_neutral = yes }
+				set_faction_hostility = { target = event_target:raiding_marauder set_neutral = yes }
 				make_moderately_hostile = yes
+				set_country_flag = raid_ongoing
 			}
 		}
 		event_target:marauder_raiding_country = {
 			every_country = { limit = { has_communications = event_target:raiding_marauder } establish_communications_no_message = prev }
-			create_marauder_merc_admiral = yes
 			event_target:raiding_marauder = {
 				set_country_flag = parent_of@prev
 				set_faction_hostility = {
@@ -1725,6 +1721,11 @@ country_event = {
 					set_hostile = no
 					set_neutral = no
 					set_friendly = yes
+				}
+				switch = { trigger = has_country_flag
+					marauder_1 = { prev = { set_country_flag = marauder_1 } }
+					marauder_2 = { prev = { set_country_flag = marauder_2 } }
+					marauder_3 = { prev = { set_country_flag = marauder_3 } }
 				}
 				if = {
 					limit = { has_global_flag = pirate_waves_active }
@@ -1745,6 +1746,7 @@ country_event = {
 					}
 				}
 			}
+			create_marauder_merc_admiral = yes
 			set_faction_hostility = {
 				target = root
 				set_hostile = yes
@@ -1786,7 +1788,7 @@ country_event = {
 }
 
 # Hire Mercenaries
-# Vanilla Fixed by FirePrince: do not spawn fleets instantly
+# Vanilla Changed by FirePrince: do not spawn fleets instantly
 # From = current_marauder_diplomacy
 country_event = {
 	id = marauder.34
@@ -1821,6 +1823,10 @@ country_event = {
 				else_if = {
 					limit = { from = { is_country_type = dormant_marauders } }
 					from = { save_event_target_as = current_marauder_diplomacy }
+				}
+				else_if = {
+					limit = { fromfrom = { is_country_type = dormant_marauders } }
+					fromfrom = { save_event_target_as = current_marauder_diplomacy }
 				}
 			}
 		}
@@ -2057,7 +2063,7 @@ country_event = {
 }
 
 # Preliminary Raiding Target (Fallen Empire)
-# From = current_marauder_diplomacy
+# Needs current_marauder_diplomacy
 country_event = {
 	id = marauder.35
 	title = "marauder_diplo_header"
@@ -2074,11 +2080,11 @@ country_event = {
 	}
 	diplomatic = yes
 	picture_event_data = {
-		portrait = from # event_target:current_marauder_diplomacy
+		portrait = event_target:current_marauder_diplomacy
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
-	trigger = { exists = from }
+	# trigger = { exists = from }
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 		if = {
@@ -2091,6 +2097,10 @@ country_event = {
 				else_if = {
 					limit = { from = { is_country_type = dormant_marauders } }
 					from = { save_event_target_as = current_marauder_diplomacy }
+				}
+				else_if = {
+					limit = { fromfrom = { is_country_type = dormant_marauders } }
+					fromfrom = { save_event_target_as = current_marauder_diplomacy }
 				}
 			}
 		}
@@ -4249,7 +4259,7 @@ country_event = {
 
 	trigger = {
 		OR = {
-			num_marauder_empires_to_spawn > 0
+			# num_marauder_empires_to_spawn > 0
 			has_global_flag = horde_triggered
 			has_global_flag = pirate_waves_active
 			event_target:global_event_country = { has_country_flag = outer_bulwark_inactive }

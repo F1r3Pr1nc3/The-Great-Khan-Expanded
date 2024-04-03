@@ -3,7 +3,7 @@ ask_empire_if_they_want_this_revolt = {
 	event_target:rebellion_species = {
 		if = { # Vanilla Bug Fix (v.3.11) for syncretic species by FirePrince https://forum.paradoxplaza.com/forum/threads/stellaris-massive-overlooked-issue-with-syncretic-evolution-origin.1622715/
 			limit = { has_trait = trait_syncretic_proles }
-			prev = { modify_species = { species = prev remove_trait = trait_syncretic_proles } }
+			event_target:revolt_situation.target = { modify_species = { species = prev remove_trait = trait_syncretic_proles } }
 			log="Changed rebelling syncretic species \\[Root.owner_main_species.GetName] from \\[Prev.GetName]!"
 		}
 	}
@@ -22,7 +22,7 @@ ask_empire_if_they_want_this_revolt = {
 							distance < 150
 							type = hyperlane
 						}
-						distance_to_empire = { # extra condition for really close empires on the other side of bypasses
+						distance_to_empire = { # Extra condition for really close empires on the other side of bypasses
 							who = prev
 							distance < 75
 							type = euclidean
@@ -38,7 +38,7 @@ ask_empire_if_they_want_this_revolt = {
 								distance < 150
 								type = hyperlane
 							}
-							distance_to_empire = { # extra condition for really close empires on the other side of bypasses
+							distance_to_empire = { # Extra condition for really close empires on the other side of bypasses
 								who = prevprev
 								distance < 75
 								type = euclidean
