@@ -26,11 +26,7 @@ wg_satrapy_independence = {
 		}
 	}
 
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
+	allowed_peace_offers = { status_quo surrender demand_surrender }
 
 	on_status_quo = {
 		custom_tooltip = wg_independence_status_quo
@@ -119,7 +115,8 @@ wg_satrapy_independence = {
 							country_event = { id = marauder.554 } # Rebel
 							# set_country_flag = rebelling_satrapy
 							# remove_modifier = "satrapy_of_horde"
-						} else = {
+						}
+						else = {
 							set_subject_of = { who = none }
 							# from = {
 							# 	set_faction_hostility = {
@@ -160,11 +157,7 @@ wg_ae_uprising = {
 	set_defender_wargoal = wg_ae_domination
 	potential = { always = yes }
 	possible = { always = yes }
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
+	allowed_peace_offers = { status_quo surrender demand_surrender }
 
 	on_status_quo = {
 		custom_tooltip = wg_independence_status_quo
@@ -178,9 +171,7 @@ wg_ae_uprising = {
 		hidden_effect = {
 			set_subject_of = { who = none }
 			every_system_within_border = {
-				limit = {
-					from = { has_claim = prev }
-				}
+				limit = { from = { has_claim = prev } }
 				remove_claims = { who = from }
 			}
 
@@ -230,11 +221,7 @@ wg_marauder_expansion = {
 		imperial_authority >= 100
 	}
 
-	allowed_peace_offers = {
-		status_quo
-		surrender
-		demand_surrender
-	}
+	allowed_peace_offers = { status_quo surrender demand_surrender }
 
 	surrender_acceptance = -100
 	war_exhaustion = 0.75
@@ -298,14 +285,9 @@ wg_marauder_expansion = {
 	on_accept = {
 		hidden_effect = {
 			from = {
-				add_threat = {
-					who = root
-					amount = 0.5
-				}
+				add_threat = { who = root amount = 0.5 }
 				every_system_within_border = {
-					limit = {
-						root = { has_claim = prev }
-					}
+					limit = { root = { has_claim = prev } }
 					remove_claims = { who = root }
 				}
 			}
@@ -317,12 +299,9 @@ wg_marauder_expansion = {
 				country_event = { id = khan.559 days = -1 } # Pre-Submit to Khan
 				set_subject_of = { who = event_target:raider_khanate preset = preset_satrapy }
 				event_target:raider_khanate = {
-					if = { limit = { is_hostile = prev }
-						set_faction_hostility = {
-							target = prev
-							set_hostile = no
-							set_neutral = yes
-						}
+					if = {
+						limit = { is_hostile = prev }
+						set_faction_hostility = { target = prev set_hostile = no set_neutral = yes }
 					}
 					country_event = { id = khan.309 days = 1 } # To be sure
 				}
@@ -332,7 +311,8 @@ wg_marauder_expansion = {
 
 	on_wargoal_set = {
 		from = {
-			if = { limit = { is_at_war = yes }
+			if = {
+				limit = { is_at_war = yes }
 				every_war = {
 					limit = {
 						is_scope_type = war # TODO because of strange error.
@@ -387,7 +367,8 @@ wg_marauder_expansion = {
 							# join_war = prev
 						}
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						any_war = {
 							is_war_participant = { who = from }
@@ -413,10 +394,8 @@ wg_marauder_expansion = {
 					}
 					end_truce = from
 					join_war = root
-				} else = {
-					end_truce = from
-					join_war = root
 				}
+				else = { end_truce = from join_war = root }
 			}
 			every_subject = {
 				limit = {
@@ -434,10 +413,7 @@ wg_marauder_expansion = {
 		if = {
 			limit = {
 				exists = event_target:raider_khanate
-				OR = {
-					is_same_empire = event_target:raider_khanate
-					is_subject_of_khan = yes
-				}
+				OR = { is_same_empire = event_target:raider_khanate is_subject_of_khan = yes }
 			}
 			hidden_effect = {
 				from = {
@@ -527,14 +503,12 @@ wg_war_in_heaven = {
 						}
 					}
 				}
-			} else_if = {
+			}
+			else_if = {
 				limit = {
 					OR = {
 						is_country_type = awakened_marauders
-						AND = {
-							exists = event_target:raider_khanate
-							is_same_empire = event_target:raider_khanate
-						}
+						AND = { exists = event_target:raider_khanate is_same_empire = event_target:raider_khanate }
 					}
 				}
 				from = {
@@ -545,12 +519,9 @@ wg_war_in_heaven = {
 						country_event = { id = khan.559 days = -1 } # Pre-Submit to Khan
 						set_subject_of = { who = event_target:raider_khanate preset = preset_satrapy }
 						event_target:raider_khanate = {
-							if = { limit = { is_hostile = prev }
-								set_faction_hostility = {
-									target = prev
-									set_hostile = no
-									set_neutral = yes
-								}
+							if = {
+								limit = { is_hostile = prev }
+								set_faction_hostility = { target = prev set_hostile = no set_neutral = yes }
 							}
 							country_event = { id = khan.309 days = 1 } # To be sure
 						}
@@ -579,6 +550,10 @@ wg_war_in_heaven = {
 							every_war_participant = {
 								limit = { NOT = { is_same_empire = prevprev } } # don't break the loop
 								prev = { remove_war_participant = prev }
+								if = {
+									limit = { has_federation = yes }
+									leave_alliance = { override_requirements = yes }
+								}
 							}
 						}
 					}
@@ -619,10 +594,7 @@ wg_war_in_heaven = {
 				limit = {
 					OR = {
 						is_country_type = awakened_marauders
-						AND = {
-							exists = event_target:raider_khanate
-							is_same_empire = event_target:raider_khanate
-						}
+						AND = { exists = event_target:raider_khanate is_same_empire = event_target:raider_khanate }
 					}
 				}
 				# TODO also for any_war_participant !?
@@ -678,12 +650,17 @@ wg_war_in_heaven = {
 					every_war_participant = {
 						limit = { NOT = { is_same_empire = prevprev } } # don't break the loop
 						prev = { remove_war_participant = prev }
+						if = {
+							limit = { has_federation = yes }
+							leave_alliance = { override_requirements = yes }
+						}
 					}
 				}
 				remove_global_flag = war_in_heaven_started
 				remove_global_flag = war_in_heaven_ongoing
 				remove_global_flag = war_in_heaven_debug
-			} else_if = {
+			}
+			else_if = {
 				limit = {
 					merg_is_awakened_fe = yes
 					# from = { merg_is_awakened_fe = yes }
@@ -715,10 +692,15 @@ wg_war_in_heaven = {
 					every_war_participant = {
 						limit = { NOT = { is_same_empire = prevprev } } # don't break the loop
 						prev = { remove_war_participant = prev }
+						if = {
+							limit = { has_federation = yes }
+							leave_alliance = { override_requirements = yes }
+						}
 					}
 				}
 				# Need delay before checking whether to clear WiH flags; stalemate hasn't ended the war until this effect block finishes.
 				# country_event = { id = war_in_heaven.106 days = 2 }
+				# Notify
 				every_playable_country = {
 					country_event = { id = war_in_heaven.6 }
 				}
@@ -769,12 +751,9 @@ wg_great_expansion = {
 				country_event = { id = khan.559 days = -1 } # Pre-Submit to Khan
 				set_subject_of = { who = event_target:raider_khanate preset = preset_satrapy }
 				event_target:raider_khanate = {
-					if = { limit = { is_hostile = prev }
-						set_faction_hostility = {
-							target = prev
-							set_hostile = no
-							set_neutral = yes
-						}
+					if = {
+						limit = { is_hostile = prev }
+						set_faction_hostility = { target = prev set_hostile = no set_neutral = yes }
 					}
 					country_event = { id = khan.309 days = 1 } # To be sure
 				}
@@ -784,7 +763,8 @@ wg_great_expansion = {
 
 	on_wargoal_set = {
 		from = {
-			if = { limit = { is_at_war = yes }
+			if = {
+				limit = { is_at_war = yes }
 				every_war = {
 					limit = {
 						is_scope_type = war # TODO because of strange error.
@@ -800,10 +780,7 @@ wg_great_expansion = {
 				exists = event_target:marauders_garrison_1
 				event_target:marauders_garrison_1 = { NOT = { is_at_war_with = from } }
 			}
-			event_target:marauders_garrison_1 = {
-				end_truce = from
-				join_war = prev
-			}
+			event_target:marauders_garrison_1 = { end_truce = from join_war = prev }
 		}
 	}
 

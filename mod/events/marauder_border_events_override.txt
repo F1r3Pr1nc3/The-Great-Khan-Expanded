@@ -488,19 +488,36 @@ country_event = {
 			}
 			destroy_fleet = this
 		}
-		event_target:new_khanate = {
-			every_owned_fleet = {
-				limit = {
-					is_mobile = no
-					exists = starbase
-					starbase = { has_starbase_size = starbase_marauder }
+		if = {
+			limit = {
+				NOT = { exists = event_target:new_khanate }
+				exists = from
+				from = {
+					is_ai = yes
+					OR = { CmtTriggerIsMarauder = yes is_subject_of_khan = yes }
 				}
-				destroy_fleet = this
 			}
-			every_owned_fleet = {
-				limit = { is_disabled = yes }
-				set_event_locked = no
-				every_owned_ship = { set_disabled = no }
+			from = { save_event_target_as = new_khanate }
+		}
+		if = {
+			limit = {
+				exists = event_target:new_khanate
+				CmtTriggerIsMarauder = no
+			}
+			event_target:new_khanate = {
+				every_owned_fleet = {
+					limit = {
+						is_mobile = no
+						exists = starbase
+						starbase = { has_starbase_size = starbase_marauder }
+					}
+					destroy_fleet = this
+				}
+				every_owned_fleet = {
+					limit = { is_disabled = yes }
+					set_event_locked = no
+					every_owned_ship = { set_disabled = no }
+				}
 			}
 		}
 	}

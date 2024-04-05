@@ -8,6 +8,27 @@
 #########################################
 #########################################
 #
+####		SHORT DOCU		###
+#
+## khan.203	START PREPARE FINAL UPRISING
+## khan.212	Find Leader for Uprise League NAL (similar war_in_heaven.12)
+## khan.215	Prepare for War and find Leader for League.
+## khan.216	Declare War (League vs. Khan) (similar war_in_heaven.16)
+## khan.217	Form Galactic Community # Copy of galcom.1
+## khan.218	Turn the Khan into the Galactic Emperor (or at least playable Empire - 3.2).
+## khan.219	Force integrate subject (TODO as special project?)
+### khan.289-299 FINAL UPRISING ###
+# khan.291 2nd chance to pick side (similar war_in_heaven.4)
+## khan.300 Set Mod Flag (on_game_start)
+## khan.311 Reduce Khan naval cap's - create dummy country.
+# khan.605 Player Defeating the Khan and choosing to be Successor
+# khan.798 Fabricator satrapy (Reinforcement Cycle)
+# khan.799 Submit as fabricator satrapy
+### khan.870 Great Khan has won (End-Game - Improved Reinforcement Cycle)
+## khan.901 Khan asked to defend subject member (on_war_beginning) # Similar emperor.370
+# khan.997 Submit as machinesmith (vanilla = marauder.551)
+# khan.998 Special Submit?
+
 
 ###################
 ###- Constants -###
@@ -584,7 +605,10 @@ country_event = {
 				limit = { has_civic = civic_fanatic_purifiers }
 				force_remove_civic = civic_fanatic_purifiers
 			}
-			force_add_civic = civic_warrior_culture
+			if = {
+				limit = { NOT = { has_civic = civic_warrior_culture } }
+				force_add_civic = civic_warrior_culture
+			}
 
 			add_resource = {
 				energy =	50000
@@ -914,16 +938,16 @@ country_event = {
 
 # FE Awakening
 # TODO: SOME BROKEN APESHIT GOING ON HERE (by Kinneyj47)
-# This = EVERY default empire choose your side
-# From = Marauder
+# This = 2nd chance to pick side (every_playable_country)
+# From = Khan Marauder (khan.292)
 country_event = {
-	id = khan.291 # Similar id = war_in_heaven.4
+	id = khan.291 # (similar war_in_heaven.4)
 	force_open = yes
 	title = "FE_war_choice"
 	desc = "FE_war_choice_desc"
 	picture = GFX_evt_fallen_empire_awakes
 	show_sound = event_alien_signal
-	location = from
+	location = from.capital_scope
 	is_triggered_only = yes
 	trigger = {
 		exists = root
@@ -1286,7 +1310,7 @@ country_event = {
 		}
 	}
 	option = {
-		name = war_in_heaven.4.f
+		name = war_in_heaven.4.f # ZoFE
 		trigger = { is_zofe_fe = yes }
 		ai_chance = {
 			factor = 50
@@ -1297,9 +1321,9 @@ country_event = {
 
 # FE Awakening - start WiH
 # Assume at this point that the Great Khan is neutral to the empires.
-# This = Marauder Khan (From = Marauder khan.295)
+# This = Khan Marauder (From = Marauder khan.295)
 country_event = {
-	id = khan.292 # Similar id = war_in_heaven.3 (MTTH)
+	id = khan.292 # (similar war_in_heaven.3 (MTTH))
 	is_triggered_only = yes
 	hide_window = yes
 	immediate = {
@@ -1377,7 +1401,9 @@ country_event = {
 		## Choose to be Rebel or Satrapy.
 		every_playable_country = {
 			limit = { NOT = { is_same_empire = root } }
-			set_timed_country_flag = { flag = ai_no_wars days = 3592 }
+			if = { limit = { is_ai = yes }
+				set_timed_country_flag = { flag = ai_no_wars days = 3592 }
+			}
 			if = {
 				limit = { is_variable_set = "planets_lost_to_marauder" }
 				multiply_variable = { which = "planets_lost_to_marauder" value = 0.2 }
@@ -2339,7 +2365,7 @@ country_event = {
 	}
 }
 
-### Deprecated
+### Deprecated (TODO)
 ### Drums of War - Khan Expanding War (Cycle) on_action yearly/on_becoming_subject MTTH 360
 # This = Khan / subject
 country_event = {

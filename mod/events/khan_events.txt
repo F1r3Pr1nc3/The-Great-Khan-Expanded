@@ -1095,7 +1095,7 @@ system_event = {
 			destroy_fleet = starbase.fleet
 			if = {
 				limit = { NOT = { has_star_flag = starbase_destroyed } }
-				system_event = { id = khan.310 days = 2 scopes = { fromfrom = fromfrom } }
+				system_event = { id = khan.310 days = 2 scopes = { from = root fromfrom = fromfrom } }
 				set_timed_star_flag = { flag = starbase_destroyed days = 5 }
 				log="khan.310 starbase owned by \\[event_target:former_starbase_owner.GetName] or \\[Fromfrom.Owner.GetName]"
 			}
