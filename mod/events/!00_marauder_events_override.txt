@@ -3008,7 +3008,7 @@ event = {
 					}
 				}
 				if = {
-					limit = { has_owner = yes is_disabled = yes }
+					limit = { exists = owner is_disabled = yes }
 					set_event_locked = no
 					every_owned_ship = { set_disabled = no }
 				}

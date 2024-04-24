@@ -76,3 +76,9 @@ is_pd_arcology = { is_planet_class = pc_city }
 is_progenitor_empires = { always = no } # ACOT
 has_bug_branch = { always = no } # E&C Bug Branch
 has_life_engineering_installed = { always = no }
+# Cultural Overhaul
+is_imperial = { always = no }
+is_socialist = { always = no }
+is_capitalism = { always = no }
+# Realistic Pirates
+is_pirate_waves_player = { always = no }
