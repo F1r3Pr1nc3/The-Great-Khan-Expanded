@@ -25,7 +25,7 @@ merg_is_default_empire = {
 		# Ethics & Civics Infinity
 		# is_country_type = uo_une_member_active
 		# Scripted Triggers Undercoat
-		has_country_flag = is_playable
+		# has_country_flag = is_playable
 		# The Empty Vagrant
 		# is_country_type = default_ev
 		# ZOFE

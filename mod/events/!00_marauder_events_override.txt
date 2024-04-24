@@ -1757,6 +1757,7 @@ country_event = {
 				set_owner = prev	# Real owner
 				assign_leader = last_created_leader
 				closest_system = {
+					use_bypasses = yes
 					limit = {
 						has_owner = yes
 						is_owned_by = root
@@ -3189,6 +3190,7 @@ country_event = {
 				set_owner = prev	# Real owner
 				assign_leader = last_created_leader
 				closest_system = {
+					use_bypasses = yes
 					limit = {
 						has_owner = yes
 						is_owned_by = root
@@ -3612,6 +3614,7 @@ planet_event = {
 				# log="Search New Marauder Raid Target Planet"
 				solar_system = {
 					closest_system = {
+						use_bypasses = yes
 						limit = {
 							any_system_colony = {
 								is_owned_by = event_target:raid_victim
@@ -6859,19 +6862,20 @@ country_event = {
 		NOT = { has_global_flag = marauder_crisis_ongoing }
 		is_country_type = dormant_marauders
 		end_game_years_passed < event_target:CmtGlobalVar.CmtVarKhanLatestEgpy
+		# exists = fromfrom
 		fromfrom = {
+			OR = { is_ship_size = marauder_void_dwelling is_ship_size = starbase_marauder }
 			exists = solar_system
-			solar_system = { has_star_flag = marauder_system }
-			exists = starbase
-			any_owned_ship = {
-				OR = { is_ship_size = marauder_void_dwelling is_ship_size = starbase_marauder }
-			}
-		}
-		OR = {
-			from = { merg_is_default_empire = yes } # There are some unpredictable possiblities.
-			count_country = { count = 1 limit = { is_country_type = dormant_marauders } }
+			solar_system = { has_star_flag = marauder_system exists = starbase }
 		}
 		event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanVengeance value != 1 } }
+		OR = {
+			from = { merg_is_default_empire = yes } # There are some unpredictable possiblities.
+			AND = {
+				from = { is_pirate_country = no }
+				count_country = { count = 1 limit = { is_country_type = dormant_marauders } }
+			}
+		}
 		OR = {
 			count_owned_fleet = {
 				limit = { is_ship_size = marauder_void_dwelling }
@@ -6906,18 +6910,12 @@ country_event = {
 
 		random_list = {
 			2 = {
-				modifier = {		## 9.9%
-					factor = 5.5
-					event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanVengeance value = 3 } }
-				}
-				modifier = {		## 28.6%
-					factor = 20
-					event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanVengeance value = 4 } }
-				}
-				modifier = {
-					factor = CmtVarKhanProbability					# = 2*curY/mgY-1
-					check_variable = { which = CmtVarKhanProbability value < 1 }
-				}
+				## 9.9%
+				modifier = { factor = 5.5 event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanVengeance value = 3 } } }
+				## 28.6%
+				modifier = { factor = 20 event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanVengeance value = 4 } } }
+				# = 2*curY/mgY-1
+				modifier = { factor = CmtVarKhanProbability check_variable = { which = CmtVarKhanProbability value < 1 } }
 				set_global_flag = horde_triggered
 				set_country_flag = CmtFlagKhanVengeanceCountry
 				country_event = { id = marauder.500 }

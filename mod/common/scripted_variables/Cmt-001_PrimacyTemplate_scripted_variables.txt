@@ -603,15 +603,15 @@
 	@CmtT001_ConstFleetPower_Contingency		= 1.0
 	@CmtT001_ConstFleetPower_Cybrex				= 1.0
 	@CmtT001_ConstFleetPower_ForcedEoc			= 1.0	## Forced End of the Cycle.
-	@CmtT001_ConstFleetPower_Khan				= 1.5
+	@CmtT001_ConstFleetPower_Khan				= 1.25
 	@CmtT001_ConstFleetPower_Graygoo			= 1.0	## Gray Tempest
 	@CmtT001_ConstFleetPower_Dessanu			= 1.0
 
 ### Army Power
-	@CmtT001_ConstArmyPower_Common				= 1.25	## This value must be set to zero(0) if you set the value individually for each crisis.
-	@CmtT001_ConstArmyPower_Prethoryn			= 1.25
-	@CmtT001_ConstArmyPower_Contingency			= 1.25
-	@CmtT001_ConstArmyPower_Khan				= 1.5
+	@CmtT001_ConstArmyPower_Common				= 1 #.25	## This value must be set to zero(0) if you set the value individually for each crisis.
+	@CmtT001_ConstArmyPower_Prethoryn			= 1 #.25
+	@CmtT001_ConstArmyPower_Contingency			= 1 #.25
+	@CmtT001_ConstArmyPower_Khan				= 1 #.5
 
 ### Number of Combat Fleets
 	@CmtT001_ConstCombatFleetNumber_Common		= 0		## This value must be set to zero(0) if you set the value individually for each crisis.
@@ -621,8 +621,8 @@
 	@CmtT001_ConstCombatFleetNumber_Aberrant	= 1.0
 	@CmtT001_ConstCombatFleetNumber_Vehement	= 1.0
 	@CmtT001_ConstCombatFleetNumber_Contingency = 1.0
-	@CmtT001_ConstCombatFleetNumber_Cybrex		= 1.25
-	@CmtT001_ConstCombatFleetNumber_Khan		= 1.5
+	@CmtT001_ConstCombatFleetNumber_Cybrex		= 1.0 # 25
+	@CmtT001_ConstCombatFleetNumber_Khan		= 1.25 # 5
 	@CmtT001_ConstCombatFleetNumber_Graygoo		= 1.0	## Gray Tempest
 	@CmtT001_ConstCombatFleetNumber_Dessanu		= 1.0
 
@@ -630,7 +630,7 @@
 	@CmtT001_ConstArmyNumber_Common				= 1.0	## This value must be set to zero(0) if you set the value individually for each crisis.
 	@CmtT001_ConstArmyNumber_Prethoryn			= 1.0
 	@CmtT001_ConstArmyNumber_Contingency		= 1.0
-	@CmtT001_ConstArmyNumber_Khan				= 1.5
+	@CmtT001_ConstArmyNumber_Khan				= 1.25 # 5
 
 ### Number of Auxiliary Ships/Fleets (Constructor, Colonizer)
 	@CmtT001_ConstConstructorNumber_Common		= 0		## This value must be set to zero(0) if you set the value individually for each crisis.

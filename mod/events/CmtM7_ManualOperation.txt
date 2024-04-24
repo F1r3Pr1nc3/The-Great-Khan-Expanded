@@ -1271,10 +1271,12 @@ country_event = {
 			}
 		}
 	}
+	# Support for "Some Events of Outside Cluster" =1562501671
 	option = { # Create New Deus Ex Machina FE (Sleeper Edition)
 		name = CrisisManagerMenu.7135c7.name # CREATE_NEW_EMPIRE
 		custom_tooltip = CrisisManagerMenu.7135c.tooltip
 		trigger = {
+			has_global_flag = nep_SEoOC_active
 			OR = {
 				NOR = {
 					exists = event_target:CmtTargetManualSleeper1
