@@ -281,6 +281,7 @@ country_event = {
 				limit = { root = { num_owned_relics > 0 } }
 				steal_relic = { target = root relic = all }
 			}
+			# Upgrade starbase
 			if = {
 				limit = { any_owned_starbase = { has_starbase_size < starbase_starhold } }
 				random_owned_starbase = {

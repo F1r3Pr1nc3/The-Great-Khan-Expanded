@@ -29,7 +29,6 @@
 # khan.997 Submit as machinesmith (vanilla = marauder.551)
 # khan.998 Special Submit?
 
-
 ###################
 ###- Constants -###
 ###################

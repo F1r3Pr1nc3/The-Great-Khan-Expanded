@@ -1790,6 +1790,7 @@ country_event = {
 					limit = { CmtTriggerMarauderCapitalSystem = yes }
 					system_event = { id = khan.301 } # Create Citadel
 				}
+				# Upgrade starbase
 				while = {
 					limit = { any_owned_starbase = { has_starbase_size < starbase_starhold } }
 					count = 3

@@ -1284,7 +1284,7 @@ country_event = {
 					# has_crisis_level = crisis_level_2
 					has_crisis_level = crisis_level_3
 					has_crisis_level = crisis_level_4
-					has_crisis_level = crisis_level_5
+					has_been_declared_crisis = yes
 				}
 				NOR = {
 					is_same_empire = root

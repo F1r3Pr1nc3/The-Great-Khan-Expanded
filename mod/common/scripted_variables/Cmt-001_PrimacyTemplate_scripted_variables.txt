@@ -594,7 +594,7 @@
 
 ### Individual Configurations of Crisis Power.
 ### Fleet Power
-	@CmtT001_ConstFleetPower_Common				= 1.0	## This value must be set to zero(0) if you set the value individually for each crisis.
+	@CmtT001_ConstFleetPower_Common				= 0		## This value must be set to zero(0) if you set the value individually for each crisis.
 	@CmtT001_ConstFleetPower_Prethoryn			= 1.0
 	@CmtT001_ConstFleetPower_Sentinel			= 1.0
 	@CmtT001_ConstFleetPower_Unbidden			= 1.0
@@ -608,10 +608,10 @@
 	@CmtT001_ConstFleetPower_Dessanu			= 1.0
 
 ### Army Power
-	@CmtT001_ConstArmyPower_Common				= 1 #.25	## This value must be set to zero(0) if you set the value individually for each crisis.
-	@CmtT001_ConstArmyPower_Prethoryn			= 1 #.25
-	@CmtT001_ConstArmyPower_Contingency			= 1 #.25
-	@CmtT001_ConstArmyPower_Khan				= 1 #.5
+	@CmtT001_ConstArmyPower_Common				= 0		## This value must be set to zero(0) if you set the value individually for each crisis.
+	@CmtT001_ConstArmyPower_Prethoryn			= 1 # .25
+	@CmtT001_ConstArmyPower_Contingency			= 1 # .25
+	@CmtT001_ConstArmyPower_Khan				= 1 # .5
 
 ### Number of Combat Fleets
 	@CmtT001_ConstCombatFleetNumber_Common		= 0		## This value must be set to zero(0) if you set the value individually for each crisis.
@@ -627,7 +627,7 @@
 	@CmtT001_ConstCombatFleetNumber_Dessanu		= 1.0
 
 ### Number of Army Fleets
-	@CmtT001_ConstArmyNumber_Common				= 1.0	## This value must be set to zero(0) if you set the value individually for each crisis.
+	@CmtT001_ConstArmyNumber_Common				= 0		## This value must be set to zero(0) if you set the value individually for each crisis.
 	@CmtT001_ConstArmyNumber_Prethoryn			= 1.0
 	@CmtT001_ConstArmyNumber_Contingency		= 1.0
 	@CmtT001_ConstArmyNumber_Khan				= 1.25 # 5
