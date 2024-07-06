@@ -148,7 +148,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_1" }
 	component_set = "thruster_components"
-	size_restriction = { cruiser crisis_cruiser offspring_cruiser pirate_cruiser marauder_cruiser }
+	size_restriction = { cruiser crisis_cruiser offspring_cruiser nanite_interdictor pirate_cruiser marauder_cruiser }
 	upgrades_to = "CRUISER_SHIP_THRUSTER_2"
 
 	ai_weight = {
@@ -311,7 +311,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_2" }
 	component_set = "thruster_components"
-	size_restriction = { cruiser crisis_cruiser offspring_cruiser pirate_cruiser marauder_cruiser }
+	size_restriction = { cruiser crisis_cruiser offspring_cruiser nanite_interdictor pirate_cruiser marauder_cruiser }
 	upgrades_to = "CRUISER_SHIP_THRUSTER_3"
 
 	ai_weight = {
@@ -477,7 +477,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_3" }
 	component_set = "thruster_components"
-	size_restriction = { cruiser crisis_cruiser offspring_cruiser pirate_cruiser marauder_cruiser }
+	size_restriction = { cruiser crisis_cruiser offspring_cruiser nanite_interdictor pirate_cruiser marauder_cruiser }
 	upgrades_to = "CRUISER_SHIP_THRUSTER_4"
 
 	ai_weight = {
@@ -640,7 +640,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_4" }
 	component_set = "thruster_components"
-	size_restriction = { cruiser crisis_cruiser offspring_cruiser pirate_cruiser marauder_cruiser }
+	size_restriction = { cruiser crisis_cruiser offspring_cruiser nanite_interdictor pirate_cruiser marauder_cruiser }
 	upgrades_to = "CRUISER_SHIP_THRUSTER_5"
 
 	ai_weight = {
@@ -814,7 +814,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_dark_matter_propulsion" }
 	component_set = "thruster_components"
-	size_restriction = { cruiser crisis_cruiser offspring_cruiser pirate_cruiser marauder_cruiser }
+	size_restriction = { cruiser crisis_cruiser offspring_cruiser nanite_interdictor pirate_cruiser marauder_cruiser }
 
 	ai_weight = {
 		weight = 5

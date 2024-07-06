@@ -368,7 +368,7 @@ ship_event = {
 			solar_system = {
 				if = {
 					limit = {
-						NOT = { any_system_colony = { is_owned_by = from.owner } }
+						count_system_colony = { limit = { is_owned_by = from.owner } count = 0 }
 						any_system_planet = {
 							colonizable_planet = yes
 							OR = {
@@ -1642,8 +1642,8 @@ country_event = {
 						merg_is_habitat = yes
 					}
 				}
-				NOT = {
-					any_system_colony = {
+				count_system_colony = {
+					limit = {
 						is_controlled_by = root
 						OR = {
 							merg_is_habitat = no
@@ -1653,6 +1653,7 @@ country_event = {
 							}
 						}
 					}
+					count = 0
 				}
 			}
 			ordered_system_colony = {
@@ -1695,12 +1696,11 @@ country_event = {
 				ordered_owned_fleet = {
 					limit = {
 						is_mobile = yes
-						is_civilian = no
+						is_civilian = no is_ship_class = shipclass_military
 						exists = owner # For whatever reason
 						exists = leader # Somehow gets ignored sometimes (if juggernaut?)
 						exists = solar_system
 						solar_system = { is_owned_by = root }
-						is_civilian = no is_ship_class = shipclass_military
 					}
 					position = 2
 					order_by = trigger:fleet_power
@@ -2191,7 +2191,7 @@ country_event = {
 							OR = {
 								has_planet_flag = habitat
 								has_planet_flag = megastructure
-								has_planet_flag = has_megastructure
+								# has_planet_flag = has_megastructure
 							}
 						}
 					}

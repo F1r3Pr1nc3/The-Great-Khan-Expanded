@@ -64,10 +64,11 @@ can_take_hostile_actions = {
 			root = { merg_is_default_empire = yes }
 			capital_scope = {
 				root = {
-					NOT = {
-						any_planet_within_border = {
+					count_planet_within_border = {
+						limit = {
 							is_same_value = prevprev
 						}
+						count = 0
 					}
 				}
 			}

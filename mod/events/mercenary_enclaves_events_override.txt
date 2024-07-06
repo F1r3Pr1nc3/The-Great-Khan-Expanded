@@ -211,7 +211,7 @@ event = {
 		NOT = { has_global_flag = great_khan_dead }
 		any_country = {
 			is_country_type = enclave_mercenary
-			NOT = { any_owned_fleet = { is_leased = yes } }
+			count_owned_fleet = { limit = { is_leased = yes } count = 0 }
 		}
 	}
 	immediate = {
@@ -267,9 +267,7 @@ event = {
 			random_country = {
 				limit = {
 					is_country_type = enclave_mercenary
-					NOT = {
-						any_owned_fleet = { is_leased = yes }
-					}
+					count_owned_fleet = { limit = { is_leased = yes } count = 0 }
 					has_country_flag = created_by@prev
 					prev = { has_country_flag = merc_enclave_founder@prev }
 				}
@@ -504,8 +502,8 @@ country_event = {
 
 # Only vanilla fix leaders
 # on_monthly_pulse_country
+# Assign an admiral to hired merc fleet if they lose theirs
 country_event = {
-	# Assign an admiral to hired merc fleet if they lose theirs
 	id = enclave.2075
 	hide_window = yes
 	is_triggered_only = yes

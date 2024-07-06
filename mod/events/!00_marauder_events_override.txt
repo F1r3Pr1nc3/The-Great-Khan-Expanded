@@ -3080,7 +3080,7 @@ country_event = {
 		event_target:raiding_marauder = {
 			is_country_type = dormant_marauders
 			any_relation = { is_same_value = root }
-			NOT = { any_owned_fleet = { has_fleet_flag = raiding_fleet } }
+			count_owned_fleet = { limit = { has_fleet_flag = raiding_fleet } count = 0 }
 		}
 		NOT = { has_country_flag = recently_raided_or_threatened }
 	}
@@ -4678,21 +4678,21 @@ country_event = {
 		last_created_leader = {
 			root = {
 				assign_leader = prev
-				if = {
-					limit = { has_paragon_dlc = yes }
-					unlock_council_slots = 2
-					set_council_position_to_council = councilor_defense
-					set_council_position_to_council = councilor_state
-					prev = {
-						set_council_position = councilor_defense
-						# random_list = { # Does not exists
-						# 	1 = { set_council_position = councilor_defense }
-						# 	1 = { set_council_position = councilor_crusader_spirit }
-						# 	1 = { set_council_position = councilor_distinguished_admiralty }
-						# 	1 = { set_council_position = councilor_heroic_tales }
-						# }
-					}
-				}
+				# if = {
+				# 	limit = { has_paragon_dlc = yes }
+				# 	unlock_council_slots = 2
+				# 	set_council_position_to_council = councilor_defense
+				# 	set_council_position_to_council = councilor_state
+				# 	prev = {
+				# 		set_council_position = councilor_defense
+				# 		# random_list = { # Does not exists
+				# 		# 	1 = { set_council_position = councilor_defense }
+				# 		# 	1 = { set_council_position = councilor_crusader_spirit }
+				# 		# 	1 = { set_council_position = councilor_distinguished_admiralty }
+				# 		# 	1 = { set_council_position = councilor_heroic_tales }
+				# 		# }
+				# 	}
+				# }
 			}
 
 			# if = { ### NSC SUPPORT
@@ -4802,7 +4802,7 @@ country_event = {
 			}
 		}
 		last_created_leader = {
-			remove_trait = leader_trait_ruler_great_khan
+			# remove_trait = leader_trait_ruler_great_khan
 			set_leader_flag = great_khan
 			set_leader_flag = legendary_leader
 			save_global_event_target_as = great_khan
@@ -7050,7 +7050,7 @@ planet_event = {
 		exists = owner
 		# owner = { is_default_or_fallen = yes }
 		# count_planet_army = { count = 0 }
-		NOT = { any_planet_army = { always = yes } }
+		count_planet_army = { limit = { always = yes } count = 0 }
 		OR = { planet_devastation > 90 num_sapient_pops < 2 }
 		from = {
 			OR = {
@@ -7608,13 +7608,14 @@ country_event = {
 		exists = event_target:raider_khanate
 		is_subject_of_khan = yes
 		event_target:raider_khanate = {
-			NOT = {
-				any_owned_fleet = {
+			count_owned_fleet = {
+				limit = {
 					is_mobile = no
 					has_fleet_flag = satrapy_garrison
 					any_owned_ship = { is_ship_size = marauder_void_dwelling }
 					is_within_borders_of = prevprev
 				}
+				count = 0
 			}
 		}
 	}
@@ -7652,7 +7653,7 @@ country_event = {
 			limit = {
 				exists = event_target:capital_system
 				event_target:capital_system = {
-					NOT = { any_fleet_in_system = { is_mobile = no has_fleet_flag = satrapy_garrison any_owned_ship = { is_ship_size = marauder_void_dwelling } } }
+					count_fleet_in_system = { limit = { is_mobile = no has_fleet_flag = satrapy_garrison any_owned_ship = { is_ship_size = marauder_void_dwelling } } count = 0 }
 				}
 			}
 			# CmtEffectCreateEncouragingBase = yes		## event_target:garrison_base
@@ -9325,7 +9326,7 @@ country_event = {
 						is_owned_by = root
 						exists = starbase
 						has_star_flag = marauder_system
-						NOT = { any_system_colony = { } }
+						count_system_colony = { limit = { } count = 0 }
 					}
 					starbase = { set_owner = event_target:restored_marauders_2 }
 					every_neighbor_system = {
@@ -9334,7 +9335,7 @@ country_event = {
 							is_owned_by = root
 							exists = starbase
 							has_star_flag = marauder_system
-							NOT = { any_system_colony = { } }
+							count_system_colony = { limit = { } count = 0 }
 						}
 						starbase = { set_owner = event_target:restored_marauders_2 }
 					}
@@ -9588,7 +9589,7 @@ country_event = {
 					NOT = { is_within_borders_of = root }
 				}
 				NOT = { is_ship_size = starbase_marauder }
-				NOT = { any_owned_ship = { is_ship_size = starbase_marauder } }
+				count_owned_ship = { limit = { is_ship_size = starbase_marauder } count = 0 }
 			}
 			destroy_fleet = this
 		}

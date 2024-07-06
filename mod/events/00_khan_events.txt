@@ -738,7 +738,7 @@ country_event = {
 				is_subject_of_khan = yes
 				OR = {
 					is_ai = yes
-					NOT = { any_subject = { is_ai = yes } }
+					count_subject = { limit = { is_ai = yes } count = 0 }
 				}
 			}
 			root = { save_event_target_as = new_khanate }
@@ -1068,7 +1068,7 @@ country_event = {
 							OR = {
 								prev = {
 									is_ai = yes
-									NOT = { any_federation_ally = { is_ai = no } }
+									count_federation_ally = { limit = { is_ai = no } count = 0 }
 								}
 								has_federations_dlc = yes
 							}
@@ -3545,9 +3545,7 @@ country_event = {
 						event_target:victim_country = {
 							any_agreement = { agreement_preset = preset_war_satrapy }
 						}
-						NOT = { any_playable_country = {
-							is_same_empire = event_target:attacking_country
-						} }
+						count_playable_country = { limit = { is_same_empire = event_target:attacking_country } count = 0 }
 					}
 				}
 				event_target:raider_khanate = {
