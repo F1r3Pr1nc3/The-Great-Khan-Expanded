@@ -16,7 +16,8 @@
 # Prev = owner
 create_dyn_pirate_fleet = {
 	prev = {
-		if = { limit = { NOT = { is_variable_set = pirates_f_tmp } }
+		if = {
+			limit = { NOT = { is_variable_set = pirates_f_tmp } }
 			set_variable = { which = pirates_f_tmp value = 1 }
 		}
 	}
@@ -26,13 +27,8 @@ create_dyn_pirate_fleet = {
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $Reaver$ }
 		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
-			create_ship = {
-				name = random
-				design = last_created_design
-				graphical_culture = "pirate_01"
-			}
+		while = { count = fleet_f_tmp
+			create_ship = { name = random design = last_created_design graphical_culture = "pirate_01" }
 		}
 	]
 	[[Brigand]
@@ -40,13 +36,8 @@ create_dyn_pirate_fleet = {
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $Brigand$ }
 		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
-			create_ship = {
-				name = random
-				design = last_created_design
-				graphical_culture = "pirate_01"
-			}
+		while = { count = fleet_f_tmp
+			create_ship = { name = random design = last_created_design graphical_culture = "pirate_01" }
 		}
 	]
 	[[Skull]
@@ -54,13 +45,8 @@ create_dyn_pirate_fleet = {
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $Skull$ }
 		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
-			create_ship = {
-				name = random
-				design = last_created_design
-				graphical_culture = "pirate_01"
-			}
+		while = { count = fleet_f_tmp
+			create_ship = { name = random design = last_created_design graphical_culture = "pirate_01" }
 		}
 	]
 	[[Marauder]
@@ -68,13 +54,8 @@ create_dyn_pirate_fleet = {
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $Marauder$ }
 		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
-			create_ship = {
-				name = random
-				design = last_created_design
-				graphical_culture = "pirate_01"
-			}
+		while = { count = fleet_f_tmp
+			create_ship = { name = random design = last_created_design graphical_culture = "pirate_01" }
 		}
 	]
 	[[Corsair]
@@ -82,13 +63,8 @@ create_dyn_pirate_fleet = {
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $Corsair$ }
 		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
-			create_ship = {
-				name = random
-				design = last_created_design
-				graphical_culture = "pirate_01"
-			}
+		while = { count = fleet_f_tmp
+			create_ship = { name = random design = last_created_design graphical_culture = "pirate_01" }
 		}
 	]
 	[[Black_Earl]
@@ -96,13 +72,8 @@ create_dyn_pirate_fleet = {
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $Black_Earl$ }
 		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
-			create_ship = {
-				name = random
-				design = last_created_design
-				graphical_culture = "pirate_01"
-			}
+		while = { count = fleet_f_tmp
+			create_ship = { name = random design = last_created_design graphical_culture = "pirate_01" }
 		}
 	]
 	[[Pirate_Galleon]
@@ -110,13 +81,8 @@ create_dyn_pirate_fleet = {
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $Pirate_Galleon$ }
 		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
-			create_ship = {
-				name = random
-				design = last_created_design
-				graphical_culture = "pirate_01"
-			}
+		while = { count = fleet_f_tmp
+			create_ship = { name = random design = last_created_design graphical_culture = "pirate_01" }
 		}
 	]
 	clear_variable = fleet_f_tmp
@@ -126,9 +92,7 @@ create_dyn_pirate_fleet = {
 create_pirate_waves_countries = {
 	# First Pirate Country
 	if = {
-		limit = {
-			NOT = { exists = event_target:pirate_waves_country }
-		}
+		limit = { NOT = { exists = event_target:pirate_waves_country } }
 		create_species = {
 			name = random
 			class = random
@@ -156,10 +120,7 @@ create_pirate_waves_countries = {
 				background = { category = "backgrounds" file = "00_solid.dds" }
 				colors = { "red" "black" "null" "null" }
 			}
-			ethos = {
-				ethic = ethic_fanatic_militarist
-				ethic = random
-			}
+			ethos = { ethic = ethic_fanatic_militarist ethic = random }
 			day_zero_contact = no
 			ignore_initial_colony_error = yes
 			effect = {
@@ -182,9 +143,7 @@ create_pirate_waves_countries = {
 	}
 	# Second Pirate Country
 	if = {
-		limit = {
-			NOT = { exists = event_target:pirate_waves_2_country }
-		}
+		limit = { NOT = { exists = event_target:pirate_waves_2_country } }
 		create_species = {
 			name = random
 			class = random
@@ -236,13 +195,7 @@ create_pirate_waves_countries = {
 
 	# Stop all pirates attacking enclave stations
 	every_country = {
-		limit = {
-			OR = {
-				is_country_type = enclave
-				is_country_type = enclave_mercenary
-				is_country_type = ldragon_country
-			}
-		}
+		limit = { OR = { is_country_type = enclave is_country_type = enclave_mercenary is_country_type = ldragon_country } }
 		every_country = {
 			limit = { is_pirate_country = yes }
 			set_faction_hostility = {
@@ -271,9 +224,11 @@ set_pirates_difficulty = {
 	remove_country_flag = pirate_waves_very_hard
 	remove_country_flag = pirate_waves_insane
 	# Using same var name in player and pirate countries.
-	if = { limit = { is_variable_set = pirate_waves_difficulty }
+	if = {
+		limit = { is_variable_set = pirate_waves_difficulty }
 		set_variable = { which = pirate_waves_difficulty value = 5 } # reset
-	} else = {
+	}
+	else = {
 		if		= { limit = { is_difficulty > 5 } set_variable = { which = pirate_waves_difficulty value = 3 } }
 		else_if = { limit = { is_difficulty > 4 } set_variable = { which = pirate_waves_difficulty value = 2 } }
 		else_if = { limit = { is_difficulty > 3 } set_variable = { which = pirate_waves_difficulty value = 1 } }
@@ -283,29 +238,21 @@ set_pirates_difficulty = {
 		limit = { is_multiplayer = yes }
 		# set_variable = { which = num_pirate_waves_player value = 0 }
 		every_playable_country = {
-			limit = {
-				is_ai = no
-				is_pirate_waves_player = yes
-				is_variable_set = pirate_waves_difficulty
-			}
+			limit = { is_ai = no is_pirate_waves_player = yes is_variable_set = pirate_waves_difficulty }
 			# prev = {
 			# 	change_variable = { which = num_pirate_waves_player value = 1 }
 			# }
 			if = {
-				limit = {
-					check_variable = { which = pirate_waves_difficulty value < prev.pirate_waves_difficulty }
-				}
+				limit = { check_variable = { which = pirate_waves_difficulty value < prev.pirate_waves_difficulty } }
 				prev = {
 					set_variable = { which = pirate_waves_difficulty value = prev.pirate_waves_difficulty }
 				}
 			}
 		}
-	} else = {
+	}
+	else = {
 		random_playable_country = {
-			limit = {
-				is_pirate_waves_player = yes
-				is_variable_set = pirate_waves_difficulty
-			}
+			limit = { is_pirate_waves_player = yes is_variable_set = pirate_waves_difficulty }
 			prev = {
 				set_variable = { which = pirate_waves_difficulty value = prev.pirate_waves_difficulty }
 			}
@@ -330,10 +277,9 @@ set_pirates_difficulty = {
 			limit = { num_ships < @ships_count_easy }
 			set_timed_country_flag = { flag = pirate_waves_spawn_allowed months = 1 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = pirate_waves_difficulty value = 0 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = pirate_waves_difficulty value = 0 } }
 		set_country_flag = pirate_waves_very_easy
 		set_variable = { which = pirates_factor value = 0.25 }
 		event_target:global_event_country = {
@@ -343,10 +289,9 @@ set_pirates_difficulty = {
 			limit = { num_ships < @ships_count_very_easy }
 			set_timed_country_flag = { flag = pirate_waves_spawn_allowed months = 1 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = pirate_waves_difficulty value = 2 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = pirate_waves_difficulty value = 2 } }
 		set_country_flag = pirate_waves_medium
 		set_variable = { which = pirates_factor value = 1 }
 		event_target:global_event_country = {
@@ -356,10 +301,9 @@ set_pirates_difficulty = {
 			limit = { num_ships < @ships_count_medium }
 			set_timed_country_flag = { flag = pirate_waves_spawn_allowed months = 1 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = pirate_waves_difficulty value = 3 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = pirate_waves_difficulty value = 3 } }
 		set_country_flag = pirate_waves_hard
 		set_variable = { which = pirates_factor value = 2 }
 		event_target:global_event_country = {
@@ -369,10 +313,9 @@ set_pirates_difficulty = {
 			limit = { num_ships < @ships_count_hard }
 			set_timed_country_flag = { flag = pirate_waves_spawn_allowed months = 1 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = pirate_waves_difficulty value = 4 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = pirate_waves_difficulty value = 4 } }
 		set_country_flag = pirate_waves_very_hard
 		set_variable = { which = pirates_factor value = 3 }
 		event_target:global_event_country = {
@@ -382,10 +325,9 @@ set_pirates_difficulty = {
 			limit = { num_ships < @ships_count_very_hard }
 			set_timed_country_flag = { flag = pirate_waves_spawn_allowed months = 1 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = pirate_waves_difficulty value = 5 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = pirate_waves_difficulty value = 5 } }
 		set_country_flag = pirate_waves_insane
 		set_variable = { which = pirates_factor value = 4 }
 		event_target:global_event_country = {
@@ -397,24 +339,17 @@ set_pirates_difficulty = {
 		}
 	}
 	if = {
-		limit = {
-			OR = {
-				CmtTriggerIsMarauder = yes
-				is_country_type = outer_bulwarks
-			}
-		}
+		limit = { OR = { CmtTriggerIsMarauder = yes is_country_type = outer_bulwarks } }
 		if = {
 			limit = {
 				exists = root
-				root = {
-					is_scope_valid = yes
-					is_scope_type = country
-					is_ai = no
-				}
+				root = { is_scope_valid = yes is_scope_type = country is_ai = no }
 			}
-			if = { limit = { check_variable = { which = pirates_factor value > 1 } }
+			if = {
+				limit = { check_variable = { which = pirates_factor value > 1 } }
 				multiply_variable = { which = pirates_factor value = 0.666 }
-			} else = {
+			}
+			else = {
 				multiply_variable = { which = pirates_factor value = 2 }
 			}
 		}
@@ -512,27 +447,25 @@ create_pirate_waves_fleet = {
 		limit = {
 			exists = root
 			root = {
-				OR = {
-					exists = solar_system
-					is_scope_type = galactic_object
-				}
+				OR = { exists = solar_system is_scope_type = galactic_object }
 			}
 		}
 		root = { save_event_target_as = wave_location }
-	} else_if = { # Fleet is already placed
+	}
+	else_if = { # Fleet is already placed
 		limit = { exists = solar_system }
 		save_event_target_as = wave_location
-	} else_if = {
+	}
+	else_if = {
 		limit = { exists = event_target:attacked_system_star }
 		event_target:attacked_system_star = { save_event_target_as = wave_location }
-	} else_if = {
+	}
+	else_if = {
 		limit = { exists = event_target:raid_source }
 		event_target:raid_source = { save_event_target_as = wave_location }
-	} else_if = {
-		limit = {
-			exists = event_target:mercenary_hirer
-			exists = event_target:mercenary_hirer.capital_scope
-		}
+	}
+	else_if = {
+		limit = { exists = event_target:mercenary_hirer exists = event_target:mercenary_hirer.capital_scope }
 		event_target:mercenary_hirer.capital_scope = { save_event_target_as = wave_location }
 	}
 
@@ -547,16 +480,9 @@ create_pirate_waves_fleet = {
 				limit = {
 					event_target:wave_location = {
 						closest_system = {
-							limit = {
-								exists = space_owner
-								space_owner = { merg_is_default_empire = yes }
-							}
+							limit = { can_generate_trade_value = yes }
 							space_owner = {
-								relative_power = {
-									who = prevprevprev
-									category = fleet
-									value = pathetic
-								}
+								relative_power = { who = prevprevprev category = fleet value = pathetic }
 							}
 						}
 					}
@@ -568,16 +494,9 @@ create_pirate_waves_fleet = {
 				limit = {
 					event_target:wave_location = {
 						closest_system = {
-							limit = {
-								exists = space_owner
-								space_owner = { merg_is_default_empire = yes }
-							}
+							limit = { can_generate_trade_value = yes }
 							space_owner = {
-								relative_power = {
-									who = prevprevprev
-									category = fleet
-									value = inferior
-								}
+								relative_power = { who = prevprevprev category = fleet value = inferior }
 							}
 						}
 					}
@@ -589,16 +508,9 @@ create_pirate_waves_fleet = {
 				limit = {
 					event_target:wave_location = {
 						closest_system = {
-							limit = {
-								exists = space_owner
-								space_owner = { merg_is_default_empire = yes }
-							}
+							limit = { can_generate_trade_value = yes }
 							space_owner = {
-								relative_power = {
-									who = prevprevprev
-									category = fleet
-									value = equivalent
-								}
+								relative_power = { who = prevprevprev category = fleet value = equivalent }
 							}
 						}
 					}
@@ -609,9 +521,11 @@ create_pirate_waves_fleet = {
 
 		# Time passed based modifiers
 		set_variable = { which = pirates_f_tmp value = pirates_factor }
-		if = { limit = { years_passed > 260 }
+		if = {
+			limit = { years_passed > 260 }
 			multiply_variable = { which = pirates_f_tmp value = 265 }			# 1.25^25
-		} else = {
+		}
+		else = {
 			multiply_variable = { which = pirates_f_tmp value = years_passed_tmp }
 			multiply_variable = { which = pirates_f_tmp value = 0.1585 }		# 1/sqrt(10,1.25)
 		}
@@ -629,33 +543,34 @@ create_pirate_waves_fleet = {
 	# log = "pirates_fleet_factor [This.pirates_fleet_factor]"
 
 	# Corvettes: AVG 100 FP
-	while = {
-		count = pirates_fleet_factor
-		random = {
-			chance = prev.pirates_f_tmp
-			random_list = {
-				80 = { create_ship = { name = random design = "NAME_Reaver" prefix = no graphical_culture = "pirate_01" } }
-				20 = { modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 } modifier = { factor = 12 NOT = { exists = event_target:current_pirate_country } } }
+	if = {
+		limit = { exists = event_target:current_pirate_country mid_game_years_passed < 0 }
+		while = { count = pirates_fleet_factor
+			random = { chance = prev.pirates_f_tmp
+				create_ship = { name = random design = "NAME_Reaver" prefix = no graphical_culture = "pirate_01" }
+			}
+			random = { chance = prev.pirates_f_tmp
+				create_ship = { name = random design = "NAME_Brigand" prefix = no graphical_culture = "pirate_01" }
+			}
+			random = { chance = prev.pirates_f_tmp
+				create_ship = { name = random design = "NAME_Skull" prefix = no graphical_culture = "pirate_01" }
 			}
 		}
 	}
-	while = {
-		count = pirates_fleet_factor
-		random = {
-			chance = prev.pirates_f_tmp
-			random_list = {
-				80 = { create_ship = { name = random design = "NAME_Brigand" prefix = no graphical_culture = "pirate_01" } }
-				20 = { modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 } modifier = { factor = 12 NOT = { exists = event_target:current_pirate_country } } }
+	else_if = {
+		limit = { NOT = { exists = event_target:current_pirate_country } }
+		set_variable = { which = pirates_fleet_late_factor value = pirates_fleet_factor }
+		multiply_variable	= { which = pirates_fleet_late_factor value = 0.25 }
+		round_variable = pirates_fleet_late_factor
+		while = { count = pirates_fleet_late_factor
+			random = { chance = prev.pirates_f_tmp
+				create_ship = { name = random design = "NAME_Reaver" prefix = no graphical_culture = "pirate_01" }
 			}
-		}
-	}
-	while = {
-		count = pirates_fleet_factor
-		random = {
-			chance = prev.pirates_f_tmp
-			random_list = {
-				80 = { create_ship = { name = random design = "NAME_Skull" prefix = no graphical_culture = "pirate_01" } }
-				20 = { modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 } modifier = { factor = 12 NOT = { exists = event_target:current_pirate_country } } }
+			random = { chance = prev.pirates_f_tmp
+				create_ship = { name = random design = "NAME_Brigand" prefix = no graphical_culture = "pirate_01" }
+			}
+			random = { chance = prev.pirates_f_tmp
+				create_ship = { name = random design = "NAME_Skull" prefix = no graphical_culture = "pirate_01" }
 			}
 		}
 	}
@@ -665,9 +580,11 @@ create_pirate_waves_fleet = {
 		prev = { # Time passed based modifiers
 			set_variable = { which = pirates_f_tmp value = pirates_factor }
 			subtract_variable = { which = years_passed_tmp value = 50 }
-			if = { limit = { years_passed > 285 }
+			if = {
+				limit = { years_passed > 285 }
 				multiply_variable = { which = pirates_f_tmp value = 438 }				# 1.5^15
-			} else = {
+			}
+			else = {
 				multiply_variable = { which = pirates_f_tmp value = years_passed_tmp }
 				multiply_variable = { which = pirates_f_tmp value = 0.1645 }				# 1/sqrt(15,1.5)
 			}
@@ -677,23 +594,25 @@ create_pirate_waves_fleet = {
 			divide_variable = { which = pirates_f_tmp value = pirates_f_tmp2 }
 			round_variable_to_closest = { which = pirates_f_tmp value = 0.01 }
 		}
-		while = {
-			count = pirates_fleet_factor
-			random = {
-				chance = prev.pirates_f_tmp
-				random_list = {
-					80 = { create_ship = { name = random design = "NAME_Marauder" prefix = no graphical_culture = "pirate_01" } }
-					20 = { modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 } modifier = { factor = 12 NOT = { exists = event_target:current_pirate_country } } }
+		if = {
+			limit = { exists = event_target:current_pirate_country mid_game_years_passed < 0 }
+			while = { count = pirates_fleet_factor
+				random = { chance = prev.pirates_f_tmp
+					create_ship = { name = random design = "NAME_Marauder" prefix = no graphical_culture = "pirate_01" }
+				}
+				random = { chance = prev.pirates_f_tmp
+					create_ship = { name = random design = "NAME_Corsair" prefix = no graphical_culture = "pirate_01" }
 				}
 			}
 		}
-		while = {
-			count = pirates_fleet_factor
-			random = {
-				chance = prev.pirates_f_tmp
-				random_list = {
-					80 = { create_ship = { name = random design = "NAME_Corsair" prefix = no graphical_culture = "pirate_01" } }
-					20 = { modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 } modifier = { factor = 12 NOT = { exists = event_target:current_pirate_country } } }
+		else_if = {
+			limit = { NOT = { exists = event_target:current_pirate_country } }
+			while = { count = pirates_fleet_late_factor
+				random = { chance = prev.pirates_f_tmp
+					create_ship = { name = random design = "NAME_Marauder" prefix = no graphical_culture = "pirate_01" }
+				}
+				random = { chance = prev.pirates_f_tmp
+					create_ship = { name = random design = "NAME_Corsair" prefix = no graphical_culture = "pirate_01" }
 				}
 			}
 		}
@@ -705,9 +624,11 @@ create_pirate_waves_fleet = {
 				set_variable = { which = pirates_f_tmp value = pirates_factor }
 				set_variable = { which = years_passed_tmp value = trigger:mid_game_years_passed }
 				subtract_variable = { which = years_passed_tmp value = 9 }
-				if = { limit = { mid_game_years_passed > 210 }
+				if = {
+					limit = { mid_game_years_passed > 210 }
 					multiply_variable = { which = pirates_f_tmp value = 270 }				# 1.75^10
-				} else = {
+				}
+				else = {
 					multiply_variable = { which = pirates_f_tmp value = years_passed_tmp }
 					multiply_variable = { which = pirates_f_tmp value = 0.18 }				# 1/sqrt(20,1.75)
 				}
@@ -717,10 +638,8 @@ create_pirate_waves_fleet = {
 				divide_variable = { which = pirates_f_tmp value = pirates_f_tmp3 }
 				round_variable_to_closest = { which = pirates_f_tmp value = 0.01 }
 			}
-			while = {
-				count = pirates_fleet_factor
-				random = {
-					chance = prev.pirates_f_tmp
+			while = { count = pirates_fleet_factor
+				random = { chance = prev.pirates_f_tmp
 					random_list = {
 						80 = { create_ship = { name = random design = "NAME_Black_Earl" prefix = no graphical_culture = "pirate_01" } }
 						20 = { modifier = { factor = 12 NOT = { exists = event_target:current_pirate_country } } CmtEffectCreateShip_VoidChampion = yes }
@@ -735,9 +654,11 @@ create_pirate_waves_fleet = {
 					set_variable = { which = pirates_f_tmp value = pirates_factor }
 					set_variable = { which = years_passed_tmp value = trigger:end_game_years_passed }
 					subtract_variable = { which = years_passed_tmp value = 1 }
-					if = { limit = { end_game_years_passed > 210 }
+					if = {
+						limit = { end_game_years_passed > 210 }
 						multiply_variable = { which = pirates_f_tmp value = 256 }				# 2^8
-					} else = {
+					}
+					else = {
 						multiply_variable = { which = pirates_f_tmp value = years_passed_tmp }
 						multiply_variable = { which = pirates_f_tmp value = 0.2 }				# 1/sqrt(25)
 					}
@@ -747,10 +668,8 @@ create_pirate_waves_fleet = {
 					divide_variable = { which = pirates_f_tmp value = pirates_f_tmp3 }
 					round_variable_to_closest = { which = pirates_f_tmp value = 0.01 }
 				}
-				while = {
-					count = 5
-					random = {
-						chance = prev.pirates_f_tmp
+				while = { count = 5
+					random = { chance = prev.pirates_f_tmp
 						random_list = {
 							80 = { create_ship = { name = random design = "NAME_Pirate_Galleon" prefix = no graphical_culture = "pirate_01" } }
 							20 = { modifier = { factor = 12 NOT = { exists = event_target:current_pirate_country } } CmtEffectCreateShip_AncestralGlory = yes }

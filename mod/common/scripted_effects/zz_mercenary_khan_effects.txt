@@ -1253,8 +1253,7 @@ create_privateer_fleet = {
 								exists = starbase
 								starbase = {
 									has_starbase_size = starbase_starport
-									exists = space_owner
-									space_owner = { merg_is_default_empire = yes }
+									can_generate_trade_value = yes
 								}
 							}
 							found_system = { move_to = this }

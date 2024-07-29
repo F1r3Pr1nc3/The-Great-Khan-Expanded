@@ -1,6 +1,6 @@
 Ever felt like the Great Khan doesn't really do anything great? Then this mod is for you!
 [h3]Prolog[/h3]
-This is a continuation of [i][url=//steamcommunity.com/workshop/filedetails/2129462916]The Great Khan Expanded[/url] (2.7) by Kinneyj47[/i]. It has been completely overhauled and extended, several fixes, compatibility, +built-in [i]Crisis Manager s.b[/i].
+This is a continuation of [i][url=//steamcommunity.com/workshop/filedetails/2129462916]The Great Khan Expanded[/url] (2.7) by Kinneyj47[/i]. It has been completely overhauled and extended, several fixes, compat, +built-in [i]Crisis Manager s.b[/i].
 
 [img]//i.imgur.com/UA9Shht.png[/img][img]//i.imgur.com/hA90SXc.png[/img]
 This mod adds three new subject types to help you navigate the midgame crisis [spoiler](of course, only if the respective conditions are met)[/spoiler]:
@@ -29,7 +29,8 @@ This are new (AI can use) features,[strike] which are not fully tested,[/strike]
 ⠀✔️ Marauders Remodeled (only new games)
 ⠀✔️ ZoFE 4.0
 ⠀✔️ ACE
-⠀✔️ NSC3 must be below ([strike]+support freebooter origin[/strike] will be included soon for 3.9)
+⠀✔️ NSC3 must be below
+⠀✔️ (NSC) Freebooter Origin
 ⠀✔️ BSW3 [url=//steamcommunity.com/workshop/filedetails/2608679059]- Patch[/url]
 ⠀✔️ Real Space - Ships in Scaling Lite [url=//steamcommunity.com/workshop/filedetails/2738343929]- Patch[/url]
 ⠀✔️ Real System Scale 6x [url=//steamcommunity.com/workshop/filedetails/2991974361]- Patch[/url]
@@ -62,9 +63,10 @@ This are new (AI can use) features,[strike] which are not fully tested,[/strike]
 ⠀• All other only with fallback, if you would like to help and share translations into your language, please let me know.
 
 [h3]Minor Recommendations[/h3]
-⠀• [url=//steamcommunity.com/workshop/filedetails/2752952962]Realistic Pirates[/url] (inbuilt compat.)
-⠀• [url=//steamcommunity.com/workshop/filedetails/1899861671]Spaceborne Civs Expanded[/url] (inbuilt compat.)
-⠀• [url=//steamcommunity.com/workshop/filedetails/2936292863]Marauders & Menacing Remodeled[/url] (inbuilt compat.)
+⠀• [url=//steamcommunity.com/workshop/filedetails/3253479588]Freebooters Origin[/url] (reborn)
+⠀• [url=//steamcommunity.com/workshop/filedetails/2752952962]Realistic Pirates[/url] (inbuilt compat)
+⠀• [url=//steamcommunity.com/workshop/filedetails/1899861671]Spaceborne Civs Expanded[/url] (inbuilt compat)
+⠀• [url=//steamcommunity.com/workshop/filedetails/2936292863]Marauders & Menacing Remodeled[/url] (inbuilt compat)
 ⠀• [url=//steamcommunity.com/workshop/filedetails/2584335328]Powerful & Realistic Orbital Bombardments [☠][/url]
 
 [h3]Changes (technically)[/h3]
@@ -72,7 +74,7 @@ Mainly touched:[code]
 ⠀• marauder_events.txt
 ⠀• 08_marauder_ships.txt
 ⠀• awakened_marauders country_type[/code]
-Files directly affected by [i]load order[/i] (not that important – but all with some compatibility support):[code]
+Files directly affected by [i]load order[/i] (not that important – but all with some compat support):[code]
 ⠀• 00_utilities_roles.txt
 ⠀• 00_utilities_thrusters.txt
 ⠀• 08_marauder_ships.txt (mainly for stronger ships)

@@ -219,8 +219,8 @@ country_event = {
 							any_country = { merg_is_fallen_empire = yes is_at_war_with = prev }
 						}
 					}
-					NOT = {
-						any_federation = {
+					count_federation = {
+						limit = {
 							NOT = { is_same_value = prev }
 							relative_power = {
 								who = prev
@@ -237,6 +237,7 @@ country_event = {
 								}
 							}
 						}
+						count = 0
 					}
 				}
 			}
@@ -251,8 +252,8 @@ country_event = {
 							any_country = { merg_is_fallen_empire = yes is_at_war_with = prev }
 						}
 					}
-					NOT = {
-						any_federation = {
+					count_federation = {
+						limit = {
 							NOT = { is_same_value = prev }
 							relative_power = {
 								who = prev
@@ -269,6 +270,7 @@ country_event = {
 								}
 							}
 						}
+						count = 0
 					}
 				}
 				random_member = {
@@ -337,12 +339,13 @@ country_event = {
 					limit = {
 						has_country_flag = CmtFlagNominatedLeader
 						has_been_declared_crisis = no
-						NOT = {
-							any_playable_country = {
+						count_playable_country = {
+							limit = {
 								has_country_flag = CmtFlagNominatedLeader
 								has_been_declared_crisis = no
 								relative_power = { who = prev value > equivalent }
 							}
+							count = 0
 						}
 					}
 					set_global_flag = war_in_heaven_seeking_league_leader

@@ -82,7 +82,7 @@ country_event = {
 				position = 1
 				order_by = trigger:fleet_power
 				if = { # is_ship_size = juggernaut
-					limit = { NOT = { any_owned_ship = { is_ship_class = shipclass_starbase } } }
+					limit = { count_owned_ship = { limit = { is_ship_class = shipclass_starbase } count = 0 } }
 					leader = { set_owner = event_target:new_khanate }
 				}
 				set_owner = event_target:new_khanate
@@ -1144,7 +1144,7 @@ country_event = {
 								is_capital_system = yes
 								has_star_flag = switched_system
 								any_neighbor_system = { is_owned_by = prevprev }
-								any_country_neighbor_to_system = { has_government = gov_diadochi has_origin = "origin_khan_successor" } # any_neighbor_system = { exists = owner owner = { has_government = gov_diadochi has_origin = "origin_khan_successor" } }
+								any_country_neighbor_to_system = { has_government = gov_diadochi has_origin = "origin_khan_successor" } # any_neighbor_system = { has_owner = yes owner = { has_government = gov_diadochi has_origin = "origin_khan_successor" } }
 							}
 							closest_system = {
 								min_steps = 1
@@ -1171,7 +1171,7 @@ country_event = {
 								is_capital_system = yes
 								has_star_flag = switched_system
 								any_neighbor_system = { is_owned_by = prevprev }
-								any_country_neighbor_to_system = { has_government = gov_diadochi has_origin = "origin_khan_successor" } # any_neighbor_system = { exists = owner owner = { has_government = gov_diadochi has_origin = "origin_khan_successor" } }
+								any_country_neighbor_to_system = { has_government = gov_diadochi has_origin = "origin_khan_successor" } # any_neighbor_system = { has_owner = yes owner = { has_government = gov_diadochi has_origin = "origin_khan_successor" } }
 								closest_system = {
 									min_steps = 2
 									max_steps = 4

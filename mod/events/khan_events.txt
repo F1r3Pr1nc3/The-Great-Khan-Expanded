@@ -355,8 +355,7 @@ ship_event = {
 		if = {
 			limit = { # Keep station
 				NOT = { is_ship_size = starbase_marauder }
-				exists = from.owner
-				from.owner = { merg_is_default_empire = yes }
+				from = { can_generate_trade_value = yes }
 				solar_system = { # Not dead end systems
 					OR = {
 						count_neighbor_system = { count > 1 }
@@ -590,14 +589,15 @@ country_event = {
 							exists = starbase
 							starbase = { has_starbase_size = starbase_citadel }
 						}
-						NOT = {
-							any_fleet_in_system = {
+						count_fleet_in_system = {
+							limit = {
 								exists = owner
 								OR = {
 									is_in_combat = yes
 									owner = { is_hostile = root }
 								}
 							}
+							count = 0
 						}
 					}
 				}
@@ -1515,14 +1515,15 @@ country_event = {
 			limit = { num_owned_planets > 0 }
 			if = {
 				limit = {
-					NOT = {
-						any_system_within_border = {
+					count_system_within_border = {
+						limit = {
 							any_system_colony = {
 								is_owned_by = root
 								is_under_colonization = no
 								uses_habitat_capitals = no
 							}
 						}
+						count = 0
 					}
 				}
 				every_owned_planet = {
@@ -1552,7 +1553,7 @@ country_event = {
 						solar_system = {
 							random_system_colony = {
 								limit = {
-									exists = owner
+									has_owner = yes
 									NOR = { is_planet = prevprev is_owned_by = prevprevprevprev }
 								}
 								weights = { base = 1 modifier = { add = 3 is_colonizable = no } }
@@ -1930,7 +1931,7 @@ country_event = {
 		# Find better capital
 		ordered_owned_planet = {
 			limit = {
-				exists = owner
+				has_owner = yes
 				exists = starbase
 				any_owned_species = {
 					NOR = {
