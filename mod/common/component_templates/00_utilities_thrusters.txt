@@ -174,7 +174,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_1" }
 	component_set = "thruster_components"
-	size_restriction = { battleship offspring_battleship cosmo_crisis_battlecruiser }
+	size_restriction = { battleship offspring_battleship marauder_galleon cosmo_crisis_battlecruiser }
 	upgrades_to = "BATTLESHIP_SHIP_THRUSTER_2"
 
 	ai_weight = {
@@ -339,7 +339,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_2" }
 	component_set = "thruster_components"
-	size_restriction = { battleship offspring_battleship cosmo_crisis_battlecruiser }
+	size_restriction = { battleship offspring_battleship marauder_galleon cosmo_crisis_battlecruiser }
 	upgrades_to = "BATTLESHIP_SHIP_THRUSTER_3"
 
 	ai_weight = {
@@ -504,7 +504,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_3" }
 	component_set = "thruster_components"
-	size_restriction = { battleship offspring_battleship cosmo_crisis_battlecruiser }
+	size_restriction = { battleship offspring_battleship marauder_galleon cosmo_crisis_battlecruiser }
 	upgrades_to = "BATTLESHIP_SHIP_THRUSTER_4"
 
 	ai_weight = {
@@ -667,7 +667,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_thrusters_4" }
 	component_set = "thruster_components"
-	size_restriction = { battleship offspring_battleship cosmo_crisis_battlecruiser }
+	size_restriction = { battleship offspring_battleship marauder_galleon cosmo_crisis_battlecruiser }
 	upgrades_to = "BATTLESHIP_SHIP_THRUSTER_5"
 
 	ai_weight = {
@@ -846,7 +846,7 @@ utility_component_template = {
 
 	prerequisites = { "tech_dark_matter_propulsion" }
 	component_set = "thruster_components"
-	size_restriction = { battleship offspring_battleship cosmo_crisis_battlecruiser }
+	size_restriction = { battleship offspring_battleship marauder_galleon cosmo_crisis_battlecruiser }
 
 	ai_weight = {
 		weight = 5

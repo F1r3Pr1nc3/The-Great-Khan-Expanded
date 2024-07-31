@@ -4236,21 +4236,21 @@ country_event = {
 
 		if = {
 			limit = { NOT = { exists = event_target:marauder_country_1 } }
-			random_country = { limit = { is_country_type = dormant_marauders has_country_flag = marauder_1 }
+			random_country = { limit = { has_country_flag = marauder_1 }
 				save_global_event_target_as = marauder_country_1
 			}
 		}
 		if = {
 			limit = { num_marauder_empires_to_spawn > 1 NOT = { exists = event_target:marauder_country_2 } }
 			random_country = {
-				limit = { is_country_type = dormant_marauders has_country_flag = marauder_2 }
+				limit = { has_country_flag = marauder_2 }
 				save_global_event_target_as = marauder_country_2
 			}
 		}
 		if = {
 			limit = { num_marauder_empires_to_spawn > 2 NOT = { exists = event_target:marauder_country_3 } }
 			random_country = {
-				limit = { is_country_type = dormant_marauders has_country_flag = marauder_3 }
+				limit = { has_country_flag = marauder_3 }
 				save_global_event_target_as = marauder_country_3
 			}
 		}
@@ -6885,8 +6885,9 @@ planet_event = {
 		set_timed_planet_flag = { flag = planet_raided months = 10 }
 		if = {
 			limit = {
+				can_generate_trade_value = yes
 				num_sapient_pops < 2
-				owner = { merg_is_default_empire = yes num_owned_planets > 1 }
+				owner = { num_owned_planets > 1 }
 			}
 			owner = { change_variable = { which = "planets_lost_to_marauder" value = 1 } }
 			every_owned_pop = { kill_pop = yes } # Ghost pop bug
@@ -6894,8 +6895,8 @@ planet_event = {
 		}
 		else_if = {
 			limit = {
-				exists = owner
-				owner = { num_owned_planets < 2 merg_is_default_empire = yes }
+				can_generate_trade_value = yes
+				owner = { num_owned_planets < 2 }
 			}
 			## Complete takeover
 			from = { save_event_target_as = new_khanate }
@@ -7432,7 +7433,7 @@ country_event = {
 			ordered_owned_planet = {
 				limit = { is_colony = yes }
 				position = 0
-				order_by = trigger:num_sapient_pops
+				order_by = trigger:num_pops
 				save_event_target_as = capital_planet
 				solar_system = { save_event_target_as = capital_system }
 			}
@@ -8459,7 +8460,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		log = "MARAUDER 601 TEST"
+		# log = "MARAUDER 601 TEST"
 		owner_species = { save_event_target_as = marauder_species } # get_marauder_species = yes # (do it also later for each)
 		save_event_target_as = first_diadochi
 		set_update_modifiers_batch = begin

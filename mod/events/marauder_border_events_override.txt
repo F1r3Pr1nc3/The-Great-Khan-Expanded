@@ -225,6 +225,7 @@ country_event = {
 			}
 			set_owner = event_target:new_khanate
 		}
+		save_event_target_as = integrated_empire
 		log="Handover \\[This.GetName] to \\[event_target:new_khanate.GetName]"
 		# Full handover
 		every_owned_fleet = {
@@ -253,18 +254,6 @@ country_event = {
 			}
 		}
 
-		# Needs to be last (as the country gets destroyed without planet)
-		every_owned_planet = {
-			limit = {
-				has_owner = yes
-				is_owned_by = root		# Note: caching is quite funky at a time like this when many borders are changing hands. The starbase ownership is checked to be extra sure, since it is not cached (unlike system ownership - though that probably would have worked too)
-				solar_system = { is_capital_system = no }
-			}
-			set_owner = event_target:new_khanate
-			set_controller = event_target:new_khanate
-			# Just to keep the initial conquered planets in line while they stabilize.
-			add_modifier = { modifier = "revolt_suppressed" months = 20 }
-		}
 		event_target:new_khanate = {
 			# Fire when country finishes being integrated
 			# From = subject
@@ -468,11 +457,6 @@ country_event = {
 				steal_relic = { target = root relic = all }
 			}
 		}
-		# Establish Communications
-		every_country = {
-			limit = { has_communications = root }
-			establish_communications_no_message = event_target:new_khanate
-		}
 		event_target:new_khanate = {
 			if = {
 				limit = { CmtTriggerIsMarauder = no used_naval_capacity_percent < 0.75 }
@@ -497,15 +481,50 @@ country_event = {
 				create_fleet_from_naval_cap = 0.2
 			}
 		}
+		# Note: Needs to be last (as the country may be destroyed without planet)
+		if = {
+			limit = {
+				exists = event_target:integrated_empire
+				is_valid = event_target:integrated_empire
+				event_target:integrated_empire = { is_scope_valid = yes is_scope_type = country }
+				exists = event_target:integrated_empire.owner	# double scope is another workaround
+			}
+			# Establish Communications
+			every_country = {
+				limit = { has_communications = event_target:integrated_empire NOT = { has_communications = event_target:new_khanate } }
+				establish_communications_no_message = event_target:new_khanate
+			}
+			every_owned_planet = {
+				limit = {
+					has_owner = yes
+					is_colony = yes
+					is_owned_by = event_target:integrated_empire.owner
+					is_controlled_by = event_target:integrated_empire.owner
+					# Note: caching is quite funky at a time like this when many borders are changing hands. The starbase ownership is checked to be extra sure, since it is not cached (unlike system ownership - though that probably would have worked too)
+					solar_system = {
+						exists = starbase
+						starbase = { is_owned_by = event_target:new_khanate }
+					}
+				}
+				set_owner = event_target:new_khanate
+				set_controller = event_target:new_khanate
+				add_modifier = { modifier = "revolt_suppressed" months = 20 } # Just to keep the initial conquered planets in line while they stabilize.
+			}
+		}
 	}
 	after = {
-		every_owned_fleet = {
-			limit = {
-				is_mobile = no
-				exists = starbase
-				starbase = { has_starbase_size = starbase_marauder }
+		if = {
+			limit = { exists = event_target:integrated_empire }
+			event_target:integrated_empire = {
+				every_owned_fleet = {
+					limit = {
+						is_mobile = no
+						exists = starbase
+						starbase = { has_starbase_size = starbase_marauder }
+					}
+					destroy_fleet = this
+				}
 			}
-			destroy_fleet = this
 		}
 		if = {
 			limit = {
@@ -536,6 +555,12 @@ country_event = {
 					limit = { is_disabled = yes }
 					set_event_locked = no
 					every_owned_ship = { set_disabled = no }
+				}
+			}
+			if = {
+				limit = { exists = event_target:integrated_empire num_owned_planets < 1 }
+				event_target:integrated_empire = {
+					destroy_country = yes
 				}
 			}
 		}

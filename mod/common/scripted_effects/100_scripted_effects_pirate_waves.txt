@@ -457,8 +457,8 @@ create_pirate_waves_fleet = {
 		save_event_target_as = wave_location
 	}
 	else_if = {
-		limit = { exists = event_target:attacked_system_star }
-		event_target:attacked_system_star = { save_event_target_as = wave_location }
+		limit = { exists = event_target:attacked_system.star }
+		event_target:attacked_system.star = { save_event_target_as = wave_location }
 	}
 	else_if = {
 		limit = { exists = event_target:raid_source }
