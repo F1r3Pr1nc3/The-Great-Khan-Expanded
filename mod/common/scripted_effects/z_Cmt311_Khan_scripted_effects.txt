@@ -158,7 +158,7 @@ CmtEffectKhanReinforceOnCapital = {
 						modulo_variable = { which = CmtVarWhileControlFleet value = 1 }
 						multiply_variable = { which = CmtVarWhileControlFleet value = 100 }
 					}
-					random = { chance = CmtVarWhileControlFleet prev = { CmtEffectCreateFleet_KhanConstructor = yes } }
+					random = { chance = prevprev.CmtVarWhileControlFleet prev = { CmtEffectCreateFleet_KhanConstructor = yes } }
 				}
 			}
 			### Army

@@ -347,9 +347,9 @@ marauder_station = {
 	is_space_station = yes
 	# is_civilian = no
 	build_block_radius = @build_block_radius_civilian
-	potential_country = {
-		is_country_type = awakened_marauders
-	}
+	# potential_country = {
+	# 	is_country_type = awakened_marauders
+	# }
 	class = shipclass_military_station
 	is_designable = no
 	enable_default_design = no

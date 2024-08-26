@@ -94,8 +94,8 @@ starbase_marauder = {
 	rotation_speed = 0
 	modifier = {
 		ship_evasion_mult = -1
-		ship_shield_add = 12500	# 10000 vanilla
-		ship_armor_add = 12500	# 10000 vanilla
+		ship_shield_add = 10000 # vanilla
+		ship_armor_add = 20000	# old 10000 vanilla
 		ship_sensor_range_add = 1
 	}
 	ship_modifier = {
@@ -103,8 +103,14 @@ starbase_marauder = {
 		ship_tracking_add = 15
 		ship_accuracy_add = 15
 	}
+	potential_construction = {
+		is_scope_type = planet
+		is_primary_star = yes
+		NOT = { exists = orbital_defence }
+	}
+	# possible_construction = { always = no }
 	max_hitpoints = 20000 # vanilla
-	base_buildtime = 730
+	base_buildtime = 720
 	combat_size_multiplier = 50
 	size_multiplier = -30 # 4
 	fleet_slot_size = 2
@@ -124,22 +130,17 @@ starbase_marauder = {
 	class = shipclass_starbase
 	required_component_set = "power_core"
 	required_component_set = "sensor_components"
-	required_component_set = "combat_computers"
+	# required_component_set = "combat_computers"
 
 	build_block_radius = @build_block_radius_starbase
 	formation_priority = @starbase_formation_priority
-	potential_country = {
-		OR = {
-			is_country_type = awakened_marauders
-			is_country_type = dormant_marauders
-		}
-	}
+	# potential_country = {
+	# 	OR = {
+	# 		is_country_type = awakened_marauders
+	# 		is_country_type = dormant_marauders
+	# 		is_country_type = outer_bulwarks
+	# 	}
+	# }
 	icon_frame = -1
 	icon = ship_size_military_station
-	potential_construction = {
-		is_scope_type = planet
-		is_primary_star = yes
-		NOT = { exists = orbital_defence }
-	}
-	# possible_construction = { always = no }
 }

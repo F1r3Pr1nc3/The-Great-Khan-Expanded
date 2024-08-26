@@ -429,10 +429,9 @@ create_marauder_successor_fleet = {
 	}
 }
 
-# TODO not working (accepts only yes or no as values)
-# NUM required
+# TODO test if working
+# NUM digit required
 # assign_diadochi_planets = {
-# 	# optimize_memory
 # 	random_system_within_border = {
 # 		limit = {
 # 			is_potential_diadochi_system = yes
@@ -447,7 +446,7 @@ create_marauder_successor_fleet = {
 # 			}
 # 		}
 # 		set_star_flag = $NUM$_diadochi_system
-# 		save_event_target_as = $NUM$_diadochi_origin
+# 		save_event_target_as = diadochi_origin@$NUM$
 # 		prev = {
 # 			effect_on_blob = {
 # 				center = prev
@@ -462,355 +461,203 @@ create_marauder_successor_fleet = {
 # 				}
 # 			}
 # 		}
-# 		log="Exists diadochi_planet [event_target:first_diadochi_origin.GetName]"
+# 		log = "Exists 1 diadochi_planet \\[diadochi_origin1.GetName]"
+# 		log = "Exists 2 diadochi_planet \\[diadochi_origin2.GetName]"
+# 		log = "Exists 3 diadochi_planet \\[diadochi_origin3.GetName]"
+# 		log = "Exists 4 diadochi_planet \\[diadochi_origin4.GetName]"
+# 		log = "Exists diadochi_planet \[diadochi_origin@$NUM$.GetName]"
+# 	}
+# }
+# # NUM digit required
+# create_diadochi = {
+# 	if = {
+# 		limit = { exists = event_target:diadochi_origin@$NUM$ }
+# 		get_marauder_species = yes
+# 		create_country = {
+# 			name_list = random
+# 			# name = random
+# 			species = event_target:marauder_species
+# 			type = default
+# 			authority = auth_imperial
+# 			civics = { civic = civic_diadochi civic = random civic = random }
+# 			origin = "origin_khan_successor"
+# 			ethos = {
+# 				ethic = ethic_militarist
+# 				ethic = ethic_xenophobe
+# 				ethic = ethic_authoritarian
+# 			}
+# 			ignore_initial_colony_error = yes
+# 			effect = {
+# 				save_event_target_as = diadochi_origin@$NUM$
+# 				set_country_flag = diadochi_$NUM$
+# 				set_name = random
+# 				shift_ethic = ethic_fanatic_militarist
+# 			}
+# 		}
+# 		# Flip Starbases
+# 		every_system_within_border = {
+# 			limit = {
+# 				has_star_flag = $NUM$_diadochi_system
+# 				exists = starbase
+# 				starbase = { is_owned_by = root }
+# 			}
+# 			starbase = { set_owner = event_target:diadochi }
+# 			# Flip Planets
+# 			every_system_colony = {
+# 				limit = { is_owned_by = root }
+# 				set_owner = event_target:diadochi
+# 				# set_controller = event_target:diadochi
+# 			}
+# 			remove_star_flag = $NUM$_diadochi_system
+# 		}
+# 		if = {
+# 			limit = { exists = event_target:raider_khanate }
+# 			event_target:diadochi_origin@$NUM$ = {
+# 				country_event = { id = khan.610 days = -1 } # Handover some old stuff
+# 			}
+# 		}
 # 	}
 # }
 
-assign_first_diadochi_planets = {
-	optimize_memory
-	random_system_within_border = {
-		limit = {
-			is_potential_diadochi_system = yes
-			any_system_colony = {
-				is_owned_by = root
-				merg_is_habitat = no
-				OR = { is_sector_capital = yes num_sapient_pops > 5 }
-			}
-		}
-		set_star_flag = first_diadochi_system
-		save_event_target_as = first_diadochi_origin
-		prev = {
-			effect_on_blob = {
-				center = prev
-				owned_planets_percentage = 0.25
-				planet_limit = {
-					solar_system = { is_potential_diadochi_system = yes }
-				}
-				effect = { set_star_flag = first_diadochi_system }
-			}
-		}
-	}
-}
-
-# Used only once
-create_first_diadochi = {
-	optimize_memory
-	if = {
-		limit = { exists = event_target:first_diadochi_origin }
-		reroll_random = yes
-		get_marauder_species = yes
-		create_country = {
-			name_list = random
-			# name = random
-			species = event_target:marauder_species
-			type = default
-			authority = auth_imperial
-			civics = { civic = civic_diadochi civic = random civic = random }
-			origin = "origin_khan_successor"
-			ethos = {
-				ethic = ethic_militarist
-				ethic = ethic_xenophobe
-				ethic = ethic_authoritarian
-			}
-			ignore_initial_colony_error = yes
-			effect = {
-				save_event_target_as = first_diadochi
-				set_country_flag = diadochi_1
-				set_name = random
-				shift_ethic = ethic_fanatic_militarist
-			}
-		}
-		# Flip Starbases
-		every_system_within_border = {
-			limit = {
-				has_star_flag = first_diadochi_system
-				exists = starbase
-				starbase = { is_owned_by = root }
-			}
-			starbase = { set_owner = event_target:first_diadochi }
-			# Flip Planets
-			every_system_colony = {
-				limit = { is_owned_by = root }
-				set_owner = event_target:first_diadochi
-				# set_controller = event_target:first_diadochi
-			}
-			remove_star_flag = first_diadochi_system
-		}
-		if = {
-			limit = { exists = event_target:raider_khanate }
-			event_target:first_diadochi = {
-				country_event = { id = khan.610 days = -1 } # Handover some old stuff
-			}
-		}
-	}
-}
-
-assign_second_diadochi_planets = {
-	optimize_memory
-	random_system_within_border = {
-		limit = {
-			is_potential_diadochi_system = yes
-			any_system_colony = {
-				is_owned_by = root
-				merg_is_habitat = no
-				OR = { is_sector_capital = yes num_sapient_pops > 5 }
-			}
-		}
-		set_star_flag = second_diadochi_system
-		save_event_target_as = second_diadochi_origin
-		prev = {
-			effect_on_blob = {
-				center = prev
-				owned_planets_percentage = 0.33
-				planet_limit = {
-					solar_system = { is_potential_diadochi_system = yes }
-				}
-				effect = { set_star_flag = second_diadochi_system }
-			}
-		}
-	}
-}
-
-create_second_diadochi = {
-	optimize_memory
-	if = {
-		limit = { exists = event_target:second_diadochi_origin }
-		reroll_random = yes
-		get_marauder_species = yes
-		create_country = {
-			name_list = random
-			# name = random
-			species = event_target:marauder_species
-			type = default
-			authority = auth_imperial
-			civics = { civic = civic_diadochi civic = random civic = random }
-			origin = "origin_khan_successor"
-			ethos = {
-				ethic = ethic_militarist
-				ethic = ethic_xenophobe
-				ethic = ethic_authoritarian
-			}
-			ignore_initial_colony_error = yes
-			effect = {
-				save_event_target_as = second_diadochi
-				set_country_flag = diadochi_2
-				set_name = random
-				shift_ethic = ethic_fanatic_militarist
-			}
-		}
-		# Flip Starbases
-		every_system_within_border = {
-			limit = {
-				has_star_flag = second_diadochi_system
-				exists = starbase
-				starbase = { is_owned_by = root }
-			}
-			starbase = { set_owner = event_target:second_diadochi }
-			# Flip Planets
-			every_system_colony = {
-				limit = { is_owned_by = root }
-				set_owner = event_target:second_diadochi
-				# set_controller = event_target:second_diadochi
-			}
-			remove_star_flag = second_diadochi_system
-		}
-		if = {
-			limit = { exists = event_target:raider_khanate }
-			event_target:second_diadochi = {
-				country_event = { id = khan.610 days = -1 } # Handover some old stuff
-			}
-		}
-	}
-}
-
-# # Used only once
-assign_third_diadochi_planets = {
-	optimize_memory
-	random_system_within_border = {
-		limit = {
-			is_potential_diadochi_system = yes
-			any_system_colony = {
-				is_owned_by = root
-				merg_is_habitat = no
-				OR = { is_sector_capital = yes num_sapient_pops > 5 }
-			}
-		}
-		set_star_flag = third_diadochi_system
-		save_event_target_as = third_diadochi_origin
-		prev = {
-			effect_on_blob = {
-				center = prev
-				owned_planets_percentage = 0.5
-				planet_limit = {
-					solar_system = { is_potential_diadochi_system = yes }
-				}
-				effect = { set_star_flag = third_diadochi_system }
-			}
-		}
-	}
-}
-
-create_third_diadochi = {
-	optimize_memory
-	if = {
-		limit = { exists = event_target:third_diadochi_origin }
-		reroll_random = yes
-		get_marauder_species = yes
-		create_country = {
-			name_list = random
-			# name = random
-			species = event_target:marauder_species
-			type = default
-			authority = auth_imperial
-			civics = { civic = civic_diadochi civic = random civic = random }
-			origin = "origin_khan_successor"
-			ethos = {
-				ethic = ethic_militarist
-				ethic = ethic_xenophobe
-				ethic = ethic_authoritarian
-			}
-			ignore_initial_colony_error = yes
-			effect = {
-				save_event_target_as = third_diadochi
-				set_country_flag = diadochi_3
-				set_name = random
-				shift_ethic = ethic_fanatic_militarist
-			}
-		}
-		# Flip Starbases
-		every_system_within_border = {
-			limit = {
-				has_star_flag = third_diadochi_system
-				exists = starbase
-				starbase = { is_owned_by = root }
-			}
-			starbase = { set_owner = event_target:third_diadochi }
-			# Flip Planets
-			every_system_colony = {
-				limit = { is_owned_by = root }
-				set_owner = event_target:third_diadochi
-				# set_controller = event_target:third_diadochi
-			}
-			remove_star_flag = third_diadochi_system
-		}
-		if = {
-			limit = { exists = event_target:raider_khanate }
-			event_target:third_diadochi = {
-				country_event = { id = khan.610 days = -1 } # Handover some old stuff
-			}
-		}
-	}
-}
-
-assign_fourth_diadochi_planets = {
-	optimize_memory
-	random_system_within_border = {
-		limit = {
-			is_potential_diadochi_system = yes
-			any_system_colony = {
-				is_owned_by = root
-				merg_is_habitat = no
-				OR = { is_sector_capital = yes num_sapient_pops > 5 }
-			}
-		}
-		set_star_flag = fourth_diadochi_system
-		save_event_target_as = fourth_diadochi_origin
-		prev = {
-			effect_on_blob = {
-				center = prev
-				owned_planets_percentage = 1
-				planet_limit = {
-					solar_system = { is_potential_diadochi_system = yes }
-				}
-				effect = { set_star_flag = fourth_diadochi_system }
-			}
-		}
-	}
-}
-
-create_fourth_diadochi = {
-	optimize_memory
-	if = {
-		limit = { exists = event_target:fourth_diadochi_origin }
-		reroll_random = yes
-		get_marauder_species = yes
-		create_country = {
-			name_list = random
-			# name = random
-			species = event_target:marauder_species
-			type = default
-			authority = auth_imperial
-			civics = { civic = civic_diadochi civic = random civic = random }
-			origin = "origin_khan_successor"
-			ethos = {
-				ethic = ethic_xenophobe
-				ethic = ethic_authoritarian
-				ethic = ethic_militarist
-			}
-			ignore_initial_colony_error = yes
-			effect = {
-				save_event_target_as = fourth_diadochi
-				set_country_flag = diadochi_4
-				set_name = random
-				shift_ethic = ethic_fanatic_militarist
-			}
-		}
-		# Flip Starbases
-		every_system_within_border = {
-			limit = {
-				has_star_flag = fourth_diadochi_system
-				exists = starbase
-				starbase = { is_owned_by = root }
-			}
-			starbase = { set_owner = event_target:fourth_diadochi }
-			# Flip Planets
-			every_system_colony = {
-				limit = { is_owned_by = root }
-				set_owner = event_target:fourth_diadochi
-				# set_controller = event_target:fourth_diadochi
-			}
-			remove_star_flag = fourth_diadochi_system
-		}
-		if = {
-			limit = { exists = event_target:raider_khanate }
-			event_target:fourth_diadochi = {
-				country_event = { id = khan.610 days = -1 } # Handover some old stuff
-			}
-		}
-	}
-}
-
+# NOTE: Don't use with every_*_system..., as this could lead to strange behavior
+# Don't flip capital_system for human player, compare system_flip_control_effect (Rise and Fall)
 # This = System
-# Prev = old owner
-# prevprev = new owner = $EMPIRE$
+# Prev/PrevPrev = old owner
+# prevprev = $EMPIRE$ = new owner
 commit_system_to = {
 	if = {
 		limit = {
 			has_owner = yes
-			is_capital_system = no
-			exists = space_owner
-			space_owner = {
-				is_ai = yes
-				NOT = { is_same_empire = $EMPIRE$ }
+			NAND = { exists = event_target:former_owner is_owned_by = $EMPIRE$ }
+		}
+		owner = { save_event_target_as = former_owner }
+	}
+	if = {
+		limit = {
+			OR = {
+				NAND = {
+					has_owner = yes
+					exists = space_owner
+					exists = event_target:former_owner
+					event_target:former_owner = { is_scope_valid = yes is_scope_type = country }
+					is_owned_by = event_target:former_owner
+				}
+				has_star_flag = switched_system
+				$EMPIRE$ = { is_same_empire = event_target:former_owner }
+				AND = { is_capital_system = yes space_owner = { is_ai = no } } # Just double check
 			}
 		}
-		set_timed_star_flag = { flag = switched_system days = 3 }
-		every_system_colony = {
-			limit = {
-				has_ground_combat = no
-				is_occupied_flag = no
-				is_owned_by = space_owner # prev.starbase.owner
+		log_error = "Fail: System \\[This.GetName] has same old owner \\[This.starbase.fleet.Owner.GetName]"
+		break = yes
+	}
+	set_timed_star_flag = { flag = switched_system days = 3 }
+	if = {
+		limit = {
+			exists = starbase
+			starbase = {
+				exists = owner
+				is_owned_by = event_target:former_owner
+				OR = { # Just double check
+					owner = { is_ai = yes }
+					prev = { is_capital_system = no }
+				}
 			}
-			set_owner = $EMPIRE$
-			set_controller = $EMPIRE$
+		}
+		starbase = { set_owner = $EMPIRE$ }
+	}
+	every_orbital_station = {
+		limit = {
+			OR = {
+				NOT = { exists = owner }
+				is_owned_by = event_target:former_owner
+				is_controlled_by = event_target:former_owner
+			}
 		}
 		if = {
-			limit = { exists = starbase }
-			starbase = { set_owner = $EMPIRE$ }
+			limit = {
+				exists = orbit
+				orbit = { has_observation_outpost = yes }
+			}
+			dismantle = yes
 		}
-		log="Balcanization preventation: Diadochi system \\[This.GetName] switched to \\[This.starbase.fleet.Owner.GetName]!"
+		else = {
+			set_owner = $EMPIRE$
+		}
 	}
-	else = { log="Fail: Diadochi system \\[This.GetName] has same old owner \\[This.starbase.fleet.Owner.GetName]" }
+	# SLOW SAVE METHOD - just double check to omit wired caching behavior (aka: don't change the major loop condition in the loop itself)
+	export_trigger_value_to_variable = {
+		trigger = count_system_colony
+		parameters = {
+			limit = {
+				has_owner = yes
+				num_pops > 0
+				has_ground_combat = no
+				is_occupied_flag = no
+				is_owned_by = event_target:former_owner
+				is_controlled_by = event_target:former_owner
+				OR = {
+					owner = { is_ai = yes }
+					is_capital = no
+				}
+			}
+		}
+		variable = num_system_colonies
+	}
+	if = {
+		limit = { check_variable = { which = num_system_colonies value > 0 } }
+		while = { count = num_system_colonies # value:num_system_colonies
+			limit = {
+				exists = event_target:former_owner
+				any_system_colony = { # Just double check
+					has_owner = yes
+					num_pops > 0
+					has_ground_combat = no
+					is_occupied_flag = no
+					is_owned_by = event_target:former_owner
+					is_controlled_by = event_target:former_owner
+					OR = {
+						owner = { is_ai = yes }
+						is_capital = no
+					}
+				}
+			}
+			random_system_colony = {
+				limit = {
+					has_owner = yes
+					num_pops > 0
+					has_ground_combat = no
+					is_occupied_flag = no
+					is_owned_by = event_target:former_owner
+					is_controlled_by = event_target:former_owner
+					OR = { # Just double check
+						owner = { is_ai = yes }
+						is_capital = no
+					}
+				}
+				set_owner = $EMPIRE$
+				set_controller = $EMPIRE$
+				every_planet_army = { set_owner = $EMPIRE$ }
+				add_modifier = { modifier = "revolt_suppressed" months = 20 } # Just to keep the initial conquered planets in line while they stabilize.
+			}
+		}
+	}
+	if = {
+		limit = { exists = prev prev = { is_scope_type = country } }
+		every_system_planet = {
+			limit = {
+				has_owner = yes
+				is_under_colonization = yes
+				OR = {
+					is_owned_by = event_target:former_owner
+					is_controlled_by = event_target:former_owner
+				}
+			}
+			destroy_colony = yes
+		}
+		add_claims = { who = event_target:former_owner num_of_claims = 10 show_notification = no }
+	}
+	log="Balcanization preventation: Diadochi system \\[This.GetName] switched to \\[This.starbase.fleet.Owner.GetName]!"
+	clear_variable = num_system_colonies
 }
 
 # This = root = Marauder
@@ -1239,7 +1086,7 @@ create_privateer_fleet = {
 				set_aggro_range = 800
 				queue_actions = {
 					find_closest_planet = {
-						trigger = { id = privateer.x1.trigger.1 is_star = yes }
+						trigger = { id = privateer.x1.trigger.1@prev is_star = yes }
 						found_planet = {
 							orbit_planet = this
 							wait = { duration = 5 random = 5 }
@@ -1248,7 +1095,7 @@ create_privateer_fleet = {
 					repeat = {
 						find_closest_system = {
 							trigger = {
-								id = privateer.x1.trigger.2
+								id = privateer.x1.trigger.2@prev
 								NOR = { has_star_flag = hostile_system has_star_flag = recent_privateer_visit }
 								exists = starbase
 								starbase = {
@@ -1259,12 +1106,12 @@ create_privateer_fleet = {
 							found_system = { move_to = this }
 						}
 						find_closest_planet = {
-							trigger = { id = privateer.x1.trigger.3 is_star = yes }
+							trigger = { id = privateer.x1.trigger.3@prev is_star = yes }
 							found_planet = {
 								orbit_planet = this
 								wait = { duration = 5 random = 5 }
 								effect = {
-									id = create_pirate_fleet_npc.1
+									id = create_pirate_fleet_npc.1@prev
 									solar_system = {
 										set_timed_star_flag = { flag = recent_privateer_visit years = 3 }
 									}

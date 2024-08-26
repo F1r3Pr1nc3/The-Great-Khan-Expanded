@@ -117,7 +117,6 @@ country_event = {
 			}
 			prev = { save_event_target_as = new_khanate }
 			country_event = { id = marauder.609 days = -1 }		# Fully handover
-			destroy_country = yes
 		}
 		every_subject = {
 			limit = {

@@ -469,23 +469,6 @@ ship_event = {
 			}
 			destroy_fleet = fleet
 		}
-
-		# if = {
-		# 	limit = {
-		# 		NOT = {
-		# 			solar_system = {
-		# 				any_fleet_in_system = {
-		# 					owner = { is_hostile = event_target:marauder_starbase_owner }
-		# 				}
-		# 			}
-		# 		}
-		# 	}
-		# owner = { save_event_target_as = marauder_starbase_owner }
-		# solar_system = {
-		#	create_marauder_starbase = yes
-		# last_created_fleet = {
-		# 	random_owned_ship = { reduce_hp_percent = 98 set_disabled = no }
-		# }
 	}
 }
 
