@@ -104,7 +104,7 @@ system_event = {
 			# 	}
 			# }
 			# TODO Trying to create a starbase with an invalid starbase design sik'El'Re for ship size starbase_citadel (note: starbases cannot have components that allow them to move or go FTL)
-			log="Try create starbase_citadel"
+			log="Try create starbase_citadel on [This.GetName]"
 			event_target:raider_khanate = {
 				if = {
 					limit = {
@@ -236,6 +236,7 @@ starbase_event = {
 		}
 		if = {
 			limit = {
+				has_starbase_size > starbase_starport
 				count_starbase_modules = { count < 3 include_being_constructed = yes }
 				NOR = { has_starbase_module = "gun_battery" is_starbase_building_module = "gun_battery" }
 			}
@@ -244,6 +245,7 @@ starbase_event = {
 		}
 		if = {
 			limit = {
+				has_starbase_size > starbase_starhold
 				count_starbase_modules = { count < 4 include_being_constructed = yes }
 				count_starbase_modules = { type = "gun_battery" count < 2 include_being_constructed = yes }
 				NOT = { is_starbase_building_module = "gun_battery" }
@@ -261,6 +263,7 @@ starbase_event = {
 		}
 		if = {
 			limit = {
+				has_starbase_size > starbase_starport
 				count_starbase_buildings = { count < 3 include_being_constructed = yes }
 				NOR = { has_starbase_building = "resource_silo" is_starbase_building_building = "resource_silo" }
 			}
@@ -709,7 +712,7 @@ country_event = {
 		}
 	}
 	immediate = {
-		# log = "Fix ongoing hostility"		# \\[This.GetName]
+		# log = "Fix ongoing hostility"		# [This.GetName]
 		# Before we need to stop fleets attacking.
 		if = {
 			limit = {
@@ -934,7 +937,7 @@ country_event = {
 					is_hostile = prev
 					prev = { is_hostile = prev }
 				}
-				log = "Fix ongoing hostility for \\[This.GetName]"
+				log = "Fix ongoing hostility for [This.GetName]"
 				prev = {
 					country_event = { id = khan.308 scopes = { from = prev } days = -1 } # Set friendly
 				}
@@ -1032,7 +1035,7 @@ country_event = {
 									}
 								}
 							}
-							log = "Fix Garrison hostility for \\[This.GetName]"
+							log = "Fix Garrison hostility for [This.GetName]"
 							prevprev = {
 								set_faction_hostility = { target = prev set_hostile = no set_neutral = no set_friendly = yes }
 								country_event = { id = khan.308 scopes = { from = prev } days = 1 } # Set friendly again
@@ -1052,6 +1055,7 @@ country_event = {
 }
 
 # Create Citadel
+# FromFrom = Fleet that destroyed the starbase
 system_event = {
 	id = khan.310
 	hide_window = yes
@@ -1066,8 +1070,19 @@ system_event = {
 	}
 	immediate = {
 		# system_owner does not exists
-		# log="test khan.310 \\[former_starbase_owner.GetName] or \\[Fromfrom.Owner.GetName]"
+		# log="test khan.310 [former_starbase_owner.GetName] or [Fromfrom.Owner.GetName]"
 		if = {
+			limit = {
+				exists = starbase
+				exists = owner
+				owner = { is_subject_of_khan = yes }
+			}
+			starbase = {
+				set_starbase_size = starbase_citadel
+				set_owner = event_target:former_starbase_owner
+			}
+		}
+		else_if = {
 			limit = {
 				exists = starbase
 				NAND = {
@@ -1080,7 +1095,7 @@ system_event = {
 				limit = { NOT = { has_star_flag = starbase_destroyed } }
 				system_event = { id = khan.310 days = 2 scopes = { from = root fromfrom = fromfrom } }
 				set_timed_star_flag = { flag = starbase_destroyed days = 5 }
-				log="khan.310 starbase owned by \\[event_target:former_starbase_owner.GetName] or \\[Fromfrom.Owner.GetName]"
+				log="khan.310 starbase owned by [former_starbase_owner.GetName] or [Fromfrom.Owner.GetName]"
 			}
 			break = yes
 		}
@@ -1090,25 +1105,47 @@ system_event = {
 					exists = fromfrom
 					fromfrom = { has_fleet_flag = starbase_destroyed }
 				}
+				event_target:former_starbase_owner = { has_existing_ship_design = starbase_starfortress }
 			}
 			create_starbase = {
 				size = "starbase_starfortress"
 				owner = event_target:former_starbase_owner				# from.owner
-				effect = {
-					# set_disabled = yes only ship
-					# set_graphical_culture = event_target:former_starbase_owner
-					starbase_event = { id = khan.302 days = 20 } # workaround
-				}
 			}
 		}
-		else = {
+		else_if = {
+			limit = {
+				event_target:former_starbase_owner = { has_existing_ship_design = starbase_citadel }
+			}
 			create_starbase = {
 				size = "starbase_citadel"
 				owner = event_target:former_starbase_owner
-				effect = {
-					# set_disabled = yes only ship
-					starbase_event = { id = khan.302 days = 20 }
-				}
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:former_starbase_owner = { has_existing_ship_design = starbase_starhold }
+			}
+			create_starbase = {
+				size = "starbase_starhold"
+				owner = event_target:former_starbase_owner
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:former_starbase_owner = { has_existing_ship_design = starbase_starport }
+			}
+			create_starbase = {
+				size = "starbase_starport"
+				owner = event_target:former_starbase_owner
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:former_starbase_owner = { has_existing_ship_design = starbase_outpost }
+			}
+			create_starbase = {
+				size = "starbase_outpost"
+				owner = event_target:former_starbase_owner
 			}
 		}
 		if = {
@@ -1126,6 +1163,11 @@ system_event = {
 						design = "NAME_Warrior_Freehold"
 						effect = { reduce_hp_percent = 95 }
 					}
+				}
+				# set_disabled = yes only ship
+				# set_graphical_culture = event_target:former_starbase_owner
+				starbase = {
+					starbase_event = { id = khan.302 days = 20 } # workaround
 				}
 			}
 		}
@@ -1509,42 +1551,6 @@ country_event = {
 						count = 0
 					}
 				}
-				every_owned_planet = {
-					limit = {
-						has_owner = yes
-						is_owned_by = root
-						is_under_colonization = no
-						uses_habitat_capitals = no
-					}
-					if = {
-						limit = {
-							exists = space_owner
-							space_owner = { is_country_type_with_subjects = yes }
-						}
-						set_owner = space_owner
-						set_controller = space_owner
-					}
-					else_if = { # former_owner
-						limit = { any_playable_country = { has_country_flag = former_owner@prev } }
-						random_playable_country = {
-							limit = { has_country_flag = former_owner@prev }
-							prev = { set_owner = prev set_controller = prev }
-							remove_country_flag = former_owner@prev
-						}
-					}
-					else = { # Another colony
-						solar_system = {
-							random_system_colony = {
-								limit = {
-									has_owner = yes
-									NOR = { is_planet = prevprev is_owned_by = prevprevprevprev }
-								}
-								weights = { base = 1 modifier = { add = 3 is_colonizable = no } }
-								prevprev = { set_owner = prev.owner }
-							}
-						}
-					}
-				}
 				country_event = { id = marauder.604 days = 1 } # Old Ways
 			}
 			else = {
@@ -1607,7 +1613,7 @@ country_event = {
 		set_country_flag = diadochi
 		set_country_flag = first_alien_life
 		set_country_flag = has_encountered_other_empire
-		log="Handover raider_khanate \\[From.GetName] to Diadochi \\[This.GetName]."
+		log="Handover raider_khanate [From.GetName] to Diadochi [This.GetName]."
 		from = {
 			save_event_target_as = raider_khanate
 			set_faction_hostility = { target = prev set_friendly = yes }
@@ -1654,7 +1660,7 @@ country_event = {
 				}
 				position = 0
 				order_by = trigger:num_sapient_pops
-				log="Give system \\[Prev.GetName] back to \\[This.Owner.GetName]"
+				log="Give system [Prev.GetName] back to [This.Owner.GetName]"
 				owner = { save_event_target_as = planet_owner }
 				prev = {
 					# commit_system_to = { EMPIRE = prevprev.planet_owner } # The target scope is solved there (so add 1 more prev)
@@ -2097,18 +2103,18 @@ fleet_event = {
 									has_fleet_order = land_armies_order
 								}
 							}
-							# log="auto_move_to_planet \\[This.GetName]"
+							# log="auto_move_to_planet [This.GetName]"
 							auto_move_to_planet = { target = event_target:marauder_rally_point clear_auto_move_on_arrival = yes }
 						}
 						else = {
 							remove_auto_move_target = yes
 							clear_fleet_actions = this
-							# log="set_mia \\[This.GetName]"
+							# log="set_mia [This.GetName]"
 							set_mia = mia_return_home
 						}
 					}
 					else = {
-						# log="order_forced_return \\[This.GetName]"
+						# log="order_forced_return [This.GetName]"
 						order_forced_return = yes
 					}
 				}
@@ -2247,7 +2253,7 @@ fleet_event = {
 				root = {
 					set_leader = prev
 					assign_leader = prev
-					log = "Assign leader \\[Prev.GetName] to \\[This.GetName]"
+					log = "Assign leader [Prev.GetName] to [This.GetName]"
 				}
 			}
 		}
@@ -2267,7 +2273,7 @@ system_event = {
 		NOT = { has_star_flag = ring_world_built }
 	}
 	immediate = {
-		# log = "---Attempting habitat construction in \\[This.GetName]"
+		# log = "---Attempting habitat construction in [This.GetName]"
 		random_system_planet = {
 			limit = {
 				is_star = no
@@ -2279,7 +2285,7 @@ system_event = {
 			}
 			weights = { base = 1 modifier = { add = 2 is_a_planet = yes } }
 			random = { chance = 50
-				# log = "--- Habitat build site chosen on planet \\[This.GetName], proceeding..."
+				# log = "--- Habitat build site chosen on planet [This.GetName], proceeding..."
 				save_event_target_as = target_habitat
 				prev = {
 					set_star_flag = has_habitat
@@ -2357,7 +2363,7 @@ system_event = {
 						is_colony = no
 						is_colonizable = yes
 					}
-					# log = "--- Habitat \\[This.GetName] is being populated..."
+					# log = "--- Habitat [This.GetName] is being populated..."
 					# space_owner = {
 					# 	save_event_target_as = colony_country
 					# 	species = { save_event_target_as = colony_species }

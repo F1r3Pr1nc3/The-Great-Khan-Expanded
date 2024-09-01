@@ -107,7 +107,7 @@ country_event = {
 				}
 				if = {
 					limit = { exists = event_target:marauder_target }
-					log = "Found new Raiding Marauders target \\[This.GetName]"
+					log = "Found new Raiding Marauders target [This.GetName]"
 					random_owned_fleet = {
 						limit = {
 							has_fleet_flag = hired_raiding_fleet
@@ -124,7 +124,7 @@ country_event = {
 								}
 							}
 						}
-						log = "Raiding Marauders stuck at \\[This.System.GetName]"
+						log = "Raiding Marauders stuck at [This.System.GetName]"
 						# Find new raid target
 						closest_system = {
 							min_steps = 2
@@ -156,14 +156,14 @@ country_event = {
 								target = event_target:raid_planet
 								clear_auto_move_on_arrival = no
 							}
-							log ="Take new raid target \\[This.System.GetName]"
+							log ="Take new raid target [This.System.GetName]"
 						}
 						else = {
 							fleet_event = { id = marauder.29 scopes = { from = event_target:marauder_target } }
 						}
 					}
 				}
-				else = { log = "No raiding target found for \\[This.GetName]" }
+				else = { log = "No raiding target found for [This.GetName]" }
 			}
 		}
 	}
@@ -209,7 +209,7 @@ fleet_event = {
 				target = event_target:attacked_planet
 				clear_auto_move_on_arrival = no
 			}
-			# log ="Take new raid target \\[This.System.GetName]"
+			# log ="Take new raid target [This.System.GetName]"
 			break = yes
 		}
 
@@ -225,7 +225,7 @@ fleet_event = {
 		# 	}
 		# 	variable = raid_target_distance
 		# }
-		# log="raid_target_distance \\[Root.raid_target_distance]"
+		# log="raid_target_distance [Root.raid_target_distance]"
 
 		closest_system = {
 			min_steps = 1
@@ -343,13 +343,13 @@ fleet_event = {
 						}
 						fleet_event = { id = marauder.29 days = 100 random = 25 scopes = { from = from } }
 					}
-					# log ="\\[Root.Owner.GetName] take new raid target \\[This.GetName]"
+					# log ="\\[Root.Owner.GetName] take new raid target [This.GetName]"
 				}
 			}
 		}
 		else = {
 			fleet_event = { id = marauder.27 days = 100 random = 25 scopes = { from = from } }
-			# log="Fallback jump marauder fleet \\[This.GetName]"
+			# log="Fallback jump marauder fleet [This.GetName]"
 		}
 	}
 }

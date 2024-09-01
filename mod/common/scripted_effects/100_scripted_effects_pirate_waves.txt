@@ -21,7 +21,7 @@ create_dyn_pirate_fleet = {
 			set_variable = { which = pirates_f_tmp value = 1 }
 		}
 	}
-	# log="create_dyn_pirate_fleet \\[prev.pirates_f_tmp]"
+	# log="create_dyn_pirate_fleet [prev.pirates_f_tmp]"
 	[[Reaver]
 		create_ship_design = { design = "NAME_Reaver" }
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }

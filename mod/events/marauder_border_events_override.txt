@@ -149,6 +149,8 @@ country_event = {
 				}
 			}
 		}
+		save_event_target_as = integrated_empire
+
 		# Normalize Starbases
 		# Note: system_within_border caching is quite funky at a time like this when many borders are changing hands. The starbase ownership is checked to be extra sure, since it is not cached (unlike system ownership - though that probably would have worked too)
 		if = {
@@ -164,7 +166,7 @@ country_event = {
 					has_owner = yes
 					is_capital_system = no
 					exists = starbase
-					starbase = { is_owned_by = prev }
+					starbase.fleet = { is_owned_by = event_target:integrated_empire is_controlled_by = event_target:integrated_empire }
 				}
 				if = {
 					limit = {
@@ -206,7 +208,7 @@ country_event = {
 						}
 						position = 0
 						order_by = trigger:num_sapient_pops
-						log="Give system \\[Prev.GetName] back to \\[This.Owner.GetName]"
+						log="Give system [Prev.GetName] back to [This.Owner.GetName]"
 						owner = { save_event_target_as = planet_owner }
 						prev = {
 							# commit_system_to = { EMPIRE = prevprev.planet_owner } # The target scope is solved there (so add 1 more prev)
@@ -237,14 +239,17 @@ country_event = {
 			limit = {
 				solar_system = {
 					has_owner = yes
-					is_owned_by = root		# Note: caching is quite funky at a time like this when many borders are changing hands. The starbase ownership is checked to be extra sure, since it is not cached (unlike system ownership - though that probably would have worked too)
-					# is_capital_system = no
+					is_owned_by = event_target:integrated_empire		# Note: caching is quite funky at a time like this when many borders are changing hands. The starbase ownership is checked to be extra sure, since it is not cached (unlike system ownership - though that probably would have worked too)
+					OR = { # Just double check
+						owner = { is_ai = yes }
+						is_capital_system = no
+					}
 				}
+				fleet = { is_owned_by = event_target:integrated_empire is_controlled_by = event_target:integrated_empire } # Just double check
 			}
 			set_owner = event_target:new_khanate
 		}
-		save_event_target_as = integrated_empire
-		log="Handover \\[This.GetName] to \\[event_target:new_khanate.GetName]"
+		log="Handover \\[This.GetName] to \\[new_khanate.GetName]"
 		# Full handover
 		every_owned_fleet = {
 			limit = {
@@ -313,7 +318,7 @@ country_event = {
 					set_surveyed = { surveyed = yes surveyor = event_target:new_khanate }
 				}
 				# Survey Rest of Horde's Space
-				root = {
+				prev = {
 					every_planet_within_border = {
 						set_surveyed = { surveyed = yes surveyor = event_target:new_khanate }
 					}
@@ -446,7 +451,7 @@ country_event = {
 				}
 			}
 			# Take good old leaders # TODO may more filters?
-			root = {
+			prev = {
 				every_owned_leader = {
 					limit = {
 						has_skill > 3
@@ -463,8 +468,8 @@ country_event = {
 				}
 			}
 			if = {
-				limit = { root = { num_owned_relics > 0 } }
-				steal_relic = { target = root relic = all }
+				limit = { prev = { num_owned_relics > 0 } }
+				steal_relic = { target = prev relic = all }
 			}
 
 			if = {

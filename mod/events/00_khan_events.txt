@@ -1825,7 +1825,7 @@ country_event = {
 			clear_variable = inc_fleet_power
 		}
 		change_variable = { which = inc_fleet_power value = -48000 }
-		# log="Check great_khan_wins: global fleet_power \\[This.inc_fleet_power]"
+		# log="Check great_khan_wins: global fleet_power [This.inc_fleet_power]"
 		export_trigger_value_to_variable = { trigger = fleet_power variable = khan_fleet_power }
 
 		# Since 3.1 - sum subject galaxy_percentage to Khan.
@@ -1837,7 +1837,7 @@ country_event = {
 			# prev = { change_variable = { which = khan_galaxy_pct value = prev.khan_galaxy_pct } }
 			prev = { change_variable = { which = khan_galaxy_pct value = prev.trigger:galaxy_percentage } }
 		}
-		# log="Check great_khan_wins: galaxy_percentage \\[This.khan_galaxy_pct]"
+		# log="Check great_khan_wins: galaxy_percentage [This.khan_galaxy_pct]"
 
 		if = {
 			limit = {

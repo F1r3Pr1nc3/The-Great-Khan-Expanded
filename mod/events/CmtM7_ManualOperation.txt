@@ -1562,7 +1562,7 @@ country_event = {
 						}
 					}
 				}
-				log="Manual marauder fallback 1 \\[former_marauder_capital.GetName]"
+				log="Manual marauder fallback 1 [former_marauder_capital.GetName]"
 			}
 			# Create very strong fallback (look for dead marauders)
 			if = {
@@ -1592,7 +1592,7 @@ country_event = {
 							modifier = { add = 2 is_a_planet = yes } # Possible inconsisent due other mods
 						}
 						save_event_target_as = former_marauder_capital
-						log="Manual marauder strong fallback \\[This.GetName]"
+						log="Manual marauder strong fallback [This.GetName]"
 					}
 				}
 			}
@@ -1624,7 +1624,7 @@ country_event = {
 							destroy_fleet = this
 						}
 						every_orbital_station = { dismantle = yes }
-						log = "create_marauder_starbase for \\[event_target:marauder_starbase_owner.GetName]"
+						log = "create_marauder_starbase for \\[marauder_starbase_owner.GetName]"
 						if = {
 							limit = {
 								any_country = {
