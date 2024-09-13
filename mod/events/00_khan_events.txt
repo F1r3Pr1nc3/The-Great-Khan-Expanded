@@ -2028,7 +2028,7 @@ event = {
 					clear_global_event_target = raider_khanate
 					destroy_country = yes
 				}
-				else_if = { # Fix never ending total war
+				else_if = { # Fix never ending total war # TODO maybe ruined marauders
 					limit = { is_country_type = awakened_marauders }
 					every_controlled_planet = {
 						limit = {
@@ -3218,12 +3218,27 @@ country_event = {
 			}
 			else = {
 				event_target:marauder_rally_point = {
-					if = {
-						limit = { exists = event_target:great_khan }
-						CmtEffectCreateAdmiralty_Khan1stFleet = yes
-					}
-					else = { # Try take exiled - not always work.
-						event_target:raider_khanate = { CmtEffectCreateFleet_Khan2ndFleet = yes }
+					prev = {
+						if = {
+							limit = { exists = event_target:great_khan }
+							CmtEffectCreateAdmiralty_Khan1stFleet = yes
+							if = {
+								limit = { last_created_fleet = { NOT = { exists = leader } } }
+								last_created_fleet = {
+									set_leader = great_khan # previously-exiled leader
+									set_leader = event_target:great_khan
+								}
+							}
+						}
+						else = { # Try take exiled - not always work.
+							CmtEffectCreateFleet_Khan2ndFleet = yes
+							if = {
+								limit = { last_created_fleet = { NOT = { exists = leader } } }
+								last_created_fleet = {
+									set_leader = great_khan # previously-exiled leader
+								}
+							}
+						}
 					}
 				}
 			}

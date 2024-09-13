@@ -95,7 +95,7 @@ starbase_marauder = {
 	modifier = {
 		ship_evasion_mult = -1
 		ship_shield_add = 10000 # vanilla
-		ship_armor_add = 20000	# old 10000 vanilla
+		ship_armor_add = 20000	# Old 10000 vanilla
 		ship_sensor_range_add = 1
 	}
 	ship_modifier = {

@@ -439,34 +439,42 @@ add_pirate_waves_pirate_event_chain = {
 #	Max fleet power: 100000
 # Creates a pirate waves fleet of ships.
 # prev = owner pirate country
-# scope = fleet
-# root = wave_location
+# This = scope = fleet
+# Usally root = wave_location - possible prevprev = country
 create_pirate_waves_fleet = {
 	# Save wave location - ToDo: bit hacky!? (test the custom targets are needed)
 	if = {
-		limit = {
-			exists = root
-			root = {
-				OR = { exists = solar_system is_scope_type = galactic_object }
-			}
-		}
-		root = { save_event_target_as = wave_location }
+		limit = { exists = event_target:mercenary_hirer exists = event_target:mercenary_hirer.capital_scope }
+		event_target:mercenary_hirer.capital_scope = { save_event_target_as = wave_location }
+	}
+	else_if = {
+		limit = { exists = event_target:attacked_system }
+		event_target:attacked_system.star = { save_event_target_as = wave_location }
 	}
 	else_if = { # Fleet is already placed
 		limit = { exists = solar_system }
 		save_event_target_as = wave_location
 	}
 	else_if = {
-		limit = { exists = event_target:attacked_system.star }
-		event_target:attacked_system.star = { save_event_target_as = wave_location }
-	}
-	else_if = {
 		limit = { exists = event_target:raid_source }
 		event_target:raid_source = { save_event_target_as = wave_location }
 	}
 	else_if = {
-		limit = { exists = event_target:mercenary_hirer exists = event_target:mercenary_hirer.capital_scope }
-		event_target:mercenary_hirer.capital_scope = { save_event_target_as = wave_location }
+		limit = {
+			root = {
+				OR = { exists = solar_system is_scope_type = galactic_object }
+			}
+		}
+		root = { save_event_target_as = wave_location }
+	}
+	else_if = {
+		limit = {
+			exists = prevprev
+			prevprev = { is_scope_type = country }
+		}
+		prevprev = {
+			random_planet_within_border = { save_event_target_as = wave_location }
+		}
 	}
 
 	# Difficulty modifiers

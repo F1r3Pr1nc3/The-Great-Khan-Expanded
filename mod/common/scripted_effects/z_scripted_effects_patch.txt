@@ -204,3 +204,130 @@ deduce_planetary_separatism_species = {
 		}
 	}
 }
+
+# Needs event_target:former_owner
+# This = Country
+give_planets_former_owner = {
+	# Give former owner
+	while = { count = trigger:num_owned_planets
+		limit = {
+			exists = event_target:former_owner
+			any_owned_planet = { # Just double check
+				exists = owner
+				is_owned_by = event_target:former_owner
+				owner = { is_ai = yes }
+				solar_system = { is_capital_system = no }
+				any_playable_country = { has_country_flag = former_owner@prev }
+			}
+		}
+		random_owned_planet = {
+			limit = {
+				has_owner = yes
+				is_owned_by = event_target:former_owner
+				owner = { is_ai = yes }
+				solar_system = { is_capital_system = no }
+				any_playable_country = { has_country_flag = former_owner@prev }
+			}
+			random_playable_country = {
+				limit = { has_country_flag = former_owner@prev }
+				prev = {
+					set_owner = prev
+					set_controller = prev
+					if = {
+						limit = { exists = starbase NOT = { starbase.fleet = { is_owned_by = prevprev } } }
+						starbase = { set_owner = prevprev }
+					}
+				}
+				remove_country_flag = former_owner@prev
+			}
+		}
+	}
+	# Give system owner
+	while = { count = trigger:controlled_systems
+		limit = {
+			exists = event_target:former_owner
+			any_owned_planet = {
+				has_owner = yes
+				is_owned_by = event_target:former_owner
+				owner = { is_ai = yes }
+				solar_system = {
+					is_capital_system = no
+					can_generate_trade_value = yes
+				}
+				exists = space_owner
+				space_owner = {
+					NOT = { is_same_empire = event_target:former_owner }
+					is_country_type_with_subjects = yes
+				}
+			}
+		}
+		random_owned_planet = {
+			limit = {
+				has_owner = yes
+				is_owned_by = event_target:former_owner
+				owner = { is_ai = yes }
+				solar_system = {
+					is_capital_system = no
+					can_generate_trade_value = yes
+				}
+				exists = space_owner
+				space_owner = {
+					NOT = { is_same_empire = event_target:former_owner }
+					is_country_type_with_subjects = yes
+				}
+			}
+			set_owner = space_owner
+		}
+	}
+	# Give system owner 2 # Another colony
+	while = { count = trigger:num_owned_planets
+		limit = {
+			exists = event_target:former_owner
+			any_owned_planet = {
+				has_owner = yes
+				is_owned_by = event_target:former_owner
+				owner = { is_ai = yes }
+				solar_system = {
+					is_capital_system = no
+					any_system_colony = {
+						NOR = {
+							is_planet = prevprev
+							is_owned_by = event_target:former_owner
+						}
+					}
+				}
+			}
+		}
+		random_owned_planet = {
+			limit = {
+				has_owner = yes
+				is_owned_by = event_target:former_owner
+				owner = { is_ai = yes }
+				solar_system = {
+					is_capital_system = no
+					any_system_colony = {
+						has_owner = yes
+						NOR = {
+							is_planet = prevprev
+							is_owned_by = event_target:former_owner
+						}
+					}
+				}
+			}
+			# Another colony
+			solar_system = {
+				random_system_colony = {
+					limit = {
+						has_owner = yes
+						NOR = {
+							is_planet = prevprev
+							is_owned_by = event_target:former_owner
+						}
+					}
+					weights = { base = 1 modifier = { add = 3 is_colonizable = no } }
+					prevprev = { set_owner = prev.owner }
+				}
+			}
+		}
+	}
+}

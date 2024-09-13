@@ -1676,7 +1676,7 @@ country_event = {
 									modifier = { add = 4 has_star_flag = marauder_system }
 								}
 								create_marauder_starbase = yes
-								prev = { CmtEffectCreateFleet_KhanSubReinforcement3 = yes }
+								prevprev = { CmtEffectCreateFleet_KhanSubReinforcement3 = yes }
 							}
 						}
 						if = {
@@ -1858,8 +1858,8 @@ country_event = {
 							weights = { base = 1
 								modifier = { add = 4 has_star_flag = marauder_system }
 							}
-							create_marauder_starbase = yes # TODO Error log drops: Failed to create a starbase
-							prev = { CmtEffectCreateFleet_KhanSubReinforcement3 = yes }
+							create_marauder_starbase = yes
+							prevprev = { CmtEffectCreateFleet_KhanSubReinforcement3 = yes }
 						}
 					}
 					CmtEffectTriggerMarauderManually = yes
