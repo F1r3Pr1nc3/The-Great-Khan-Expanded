@@ -1134,3 +1134,206 @@ create_privateer_fleet = {
 		}
 	}
 }
+
+# (The Great Khan Expanded)
+# Create global Rally Point event_targets (HELPER).
+# Former event id = marauder.499 (<v3.13)
+# This = marauder country
+create_marauder_rally_points = {
+	### Rally Point of Fleets 1/3: Set Event Targets; Set Owner Species to Target
+	if = {
+		limit = { exists = event_target:marauder_country_1 }
+		event_target:marauder_country_1 = {
+			if = {
+				limit = { any_system_within_border = { has_star_flag = marauder_capital_1 } }
+				random_system_within_border = {
+					limit = { has_star_flag = marauder_capital_1 }
+					if = {
+						limit = { any_system_planet = { has_planet_flag = raid_source } }
+						random_system_planet = {
+							limit = { has_planet_flag = raid_source }
+							save_global_event_target_as = CmtTargetMarauderRallyPoint1
+						}
+					}
+					else = {	## Backup Code: raid_source NOT Found in Capital System
+						random_system_planet = {
+							limit = { is_star = no }
+							weights = { base = 1
+								modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
+								modifier = { add = 2 is_colony = yes }
+								modifier = { add = 1 is_colonizable = yes }
+							}
+							save_global_event_target_as = CmtTargetMarauderRallyPoint1
+						}
+						log = "Backup Code for CmtTargetMarauderRallyPoint1 - 1 Processed"
+					}
+				}
+			}
+			else = {	## Backup Code: Capital System NOT Found
+				random_planet_within_border = {
+					limit = { is_star = no }
+					weights = { base = 1
+						# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
+						modifier = { add = 3 has_planet_flag = raid_source }
+						modifier = { add = 2 is_colony = yes }
+						modifier = { add = 1 is_colonizable = yes }
+					}
+					save_global_event_target_as = CmtTargetMarauderRallyPoint1
+				}
+				log = "Backup Code for CmtTargetMarauderRallyPoint1 - 2 Processed"
+				if = {
+					limit = { NOT = { has_existing_ship_design = starbase_marauder } }
+					create_ship_design = { design = "NAME_Marauder_Starbase" }
+					add_ship_design = last_created_design
+				}
+				# Recover former capital
+				if = {
+					limit = {
+						any_system_within_border = {
+							any_neighbor_system = { has_owner = no has_star_flag = marauder_capital_1 }
+						}
+					}
+					random_system_within_border = {
+						random_neighbor_system = {
+							limit = { has_owner = no has_star_flag = marauder_capital_1 }
+							# prevprev = { save_event_target_as = marauder_starbase_owner }
+							# create_marauder_starbase = yes # TODO Error log drops: Failed to create a starbase
+							create_starbase = { owner = prevprev size = "starbase_marauder" }
+						}
+					}
+				}
+			}
+		}
+	}
+	if = {
+		limit = { exists = event_target:marauder_country_2 }
+		event_target:marauder_country_2 = {
+			# owner_species = { save_global_event_target_as = CmtTargetSpecies_Marauder2 }
+			if = {
+				limit = { any_system_within_border = { has_star_flag = marauder_capital_2 } }
+				random_system_within_border = {
+					limit = { has_star_flag = marauder_capital_2 }
+					if = {
+						limit = { any_system_planet = { has_planet_flag = raid_source } }
+						random_system_planet = {
+							limit = { has_planet_flag = raid_source }
+							save_global_event_target_as = CmtTargetMarauderRallyPoint2
+						}
+					}
+					else = {	## Backup Code: raid_source NOT found in Capital System
+						random_system_planet = {
+							limit = { is_star = no }
+							weights = { base = 1
+								modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
+								modifier = { add = 2 is_colony = yes }
+								modifier = { add = 1 is_colonizable = yes }
+							}
+							save_global_event_target_as = CmtTargetMarauderRallyPoint2
+						}
+						log = "Backup Code for CmtTargetMarauderRallyPoint2 - 1 Processed"
+					}
+				}
+			}
+			else = {
+				## Backup Code: Capital System NOT Found
+				random_planet_within_border = {
+					limit = { is_star = no }
+					weights = { base = 1
+						# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
+						modifier = { add = 3 has_planet_flag = raid_source }
+						modifier = { add = 2 is_colony = yes }
+						modifier = { add = 1 is_colonizable = yes }
+					}
+					save_global_event_target_as = CmtTargetMarauderRallyPoint2
+				}
+				log = "Backup Code for CmtTargetMarauderRallyPoint2 - 2 Processed"
+				if = {
+					limit = { NOT = { has_existing_ship_design = starbase_marauder } }
+					create_ship_design = { design = "NAME_Marauder_Starbase" }
+					add_ship_design = last_created_design
+				}
+				# Recover former capital
+				if = {
+					limit = {
+						any_system_within_border = {
+							any_neighbor_system = { has_owner = no has_star_flag = marauder_capital_2 }
+						}
+					}
+					random_system_within_border = {
+						random_neighbor_system = {
+							limit = { has_owner = no has_star_flag = marauder_capital_2 }
+							# prevprev = { save_event_target_as = marauder_starbase_owner }
+							# create_marauder_starbase = yes # TODO Error log drops: Failed to create a starbase
+							create_starbase = { owner = prevprev size = "starbase_marauder" }
+						}
+					}
+				}
+			}
+		}
+	}
+	if = {
+		limit = { exists = event_target:marauder_country_3 }
+		event_target:marauder_country_3 = {
+			# owner_species = { save_global_event_target_as = CmtTargetSpecies_Marauder3 }
+			if = {
+				limit = { any_system_within_border = { has_star_flag = marauder_capital_3 } }
+				random_system_within_border = {
+					limit = { has_star_flag = marauder_capital_3 }
+					if = {
+						limit = { any_system_planet = { has_planet_flag = raid_source } }
+						random_system_planet = {
+							limit = { has_planet_flag = raid_source }
+							save_global_event_target_as = CmtTargetMarauderRallyPoint3
+						}
+					}
+					else = {	## Backup Code: raid_source NOT Found in Capital System
+						random_system_planet = {
+							limit = { is_star = no }
+							weights = { base = 1
+								modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
+								modifier = { add = 2 is_colony = yes }
+								modifier = { add = 1 is_colonizable = yes }
+							}
+							save_global_event_target_as = CmtTargetMarauderRallyPoint3
+						}
+						log = "Backup Code for CmtTargetMarauderRallyPoint3 - 1 Processed"
+					}
+				}
+			}
+			else = {	## Backup Code: Capital System NOT Found
+				random_planet_within_border = {
+					limit = { is_star = no }
+					weights = { base = 1
+						# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
+						modifier = { add = 3 has_planet_flag = raid_source }
+						modifier = { add = 2 is_colony = yes }
+						modifier = { add = 1 is_colonizable = yes }
+					}
+					save_global_event_target_as = CmtTargetMarauderRallyPoint3
+				}
+				log = "Backup Code for CmtTargetMarauderRallyPoint3 - 2 Processed"
+				if = {
+					limit = { NOT = { has_existing_ship_design = starbase_marauder } }
+					create_ship_design = { design = "NAME_Marauder_Starbase" }
+					add_ship_design = last_created_design
+				}
+				# Recover former capital
+				if = {
+					limit = {
+						any_system_within_border = {
+							any_neighbor_system = { has_owner = no has_star_flag = marauder_capital_3 }
+						}
+					}
+					random_system_within_border = {
+						random_neighbor_system = {
+							limit = { has_owner = no has_star_flag = marauder_capital_3 }
+							# prevprev = { save_event_target_as = marauder_starbase_owner }
+							# create_marauder_starbase = yes # TODO Error log drops: Failed to create a starbase
+							create_starbase = { owner = prevprev size = "starbase_marauder" }
+						}
+					}
+				}
+			}
+		}
+	}
+}

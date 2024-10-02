@@ -44,8 +44,8 @@ hegemonic_imperialists = {
 			is_country_type = awakened_marauders
 			merg_is_default_empire = yes
 		}
-		is_pacifist = no
 		NOR = {
+			is_pacifist = yes
 			has_ethic = "ethic_fanatic_socialism"
 			has_valid_civic = "civic_xeno_militarist"
 		}

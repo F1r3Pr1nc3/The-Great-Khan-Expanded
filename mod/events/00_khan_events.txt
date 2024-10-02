@@ -953,8 +953,7 @@ country_event = {
 	trigger = {
 		exists = root
 		is_scope_valid = yes
-		NOT = { has_country_flag = war_in_heaven_picked_side }
-		has_been_declared_crisis = no
+		NOR = { has_country_flag = war_in_heaven_picked_side has_been_declared_crisis = yes }
 	}
 
 	immediate = { }

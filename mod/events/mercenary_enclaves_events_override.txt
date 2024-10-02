@@ -77,7 +77,7 @@ country_event = {
 				assign_leader = event_target:mercenary_admiral
 				set_name = {
 					key = NAME_Mercenary_Fleet
-					variable_string = "[mercenary_enclave_country.GetName]"
+					variable_string = "[event_target:mercenary_enclave_country.GetName]"
 				}
 				set_fleet_settings = { can_change_leader = no }
 			}
@@ -335,7 +335,7 @@ event = {
 					}
 					set_name = {
 						key = NAME_Mercenary_Fleet
-						variable_string = "[mercenary_enclave_country.GetName]"
+						variable_string = "[event_target:mercenary_enclave_country.GetName]"
 					}
 					if = {
 						limit = {

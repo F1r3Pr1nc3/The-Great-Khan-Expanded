@@ -48,8 +48,7 @@ preset_machinesmith_satrapy = {
 
 	potential = {
 		merg_is_default_empire = yes
-		has_been_declared_crisis = no
-		NOT = { has_civic = civic_inwards_perfection }
+		NOR = { has_been_declared_crisis = yes has_civic = civic_inwards_perfection }
 		from = {
 			OR = {
 				is_country_type = awakened_marauders
@@ -109,8 +108,7 @@ preset_fabricator_satrapy = {
 
 	potential = {
 		merg_is_default_empire = yes
-		has_been_declared_crisis = no
-		NOT = { has_civic = civic_inwards_perfection }
+		NOR = { has_been_declared_crisis = yes has_civic = civic_inwards_perfection }
 		from = {
 			OR = {
 				is_country_type = awakened_marauders

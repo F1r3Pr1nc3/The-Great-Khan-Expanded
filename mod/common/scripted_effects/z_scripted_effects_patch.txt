@@ -115,7 +115,15 @@ create_marauder_merc_admiral = {
 		background_ethic = "ethic_fanatic_militarist"
 		skip_background_generation = yes
 		custom_description = "custom_mercenary_admiral_desc"
-		effect = { set_leader_flag = marauder_merc_leader }
+		effect = {
+			random_list = {
+				1 = { add_trait = leader_trait_aggressive }
+				1 = { add_trait = leader_trait_aggressive_2 }
+				1 = { add_trait = leader_trait_skirmisher }
+				1 = { add_trait = leader_trait_skirmisher_2 }
+			}
+			set_leader_flag = marauder_merc_leader
+		}
 	}
 }
 
@@ -132,6 +140,15 @@ create_marauder_merc_general = {
 		background_ethic = "ethic_fanatic_militarist"
 		skip_background_generation = yes
 		custom_description = "custom_mercenary_admiral_desc"
+		effect = {
+			random_list = {
+				1 = { add_trait = leader_trait_dreaded }
+				1 = { add_trait = leader_trait_dreaded_2 }
+				1 = { add_trait = leader_trait_butcher }
+				1 = { add_trait = leader_trait_butcher_2 }
+			}
+			set_owner = root
+		}
 	}
 }
 

@@ -480,8 +480,7 @@ CmtTriggerGuardianFeConfig = {
 CmtTriggerKhanConfig = {
 	optimize_memory
 	OR = {
-		# CmtTriggerKhanTriggered = no
-		NOT = { has_global_flag = marauder_crisis_started }
+		# NOR = { CmtTriggerKhanTriggered = yes has_global_flag = marauder_crisis_started }
 		has_global_flag = CmtFlagDebugMode
 	}
 	has_global_flag = CmtFlagMidGameEdition
