@@ -1658,7 +1658,7 @@ country_event = {
 							has_owner = yes
 							is_owned_by = root
 							is_occupied_flag = no
-							num_sapient_pops > 2
+							num_sapient_pops > 3
 							has_orbital_bombardment = no
 							has_ground_combat = no
 						}
@@ -1669,7 +1669,7 @@ country_event = {
 							has_owner = yes
 							is_owned_by = root
 							is_occupied_flag = no
-							num_sapient_pops > 2
+							num_sapient_pops > 3
 							has_orbital_bombardment = no
 							has_ground_combat = no
 						}
@@ -2094,8 +2094,6 @@ country_event = {
 				}
 			}
 		}
-
-
 	}
 	after = {
 		hidden_effect = {

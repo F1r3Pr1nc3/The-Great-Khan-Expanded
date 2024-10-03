@@ -43,7 +43,7 @@ CmtEffectCreateAdmiral_MarauderStandard = {
 			leader_age_min = 25
 			leader_age_max = 45
 			background_ethic = "ethic_fanatic_militarist"
-			traits = { trait = leader_trait_mercenary_warrior }
+			traits = { trait = leader_trait_mercenary_warrior trait = subclass_commander_admiral }
 			effect = {
 				random_list = {
 					1 = { add_trait = leader_trait_aggressive }

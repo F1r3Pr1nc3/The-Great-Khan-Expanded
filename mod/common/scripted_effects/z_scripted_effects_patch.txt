@@ -111,7 +111,7 @@ create_marauder_merc_admiral = {
 		skill = 3
 		leader_age_min = 25
 		leader_age_max = 45
-		traits = { trait = leader_trait_mercenary_warrior }
+		traits = { trait = leader_trait_mercenary_warrior trait = subclass_commander_admiral }
 		background_ethic = "ethic_fanatic_militarist"
 		skip_background_generation = yes
 		custom_description = "custom_mercenary_admiral_desc"
@@ -136,7 +136,7 @@ create_marauder_merc_general = {
 		skill = 3
 		leader_age_min = 25
 		leader_age_max = 45
-		traits = { trait = leader_trait_mercenary_warrior }
+		traits = { trait = leader_trait_mercenary_warrior trait = subclass_commander_general }
 		background_ethic = "ethic_fanatic_militarist"
 		skip_background_generation = yes
 		custom_description = "custom_mercenary_admiral_desc"

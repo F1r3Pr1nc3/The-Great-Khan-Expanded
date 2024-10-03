@@ -107,6 +107,15 @@ CmtEffectCreateFleet_KhanArmy = {
 			background_ethic = "ethic_fanatic_militarist"
 			skip_background_generation = yes
 			custom_description = "custom_mercenary_admiral_desc"
+			effect = {
+				random_list = {
+					1 = { add_trait = leader_trait_dreaded }
+					1 = { add_trait = leader_trait_dreaded_2 }
+					1 = { add_trait = leader_trait_butcher }
+					1 = { add_trait = leader_trait_butcher_2 }
+				}
+				set_owner = root
+			}
 		}
 		last_created_army = { assign_leader = last_created_leader }
 	}

@@ -51,8 +51,8 @@ country_event = {
 					event_leader = yes
 					custom_description = "custom_mercenary_admiral_desc"
 					traits = {
-						0 = leader_trait_mercenary_warrior
-						1 = leader_trait_aggressive_2
+						trait = leader_trait_mercenary_warrior
+						trait = leader_trait_aggressive_2
 					}
 				}
 			}
@@ -163,8 +163,8 @@ country_event = {
 					event_leader = yes
 					custom_description = "custom_mercenary_admiral_desc"
 					traits = {
-						0 = leader_trait_mercenary_warrior
-						1 = leader_trait_aggressive_2
+						trait = leader_trait_mercenary_warrior
+						trait = leader_trait_aggressive_2
 					}
 				}
 			}
@@ -525,7 +525,8 @@ country_event = {
 			can_manually_change_location = no
 			hide_leader = yes
 			custom_description = "custom_mercenary_admiral_desc"
-			traits = { trait = leader_trait_mercenary_warrior }
+			traits = { trait = leader_trait_mercenary_warrior trait = subclass_commander_admiral }
+			effect = { add_trait = random_common }
 		}
 		random_owned_fleet = {
 			limit = {
