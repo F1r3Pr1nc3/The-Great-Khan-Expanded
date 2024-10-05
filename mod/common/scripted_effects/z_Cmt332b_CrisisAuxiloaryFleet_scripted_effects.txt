@@ -114,7 +114,6 @@ CmtEffectCreateFleet_KhanArmy = {
 					1 = { add_trait = leader_trait_butcher }
 					1 = { add_trait = leader_trait_butcher_2 }
 				}
-				set_owner = root
 			}
 		}
 		last_created_army = { assign_leader = last_created_leader }

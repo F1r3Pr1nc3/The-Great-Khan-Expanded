@@ -8376,9 +8376,11 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		owner_species = { save_event_target_as = marauder_species } # get_marauder_species = yes # (do it also later for each)
+		# save_event_target_as = first_diadochi	# For backward compat
 		set_update_modifiers_batch = begin
 
 		set_country_flag = diadochi
+		# set_country_flag = diadochi_1
 		force_remove_civic = civic_great_khans_legacy
 		force_add_civic = civic_diadochi
 
@@ -10711,6 +10713,17 @@ ship_event = {
 			limit = { owner = { is_pirate_country = yes } }
 			starbase = { destroy_fleet = fleet }
 			# log="destroy pirate station"
+			break = yes
+		}
+		if = {
+			limit = { fleet = { is_disabled = yes } }
+			fleet = {
+				set_event_locked = no
+				# every_owned_ship = { Can lead to endless fight?
+				# 	limit = { is_disabled = yes }
+				# 	set_disabled = no
+				# }
+			}
 		}
 	}
 }

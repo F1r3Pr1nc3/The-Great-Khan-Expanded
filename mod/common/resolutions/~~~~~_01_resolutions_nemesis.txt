@@ -143,7 +143,10 @@ resolution_custodian_united_front = {
 
 		modifier = {
 			factor = 0
-			has_ascension_perk = ap_become_the_crisis
+			OR = {
+				has_ascension_perk = ap_become_the_crisis
+				has_ascension_perk = ap_cosmogenesis
+			}
 			desc = gal_com_we_have_crisis_perk
 		}
 
@@ -201,6 +204,7 @@ resolution_custodian_anti_piracy = {
 		damage_vs_country_type_pirate_mult = 0.2
 		damage_vs_country_type_dormant_marauders_mult = 0.2
 		# damage_vs_country_type_awakened_marauders_mult = 0.2
+		damage_vs_country_type_pirate_waves_country_mult = 0.2
 		country_energy_produces_mult = -0.03
 	}
 
@@ -355,7 +359,7 @@ resolution_custodian_end_custodianship = {
 			has_ascension_perk = ap_become_the_crisis
 			desc = gal_com_we_have_crisis_perk
 		}
-		
+
 		modifier = {
 			factor = 0
 			is_galactic_custodian = yes
@@ -515,7 +519,10 @@ resolution_emperor_united_front = {
 
 		modifier = {
 			factor = 0
-			has_ascension_perk = ap_become_the_crisis
+			OR = {
+				has_ascension_perk = ap_become_the_crisis
+				has_ascension_perk = ap_cosmogenesis
+			}
 			desc = gal_com_we_have_crisis_perk
 		}
 
