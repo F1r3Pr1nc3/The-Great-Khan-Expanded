@@ -109,6 +109,7 @@ system_event = {
 				if = {
 					limit = {
 						NOR = {
+							has_existing_ship_design = starbase_citadel
 							has_technology = tech_starbase_2
 							has_technology = tech_starbase_3
 							has_technology = tech_starbase_4
@@ -121,11 +122,8 @@ system_event = {
 					give_tech_no_error_effect = { MESSAGE = no TECH = tech_starbase_5 }
 				}
 				# FIXME Trying to create a starbase with an invalid starbase design
-				if = {
-					limit = { NOT = { has_existing_ship_design = starbase_citadel } }
-					create_ship_design = { design = "NAME_Marauder_Citadel" }
-					add_ship_design = last_created_design
-				}
+				create_ship_design = { design = "NAME_Marauder_Citadel" }
+				add_ship_design = last_created_design
 			}
 
 			if = {
@@ -142,14 +140,14 @@ system_event = {
 				# TODO Trying to create a starbase with an invalid starbase design sik'El'Re for ship size starbase_citadel (note: starbases cannot have components that allow them to move or go FTL)
 				create_starbase = {
 					size = starbase_citadel
-					# module = "shipyard"
-					# module = "shipyard"
-					# module = "shipyard"
-					# module = "gun_battery"
-					# module = "missile_battery"
-					# building = "crew_quarters"
-					# building = "target_uplink_computer"
-					# building = "defense_grid"
+					module = "shipyard"
+					module = "shipyard"
+					module = "shipyard"
+					module = "gun_battery"
+					module = "missile_battery"
+					building = "crew_quarters"
+					building = "target_uplink_computer"
+					building = "defense_grid"
 					owner = event_target:raider_khanate
 					effect = {
 						starbase_event = { id = khan.302 days = 2 } # workaround
@@ -172,16 +170,6 @@ system_event = {
 				}
 			}
 			max_steps = 4
-			# create_starbase = {
-			# 	size = starbase_starfortress
-			# 	owner = event_target:raider_khanate
-			# 	# module = shipyard
-			# 	# module = missile_battery
-			# 	# building = defense_grid
-			# 	effect = {
-			# 		starbase_event = { id = khan.302 days = 2 } # workaround
-			# 	}
-			# }
 			starbase = {
 				set_starbase_size = starbase_starfortress
 				starbase_event = { id = khan.302 days = 2 } # workaround
@@ -461,8 +449,8 @@ ship_event = {
 		else = {
 			fleet = {
 				every_owned_ship = { set_disable_at_health = -1 destroy_ship = this }
+				destroy_fleet = this
 			}
-			destroy_fleet = fleet
 		}
 	}
 }
@@ -487,8 +475,8 @@ ship_event = {
 					NOR = { is_same_value = root.fleet is_disabled = yes }
 				}
 				# any_fleet_in_system = {
-				# 	NOT = { is_owned_by = root.owner }
 				# 	is_ship_class = shipclass_starbase
+				# 	NOT = { is_owned_by = root.owner }
 				# }
 			}
 		}
@@ -1547,7 +1535,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		# NOR = { has_global_flag = great_khan_wins }
+		# NOT = { has_global_flag = great_khan_wins }
 	}
 	immediate = {
 		set_country_flag = diadochi

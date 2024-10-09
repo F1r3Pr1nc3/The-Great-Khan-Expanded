@@ -2075,21 +2075,21 @@ country_event = {
 					save_global_event_target_as = marauder_country_1
 					if = {
 						limit = { NOT = { exists = event_target:CmtTargetMarauderRallyPoint1 } }
-						create_marauder_rally_points = yes # country_event = { id = marauder.499 days = -1 }
+						create_marauder_rally_points = yes
 					}
 				}
 				marauder_2 = {
 					save_global_event_target_as = marauder_country_2
 					if = {
 						limit = { NOT = { exists = event_target:CmtTargetMarauderRallyPoint2 } }
-						create_marauder_rally_points = yes # country_event = { id = marauder.499 days = -1 }
+						create_marauder_rally_points = yes
 					}
 				}
 				marauder_3 = {
 					save_global_event_target_as = marauder_country_3
 					if = {
 						limit = { NOT = { exists = event_target:CmtTargetMarauderRallyPoint3 } }
-						create_marauder_rally_points = yes # country_event = { id = marauder.499 days = -1 }
+						create_marauder_rally_points = yes
 					}
 				}
 			}
@@ -2155,21 +2155,21 @@ country_event = {
 						save_global_event_target_as = marauder_country_1
 						if = {
 							limit = { NOT = { exists = event_target:CmtTargetMarauderRallyPoint1 } }
-							create_marauder_rally_points = yes # country_event = { id = marauder.499 days = -1 }
+							create_marauder_rally_points = yes
 						}
 					}
 					marauder_2 = {
 						save_global_event_target_as = marauder_country_2
 						if = {
 							limit = { NOT = { exists = event_target:CmtTargetMarauderRallyPoint2 } }
-							create_marauder_rally_points = yes # country_event = { id = marauder.499 days = -1 }
+							create_marauder_rally_points = yes
 						}
 					}
 					marauder_3 = {
 						save_global_event_target_as = marauder_country_3
 						if = {
 							limit = { NOT = { exists = event_target:CmtTargetMarauderRallyPoint3 } }
-							create_marauder_rally_points = yes # country_event = { id = marauder.499 days = -1 }
+							create_marauder_rally_points = yes
 						}
 					}
 				}
@@ -4116,7 +4116,7 @@ country_event = {
 		}
 
 		# Create global Rally Point event_targets (must be called before unification).
-		create_marauder_rally_points = yes # country_event = { id = marauder.499 days = -1 }
+		create_marauder_rally_points = yes
 
 		### Rally Point of Fleets 2/3: Set Event Targets, Flags
 		if = {
@@ -5209,8 +5209,7 @@ country_event = {
 			every_controlled_fleet = {
 				limit = {
 					exists = solar_system
-					# NOR = { is_ship_class = shipclass_starbase is_ship_class = shipclass_military_station is_ship_class = shipclass_transport }
-					# is_civilian = no
+					# NOR = { is_ship_class = shipclass_starbase is_ship_class = shipclass_military_station is_ship_class = shipclass_transport is_civilian = yes }
 					is_mobile = yes
 					any_owned_ship = {
 						OR = { is_ship_class = shipclass_military is_ship_class = shipclass_transport }
@@ -6184,9 +6183,13 @@ country_event = {
 						}
 						any_owned_leader = {
 							leader_class = commander
-							is_idle = yes # NOR = { exists = fleet is_event_leader = yes }
-							is_councilor = no
-							is_ruler = no
+							is_idle = yes
+							NOR = {
+								exists = fleet
+								is_event_leader = yes
+								is_councilor = yes
+								is_ruler = yes
+							}
 						}
 					}
 					random_owned_fleet = {
@@ -6201,13 +6204,14 @@ country_event = {
 								limit = {
 									leader_class = commander
 									is_idle = yes
-									is_event_leader = no
-									is_councilor = no
-									is_ruler = no
+									NOR = {
+										exists = fleet
+										is_event_leader = yes
+										is_councilor = yes
+										is_ruler = yes
+									}
 								}
-								weights = { base = 1
-									modifier = { add = 4 NOT = { exists = fleet } }
-								}
+								# weights = { base = 1 modifier = { add = 4 NOT = { exists = fleet } } }
 								prevprev = { assign_leader = prev }
 							}
 						}
@@ -6219,9 +6223,12 @@ country_event = {
 						any_owned_leader = {
 							leader_class = commander
 							is_idle = yes
-							is_event_leader = no
-							is_councilor = no
-							is_ruler = no
+							NOR = {
+								exists = fleet
+								is_event_leader = yes
+								is_councilor = yes
+								is_ruler = yes
+							}
 						}
 					}
 					if = {
@@ -6248,13 +6255,14 @@ country_event = {
 									limit = {
 										leader_class = commander
 										is_idle = yes
-										is_event_leader = no
-										is_councilor = no
-										is_ruler = no
+										NOR = {
+											exists = fleet
+											is_event_leader = yes
+											is_councilor = yes
+											is_ruler = yes
+										}
 									}
-									weights = { base = 1
-										modifier = { add = 4 NOT = { exists = fleet } }
-									}
+									# weights = { base = 1 modifier = { add = 4 NOT = { exists = fleet } } }
 									prevprev = {
 										assign_leader = prev
 										if = {
@@ -10582,68 +10590,6 @@ country_event = {
 				kill_leader = { show_notification = no fire = yes }
 			}
 		}
-	}
-}
-
-##################################
-
-# namespace = custodian
-# # Override Test Event
-# country_event = {
-# 	id = custodian.499
-# 	hide_window = yes
-# 	is_triggered_only = yes
-# 	# trigger = { always = no }
-# 	immediate = {
-# 		if = {
-# 			limit = { is_galactic_council_established = no }
-# 			set_council_size = 3
-# 			add_to_galactic_council = yes
-# 			while = {
-# 				count = 2
-# 				random_playable_country = {
-# 					limit = {
-# 						is_galactic_community_member = yes
-# 						is_part_of_galactic_council = no
-# 						is_galactic_custodian = no
-# 					}
-# 					add_to_galactic_council = yes
-# 				}
-# 			}
-# 		}
-# 		set_galactic_custodian = yes
-# 		country_event = { id = custodian.1 }
-# 		country_event = { id = custodian.10 days = 5400 } # Ends in 15 years
-# 		if = {
-# 			limit = { has_global_flag = gdf_active }
-# 			country_event = { id = custodian.35 days = 10 }
-# 		}
-# 	}
-# }
-
-##################################
-
-namespace = emperor
-# Override Test Event
-country_event = {
-	id = emperor.499
-	hide_window = yes
-	is_triggered_only = yes
-	# trigger = { always = no }
-	immediate = {
-		if = {
-			limit = { is_galactic_council_established = no }
-			set_council_size = 3
-			# add_to_galactic_council = yes
-			while = { count = 3
-				random_playable_country = {
-					limit = { is_galactic_community_member = yes is_part_of_galactic_council = no is_galactic_custodian = no }
-					add_to_galactic_council = yes
-				}
-			}
-			# set_galactic_custodian = yes
-		}
-		country_event = { id = emperor.1 }
 	}
 }
 
