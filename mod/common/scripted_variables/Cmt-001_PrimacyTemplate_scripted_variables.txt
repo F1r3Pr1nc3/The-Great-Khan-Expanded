@@ -27,7 +27,7 @@
 		### * No configurations exist for military power of Fallen/Awakened Empires.
 
 ### Call on Game Start
-	@CmtT001_ConstCallOnGameStart = no
+	@CmtT001_ConstCallOnGameStart = yes
 		### yes: Crisis Maneger menu is opened automatically on game start. (Default)
 		### no : Crisis Maneger menu is NOT opened automatically on game start.
 

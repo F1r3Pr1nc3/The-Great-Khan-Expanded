@@ -157,7 +157,7 @@ country_event = {
 
 	### War in Heaven
 	option = {
-		name = "CmtNameWarInHeaven"
+		name = "mod_war_in_heaven"
 		custom_tooltip = CrisisManagerMenu.4000.4600.tooltip
 		trigger = { CmtTriggerHeavenConfig = yes }
 		hidden_effect = { country_event = { id = CrisisManagerMenu.4610 } }
@@ -246,7 +246,7 @@ country_event = {
 
 	### Machine Uprising
 	# option = {
-	# 	name = "CmtNameMechUprising"
+	# 	name = "war_goal_wg_machine_uprising"
 	# 	custom_tooltip = CrisisManagerMenu.4000.5100.tooltip
 	# 	trigger = {
 	# 		CmtTriggerUprisingConfig = yes

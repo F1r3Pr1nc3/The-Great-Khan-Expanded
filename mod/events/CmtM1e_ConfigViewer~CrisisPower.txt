@@ -592,7 +592,7 @@ country_event = {
 
 	option = {
 		name = CrisisManagerMenu.6500.xxx.name
-		custom_tooltip = "CrisisManagerMenu.6x00.xxx.tooltip"
+		custom_tooltip = "CrisisManagerMenu.6x00a.desc"
 		trigger = {
 			has_global_flag = CmtFlagEndGameEdition
 			event_target:CmtGlobalVar = { check_variable = { which = CmtVarCombatFleetNumber_Common value > 0.125 } }

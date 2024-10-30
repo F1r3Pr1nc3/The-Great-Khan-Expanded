@@ -356,7 +356,7 @@ country_event = {
 	#	name = CrisisManagerMenu.7000.7146.A.name
 	#	custom_tooltip = CrisisManagerMenu.7000.7146.A.tooltip
 	#	trigger = {
-	#		host_has_dlc = "Synthetic Dawn Story Pack"
+	#		has_synthetic_dawn = yes
 	#		has_global_flag = CmtFlagUprisingEdition
 	#		any_country = { CmtTriggerUprisingPotentialManually = yes }
 	#	}
@@ -366,7 +366,7 @@ country_event = {
 	#	name = CrisisManagerMenu.7000.7146.B.name
 	#	custom_tooltip = CrisisManagerMenu.7000.7146.B.tooltip
 	#	trigger = {
-	#		host_has_dlc = "Synthetic Dawn Story Pack"
+	#		has_synthetic_dawn = yes
 	#		has_global_flag = CmtFlagUprisingEdition
 	#		count_country = { limit = { CmtTriggerUprisingPotentialManually = yes } count = 0 }
 	#	}

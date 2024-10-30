@@ -84,7 +84,7 @@ country_event = {
 	after = {
 		if = {
 			limit = { is_galactic_custodian = yes is_galactic_emperor = no }
-			country_event = { id = emperor.1 } # set_galactic_emperor
+			country_event = { id = emperor.1 days = 360 } # set_galactic_emperor
 		}
 	}
 }
@@ -107,7 +107,12 @@ country_event = {
 			limit = {
 				is_ai = yes
 				has_origin = origin_godruler
-				is_galactic_emperor = no
+				NOR = {
+					is_subject = yes
+					is_galactic_emperor = yes
+					has_ascension_perk = ap_become_the_crisis
+					has_ascension_perk = ap_cosmogenesis
+				}
 			}
 			country_event = { id = emperor.499 days = 10 }
 		}
