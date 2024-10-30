@@ -654,7 +654,7 @@ country_event = {
 	}
 	option = {
 		name = "fircon.2535.c"		## What dose it mean?
-		custom_tooltip = CrisisManagerMenu.3160y.tooltip
+		# custom_tooltip = CrisisManagerMenu.3160y.tooltip
 		hidden_effect = { set_country_flag = CmtFlagSpMenu }
 	}
 	option = {
