@@ -2283,7 +2283,11 @@ system_event = {
 					# }
 					# change_planet_size = 2
 					set_planet_flag = advanced_habitat
-
+					create_colony = { # Needed to generate colony_age
+						owner = from
+						species = from.owner_main_species
+						ethos = { ethic = "ethic_militarist" ethic = "ethic_egalitarian" }
+					}
 					while = { count = 5
 						create_pop = {
 							species = from.owner_main_species
@@ -2292,7 +2296,7 @@ system_event = {
 					}
 					# set_owner = space_owner
 					set_controller = from # space_owner
-					set_name = random # TODO more variations?
+					# set_name = random # TODO more variations? # create_colony effect creates already a random name, we want to maintain names
 					add_building = building_hab_major_capital	# 3 jobs
 					# add_building = building_foundry_1			# 2
 					# add_building = building_foundry_1			# 2

@@ -43,12 +43,17 @@ country_event = {
 	trigger = {
 		has_global_flag = marauder_crisis_started
 		exists = event_target:raider_khanate
+		is_scope_valid = yes
+		is_scope_type = country
 		# NOT = { has_global_flag = great_khan_wins }
 	}
 	immediate = {
 		if = {
 			limit = {
-				NOT = { exists = event_target:new_khanate }
+				OR = {
+					NOT = { exists = event_target:new_khanate }
+					is_same_empire = event_target:new_khanate
+				}
 				exists = last_created_country
 				last_created_country = { has_origin = "origin_khan_successor" }
 			}
@@ -56,7 +61,10 @@ country_event = {
 		}
 		if = {
 			limit = {
-				NOT = { exists = event_target:new_khanate }
+				OR = {
+					NOT = { exists = event_target:new_khanate }
+					is_same_empire = event_target:new_khanate
+				}
 				exists = from
 				from = {
 					is_ai = yes
@@ -66,7 +74,13 @@ country_event = {
 			from = { save_event_target_as = new_khanate }
 		}
 		if = {
-			limit = { NOT = { exists = event_target:new_khanate } }
+			limit = {
+				OR = {
+					NOT = { exists = event_target:new_khanate }
+					event_target:new_khanate = { NOR = { is_scope_valid = yes is_scope_type = country } }
+					is_same_empire = event_target:new_khanate
+				}
+			}
 			break = yes
 		}
 		if = {
@@ -536,7 +550,7 @@ country_event = {
 	}
 	after = {
 		if = {
-			limit = { exists = event_target:integrated_empire }
+			limit = { exists = event_target:integrated_empire event_target:integrated_empire = { is_scope_valid = yes } }
 			event_target:integrated_empire = {
 				every_owned_fleet = {
 					limit = {
@@ -563,13 +577,22 @@ country_event = {
 						destroy_colony = yes
 					}
 				}
+				if = {
+					limit = { num_owned_planets < 1 count_owned_starbase = { count = 0 } }
+					set_country_type = dormant_marauders
+				}
 			}
 		}
 		if = {
 			limit = {
-				NOT = { exists = event_target:new_khanate }
+				OR = {
+					NOT = { exists = event_target:new_khanate }
+					is_same_empire = event_target:new_khanate
+				}
 				exists = from
 				from = {
+					is_scope_valid = yes
+					is_scope_type = country
 					is_ai = yes
 					OR = { CmtTriggerIsMarauder = yes is_subject_of_khan = yes }
 				}
@@ -577,7 +600,11 @@ country_event = {
 			from = { save_event_target_as = new_khanate }
 		}
 		if = {
-			limit = { exists = event_target:new_khanate CmtTriggerIsMarauder = no }
+			limit = {
+				exists = event_target:new_khanate
+				event_target:new_khanate = { is_scope_valid = yes CmtTriggerIsMarauder = no }
+				CmtTriggerIsMarauder = no
+			}
 			event_target:new_khanate = {
 				every_owned_fleet = {
 					limit = {
@@ -592,15 +619,45 @@ country_event = {
 					set_event_locked = no
 					every_owned_ship = { set_disabled = no }
 				}
-			}
-			if = {
-				limit = { exists = event_target:integrated_empire num_owned_planets < 1 }
-				event_target:integrated_empire = {
+				if = {
+					limit = { num_owned_planets < 1 count_owned_starbase = { count = 0 } }
+					set_country_type = dormant_marauders
+				}
+				if = {
+					limit = {
+						OR = {
+							num_fleets = 0
+							count_owned_fleet = { count = 0 limit = { is_civilian = no } }
+						}
+					}
+					every_orbital_station = { dismantle = yes }
 					every_owned_leader = { kill_leader = { show_notification = no } }
 					every_owned_pop = { kill_pop = yes }
-					every_orbital_station = { dismantle = yes }
 					every_owned_fleet = { delete_fleet = this }
 					destroy_country = yes
+				}
+			}
+			if = {
+				limit = { exists = event_target:integrated_empire event_target:integrated_empire = { is_scope_valid = yes } }
+				event_target:integrated_empire = {
+					if = {
+						limit = { num_owned_planets < 1 count_owned_starbase = { count = 0 } }
+						set_country_type = dormant_marauders
+					}
+					every_orbital_station = { dismantle = yes }
+					if = {
+						limit = {
+							OR = {
+								num_fleets = 0
+								count_owned_fleet = { count = 0 limit = { is_civilian = no } }
+							}
+						}
+						every_orbital_station = { dismantle = yes }
+						every_owned_leader = { kill_leader = { show_notification = no } }
+						every_owned_pop = { kill_pop = yes }
+						every_owned_fleet = { delete_fleet = this }
+						destroy_country = yes
+					}
 				}
 			}
 		}

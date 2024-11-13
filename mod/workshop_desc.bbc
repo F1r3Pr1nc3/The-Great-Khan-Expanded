@@ -1,9 +1,9 @@
-Ever felt like the Great Khan doesn't really do anything great? Then this mod is for you!
-[h3]Prolog[/h3]
+Ever felt like the Great Khan doesn’t really do anything great? Then this mod is for you!
+[h3]PROLOG[/h3]
 This is a continuation of [i][url=//steamcommunity.com/workshop/filedetails/2129462916]The Great Khan Expanded[/url] (2.7) by Kinneyj47[/i]. It has been completely overhauled and extended, several fixes, compat, +built-in [i]Crisis Manager s.b[/i].
 
 [img]//i.imgur.com/UA9Shht.png[/img][img]//i.imgur.com/hA90SXc.png[/img]
-This mod adds three new subject types to help you navigate the midgame crisis [spoiler](of course, only if the respective conditions are met)[/spoiler]:
+This mod adds three new subject types to help you navigate the mid-game crisis [spoiler](of course, only if the respective conditions are met)[/spoiler]:
 ¹ [b][i]Machinesmith[/i][/b] grant the Great Khan addition [i]technology[/i] in exchange for being left alone.
 ² [b][i]Fabricator[/i][/b] suffer an alloy tax, and produce [i]fleets[/i] for the Khan in exchange for being left alone.
 ³ [i][b]Dominion[/b] (beta)[/i] suffer a lesser mineral and energy tax, their fight along with the Great Khan in exchange for being [i]"protected"[/i].
@@ -11,15 +11,15 @@ This mod adds three new subject types to help you navigate the midgame crisis [s
 • Not just because of that is in result [i]the Future of the Horde[/i] more decisive/forceful.
 • If the Khan is defeated by an AI ([i]NPC[/i]) his specific [i]relict[/i] is not lost [spoiler](since you may be able to get it later that way)[/spoiler].
 • Furthermore, should the Great Khan manage to dominate the galaxy, they will eventually begin integrating their Satrapies, sparking a [i]galaxy wide uprising[/i], or they will declare war on a Fallen Empire, which will then awaken, starting a [i][b]War in Heaven[/b][/i].
-• This mod also allows you to force the Great Khan to [i]spawn[/i] [spoiler](at any time as often or random)[/spoiler]. The [i]settings[/i] can be accessed (via partly integrated [i]Crisis Manager[/i] – "Manual Operations") through your choice of [url=//steamcommunity.com/workshop/filedetails/?id=1087781345]Mod Menu[/url], [url=//steamcommunity.com/workshop/filedetails/2458024521]Dynamic Mod Menu[/url], or the [url=//steamcommunity.com/workshop/filedetails/?id=2466607238]Infinite Core Framework & Modmenu[/url] (or if there isn't any, just look into the Edicts section)!
-• After the Khan's end: Empires get claim on they former systems. [spoiler](and some kind of minor compensation for damage done - 3.2)[/spoiler]
+• This mod also allows you to force the Great Khan to [i]spawn[/i] [spoiler](at any time as often or random)[/spoiler]. The [i]settings[/i] can be accessed (via partly integrated [i]Crisis Manager[/i] – "Manual Operations") through your choice of [url=//steamcommunity.com/workshop/filedetails/1087781345]Mod Menu[/url], [url=//steamcommunity.com/workshop/filedetails/2458024521]Dynamic Mod Menu[/url], or the [url=//steamcommunity.com/workshop/filedetails/2466607238]Infinite Core Framework & Modmenu[/url] (or if there isn’t any, just look into the Edicts section)!
+• After the Khan’s end: Empires gain claim to their former systems [spoiler](and some kind of minor compensation for damage done - 3.2)[/spoiler]
 [h3][b]Latest Additions[/b][/h3]
-This are new (AI can use) features,[strike] which are not fully tested,[/strike] feedback welcome:
+These are new (AI can use) features[strike], which are not fully tested,[/strike] feedback welcome:
 ⠀• Special Satrapy casus belli (maybe only for Dominion Satrapy?)
 ⠀• Special Satrapy war goal (maybe only for Dominion Satrapy?)
 ⠀• Become the new Khan Crisis [spoiler](if you defeat him - only human player ^^- beta 3.2 + NSC2 freebooter support)[/spoiler]
 ⠀• The Great Khan can become the Galactic Emperor [spoiler](when he reaches his final dominant state and no other exists)[/spoiler]
-⠀• Marauder Infighting: from time to time they fight on their borders [spoiler]– this were unfinished vanilla events[/spoiler]
+⠀• Marauder Infighting: from time to time they fight on their borders [spoiler]– these were unfinished vanilla events[/spoiler]
 
 [img]//i.imgur.com/tJMHF5d.png[/img]
 ⠀✔️ Crisis Manager – Mid-Game Edition
@@ -78,7 +78,7 @@ Files directly affected by [i]load order[/i] (not that important – but all wit
 ⠀• 00_utilities_roles.txt
 ⠀• 00_utilities_thrusters.txt
 ⠀• 08_marauder_ships.txt (mainly for stronger ships)
-⠀• marauder_initializers.txt (mainly for new species traits and voidborn origin)
+⠀• marauder_initializers.txt (mainly for new species traits and Voidborn origin)
 [/code]
 
 [h3]Possible To-Do / Planned[/h3]
@@ -92,11 +92,11 @@ Files directly affected by [i]load order[/i] (not that important – but all wit
 ⠀• Jon Dunham – [url=//steamcommunity.com/workshop/filedetails/2855533605]Khan room[/url]
 ⠀• MrFunEGUY – Alternate Diadochi creation 
 
-[h3]Install/Uninstall[/h3]Shouldn't be a problem if the Khan has no subjects.
+[h3]Install/Uninstall[/h3]Shouldn’t be a problem if the Khan has no subjects.
 [i][u]Note[/u]: If you find any bug, you are welcome to report.[/i]
 
 [img]//i.imgur.com/VvPulg4.png[/img]
 [URL=//discord.gg/3FRFkXe][IMG]//i.imgur.com/mODr6Fs.png[/IMG][/URL]
-[h2]If you enjoy this mod, please rate it positively and favorite it so others can find it more easily.[/h2][img]//i.imgur.com/fVVaDCS.gif[/img]
+[h2]If you enjoy this mod, please rate it positively and favorite it, so others can find it more easily.[/h2][img]//i.imgur.com/fVVaDCS.gif[/img]
 [url=//github.com/F1r3Pr1nc3/The-Great-Khan-Expanded]● GitHub repository[/url]
 [url=//paypal.me/supportfireprince]If you wanna support my work[/url].
