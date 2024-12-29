@@ -58,74 +58,84 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		has_country_flag = raid_ongoing
-		exists = from
+		any_country = {
+			is_country_type = marauder_raiders
+			has_country_flag = raid_ongoing
+			any_owned_fleet = {
+				has_fleet_flag = raiding_fleet # hired_raiding_fleet not used by vanilla
+				exists = solar_system
+				is_fleet_idle = yes
+			}
+			OR = {
+				AND = { has_country_flag = marauder_1 root = { has_country_flag = marauder_1 } }
+				AND = { has_country_flag = marauder_2 root = { has_country_flag = marauder_2 } }
+				AND = { has_country_flag = marauder_3 root = { has_country_flag = marauder_3 } }
+			}
+			prev = { has_country_flag = parent_of@prev }
+		}
+		any_playable_country = {
+			has_country_flag = raid_target_of@root
+			OR = {
+				has_relation_flag = { who = root flag = current_hired_target }
+				has_relation_flag = { who = root flag = current_target }
+			}
+		}
 	}
 	immediate = {
 		# Find marauder_raiding_country (child)
-		if = {
+		log = "Check for stuck raiding marauders"
+		random_country = {
 			limit = {
-				# NOT = { has_country_flag = raid_cooldown }
-				any_country = {
-					is_country_type = marauder_raiders
-					has_country_flag = raid_ongoing
-					any_owned_fleet = {
-						has_fleet_flag = hired_raiding_fleet
-						is_fleet_idle = yes
-					}
-					# any_playable_country = {
-					# 	is_ai = no
-					# 	has_communications = root
-					# }
-					root = { has_country_flag = parent_of@prev }
+				is_country_type = marauder_raiders
+				has_country_flag = raid_ongoing
+				any_owned_fleet = {
+					has_fleet_flag = raiding_fleet # hired_raiding_fleet not used by vanilla
+					exists = solar_system
+					is_fleet_idle = yes
 				}
+				OR = {
+					AND = { has_country_flag = marauder_1 root = { has_country_flag = marauder_1 } }
+					AND = { has_country_flag = marauder_2 root = { has_country_flag = marauder_2 } }
+					AND = { has_country_flag = marauder_3 root = { has_country_flag = marauder_3 } }
+				}
+				prev = { has_country_flag = parent_of@prev }
 			}
-			# save_event_target_as = marauder_country
-			every_country = {
+			# Find event_target:marauder_target
+			random_playable_country = {
 				limit = {
-					is_country_type = marauder_raiders
-					has_country_flag = raid_ongoing
-					any_owned_fleet = {
-						has_fleet_flag = hired_raiding_fleet
-						is_fleet_idle = yes
+					has_country_flag = raid_target_of@root
+					OR = {
+						has_relation_flag = { who = root flag = current_hired_target }
+						has_relation_flag = { who = root flag = current_target }
 					}
-					root = { has_country_flag = parent_of@prev }
 				}
-				# Find event_target:marauder_target
-				random_playable_country = {
+				weights = { base = 1 # Passive raid flag
+					modifier = { add = 10 NOT = { has_country_flag = under_marauder_attack } any_playable_country = { is_ai = no has_relation_flag = { who = root flag = hired_fleet } } }
+					modifier = { add = 20 is_ai = yes }
+				}
+				save_event_target_as = marauder_target
+			}
+			if = {
+				limit = {
+					exists = event_target:marauder_target
+					event_target:marauder_target = {
+						any_owned_planet = {
+							is_colony = yes
+							num_sapient_pops > 1
+						}
+					}
+				}
+				set_faction_hostility = {
+					target = event_target:marauder_target
+					set_hostile = yes
+				}
+				log = "Found new Raiding Marauders target [marauder_target.GetName]"
+				# Find stuck raiding fleet
+				random_owned_fleet = {
 					limit = {
-						# OR = { only passive raid flags
-						# 	has_country_flag = under_marauder_attack
-						# 	has_country_flag = target_of_hired_ai_raid
-						# }
-						OR = {
-							has_relation_flag = { who = root flag = current_hired_target }
-							has_relation_flag = { who = root flag = current_target }
-							has_country_flag = raid_target_of@root
-						}
-					}
-					save_event_target_as = marauder_target
-				}
-				if = {
-					limit = { exists = event_target:marauder_target }
-					log = "Found new Raiding Marauders target [This.GetName]"
-					random_owned_fleet = {
-						limit = {
-							has_fleet_flag = hired_raiding_fleet
-							is_fleet_idle = yes
-							closest_system = {
-								min_steps = 2
-								use_bypasses = yes
-								limit = {
-									any_system_colony = {
-										is_owned_by = event_target:marauder_target
-										num_sapient_pops > 1
-									}
-									# prev = { can_access_system = prev }
-								}
-							}
-						}
-						log = "Raiding Marauders stuck at [This.System.GetName]"
-						# Find new raid target
+						has_fleet_flag = raiding_fleet # hired_raiding_fleet not used by vanilla
+						exists = solar_system
+						is_fleet_idle = yes
 						closest_system = {
 							min_steps = 2
 							use_bypasses = yes
@@ -134,37 +144,51 @@ country_event = {
 									is_owned_by = event_target:marauder_target
 									num_sapient_pops > 1
 								}
-								# prev = { can_access_system = prev }
+								prev = { can_access_system = prev }
 							}
-							random_system_colony = {
-								limit = {
-									is_owned_by = event_target:marauder_target
-									num_sapient_pops > 1
-								}
-								save_event_target_as = raid_planet
-							}
-						}
-						if = {
-							limit = {
-								exists = event_target:raid_planet
-								can_access_system = event_target:raid_planet.solar_system
-							}
-							clear_orders = yes
-							remove_auto_move_target = yes
-							clear_fleet_actions = this
-							auto_move_to_planet = {
-								target = event_target:raid_planet
-								clear_auto_move_on_arrival = no
-							}
-							log ="Take new raid target [This.System.GetName]"
-						}
-						else = {
-							fleet_event = { id = marauder.29 scopes = { from = event_target:marauder_target } }
 						}
 					}
+					log = "Raiding Marauders stuck at [This.System.GetName]"
+					# Find new raid target
+					closest_system = {
+						min_steps = 2
+						use_bypasses = yes
+						limit = {
+							is_owned_by = event_target:marauder_target
+							any_system_colony = {
+								is_owned_by = event_target:marauder_target
+								num_sapient_pops > 1
+							}
+							prev = { can_access_system = prev }
+						}
+						random_system_colony = {
+							limit = {
+								is_owned_by = event_target:marauder_target
+								num_sapient_pops > 1
+							}
+							save_event_target_as = raid_planet
+						}
+					}
+					if = {
+						limit = {
+							exists = event_target:raid_planet
+							can_access_system = event_target:raid_planet.solar_system
+						}
+						clear_orders = yes
+						remove_auto_move_target = yes
+						clear_fleet_actions = this
+						auto_move_to_planet = {
+							target = event_target:raid_planet
+							clear_auto_move_on_arrival = no
+						}
+						log ="Take new raid target [This.System.GetName]"
+					}
+					else = {
+						fleet_event = { id = marauder.29 scopes = { from = event_target:marauder_target } }
+					}
 				}
-				else = { log = "No raiding target found for [This.GetName]" }
 			}
+			else = { log = "No raiding target found for [This.GetName]" }
 		}
 	}
 }

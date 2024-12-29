@@ -464,21 +464,36 @@ country_event = {
 					clear_variable = "successor_fleet_power"
 				}
 			}
-			# Take good old leaders # TODO may more filters?
+			# Take good old leaders
 			prev = {
-				every_owned_leader = {
+				while = { count = 8
 					limit = {
-						has_skill > 3
-						leader_age > 30
-						OR = {
-							num_negative_traits = 0
-							AND = { num_negative_traits < 3 has_psionic_leader_trait = yes }
-							has_leader_flag = legendary_leader
-							has_leader_flag = paragon_origin_legendary_leader
-							has_trait = leader_trait_legendary_offspring
+						any_owned_leader = {
+							has_skill > 3
+							leader_age > 33
+							OR = {
+								AND = { num_negative_traits = 0 num_positive_traits > 3 }
+								AND = { num_negative_traits < 3 has_psionic_leader_trait = yes }
+								has_leader_flag = legendary_leader
+								has_leader_flag = paragon_origin_legendary_leader
+								has_trait = leader_trait_legendary_offspring
+							}
 						}
 					}
-					set_owner = prevprev
+					random_owned_leader = {
+						limit = {
+							has_skill > 3
+							leader_age > 33
+							OR = {
+								AND = { num_negative_traits = 0 num_positive_traits > 3 }
+								AND = { num_negative_traits < 3 has_psionic_leader_trait = yes }
+								has_leader_flag = legendary_leader
+								has_leader_flag = paragon_origin_legendary_leader
+								has_trait = leader_trait_legendary_offspring
+							}
+						}
+						set_owner = prevprev
+					}
 				}
 			}
 			if = {
@@ -783,7 +798,7 @@ country_event = {
 			set_country_flag = first_alien_life
 			set_country_flag = has_encountered_other_empire
 			set_timed_country_flag = { flag = ai_no_wars months = 1 }
-			set_name = root # Change later
+			# set_name = root # Change later
 			## ADD_KHAN_ETHICS
 			if = {
 				limit = { has_global_flag = cultural_overhaul_active }
@@ -1046,11 +1061,8 @@ country_event = {
 	id = marauder_borders.2000
 	hide_window = yes
 	is_triggered_only = yes
-
 	immediate = {
 		set_update_modifiers_batch = begin
-		set_name = random # Only after marauder.620
-
 		every_playable_country = {
 			limit = {
 				has_origin = "origin_khan_successor"
@@ -1058,7 +1070,12 @@ country_event = {
 				has_country_flag = diadochi
 				NOT = { is_same_empire = prev }
 			}
-
+			if = {
+				limit = { is_pacifist = yes }
+				country_remove_ethic = ethic_pacifist
+				shift_ethic = ethic_militarist
+			}
+			set_name = random # Only after marauder.620
 			## GET_DIADOCHI_IMMEDIATE_SETUP
 			set_graphical_culture = root # Setting graphical culture
 			# Establish comms

@@ -750,11 +750,13 @@ country_event = {
 		from = {
 			owner_species = { save_event_target_as = marauder_species }
 			save_event_target_as = current_marauder_diplomacy
-			country_event = { id = marauder.28 days = 8 }
 		}
 	}
 	after = {
-		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
+		hidden_effect = {
+			remove_country_flag = marauder_diplomacy_engaged
+			from = { country_event = { id = marauder.28 days = 8 } }
+		}
 	}
 	# Ask them to raid someone.
 	option = {
@@ -1007,11 +1009,13 @@ country_event = {
 		}
 		event_target:current_marauder_diplomacy = {
 			get_marauder_species = yes
-			country_event = { id = marauder.28 days = 8 }
 		}
 	}
 	after = {
-		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
+		hidden_effect = {
+			remove_country_flag = marauder_diplomacy_engaged
+			event_target:current_marauder_diplomacy = { country_event = { id = marauder.28 days = 8 } }
+		}
 	}
 	# Ask them to raid someone.
 	option = {
@@ -1307,10 +1311,10 @@ country_event = {
 				limit = { exists = event_target:preliminary_target exists = event_target:current_marauder_diplomacy }
 				if = {
 					limit = { event_target:preliminary_target = { is_fallen_empire = yes } }
-					country_event = { id = marauder.35 } # scopes = { from = event_target:current_marauder_diplomacy }
+					country_event = { id = marauder.35 }
 				}
 				else = {
-					country_event = { id = marauder.32 } # scopes = { from = event_target:current_marauder_diplomacy }
+					country_event = { id = marauder.32 }
 				}
 			}
 			remove_country_flag = marauder_diplomacy_engaged
@@ -1600,7 +1604,7 @@ country_event = {
 			flag = event_target:raiding_marauder
 			effect = {
 				save_event_target_as = marauder_raiding_country
-				set_faction_hostility = { target = event_target:raiding_marauder set_neutral = yes }
+				set_faction_hostility = { target = event_target:raiding_marauder set_friendly = yes }
 				make_moderately_hostile = yes
 				set_country_flag = raid_ongoing
 			}
@@ -1634,7 +1638,7 @@ country_event = {
 						set_fleet_bombardment_stance = indiscriminate
 						set_aggro_range_measure_from = self
 						set_aggro_range = 150
-						set_fleet_flag = hired_raiding_fleet
+						set_fleet_flag = hired_raiding_fleet # Not used by vanilla
 						set_fleet_flag = raiding_fleet
 						set_event_locked = yes
 					}
@@ -2990,36 +2994,31 @@ country_event = {
 			limit = { has_monthly_income = { resource = minerals value <= 50 } }
 			set_country_flag = marauder_tribute_1@event_target:raiding_marauder
 		}
-		if = {
+		else_if = {
 			limit = {
-				has_monthly_income = { resource = minerals value >= 50 }
 				has_monthly_income = { resource = minerals value <= 100 }
 			}
 			set_country_flag = marauder_tribute_2@event_target:raiding_marauder
 		}
-		if = {
+		else_if = {
 			limit = {
-				has_monthly_income = { resource = minerals value > 100 }
 				has_monthly_income = { resource = minerals value <= 150 }
 			}
 			set_country_flag = marauder_tribute_3@event_target:raiding_marauder
 		}
-		if = {
+		else_if = {
 			limit = {
-				has_monthly_income = { resource = minerals value > 150 }
 				has_monthly_income = { resource = minerals value <= 200 }
 			}
 			set_country_flag = marauder_tribute_4@event_target:raiding_marauder
 		}
-		if = {
+		else_if = {
 			limit = {
-				has_monthly_income = { resource = minerals value > 200 }
 				has_monthly_income = { resource = minerals value <= 250 }
 			}
 			set_country_flag = marauder_tribute_5@event_target:raiding_marauder
 		}
-		if = {
-			limit = { has_monthly_income = { resource = minerals value > 250 } }
+		else = {
 			set_country_flag = marauder_tribute_6@event_target:raiding_marauder
 		}
 		set_timed_country_flag = { flag = recently_raided_or_threatened years = 5 }
@@ -3147,7 +3146,14 @@ country_event = {
 				remove_relation_flag = { who = event_target:raiding_marauder flag = current_target }
 				remove_relation_flag = { who = event_target:raiding_marauder flag = current_hired_target }
 				event_target:marauder_raiding_country = {
-					event_target:raiding_marauder = { remove_country_flag = parent_of@prev }
+					event_target:raiding_marauder = {
+						remove_country_flag = parent_of@prev
+						# random_playable_country = {
+						# 	limit = { has_relation_flag = { who = prev flag = hired_fleet } }
+						# 	remove_relation_flag = { who = prev flag = hired_fleet }
+						# 	remove_country_flag = hired@prev
+						# }
+					}
 					random_owned_fleet = {
 						limit = { has_fleet_flag = raiding_fleet }
 						delete_fleet = this
@@ -3923,7 +3929,7 @@ event = {
 								set_fleet_bombardment_stance = indiscriminate
 								set_aggro_range_measure_from = self
 								set_aggro_range = 150
-								set_fleet_flag = hired_raiding_fleet
+								set_fleet_flag = hired_raiding_fleet # Not used by vanilla
 								set_fleet_flag = raiding_fleet
 								set_event_locked = yes
 							}
@@ -7065,6 +7071,7 @@ country_event = {
 				has_country_flag = rebelling_satrapy
 				is_homicidal = yes
 				is_fallen_empire = yes
+				is_at_war = yes # Added v3.14
 			}
 		}
 		allow = {
@@ -8386,6 +8393,11 @@ country_event = {
 		# set_country_flag = diadochi_1
 		force_remove_civic = civic_great_khans_legacy
 		force_add_civic = civic_diadochi
+		if = {
+			limit = { is_pacifist = yes }
+			country_remove_ethic = ethic_pacifist
+			shift_ethic = ethic_militarist
+		}
 
 		every_subject = { # "The End of the Satrapy"
 			limit = { is_default_or_fallen = yes }
@@ -8749,6 +8761,7 @@ country_event = {
 						set_country_flag = new_khanate_flag
 						set_country_flag = first_alien_life
 						set_country_flag = has_encountered_other_empire
+
 						force_add_civic = civic_diadochi
 						shift_ethic = ethic_fanatic_militarist
 						## Moved from marauder_borders.2000 in 3.9.3 by MrFunEGUY
@@ -8986,8 +8999,6 @@ country_event = {
 				force_add_civic = civic_slaver_guilds
 			}
 		}
-		# set_name = random
-		# save_event_target_as = new_khanate
 		every_subject = {
 			limit = { is_default_or_fallen = yes }
 			set_subject_of = { who = none }
@@ -9133,7 +9144,7 @@ country_event = {
 		get_marauder_species = yes
 		create_country = {
 			name_list = random
-			name = random
+			# name = random
 			species = event_target:marauder_species
 			type = default
 			authority = auth_democratic
@@ -9143,7 +9154,7 @@ country_event = {
 			ignore_initial_colony_error = yes
 			exclude_day_zero_contact = root
 			effect = {
-				# set_name = random later
+				set_name = random # later?
 				set_country_flag = democratic_khanate_flag
 				save_event_target_as = new_khanate
 				root = {
@@ -9162,14 +9173,14 @@ country_event = {
 				limit = { has_global_flag = cultural_overhaul_active }
 				random_list = {
 					1 = { country_add_ethic = ethic_pacifist }
-					1 = { country_add_ethic = ethic_socialism }
-					1 = { country_add_ethic = ethic_fanatic_socialism }
-					1 = { country_add_ethic = ethic_capitalism }
+					3 = { country_add_ethic = ethic_socialism }
+					2 = { country_add_ethic = ethic_fanatic_socialism }
+					2 = { country_add_ethic = ethic_capitalism }
 					1 = { country_add_ethic = ethic_fanatic_capitalism }
-					1 = { country_add_ethic = ethic_spiritualist }
-					1 = { country_add_ethic = ethic_fanatic_spiritualist }
-					1 = { country_add_ethic = ethic_materialist }
-					1 = { country_add_ethic = ethic_fanatic_materialist }
+					3 = { country_add_ethic = ethic_spiritualist }
+					2 = { country_add_ethic = ethic_fanatic_spiritualist }
+					3 = { country_add_ethic = ethic_materialist }
+					2 = { country_add_ethic = ethic_fanatic_materialist }
 				}
 				if = {
 					limit = {
@@ -9183,41 +9194,41 @@ country_event = {
 					if = {
 						limit = { is_pacifist = yes }
 						random_list = {
-							1 = { country_add_ethic = ethic_socialism }
-							1 = { country_add_ethic = ethic_capitalism }
-							1 = { country_add_ethic = ethic_spiritualist }
-							1 = { country_add_ethic = ethic_materialist }
+							2 = { country_add_ethic = ethic_socialism }
+							2 = { country_add_ethic = ethic_capitalism }
+							2 = { country_add_ethic = ethic_spiritualist }
+							2 = { country_add_ethic = ethic_materialist }
 						}
 					}
 					else_if = {
 						limit = { is_socialist = yes }
 						random_list = {
 							1 = { country_add_ethic = ethic_pacifist }
-							1 = { country_add_ethic = ethic_spiritualist }
-							1 = { country_add_ethic = ethic_materialist }
+							2 = { country_add_ethic = ethic_spiritualist }
+							3 = { country_add_ethic = ethic_materialist }
 						}
 					}
 					else_if = {
 						limit = { is_capitalism = yes }
 						random_list = {
 							1 = { country_add_ethic = ethic_pacifist }
-							1 = { country_add_ethic = ethic_spiritualist }
-							1 = { country_add_ethic = ethic_materialist }
+							2 = { country_add_ethic = ethic_spiritualist }
+							3 = { country_add_ethic = ethic_materialist }
 						}
 					}
 					else_if = {
 						limit = { is_spiritualist = yes }
 						random_list = {
-							1 = { country_add_ethic = ethic_socialism }
-							1 = { country_add_ethic = ethic_capitalism }
+							3 = { country_add_ethic = ethic_socialism }
+							2 = { country_add_ethic = ethic_capitalism }
 							1 = { country_add_ethic = ethic_pacifist }
 						}
 					}
 					else_if = {
 						limit = { is_materialist = yes }
 						random_list = {
-							1 = { country_add_ethic = ethic_socialism }
-							1 = { country_add_ethic = ethic_capitalism }
+							3 = { country_add_ethic = ethic_socialism }
+							2 = { country_add_ethic = ethic_capitalism }
 							1 = { country_add_ethic = ethic_pacifist }
 						}
 					}
@@ -9327,10 +9338,10 @@ country_event = {
 			limit = { is_mobile = yes is_leased = yes }
 			end_fleet_contract = { initiator = prev reason = cancelled }
 		}
-		if = {
-			limit = { is_country_type = awakened_marauders }
-			restore_country_backup_data = yes # FIXME Cannot restore country data because no such data has been stored?!?
-		}
+		# if = {
+		# 	limit = { is_country_type = awakened_marauders }
+		# 	restore_country_backup_data = yes # FIXME Cannot restore country data because no such data has been stored?!?
+		# }
 		set_update_modifiers_batch = begin
 		create_country = {
 			name_list = random
@@ -10323,13 +10334,14 @@ country_event = {
 	option = { name = marauder.671.a }
 }
 
-# New Fleet (Fix missing ship_piracy_suppression_add)
+# New Fleet (Fixed missing ship_piracy_suppression_add)
 country_event = {
 	id = marauder.704
 	title = "marauder.704.name"
 	desc = "marauder.704.desc"
 	picture = GFX_evt_pirate_armada
 	show_sound = event_radio_chatter
+	location = event_target:border_system
 	is_triggered_only = yes
 	trigger = {
 		NOT = { has_country_flag = marauder_neighbor_event_4 }
@@ -10343,29 +10355,11 @@ country_event = {
 			effect = {
 				set_owner = root
 				create_dyn_pirate_fleet = { Skull = 6 Corsair = 3 Black_Earl = 2 }
+				# create_dyn_pirate_fleet = { Skull = 10 Corsair = 4 }
 				set_location = root.capital_scope
 			}
 		}
 		custom_tooltip = gain_marauder_fleet
-		# hidden_effect = {
-		# 	create_fleet = {
-		# 		name = "NAME_Salvaged_Fleet"
-		# 		effect = {
-		# 			set_owner = root
-		# 			while = {
-		# 				count = 1
-		# 				create_ship = {
-		# 					name = random
-		# 					prefix = no
-		# 					design = "NAME_Black_Earl"
-		# 					graphical_culture = "pirate_01"
-		# 				}
-		# 			}
-		# 			create_dyn_pirate_fleet = { Skull = 10 Corsair = 4 }
-		# 			set_location = root.capital_scope
-		# 		}
-		# 	}
-		# }
 	}
 	option = {
 		name = marauder.704.b

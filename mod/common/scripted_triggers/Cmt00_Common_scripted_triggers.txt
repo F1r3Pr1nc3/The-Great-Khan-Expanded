@@ -37,7 +37,7 @@ CmtTriggerSpawnableSystem = {
 		has_star_flag = lgate
 		has_star_flag = lcluster
 		has_star_flag = sealed_system		## The system with no hyperlanes.
-		has_star_flag = crisis_spawn_exclude # v.3.8
+		has_star_flag = crisis_spawn_exclude # v3.8
 	}
 }
 
@@ -172,7 +172,7 @@ CmtTriggerIsMarauder = {
 		is_country_type = dormant_marauders
 		is_country_type = ruined_marauders
 		is_country_type = awakened_marauders
-		is_country_type = awakened_marauders_ev
+		# is_country_type = awakened_marauders_ev
 		is_country_type = marauder_raiders
 	}
 }

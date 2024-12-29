@@ -2088,11 +2088,12 @@ event = {
 				}
 			}
 		}
-		## TEST raiding_marauder stuck fix
-		every_country = {
-			# Find raiding_marauder (parent)
-			limit = { is_country_type = dormant_marauders has_country_flag = raid_ongoing }
-			country_event = { id = marauder.28 days = 8 }
+		else = {
+			## TEST raiding_marauder stuck fix # Find raiding_marauder (parent)
+			every_country = {
+				limit = { is_country_type = dormant_marauders has_country_flag = raid_ongoing }
+				country_event = { id = marauder.28 days = 8 }
+			}
 		}
 	}
 }

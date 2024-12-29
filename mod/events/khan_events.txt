@@ -2288,11 +2288,10 @@ system_event = {
 						species = from.owner_main_species
 						ethos = { ethic = "ethic_militarist" ethic = "ethic_egalitarian" }
 					}
-					while = { count = 5
-						create_pop = {
-							species = from.owner_main_species
-							ethos = { ethic = "ethic_militarist" } # ethic = "ethic_egalitarian"
-						}
+					create_pop = {
+						species = from.owner_main_species
+						ethos = { ethic = "ethic_militarist" ethic = "ethic_egalitarian" }
+						count = 5
 					}
 					# set_owner = space_owner
 					set_controller = from # space_owner

@@ -27,6 +27,7 @@ civic_great_khans_vision = {
 		planet_stability_add = 10
 		country_naval_cap_mult = 0.2
 	}
+	can_build_ruler_ship = yes
 }
 
 origin_khan_successor = {
@@ -45,8 +46,7 @@ origin_khan_successor = {
 		shipclass_starbase_hull_mult = 0.2
 		starbase_shipyard_build_cost_mult = -0.1
 	}
-	# description = origin_no_effect
-	description = allow_raiding
+	description = allow_raiding # origin_no_effect
 	random_weight = { base = 0 }
 }
 
@@ -59,6 +59,7 @@ civic_diadochi = {
 	}
 	random_weight = { base = 0 }
 	modifier = { country_naval_cap_mult = 0.15 ship_speed_mult = 0.1 }
+
 }
 
 civic_great_khans_legacy = {
@@ -69,4 +70,5 @@ civic_great_khans_legacy = {
 	}
 	random_weight = { base = 0 }
 	modifier = { ship_fire_rate_mult = 0.1 ship_speed_mult = 0.1 }
+	can_build_ruler_ship = yes
 }
