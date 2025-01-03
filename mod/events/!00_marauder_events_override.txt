@@ -1613,12 +1613,7 @@ country_event = {
 			every_country = { limit = { has_communications = event_target:raiding_marauder } establish_communications_no_message = prev }
 			event_target:raiding_marauder = {
 				set_country_flag = parent_of@prev
-				set_faction_hostility = {
-					target = prev
-					set_hostile = no
-					set_neutral = no
-					set_friendly = yes
-				}
+				set_faction_hostility = { target = prev set_friendly = yes }
 				switch = { trigger = has_country_flag
 					marauder_1 = { prev = { set_country_flag = marauder_1 } }
 					marauder_2 = { prev = { set_country_flag = marauder_2 } }
@@ -1643,17 +1638,15 @@ country_event = {
 						set_event_locked = yes
 					}
 				}
+				country_event = { id = marauder.28 scopes = { from = event_target:marauder_target } days = 30 } # access validation
 			}
 			create_marauder_merc_admiral = yes
-			set_faction_hostility = {
-				target = root
-				set_hostile = yes
-				set_neutral = no
-				set_friendly = no
-			}
+			set_faction_hostility = { target = root set_hostile = yes } # Has full effect only after 1 day
 			last_created_fleet = {
 				set_owner = prev	# Real owner
 				closest_system = {
+					min_steps = 1
+					max_steps = 40
 					use_bypasses = yes
 					limit = {
 						has_owner = yes
@@ -1661,21 +1654,17 @@ country_event = {
 						any_system_colony = {
 							has_owner = yes
 							is_owned_by = root
-							is_occupied_flag = no
-							num_sapient_pops > 3
-							has_orbital_bombardment = no
-							has_ground_combat = no
+							num_sapient_pops > 2
+							is_planet_eligible_for_treasure_planet = yes
 						}
-						# prev = { can_access_system = prev } # performance-intensive trigger!
+						prev = { can_access_system = prev } # performance-intensive trigger!
 					}
 					random_system_colony = {
 						limit = {
 							has_owner = yes
 							is_owned_by = root
-							is_occupied_flag = no
-							num_sapient_pops > 3
-							has_orbital_bombardment = no
-							has_ground_combat = no
+							num_sapient_pops > 2
+							is_planet_eligible_for_treasure_planet = yes
 						}
 						save_event_target_as = raid_planet
 					}
@@ -1685,6 +1674,17 @@ country_event = {
 				if = {
 					limit = { exists = event_target:raid_planet can_access_system = event_target:raid_planet.solar_system }
 					auto_move_to_planet = { target = event_target:raid_planet clear_auto_move_on_arrival = no }
+					export_trigger_value_to_variable = {
+						trigger = distance
+						parameters = {
+							source = event_target:raid_planet.solar_system
+							type = hyperlane
+							bypass_empire = prev
+							min_jumps = 1
+							max_jumps = 40
+						}
+						variable = raid_distance
+					}
 				}
 				else = {
 					fleet_event = { id = marauder.29 scopes = { from = root } }
@@ -3054,12 +3054,7 @@ country_event = {
 			create_marauder_merc_admiral = yes
 			event_target:raiding_marauder = {
 				set_country_flag = parent_of@event_target:marauder_raiding_country
-				set_faction_hostility = {
-					target = event_target:marauder_raiding_country
-					set_hostile = no
-					set_neutral = no
-					set_friendly = yes
-				}
+				set_faction_hostility = { target = event_target:marauder_raiding_country set_friendly = yes }
 				## Compat. Realistic Pirates
 				if = {
 					limit = { has_global_flag = pirate_waves_active }
@@ -3079,16 +3074,14 @@ country_event = {
 						set_event_locked = yes
 					}
 				}
+				country_event = { id = marauder.28 scopes = { from = event_target:marauder_target } days = 30 } # access validation
 			}
-			set_faction_hostility = {
-				target = root
-				set_hostile = yes
-				set_neutral = no
-				set_friendly = no
-			}
+			set_faction_hostility = { target = root set_hostile = yes } # Has full effect only after 1 day
 			last_created_fleet = {
 				set_owner = prev	# Real owner
 				closest_system = {
+					min_steps = 1
+					max_steps = 40
 					use_bypasses = yes
 					limit = {
 						has_owner = yes
@@ -3096,21 +3089,17 @@ country_event = {
 						any_system_colony = {
 							has_owner = yes
 							is_owned_by = root
-							is_occupied_flag = no
 							num_sapient_pops > 2
-							has_orbital_bombardment = no
-							has_ground_combat = no
+							is_planet_eligible_for_treasure_planet = yes
 						}
-						# prev = { can_access_system = prev } # performance-intensive trigger!
+						prev = { can_access_system = prev } # performance-intensive trigger!
 					}
 					random_system_colony = {
 						limit = {
 							has_owner = yes
 							is_owned_by = root
-							is_occupied_flag = no
 							num_sapient_pops > 2
-							has_orbital_bombardment = no
-							has_ground_combat = no
+							is_planet_eligible_for_treasure_planet = yes
 						}
 						save_event_target_as = raid_planet
 					}
@@ -3120,6 +3109,17 @@ country_event = {
 				if = {
 					limit = { exists = event_target:raid_planet can_access_system = event_target:raid_planet.solar_system }
 					auto_move_to_planet = { target = event_target:raid_planet clear_auto_move_on_arrival = no }
+					export_trigger_value_to_variable = {
+						trigger = distance
+						parameters = {
+							source = event_target:raid_planet.solar_system
+							type = hyperlane
+							bypass_empire = prev
+							min_jumps = 1
+							max_jumps = 40
+						}
+						variable = raid_distance
+					}
 				}
 				else = { fleet_event = { id = marauder.29 } }
 			}
@@ -3878,12 +3878,7 @@ event = {
 							establish_communications_no_message = prev
 						}
 						set_country_flag = raid_ongoing
-						set_faction_hostility = {
-							target = event_target:raiding_marauder
-							set_hostile = no
-							set_neutral = no
-							set_friendly = yes
-						}
+						set_faction_hostility = { target = event_target:raiding_marauder set_friendly = yes }
 					}
 				}
 				event_target:marauder_raiding_country = {
@@ -3891,12 +3886,7 @@ event = {
 					create_marauder_merc_admiral = yes
 					event_target:raiding_marauder = {
 						set_country_flag = parent_of@prev
-						set_faction_hostility = {
-							target = prev
-							set_hostile = no
-							set_neutral = no
-							set_friendly = yes
-						}
+						set_faction_hostility = { target = prev set_friendly = yes }
 						## Dynamic raid costs TODO needs update each effect.
 						if = {
 							limit = { has_global_flag = pirate_waves_active }
@@ -3922,7 +3912,7 @@ event = {
 						create_fleet = {
 							name = "NAME_Raiding_Fleet"
 							effect = {
-								set_owner = prev						# For ship names
+								set_owner = prev					# For ship names
 								create_marauder_raiders = yes			# Needs prev for script vars
 								set_location = event_target:raid_source
 								set_fleet_stance = aggressive
@@ -3934,16 +3924,14 @@ event = {
 								set_event_locked = yes
 							}
 						}
+						country_event = { id = marauder.28 scopes = { from = event_target:marauder_target } days = 30 } # access validation
 					}
-					set_faction_hostility = {
-						target = event_target:marauder_target
-						set_hostile = yes
-						set_neutral = no
-						set_friendly = no
-					}
+					set_faction_hostility = { target = event_target:marauder_target set_hostile = yes } # Has full effect only after 1 day
 					last_created_fleet = {
 						set_owner = prev	# Real owner
 						closest_system = {
+							min_steps = 1
+							max_steps = 40
 							use_bypasses = yes
 							limit = {
 								has_owner = yes
@@ -3951,21 +3939,17 @@ event = {
 								any_system_colony = {
 									has_owner = yes
 									is_owned_by = event_target:marauder_target
-									is_occupied_flag = no
 									num_sapient_pops > 2
-									has_orbital_bombardment = no
-									has_ground_combat = no
+									is_planet_eligible_for_treasure_planet = yes
 								}
-								# prev = { can_access_system = prev } # performance-intensive trigger!
+								prev = { can_access_system = prev } # performance-intensive trigger!
 							}
 							random_system_colony = {
 								limit = {
 									has_owner = yes
 									is_owned_by = event_target:marauder_target
-									is_occupied_flag = no
 									num_sapient_pops > 2
-									has_orbital_bombardment = no
-									has_ground_combat = no
+									is_planet_eligible_for_treasure_planet = yes
 								}
 								save_event_target_as = raid_planet
 							}
@@ -3979,6 +3963,17 @@ event = {
 						if = {
 							limit = { exists = event_target:raid_planet can_access_system = event_target:raid_planet.solar_system }
 							auto_move_to_planet = { target = event_target:raid_planet clear_auto_move_on_arrival = no }
+							export_trigger_value_to_variable = {
+								trigger = distance
+								parameters = {
+									source = event_target:raid_planet.solar_system
+									type = hyperlane
+									bypass_empire = prev
+									min_jumps = 1
+									max_jumps = 40
+								}
+								variable = raid_distance
+							}
 						}
 						else = {
 							fleet_event = { id = marauder.29 scopes = { from = event_target:marauder_target } }
@@ -7346,9 +7341,9 @@ country_event = {
 		}
 		else = {
 			ordered_owned_planet = {
-				limit = { is_colony = yes }
+				limit = { is_planet_eligible_for_treasure_planet = yes }
 				position = 0
-				order_by = trigger:num_pops
+				order_by = trigger:num_sapient_pops
 				save_event_target_as = capital_planet
 				solar_system = { save_event_target_as = capital_system }
 			}

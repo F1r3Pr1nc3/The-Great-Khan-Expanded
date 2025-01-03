@@ -14,18 +14,11 @@ fleet_event = {
 	immediate = {
 		closest_system = {
 			min_steps = 2
+			max_steps = 30
 			use_bypasses = yes
-			limit = {
-				any_system_colony = {
-					is_owned_by = from
-					num_sapient_pops > 1
-				}
-			}
+			limit = { any_system_colony = { is_owned_by = from num_sapient_pops > 1 is_planet_eligible_for_treasure_planet = yes } }
 			random_system_colony = {
-				limit = {
-					is_owned_by = from
-					num_sapient_pops > 1
-				}
+				limit = { is_owned_by = from num_sapient_pops > 1 is_planet_eligible_for_treasure_planet = yes }
 				save_event_target_as = raid_planet
 			}
 		}
@@ -36,21 +29,14 @@ fleet_event = {
 		}
 		if = {
 			limit = { exists = event_target:raid_planet }
-			set_location = {
-				target = event_target:raid_planet
-				distance = 45
-				angle = random
-			}
-			auto_move_to_planet = {
-				target = event_target:raid_planet
-				clear_auto_move_on_arrival = no
-			}
+			set_location = { target = event_target:raid_planet distance = 45 angle = random }
+			auto_move_to_planet = { target = event_target:raid_planet clear_auto_move_on_arrival = no }
 		}
 	}
 }
 
 ## raiding_marauder stuck check & fix
-# Root = dormant_marauder = current_marauder_diplomacy
+# Root = dormant_marauders = current_marauder_diplomacy
 # From = marauder_target
 country_event = {
 	id = marauder.28
@@ -65,6 +51,8 @@ country_event = {
 				has_fleet_flag = raiding_fleet # hired_raiding_fleet not used by vanilla
 				exists = solar_system
 				is_fleet_idle = yes
+				NOR = { has_fleet_order = move_to_system_point_order has_fleet_order = orbit_planet_order }
+				NOT = { has_fleet_flag = raiding_fleet_checked } # Prevent double call, somehow too fast for idle check
 			}
 			OR = {
 				AND = { has_country_flag = marauder_1 root = { has_country_flag = marauder_1 } }
@@ -83,7 +71,7 @@ country_event = {
 	}
 	immediate = {
 		# Find marauder_raiding_country (child)
-		log = "Check for stuck raiding marauders"
+		# log = "Check for stuck raiding marauders"
 		random_country = {
 			limit = {
 				is_country_type = marauder_raiders
@@ -92,6 +80,8 @@ country_event = {
 					has_fleet_flag = raiding_fleet # hired_raiding_fleet not used by vanilla
 					exists = solar_system
 					is_fleet_idle = yes
+					NOR = { has_fleet_order = move_to_system_point_order has_fleet_order = orbit_planet_order }
+					NOT = { has_fleet_flag = raiding_fleet_checked } # Prevent double call, somehow too fast for idle check
 				}
 				OR = {
 					AND = { has_country_flag = marauder_1 root = { has_country_flag = marauder_1 } }
@@ -111,7 +101,8 @@ country_event = {
 				}
 				weights = { base = 1 # Passive raid flag
 					modifier = { add = 10 NOT = { has_country_flag = under_marauder_attack } any_playable_country = { is_ai = no has_relation_flag = { who = root flag = hired_fleet } } }
-					modifier = { add = 20 is_ai = yes }
+					modifier = { factor = 2 is_hostile = prev }
+					modifier = { factor = 2 is_ai = yes }
 				}
 				save_event_target_as = marauder_target
 			}
@@ -119,15 +110,8 @@ country_event = {
 				limit = {
 					exists = event_target:marauder_target
 					event_target:marauder_target = {
-						any_owned_planet = {
-							is_colony = yes
-							num_sapient_pops > 1
-						}
+						any_owned_planet = { is_planet_eligible_for_treasure_planet = yes }
 					}
-				}
-				set_faction_hostility = {
-					target = event_target:marauder_target
-					set_hostile = yes
 				}
 				log = "Found new Raiding Marauders target [marauder_target.GetName]"
 				# Find stuck raiding fleet
@@ -136,55 +120,96 @@ country_event = {
 						has_fleet_flag = raiding_fleet # hired_raiding_fleet not used by vanilla
 						exists = solar_system
 						is_fleet_idle = yes
-						closest_system = {
-							min_steps = 2
-							use_bypasses = yes
-							limit = {
-								any_system_colony = {
-									is_owned_by = event_target:marauder_target
-									num_sapient_pops > 1
-								}
-								prev = { can_access_system = prev }
-							}
-						}
+						NOR = { has_fleet_order = move_to_system_point_order has_fleet_order = orbit_planet_order }
+						NOT = { has_fleet_flag = raiding_fleet_checked } # Prevent double call, somehow too fast for idle check
 					}
 					log = "Raiding Marauders stuck at [This.System.GetName]"
-					# Find new raid target
-					closest_system = {
-						min_steps = 2
-						use_bypasses = yes
+					if = {
 						limit = {
-							is_owned_by = event_target:marauder_target
-							any_system_colony = {
-								is_owned_by = event_target:marauder_target
-								num_sapient_pops > 1
+							prev = { is_hostile = event_target:marauder_target } # because can_access_system just useful for hostile
+							closest_system = {
+								min_steps = 1
+								max_steps = 30
+								use_bypasses = yes
+								limit = {
+									any_system_colony = { is_owned_by = event_target:marauder_target num_sapient_pops > 1 is_planet_eligible_for_treasure_planet = yes }
+									prev = { can_access_system = prev }
+								}
 							}
-							prev = { can_access_system = prev }
 						}
-						random_system_colony = {
+						# Find new raid target
+						closest_system = {
+							min_steps = 1
+							max_steps = 30
+							use_bypasses = yes
 							limit = {
 								is_owned_by = event_target:marauder_target
-								num_sapient_pops > 1
+								any_system_colony = { is_owned_by = event_target:marauder_target num_sapient_pops > 1 is_planet_eligible_for_treasure_planet = yes }
+								prev = { can_access_system = prev }
 							}
-							save_event_target_as = raid_planet
+							random_system_colony = {
+								limit = { is_owned_by = event_target:marauder_target num_sapient_pops > 1 is_planet_eligible_for_treasure_planet = yes }
+								save_event_target_as = raid_planet
+							}
 						}
 					}
 					if = {
-						limit = {
-							exists = event_target:raid_planet
-							can_access_system = event_target:raid_planet.solar_system
-						}
+						limit = { exists = event_target:raid_planet can_access_system = event_target:raid_planet.solar_system }
+						set_timed_fleet_flag = { flag = raiding_fleet_checked days = 1 } # Prevent double call, somehow too fast for idle check
 						clear_orders = yes
 						remove_auto_move_target = yes
 						clear_fleet_actions = this
-						auto_move_to_planet = {
-							target = event_target:raid_planet
-							clear_auto_move_on_arrival = no
+						auto_move_to_planet = { target = event_target:raid_planet clear_auto_move_on_arrival = no }
+						log ="Take new raid target [raid_planet.System.GetName]"
+					}
+					else_if = {
+						limit = {
+							closest_system = {
+								min_steps = 1
+								max_steps = 30
+								use_bypasses = yes
+								limit = {
+									is_owned_by = event_target:marauder_target
+									exists = starbase
+									starbase = {
+										has_starbase_size > starbase_outpost
+										fleet = { is_disabled = no }
+									}
+									prev = { can_access_system = prev }
+								}
+							}
 						}
-						log ="Take new raid target [This.System.GetName]"
+						closest_system = {
+							min_steps = 1
+							max_steps = 30
+							use_bypasses = yes
+							limit = {
+								is_owned_by = event_target:marauder_target
+								exists = starbase
+								starbase = {
+									has_starbase_size > starbase_outpost
+									fleet = { is_disabled = no }
+								}
+								prev = { can_access_system = prev }
+							}
+							prev = {
+								set_timed_fleet_flag = { flag = raiding_fleet_checked days = 1 } # Prevent double call, somehow too fast for idle check
+								clear_orders = yes
+								remove_auto_move_target = yes
+								clear_fleet_actions = this
+								auto_move_to_planet = { target = prev.star clear_auto_move_on_arrival = no arrival_effect = marauder_path_attack }
+							}
+							log ="Take new raid path target [This.GetName]"
+						}
 					}
 					else = {
-						fleet_event = { id = marauder.29 scopes = { from = event_target:marauder_target } }
+						fleet_event = { id = marauder.29 scopes = { from = event_target:marauder_target } days = 1 }
+					}
+					prev = {
+						set_faction_hostility = {
+							target = event_target:marauder_target
+							set_hostile = yes # Has full effect only after 1 day
+						}
 					}
 				}
 			}
@@ -207,20 +232,16 @@ fleet_event = {
 		# log="Try fallback routing"
 		# First try to find alternate path (new raid target)
 		closest_system = {
-			min_steps = 1
+			min_steps = 0
+			max_steps = 14
 			use_bypasses = yes
 			limit = {
-				any_system_colony = {
-					is_owned_by = from
-					num_sapient_pops > 1
-				}
+				is_owned_by = from
+				any_system_colony = { is_owned_by = from num_sapient_pops > 1 is_planet_eligible_for_treasure_planet = yes }
 				prev = { can_access_system = prev }
 			}
 			random_system_colony = {
-				limit = {
-					is_owned_by = from
-					num_sapient_pops > 1
-				}
+				limit = { is_owned_by = from num_sapient_pops > 1 is_planet_eligible_for_treasure_planet = yes }
 				save_event_target_as = attacked_planet
 			}
 		}
@@ -229,11 +250,33 @@ fleet_event = {
 			clear_orders = yes
 			remove_auto_move_target = yes
 			clear_fleet_actions = this
-			auto_move_to_planet = {
-				target = event_target:attacked_planet
-				clear_auto_move_on_arrival = no
+			auto_move_to_planet = { target = event_target:attacked_planet clear_auto_move_on_arrival = no }
+			log ="Take new raid target [This.System.GetName]"
+			break = yes
+		}
+		# Try destroy FTL inhibitors
+		closest_system = {
+			min_steps = 1
+			max_steps = 14
+			use_bypasses = yes
+			limit = {
+				is_owned_by = from
+				exists = starbase
+				starbase = {
+					has_starbase_size > starbase_outpost
+					fleet = { is_disabled = no }
+				}
+				prev = { can_access_system = prev }
 			}
-			# log ="Take new raid target [This.System.GetName]"
+			star = { save_event_target_as = attacked_planet }
+		}
+		if = {
+			limit = { exists = event_target:attacked_planet }
+			clear_orders = yes
+			remove_auto_move_target = yes
+			clear_fleet_actions = this
+			auto_move_to_planet = { target = event_target:attacked_planet clear_auto_move_on_arrival = no arrival_effect = marauder_path_attack }
+			log ="Take new raid target [This.System.GetName]"
 			break = yes
 		}
 
@@ -247,27 +290,23 @@ fleet_event = {
 		# 		bypass_empire = root.owner
 		# 		min_jumps = 1
 		# 	}
-		# 	variable = raid_target_distance
+		# 	variable = raid_distance
 		# }
-		# log="raid_target_distance [Root.raid_target_distance]"
+		# log="raid_distance [Root.raid_distance]"
 
 		closest_system = {
 			min_steps = 1
-			# max_steps = 40
+			max_steps = 21
 			use_bypasses = yes
 			limit = {
-				has_owner = yes
 				is_owned_by = from
 				exists = starbase
 				starbase = {
 					has_starbase_size > starbase_outpost
-					fleet = { is_disabled = no }					# Not working for starbase?
+					fleet = { is_disabled = no }
 				}
 				NOR = {
-					any_system_colony = {
-						is_owned_by = from
-						num_sapient_pops > 0
-					}
+					any_system_colony = { is_owned_by = from is_planet_eligible_for_treasure_planet = yes }
 				}
 				root = { can_access_system = prev }
 			}
@@ -275,41 +314,29 @@ fleet_event = {
 		}
 
 		if = {
-			limit = {
-				NAND = {
-					exists = event_target:target_system
-					can_access_system = event_target:target_system
-				}
-			}
+			limit = { NAND = { exists = event_target:target_system can_access_system = event_target:target_system } }
 			# Find bottleneck system between.
 			closest_system = {
 				min_steps = 1
-				# max_steps = 40
+				max_steps = 34
 				use_bypasses = yes
 				limit = {
-					exists = owner
+					has_owner = yes
 					owner = {
-						NOR = {
-							is_fallen_empire = yes
-							is_same_empire = root.owner
-						}
+						NOR = { is_fallen_empire = yes is_same_empire = root.owner }
 						is_hostile = root.owner
 					}
 					exists = starbase
 					starbase = {
 						has_starbase_size > starbase_outpost
-						fleet = { is_disabled = no }						# Not working for starbase?
+						fleet = { is_disabled = no }
 					}
-					NOR = {
-						is_owned_by = root.owner
-						has_star_flag = guardian
-						has_star_flag = extradimensional_origin_system
-					}
-					# distance_compare = { MAX = "[root.raid_target_distance]" }
+					NOR = { is_owned_by = root.owner has_star_flag = guardian has_star_flag = extradimensional_origin_system }
+					# distance_compare = { MAX = "[root.raid_distance]" }
 					# distance = {
 					# 	source = event_target:raid_planet
 					# 	min_distance > 5
-					# 	max_distance < root.raid_target_distance
+					# 	max_distance < root.raid_distance
 					# 	type = hyperlane
 					# 	bypass_empire = root.owner
 					# 	# min_jumps = 1
@@ -319,55 +346,61 @@ fleet_event = {
 				save_event_target_as = target_system
 			}
 		}
-		owner = {
-			if = {
-				limit = {
-					exists = event_target:target_system
-					event_target:target_system = {
-						NOT = { is_owned_by = from }
-						space_owner = { is_country_type_with_subjects = yes }
-					}
-					is_hostile = event_target:target_system.space_owner
-					opinion = {
-						who = event_target:target_system.space_owner
-						value > -150
-					}
-				}
-				set_faction_hostility = {
-					target = event_target:target_system.space_owner
-					set_neutral = yes
-				}
-			}
-		}
+		# owner = {
+		# 	if = {
+		# 		limit = {
+		# 			exists = event_target:target_system
+		# 			event_target:target_system = {
+		# 				NOT = { is_owned_by = from }
+		# 				space_owner = { is_country_type_with_subjects = yes }
+		# 			}
+		# 			is_hostile = event_target:target_system.space_owner
+		# 			opinion = {
+		# 				who = event_target:target_system.space_owner
+		# 				value > -150
+		# 			}
+		# 		}
+		# 		set_faction_hostility = {
+		# 			target = event_target:target_system.space_owner
+		# 			set_neutral = yes
+		# 		}
+		# 	}
+		# }
 
 		if = {
-			limit = {
-				exists = event_target:target_system
-				can_access_system = event_target:target_system
-			}
+			limit = { exists = event_target:target_system can_access_system = event_target:target_system }
 			# clear_orders = yes
 			# remove_auto_move_target = yes
 			# clear_fleet_actions = this
 			event_target:target_system = {
 				random_system_planet = {
-					weights = {
-						base = 1
-						modifier = {
-							add = 30
+					weights = { base = 1
+						modifier = { add = 9 has_owner = yes }
+						modifier = { add = 40
 							has_owner = yes
 							is_owned_by = from
-							is_colony = yes
+							num_sapient_pops > 1
+							is_planet_eligible_for_treasure_planet = yes
 						}
-						modifier = { add = 3 has_owner = yes }
 					}
 					root = {
-						auto_move_to_planet = {
-							target = prev
-							clear_auto_move_on_arrival = no
+						if = {
+							limit = {
+								prev = {
+									has_owner = yes
+									is_owned_by = from
+									num_sapient_pops > 1
+									is_planet_eligible_for_treasure_planet = yes
+								}
+							}
+							auto_move_to_planet = { target = prev clear_auto_move_on_arrival = no }
+						}
+						else = {
+							auto_move_to_planet = { target = prev clear_auto_move_on_arrival = no arrival_effect = marauder_path_attack }
 						}
 						fleet_event = { id = marauder.29 days = 100 random = 25 scopes = { from = from } }
 					}
-					# log ="\\[Root.Owner.GetName] take new raid target [This.GetName]"
+					log ="\\[Root.Owner.GetName] take new raid target [This.GetName]"
 				}
 			}
 		}

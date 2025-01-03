@@ -1328,7 +1328,7 @@ country_event = {
 		}
 		else = {
 			ordered_owned_planet = {
-				limit = { is_colony = yes }
+				limit = { is_planet_eligible_for_treasure_planet = yes }
 				position = 0
 				order_by = trigger:num_sapient_pops
 				save_event_target_as = capital_planet

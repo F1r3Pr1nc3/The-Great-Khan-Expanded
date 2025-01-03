@@ -1337,3 +1337,47 @@ create_marauder_rally_points = {
 		}
 	}
 }
+
+# Fleet reaches destination - Via on_fleet_auto_move_arrival | from = fleet; fromfrom = planet
+# This = fleet
+# From = planet (if any)
+marauder_path_attack = {
+	# log = "MARAUDER PATH ATTACK"
+	if = {
+		limit = { NOT = { exists = event_target:marauder_target } }
+		if = {
+			limit = { exists = solar_system.starbase }
+			solar_system.starbase.owner = { save_event_target_as = marauder_target }
+		}
+		else_if = {
+			limit = { exists = space_owner }
+			space_owner = { save_event_target_as = marauder_target }
+		}
+		else = {
+			random_country = {
+				limit = {
+					is_country_type = dormant_marauders
+					has_country_flag = raid_ongoing
+					has_country_flag = parent_of@prev.owner
+				}
+				# Find event_target:marauder_target
+				random_playable_country = {
+					limit = {
+						has_country_flag = raid_target_of@prev
+						OR = {
+							has_relation_flag = { who = prev flag = current_hired_target }
+							has_relation_flag = { who = prev flag = current_target }
+						}
+					}
+					weights = { base = 1 # Passive raid flag
+						modifier = { add = 10 NOT = { has_country_flag = under_marauder_attack } any_playable_country = { is_ai = no has_relation_flag = { who = prevprev flag = hired_fleet } } }
+						modifier = { factor = 2 is_hostile = prev }
+						modifier = { factor = 2 is_ai = yes }
+					}
+					save_event_target_as = marauder_target
+				}
+			}
+		}
+	}
+	fleet_event = { id = marauder.29 scopes = { from = event_target:marauder_target } days = 7 }
+}
