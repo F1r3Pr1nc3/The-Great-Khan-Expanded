@@ -198,12 +198,7 @@ create_pirate_waves_countries = {
 		limit = { OR = { is_country_type = enclave is_country_type = enclave_mercenary is_country_type = ldragon_country } }
 		every_country = {
 			limit = { is_pirate_country = yes }
-			set_faction_hostility = {
-				target = prev
-				set_hostile = no
-				set_neutral = no
-				set_friendly = yes
-			}
+			set_faction_hostility = { target = prev set_friendly = yes }
 		}
 	}
 	# Establish communications between the pirates and other countries.

@@ -111,10 +111,7 @@ country_event = {
 					leader = { set_owner = event_target:new_khanate }
 				}
 				if = { # Because of strange error log: Script Error, attempted to execute an effect on an unsupported scope!
-					limit = {
-						is_scope_valid = yes
-						is_scope_type = fleet
-					}
+					limit = { is_scope_valid = yes is_scope_type = fleet }
 					set_controller = event_target:new_khanate
 					set_owner = event_target:new_khanate
 				}
@@ -385,8 +382,8 @@ country_event = {
 					random_owned_planet = {
 						limit = { solar_system = { exists = starbase } }
 						weights = { base = 1
-							modifier = { add = 1 is_colony = yes }
-							modifier = { add = 2 is_capital = yes }
+							modifier = { add = 3 is_colony = yes }
+							modifier = { add = 9 is_capital = yes }
 						}
 						prev = {
 							CmtEffectCreateFleet_KhanStandard = yes # create_marauder_successor_fleet = yes
@@ -408,6 +405,13 @@ country_event = {
 							last_created_leader = {
 								set_owner = prevprev
 								last_created_fleet = { set_owner = prevprevprev assign_leader = prev set_leader = prev }
+							}
+						}
+						if = {
+							limit = { count_owned_pop = { count < 17 limit = { is_same_species = prev.owner_main_species } } }
+							while = { count = 17
+								limit = { count_owned_pop = { count < 17 limit = { is_same_species = prev.owner_main_species } } }
+								create_pop = { species = prev.owner_main_species ethos = { ethic = "ethic_militarist" ethic = "ethic_egalitarian" } }
 							}
 						}
 					}
@@ -649,6 +653,7 @@ country_event = {
 					every_owned_leader = { kill_leader = { show_notification = no } }
 					every_owned_pop = { kill_pop = yes }
 					every_owned_fleet = { delete_fleet = this }
+					every_owned_army = { remove_army = yes }
 					destroy_country = yes
 				}
 			}
@@ -671,6 +676,7 @@ country_event = {
 						every_owned_leader = { kill_leader = { show_notification = no } }
 						every_owned_pop = { kill_pop = yes }
 						every_owned_fleet = { delete_fleet = this }
+						every_owned_army = { remove_army = yes }
 						destroy_country = yes
 					}
 				}
@@ -720,6 +726,9 @@ country_event = {
 							origin = "origin_khan_successor"
 							ethos = { ethic = ethic_militarist ethic = ethic_authoritarian }
 							ignore_initial_colony_error = yes
+							exclude_day_zero_contact = root
+							released_by_country = root
+							released_from_country = root
 						}
 					}
 					9 = {
@@ -732,6 +741,9 @@ country_event = {
 							origin = "origin_khan_successor"
 							ethos = { ethic = ethic_militarist ethic = ethic_xenophobe }
 							ignore_initial_colony_error = yes
+							exclude_day_zero_contact = root
+							released_by_country = root
+							released_from_country = root
 						}
 					}
 					1 = {
@@ -744,6 +756,9 @@ country_event = {
 							origin = "origin_khan_successor"
 							ethos = { ethic = ethic_militarist ethic = ethic_authoritarian }
 							ignore_initial_colony_error = yes
+							exclude_day_zero_contact = root
+							released_by_country = root
+							released_from_country = root
 						}
 					}
 				}
@@ -760,6 +775,9 @@ country_event = {
 							origin = "origin_khan_successor"
 							ethos = { ethic = ethic_militarist ethic = ethic_authoritarian }
 							ignore_initial_colony_error = yes
+							exclude_day_zero_contact = root
+							released_by_country = root
+							released_from_country = root
 						}
 					}
 					10 = {
@@ -772,6 +790,9 @@ country_event = {
 							origin = "origin_khan_successor"
 							ethos = { ethic = ethic_militarist ethic = ethic_xenophobe }
 							ignore_initial_colony_error = yes
+							exclude_day_zero_contact = root
+							released_by_country = root
+							released_from_country = root
 						}
 					}
 				}
@@ -789,6 +810,8 @@ country_event = {
 				ignore_initial_colony_error = yes
 				day_zero_contact = no
 				exclude_day_zero_contact = root
+				released_by_country = root
+				released_from_country = root
 			}
 		}
 
@@ -1113,6 +1136,7 @@ country_event = {
 				add_trust = { amount = -100 who = prev }
 				add_intel = { amount = 100 who = prev }
 				add_opinion_modifier = { modifier = opinion_traitor_to_empire who = prev }
+				add_opinion_modifier = { modifier = opinion_flavors_down who = prev }
 				set_variable = { which = num_sapient_pops value = trigger:num_sapient_pops }
 				save_event_target_as = planet_owner_2
 				## Prevent extreme balcanization

@@ -303,7 +303,7 @@ wg_marauder_expansion = {
 						limit = { is_hostile = prev }
 						set_faction_hostility = { target = prev set_hostile = no set_neutral = yes }
 					}
-					country_event = { id = khan.309 days = 1 } # To be sure
+					country_event = { id = khan.309 days = 1 } # Friendly to be sure
 				}
 			}
 		}
@@ -523,7 +523,7 @@ wg_war_in_heaven = {
 								limit = { is_hostile = prev }
 								set_faction_hostility = { target = prev set_hostile = no set_neutral = yes }
 							}
-							country_event = { id = khan.309 days = 1 } # To be sure
+							country_event = { id = khan.309 days = 1 } # Friendly to be sure
 						}
 					}
 					if = {
@@ -755,7 +755,7 @@ wg_great_expansion = {
 						limit = { is_hostile = prev }
 						set_faction_hostility = { target = prev set_hostile = no set_neutral = yes }
 					}
-					country_event = { id = khan.309 days = 1 } # To be sure
+					country_event = { id = khan.309 days = 1 } # Friendly to be sure
 				}
 			}
 		}

@@ -64,7 +64,7 @@ event = {
 					remove_country_flag = declared_crisis
 				}
 				country_event = { id = khan.309 }
-				country_event = { id = khan.309 days = 4 }
+				country_event = { id = khan.309 days = 4 } # Friendly to be sure
 				# TODO TEMP FIX KHAN NO RESPAWN.
 				country_event = { id = marauder.507 days = 105 random = 80 }
 				country_event = { id = khan.312 } # Create Garrison Dummy Country
@@ -787,7 +787,7 @@ country_event = {
 				country_event = { id = khan.307 days = 3 scopes = { from = root } } # Just reenable
 			}
 		}
-		set_faction_hostility = { target = from set_hostile = no set_neutral = no set_friendly = yes }
+		set_faction_hostility = { target = from set_friendly = yes }
 		add_trust = { amount = 90 who = from }
 		random_agreement = {
 			limit = {
@@ -811,7 +811,7 @@ country_event = {
 			event_target:marauders_garrison_1 = {
 				if = {
 					limit = { is_hostile = root }
-					set_faction_hostility = { target = root set_hostile = no set_neutral = no set_friendly = yes }
+					set_faction_hostility = { target = root set_friendly = yes }
 					add_trust = { amount = 90 who = root }
 					root = {
 						add_trust = { amount = 90 who = prev }
@@ -819,7 +819,7 @@ country_event = {
 				}
 				if = {
 					limit = { is_hostile = root.from }
-					set_faction_hostility = { target = from set_hostile = no set_neutral = no set_friendly = yes }
+					set_faction_hostility = { target = from set_friendly = yes }
 					add_trust = { amount = 90 who = root.from }
 					root.from = {
 						add_trust = { amount = 90 who = prev }
@@ -837,7 +837,7 @@ country_event = {
 		}
 		from = { # Superfluous?
 			add_trust = { amount = 90 who = root }
-			set_faction_hostility = { target = root set_hostile = no set_neutral = no set_friendly = yes }
+			set_faction_hostility = { target = root set_friendly = yes }
 		}
 		if = {
 			limit = { has_country_flag = attacking_fleets_stopped }
@@ -978,7 +978,7 @@ country_event = {
 									is_subject_of_khan = yes
 								}
 							}
-							prevprev = { set_faction_hostility = { target = prev set_hostile = yes set_neutral = no set_friendly = no } }
+							prevprev = { set_faction_hostility = { target = prev set_hostile = yes } }
 						}
 						## Set_friendly
 						every_subject = {
@@ -1006,7 +1006,7 @@ country_event = {
 							}
 							log = "Fix Garrison hostility for [This.GetName]"
 							prevprev = {
-								set_faction_hostility = { target = prev set_hostile = no set_neutral = no set_friendly = yes }
+								set_faction_hostility = { target = prev set_friendly = yes }
 								country_event = { id = khan.308 scopes = { from = prev } days = 1 } # Set friendly again
 							}
 						}
@@ -1014,7 +1014,7 @@ country_event = {
 					## Always set Garrison friendly to Khan
 					if = {
 						limit = { is_hostile = root }
-						set_faction_hostility = { target = root set_hostile = no set_neutral = no set_friendly = yes }
+						set_faction_hostility = { target = root set_friendly = yes }
 						country_event = { id = khan.308 scopes = { from = root } days = 1 } # Set friendly again
 					}
 				}
@@ -1392,10 +1392,36 @@ country_event = {
 			}
 			leave_alliance = { override_requirements = yes }
 		}
-
+		if = {
+			limit = { has_federation = yes }
+			leave_alliance = { override_requirements = yes }
+		}
 		if = {
 			limit = { is_galactic_community_member = yes }
 			remove_from_galactic_community = yes
+		}
+
+		if = {
+			limit = { is_at_war = yes  }
+			random_war = {
+				limit = {
+					is_war_participant = { who = root }
+					is_war_participant = { who = event_target:raider_khanate }
+					NOT = { is_war_participant = { who = root side = event_target:raider_khanate } }
+				}
+				remove_war_participant = root
+				root = {
+					if = {
+						limit = { is_ai = no  }
+						create_message = {
+							type = "WAR_ENDED"
+							localization = "WAR_END_STATUS_QUO" # MESSAGE_WAR_ENDED # WAR_END_STATUS_QUO
+							days = 30
+							target = capital_scope
+						}
+					}
+				}
+			}
 		}
 
 		# Can't rebel for a year after submitting.
@@ -1460,16 +1486,8 @@ country_event = {
 	immediate = {
 		if = {
 			limit = { exists = event_target:marauders_garrison_1 }
-			event_target:marauders_garrison_1 = {
-				every_controlled_fleet = {
-					limit = { OR = { has_fleet_flag = satrapy_garrison has_fleet_flag = satrapy_garrison_fleet } }
-					destroy_fleet = this
-				}
-				destroy_country = yes
-			}
-			clear_global_event_target = marauders_garrison_1
+			country_event = { id = khan.1877 } # Remove Marauder Garrison
 		}
-
 		if = {
 			limit = { num_owned_planets > 0 }
 			if = {
@@ -2263,82 +2281,85 @@ system_event = {
 					# set_star_flag = marauder_habitat_placed
 				}
 				# Populate marauder habitat
-				random_moon = {
-					limit = {
-						# uses_district_set = habitat
-						merg_is_habitat = yes
-						is_colony = no
-						is_colonizable = yes
-					}
-					# log = "--- Habitat [This.GetName] is being populated..."
-					# space_owner = {
-					# 	save_event_target_as = colony_country
-					# 	species = { save_event_target_as = colony_species }
-					# }
-					# TODO: Force-set to random/mining habitat?
-					# random_list = { # Hackely hack! ^_^
-					# 	3 = { set_planet_flag = mining_habitat }
-					# 	2 = { set_planet_flag = research_habitat }
-					# 	3 = { set_planet_flag = energy_habitat }
-					# }
-					# change_planet_size = 2
-					set_planet_flag = advanced_habitat
-					create_colony = { # Needed to generate colony_age
-						owner = from
-						species = from.owner_main_species
-						ethos = { ethic = "ethic_militarist" ethic = "ethic_egalitarian" }
-					}
-					create_pop = {
-						species = from.owner_main_species
-						ethos = { ethic = "ethic_militarist" ethic = "ethic_egalitarian" }
-						count = 5
-					}
-					# set_owner = space_owner
-					set_controller = from # space_owner
-					# set_name = random # TODO more variations? # create_colony effect creates already a random name, we want to maintain names
-					add_building = building_hab_major_capital	# 3 jobs
-					# add_building = building_foundry_1			# 2
-					# add_building = building_foundry_1			# 2
-					# add_building = building_factory_1			# 2
-					# add_building = building_hydroponics_farm	# 3
-					add_district = district_hab_housing
-					# add_district = district_hab_cultural		# 3
-					if = { # 6 jobs
-						limit = { has_planet_flag = mining_habitat }
-						if = {
-							limit = { check_modifier_value = { modifier = district_hab_mining_max value > 0 } }
-							add_district = district_hab_mining
-							add_district = district_hab_mining
+				# random_moon = { not valid anymore
+				root = {
+					random_system_planet = {
+						limit = {
+							# uses_district_set = habitat
+							merg_is_habitat = yes
+							is_colony = no
+							is_colonizable = yes
 						}
-					}
-					else_if = {
-						limit = { has_planet_flag = energy_habitat }
-						if = {
-							limit = { check_modifier_value = { modifier = district_hab_energy_max value > 0 } }
-							add_district = district_hab_energy
-							add_district = district_hab_energy
+						# log = "--- Habitat [This.GetName] is being populated..."
+						# space_owner = {
+						# 	save_event_target_as = colony_country
+						# 	species = { save_event_target_as = colony_species }
+						# }
+						# TODO: Force-set to random/mining habitat?
+						# random_list = { # Hackely hack! ^_^
+						# 	3 = { set_planet_flag = mining_habitat }
+						# 	2 = { set_planet_flag = research_habitat }
+						# 	3 = { set_planet_flag = energy_habitat }
+						# }
+						# change_planet_size = 2
+						set_planet_flag = advanced_habitat
+						# TODO: Add negative modifier that needs to be removed with expensive decision?
+						start_colony = { # Needed to generate colony_age
+							owner = from
+							species = from.owner_main_species
+							ethos = { ethic = "ethic_militarist" ethic = "ethic_egalitarian" }
 						}
-					}
-					else_if = {
-						limit = { has_planet_flag = research_habitat }
-						if = {
-							limit = { check_modifier_value = { modifier = district_hab_science_max value > 0 } }
-							add_district = district_hab_science
-							add_district = district_hab_science
+						# create_colony = {
+						# 	owner = from
+						# 	species = from.owner_main_species
+						# 	ethos = { ethic = "ethic_militarist" ethic = "ethic_egalitarian" }
+						# }
+						create_pop = {
+							species = from.owner_main_species
+							ethos = { ethic = "ethic_militarist" ethic = "ethic_egalitarian" }
+							count = 5
 						}
-					}
-					else = {
-						add_district = district_hab_industrial
-						if = {
-							limit = { check_modifier_value = { modifier = district_hab_energy_max value > 0 } }
-							add_district = { district_type = district_hab_energy ignore_cap = yes }
+						# set_owner = space_owner
+						set_controller = from # space_owner
+						# set_name = random # TODO more variations? # create_colony effect creates already a random name, we want to maintain names
+						add_building = building_hab_major_capital	# 3 jobs
+						# add_building = building_foundry_1			# 2
+						# add_building = building_foundry_1			# 2
+						# add_building = building_factory_1			# 2
+						# add_building = building_hydroponics_farm	# 3
+						add_district = district_hab_housing
+						# add_district = district_hab_cultural		# 3
+						if = { # 6 jobs
+							limit = { has_planet_flag = mining_habitat }
+							if = {
+								limit = { check_modifier_value = { modifier = district_hab_mining_max value > 0 } }
+								add_district = district_hab_mining
+								add_district = district_hab_mining
+							}
 						}
-					}
-					# TODO: Add negative modifier that needs to be removed with expensive decision?
-					start_colony = {
-						owner = from
-						species = from.owner_main_species
-						# ethos = random
+						else_if = {
+							limit = { has_planet_flag = energy_habitat }
+							if = {
+								limit = { check_modifier_value = { modifier = district_hab_energy_max value > 0 } }
+								add_district = district_hab_energy
+								add_district = district_hab_energy
+							}
+						}
+						else_if = {
+							limit = { has_planet_flag = research_habitat }
+							if = {
+								limit = { check_modifier_value = { modifier = district_hab_science_max value > 0 } }
+								add_district = district_hab_science
+								add_district = district_hab_science
+							}
+						}
+						else = {
+							add_district = district_hab_industrial
+							if = {
+								limit = { check_modifier_value = { modifier = district_hab_energy_max value > 0 } }
+								add_district = { district_type = district_hab_energy ignore_cap = yes }
+							}
+						}
 					}
 				}
 				set_planet_flag = has_megastructure
@@ -2372,4 +2393,89 @@ system_event = {
 			create_mining_station = { owner = prevprev.owner }
 		}
 	}
+}
+
+# Remove Marauder Garrison
+country_event = {
+	id = khan.1877
+	is_triggered_only = yes
+	hide_window = yes
+	trigger = { exists = event_target:marauders_garrison_1 }
+	immediate = {
+		event_target:marauders_garrison_1 = {
+			every_controlled_fleet = {
+				limit = { OR = { has_fleet_flag = satrapy_garrison has_fleet_flag = satrapy_garrison_fleet } exists = solar_system }
+				random_list = {
+					9 = { delete_fleet = this }
+					4 = {
+						modifier = { factor = 0 NOT = { exists = event_target:raider_khanate } }
+						set_owner = event_target:raider_khanate
+						if = {
+							limit = { exists = leader }
+							leader = { set_owner = event_target:raider_khanate }
+						}
+					}
+					2 = {
+						modifier = { factor = 0
+							OR = {
+								NOT = { exists = space_owner }
+								space_owner = { is_gestalt = yes }
+								space_owner = { merg_is_default_empire = no }
+							}
+						}
+						set_owner = space_owner
+						if = {
+							limit = { exists = leader }
+							random = { chance = 25
+								leader = { set_owner = prev.space_owner }
+							}
+						}
+					}
+					80 = {
+						modifier = { factor = 0
+							OR = {
+								NOT = { exists = space_owner }
+								space_owner = { is_marauder = no }
+							}
+						}
+						set_owner = space_owner
+						if = {
+							limit = { exists = leader }
+							leader = { set_owner = prev.space_owner }
+						}
+					}
+					20 = {
+						modifier = { factor = 0
+							NOT = {
+								solar_system = {
+									any_fleet_in_system = {
+										exists = owner owner = { is_pirate_country = yes }
+									}
+								}
+							}
+						}
+						solar_system = {
+							random_fleet_in_system = {
+								limit = { exists = owner owner = { is_pirate_country = yes } }
+								prevprev = {
+									set_owner = prev.owner
+									if = {
+										limit = { exists = leader }
+										leader = { set_owner = prevprev.owner }
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			every_orbital_station = { dismantle = yes }
+			every_owned_leader = { kill_leader = { show_notification = no } }
+			every_owned_pop = { kill_pop = yes }
+			every_owned_fleet = { destroy_fleet = this }
+			every_owned_army = { remove_army = yes }
+			destroy_country = yes
+		}
+	}
+	after = { clear_global_event_target = marauders_garrison_1 }
 }

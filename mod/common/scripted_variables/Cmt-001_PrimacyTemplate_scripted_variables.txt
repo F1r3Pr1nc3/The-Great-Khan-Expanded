@@ -470,7 +470,7 @@
 		### High = 4, Do Vengeance at Any Cost = 5
 
 ### Resurgence of Khan
-	@CmtT001_ConstKhanResurgence = 1
+	@CmtT001_ConstKhanResurgence = 2
 		### Set the one of followings (Default = 1)
 		### -1: Never
 		### 1 ~ 509: Once, Twice, Thrice, ...

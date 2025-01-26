@@ -394,8 +394,8 @@ get_marauder_raid_source = {
 	random_planet_within_border = {
 		limit = { is_star = no }
 		weights = { base = 1
-			modifier = { add = 3 has_planet_flag = raid_source }
 			modifier = { add = 1 is_colonizable = yes }
+			modifier = { add = 6 has_planet_flag = raid_source }
 		}
 		save_event_target_as = raid_source
 	}
@@ -446,7 +446,7 @@ get_marauder_raid_source = {
 		}
 	}
 
-	### Last Fallback
+	### Strong Fallback
 	if = {
 		limit = { NOT = { exists = event_target:raid_source } }
 		# ordered_owned_starbase = {
@@ -471,8 +471,33 @@ get_marauder_raid_source = {
 			}
 		}
 	}
-	event_target:raid_source = {
-		solar_system = { save_event_target_as = marauder_system }
+	### Very Last Fallback
+	if = {
+		limit = { NOT = { exists = event_target:raid_source }
+		random_owned_fleet = {
+			limit = {
+				exists = solar_system
+				solar_system = { any_system_planet = { is_star = no } }
+			}
+			solar_system = {
+				random_system_planet = {
+					limit = { is_star = no }
+					weights = { base = 1
+						modifier = { add = 3 has_planet_flag = raid_source }
+						modifier = { add = 1 is_colonizable = yes }
+					}
+					save_event_target_as = raid_source
+				}
+			}
+		}
+	}
+	if = {
+		limit = { exists = event_target:raid_source }
+		event_target:raid_source.solar_system = { save_event_target_as = marauder_system }
+	}
+	else = {
+		log_error = "No raid source found for marauder \\[This.GetName]!"
+		break = yes
 	}
 }
 
