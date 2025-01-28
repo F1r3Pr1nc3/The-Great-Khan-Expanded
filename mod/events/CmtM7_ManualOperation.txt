@@ -3149,6 +3149,19 @@ country_event = {
 	picture = GFX_evt_gray_goo
 	is_triggered_only = yes
 
+	immediate = {
+		# Fallback (savegame comp.) re-save event_targets
+		if = {
+			limit = { NOT = { exists = event_target:nanite_factory } }
+			event_target:lcluster_factory_system = {
+				random_ship_in_system = {
+					limit = { is_ship_size = graygoo_factory }
+					save_global_event_target_as = nanite_factory
+				}
+			}
+		}
+	}
+
 	option = {
 		name = "CrisisManagerMenu.71xxa.name"
 		custom_tooltip = CrisisManagerMenu.720xa.tooltip

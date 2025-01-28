@@ -473,7 +473,7 @@ get_marauder_raid_source = {
 	}
 	### Very Last Fallback
 	if = {
-		limit = { NOT = { exists = event_target:raid_source }
+		limit = { NOT = { exists = event_target:raid_source } }
 		random_owned_fleet = {
 			limit = {
 				exists = solar_system
@@ -883,6 +883,7 @@ get_marauder_species = {
 						is_archetype = PRESAPIENT
 						is_species_class = PLANT
 						is_species_class = FUN
+						any_species_pop = { exists = owner is_owned_by = prevprev pop_has_ethic = ethic_pacifist }
 					}
 				}
 			}
@@ -894,7 +895,12 @@ get_marauder_species = {
 					AND = { exists = event_target:great_khan is_same_species = event_target:great_khan.species }
 					AND = { exists = prev.owner_species is_same_species = prev.owner_species }
 				}
-				NOR = { is_archetype = LITHOID is_species_class = PLANT is_species_class = FUN }
+				NOR = {
+					is_archetype = LITHOID
+					is_species_class = PLANT
+					is_species_class = FUN
+					any_species_pop = { exists = owner is_owned_by = prevprev OR = { pop_has_ethic = ethic_pacifist pop_has_ethic = ethic_xenophobe } }
+				}
 			}
 		}
 		random_owned_pop_species = {
@@ -907,24 +913,29 @@ get_marauder_species = {
 					AND = { exists = event_target:great_khan is_same_species = event_target:great_khan.species }
 					AND = { exists = prev.owner_species is_same_species = prev.owner_species }
 				}
-				NOR = { is_archetype = LITHOID is_species_class = PLANT is_species_class = FUN }
+				NOR = {
+					is_archetype = LITHOID
+					is_species_class = PLANT
+					is_species_class = FUN
+					any_species_pop = { exists = owner is_owned_by = prevprev OR = { pop_has_ethic = ethic_pacifist pop_has_ethic = ethic_xenophobe } }
+				}
 			}
 			weights = { base = 100
-				# complex_trigger_modifier = { # Add 10 for each unhappy pop of this species
-				# 	trigger = count_owned_pop
-				# 	trigger_scope = root
-				# 	potential = {
-				# 		species_has_happiness_with_owner = root.owner
-				# 	}
-				# 	parameters = {
-				# 		limit = {
-				# 			is_same_species = prevprev # Prev should be root.target, prevprev the species
-				# 			happiness > 0.5
-				# 		}
-				# 	}
-				# 	mode = add
-				# 	mult = 10
-				# }
+				complex_trigger_modifier = { # v3.14 Add 10 for each unhappy pop of this species
+					trigger = count_owned_pop
+					trigger_scope = root
+					potential = {
+						species_has_happiness_with_owner = root.owner
+					}
+					parameters = {
+						limit = {
+							is_same_species = prevprev # Prev should be root.target, prevprev the species
+							happiness > 0.5
+						}
+					}
+					mode = add
+					mult = 10
+				}
 				modifier = { factor = 3
 					OR = {
 						AND = { exists = event_target:great_khan is_same_species = event_target:great_khan.species }
@@ -973,7 +984,12 @@ get_marauder_species = {
 					AND = { exists = event_target:great_khan is_same_species = event_target:great_khan.species }
 					AND = { exists = owner_species is_same_species = prev.owner_species }
 				}
-				NOR = { is_archetype = LITHOID is_species_class = PLANT is_species_class = FUN }
+				NOR = {
+					is_archetype = LITHOID
+					is_species_class = PLANT
+					is_species_class = FUN
+					any_species_pop = { exists = owner is_owned_by = prevprev OR = { pop_has_ethic = ethic_pacifist pop_has_ethic = ethic_xenophobe } }
+				}
 			}
 		}
 		random_owned_species = {
@@ -983,24 +999,29 @@ get_marauder_species = {
 					AND = { exists = event_target:great_khan is_same_species = event_target:great_khan.species }
 					AND = { exists = owner_species is_same_species = prev.owner_species }
 				}
-				NOR = { is_archetype = LITHOID is_species_class = PLANT is_species_class = FUN }
+				NOR = {
+					is_archetype = LITHOID
+					is_species_class = PLANT
+					is_species_class = FUN
+					any_species_pop = { exists = owner is_owned_by = prevprev OR = { pop_has_ethic = ethic_pacifist pop_has_ethic = ethic_xenophobe } }
+				}
 			}
 			weights = { base = 100
-				# complex_trigger_modifier = { # Add 10 for each unhappy pop of this species
-				# 	trigger = count_owned_pop
-				# 	trigger_scope = prev
-				# 	potential = {
-				# 		species_has_happiness_with_owner = prev.owner
-				# 	}
-				# 	parameters = {
-				# 		limit = {
-				# 			is_same_species = prevprev # Prev should be prev.target, prevprev the species
-				# 			happiness > 0.5
-				# 		}
-				# 	}
-				# 	mode = add
-				# 	mult = 10
-				# }
+				complex_trigger_modifier = { ## v3.14 Add 10 for each unhappy pop of this species
+					trigger = count_owned_pop
+					trigger_scope = prev
+					potential = {
+						species_has_happiness_with_owner = root.owner
+					}
+					parameters = {
+						limit = {
+							is_same_species = prevprev # Prev should be prev.target, prevprev the species
+							happiness > 0.5
+						}
+					}
+					mode = add
+					mult = 10
+				}
 				modifier = { factor = 2
 					OR = {
 						AND = { exists = event_target:great_khan is_same_species = event_target:great_khan.species }
@@ -1037,7 +1058,7 @@ get_marauder_species = {
 		limit = {
 			pop_percentage = {
 				limit = { is_same_species = event_target:marauder_species }
-				percentage > 0.65
+				percentage > 0.66
 			}
 			OR = {
 				AND = {

@@ -106,13 +106,13 @@ country_event = {
 		random_playable_country = {
 			limit = {
 				is_ai = yes
-				has_origin = origin_godruler
 				NOR = {
 					is_subject = yes
 					is_galactic_emperor = yes
 					has_ascension_perk = ap_become_the_crisis
 					has_ascension_perk = ap_cosmogenesis
 				}
+				has_origin = origin_godruler
 			}
 			country_event = { id = emperor.499 days = 10 }
 		}
