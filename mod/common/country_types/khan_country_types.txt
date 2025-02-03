@@ -28,8 +28,8 @@ awakened_marauders = {
 	}
 	ai = {
 		enabled = yes
-		declare_war = yes # May lead to unintentional hostility to satrap!?
-		min_navy_for_wars = 0
+		# declare_war = yes # May lead to unintentional hostility to satrap!? Attacks overpowered empires
+		min_navy_for_wars = 0.6
 		min_assault_armies_for_wars = 6
 		colonizer = yes
 		internal_policies = no
@@ -203,7 +203,7 @@ awakened_marauders = {
 			contact_rule = always
 			# Maybe lead to unintentional hostility to satrap!?
 			can_receive = {
-				action_declare_war
+				# action_declare_war
 				action_offer_peace
 				action_make_rival
 				action_end_rivalry
@@ -212,7 +212,7 @@ awakened_marauders = {
 				action_insult
 			}
 			can_send = {
-				action_declare_war
+				# action_declare_war
 				action_offer_peace
 				action_make_rival
 				action_end_rivalry

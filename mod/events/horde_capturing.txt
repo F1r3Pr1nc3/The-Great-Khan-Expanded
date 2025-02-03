@@ -5,18 +5,32 @@ namespace = mod_horde_capturing
 # fromfrom = country (previous owner)
 # This = country (new owner)
 country_event = {
-	id = mod_horde_capturing.1
+	id = mod_horde_capturing.0
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = { is_country_type = awakened_marauders is_difficulty > 2 }
 	immediate = {
-		from = {
+		country_event = { id = mod_horde_capturing.1 days = 21 }
+	}
+}
+
+country_event = {
+	id = mod_horde_capturing.1
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		fromfrom = {
+			exists = space_owner
+			space_owner = { is_same_empire = root }
+		}
+	}
+	immediate = {
+		fromfrom = {
 			every_system_colony = {
 				# limit = { }
 				if = { # Remove 1
 					limit = { has_building = building_fortress }
 					remove_building = building_fortress
-
 					if = { # Remove 2
 						limit = { has_building = building_fortress }
 						remove_building = building_fortress
@@ -30,24 +44,12 @@ country_event = {
 					}
 				}
 				# Check 1
-				if = {
-					limit = { num_sapient_pops < 14 }
-					set_variable = { which = temp_size value = 3 }
-				}
-				else_if = {
-					limit = { num_sapient_pops < 27 }
-					set_variable = { which = temp_size value = 4 }
-				}
-				else_if = {
-					limit = { num_sapient_pops < 40 }
-					set_variable = { which = temp_size value = 5 }
-				}
-				else_if = {
-					limit = { num_sapient_pops < 53 }
-					set_variable = { which = temp_size value = 6 }
-				}
-				else = {
-					set_variable = { which = temp_size value = 7 }
+				switch = { trigger = num_sapient_pops
+					14 <		{ set_variable = { which = temp_size value = 3 } }
+					27 <		{ set_variable = { which = temp_size value = 4 } }
+					40 <		{ set_variable = { which = temp_size value = 5 } }
+					53 <		{ set_variable = { which = temp_size value = 6 } }
+					default =	{ set_variable = { which = temp_size value = 7 } }
 				}
 				# Check 2
 				if = {
@@ -152,28 +154,13 @@ country_event = {
 					}
 				}
 				clear_variable = temp_size
-				if = {
-					limit = { num_sapient_pops < 10 }
-					planet_event = { id = mod_horde_capturing.2 days = 1080 }
-				}
-				else_if = {
-					limit = { num_sapient_pops < 20 }
-					planet_event = { id = mod_horde_capturing.2 days = 972 }
-				}
-				else_if = {
-					limit = { num_sapient_pops < 30 }
-					planet_event = { id = mod_horde_capturing.2 days = 864 }
-				}
-				else_if = {
-					limit = { num_sapient_pops < 40 }
-					planet_event = { id = mod_horde_capturing.2 days = 756 }
-				}
-				else_if = {
-					limit = { num_sapient_pops < 50 }
-					planet_event = { id = mod_horde_capturing.2 days = 648 }
-				}
-				else = {
-					planet_event = { id = mod_horde_capturing.2 days = 540 }
+				switch = { trigger = num_sapient_pops
+					10 <		{ planet_event = { id = mod_horde_capturing.2 days = 1080 } }
+					20 <		{ planet_event = { id = mod_horde_capturing.2 days = 972 } }
+					30 <		{ planet_event = { id = mod_horde_capturing.2 days = 864 } }
+					40 <		{ planet_event = { id = mod_horde_capturing.2 days = 756 } }
+					50 <		{ planet_event = { id = mod_horde_capturing.2 days = 648 } }
+					default =	{ planet_event = { id = mod_horde_capturing.2 days = 540 } }
 				}
 			}
 		}
@@ -269,16 +256,8 @@ planet_event = {
 		create_fleet = {
 			effect = {
 				set_owner = root.owner
-				create_ship = {
-					name = random
-					design = "NAME_Void_Dwelling"
-					graphical_culture = "pirate_01"
-				}
-				set_location = {
-					target = prev
-					distance = 10
-					angle = 0
-				}
+				create_ship = { name = random design = "NAME_Void_Dwelling" graphical_culture = "pirate_01" }
+				set_location = { target = prev distance = 10 angle = 0 }
 				# TODO
 				# add_modifier = { modifier = advanced_debuff days = -1 }
 				# add_modifier = { modifier = big_debuff days = -1 }
@@ -300,7 +279,8 @@ country_event = {
 		if = {
 			limit = { check_variable = { which = horde_planet_captured value > 0 } }
 			subtract_variable = { which = horde_planet_captured value = 1 }
-		} else = {
+		}
+		else = {
 			set_variable = { which = horde_planet_captured value = 0 }
 		}
 		fromfrom = {

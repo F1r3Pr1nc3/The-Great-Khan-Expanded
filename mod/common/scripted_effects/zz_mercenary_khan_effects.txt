@@ -887,9 +887,10 @@ get_marauder_species = {
 					}
 				}
 			}
-			any_owned_pop_species = {
-				is_scope_valid = yes
-				is_scope_type = species
+			# any_owned_pop_species = { not used by vanilla
+			any_owned_species = {
+				# is_scope_valid = yes
+				# is_scope_type = species
 				OR = {
 					species_can_be_necrophaged = yes
 					AND = { exists = event_target:great_khan is_same_species = event_target:great_khan.species }
@@ -903,16 +904,17 @@ get_marauder_species = {
 				}
 			}
 		}
-		random_owned_pop_species = {
-		# random_owned_species = {
+		# random_owned_pop_species = { not used by vanilla
+		random_owned_species = {
 			limit = {
-				is_scope_valid = yes
-				is_scope_type = species
+				# is_scope_valid = yes
+				# is_scope_type = species
 				OR = {
 					species_can_be_necrophaged = yes
 					AND = { exists = event_target:great_khan is_same_species = event_target:great_khan.species }
 					AND = { exists = prev.owner_species is_same_species = prev.owner_species }
 				}
+				species_has_happiness_with_owner = prev
 				NOR = {
 					is_archetype = LITHOID
 					is_species_class = PLANT
@@ -921,20 +923,22 @@ get_marauder_species = {
 				}
 			}
 			weights = { base = 100
-				complex_trigger_modifier = { # v3.14 Add 10 for each unhappy pop of this species
-					trigger = count_owned_pop
-					trigger_scope = root
-					potential = {
-						species_has_happiness_with_owner = root.owner
-					}
+				complex_trigger_modifier = { # v3.14 Add 5 for each happy pop of this species
+					trigger = count_species_pop
+					# trigger_scope = root
+					# potential = {
+					# 	species_has_happiness_with_owner = root
+					# }
 					parameters = {
 						limit = {
-							is_same_species = prevprev # Prev should be root.target, prevprev the species
+							is_owned_by = root
+							# is_same_species = prevprev # Prev should be root.target, prevprev the species??
+							pop_has_happiness = yes
 							happiness > 0.5
 						}
 					}
 					mode = add
-					mult = 10
+					mult = 5
 				}
 				modifier = { factor = 3
 					OR = {
@@ -956,9 +960,9 @@ get_marauder_species = {
 				# Division by zero: total random weight is 0, in weights section
 				complex_trigger_modifier = { # Multiply it by the percentage of pops of the country
 					trigger = pop_percentage
-					trigger_scope = root # prev
+					trigger_scope = root
 					parameters = {
-						limit = { is_same_species = prevprev }
+						limit = { is_same_species = prevprev pop_has_happiness = yes }
 					}
 					mode = mult
 				}
@@ -999,6 +1003,7 @@ get_marauder_species = {
 					AND = { exists = event_target:great_khan is_same_species = event_target:great_khan.species }
 					AND = { exists = owner_species is_same_species = prev.owner_species }
 				}
+				species_has_happiness_with_owner = prev
 				NOR = {
 					is_archetype = LITHOID
 					is_species_class = PLANT
@@ -1007,20 +1012,22 @@ get_marauder_species = {
 				}
 			}
 			weights = { base = 100
-				complex_trigger_modifier = { ## v3.14 Add 10 for each unhappy pop of this species
-					trigger = count_owned_pop
-					trigger_scope = prev
-					potential = {
-						species_has_happiness_with_owner = root.owner
-					}
+				complex_trigger_modifier = { # v3.14 Add 5 for each happy pop of this species
+					trigger = count_species_pop
+					# trigger_scope = root
+					# potential = {
+					# 	species_has_happiness_with_owner = root
+					# }
 					parameters = {
 						limit = {
-							is_same_species = prevprev # Prev should be prev.target, prevprev the species
+							is_owned_by = root
+							# is_same_species = prevprev # Prev should be prev.target, prevprev the species??
+							pop_has_happiness = yes
 							happiness > 0.5
 						}
 					}
 					mode = add
-					mult = 10
+					mult = 5
 				}
 				modifier = { factor = 2
 					OR = {
@@ -1031,9 +1038,9 @@ get_marauder_species = {
 				# Division by zero: total random weight is 0, in weights section
 				complex_trigger_modifier = { # Multiply it by the percentage of pops of the country
 					trigger = pop_percentage
-					trigger_scope = root # prev
+					trigger_scope = root
 					parameters = {
-						limit = { is_same_species = prevprev }
+						limit = { is_same_species = prevprev pop_has_happiness = yes }
 					}
 					mode = mult
 				}
@@ -1046,10 +1053,20 @@ get_marauder_species = {
 	if = {
 		limit = {
 			# This error log turns me crazy: is_same_species/is_exact_same_species: Unable to resolve species from 'event_target:marauder_species' (no_scope scope)
-			NAND = {
-				exists = event_target:marauder_species
-				event_target:marauder_species = { is_scope_valid = yes }
-				event_target:marauder_species = { is_scope_type = species }
+			OR = {
+				NOT = { exists = event_target:marauder_species }
+				event_target:marauder_species = {
+					NAND = {
+						is_scope_valid = yes
+						is_scope_type = species
+						any_species_pop = {
+							exists = owner
+							is_owned_by = prevprev
+							pop_has_happiness = yes
+							NOR = { pop_has_ethic = ethic_pacifist pop_has_ethic = ethic_xenophobe }
+						}
+					}
+				}
 			}
 		}
 		owner_species = { save_event_target_as = marauder_species }
@@ -1058,7 +1075,7 @@ get_marauder_species = {
 		limit = {
 			pop_percentage = {
 				limit = { is_same_species = event_target:marauder_species }
-				percentage > 0.66
+				percentage > 0.65
 			}
 			OR = {
 				AND = {

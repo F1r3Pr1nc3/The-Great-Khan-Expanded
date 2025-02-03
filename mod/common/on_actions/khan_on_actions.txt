@@ -183,7 +183,7 @@ on_leave_alliance = {
 # This = country (new owner)
 on_system_gained = {
 	events = {
-		mod_horde_capturing.1
+		mod_horde_capturing.0
 	}
 }
 

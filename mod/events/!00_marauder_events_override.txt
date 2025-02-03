@@ -8107,7 +8107,6 @@ country_event = {
 		remove_global_flag = great_khan_announcement
 		remove_global_flag = horde_triggered
 		remove_country_flag = CmtFlagKhanNoDieCountry
-		remove_global_flag = great_khan_wins
 		clear_variable = CmtVarKhanRemainingLive
 		remove_global_flag = marauder_crisis_ongoing	# Must be removed before
 		room_name_override = ""
@@ -8198,6 +8197,7 @@ country_event = {
 				}
 				dissolve_federation = yes
 			}
+			remove_global_flag = great_khan_wins
 		}
 
 		if = { # Khan Extended

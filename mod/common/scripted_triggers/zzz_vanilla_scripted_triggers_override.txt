@@ -77,9 +77,15 @@ is_fallen_empire = {
 	OR = {
 		is_country_type = fallen_empire # merg_is_fallen_empire = yes # Hopefully not included is_fallen_empire itself
 		is_country_type = awakened_fallen_empire # merg_is_awakened_fe = yes
-		AND = {
-			has_global_flag = a_deadly_tempest_mod_active
-			is_country_type = awakened_gate_builders
+		inline_script = { # A Deadly Tempest
+			script = merger_of_rules/toggled_code
+			code = "
+			AND = {
+				has_global_flag = a_deadly_tempest_mod_active
+				is_country_type = awakened_gate_builders
+			}
+			"
+			toggle = @has_a_deadly_tempest_mod
 		}
 	}
 }
