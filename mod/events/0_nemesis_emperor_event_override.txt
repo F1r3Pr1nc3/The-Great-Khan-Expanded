@@ -97,6 +97,11 @@ country_event = {
 	trigger = {
 		has_nemesis = yes
 		# is_galactic_community_formed = yes
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "always = yes "
+			toggle = @has_allthatisgrimdark_mod
+		}
 	}
 	immediate = {
 		# if = {

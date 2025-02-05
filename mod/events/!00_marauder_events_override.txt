@@ -8740,6 +8740,9 @@ country_event = {
 						set_variable = { which = num_sapient_pops value = trigger:num_sapient_pops }
 
 						## SET_CULTURAL_OVERHAUL_ETHICS
+						inline_script = {
+							script = merger_of_rules/toggled_code
+							code = "
 						if = {
 							limit = { has_global_flag = cultural_overhaul_active }
 							random_list = {
@@ -8802,6 +8805,10 @@ country_event = {
 								}
 							}
 						}
+							"
+							toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+						}
+
 
 						if = {
 							limit = { count_playable_country = { limit = { has_country_flag = diadochi_2 } count = 0 } }

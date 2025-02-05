@@ -915,7 +915,13 @@ country_event = {
 			merg_is_default_empire = yes
 			# is_subject = no
 			# is_galactic_community_member = no
-			is_zofe_fe = no
+			inline_script = { # ZOFE
+				script = merger_of_rules/toggled_code
+				code = "
+					is_zofe_fe = no
+				"
+				toggle = @has_zofe_vanilla
+			}
 			is_galactic_emperor = no
 			# opinion_level = { who = event_target:raider_khanate level >= neutral }
 		}
@@ -1040,7 +1046,13 @@ country_event = {
 			# is_subject = no
 			# is_galactic_community_member = no
 			exists = event_target:FirstSleeper
-			is_zofe_fe = no
+			inline_script = { # ZOFE
+				script = merger_of_rules/toggled_code
+				code = "
+					is_zofe_fe = no
+				"
+				toggle = @has_zofe_vanilla
+			}
 			is_galactic_emperor = no
 		}
 		ai_chance = {
@@ -1057,8 +1069,18 @@ country_event = {
 		}
 		# if = { limit = { NOT = { is_at_war_with = event_target:raider_khanate } }
 		join_war = event_target:FirstSleeper
+
 		if = {
-			limit = { is_zofe_ae = yes }		## For ZoFE
+			limit = {
+				OR = {
+					always = no
+					inline_script = { # ZOFE
+						script = merger_of_rules/toggled_code
+						code = "is_zofe_ae = yes"
+						toggle = @has_zofe_vanilla
+					}
+				}
+			}
 			every_subject = {
 				limit = { merg_is_default_empire = yes }
 				join_war = event_target:FirstSleeper
@@ -1215,7 +1237,14 @@ country_event = {
 	}
 	option = {		## For ZoFE
 		name = war_in_heaven.4.e
-		trigger = { is_zofe_ae = yes exists = event_target:FirstSleeper }
+		trigger = {
+			exists = event_target:FirstSleeper
+			inline_script = { # ZOFE
+				script = merger_of_rules/toggled_code
+				code = "is_zofe_ae = yes"
+				toggle = @has_zofe_vanilla
+			}
+		}
 		ai_chance = {
 			factor = 20
 			modifier = { factor = 0.5 fleet_power < 25000 }
@@ -1240,13 +1269,19 @@ country_event = {
 			}
 		}
 	}
+	inline_script = { # ZOFE
+		script = merger_of_rules/toggled_code
+		code = "
 	option = {
-		name = war_in_heaven.4.f # ZoFE
+		name = war_in_heaven.4.f
 		trigger = { is_zofe_fe = yes }
 		ai_chance = {
 			factor = 50
 			modifier = { factor = 0 is_zofe_fe = no }
 		}
+	}
+		"
+		toggle = @has_zofe_vanilla
 	}
 }
 
@@ -1561,7 +1596,17 @@ country_event = {
 		random_list = {
 			50 = { # Final immediately
 				every_playable_country = {
-					limit = { NOR = { is_same_empire = root has_been_declared_crisis = yes is_zofe_fe = yes } }
+					limit = {
+						NOR = {
+							is_same_empire = root
+							has_been_declared_crisis = yes
+							inline_script = { # ZOFE
+								script = merger_of_rules/toggled_code
+								code = "is_zofe_fe = yes"
+								toggle = @has_zofe_vanilla
+							}
+						}
+					}
 					if = {
 						limit = { is_ai = no }
 						country_event = { id = khan.289 days = 3 random = 3 } # Let choose side!?
@@ -1721,7 +1766,7 @@ country_event = {
 
 		set_variable = { which = inc_fleet_power value = 0 }
 		every_playable_country = {
-			limit = { is_subject = no fleet_power > 12000 }
+			limit = { is_subject = no fleet_power > 14000 }
 			export_trigger_value_to_variable = { trigger = fleet_power variable = inc_fleet_power }
 			prev = { change_variable = { which = inc_fleet_power value = prev.inc_fleet_power } }
 			clear_variable = inc_fleet_power
@@ -1744,14 +1789,14 @@ country_event = {
 		if = {
 			limit = {
 				# galaxy_percentage > 0.33
-				OR = {
-					check_variable = { which = khan_galaxy_pct value > 0.5 }
-					check_variable = { which = khan_fleet_power value > inc_fleet_power }
+				NAND = {
+					check_variable = { which = khan_galaxy_pct value < 0.55 }
+					check_variable = { which = khan_fleet_power value < inc_fleet_power }
 					count_playable_country = {
 						limit = {
 							is_subject = no
 							has_been_declared_crisis = no
-							fleet_power > 28000
+							fleet_power > 33000
 							OR = {
 								check_variable = { which = exists_federation value = 0 }
 								AND = {
@@ -1760,7 +1805,7 @@ country_event = {
 								}
 							}
 						}
-						count < 3
+						count > 3
 					}
 				}
 			}

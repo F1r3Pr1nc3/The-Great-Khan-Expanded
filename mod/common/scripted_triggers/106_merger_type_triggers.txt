@@ -21,7 +21,7 @@ merg_is_default_empire = {
 	OR = {
 		is_country_type = default
 		# Darkspace
-		# is_country_type = ds_nomads
+		# is_country_type = ds_nomads TODO
 		# Ethics & Civics Infinity
 		inline_script = {
 			script = merger_of_rules/toggled_code
@@ -32,6 +32,7 @@ merg_is_default_empire = {
 		}
 		# Scripted Triggers Undercoat
 		# has_country_flag = is_playable
+		# has_country_flag = is_empire # Underscore
 		# The Empty Vagrant
 		inline_script = {
 			script = merger_of_rules/toggled_code
@@ -48,7 +49,15 @@ merg_is_default_empire = {
 			"
 			toggle = @has_zofe_vanilla
 		}
-		# Nomads: The wondering Void Farers.
+		# Human Fallen Empire
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
+				is_country_type = hfe_features_exodus
+			"
+			toggle = @hfe_pirate_base_cost
+		}
+		# Nomads: The wondering Void Farers. TODO
 		# is_void_farer = yes
 	}
 }
@@ -60,11 +69,6 @@ is_default_or_fallen = {
 	OR = {
 		is_country_type = default
 		is_fallen_empire = yes
-		# is_country_type = awakened_fallen_empire
-		# is_country_type = fallen_empire
-		# # Scripted Triggers Undercoat
-		# has_country_flag = is_playable
-		# has_country_flag = is_empire # Underscore
 		# ZOFE
 		inline_script = {
 			script = merger_of_rules/toggled_code
@@ -83,6 +87,14 @@ is_default_or_fallen = {
 			"
 			toggle = @homeless_class_trait_weight
 		}
+		# Ethics & Civics Infinity
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
+				is_country_type = uo_une_member_active
+			"
+			toggle = @post_revolutionary_re_revolution_years
+		}
 		# Human Fallen Empire
 		inline_script = {
 			script = merger_of_rules/toggled_code
@@ -92,8 +104,6 @@ is_default_or_fallen = {
 			"
 			toggle = @hfe_pirate_base_cost
 		}
-		# # Nomads: The wondering Void Farers.
-		# # is_void_farer = yes
 	}
 }
 
@@ -219,6 +229,7 @@ is_endgame_crisis = {
 		is_country_type = synth_queen
 		is_country_type = awakened_synth_queen
 		is_country_type = synth_queen_storm
+		# TODO
 		# inline_script = { # ACOT SBTG
 		# 	script = merger_of_rules/toggled_code
 		# 	code = "

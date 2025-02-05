@@ -19,6 +19,9 @@
 # All These Worlds Lite 2718002306
 @has_atw_lite = 0
 
+# All That is Grimdark 3041579530
+@has_allthatisgrimdark_mod = 0
+
 # Ancient Cache of Technologies 1419304439
 @has_ancient_caches = 0
 
@@ -43,7 +46,7 @@
 # AssaultLily In Stellaris 2785989313
 @change_planet_size_bullet_num = 0
 
-# Azur Lane Stellaris DLC 1617872589 (compatch)
+# Azur Lane Stellaris DLC 1617872589
 @azl_mod = 0
 
 # ACOT SBTG 1481972266
@@ -93,7 +96,7 @@
 
 # Ethics and Civics Infinity 2280945168
 @post_revolutionary_re_revolution_years = 0
-# pending @has_ec_inf = 0
+# Pending @has_ec_inf = 0
 
 # EUTAB - Ethos Unique Techs and Buildings (unofficial)
 @has_eutab_unofficial = 0
@@ -125,6 +128,9 @@
 # Frameworld Extra Goodies 3071450599
 @xhk_frame_mod = 0
 
+# Freebooters Origin 3253479588
+@has_nsc_freebooter_mod = 0
+
 # Gigastructural Engineering and More 1121692237
 @has_gigastructures = 0
 
@@ -135,6 +141,9 @@
 # Guilli's Planet Modifiers and Features (patch version) 3365265900
 @has_guillis_planet_modifiers = 0
 
+# Harvest Engine Crisis 3381939844
+@harvester_beamcage_ship_count = 0
+
 # Human Fallen Empires
 @hfe_pirate_base_cost = 0
 
@@ -143,7 +152,7 @@
 
 # LEX 1320989536 (compatch)
 @lex_compatch_var = 0
-# pending @has_lex_mod = 0
+# Pending @has_lex_mod = 0
 
 # Libra: Gestalt Age 3077190639
 @libra_mod = 0
@@ -227,8 +236,14 @@
 # Shroud Rising 3170252871
 @has_shroud_rising_mod = 0
 
+# Solar Storm 2536609215
+@ss_abyssal_laser_hull_damage = 0
+
 # Some Events of Outside Cluster 1562501671
 @has_seooc_mod = 0
+
+# Sparble's Stellar Hyperconstructs 3022132203
+@ssh_tech_tier_a_mega_cost = 0 # Pending
 
 # Special Colonies Overhaul 2234990872
 @is_SCO_enabled = 0
@@ -251,18 +266,19 @@
 # The Crimson Throng 2911573696
 @crimson_throng_mod = 0
 
-# The Empty Vagrant
+# The Empty Vagrant 2990576983
 @homeless_class_trait_weight = 0
 # Pending
 
-# @has_larmy_counter_fix_active = 0
-@potent_rebellions_expanded_active = 0
-@has_great_khan_mod = 0 # The Great Khan Expanded
-@has_realistic_pirates_mod = 0 # Realsitic Pirates
-# @has_a_deadly_tempest_mod = 0
-# @has_daemonic_incursion_mod = 0
-# @has_nsc_freebooter_mod = 0
-@has_the_sleeper_mod = 0 # The Sleeper
+@has_larmy_counter_fix_active = 0 # Counter-Limited Armies Fix	3361111313
+@potent_rebellions_expanded_active = 0 # Potent Rebellions 3414192083
+@has_great_khan_mod = 0 # The Great Khan Expanded 2508704523
+@has_realistic_pirates_mod = 0 # Realsitic Pirates 2752952962
+@has_a_deadly_tempest_mod = 0 # A Deadly Tempest 2028826064
+@has_daemonic_incursion_mod = 0 # Daemonic Incursion 2990642451
+
+# The Sleeper 3043795628
+@has_the_sleeper_mod = 0
 
 # TimeMod 2735054420
 @timemod = 0
@@ -296,7 +312,7 @@
 
 # Wula Fallen Empire 2881871180 (compatch)
 @wula_compatch_var = 0
-# pending @has_wfe_mod = 0
+# Pending @has_wfe_mod = 0
 
 # ZOFE 2958421797
 @has_zofe_vanilla = 0
