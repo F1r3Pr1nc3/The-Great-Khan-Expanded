@@ -248,6 +248,7 @@ event = {
 						exists = leader
 						leader = { has_leader_flag = great_khan }
 					}
+					set_fleet_flag = khan_fleet
 					save_event_target_as = khan_fleet
 					leader = { save_global_event_target_as = great_khan }
 				}

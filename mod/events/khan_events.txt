@@ -1447,10 +1447,16 @@ country_event = {
 				limit = {
 					has_global_flag = gf_great_khan_active
 					NAND = {
-						galaxy_percentage < 0.55
+						galaxy_percentage < 0.5
 						count_playable_country = {
-							limit = { is_subject = no has_been_declared_crisis = no fleet_power > 48000 }
-							count > 3
+							limit = {
+								NOR = {
+									is_subject = yes
+									has_been_declared_crisis = yes
+									fleet_power < 48000
+								}
+							}
+							count > 2
 						}
 					}
 				}
