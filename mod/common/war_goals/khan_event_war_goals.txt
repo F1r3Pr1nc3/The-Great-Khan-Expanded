@@ -133,10 +133,10 @@ wg_satrapy_independence = {
 						limit = {
 							NOR = {
 								is_same_empire = from
-								has_origin = "origin_khan_successor"
+								has_origin = origin_khan_successor
 								any_agreement = { agreement_preset = preset_war_satrapy }
 							}
-							CmtTriggerIsMarauder = no
+							is_marauder = no
 						}
 						prev = { remove_war_participant = prev }
 					}

@@ -1,4 +1,3 @@
-
 marauder_distance = {
 	base = 100000
 	complex_trigger_modifier = {

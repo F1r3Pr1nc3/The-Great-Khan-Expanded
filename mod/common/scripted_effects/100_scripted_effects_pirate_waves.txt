@@ -334,7 +334,7 @@ set_pirates_difficulty = {
 		}
 	}
 	if = {
-		limit = { OR = { CmtTriggerIsMarauder = yes is_country_type = outer_bulwarks } }
+		limit = { OR = { is_marauder = yes is_country_type = outer_bulwarks } }
 		if = {
 			limit = {
 				exists = root

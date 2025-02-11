@@ -77,7 +77,7 @@ newgen_occupation_army = {
 	# has_species = no
 	# potential_country = { always = no }
 	potential_country = {
-		# CmtTriggerIsMarauder = yes
+		# is_marauder = yes
 		OR = {
 			is_pirate_country = yes
 			is_country_type = awakened_marauders

@@ -55,7 +55,7 @@ country_event = {
 					is_same_empire = event_target:new_khanate
 				}
 				exists = last_created_country
-				last_created_country = { has_origin = "origin_khan_successor" }
+				last_created_country = { has_origin = origin_khan_successor }
 			}
 			last_created_country = { save_event_target_as = new_khanate }
 		}
@@ -68,7 +68,7 @@ country_event = {
 				exists = from
 				from = {
 					is_ai = yes
-					OR = { CmtTriggerIsMarauder = yes is_subject_of_khan = yes }
+					OR = { is_marauder = yes is_subject_of_khan = yes }
 				}
 			}
 			from = { save_event_target_as = new_khanate }
@@ -150,7 +150,7 @@ country_event = {
 				fleet_event = { id = khan.611 days = -1 }
 			}
 			if = {
-				limit = { event_target:new_khanate = { CmtTriggerIsMarauder = no } }
+				limit = { event_target:new_khanate = { is_marauder = no } }
 				every_owned_fleet = {
 					limit = {
 						is_civilian = no
@@ -168,7 +168,7 @@ country_event = {
 			limit = {
 				OR = {
 					NOT = { has_global_flag = marauder_crisis_ongoing }
-					event_target:new_khanate = { CmtTriggerIsMarauder = no }
+					event_target:new_khanate = { is_marauder = no }
 				}
 			}
 			# Return colonies that have only the starbase conquered.
@@ -351,7 +351,7 @@ country_event = {
 				}
 
 				if = {
-					limit = { CmtTriggerIsMarauder = no }
+					limit = { is_marauder = no }
 					owner_species = { save_event_target_as = marauder_species }
 					add_500_unity_per_year_passed = yes
 					country_event = { id = game_start.6 days = 6 random = 4 }	# advanced_empire
@@ -506,7 +506,7 @@ country_event = {
 			}
 
 			if = {
-				limit = { CmtTriggerIsMarauder = no used_naval_capacity_percent < 0.75 }
+				limit = { is_marauder = no used_naval_capacity_percent < 0.75 }
 				every_owned_fleet = {
 					limit = {
 						is_mobile = yes
@@ -613,7 +613,7 @@ country_event = {
 					is_scope_valid = yes
 					is_scope_type = country
 					is_ai = yes
-					OR = { CmtTriggerIsMarauder = yes is_subject_of_khan = yes }
+					OR = { is_marauder = yes is_subject_of_khan = yes }
 				}
 			}
 			from = { save_event_target_as = new_khanate }
@@ -621,8 +621,8 @@ country_event = {
 		if = {
 			limit = {
 				exists = event_target:new_khanate
-				event_target:new_khanate = { is_scope_valid = yes CmtTriggerIsMarauder = no }
-				CmtTriggerIsMarauder = no
+				event_target:new_khanate = { is_scope_valid = yes is_marauder = no }
+				is_marauder = no
 			}
 			event_target:new_khanate = {
 				every_owned_fleet = {
@@ -711,107 +711,59 @@ country_event = {
 			limit = { is_mobile = yes is_leased = yes }
 			end_fleet_contract = { initiator = prev reason = cancelled }
 		}
+
 		# CREATE_KHAN_SUCCESSOR_COUNTRY
-		if = {
-			limit = { has_global_flag = cultural_overhaul_active }
-			if = { limit = { has_global_flag = cultural_overhaul_funefork_active }
-				random_list = {
-					90 = {
-						create_country = {
-							name_list = random
-							species = event_target:marauder_species
-							type = default
-							authority = auth_imperial
-							civics = { civic = random }
-							origin = "origin_khan_successor"
-							ethos = { ethic = ethic_militarist ethic = ethic_authoritarian }
-							ignore_initial_colony_error = yes
-							exclude_day_zero_contact = root
-							released_by_country = root
-							released_from_country = root
-						}
-					}
-					9 = {
-						create_country = {
-							name_list = random
-							species = event_target:marauder_species
-							type = default
-							authority = auth_dictatorial
-							civics = { civic = random }
-							origin = "origin_khan_successor"
-							ethos = { ethic = ethic_militarist ethic = ethic_xenophobe }
-							ignore_initial_colony_error = yes
-							exclude_day_zero_contact = root
-							released_by_country = root
-							released_from_country = root
-						}
-					}
-					1 = {
-						create_country = {
-							name_list = random
-							species = event_target:marauder_species
-							type = default
-							authority = auth_dict_democratic
-							civics = { civic = random }
-							origin = "origin_khan_successor"
-							ethos = { ethic = ethic_militarist ethic = ethic_authoritarian }
-							ignore_initial_colony_error = yes
-							exclude_day_zero_contact = root
-							released_by_country = root
-							released_from_country = root
-						}
-					}
+		random_list = {
+			90 = {
+				create_country = {
+					name_list = random
+					species = event_target:marauder_species
+					type = default
+					authority = auth_imperial
+					civics = { civic = random }
+					origin = origin_khan_successor
+					ethos = { ethic = ethic_militarist ethic = ethic_authoritarian }
+					ignore_initial_colony_error = yes
+					exclude_day_zero_contact = root
+					released_by_country = root
+					released_from_country = root
 				}
 			}
-			else = {
-				random_list = {
-					90 = {
-						create_country = {
-							name_list = random
-							species = event_target:marauder_species
-							type = default
-							authority = auth_imperial
-							civics = { civic = random }
-							origin = "origin_khan_successor"
-							ethos = { ethic = ethic_militarist ethic = ethic_authoritarian }
-							ignore_initial_colony_error = yes
-							exclude_day_zero_contact = root
-							released_by_country = root
-							released_from_country = root
-						}
-					}
-					10 = {
-						create_country = {
-							name_list = random
-							species = event_target:marauder_species
-							type = default
-							authority = auth_dictatorial
-							civics = { civic = random }
-							origin = "origin_khan_successor"
-							ethos = { ethic = ethic_militarist ethic = ethic_xenophobe }
-							ignore_initial_colony_error = yes
-							exclude_day_zero_contact = root
-							released_by_country = root
-							released_from_country = root
-						}
-					}
+			9 = {
+				create_country = {
+					name_list = random
+					species = event_target:marauder_species
+					type = default
+					authority = auth_dictatorial
+					civics = { civic = random }
+					origin = origin_khan_successor
+					ethos = { ethic = ethic_militarist ethic = ethic_xenophobe }
+					ignore_initial_colony_error = yes
+					exclude_day_zero_contact = root
+					released_by_country = root
+					released_from_country = root
 				}
 			}
-		}
-		else = {
-			create_country = {
-				name_list = random
-				species = event_target:marauder_species
-				type = default
-				authority = auth_imperial
-				civics = { civic = random }
-				origin = "origin_khan_successor"
-				ethos = { ethic = ethic_militarist ethic = ethic_authoritarian }
-				ignore_initial_colony_error = yes
-				day_zero_contact = no
-				exclude_day_zero_contact = root
-				released_by_country = root
-				released_from_country = root
+			inline_script = { # if = { limit = { has_global_flag = cultural_overhaul_active has_global_flag = cultural_overhaul_funefork_active }
+				script = merger_of_rules/toggled_code
+				code = "
+			1 = {
+				create_country = {
+					name_list = random
+					species = event_target:marauder_species
+					type = default
+					authority = auth_dict_democratic
+					civics = { civic = random }
+					origin = origin_khan_successor
+					ethos = { ethic = ethic_militarist ethic = ethic_authoritarian }
+					ignore_initial_colony_error = yes
+					exclude_day_zero_contact = root
+					released_by_country = root
+					released_from_country = root
+				}
+			}
+				"
+				toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
 			}
 		}
 
@@ -823,74 +775,79 @@ country_event = {
 			set_timed_country_flag = { flag = ai_no_wars months = 1 }
 			# set_name = root # Change later
 			## ADD_KHAN_ETHICS
+			# if = { limit = { has_global_flag = cultural_overhaul_active }
+			inline_script = {
+				script = merger_of_rules/toggled_code
+				code = "
 			if = {
-				limit = { has_global_flag = cultural_overhaul_active }
+				limit = { is_imperial = yes }
+				random_list = {
+					1 = { } # Stays with Regular Auth Ethic
+					1 = { country_add_ethic = ethic_fanatic_authoritarian } # Gets Fanatic Auth Ethic
+				}
 				if = {
-					limit = { is_imperial = yes }
-					random_list = {
-						1 = { } # Stays with Regular Auth Ethic
-						1 = { country_add_ethic = ethic_fanatic_authoritarian } # Gets Fanatic Auth Ethic
-					}
-					if = {
-						limit = { has_ethic = ethic_fanatic_authoritarian }
-						country_add_ethic = ethic_xenophobe
-					}
-					else = {
-						random_list = {
-							1 = { country_add_ethic = ethic_xenophobe }
-							1 = { country_add_ethic = ethic_fanatic_xenophobe }
-						}
-					}
-					if = {
-						limit = { has_ethic = ethic_xenophobe has_ethic = ethic_authoritarian }
-						random_list = {
-							1 = { country_add_ethic = ethic_socialism }
-							1 = { country_add_ethic = ethic_spiritualist }
-							1 = { country_add_ethic = ethic_capitalism }
-						}
-					}
+					limit = { has_ethic = ethic_fanatic_authoritarian }
+					country_add_ethic = ethic_xenophobe
 				}
-				else_if = {
-					limit = { is_dictatorial_authority = yes }
-					random_list = {
-						1 = { country_add_ethic = ethic_authoritarian }
-						1 = { country_add_ethic = ethic_fanatic_authoritarian }
-					}
-					if = {
-						limit = { has_ethic = ethic_fanatic_authoritarian }
-						country_add_ethic = ethic_xenophobe
-					}
-					else = {
-						random_list = {
-							1 = { country_add_ethic = ethic_xenophobe }
-							1 = { country_add_ethic = ethic_fanatic_xenophobe }
-						}
-					}
-					if = {
-						limit = { has_ethic = ethic_xenophobe has_ethic = ethic_authoritarian }
-						random_list = {
-							1 = { country_add_ethic = ethic_socialism }
-							1 = { country_add_ethic = ethic_spiritualist }
-							1 = { country_add_ethic = ethic_capitalism }
-						}
-					}
-				}
-				else_if = {
-					limit = { has_authority = auth_dict_democratic }
+				else = {
 					random_list = {
 						1 = { country_add_ethic = ethic_xenophobe }
 						1 = { country_add_ethic = ethic_fanatic_xenophobe }
 					}
-					if = {
-						limit = { has_ethic = ethic_xenophobe }
-						random_list = {
-							1 = { country_add_ethic = ethic_socialism }
-							1 = { country_add_ethic = ethic_spiritualist }
-							1 = { country_add_ethic = ethic_capitalism }
-						}
+				}
+				if = {
+					limit = { has_ethic = ethic_xenophobe has_ethic = ethic_authoritarian }
+					random_list = {
+						1 = { country_add_ethic = ethic_socialism }
+						1 = { country_add_ethic = ethic_spiritualist }
+						1 = { country_add_ethic = ethic_capitalism }
 					}
 				}
 			}
+			else_if = {
+				limit = { is_dictatorial_authority = yes }
+				random_list = {
+					1 = { country_add_ethic = ethic_authoritarian }
+					1 = { country_add_ethic = ethic_fanatic_authoritarian }
+				}
+				if = {
+					limit = { has_ethic = ethic_fanatic_authoritarian }
+					country_add_ethic = ethic_xenophobe
+				}
+				else = {
+					random_list = {
+						1 = { country_add_ethic = ethic_xenophobe }
+						1 = { country_add_ethic = ethic_fanatic_xenophobe }
+					}
+				}
+				if = {
+					limit = { has_ethic = ethic_xenophobe has_ethic = ethic_authoritarian }
+					random_list = {
+						1 = { country_add_ethic = ethic_socialism }
+						1 = { country_add_ethic = ethic_spiritualist }
+						1 = { country_add_ethic = ethic_capitalism }
+					}
+				}
+			}
+			else_if = {
+				limit = { has_authority = auth_dict_democratic }
+				random_list = {
+					1 = { country_add_ethic = ethic_xenophobe }
+					1 = { country_add_ethic = ethic_fanatic_xenophobe }
+				}
+				if = {
+					limit = { has_ethic = ethic_xenophobe }
+					random_list = {
+						1 = { country_add_ethic = ethic_socialism }
+						1 = { country_add_ethic = ethic_spiritualist }
+						1 = { country_add_ethic = ethic_capitalism }
+					}
+				}
+			}
+				"
+				toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+			}
+			# }
 			shift_ethic = ethic_fanatic_militarist
 			force_add_civic = civic_great_khans_legacy
 			force_add_civic = civic_slaver_guilds
@@ -1088,7 +1045,7 @@ country_event = {
 		set_update_modifiers_batch = begin
 		every_playable_country = {
 			limit = {
-				has_origin = "origin_khan_successor"
+				has_origin = origin_khan_successor
 				has_government = gov_diadochi
 				has_country_flag = diadochi
 				NOT = { is_same_empire = prev }
@@ -1124,7 +1081,7 @@ country_event = {
 			## END DIADOCHI_COUNTRY_SETUP
 			every_playable_country = {
 				limit = {
-					has_origin = "origin_khan_successor"
+					has_origin = origin_khan_successor
 					has_government = gov_diadochi
 					has_country_flag = diadochi
 					NOT = { is_same_empire = prev }
@@ -1159,7 +1116,7 @@ country_event = {
 								any_neighbor_system = { has_owner = yes is_owned_by = prevprev }
 							}
 							any_country_neighbor_to_system = {
-								has_government = gov_diadochi has_origin = "origin_khan_successor"
+								has_government = gov_diadochi has_origin = origin_khan_successor
 								any_system_within_border = {
 									has_owner = yes
 									is_owned_by = prev
@@ -1202,7 +1159,7 @@ country_event = {
 							}
 							any_country_neighbor_to_system = {
 								has_government = gov_diadochi
-								has_origin = "origin_khan_successor"
+								has_origin = origin_khan_successor
 								any_system_within_border = {
 									has_owner = yes
 									is_owned_by = prev
@@ -1228,7 +1185,7 @@ country_event = {
 						random_country_neighbor_to_system = {
 							limit = {
 								has_government = gov_diadochi
-								has_origin = "origin_khan_successor"
+								has_origin = origin_khan_successor
 								any_system_within_border = {
 									has_owner = yes
 									is_owned_by = prev
@@ -1286,7 +1243,7 @@ country_event = {
 								is_capital_system = yes
 								has_star_flag = switched_system
 								any_neighbor_system = { is_owned_by = prevprev }
-								any_country_neighbor_to_system = { has_government = gov_diadochi has_origin = "origin_khan_successor" } # any_neighbor_system = { has_owner = yes owner = { has_government = gov_diadochi has_origin = "origin_khan_successor" } }
+								any_country_neighbor_to_system = { has_government = gov_diadochi has_origin = origin_khan_successor } # any_neighbor_system = { has_owner = yes owner = { has_government = gov_diadochi has_origin = origin_khan_successor } }
 							}
 							closest_system = {
 								min_steps = 1
@@ -1298,7 +1255,7 @@ country_event = {
 									exists = owner
 									owner = {
 										has_government = gov_diadochi
-										has_origin = "origin_khan_successor"
+										has_origin = origin_khan_successor
 										NOT = { is_same_empire = prevprevprev }
 									}
 								}
@@ -1313,7 +1270,7 @@ country_event = {
 								is_capital_system = yes
 								has_star_flag = switched_system
 								any_neighbor_system = { is_owned_by = prevprev }
-								any_country_neighbor_to_system = { has_government = gov_diadochi has_origin = "origin_khan_successor" } # any_neighbor_system = { has_owner = yes owner = { has_government = gov_diadochi has_origin = "origin_khan_successor" } }
+								any_country_neighbor_to_system = { has_government = gov_diadochi has_origin = origin_khan_successor } # any_neighbor_system = { has_owner = yes owner = { has_government = gov_diadochi has_origin = origin_khan_successor } }
 								closest_system = {
 									min_steps = 2
 									max_steps = 4
@@ -1322,7 +1279,7 @@ country_event = {
 										has_owner = yes
 										is_capital_system = no
 										exists = owner
-										owner = { has_government = gov_diadochi has_origin = "origin_khan_successor" }
+										owner = { has_government = gov_diadochi has_origin = origin_khan_successor }
 									}
 									is_owned_by = prevprevprev
 								}
@@ -1337,7 +1294,7 @@ country_event = {
 								is_capital_system = no
 								exists = space_owner
 								space_owner = {
-									has_government = gov_diadochi has_origin = "origin_khan_successor"
+									has_government = gov_diadochi has_origin = origin_khan_successor
 									NOT = { is_same_empire = prevprevprev }
 								}
 							}
@@ -1364,7 +1321,7 @@ country_event = {
 										NOT = { is_same_empire = prevprevprev }
 										is_neighbor_of = prevprevprev
 										has_government = gov_diadochi
-										has_origin = "origin_khan_successor"
+										has_origin = origin_khan_successor
 										prev = {
 											count_neighbor_system = { count < 1 limit = { has_owner = yes is_owned_by = prevprev } }
 										}
@@ -1406,7 +1363,7 @@ country_event = {
 									NOT = { is_same_empire = event_target:planet_owner_2 } # prevprevprev
 									is_neighbor_of = prevprevprev
 									has_government = gov_diadochi
-									has_origin = "origin_khan_successor"
+									has_origin = origin_khan_successor
 									prev = {
 										count_neighbor_system = { count < 1 limit = { has_owner = yes is_owned_by = prevprev } }
 									}
@@ -1473,7 +1430,7 @@ country_event = {
 	after = {
 		every_playable_country = {
 			limit = {
-				has_origin = "origin_khan_successor"
+				has_origin = origin_khan_successor
 				has_government = gov_diadochi
 				has_country_flag = diadochi
 				is_variable_set = num_sapient_pops

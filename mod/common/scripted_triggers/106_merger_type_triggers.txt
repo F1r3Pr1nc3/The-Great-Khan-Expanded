@@ -26,7 +26,7 @@ merg_is_default_empire = {
 		inline_script = {
 			script = merger_of_rules/toggled_code
 			code = "
-				is_country_type = uo_une_member_active
+		is_country_type = uo_une_member_active
 			"
 			toggle = @post_revolutionary_re_revolution_years
 		}
@@ -37,7 +37,7 @@ merg_is_default_empire = {
 		inline_script = {
 			script = merger_of_rules/toggled_code
 			code = "
-				is_default_ev_country_type = yes
+		is_default_ev_country_type = yes
 			"
 			toggle = @homeless_class_trait_weight
 		}
@@ -45,7 +45,7 @@ merg_is_default_empire = {
 		inline_script = {
 			script = merger_of_rules/toggled_code
 			code = "
-				is_zofe_country = yes
+		is_zofe_country = yes
 			"
 			toggle = @has_zofe_vanilla
 		}
@@ -53,7 +53,7 @@ merg_is_default_empire = {
 		inline_script = {
 			script = merger_of_rules/toggled_code
 			code = "
-				is_country_type = hfe_features_exodus
+		is_country_type = hfe_features_exodus
 			"
 			toggle = @hfe_pirate_base_cost
 		}
@@ -73,7 +73,7 @@ is_default_or_fallen = {
 		inline_script = {
 			script = merger_of_rules/toggled_code
 			code = "
-				is_zofe_country = yes
+		is_zofe_country = yes
 			"
 			toggle = @has_zofe_vanilla
 		}
@@ -81,9 +81,9 @@ is_default_or_fallen = {
 		inline_script = {
 			script = merger_of_rules/toggled_code
 			code = "
-				is_default_ev_country_type = yes
-				is_country_type = fallen_empire_ev
-				is_country_type = awakened_fallen_empire_ev
+		is_default_ev_country_type = yes
+		is_country_type = fallen_empire_ev
+		is_country_type = awakened_fallen_empire_ev
 			"
 			toggle = @homeless_class_trait_weight
 		}
@@ -91,7 +91,7 @@ is_default_or_fallen = {
 		inline_script = {
 			script = merger_of_rules/toggled_code
 			code = "
-				is_country_type = uo_une_member_active
+		is_country_type = uo_une_member_active
 			"
 			toggle = @post_revolutionary_re_revolution_years
 		}
@@ -99,8 +99,8 @@ is_default_or_fallen = {
 		inline_script = {
 			script = merger_of_rules/toggled_code
 			code = "
-				is_country_type = hfe_features_exodus
-				is_country_type = hfe_fallen
+		is_country_type = hfe_features_exodus
+		is_country_type = hfe_fallen
 			"
 			toggle = @hfe_pirate_base_cost
 		}
@@ -115,7 +115,7 @@ merg_is_fallen_empire = {
 		inline_script = {
 			script = merger_of_rules/toggled_code
 			code = "
-				is_country_type = hfe_fallen
+		is_country_type = hfe_fallen
 			"
 			toggle = @hfe_pirate_base_cost
 		}
@@ -123,7 +123,7 @@ merg_is_fallen_empire = {
 		inline_script = {
 			script = merger_of_rules/toggled_code
 			code = "
-				is_country_type = LsE_fallen_empire
+		is_country_type = LsE_fallen_empire
 			"
 			toggle = @asharm_mod
 		}
@@ -131,7 +131,7 @@ merg_is_fallen_empire = {
 		inline_script = {
 			script = merger_of_rules/toggled_code
 			code = "
-				is_country_type = kuat_fallen_empire
+		is_country_type = kuat_fallen_empire
 			"
 			toggle = @sw_kuat_mod
 		}
@@ -139,14 +139,14 @@ merg_is_fallen_empire = {
 		inline_script = {
 			script = merger_of_rules/toggled_code
 			code = "
-				is_country_type = fallen_empire_ev
+		is_country_type = fallen_empire_ev
 			"
 			toggle = @homeless_class_trait_weight
 		}
 		inline_script = { # The Sleeper
 			script = merger_of_rules/toggled_code
 			code = "
-				is_country_type = the_sleeper_fallen
+		is_country_type = the_sleeper_fallen
 			"
 			toggle = @has_the_sleeper_mod
 		}
@@ -162,22 +162,22 @@ merg_is_awakened_fe = {
 		inline_script = {
 			script = merger_of_rules/toggled_code
 			code = "
-				is_country_type = kuat_awakened_fallen_empire
-				is_country_type = awakened_return_kuat_empire
+		is_country_type = kuat_awakened_fallen_empire
+		is_country_type = awakened_return_kuat_empire
 			"
 			toggle = @sw_kuat_mod
 		}
 		inline_script = { # A Deadly Tempest
 			script = merger_of_rules/toggled_code
 			code = "
-				is_country_type = awakened_gate_builders
+		is_country_type = awakened_gate_builders
 			"
 			toggle = @has_a_deadly_tempest_mod
 		}
 		inline_script = { # The Sleeper
 			script = merger_of_rules/toggled_code
 			code = "
-				is_country_type = awakened_sleeper
+		is_country_type = awakened_sleeper
 			"
 			toggle = @has_the_sleeper_mod
 		}
@@ -185,8 +185,8 @@ merg_is_awakened_fe = {
 		inline_script = {
 			script = merger_of_rules/toggled_code
 			code = "
-				is_country_type = awakened_fallen_empire_ev
-				is_country_type = awakened_fallen_empire_event
+		is_country_type = awakened_fallen_empire_ev
+		is_country_type = awakened_fallen_empire_event
 			"
 			toggle = @homeless_class_trait_weight
 		}
@@ -194,7 +194,7 @@ merg_is_awakened_fe = {
 		inline_script = {
 			script = merger_of_rules/toggled_code
 			code = "
-				is_country_type = first_emperor_awakened_fallen_empire
+		is_country_type = first_emperor_awakened_fallen_empire
 			"
 			toggle = @wula_compatch_var
 		}
@@ -212,7 +212,7 @@ is_marauder = {
 		inline_script = { # The Empty Vagrant
 			script = merger_of_rules/toggled_code
 			code = "
-				is_country_type = awakened_marauders_ev
+		is_country_type = awakened_marauders_ev
 			"
 			toggle = @homeless_class_trait_weight
 		}
@@ -240,7 +240,7 @@ is_endgame_crisis = {
 		inline_script = { # Gigastructural Engineering & More
 			script = merger_of_rules/toggled_code
 			code = "
-				is_giga_crisis_faction = yes
+		is_giga_crisis_faction = yes
 			"
 			toggle = @has_gigastructures
 		}
@@ -256,13 +256,14 @@ is_crisis_faction = {
 		is_country_type = voidworms_crisis
 		# is_country_type = formless removed in v3.12.3
 		# is_cruel_abomination_country_type = yes # Cruel Conquerers
-		# is_country_type = darkness_country # Destiny: The Darkness Crisis
+		# Destiny: The Darkness Crisis
+		# is_country_type = darkness_country TODO
 		inline_script = { # Shroud Rising
 			script = merger_of_rules/toggled_code
 			code = "
-				is_country_type = shroud_horrors
-				is_country_type = shroud_entities
-				is_country_type = shroud_cult
+		is_country_type = shroud_horrors
+		is_country_type = shroud_entities
+		is_country_type = shroud_cult
 			"
 			toggle = @has_shroud_rising_mod
 		}
@@ -273,7 +274,7 @@ is_crisis_faction = {
 		inline_script = { # The Sleeper
 			script = merger_of_rules/toggled_code
 			code = "
-				is_country_type = berserker_awoken_hive
+		is_country_type = berserker_awoken_hive
 			"
 			toggle = @has_the_sleeper_mod
 		}
@@ -336,7 +337,7 @@ is_crisis_faction = {
 # 		inline_script = {
 # 			script = merger_of_rules/toggled_code
 # 			code = "
-# 				is_country_type = default_ev
+# 		is_country_type = default_ev
 # 			"
 # 			toggle = @homeless_class_trait_weight
 # 		}

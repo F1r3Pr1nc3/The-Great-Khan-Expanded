@@ -799,7 +799,7 @@ country_event = {
 		}
 		ai_chance = {
 			factor = 0.1
-			modifier = { factor = 50 has_origin = "origin_khan_successor" }
+			modifier = { factor = 50 has_origin = origin_khan_successor }
 		}
 	}
 }
@@ -875,7 +875,7 @@ country_event = {
 						has_country_flag = war_in_heaven_league_leader_declined
 					}
 				}
-				modifier = { factor = 50 has_origin = "origin_khan_successor" }
+				modifier = { factor = 50 has_origin = origin_khan_successor }
 				set_country_flag = war_in_heaven_league_leader_declined
 				country_event = {
 					id = khan.290
@@ -968,9 +968,9 @@ country_event = {
 			if = {
 				limit = {
 					OR = {
-						has_origin = "origin_khan_successor"
+						has_origin = origin_khan_successor
 						any_agreement = { agreement_preset = preset_war_satrapy }
-						CmtTriggerIsMarauder = yes
+						is_marauder = yes
 					}
 				}
 				join_war = event_target:raider_khanate
@@ -1212,9 +1212,9 @@ country_event = {
 			if = {
 				limit = {
 					OR = {
-						has_origin = "origin_khan_successor"
+						has_origin = origin_khan_successor
 						any_agreement = { agreement_preset = preset_war_satrapy }
-						CmtTriggerIsMarauder = yes
+						is_marauder = yes
 					}
 				}
 				join_war = from
@@ -2017,7 +2017,7 @@ event = {
 					}
 				}
 				else_if = {
-					limit = { has_origin = "origin_khan_successor" }
+					limit = { has_origin = origin_khan_successor }
 					if = {
 						limit = { has_global_flag = war_in_heaven_ongoing }
 						# Dissolve Marauders again
@@ -2375,7 +2375,7 @@ country_event = {
 						declare_war = { target = prev name = "NAME_Expansion" attacker_war_goal = "wg_great_expansion" }
 					}
 					if = {
-						limit = { has_origin = "origin_khan_successor" }
+						limit = { has_origin = origin_khan_successor }
 						change_variable = { which = "planets_lost_to_marauder" value = 3 }
 					}
 				}
@@ -2421,7 +2421,7 @@ country_event = {
 				# 			}
 				# 		}
 				# 		if = {
-				# 			limit = { has_origin = "origin_khan_successor" }
+				# 			limit = { has_origin = origin_khan_successor }
 				# 			change_variable = { which = "planets_lost_to_marauder" value = 3 }
 				# 		}
 				# 	}
@@ -3008,9 +3008,9 @@ country_event = {
 				if = {
 					limit = {
 						OR = {
-							has_origin = "origin_khan_successor"
+							has_origin = origin_khan_successor
 							any_agreement = { agreement_preset = preset_war_satrapy }
-							CmtTriggerIsMarauder = yes
+							is_marauder = yes
 						}
 					}
 					join_war = root
@@ -3047,9 +3047,9 @@ country_event = {
 						if = {
 							limit = {
 								OR = {
-									has_origin = "origin_khan_successor"
+									has_origin = origin_khan_successor
 									# any_agreement = { agreement_preset = preset_war_satrapy }
-									CmtTriggerIsMarauder = yes
+									is_marauder = yes
 								}
 							}
 							join_war = root

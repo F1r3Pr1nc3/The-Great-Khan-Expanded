@@ -646,7 +646,7 @@ assign_diadochi_systems = {
 # 			type = default
 # 			authority = auth_imperial
 # 			civics = { civic = civic_diadochi civic = random civic = random }
-# 			origin = "origin_khan_successor"
+# 			origin = origin_khan_successor
 # 			ethos = { ethic = ethic_militarist ethic = ethic_xenophobe ethic = ethic_authoritarian }
 # 			ignore_initial_colony_error = yes
 # 			effect = {

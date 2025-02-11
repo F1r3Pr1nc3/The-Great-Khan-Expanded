@@ -133,18 +133,18 @@ ai_should_restrict_system = {
 		AND = {
 			exists = owner
 			root = { merg_is_fallen_empire = yes }
-			owner = { CmtTriggerIsMarauder = yes }
+			owner = { is_marauder = yes }
 		}
 		AND = {
 			exists = owner
-			root = { CmtTriggerIsMarauder = yes }
+			root = { is_marauder = yes }
 			owner = { merg_is_fallen_empire = yes }
 		}
 		AND = {
 			root = {
 				OR = {
 					merg_is_fallen_empire = yes
-					CmtTriggerIsMarauder = yes
+					is_marauder = yes
 				}
 			}
 			has_star_flag = guardian

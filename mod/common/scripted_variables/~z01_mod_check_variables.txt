@@ -136,7 +136,7 @@
 
 # Girls Frontline 2070082709 (compatch)
 @gf_compatch_var = 0
-# pending @gf_nyto_mod = 0
+# Pending @gf_nyto_mod = 0
 
 # Guilli's Planet Modifiers and Features (patch version) 3365265900
 @has_guillis_planet_modifiers = 0

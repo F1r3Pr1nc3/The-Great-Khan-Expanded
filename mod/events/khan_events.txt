@@ -1281,7 +1281,7 @@ planet_event = {
 		NOT = { exists = leader }
 		exists = owner
 		owner = {
-			CmtTriggerIsMarauder = yes
+			is_marauder = yes
 			any_owned_leader = {
 				leader_class = official
 				NOT = { exists = planet }
@@ -1811,7 +1811,7 @@ country_event = {
 			# Store each fleet_power to var.
 			every_playable_country = {
 				limit = {
-					NOR = { is_variable_set = "successor_fleet_power" has_origin = "origin_khan_successor" }
+					NOR = { is_variable_set = "successor_fleet_power" has_origin = origin_khan_successor }
 					fleet_power > 40000
 				}
 				if = {
@@ -2038,7 +2038,7 @@ fleet_event = {
 				limit = {
 					NAND = {
 						has_owner = yes
-						# exists = space_owner
+						exists = space_owner
 						exists = starbase
 						is_owned_by = root.owner
 					}
@@ -2047,27 +2047,49 @@ fleet_event = {
 					if = {
 						limit = { exists = event_target:marauder_rally_point }
 						if = {
-							limit = { OR = { is_in_combat = yes has_fleet_order = merge_fleet_order has_fleet_order = land_armies_order } }
-							# log="auto_move_to_planet [This.GetName]"
+							limit = {
+								OR = {
+									is_in_combat = yes
+									has_fleet_order = merge_fleet_order
+									has_fleet_order = land_armies_order
+								}
+							}
 							auto_move_to_planet = { target = event_target:marauder_rally_point clear_auto_move_on_arrival = yes }
+							# log="auto_move_to_planet [This.GetName]"
 						}
-						else = {
+						else_if = {
+							limit = { can_go_mia = yes }
 							remove_auto_move_target = yes
 							clear_fleet_actions = this
-							# log="set_mia [This.GetName]"
 							set_mia = mia_return_home
+							# log="set_mia [This.GetName]"
 						}
 					}
 					else = {
-						# log="order_forced_return [This.GetName]"
 						order_forced_return = yes
+						# log="order_forced_return [This.GetName]"
 					}
 				}
 			}
 		}
 	}
 	after = {
-		fleet_event = { id = khan.613 days = 5 }
+		# Assign leader to fleet
+		if = {
+			limit = {
+				NOR = { exists = leader is_ship_class = shipclass_transport }
+				exists = owner
+				owner = {
+					any_owned_leader = {
+						leader_class = commander
+						OR = { is_idle = yes has_leader_flag = restored_admiral@root }
+						is_councilor = no
+						is_ruler = no
+					}
+				}
+			}
+			fleet_event = { id = khan.613 days = 7 }
+		}
 	}
 }
 
@@ -2078,7 +2100,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		is_ai = yes
-		OR = { has_origin = "origin_khan_successor" is_country_type = awakened_marauders }
+		OR = { has_origin = origin_khan_successor is_country_type = awakened_marauders }
 	}
 	immediate = {
 		# TODO: Capital habitat? Special deposits? Flavor difference between khan, diadochi and fed?
@@ -2150,6 +2172,7 @@ country_event = {
 }
 
 # Try workaround for strange fleet behavior (on country transfer)
+# Assign leader to fleet
 fleet_event = {
 	id = khan.613
 	hide_window = yes
@@ -2183,7 +2206,11 @@ fleet_event = {
 					modifier = { add = 4 NOT = { exists = fleet } }
 					modifier = { add = 1 is_idle = yes }
 				}
-				root = { set_leader = prev assign_leader = prev log = "Assign leader [Prev.GetName] to [This.GetName]" }
+				root = {
+					set_leader = prev
+					assign_leader = prev
+					log = "Assign leader \\[Prev.GetName] to fleet \\[This.GetName]"
+				}
 			}
 		}
 	}
@@ -2426,7 +2453,7 @@ country_event = {
 							OR = {
 								NOT = { exists = space_owner }
 								space_owner = { is_gestalt = yes }
-								space_owner = { merg_is_default_empire = no }
+								can_generate_trade_value = no
 							}
 						}
 						set_owner = space_owner

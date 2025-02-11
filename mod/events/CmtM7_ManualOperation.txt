@@ -1515,7 +1515,7 @@ country_event = {
 			}
 			random_country = {
 				limit = {
-					has_origin = "origin_khan_successor"
+					has_origin = origin_khan_successor
 					NOT = { has_country_flag = democratic_khanate_flag }
 					OR = { has_country_flag = new_khanate_flag has_country_flag = diadochi }
 					any_system_within_border = {
@@ -1790,7 +1790,7 @@ country_event = {
 					species =  event_target:satrapy_species
 					type = dormant_marauders
 					civics = { civic = civic_anarcho_tribalism civic = civic_warrior_culture }
-					origin = "origin_khan_successor"
+					origin = origin_khan_successor
 					flag = {
 						icon = { category = "pirate" file = "flag_pirate_13.dds" }
 						background= { category = "backgrounds" file = "00_solid.dds" }
