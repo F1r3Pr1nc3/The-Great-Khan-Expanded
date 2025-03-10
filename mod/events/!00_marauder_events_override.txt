@@ -1452,7 +1452,7 @@ country_event = {
 				# set_variable = { which = raidallow value = @raidallow }
 				# multiply_variable = { which = raidallow value = pirates_factor }
 				# multiply_variable = { which = raidallow value = 1.5 } # As it is only half for marauders.
-				# log="raidallow [This.raidallow]"
+				# log = "raidallow [This.raidallow]"
 				# switch = { # Price depending on difficulty?
 				# 	trigger = has_country_flag
 				# 	pirate_waves_very_easy = {
@@ -1482,7 +1482,7 @@ country_event = {
 			event_target:current_marauder_diplomacy = {
 				if = {
 					limit = { is_variable_set = raidcost }
-					# log="Dyn. Raidcost \\[This.raidcost] and difficulty \\[This.pirate_waves_difficulty]"
+					# log = "Dyn. Raidcost \\[This.raidcost] and difficulty \\[This.pirate_waves_difficulty]"
 					clear_variable = raidcost
 				}
 			}
@@ -3338,7 +3338,7 @@ planet_event = {
 					root = { any_fleet_in_orbit = { is_same_value = prevprev } }
 				}
 				save_event_target_as = raiding_fleet
-				# log="Save Marauder Raid Fleet on [Root.GetName]"
+				# log = "Save Marauder Raid Fleet on [Root.GetName]"
 			}
 		}
 		if = {
@@ -3346,11 +3346,11 @@ planet_event = {
 			random_country = {
 				limit = { is_country_type = dormant_marauders has_country_flag = parent_of@from }
 				save_event_target_as = marauder_country
-				# log="Save Marauder Country on [Root.GetName]"
+				# log = "Save Marauder Country on [Root.GetName]"
 			}
 		}
 		else = {
-			# log="Marauder Raiders on [Root.GetName] lost they origin system."
+			# log = "Marauder Raiders on [Root.GetName] lost they origin system."
 			from = { save_event_target_as = marauder_country }
 		}
 
@@ -3376,7 +3376,7 @@ planet_event = {
 					}
 				}
 			}
-			# log="Invalid Marauder Raid Target [This.GetName]"
+			# log = "Invalid Marauder Raid Target [This.GetName]"
 			## Break Attack immediately
 			event_target:raiding_fleet = {
 				remove_auto_move_target = yes
@@ -3446,7 +3446,7 @@ planet_event = {
 						}
 					}
 				}
-				# log="Save New Marauder Raid Target Victim"
+				# log = "Save New Marauder Raid Target Victim"
 				random_country = {
 					limit = {
 						is_default_or_fallen = yes
@@ -3468,7 +3468,7 @@ planet_event = {
 						}
 					}
 				}
-				# log="Save fallback Marauder1 Raid Target Victim"
+				# log = "Save fallback Marauder1 Raid Target Victim"
 				owner = { save_event_target_as = raid_victim }
 			}
 			if = { # Raid anyway
@@ -3487,7 +3487,7 @@ planet_event = {
 						}
 					}
 				}
-				# log="Save fallback Marauder2 Raid Target Victim"
+				# log = "Save fallback Marauder2 Raid Target Victim"
 				controller = { save_event_target_as = raid_victim }
 				# Free planet
 				if = {
@@ -3505,7 +3505,7 @@ planet_event = {
 
 			if = {
 				limit = { exists = event_target:raid_victim exists = event_target:raiding_fleet }
-				# log="Search New Marauder Raid Target Planet"
+				# log = "Search New Marauder Raid Target Planet"
 				solar_system = {
 					closest_system = {
 						use_bypasses = yes
@@ -3526,7 +3526,7 @@ planet_event = {
 							save_event_target_as = raid_planet
 						}
 						event_target:raiding_fleet = {
-							# log="Found New Marauder Raid Target: [raid_planet.GetName]"
+							# log = "Found New Marauder Raid Target: [raid_planet.GetName]"
 							set_event_locked = no
 							every_owned_ship = {
 								limit = { is_disabled = yes }
@@ -3549,7 +3549,7 @@ planet_event = {
 						exists = event_target:raiding_fleet
 						NOT = { exists = event_target:raid_planet }
 					}
-					# log="No new Marauder Raid Target found, return home"
+					# log = "No new Marauder Raid Target found, return home"
 					event_target:raiding_fleet = {
 						set_event_locked = no
 						every_owned_ship = {
@@ -3658,8 +3658,8 @@ planet_event = {
 				limit = { exists = fromfrom exists = fromfrom.species }
 				fromfrom.species = { save_event_target_as = marauder_species }
 			}
-			# log="Marauder From.species exists [marauder_species.GetName]"
-		} # else = { log="No Marauder Species fromfrom [fromfrom.GetName]" }
+			# log = "Marauder From.species exists [marauder_species.GetName]"
+		} # else = { log = "No Marauder Species fromfrom [fromfrom.GetName]" }
 
 		owner = {
 			set_variable = { which = destruction_amount value = 3 }
@@ -3956,7 +3956,7 @@ event = {
 						event_target:hired_marauders = {
 							add_resource = { energy = @raidcost mult = prev.raidcost }
 						}
-						log="raidcost [This.raidcost]"
+						log = "raidcost [This.raidcost]"
 						clear_variable = raidcost
 					}
 				}
@@ -4730,24 +4730,30 @@ country_event = {
 			}
 		}
 
+		### Khan attacks closest empire
+		# Removed, as it could nearly never end
 		# random_neighbor_country = {
 		# 	limit = {
 		# 		merg_is_default_empire = yes
+		# 		is_ai = yes
 		# 		NOR = {
-		# 			is_at_war_with = prev # Is needed for some kind of alliance.
 		# 			is_same_empire = prev
+		# 			is_at_war_with = prev # Is needed for some kind of alliance.
+		# 		}
+		# 	}
+		# 	weights = { base = 1
+		# 		modifier = { add = 66
+		# 			any_owned_fleet = {
+		# 				is_mobile = yes
+		# 				is_civilian = no
+		# 				exists = solar_system
+		# 				solar_system = { is_owned_by = root }
+		# 			}
 		# 		}
 		# 	}
 		# 	root = {
-		# 		declare_war = {
-		# 			target = prev
-		# 			name = "NAME_Expansion"
-		# 			attacker_war_goal = "wg_great_expansion"
-		# 		}
-		# 		add_opinion_modifier = {
-		# 			modifier = opinion_first_contact_war
-		# 			who = prev
-		# 		}
+		# 		declare_war = { target = prev name = "NAME_Expansion" attacker_war_goal = "wg_great_expansion" }
+		# 		add_opinion_modifier = { modifier = opinion_first_contact_war who = prev }
 		# 	}
 		# 	if = {
 		# 		limit = { has_origin = origin_khan_successor }
@@ -4757,32 +4763,24 @@ country_event = {
 		# country_event = { id = khan.529 days = 360 } # Drums of War init
 	}
 	after = {
-		### Khan Fleet Attacks Closest Hostile System
+		### Khan fleet attacks closest hostile system
 		# Give Khan a kick, prevent strange AI idle bug.
 		event_target:great_khan.fleet = {
 			if = {
-				limit = {
-					is_fleet_idle = yes
-				}
+				limit = { is_fleet_idle = yes }
 				closest_system = {
 					limit = {
 						can_generate_trade_value = yes
 						exists = starbase
 						owner = {
 							NOT = { is_same_empire = root }
-							OR = {
-								is_hostile_to = root
-								is_hostile = root
-							}
+							OR = { is_hostile_to = root is_hostile = root }
 						}
 						prev = { can_access_system = prev }
 					}
 					max_steps = 12
 					prev = {
-						auto_move_to_planet = {
-							target = prev.star
-							clear_auto_move_on_arrival = yes
-						}
+						auto_move_to_planet = { target = prev.star clear_auto_move_on_arrival = yes }
 						# auto_follow_fleet = { target = prev.starbase.fleet attack_fleet = yes }
 					}
 				}
@@ -8626,7 +8624,7 @@ country_event = {
 				divide_variable = { which = EX_sectors_per_diadochi value = num_diadochi }
 			}
 			ceiling_variable = EX_sectors_per_diadochi
-			log="Extra sectors per Diadochi: [This.EX_sectors_per_diadochi]"
+			log = "Extra sectors per Diadochi: [This.EX_sectors_per_diadochi]"
 			while = { count = num_diadochi
 				ordered_owned_sector = {
 					limit = { NOT = { has_sector_flag = counted_sector } }
@@ -8730,7 +8728,6 @@ country_event = {
 					random_list = {
 						90 = {
 							create_country = {
-								name = random
 								name_list = random
 								species = event_target:marauder_species
 								type = default
@@ -8788,7 +8785,6 @@ country_event = {
 						set_country_flag = new_khanate_flag
 						set_country_flag = first_alien_life
 						set_country_flag = has_encountered_other_empire
-
 						force_add_civic = civic_diadochi
 						shift_ethic = ethic_fanatic_militarist
 						## Moved from marauder_borders.2000 in 3.9.3 by MrFunEGUY
@@ -9508,7 +9504,7 @@ country_event = {
 				multiply_variable = { which = marauder_distance_1 value = 0.5 }
 				floor_variable = marauder_distance_1
 			}
-			log="Distance second [second_marauder_system.marauder_distance_1]"
+			log = "Distance second [second_marauder_system.marauder_distance_1]"
 			every_owned_starbase = {
 				limit = {
 					solar_system = { is_capital_system = no }
@@ -9641,7 +9637,7 @@ country_event = {
 					multiply_variable = { which = marauder_distance_2 value = 0.5 }
 					floor_variable = marauder_distance_2
 
-					log="Distance third to \\[This.marauder_distance_1] to \\[This.marauder_distance_2]"
+					log = "Distance third to \\[This.marauder_distance_1] to \\[This.marauder_distance_2]"
 				}
 				# Near same as second
 				every_owned_starbase = {
@@ -10705,7 +10701,7 @@ ship_event = {
 				}
 				starbase = { has_starbase_size > starbase_outpost }
 			}
-			# log="take pirate starbase"
+			# log = "take pirate starbase"
 			# if = { limit = { starbase = { has_starbase_size > starbase_outpost } }
 			from = {
 				save_event_target_as = pirate_slayers
@@ -10728,7 +10724,7 @@ ship_event = {
 		else_if = {
 			limit = { owner = { is_pirate_country = yes } }
 			starbase = { destroy_fleet = fleet }
-			# log="destroy pirate station"
+			# log = "destroy pirate station"
 			break = yes
 		}
 		if = {
@@ -10787,7 +10783,7 @@ ship_event = {
 					}
 				}
 			}
-			# log="destroy pirate starbase"
+			# log = "destroy pirate starbase"
 			fleet = { every_owned_ship = { destroy_ship = this } }
 			destroy_fleet = fleet
 		}

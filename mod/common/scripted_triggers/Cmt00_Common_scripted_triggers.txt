@@ -182,7 +182,6 @@ CmtTriggerIsMarauder = {
 # 	is_country_type = dormant_marauders
 # 	NOT = { has_country_flag = restored_marauders_flag }
 # }
-# Maybe replace with is_khan_country_type ?
 CmtTriggerIsKhanCountry = {
 	# OR = { is_country_type = awakened_marauders AND = {
 	exists = event_target:raider_khanate

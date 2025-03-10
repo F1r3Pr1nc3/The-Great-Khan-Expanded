@@ -1,4 +1,4 @@
-version="3.14.15926.7"
+version="3.14.15926.8"
 tags={
 	"Events"
 	"Crisis"

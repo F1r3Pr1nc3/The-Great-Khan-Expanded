@@ -219,7 +219,7 @@ country_event = {
 						}
 						position = 0
 						order_by = trigger:num_sapient_pops
-						log="Give system [Prev.GetName] back to [This.Owner.GetName]"
+						log = "Give system [Prev.GetName] back to [This.Owner.GetName]"
 						owner = { save_event_target_as = planet_owner }
 						prev = {
 							# commit_system_to = { EMPIRE = prevprev.planet_owner } # The target scope is solved there (so add 1 more prev)
@@ -260,7 +260,7 @@ country_event = {
 			}
 			set_owner = event_target:new_khanate
 		}
-		log="Handover \\[This.GetName] to \\[new_khanate.GetName]"
+		log = "Handover \\[This.GetName] to \\[new_khanate.GetName]"
 		# Full handover
 		every_owned_fleet = {
 			limit = {
@@ -408,10 +408,10 @@ country_event = {
 							}
 						}
 						if = {
-							limit = { count_owned_pop = { count < 17 limit = { is_same_species = prev.owner_main_species } } }
+							limit = { count_owned_pop = { count < 17 limit = { is_same_species = prev.owner_species } } }
 							while = { count = 17
-								limit = { count_owned_pop = { count < 17 limit = { is_same_species = prev.owner_main_species } } }
-								create_pop = { species = prev.owner_main_species ethos = { ethic = "ethic_militarist" ethic = "ethic_egalitarian" } }
+								limit = { count_owned_pop = { count < 17 limit = { is_same_species = prev.owner_species } } }
+								create_pop = { species = prev.owner_species ethos = { ethic = "ethic_militarist" ethic = "ethic_egalitarian" } }
 							}
 						}
 					}
@@ -971,7 +971,7 @@ country_event = {
 						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathSplinter value = 3 } }
 					}
 					modifier = { factor = 2 OR = { num_sectors > 4 num_owned_planets > 18 } }
-					log="TGKE Fractures into Diadochi"
+					log = "TGKE Fractures into Diadochi"
 					country_event = { id = marauder.601 }
 				}
 				18 = { # Stays united in New Khanate.
@@ -991,7 +991,7 @@ country_event = {
 						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathKhanate value = 4 } }
 					}
 					modifier = { factor = 0.2 OR = { num_sectors > 4 num_owned_planets > 15 } }
-					log="TGKE Stays united in New Khanate"
+					log = "TGKE Stays united in New Khanate"
 					country_event = { id = marauder.602 }
 				}
 				16 = { # Turns into Democratic Federation.
@@ -1008,7 +1008,7 @@ country_event = {
 						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathDemocratic value = 4 } }
 					}
 					modifier = { factor = 0.2 OR = { num_sectors > 4 num_owned_planets > 15 } }
-					log="TGKE Turns into Democratic Federation"
+					log = "TGKE Turns into Democratic Federation"
 					country_event = { id = marauder.603 }
 				}
 			}
@@ -1140,7 +1140,7 @@ country_event = {
 							}
 						}
 					}
-					# log="Diadochi system switch"
+					# log = "Diadochi system switch"
 					 # Note: caching is quite funky at a time like this when many borders are changing hands. The starbase ownership is checked to be extra sure, since it is not cached (unlike system ownership - though that probably would have worked too)
 					random_system_within_border = {
 						limit = {

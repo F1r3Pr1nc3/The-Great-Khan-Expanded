@@ -213,7 +213,7 @@ deduce_planetary_separatism_species = {
 						change_scoped_species = no
 						effect = {
 							save_event_target_as = rebellion_species
-							log="Fixed rebelling syncretic owner_main_species from \\[This.GetName]"
+							log = "Fixed rebelling syncretic owner_species from \\[This.GetName]"
 						}
 					}
 				}

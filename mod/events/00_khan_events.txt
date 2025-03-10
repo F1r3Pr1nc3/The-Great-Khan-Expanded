@@ -2345,7 +2345,6 @@ country_event = {
 				limit = {
 					any_playable_country = {
 						has_communications = prev
-						# merg_is_default_empire = yes
 						NOR = {
 							has_truce = prev
 							is_subject_of_khan = yes
@@ -2356,20 +2355,27 @@ country_event = {
 				}
 				random_neighbor_country = {
 					limit = {
-						# merg_is_default_empire = yes
+						merg_is_default_empire = yes
 						NOR = {
+							is_same_empire = prev
 							has_truce = prev
 							is_subject_of_khan = yes
 							is_at_war_with = prev
-							is_same_empire = prev
 						}
 					}
 					weights = { base = 1
-						modifier = { add = 3 relative_power = { who = prev category = fleet value < equivalent } }
-						modifier = { add = 1 relative_power = { who = prev category = fleet value = equivalent } }
-						modifier = { add = 3 opinion_level = { who = prev level < neutral } }
-						modifier = { add = 1 opinion_level = { who = prev level = neutral } }
-						modifier = { add = 2 has_federation = no }
+						modifier = { add = 9 relative_power = { who = prev category = fleet value < equivalent } }
+						modifier = { add = 3 relative_power = { who = prev category = fleet value = equivalent } }
+						modifier = { add = 9 opinion_level = { who = prev level < neutral } }
+						modifier = { add = 3 opinion_level = { who = prev level = neutral } }
+						modifier = { add = 33
+							any_owned_fleet = {
+								is_mobile = yes
+								is_civilian = no
+								exists = solar_system
+								solar_system = { is_owned_by = root }
+							}
+						}
 					}
 					prev = {
 						declare_war = { target = prev name = "NAME_Expansion" attacker_war_goal = "wg_great_expansion" }

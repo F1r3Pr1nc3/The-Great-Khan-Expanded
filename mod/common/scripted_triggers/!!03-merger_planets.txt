@@ -129,13 +129,11 @@ merg_is_habitat = {
 			"
 			toggle = @has_zofe_vanilla
 		}
-		inline_script = { ## NSC2 Modjam Freebooters Origin
-			script = merger_of_rules/toggled_code
-			code = "
-				uses_district_set = nsc_freebooter_habitat
-			"
-			toggle = @has_nsc_freebooter_mod
-		}
+		# inline_script = { ## NSC2 Modjam Freebooters Origin
+		# 	script = merger_of_rules/toggled_code
+		# 	code = " uses_district_set = nsc_freebooter_habitat "
+		# 	toggle = @has_nsc_freebooter_mod
+		# }
 		uses_district_set = habitat  # Some mods use both as hack like Giga.
 		has_planet_flag = habitat
 		# has_planet_flag = advanced_habitat
@@ -337,4 +335,3 @@ gpm_is_planet_class_city = {
 		# is_planet_class = pc_hollow ### (Mod) Additional Mega Planets merged into Forgotten Queens
 	}
 }
-

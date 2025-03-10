@@ -816,7 +816,7 @@ commit_system_to = {
 		}
 		add_claims = { who = event_target:former_owner num_of_claims = 10 show_notification = no }
 	}
-	log="Balcanization preventation: Diadochi system \\[This.GetName] switched to \\[This.starbase.fleet.Owner.GetName]!"
+	log = "Balcanization preventation: Diadochi system \\[This.GetName] switched to \\[This.starbase.fleet.Owner.GetName]!"
 	clear_variable = num_system_colonies
 }
 
@@ -967,7 +967,7 @@ get_marauder_species = {
 					mode = mult
 				}
 			}
-			# log="RANDOM OWNED MARAUDER SPECIES"
+			# log = "RANDOM OWNED MARAUDER SPECIES"
 			save_event_target_as = marauder_species
 		}
 	}
@@ -1045,7 +1045,7 @@ get_marauder_species = {
 					mode = mult
 				}
 			}
-			log="OWNER DOMINANT SPECIES"
+			log = "OWNER DOMINANT SPECIES"
 			save_event_target_as = marauder_species
 		}
 	}
