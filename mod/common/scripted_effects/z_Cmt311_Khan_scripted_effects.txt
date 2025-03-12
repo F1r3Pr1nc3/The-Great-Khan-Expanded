@@ -253,7 +253,7 @@ CmtEffectKhanReinforceOnCapital = {
 	# }
 }
 
-## Scope: this = Strage of Variable = CmtGlobalVar (from marauder.520)
+## Scope: this = Stage of Variable = CmtGlobalVar (from marauder.520)
 # prev = Khan Country
 # root = Khan Country / Garrison Fleet
 # Return = CmtVarKhanReinforcementCounter

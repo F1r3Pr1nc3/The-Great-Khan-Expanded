@@ -97,29 +97,30 @@ country_event = {
 	trigger = {
 		has_nemesis = yes
 		# is_galactic_community_formed = yes
-		inline_script = {
-			script = merger_of_rules/toggled_code
-			code = "always = yes "
-			toggle = @has_allthatisgrimdark_mod
-		}
 	}
 	immediate = {
 		# if = {
 		# 	limit = { is_galactic_community_member = yes }
 		# 	remove_from_galactic_community = yes
 		# }
-		random_playable_country = {
-			limit = {
-				is_ai = yes
-				NOR = {
-					is_subject = yes
-					is_galactic_emperor = yes
-					has_ascension_perk = ap_become_the_crisis
-					has_ascension_perk = ap_cosmogenesis
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
+			random_playable_country = {
+				limit = {
+					is_ai = yes
+					NOR = {
+						is_subject = yes
+						is_galactic_emperor = yes
+						has_ascension_perk = ap_become_the_crisis
+						has_ascension_perk = ap_cosmogenesis
+					}
+					has_origin = origin_godruler
 				}
-				has_origin = origin_godruler
+				country_event = { id = emperor.499 days = 10 }
 			}
-			country_event = { id = emperor.499 days = 10 }
+			"
+			toggle = @has_allthatisgrimdark_mod
 		}
 	}
 }

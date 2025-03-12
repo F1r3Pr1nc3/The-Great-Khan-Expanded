@@ -61,8 +61,8 @@ elite_gros_horde = {
 }
 
 # (Marauder) Occupation Armies
-# marauder_defense_army = {
-newgen_occupation_army = {
+# newgen_occupation_army = {
+marauder_defense_army = {
 	defensive = yes
 	is_pop_spawned = no
 	damage = 1.5

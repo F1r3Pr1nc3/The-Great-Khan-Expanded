@@ -323,7 +323,7 @@ event = {
 								base = 1
 								modifier = { add = 2 is_a_planet = yes }
 							}
-							# Possible inconsisent due other mods
+							# Possible inconsistent due other mods
 							save_global_event_target_as = marauder_rally_point
 							set_planet_flag = marauder_rally_point
 						}

@@ -747,21 +747,21 @@ country_event = {
 			inline_script = { # if = { limit = { has_global_flag = cultural_overhaul_active has_global_flag = cultural_overhaul_funefork_active }
 				script = merger_of_rules/toggled_code
 				code = "
-			1 = {
-				create_country = {
-					name_list = random
-					species = event_target:marauder_species
-					type = default
-					authority = auth_dict_democratic
-					civics = { civic = random }
-					origin = origin_khan_successor
-					ethos = { ethic = ethic_militarist ethic = ethic_authoritarian }
-					ignore_initial_colony_error = yes
-					exclude_day_zero_contact = root
-					released_by_country = root
-					released_from_country = root
+				1 = {
+					create_country = {
+						name_list = random
+						species = event_target:marauder_species
+						type = default
+						authority = auth_dict_democratic
+						civics = { civic = random }
+						origin = origin_khan_successor
+						ethos = { ethic = ethic_militarist ethic = ethic_authoritarian }
+						ignore_initial_colony_error = yes
+						exclude_day_zero_contact = root
+						released_by_country = root
+						released_from_country = root
+					}
 				}
-			}
 				"
 				toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
 			}
@@ -779,71 +779,71 @@ country_event = {
 			inline_script = {
 				script = merger_of_rules/toggled_code
 				code = "
-			if = {
-				limit = { is_imperial = yes }
-				random_list = {
-					1 = { } # Stays with Regular Auth Ethic
-					1 = { country_add_ethic = ethic_fanatic_authoritarian } # Gets Fanatic Auth Ethic
-				}
 				if = {
-					limit = { has_ethic = ethic_fanatic_authoritarian }
-					country_add_ethic = ethic_xenophobe
+					limit = { is_imperial = yes }
+					random_list = {
+						1 = { } # Stays with Regular Auth Ethic
+						1 = { country_add_ethic = ethic_fanatic_authoritarian } # Gets Fanatic Auth Ethic
+					}
+					if = {
+						limit = { has_ethic = ethic_fanatic_authoritarian }
+						country_add_ethic = ethic_xenophobe
+					}
+					else = {
+						random_list = {
+							1 = { country_add_ethic = ethic_xenophobe }
+							1 = { country_add_ethic = ethic_fanatic_xenophobe }
+						}
+					}
+					if = {
+						limit = { has_ethic = ethic_xenophobe has_ethic = ethic_authoritarian }
+						random_list = {
+							1 = { country_add_ethic = ethic_socialism }
+							1 = { country_add_ethic = ethic_spiritualist }
+							1 = { country_add_ethic = ethic_capitalism }
+						}
+					}
 				}
-				else = {
+				else_if = {
+					limit = { is_dictatorial_authority = yes }
+					random_list = {
+						1 = { country_add_ethic = ethic_authoritarian }
+						1 = { country_add_ethic = ethic_fanatic_authoritarian }
+					}
+					if = {
+						limit = { has_ethic = ethic_fanatic_authoritarian }
+						country_add_ethic = ethic_xenophobe
+					}
+					else = {
+						random_list = {
+							1 = { country_add_ethic = ethic_xenophobe }
+							1 = { country_add_ethic = ethic_fanatic_xenophobe }
+						}
+					}
+					if = {
+						limit = { has_ethic = ethic_xenophobe has_ethic = ethic_authoritarian }
+						random_list = {
+							1 = { country_add_ethic = ethic_socialism }
+							1 = { country_add_ethic = ethic_spiritualist }
+							1 = { country_add_ethic = ethic_capitalism }
+						}
+					}
+				}
+				else_if = {
+					limit = { has_authority = auth_dict_democratic }
 					random_list = {
 						1 = { country_add_ethic = ethic_xenophobe }
 						1 = { country_add_ethic = ethic_fanatic_xenophobe }
 					}
-				}
-				if = {
-					limit = { has_ethic = ethic_xenophobe has_ethic = ethic_authoritarian }
-					random_list = {
-						1 = { country_add_ethic = ethic_socialism }
-						1 = { country_add_ethic = ethic_spiritualist }
-						1 = { country_add_ethic = ethic_capitalism }
+					if = {
+						limit = { has_ethic = ethic_xenophobe }
+						random_list = {
+							1 = { country_add_ethic = ethic_socialism }
+							1 = { country_add_ethic = ethic_spiritualist }
+							1 = { country_add_ethic = ethic_capitalism }
+						}
 					}
 				}
-			}
-			else_if = {
-				limit = { is_dictatorial_authority = yes }
-				random_list = {
-					1 = { country_add_ethic = ethic_authoritarian }
-					1 = { country_add_ethic = ethic_fanatic_authoritarian }
-				}
-				if = {
-					limit = { has_ethic = ethic_fanatic_authoritarian }
-					country_add_ethic = ethic_xenophobe
-				}
-				else = {
-					random_list = {
-						1 = { country_add_ethic = ethic_xenophobe }
-						1 = { country_add_ethic = ethic_fanatic_xenophobe }
-					}
-				}
-				if = {
-					limit = { has_ethic = ethic_xenophobe has_ethic = ethic_authoritarian }
-					random_list = {
-						1 = { country_add_ethic = ethic_socialism }
-						1 = { country_add_ethic = ethic_spiritualist }
-						1 = { country_add_ethic = ethic_capitalism }
-					}
-				}
-			}
-			else_if = {
-				limit = { has_authority = auth_dict_democratic }
-				random_list = {
-					1 = { country_add_ethic = ethic_xenophobe }
-					1 = { country_add_ethic = ethic_fanatic_xenophobe }
-				}
-				if = {
-					limit = { has_ethic = ethic_xenophobe }
-					random_list = {
-						1 = { country_add_ethic = ethic_socialism }
-						1 = { country_add_ethic = ethic_spiritualist }
-						1 = { country_add_ethic = ethic_capitalism }
-					}
-				}
-			}
 				"
 				toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
 			}

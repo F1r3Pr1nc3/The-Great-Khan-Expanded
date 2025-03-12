@@ -148,7 +148,7 @@ wg_satrapy_independence = {
 	ai_weight = { weight = 120 }
 }
 
-# Final uprising against Awakended Fallen Empire.
+# Final uprising against Awakened Fallen Empire.
 # TODO lacks a valid icon?
 wg_ae_uprising = {
 	casus_belli = cb_event
@@ -718,7 +718,7 @@ wg_great_expansion = {
 	total_war = yes
 	release_occupied_systems_on_status_quo = yes
 	allowed_peace_offers = {
-		status_quo # Otherwise the defender is fully inhalited.
+		status_quo # Otherwise the defender is fully inhaled.
 	}
 	surrender_acceptance = -600
 	war_exhaustion = 0.25

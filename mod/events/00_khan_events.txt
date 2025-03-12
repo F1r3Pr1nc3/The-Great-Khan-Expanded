@@ -34,42 +34,42 @@
 ###################
 
 ### Critical (Lifespan of Khan, debug code)
-@CmtConstKhanLifespan_1a =	1		### Minimun Lifespan / day
+@CmtConstKhanLifespan_1a =	1		### Minimum Lifespan / day
 @CmtConstKhanLifespan_1b =	0.025	### Probability of Death (2%/month for 1)
-@CmtConstKhanLifespan_1c =	35		### Maximun Lifespan / day (days = 1c)
-@CmtConstKhanLifespan_1d =	5		### Maximun Lifespan / day (random = 1d)
+@CmtConstKhanLifespan_1c =	35		### Maximum Lifespan / day (days = 1c)
+@CmtConstKhanLifespan_1d =	5		### Maximum Lifespan / day (random = 1d)
 @CmtConstKhanLifespan_1e =	8		### Time-Lag of Post-Death Process (days = 1e)
 @CmtConstKhanLifespan_1f =	4		### Time-Lag of Post-Death Process (random = 1f)
 
 ### Fleeting (Lifespan of Khan)
-@CmtConstKhanLifespan_2a =	4320	### Minimun Lifespan / day
+@CmtConstKhanLifespan_2a =	4320	### Minimum Lifespan / day
 @CmtConstKhanLifespan_2b =	0.75	### Probability of Death (2%/month for 1)
-@CmtConstKhanLifespan_2c =	7200	### Maximun Lifespan / day (days = 1c)
-@CmtConstKhanLifespan_2d =	2880	### Maximun Lifespan / day (random = 1d)
+@CmtConstKhanLifespan_2c =	7200	### Maximum Lifespan / day (days = 1c)
+@CmtConstKhanLifespan_2d =	2880	### Maximum Lifespan / day (random = 1d)
 @CmtConstKhanLifespan_2e =	90		### Time-Lag of Post-Death Process (days = 1e)
 @CmtConstKhanLifespan_2f =	60		### Time-Lag of Post-Death Process (random = 1f)
 
 ### Standard (Lifespan of Khan)
-@CmtConstKhanLifespan_3a =	7200	### Minimun Lifespan / day
+@CmtConstKhanLifespan_3a =	7200	### Minimum Lifespan / day
 @CmtConstKhanLifespan_3b =	1.00	### Probability of Death (2%/month for 1)
-@CmtConstKhanLifespan_3c =	10800	### Maximun Lifespan / day (days = 1c)
-@CmtConstKhanLifespan_3d =	5000	### Maximun Lifespan / day (random = 1d)
+@CmtConstKhanLifespan_3c =	10800	### Maximum Lifespan / day (days = 1c)
+@CmtConstKhanLifespan_3d =	5000	### Maximum Lifespan / day (random = 1d)
 @CmtConstKhanLifespan_3e =	200		### Time-Lag of Post-Death Process (days = 1e)
 @CmtConstKhanLifespan_3f =	100		### Time-Lag of Post-Death Process (random = 1f)
 
 ### Enduring (Lifespan of Khan)
-@CmtConstKhanLifespan_4a =	10800	### Minimun Lifespan / day
+@CmtConstKhanLifespan_4a =	10800	### Minimum Lifespan / day
 @CmtConstKhanLifespan_4b =	3.00	### Probability of Death (2%/month for 1)
-@CmtConstKhanLifespan_4c =	16200	### Maximun Lifespan / day (days = 1c)
-@CmtConstKhanLifespan_4d =	5400	### Maximun Lifespan / day (random = 1d)
+@CmtConstKhanLifespan_4c =	16200	### Maximum Lifespan / day (days = 1c)
+@CmtConstKhanLifespan_4d =	5400	### Maximum Lifespan / day (random = 1d)
 @CmtConstKhanLifespan_4e =	270		### Time-Lag of Post-Death Process (days = 1e)
 @CmtConstKhanLifespan_4f =	180		### Time-Lag of Post-Death Process (random = 1f)
 
 ### Venerable (Lifespan of Khan)
-@CmtConstKhanLifespan_5a =	18000	### Minimun Lifespan / day
+@CmtConstKhanLifespan_5a =	18000	### Minimum Lifespan / day
 @CmtConstKhanLifespan_5b =	5.00	### Probability of Death (2%/month for 1)
-@CmtConstKhanLifespan_5c =	27000	### Maximun Lifespan / day (days = 1c)
-@CmtConstKhanLifespan_5d =	9000	### Maximun Lifespan / day (random = 1d)
+@CmtConstKhanLifespan_5c =	27000	### Maximum Lifespan / day (days = 1c)
+@CmtConstKhanLifespan_5d =	9000	### Maximum Lifespan / day (random = 1d)
 @CmtConstKhanLifespan_5e =	360		### Time-Lag of Post-Death Process (days = 1e)
 @CmtConstKhanLifespan_5f =	360		### Time-Lag of Post-Death Process (random = 1f)
 
@@ -679,8 +679,8 @@ country_event = {
 	# title = DIPLOMACY_INTEGRATION_TITLE
 	# desc = ACTION_INTEGRATE_SUBJECT_OFFER_DESC # "§H[Actor.GetName]§! has begun integrating §H[Recipient.GetName]§! into their nation."
 	hide_window = yes
-	picture = GFX_evt_khan_throne_room
-	show_sound = event_conversation
+	# picture = GFX_evt_khan_throne_room
+	# show_sound = event_conversation
 	is_triggered_only = yes
 	trigger = { exists = event_target:raider_khanate is_same_empire = event_target:raider_khanate is_overlord = yes }
 	immediate = {
@@ -2307,6 +2307,129 @@ country_event = {
 	}
 }
 
+country_event = { ## Return of the Khan ##
+	id = khan.500
+	hide_window = yes
+	# is_triggered_only = yes
+	trigger = {
+		mid_game_years_passed > 25
+		is_country_type = dormant_marauders
+		has_global_flag = marauder_crisis_started
+		NOT = { has_global_flag = true_great_khan_crisis }
+		# NOT = { has_global_flag = marauder_crisis_ongoing }
+	}
+	mean_time_to_happen = {
+		years = 50
+		# modifier = { factor = 5 has_global_flag = galactic_crisis_happened }
+		modifier = { factor = 0.5
+			any_playable_country = { has_resource = { type = energy amount >= 50000 } }
+		}
+		modifier = { factor = 0.5
+			any_playable_country = { has_resource = { type = alloys amount >= 20000 } }
+		}
+		modifier = { factor = 0.5
+			any_playable_country = { has_resource = { type = consumer_goods amount >= 30000 } }
+		}
+		modifier = { factor = 0.5 has_global_flag = war_in_heaven_ended }
+		modifier = { factor = 2 has_global_flag = war_in_heaven_ongoing }
+		modifier = { factor = 0.5 default_endgame_early_start_triggers = yes }
+	}
+	immediate = {
+		set_global_flag = true_great_khan_crisis
+		set_global_flag = horde_triggered
+		remove_global_flag = great_khan_dead
+		event_target:CmtGlobalVar = { set_variable = { which = CmtVarKhanMultiple value = 5 } } # Unify All Marauders
+		country_event = { id = marauder.500 }
+		country_event = { id = khan.306 days = -1 }		# Check/Create fallback rally_point
+	}
+	after = {
+		event_target:marauder_rally_point = {
+			# CmtEffectCreateAdmiralty_Khan2ndFleetSet = yes
+			prev = {
+				CmtEffectCreateFleet_Khan2ndFleet = yes
+				event_target:CmtGlobalVar = { set_variable = { which = CmtVarWhileControlFleet value = CmtVarCombatFleetNumber_Khan } }
+				while = {
+					limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarWhileControlFleet value > 0.875 } } }
+					event_target:CmtGlobalVar = { change_variable = { which = CmtVarWhileControlFleet value = -1 } }
+					CmtEffectCreateFleet_KhanStandard = yes
+					CmtEffectCreateFleet_KhanArmy = yes
+					CmtEffectCreateFleet_KhanArmy = yes
+				}
+				while = {
+					limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarWhileControlFleet value > 0.125 } } }
+					event_target:CmtGlobalVar = { change_variable = { which = CmtVarWhileControlFleet value = -0.25 } }
+					random_list = {
+						125	= { event_target:CmtGlobalVar = { set_variable = { which = CmtVarWhileControlFleet value = 0 } } CmtEffectCreateFleet_KhanStandard = yes CmtEffectCreateFleet_KhanArmy = yes }
+						75	= { event_target:CmtGlobalVar = { change_variable = { which = CmtVarWhileControlFleet value = -0.25 } } CmtEffectCreateFleet_KhanArmy = yes }
+						200	= { }
+					}
+				}
+			}
+		}
+	}
+}
+
+# The Thunder of War
+country_event = {
+	id = khan.501
+	title = "khan.501.name"
+	desc = "khan.501.desc"
+	picture = GFX_evt_khan_throne_room
+	show_sound = event_radio_chatter
+	location = event_target:marauder_rally_point
+	is_triggered_only = yes
+	option = {
+		name = khan.501.a
+		hidden_effect = {
+			country_event = { id = marauder.502 }
+		}
+	}
+}
+
+# Old Marauders (NPC) submit to the True Khan
+country_event = {
+	id = khan.555
+	hide_window = yes
+	trigger = {
+		has_global_flag = true_great_khan_crisis
+		NOT = { has_global_flag = great_khan_dead }
+		exists = event_target:raider_khanate
+		merg_is_default_empire = yes
+		OR = {
+			has_country_flag = new_khanate_flag
+			has_country_flag = democratic_khanate_flag
+			has_country_flag = restored_marauders_flag
+		}
+		is_subject = no
+		is_ai = yes
+		relative_power = {
+			who = event_target:raider_khanate
+			category = fleet
+			value < equivalent
+		}
+	}
+	mean_time_to_happen = {
+		years = 5
+		modifier = { factor = 0.5 has_ai_personality = peaceful_traders }
+		modifier = { factor = 0.1 has_ai_personality = fanatic_befrienders }
+		modifier = { factor = 0.5 relative_power = { who = event_target:raider_khanate category = fleet value = inferior } }
+		modifier = { factor = 0.1 relative_power = { who = event_target:raider_khanate category = fleet value = pathetic } }
+	}
+	immediate = {
+		country_event = { id = marauder.551 } # Submit to Khan
+	}
+}
+# Marauder joining the True Khan
+country_event = {
+	id = khan.552
+	title = "khan.552.name"
+	desc = "khan.552.desc"
+	picture = GFX_evt_khan_throne_room
+	show_sound = event_conversation
+	is_triggered_only = yes
+	option = { name = khan.552.a }
+}
+
 ### Deprecated (TODO)
 ### Drums of War - Khan Expanding War (Cycle) on_action yearly/on_becoming_subject MTTH 360
 # This = Khan / subject
@@ -2874,7 +2997,7 @@ country_event = {
 				break = yes
 			}
 			remove_country_flag = has_machinesmith # Regular cycle
-			country_event = { id = marauder.520 days = 330 }
+			country_event = { id = marauder.520 days = 340 }
 		}
 		else = {
 			country_event = { id = marauder.520 days = 96 }

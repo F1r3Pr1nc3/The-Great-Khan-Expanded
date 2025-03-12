@@ -24,10 +24,7 @@ force_khan_spawn = {
 	}
 	effect = {
 		set_country_flag = CmtFlagIndividual
-		country_event = {
-			# id = khan.999
-			id = CrisisManagerMenu.4831
-		}
+		country_event = { id = CrisisManagerMenu.4831 } # id = khan.999
 	}
 	ai_weight = { weight = 0 }
 }

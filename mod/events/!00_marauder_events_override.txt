@@ -53,42 +53,42 @@ namespace = marauder
 ###################
 
 ### Critical (Lifespan of Khan, debug code)
-@CmtConstKhanLifespan_1a =	1		### Minimun Lifespan / day
+@CmtConstKhanLifespan_1a =	1		### Minimum Lifespan / day
 @CmtConstKhanLifespan_1b =	0.025	### Probability of Death (2%/month for 1)
-@CmtConstKhanLifespan_1c =	35		### Maximun Lifespan / day (days = 1c)
-@CmtConstKhanLifespan_1d =	5		### Maximun Lifespan / day (random = 1d)
+@CmtConstKhanLifespan_1c =	35		### Maximum Lifespan / day (days = 1c)
+@CmtConstKhanLifespan_1d =	5		### Maximum Lifespan / day (random = 1d)
 @CmtConstKhanLifespan_1e =	8		### Time-Lag of Post-Death Process (days = 1e)
 @CmtConstKhanLifespan_1f =	4		### Time-Lag of Post-Death Process (random = 1f)
 
 ### Fleeting (Lifespan of Khan)
-@CmtConstKhanLifespan_2a =	4320	### Minimun Lifespan / day
+@CmtConstKhanLifespan_2a =	4320	### Minimum Lifespan / day
 @CmtConstKhanLifespan_2b =	0.75	### Probability of Death (2%/month for 1)
-@CmtConstKhanLifespan_2c =	7200	### Maximun Lifespan / day (days = 1c)
-@CmtConstKhanLifespan_2d =	2880	### Maximun Lifespan / day (random = 1d)
+@CmtConstKhanLifespan_2c =	7200	### Maximum Lifespan / day (days = 1c)
+@CmtConstKhanLifespan_2d =	2880	### Maximum Lifespan / day (random = 1d)
 @CmtConstKhanLifespan_2e =	90		### Time-Lag of Post-Death Process (days = 1e)
 @CmtConstKhanLifespan_2f =	60		### Time-Lag of Post-Death Process (random = 1f)
 
 ### Standard (Lifespan of Khan)
-@CmtConstKhanLifespan_3a =	7200	### Minimun Lifespan / day
+@CmtConstKhanLifespan_3a =	7200	### Minimum Lifespan / day
 @CmtConstKhanLifespan_3b =	1.00	### Probability of Death (2%/month for 1)
-@CmtConstKhanLifespan_3c =	10800	### Maximun Lifespan / day (days = 1c)
-@CmtConstKhanLifespan_3d =	5000	### Maximun Lifespan / day (random = 1d)
+@CmtConstKhanLifespan_3c =	10800	### Maximum Lifespan / day (days = 1c)
+@CmtConstKhanLifespan_3d =	5000	### Maximum Lifespan / day (random = 1d)
 @CmtConstKhanLifespan_3e =	200		### Time-Lag of Post-Death Process (days = 1e)
 @CmtConstKhanLifespan_3f =	100		### Time-Lag of Post-Death Process (random = 1f)
 
 ### Enduring (Lifespan of Khan)
-@CmtConstKhanLifespan_4a =	10800	### Minimun Lifespan / day
+@CmtConstKhanLifespan_4a =	10800	### Minimum Lifespan / day
 @CmtConstKhanLifespan_4b =	3.00	### Probability of Death (2%/month for 1)
-@CmtConstKhanLifespan_4c =	16200	### Maximun Lifespan / day (days = 1c)
-@CmtConstKhanLifespan_4d =	5400	### Maximun Lifespan / day (random = 1d)
+@CmtConstKhanLifespan_4c =	16200	### Maximum Lifespan / day (days = 1c)
+@CmtConstKhanLifespan_4d =	5400	### Maximum Lifespan / day (random = 1d)
 @CmtConstKhanLifespan_4e =	270		### Time-Lag of Post-Death Process (days = 1e)
 @CmtConstKhanLifespan_4f =	180		### Time-Lag of Post-Death Process (random = 1f)
 
 ### Venerable (Lifespan of Khan)
-@CmtConstKhanLifespan_5a =	18000	### Minimun Lifespan / day
+@CmtConstKhanLifespan_5a =	18000	### Minimum Lifespan / day
 @CmtConstKhanLifespan_5b =	5.00	### Probability of Death (2%/month for 1)
-@CmtConstKhanLifespan_5c =	27000	### Maximun Lifespan / day (days = 1c)
-@CmtConstKhanLifespan_5d =	9000	### Maximun Lifespan / day (random = 1d)
+@CmtConstKhanLifespan_5c =	27000	### Maximum Lifespan / day (days = 1c)
+@CmtConstKhanLifespan_5d =	9000	### Maximum Lifespan / day (random = 1d)
 @CmtConstKhanLifespan_5e =	360		### Time-Lag of Post-Death Process (days = 1e)
 @CmtConstKhanLifespan_5f =	360		### Time-Lag of Post-Death Process (random = 1f)
 
@@ -157,7 +157,7 @@ country_event = {
 						random_system_planet = {
 							limit = { is_star = no }
 							weights = { base = 1
-								# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
+								# modifier = { add = 1 is_a_planet = yes } # Possible inconsistent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 								modifier = { add = 1 is_colonizable = yes }
@@ -188,7 +188,7 @@ country_event = {
 						random_system_planet = {
 							limit = { is_star = no }
 							weights = { base = 1
-								# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
+								# modifier = { add = 1 is_a_planet = yes } # Possible inconsistent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 								modifier = { add = 1 is_colonizable = yes }
@@ -218,7 +218,7 @@ country_event = {
 						random_system_planet = {
 							limit = { is_star = no }
 							weights = { base = 1
-								# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
+								# modifier = { add = 1 is_a_planet = yes } # Possible inconsistent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 								modifier = { add = 1 is_colonizable = yes }
@@ -248,7 +248,7 @@ country_event = {
 						random_system_planet = {
 							limit = { is_star = no }
 							weights = { base = 1
-								# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
+								# modifier = { add = 1 is_a_planet = yes } # Possible inconsistent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 								modifier = { add = 1 is_colonizable = yes }
@@ -333,7 +333,7 @@ country_event = {
 			create_fleet = {
 				effect = {
 					set_owner = root
-					# Dynamic strenght
+					# Dynamic strength
 					if = {
 						limit = { mid_game_years_passed > 40 }
 						create_dyn_marauder_fleet = { OUTRIDER = 34 LANCER = 22 CHAMPION = 16 }
@@ -446,7 +446,7 @@ country_event = {
 						# name = random
 						effect = {
 							set_owner = event_target:marauder_infighting							# last_created_country
-							# Dynamic strenght
+							# Dynamic strength
 							if = {
 								limit = { mid_game_years_passed > 40 }
 								create_dyn_marauder_fleet = { OUTRIDER = 34 LANCER = 22 CHAMPION = 16 }
@@ -2756,7 +2756,7 @@ country_event = {
 		}
 		if = {
 			limit = { NOT = { exists = event_target:marauder_species } }
-			owner_main_species = { save_event_target_as = marauder_species }
+			owner_species = { save_event_target_as = marauder_species }
 		}
 
 		if = {
@@ -3991,19 +3991,33 @@ country_event = {
 
 	trigger = {
 		OR = {
-			# num_marauder_empires_to_spawn > 0
-			has_global_flag = horde_triggered
-			AND = {
-				has_global_flag = pirate_waves_active
-				event_target:global_event_country = { has_country_flag = outer_bulwark_inactive }
+			num_marauder_empires_to_spawn > 0
+			inline_script = { # Realistic Pirates
+				script = merger_of_rules/toggled_code
+				code = "
+				AND = {
+					has_global_flag = pirate_waves_active
+					event_target:global_event_country = { has_country_flag = outer_bulwark_inactive }
+				}
+				"
+				toggle = @has_realistic_pirates_mod
 			}
 		}
 		# is_crises_allowed = yes
+		OR = {
+			AND = { mid_game_years_passed > -20 end_game_years_passed < 10 }
+			has_global_flag = horde_triggered
+		}
 		NOR = {
 			has_global_flag = great_khan_wins
-			has_global_flag = war_in_heaven_started
-			CmtTriggerNowInKhanCrisis = yes
 			crisis_happened_and_defeated = yes
+		}
+		OR = {
+			NOR = {
+				CmtTriggerNowInKhanCrisis = yes # Allow 2 Khans
+				has_global_flag = war_in_heaven_started
+			}
+			has_global_flag = true_great_khan_crisis
 		}
 		CmtTriggerHasPotentialKhanAwaking = yes
 	}
@@ -4164,7 +4178,7 @@ country_event = {
 			limit = { NOT = { exists = event_target:marauder_rally_point } }
 			random_planet_within_border = {
 				limit = { is_star = no }
-				weights = { base = 1 modifier = { add = 2 is_a_planet = yes } } # Possible inconsisent due other mods
+				weights = { base = 1 modifier = { add = 2 is_a_planet = yes } } # Possible inconsistent due other mods
 				save_global_event_target_as = marauder_rally_point
 				set_planet_flag = marauder_rally_point
 				set_planet_flag = CmtFlagMarauderExpRallyPoint
@@ -4280,12 +4294,12 @@ country_event = {
 			inline_script = {
 				script = merger_of_rules/toggled_code
 				code = "
-			if = {
-				limit = { count_playable_country = { limit = { is_same_empire = root } count = 0 } }
-				set_country_type = default
-			}
-			set_origin = origin_nsc_freebooter
-			force_add_civic = nsc_freebooter_civic_great_khans_vision
+				if = {
+					limit = { count_playable_country = { limit = { is_same_empire = root } count = 0 } }
+					set_country_type = default
+				}
+				set_origin = origin_nsc_freebooter
+				force_add_civic = nsc_freebooter_civic_great_khans_vision
 				"
 				toggle = @has_nsc_freebooter_mod
 			}
@@ -4346,7 +4360,7 @@ country_event = {
 			name = random
 			class = commander
 			gender = male
-			species = owner_main_species
+			species = owner_species
 			skill = 6
 			event_leader = yes
 			can_manually_change_location = no
@@ -4366,7 +4380,7 @@ country_event = {
 				# trait = leader_trait_demolisher_3
 			}
 		}
-		# Bug: There is a possibility the spcies has no class and the trigger gets true somehow
+		# Bug: There is a possibility the species has no class and the trigger gets true somehow
 		if = { ## Compat. Khorgis Khan: Scourge of the Stars
 			limit = { is_species_class = "GC_CORGI" species_portrait = "mam_corgi" }
 			set_name = "NAME_KHORGI_KHAN"
@@ -4382,11 +4396,11 @@ country_event = {
 			inline_script = { ### NSC FREEBOOTERS SUPPORT has_global_flag = has_nsc_freebooters_mod
 				script = merger_of_rules/toggled_code
 				code = "
-			add_trait_no_notify = nsc_freebooter_leader_trait_ruler_great_khan
-			if = {
-				limit = { has_trait = nsc_freebooter_leader_trait_ruler_great_khan has_trait = leader_trait_ruler_great_khan }
-				remove_trait = leader_trait_ruler_great_khan
-			}
+				add_trait_no_notify = nsc_freebooter_leader_trait_ruler_great_khan
+				if = {
+					limit = { has_trait = nsc_freebooter_leader_trait_ruler_great_khan has_trait = leader_trait_ruler_great_khan }
+					remove_trait = leader_trait_ruler_great_khan
+				}
 				"
 				toggle = @has_nsc_freebooter_mod
 			}
@@ -4516,15 +4530,15 @@ country_event = {
 			inline_script = { ### NSC FREEBOOTERS SUPPORT has_global_flag = has_nsc_freebooters_mod
 				script = merger_of_rules/toggled_code
 				code = "
-			if = {
-				limit = { has_trait = nsc_freebooter_leader_trait_ruler_great_khan }
-				remove_trait = nsc_freebooter_leader_trait_ruler_great_khan
-				add_trait_no_notify = nsc_freebooter_admiral_trait_great_khan
 				if = {
-					limit = { has_trait = nsc_freebooter_admiral_trait_great_khan }
-					remove_trait = leader_trait_great_khan
+					limit = { has_trait = nsc_freebooter_leader_trait_ruler_great_khan }
+					remove_trait = nsc_freebooter_leader_trait_ruler_great_khan
+					add_trait_no_notify = nsc_freebooter_admiral_trait_great_khan
+					if = {
+						limit = { has_trait = nsc_freebooter_admiral_trait_great_khan }
+						remove_trait = leader_trait_great_khan
+					}
 				}
-			}
 				"
 				toggle = @has_nsc_freebooter_mod
 			}
@@ -4553,7 +4567,7 @@ country_event = {
 		}
 
 		## Reinforcement cycle
-		country_event = { id = marauder.520 days = 210 }
+		country_event = { id = marauder.520 days = 270 }
 		set_variable = { which = CmtVarKhanReinforcementCounter value = 10 }
 		set_country_flag = use_default_ships
 
@@ -4586,18 +4600,26 @@ country_event = {
 
 		### Notifications
 		if = {
+			limit = { has_global_flag = true_great_khan_crisis NOT = { has_country_flag = CmtFlagKhanVengeanceCountry } }
+			observer_event = { id = observer.13 }
+			every_playable_country = {
+				establish_communications_no_message = root
+				country_event = { id = khan.501 }
+			}
+		}
+		else_if = {
 			limit = { has_country_flag = CmtFlagKhanVengeanceCountry }
+			observer_event = { id = observer.18 }
 			every_playable_country = {
 				establish_communications_no_message = root
 				country_event = { id = marauder.526 }
-				observer_event = { id = observer.18 }
 			}
 		}
 		else = {
+			observer_event = { id = observer.13 }
 			every_playable_country = {
 				establish_communications_no_message = root
 				country_event = { id = marauder.501 }
-				observer_event = { id = observer.13 }
 			}
 		}
 
@@ -6410,7 +6432,7 @@ country_event = {
 					}
 					log = "machinesmith sold [This.GetName]"
 					save_event_target_as = machinesmith
-					country_event = { id = marauder.520 days = 360 } # Improved cycle
+					country_event = { id = marauder.520 days = 380 } # Improved cycle
 
 					random_owned_design = {
 						limit = { is_ship_size = corvette }
@@ -6493,7 +6515,7 @@ country_event = {
 				if = {
 					limit = { NOT = { exists = event_target:machinesmith } }
 					remove_country_flag = has_machinesmith # Regular cycle
-					country_event = { id = marauder.520 days = 330 }
+					country_event = { id = marauder.520 days = 340 }
 				}
 				else = {
 					last_created_fleet = { set_owner = root }
@@ -6524,7 +6546,7 @@ country_event = {
 						# Set var counter for next cycle
 						CmtEffectKhanIncreasementReinforcementCycle = yes ## required: prev = Khan
 						root = { # TODO: days somehow dyn.
-							country_event = { id = marauder.520 days = 100 }
+							country_event = { id = marauder.520 days = 120 }
 						}
 					}
 				}
@@ -6540,7 +6562,7 @@ country_event = {
 			}
 		}
 		else = {
-			country_event = { id = marauder.520 days = 210 }
+			country_event = { id = marauder.520 days = 270 }
 		}
 
 		if = {
@@ -6565,7 +6587,7 @@ country_event = {
 						}
 					}
 				}
-				country_event = { id = marauder.553 days = 250 } # Init base
+				country_event = { id = marauder.553 days = 270 } # Init base
 			}
 		}
 	}
@@ -8759,21 +8781,21 @@ country_event = {
 						inline_script = { # if = { limit = { has_global_flag = cultural_overhaul_active has_global_flag = cultural_overhaul_funefork_active }
 							script = merger_of_rules/toggled_code
 							code = "
-						1 = {
-							create_country = {
-								name_list = random
-								species = event_target:marauder_species
-								type = default
-								authority = auth_dict_democratic
-								civics = { civic = random civic = random }
-								origin = origin_khan_successor
-								ethos = { ethic = ethic_militarist ethic = ethic_authoritarian }
-								ignore_initial_colony_error = yes
-								exclude_day_zero_contact = root
-								released_by_country = root
-								released_from_country = root
+							1 = {
+								create_country = {
+									name_list = random
+									species = event_target:marauder_species
+									type = default
+									authority = auth_dict_democratic
+									civics = { civic = random civic = random }
+									origin = origin_khan_successor
+									ethos = { ethic = ethic_militarist ethic = ethic_authoritarian }
+									ignore_initial_colony_error = yes
+									exclude_day_zero_contact = root
+									released_by_country = root
+									released_from_country = root
+								}
 							}
-						}
 							"
 							toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
 						}
@@ -10501,7 +10523,7 @@ country_event = {
 			create_leader = {
 				name = random
 				class = commander
-				species = owner_main_species
+				species = owner_species
 				skill = 3
 				event_leader = yes
 				can_manually_change_location = no
@@ -10585,12 +10607,12 @@ country_event = {
 				inline_script = { ### NSC FREEBOOTERS SUPPORT has_global_flag = has_nsc_freebooters_mod
 					script = merger_of_rules/toggled_code
 					code = "
-				if = {
-					limit = { root = { is_ai = no } }
-					event_target:great_khan_ruler = { remove_trait = leader_trait_ruler_great_khan add_trait_no_notify = nsc_freebooter_leader_trait_ruler_child_of_great_khan }
-					remove_trait = leader_trait_great_khan
-					add_trait_no_notify = nsc_freebooter_admiral_trait_child_of_great_khan
-				}
+					if = {
+						limit = { root = { is_ai = no } }
+						event_target:great_khan_ruler = { remove_trait = leader_trait_ruler_great_khan add_trait_no_notify = nsc_freebooter_leader_trait_ruler_child_of_great_khan }
+						remove_trait = leader_trait_great_khan
+						add_trait_no_notify = nsc_freebooter_admiral_trait_child_of_great_khan
+					}
 					"
 					toggle = @has_nsc_freebooter_mod
 				}

@@ -435,7 +435,7 @@ add_pirate_waves_pirate_event_chain = {
 # Creates a pirate waves fleet of ships.
 # prev = owner pirate country
 # This = scope = fleet
-# Usally root = wave_location - possible prevprev = country
+# Usually root = wave_location - possible prevprev = country
 create_pirate_waves_fleet = {
 	# Save wave location - ToDo: bit hacky!? (test the custom targets are needed)
 	if = {
