@@ -4,6 +4,7 @@
 # New Pirates #
 ###############
 create_normal_pirate_country = {
+	optimize_memory
 	event_target:pirate_system = {
 		random_system_planet = {
 			limit = { $HOME_PLANET_TRIGGER|always$ = yes }
@@ -131,16 +132,14 @@ create_machine_pirate_country_2 = {
 
 # root = pirate_target country / ship
 create_pirate_base_1 = {
+	optimize_memory
 	create_fleet = {
 		name = "NAME_Pirate_Station"
 		effect = {
 			set_owner = event_target:pirate_band
 			random_list = {
 				50 = {
-					modifier = {
-						factor = 0.02
-						NOT = { root.owner = { has_technology = tech_mass_drivers_1 } }
-					}
+					modifier = { factor = 0.02 NOT = { root.owner = { has_technology = tech_mass_drivers_1 } } }
 					create_ship = {
 						name = random
 						design = "NAME_Pirate_Nest"
@@ -148,8 +147,7 @@ create_pirate_base_1 = {
 					}
 				}
 				3 = {
-					modifier = {
-						factor = 0.1
+					modifier = { factor = 0.1
 						root.owner = { has_technology = tech_missiles_1 }
 					}
 					create_ship = {
@@ -159,8 +157,7 @@ create_pirate_base_1 = {
 					}
 				}
 				2 = {
-					modifier = {
-						factor = 0.1
+					modifier = { factor = 0.1
 						root.owner = { has_technology = tech_lasers_1 }
 					}
 					create_ship = {
@@ -211,6 +208,7 @@ create_pirate_base_1 = {
 }
 
 create_pirate_fleet = {
+	optimize_memory
 	event_target:pirate_band = {
 		create_leader = {
 			class = commander
@@ -280,8 +278,7 @@ create_pirate_fleet = {
 create_pirate_ships_0 = {
 	optimize_memory
 	create_ship_design = { design = "NAME_Reaver" }
-	while = {
-		count = 10
+	while = { count = 10
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -293,8 +290,7 @@ create_pirate_ships_0 = {
 create_pirate_ships_1 = {
 	optimize_memory
 	create_ship_design = { design = "NAME_Reaver" }
-	while = {
-		count = 10
+	while = { count = 10
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -302,8 +298,7 @@ create_pirate_ships_1 = {
 		}
 	}
 	create_ship_design = { design = "NAME_Brigand" }
-	while = {
-		count = 4
+	while = { count = 4
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -315,8 +310,7 @@ create_pirate_ships_1 = {
 create_pirate_ships_2 = {
 	optimize_memory
 	create_ship_design = { design = "NAME_Reaver" }
-	while = {
-		count = 6
+	while = { count = 6
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -324,8 +318,7 @@ create_pirate_ships_2 = {
 		}
 	}
 	create_ship_design = { design = "NAME_Brigand" }
-	while = {
-		count = 6
+	while = { count = 6
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -337,8 +330,7 @@ create_pirate_ships_2 = {
 create_pirate_ships_3 = {
 	optimize_memory
 	create_ship_design = { design = "NAME_Skull" }
-	while = {
-		count = 6
+	while = { count = 6
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -346,8 +338,7 @@ create_pirate_ships_3 = {
 		}
 	}
 	create_ship_design = { design = "NAME_Brigand" }
-	while = {
-		count = 6
+	while = { count = 6
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -359,8 +350,7 @@ create_pirate_ships_3 = {
 create_pirate_ships_4 = {
 	optimize_memory
 	create_ship_design = { design = "NAME_Skull" }
-	while = {
-		count = 8
+	while = { count = 8
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -368,8 +358,7 @@ create_pirate_ships_4 = {
 		}
 	}
 	create_ship_design = { design = "NAME_Marauder" }
-	while = {
-		count = 4
+	while = { count = 4
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -381,8 +370,7 @@ create_pirate_ships_4 = {
 create_pirate_ships_5 = {
 	optimize_memory
 	create_ship_design = { design = "NAME_Skull" }
-	while = {
-		count = 6
+	while = { count = 6
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -390,8 +378,7 @@ create_pirate_ships_5 = {
 		}
 	}
 	create_ship_design = { design = "NAME_Brigand" }
-	while = {
-		count = 6
+	while = { count = 6
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -399,8 +386,7 @@ create_pirate_ships_5 = {
 		}
 	}
 	create_ship_design = { design = "NAME_Marauder" }
-	while = {
-		count = 4
+	while = { count = 4
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -408,8 +394,7 @@ create_pirate_ships_5 = {
 		}
 	}
 	create_ship_design = { design = "NAME_Corsair" }
-	while = {
-		count = 2
+	while = { count = 2
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -421,8 +406,7 @@ create_pirate_ships_5 = {
 create_pirate_ships_6 = {
 	optimize_memory
 	create_ship_design = { design = "NAME_Skull" }
-	while = {
-		count = 6
+	while = { count = 6
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -430,8 +414,7 @@ create_pirate_ships_6 = {
 		}
 	}
 	create_ship_design = { design = "NAME_Brigand" }
-	while = {
-		count = 6
+	while = { count = 6
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -439,8 +422,7 @@ create_pirate_ships_6 = {
 		}
 	}
 	create_ship_design = { design = "NAME_Marauder" }
-	while = {
-		count = 4
+	while = { count = 4
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -448,8 +430,7 @@ create_pirate_ships_6 = {
 		}
 	}
 	create_ship_design = { design = "NAME_Corsair" }
-	while = {
-		count = 4
+	while = { count = 4
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -457,8 +438,7 @@ create_pirate_ships_6 = {
 		}
 	}
 	create_ship_design = { design = "NAME_Black_Earl" }
-	while = {
-		count = 2
+	while = { count = 2
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -470,8 +450,7 @@ create_pirate_ships_6 = {
 create_pirate_ships_7 = {
 	optimize_memory
 	create_ship_design = { design = "NAME_Skull" }
-	while = {
-		count = 6
+	while = { count = 6
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -479,8 +458,7 @@ create_pirate_ships_7 = {
 		}
 	}
 	create_ship_design = { design = "NAME_Brigand" }
-	while = {
-		count = 6
+	while = { count = 6
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -488,8 +466,7 @@ create_pirate_ships_7 = {
 		}
 	}
 	create_ship_design = { design = "NAME_Marauder" }
-	while = {
-		count = 4
+	while = { count = 4
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -497,8 +474,7 @@ create_pirate_ships_7 = {
 		}
 	}
 	create_ship_design = { design = "NAME_Corsair" }
-	while = {
-		count = 4
+	while = { count = 4
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -506,8 +482,7 @@ create_pirate_ships_7 = {
 		}
 	}
 	create_ship_design = { design = "NAME_Black_Earl" }
-	while = {
-		count = 2
+	while = { count = 2
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -519,8 +494,7 @@ create_pirate_ships_7 = {
 create_pirate_ships_8 = {
 	optimize_memory
 	create_ship_design = { design = "NAME_Skull" }
-	while = {
-		count = 8
+	while = { count = 8
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -528,8 +502,7 @@ create_pirate_ships_8 = {
 		}
 	}
 	create_ship_design = { design = "NAME_Brigand" }
-	while = {
-		count = 6
+	while = { count = 6
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -537,8 +510,7 @@ create_pirate_ships_8 = {
 		}
 	}
 	create_ship_design = { design = "NAME_Marauder" }
-	while = {
-		count = 4
+	while = { count = 4
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -546,8 +518,7 @@ create_pirate_ships_8 = {
 		}
 	}
 	create_ship_design = { design = "NAME_Corsair" }
-	while = {
-		count = 4
+	while = { count = 4
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -555,8 +526,7 @@ create_pirate_ships_8 = {
 		}
 	}
 	create_ship_design = { design = "NAME_Black_Earl" }
-	while = {
-		count = 4
+	while = { count = 4
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -568,8 +538,7 @@ create_pirate_ships_8 = {
 create_pirate_ships_9 = {
 	optimize_memory
 	create_ship_design = { design = "NAME_Pirate_Galleon" }
-	while = {
-		count = 1
+	while = { count = 1
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -577,8 +546,7 @@ create_pirate_ships_9 = {
 		}
 	}
 	create_ship_design = { design = "NAME_Black_Earl" }
-	while = {
-		count = 2
+	while = { count = 2
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -590,8 +558,7 @@ create_pirate_ships_9 = {
 create_pirate_ships_10 = {
 	optimize_memory
 	create_ship_design = { design = "NAME_Pirate_Galleon" }
-	while = {
-		count = 1
+	while = { count = 1
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -599,8 +566,7 @@ create_pirate_ships_10 = {
 		}
 	}
 	create_ship_design = { design = "NAME_Skull" }
-	while = {
-		count = 6
+	while = { count = 6
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -608,8 +574,7 @@ create_pirate_ships_10 = {
 		}
 	}
 	create_ship_design = { design = "NAME_Brigand" }
-	while = {
-		count = 6
+	while = { count = 6
 		create_ship = {
 			name = random
 			design = last_created_design
@@ -620,6 +585,7 @@ create_pirate_ships_10 = {
 
 ### Privateers from "Arm Privateers" operation
 create_privateer_country = {
+	optimize_memory
 	event_target:privateer_system = {
 		random_system_planet = {
 			save_event_target_as = privateer_home
@@ -1060,6 +1026,7 @@ create_privateer_country = {
 #####################
 # Bemat Thalassocracy
 create_thalassocracy_country = {
+	optimize_memory
 	if = {
 		limit = { NOT = { exists = event_target:thalassocracy_country } }
 		create_species = {
@@ -1100,6 +1067,7 @@ create_thalassocracy_country = {
 }
 
 create_thalassocracy_fleet = {
+	optimize_memory
 	event_target:thalassocracy_country = {
 		create_leader = {
 			class = commander
@@ -1146,32 +1114,29 @@ create_thalassocracy_fleet = {
 }
 
 create_thalassocracy_ships_1 = {
-	while = {
-		count = 40
+	optimize_memory
+	while = { count = 40
 		create_ship = {
 			name = random
 			design = "NAME_Bemat_corvette_01"
 			graphical_culture = "pirate_01"
 		}
 	}
-	while = {
-		count = 35
+	while = { count = 35
 		create_ship = {
 			name = random
 			design = "NAME_Bemat_destroyer_02"
 			graphical_culture = "pirate_01"
 		}
 	}
-	while = {
-		count = 20
+	while = { count = 20
 		create_ship = {
 			name = random
 			design = "NAME_Bemat_cruiser_01"
 			graphical_culture = "pirate_01"
 		}
 	}
-	while = {
-		count = 14
+	while = { count = 14
 		create_ship = {
 			name = random
 			design = "NAME_Bemat_cruiser_02"
@@ -1181,40 +1146,36 @@ create_thalassocracy_ships_1 = {
 }
 
 create_thalassocracy_ships_2 = {
-	while = {
-		count = 34
+	optimize_memory
+	while = { count = 34
 		create_ship = {
 			name = random
 			design = "NAME_Bemat_corvette_01"
 			graphical_culture = "pirate_01"
 		}
 	}
-	while = {
-		count = 28
+	while = { count = 28
 		create_ship = {
 			name = random
 			design = "NAME_Bemat_destroyer_01"
 			graphical_culture = "pirate_01"
 		}
 	}
-	while = {
-		count = 17
+	while = { count = 17
 		create_ship = {
 			name = random
 			design = "NAME_Bemat_destroyer_02"
 			graphical_culture = "pirate_01"
 		}
 	}
-	while = {
-		count = 26
+	while = { count = 26
 		create_ship = {
 			name = random
 			design = "NAME_Bemat_cruiser_01"
 			graphical_culture = "pirate_01"
 		}
 	}
-	while = {
-		count = 18
+	while = { count = 18
 		create_ship = {
 			name = random
 			design = "NAME_Bemat_cruiser_02"
@@ -1224,40 +1185,36 @@ create_thalassocracy_ships_2 = {
 }
 
 create_thalassocracy_ships_3 = {
-	while = {
-		count = 36
+	optimize_memory
+	while = { count = 36
 		create_ship = {
 			name = random
 			design = "NAME_Bemat_corvette_01"
 			graphical_culture = "pirate_01"
 		}
 	}
-	while = {
-		count = 32
+	while = { count = 32
 		create_ship = {
 			name = random
 			design = "NAME_Bemat_destroyer_01"
 			graphical_culture = "pirate_01"
 		}
 	}
-	while = {
-		count = 24
+	while = { count = 24
 		create_ship = {
 			name = random
 			design = "NAME_Bemat_destroyer_02"
 			graphical_culture = "pirate_01"
 		}
 	}
-	while = {
-		count = 30
+	while = { count = 30
 		create_ship = {
 			name = random
 			design = "NAME_Bemat_cruiser_01"
 			graphical_culture = "pirate_01"
 		}
 	}
-	while = {
-		count = 20
+	while = { count = 20
 		create_ship = {
 			name = random
 			design = "NAME_Bemat_cruiser_02"
@@ -1267,8 +1224,8 @@ create_thalassocracy_ships_3 = {
 }
 
 thalassocracy_patrol = {
-	if = {
-		# Visit every planet in a system once.
+	optimize_memory
+	if = {	# Visit every planet in a system once.
 		limit = {
 			solar_system = {
 				any_system_planet = {
@@ -1284,8 +1241,7 @@ thalassocracy_patrol = {
 			}
 		}
 	}
-	else_if = {
-		# Leave for the next unvisited system.
+	else_if = {	# Leave for the next unvisited system.
 		limit = {
 			solar_system = {
 				any_neighbor_system = {

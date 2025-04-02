@@ -207,18 +207,17 @@ country_event = {
 	}
 	option = {
 		name = CmtTextExit.name
-		custom_tooltip = BLANK_STRING
 		trigger = { NOT = { has_country_flag = CmtFlagIndividual } }
 		hidden_effect = {
 			set_country_flag = CmtFlagSPMenu
-			CmtEffectExitMenu = yes
 		}
+		CmtEffectExitMenu = yes
 	}
 	abort_trigger = { NOT = { has_country_flag = CmtFlagNowInMenu } }
 	abort_effect = { CmtEffectExitMenu = yes }
 }
 
-### Additional Descriptoption 1
+### Additional Descript-option 1
 country_event = {
 	id = CrisisManagerMenu.6001
 	title = CrisisManagerMenu.6001.name
@@ -240,7 +239,7 @@ country_event = {
 	abort_trigger = { NOT = { has_country_flag = CmtFlagNowInMenu } }
 }
 
-### Additional Descriptoption 2
+### Additional Descript-option 2
 country_event = {
 	id = CrisisManagerMenu.6002
 	title = CrisisManagerMenu.6002.name

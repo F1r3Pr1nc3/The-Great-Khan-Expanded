@@ -135,8 +135,8 @@ resolution_custodian_united_front = {
 			factor = 0.5
 			has_ai_personality = xenophobic_isolationists
 			count_neighbor_country = {
-				limit = { is_crisis_faction = yes }
 				count = 0
+				limit = { is_crisis_faction = yes }
 			}
 			desc = personality_xenophobic_isolationists
 		}
@@ -233,8 +233,8 @@ resolution_custodian_anti_piracy = {
 			factor = 0.5
 			is_gestalt = yes
 			count_neighbor_country = {
-				limit = { is_country_type = dormant_marauders }
 				count = 0
+				limit = { is_country_type = dormant_marauders }
 			}
 			desc = ethic_gestalt_consciousness
 		}
@@ -294,8 +294,8 @@ resolution_custodian_end_custodianship = {
 			factor = 1.6
 			is_xenophobe = yes
 			count_neighbor_country = {
-				limit = { is_crisis_faction = yes }
 				count = 0
+				limit = { is_crisis_faction = yes }
 			}
 			desc = ethic_xenophobe
 		}
@@ -511,8 +511,8 @@ resolution_emperor_united_front = {
 			factor = 0.5
 			has_ai_personality = xenophobic_isolationists
 			count_neighbor_country = {
-				limit = { is_crisis_faction = yes }
 				count = 0
+				limit = { is_crisis_faction = yes }
 			}
 			desc = personality_xenophobic_isolationists
 		}

@@ -189,7 +189,7 @@ planet_event = {
 		else = {
 			change_variable = { which = temp_size value = 8 }
 		}
-		# substract
+		# subtract
 		owner = {
 			set_variable = { which = temp_var_horde value = root.temp_size }
 			if = {

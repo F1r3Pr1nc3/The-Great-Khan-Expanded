@@ -10,53 +10,31 @@ can_take_hostile_actions = {
 				has_communications = root
 			}
 		}
-		custom_tooltip = {
-			text = "CAN_TAKE_HOSTILE_ACTION_FIRST_CONTACT_PROTOCOL"
-			always = no
-		}
+		custom_tooltip = { text = "CAN_TAKE_HOSTILE_ACTION_FIRST_CONTACT_PROTOCOL" always = no }
 	}
 	else_if = {
 		limit = {
 			has_country_flag = fotd_seperatist_country@ROOT
-			root = {
-				has_origin = origin_fear_of_the_dark
-			}
+			root = { has_origin = origin_fear_of_the_dark }
 		}
-		custom_tooltip = {
-			text = "CAN_TAKE_HOSTILE_ACTION_FOTD"
-			always = no
-		}
+		custom_tooltip = { text = "CAN_TAKE_HOSTILE_ACTION_FOTD" always = no }
 	}
 	else_if = {
 		limit = {
-			NOR = {
-				has_country_flag = hostile_to_nomads
-				is_hostile = root
-			}
-			root = {
-				is_country_type = nomad
-			}
+			NOR = { has_country_flag = hostile_to_nomads is_hostile = root }
+			root = { is_country_type = nomad }
 		}
-		custom_tooltip = {
-			text = "CAN_TAKE_HOSTILE_ACTION_FIRST_CONTACT_PROTOCOL"
-			always = no
-		}
+		custom_tooltip = { text = "CAN_TAKE_HOSTILE_ACTION_FIRST_CONTACT_PROTOCOL" always = no }
 	}
-	else_if = {
-		# Attacking primitives with non-interference
+	else_if = {	# Attacking primitives with non-interference
 		limit = {
 			root = {
 				merg_is_default_empire = yes
-				NOT = {
-					has_policy_flag = interference_aggressive
-				}
+				NOT = { has_policy_flag = interference_aggressive }
 			}
 			is_primitive = yes
 		}
-		custom_tooltip = {
-			text = "CAN_TAKE_HOSTILE_ACTION_NATIVE_INTERFERENCE"
-			always = no
-		}
+		custom_tooltip = { text = "CAN_TAKE_HOSTILE_ACTION_NATIVE_INTERFERENCE" always = no }
 	}
 	else_if = {
 		limit = {
@@ -64,19 +42,14 @@ can_take_hostile_actions = {
 			root = { merg_is_default_empire = yes }
 			capital_scope = {
 				root = {
-					count_planet_within_border = {
-						limit = {
-							is_same_value = prevprev
-						}
-						count = 0
+					count_planet_within_border = { count = 0
+						limit = { is_same_value = prevprev }
+
 					}
 				}
 			}
 		}
-		custom_tooltip = {
-			text = ""
-			always = no
-		}
+		custom_tooltip = { text = "" always = no }
 	}
 	else_if = {
 		limit = {
@@ -85,16 +58,11 @@ can_take_hostile_actions = {
 			root = {
 				any_owned_planet = {
 					exists = controller
-					controller = {
-						is_same_value = prevprevprev
-					}
+					controller = { is_same_value = prevprevprev }
 				}
 			}
 		}
-		custom_tooltip = {
-			text = ""
-			always = yes
-		}
+		custom_tooltip = { text = "" always = yes }
 	}
 	else_if = {
 		limit = {
@@ -103,10 +71,7 @@ can_take_hostile_actions = {
 				any_agreement = { agreement_preset = preset_satrapy }
 			}
 		}
-		custom_tooltip = {
-			text = "CAN_TAKE_HOSTILE_ACTION_SATRAPY"
-			always = no
-		}
+		custom_tooltip = { text = "CAN_TAKE_HOSTILE_ACTION_SATRAPY" always = no }
 	}
 	else_if = {
 		limit = {
@@ -114,14 +79,9 @@ can_take_hostile_actions = {
 			overlord = { is_same_empire = root }
 			root = { any_agreement = { agreement_preset = preset_satrapy } }
 		}
-		custom_tooltip = {
-			text = "CAN_TAKE_HOSTILE_ACTION_OVERLORD"
-			always = no
-		}
+		custom_tooltip = { text = "CAN_TAKE_HOSTILE_ACTION_OVERLORD" always = no }
 	}
-	else = {
-		always = yes
-	}
+	else = { always = yes }
 }
 
 # this = system
@@ -131,43 +91,33 @@ can_take_hostile_actions = {
 ai_should_restrict_system = {
 	OR = {
 		AND = {
-			exists = owner
+			has_owner = yes
 			root = { merg_is_fallen_empire = yes }
 			owner = { is_marauder = yes }
 		}
 		AND = {
-			exists = owner
+			has_owner = yes
 			root = { is_marauder = yes }
 			owner = { merg_is_fallen_empire = yes }
 		}
 		AND = {
 			root = {
-				OR = {
-					merg_is_fallen_empire = yes
-					is_marauder = yes
-				}
+				OR = { merg_is_fallen_empire = yes is_marauder = yes }
 			}
 			has_star_flag = guardian
 			any_fleet_in_system = {
 				exists = owner
-				owner = {
-					is_guardian_country = yes
-				}
+				owner = { is_guardian_country = yes }
 			}
 		}
 		AND = {
 			root = {
-				OR = {
-					is_crisis_faction = yes
-					merg_is_awakened_fe = yes
-				}
+				OR = { is_crisis_faction = yes merg_is_awakened_fe = yes }
 			}
 			has_star_flag = guardian
 			any_fleet_in_system = {
 				exists = owner
-				owner = {
-					is_country_type = guardian_fortress
-				}
+				owner = { is_country_type = guardian_fortress }
 			}
 		}
 	}

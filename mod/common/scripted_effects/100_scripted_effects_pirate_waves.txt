@@ -15,6 +15,7 @@
 @ships_count_insane = 5000
 # Prev = owner
 create_dyn_pirate_fleet = {
+	optimize_memory
 	prev = {
 		if = {
 			limit = { NOT = { is_variable_set = pirates_f_tmp } }
@@ -90,6 +91,7 @@ create_dyn_pirate_fleet = {
 
 # Creates both countries and management communications and enclave stations.
 create_pirate_waves_countries = {
+	optimize_memory
 	# First Pirate Country
 	if = {
 		limit = { NOT = { exists = event_target:pirate_waves_country } }
@@ -211,6 +213,7 @@ create_pirate_waves_countries = {
 
 # scope = pirate/marauder country
 set_pirates_difficulty = {
+	optimize_memory
 	remove_country_flag = pirate_waves_spawn_allowed
 	remove_country_flag = pirate_waves_very_easy
 	remove_country_flag = pirate_waves_easy
@@ -416,6 +419,7 @@ set_pirates_difficulty = {
 
 # Add the Kill Count Pirate event chain to the from country.
 add_pirate_waves_pirate_event_chain = {
+	optimize_memory
 	if = {
 		limit = {
 			exists = from
@@ -437,6 +441,7 @@ add_pirate_waves_pirate_event_chain = {
 # This = scope = fleet
 # Usually root = wave_location - possible prevprev = country
 create_pirate_waves_fleet = {
+	optimize_memory
 	# Save wave location - ToDo: bit hacky!? (test the custom targets are needed)
 	if = {
 		limit = { exists = event_target:mercenary_hirer exists = event_target:mercenary_hirer.capital_scope }

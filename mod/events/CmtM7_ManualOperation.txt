@@ -21,8 +21,7 @@ country_event = {
 	picture = GFX_evt_CmtMenuA
 	is_triggered_only = yes
 
-	immediate = {
-		# Possible flag fix (to be sure) - sometimes not removed.
+	immediate = {	# Possible flag fix (to be sure) - sometimes not removed.
 		if = {
 			limit = {
 				host_has_dlc = "Apocalypse"
@@ -122,8 +121,7 @@ country_event = {
 		}
 		trigger = {
 			has_global_flag = CmtFlagSleeperEdition
-			count_country = {
-				count > 1
+			count_country = { count > 1
 				limit = { is_fallen_empire = yes CmtTriggerIsHeavenAFE = no is_at_war = no }
 			}
 			# NOR = {
@@ -151,8 +149,7 @@ country_event = {
 			has_global_flag = CmtFlagSleeperEdition
 			OR = {
 				has_country_flag = war_in_heaven_timer
-				count_country = {
-					count < 2
+				count_country = { count < 2
 					limit = { is_fallen_empire = yes CmtTriggerIsHeavenAFE = no is_at_war = no }
 				}
 			}
@@ -163,8 +160,7 @@ country_event = {
 				limit = { # Hidden fallback
 					OR = {
 						has_global_flag = war_in_heaven_debug
-						count_country = {
-							count > 1
+						count_country = { count > 1
 							limit = { is_fallen_empire = yes is_at_war = no }
 						}
 					}
@@ -1157,8 +1153,7 @@ country_event = {
 			}
 		}
 		hidden_effect = {
-			event_target:CmtTargetManualSleeper5 = {
-				# random_list = {
+			event_target:CmtTargetManualSleeper5 = {	# random_list = {
 				# 	66 = { set_country_flag = fallen_machine_empire_awaken_1 }	# Custodian
 				# 	33 = { set_country_flag = fallen_machine_empire_awaken_2 }	# Berserker
 				# }
@@ -1256,8 +1251,7 @@ country_event = {
 			if = {
 				limit = { exists = event_target:CmtTargetManualSleeperA }
 				random_country = {
-					limit = {
-						# CmtTriggerIsAwakenableSleeper = yes
+					limit = {	# CmtTriggerIsAwakenableSleeper = yes
 						is_fallen_empire = yes
 						NOR = { is_at_war = yes is_same_empire = event_target:CmtTargetManualSleeperA }
 					}
@@ -1280,8 +1274,7 @@ country_event = {
 			if = { # Automatically last possible option
 				limit = {
 					NOT = { exists = event_target:CmtTargetManualSleeperB }
-					count_country = {
-						count < 2
+					count_country = { count < 2
 						limit = {
 							CmtTriggerIsAwakenableSleeper = yes
 							NOT = { is_same_empire = event_target:CmtTargetManualSleeperA }
@@ -1289,8 +1282,7 @@ country_event = {
 					}
 				}
 				random_country = {
-					limit = {
-						# CmtTriggerIsAwakenableSleeper = yes
+					limit = {	# CmtTriggerIsAwakenableSleeper = yes
 						is_fallen_empire = yes
 						NOR = { is_at_war = yes is_same_empire = event_target:CmtTargetManualSleeperA }
 					}
@@ -1314,8 +1306,7 @@ country_event = {
 		trigger = {
 			exists = event_target:CmtTargetManualSleeper1
 			NAND = { exists = event_target:CmtTargetManualSleeperA exists = event_target:CmtTargetManualSleeperB }
-			event_target:CmtTargetManualSleeper1 = {
-				# CmtTriggerIsOrganicSleeper = yes
+			event_target:CmtTargetManualSleeper1 = {	# CmtTriggerIsOrganicSleeper = yes
 				NAND = { exists = event_target:CmtTargetManualSleeperA is_same_empire = event_target:CmtTargetManualSleeperA }
 			}
 		}
@@ -1339,8 +1330,7 @@ country_event = {
 		trigger = {
 			exists = event_target:CmtTargetManualSleeper2
 			NAND = { exists = event_target:CmtTargetManualSleeperA exists = event_target:CmtTargetManualSleeperB }
-			event_target:CmtTargetManualSleeper2 = {
-				# CmtTriggerIsOrganicSleeper = yes
+			event_target:CmtTargetManualSleeper2 = {	# CmtTriggerIsOrganicSleeper = yes
 				NAND = { exists = event_target:CmtTargetManualSleeperA is_same_empire = event_target:CmtTargetManualSleeperA }
 			}
 		}
@@ -1364,8 +1354,7 @@ country_event = {
 		trigger = {
 			exists = event_target:CmtTargetManualSleeper3
 			NAND = { exists = event_target:CmtTargetManualSleeperA exists = event_target:CmtTargetManualSleeperB }
-			event_target:CmtTargetManualSleeper3 = {
-				# CmtTriggerIsOrganicSleeper = yes
+			event_target:CmtTargetManualSleeper3 = {	# CmtTriggerIsOrganicSleeper = yes
 				NAND = { exists = event_target:CmtTargetManualSleeperA is_same_empire = event_target:CmtTargetManualSleeperA }
 			}
 		}
@@ -1386,8 +1375,7 @@ country_event = {
 		trigger = {
 			exists = event_target:CmtTargetManualSleeper4
 			NAND = { exists = event_target:CmtTargetManualSleeperA exists = event_target:CmtTargetManualSleeperB }
-			event_target:CmtTargetManualSleeper4 = {
-				# CmtTriggerIsOrganicSleeper = yes
+			event_target:CmtTargetManualSleeper4 = {	# CmtTriggerIsOrganicSleeper = yes
 				NAND = { exists = event_target:CmtTargetManualSleeperA is_same_empire = event_target:CmtTargetManualSleeperA }
 			}
 		}
@@ -1649,7 +1637,8 @@ country_event = {
 					if = {
 						limit = { exists = starbase }
 						starbase = {
-							if = { limit = { NOT = { has_starbase_size = starbase_marauder } }
+							if = {
+								limit = { NOT = { has_starbase_size = starbase_marauder } }
 								set_starbase_size = starbase_marauder
 							}
 							set_owner = event_target:marauder_starbase_owner
@@ -1829,7 +1818,8 @@ country_event = {
 						if = {
 							limit = { exists = starbase }
 							starbase = {
-								if = { limit = { NOT = { has_starbase_size = starbase_marauder } }
+								if = {
+									limit = { NOT = { has_starbase_size = starbase_marauder } }
 									set_starbase_size = starbase_marauder
 								}
 								set_owner = event_target:marauder_starbase_owner
@@ -2397,7 +2387,6 @@ country_event = {
 #	}
 #	option = {
 #		name = CmtTextExit.name
-#		custom_tooltip = BLANK_STRING
 #		CmtEffectExitMenu = yes
 #	}
 #}
@@ -2761,8 +2750,7 @@ country_event = {
 	option = {
 		name = CrisisManagerMenu.720xb.name
 		custom_tooltip = BLANK_STRING
-		hidden_effect = {
-			# CmtEffectDestroyPrethoryn
+		hidden_effect = {	# CmtEffectDestroyPrethoryn
 			every_country = {
 				limit = { CmtTriggerIsPrethoryn = yes }
 				destroy_country = yes
@@ -2789,8 +2777,7 @@ country_event = {
 	option = {
 		name = CrisisManagerMenu.720xb.name
 		custom_tooltip = BLANK_STRING
-		hidden_effect = {
-			# CmtEffectDestroyExds
+		hidden_effect = {	# CmtEffectDestroyExds
 			every_country = {
 				limit = { is_country_type = portal_holder }
 				destroy_country = yes
@@ -2821,8 +2808,7 @@ country_event = {
 	option = {
 		name = CrisisManagerMenu.720xb.name
 		custom_tooltip = BLANK_STRING
-		hidden_effect = {
-			# CmtEffectDestroyContingency
+		hidden_effect = {	# CmtEffectDestroyContingency
 			every_country = {
 				limit = { CmtTriggerIsContingency = yes }
 				set_global_flag = ai_invasion_defeated
@@ -2862,7 +2848,7 @@ country_event = {
 						limit = { has_planet_flag = crisis_vital_planet }
 						planet_event = { id = crisis.2046 }
 					}
-	 }
+ }
 			}
 			# country_event = { id = CrisisManagerMenu.7000 }
 		}
@@ -2886,8 +2872,7 @@ country_event = {
 	option = {
 		name = CrisisManagerMenu.720xb.name
 		custom_tooltip = BLANK_STRING
-		hidden_effect = {
-			# CmtEffectDestroyShroudSpirits = yes
+		hidden_effect = {	# CmtEffectDestroyShroudSpirits = yes
 			every_country = {
 				limit = { CmtTriggerIsShroudSpirit = yes }
 				every_owned_fleet = {
@@ -3014,8 +2999,7 @@ country_event = {
 	option = {
 		name = CrisisManagerMenu.720xb.name
 		custom_tooltip = BLANK_STRING
-		hidden_effect = {
-			# country_event = { id = CrisisManagerControl.7206 }
+		hidden_effect = {	# country_event = { id = CrisisManagerControl.7206 }
 			random_country = {
 				limit = {
 					CmtTriggerIsHeavenAFE = yes
@@ -3052,8 +3036,7 @@ country_event = {
 	picture = GFX_evt_khan_throne_room
 	is_triggered_only = yes
 
-	immediate = {
-		# Only to be sure
+	immediate = {	# Only to be sure
 		if = {
 			limit = { num_marauder_empires_to_spawn > 0 NOT = { exists = event_target:marauder_country_1 } }
 			random_country = {
@@ -3149,8 +3132,7 @@ country_event = {
 	picture = GFX_evt_gray_goo
 	is_triggered_only = yes
 
-	immediate = {
-		# Fallback (savegame comp.) re-save event_targets
+	immediate = {	# Fallback (savegame comp.) re-save event_targets
 		if = {
 			limit = { NOT = { exists = event_target:nanite_factory } }
 			event_target:lcluster_factory_system = {
@@ -4158,8 +4140,8 @@ country_event = {
 		custom_tooltip = BLANK_STRING
 		hidden_effect = {
 			event_target:CmtGlobalVar = { set_variable = { which = CmtVarManualLgate value = 0 } }
-			CmtEffectExitMenu = yes
 		}
+		CmtEffectExitMenu = yes
 	}
 	abort_trigger = { NOT = { has_country_flag = CmtFlagNowInMenu } }
 	abort_effect = { CmtEffectExitMenu = yes }

@@ -214,7 +214,7 @@ wg_marauder_expansion = {
 	set_defender_wargoal = wg_end_threat
 	hide_if_no_cb = yes
 	release_occupied_systems_on_status_quo = yes
-	total_war = no
+	total_war = yes # no
 
 	galactic_empire_joins_defender = {
 		from = { is_galactic_emperor = yes }
@@ -458,7 +458,7 @@ wg_war_in_heaven = {
 	total_war = yes
 	allowed_peace_offers = { status_quo }
 	surrender_acceptance = -900
-	war_exhaustion = 0
+	war_exhaustion = 0.25
 	set_defender_wargoal = wg_war_in_heaven
 	potential = { always = no } # Event only
 	possible = { always = yes }
@@ -721,7 +721,7 @@ wg_great_expansion = {
 		status_quo # Otherwise the defender is fully inhaled.
 	}
 	surrender_acceptance = -600
-	war_exhaustion = 0.25
+	war_exhaustion = 0.75
 	# set_defender_wargoal = wg_great_expansion
 	# potential = { # Needs something other than cb_event.
 	# 	has_global_flag = marauder_crisis_ongoing

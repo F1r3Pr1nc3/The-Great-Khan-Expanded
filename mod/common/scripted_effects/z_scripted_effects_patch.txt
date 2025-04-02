@@ -2,6 +2,7 @@
 # Prev = war_participant
 # Vanilla Fix: don't break the loop
 end_war_effect = {
+	optimize_memory
 	# every_war_participant = {
 	if = { # Is defenders
 		# Because strange log behavior
@@ -52,6 +53,7 @@ end_war_effect = {
 # Make some factions neutral (not everything should be hostile to non crisis factions)
 # Scope = country (hostile)
 make_moderately_hostile = {
+	optimize_memory
 	set_country_flag = first_alien_life
 	set_country_flag = has_encountered_other_empire
 	every_country = {
@@ -103,6 +105,7 @@ make_moderately_hostile = {
 # }
 
 create_marauder_merc_admiral = {
+	optimize_memory
 	create_leader = {
 		class = commander
 		species = event_target:marauder_species
@@ -128,6 +131,7 @@ create_marauder_merc_admiral = {
 }
 
 create_marauder_merc_general = {
+	optimize_memory
 	create_leader = {
 		class = commander
 		species = event_target:marauder_species
@@ -155,6 +159,7 @@ create_marauder_merc_general = {
 # THIS and ROOT are the Situation
 # Vanilla Bug Fix (v.3.11) for syncretic species https://forum.paradoxplaza.com/forum/threads/stellaris-massive-overlooked-issue-with-syncretic-evolution-origin.1622715/
 deduce_planetary_separatism_species = {
+	optimize_memory
 	target = {
 		random_owned_species = {
 			limit = {
@@ -225,6 +230,7 @@ deduce_planetary_separatism_species = {
 # Needs event_target:former_owner
 # This = Country
 give_planets_former_owner = {
+	optimize_memory
 	# Give former owner
 	while = { count = trigger:num_owned_planets
 		limit = {
@@ -353,6 +359,7 @@ give_planets_former_owner = {
 # This = fleet
 # From = planet (if any)
 marauder_path_attack = {
+	optimize_memory
 	# log = "MARAUDER PATH ATTACK"
 	if = {
 		limit = { NOT = { exists = event_target:marauder_target } }

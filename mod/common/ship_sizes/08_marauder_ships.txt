@@ -335,7 +335,7 @@ marauder_station = {
 		ship_shield_add = 700
 		ship_weapon_range_mult = 0.20 # TEST vanilla bug?
 		ships_upkeep_mult = -1
-		# ship_hull_regen_add_static = 1 too powerfull since v.3.4
+		# ship_hull_regen_add_static = 1 too powerful since v.3.4
 		ship_armor_regen_add_static = 1
 	}
 	ship_modifier = { ship_weapon_range_mult = 0.2 }
@@ -370,7 +370,7 @@ marauder_void_dwelling = {
 		ship_armor_add = 2000 # Vanilla 400; Ariphaos 1000;
 		ship_shield_add = 1200 # Vanilla 0
 		ships_upkeep_mult = -1
-		# ship_hull_regen_add_static = 1 too powerfull since v.3.4
+		# ship_hull_regen_add_static = 1 too powerful since v.3.4
 		ship_armor_regen_add_static = 1
 	}
 	max_hitpoints = 8000 # Vanilla

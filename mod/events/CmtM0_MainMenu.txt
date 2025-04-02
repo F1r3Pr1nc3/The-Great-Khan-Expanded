@@ -265,7 +265,6 @@ country_event = {
 	### Exit Menu
 	option = {
 		name = CmtTextExit.name
-		custom_tooltip = BLANK_STRING
 		CmtEffectExitMenu = yes
 	}
 	abort_trigger = { NOT = { has_country_flag = CmtFlagNowInMenu } }

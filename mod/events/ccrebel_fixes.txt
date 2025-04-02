@@ -1471,12 +1471,16 @@ country_event = {
 	}
 	immediate = {
 		set_timed_country_flag = { flag = cc_rebel_ethic_sorted days = 14 }
-		change_government = {
-			authority = random
-			civics = random
-			remove_invalid_civics = yes
+		# FIXME sometimes: change_government effect failed to calculate configuration
+		# Ethics result invalid: [ethic_gestalt_consciousness] cannot be added
+		if = {
+			limit = { is_gestalt = no }
+			change_government = { authority = random civics = random remove_invalid_civics = yes }
 		}
-		set_name = random
+		else = { change_government = random }
 		fire_on_action = { on_action = empire_init_create_ships }
+	}
+	after = {
+		# set_name = random # Because sometimes native didn't work?
 	}
 }

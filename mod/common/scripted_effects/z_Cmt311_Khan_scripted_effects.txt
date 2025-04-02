@@ -258,6 +258,7 @@ CmtEffectKhanReinforceOnCapital = {
 # root = Khan Country / Garrison Fleet
 # Return = CmtVarKhanReinforcementCounter
 CmtEffectKhanIncreasementReinforcementCycle = {
+	optimize_memory
 	### Get Current Navy Size
 	set_variable = { which = CmtVarTemp value = 1 }
 	prev = {

@@ -1005,8 +1005,8 @@ country_event = {
 			event_target:FirstSleeper = { add_opinion_modifier = { who = root modifier = opinion_war_in_heaven_enemy } }
 			from = {
 				add_opinion_modifier = { who = root modifier = opinion_war_in_heaven_ally }
-				copy_random_tech_from = { who = prev }
-				prev = { copy_random_tech_from = { who = prev } }
+				get_tech_from_prev = yes
+				prev = { get_tech_from_prev = yes }
 			}
 			if = {
 				limit = {
@@ -1104,8 +1104,8 @@ country_event = {
 			from = { add_opinion_modifier = { who = root modifier = opinion_war_in_heaven_enemy } }
 			event_target:FirstSleeper = {
 				add_opinion_modifier = { who = root modifier = opinion_war_in_heaven_ally }
-				copy_random_tech_from = { who = prev }
-				prev = { copy_random_tech_from = { who = prev } }
+				get_tech_from_prev = yes
+				prev = { get_tech_from_prev = yes }
 			}
 		}
 	}
@@ -2311,12 +2311,15 @@ country_event = { ## Return of the Khan ##
 	id = khan.500
 	hide_window = yes
 	# is_triggered_only = yes
+	fire_only_once = yes
 	trigger = {
 		mid_game_years_passed > 25
 		is_country_type = dormant_marauders
 		has_global_flag = marauder_crisis_started
+		event_target:CmtGlobalVar = {
+			check_variable = { which = CmtVarKhanMultiple value > 2 }
+		}
 		NOT = { has_global_flag = true_great_khan_crisis }
-		# NOT = { has_global_flag = marauder_crisis_ongoing }
 	}
 	mean_time_to_happen = {
 		years = 50
@@ -2418,16 +2421,6 @@ country_event = {
 	immediate = {
 		country_event = { id = marauder.551 } # Submit to Khan
 	}
-}
-# Marauder joining the True Khan
-country_event = {
-	id = khan.552
-	title = "khan.552.name"
-	desc = "khan.552.desc"
-	picture = GFX_evt_khan_throne_room
-	show_sound = event_conversation
-	is_triggered_only = yes
-	option = { name = khan.552.a }
 }
 
 ### Deprecated (TODO)
@@ -2987,10 +2980,7 @@ country_event = {
 					NOT = { has_country_flag = rebelling_satrapy }
 				}
 				root = {
-					if = {
-						limit = { can_copy_random_tech_from = { who = prev } }
-						copy_random_tech_from = { who = prev }
-					}
+					get_tech_from_prev = yes
 				}
 				log = "machinesmith sold"
 				country_event = { id = khan.868 days = 270 } # Improved cycle
@@ -3104,10 +3094,7 @@ country_event = {
 					}
 					copy_random_tech_from = { who = prev }
 					root = {
-						if = {
-							limit = { can_copy_random_tech_from = { who = prev } }
-							copy_random_tech_from = { who = prev }
-						}
+						get_tech_from_prev = yes
 					}
 				}
 			}
@@ -3369,10 +3356,7 @@ country_event = {
 				NOR = { has_country_flag = rebellion_cooldown has_country_flag = rebelling_satrapy }
 			}
 			root = {
-				if = {
-					limit = { can_copy_random_tech_from = { who = prev } }
-					copy_random_tech_from = { who = prev }
-				}
+				get_tech_from_prev = yes
 			}
 			log = "Improved Machinesmith sold"
 			country_event = { id = khan.870 days = 420 } # Improved cycle

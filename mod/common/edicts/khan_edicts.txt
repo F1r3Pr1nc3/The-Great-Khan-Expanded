@@ -1,5 +1,5 @@
 #################
-# Menue as edict: only as fallback
+# Menu as edict: only as fallback
 #################
 force_khan_spawn = {
 	icon = "GFX_diplomacy_status_is_satrapy"

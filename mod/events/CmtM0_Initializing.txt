@@ -127,7 +127,6 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = "graygoo.504.d"
-		custom_tooltip = BLANK_STRING
 		CmtEffectExitMenu = yes
 	}
 	after = {
@@ -155,7 +154,6 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = "graygoo.504.d"
-		custom_tooltip = BLANK_STRING
 		CmtEffectExitMenu = yes
 	}
 }

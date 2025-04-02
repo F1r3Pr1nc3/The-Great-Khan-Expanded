@@ -220,7 +220,7 @@ country_event = {
 	}
 }
 
-# Seeks a viable target if the actual target is not accesible (fallback)
+# Seeks a viable target if the actual target is not accessible (fallback)
 # From = country marauder_raid_target
 fleet_event = {
 	id = marauder.29

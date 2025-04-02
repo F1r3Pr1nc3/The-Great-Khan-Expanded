@@ -23,6 +23,7 @@
 ##############
 
 CmtEffectCreateAdmiral_MarauderStandard = {
+	optimize_memory
 	if = {
 		limit = {
 			prev = {
@@ -58,6 +59,7 @@ CmtEffectCreateAdmiral_MarauderStandard = {
 }
 
 CmtEffectCreateAdmiral_MarauderEncourager = {
+	optimize_memory
 	create_leader = {
 		class = commander
 		species = event_target:satrapy_species
@@ -72,6 +74,7 @@ CmtEffectCreateAdmiral_MarauderEncourager = {
 #################
 
 CmtEffectCreateAdmiral_OwnerStandard = {
+	optimize_memory
 	create_leader = {
 		class = commander
 		species = owner_species
