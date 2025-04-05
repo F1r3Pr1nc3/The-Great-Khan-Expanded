@@ -2904,6 +2904,33 @@ event = {
 				else = { destroy_fleet = this }
 			}
 		}
+		# Removeme in v4.0
+		if = {
+			limit = { has_global_flag = marauder_crisis_started }
+			random_playable_country = {
+				limit = { is_subject = yes is_subject_of_khan = no }
+				weights = { base = 1
+					modifier = { add = 99 is_ai = no }
+				}
+				if = {
+					limit = {
+						exists = event_target:marauders_garrison_1
+						event_target:marauders_garrison_1 = {
+							any_controlled_fleet = {
+								OR = {
+									has_fleet_flag = satrapy_garrison
+									has_fleet_flag = satrapy_garrison_fleet
+									has_fleet_flag = horde_auxuliaries
+								}
+								exists = solar_system
+								is_within_borders_of = root
+							}
+						}
+					}
+					country_event = { id = marauder.671 days = -1 } # Notify Garrison End
+				}
+			}
+		}
 
 		# Removed on 3.6.*
 		# if = {
@@ -4031,7 +4058,21 @@ country_event = {
 	immediate = {
 		if = {
 			limit = { OR = { exists = event_target:raider_khanate has_global_flag = marauder_crisis_started } }
-			clear_global_event_target = raider_khanate
+			if = {
+				limit = { exists = event_target:marauders_garrison_1 }
+				country_event = { id = khan.1877 } # Remove Marauder Garrison
+			}
+			if = {
+				limit = { exists = event_target:raider_khanate }
+				event_target:raider_khanate = {
+					every_subject = {
+						limit = { is_subject_of_khan = yes }
+						country_event = { id = marauder.671 days = -1 } # Do it immediately as raider_khanate should exists.
+						change_variable = { which = "planets_lost_to_marauder" value = 5 }
+					}
+				}
+				clear_global_event_target = raider_khanate
+			}
 			every_playable_country = {
 				limit = { has_country_flag = rebelling_satrapy }
 				remove_country_flag = rebelling_satrapy
@@ -5646,7 +5687,6 @@ country_event = {
 			event_target:raider_khanate = {
 				every_subject = {
 					limit = { is_subject_of_khan = yes }
-					set_subject_of = { who = none }
 					country_event = { id = marauder.671 days = -1 } # Do it immediately as raider_khanate should exists.
 				}
 				# Inheritance old flag
@@ -6381,9 +6421,7 @@ country_event = {
 						any_agreement = { agreement_preset = preset_machinesmith_satrapy }
 						NOT = { has_country_flag = rebelling_satrapy }
 					}
-					root = {
-						get_tech_from_prev = yes
-					}
+					root = { get_tech_from_prev = yes }
 					log = "machinesmith sold [This.GetName]"
 					save_event_target_as = machinesmith
 					country_event = { id = marauder.520 days = 380 } # Improved cycle
@@ -8423,7 +8461,6 @@ country_event = {
 
 		every_subject = { # "The End of the Satrapy"
 			limit = { is_default_or_fallen = yes }
-			set_subject_of = { who = none }
 			country_event = { id = marauder.670 days = 2 }			# Notify Satrap End
 			# country_event = { id = marauder.671 days = 8 }		# Notify Garrison End
 		}
@@ -8998,7 +9035,6 @@ country_event = {
 		}
 		every_subject = {
 			limit = { is_default_or_fallen = yes }
-			set_subject_of = { who = none }
 			country_event = { id = marauder.670 days = 2 }			# Notify Satrap End
 			# country_event = { id = marauder.671 days = 8 }		# Notify Garrison End
 		}
@@ -10135,9 +10171,8 @@ country_event = {
 		}
 		every_subject = {
 			limit = { is_default_or_fallen = yes }
-			set_subject_of = { who = none }
-			country_event = { id = marauder.670 days = 3 }			# Notify Satrap End
-			country_event = { id = marauder.671 days = 10 }			# Notify Garrison End
+			country_event = { id = marauder.670 days = 2 }			# Notify Satrap End
+			country_event = { id = marauder.671 days = 9 }			# Notify Garrison End
 		}
 		observer_event = { id = observer.21 }
 		if = {
@@ -10311,6 +10346,10 @@ country_event = {
 	show_sound = event_ship_explosion
 	is_triggered_only = yes
 	immediate = {
+		if = {
+			limit = { is_subject = yes }
+			set_subject_of = { who = none }
+		}
 		if = { # To be sure (normally there should be nothing - used by khan.710)
 			limit = { exists = event_target:raider_khanate }
 			event_target:raider_khanate = {
@@ -10334,7 +10373,11 @@ country_event = {
 			event_target:marauders_garrison_1 = {
 				every_controlled_fleet = {
 					limit = {
-						OR = { has_fleet_flag = satrapy_garrison has_fleet_flag = satrapy_garrison_fleet has_fleet_flag = horde_auxuliaries }
+						OR = {
+							has_fleet_flag = satrapy_garrison
+							has_fleet_flag = satrapy_garrison_fleet
+							has_fleet_flag = horde_auxuliaries
+						}
 						exists = solar_system
 						is_within_borders_of = root
 					}
