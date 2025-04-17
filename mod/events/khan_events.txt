@@ -351,7 +351,7 @@ ship_event = {
 			solar_system = {
 				if = {
 					limit = {
-						count_system_colony = { limit = { is_owned_by = from.owner } count = 0 }
+						count_system_colony = { count = 0 limit = { is_owned_by = from.owner } }
 						any_system_planet = {
 							colonizable_planet = yes
 							OR = {
@@ -1541,7 +1541,10 @@ country_event = {
 				country_event = { id = marauder.602 days = 1 } # New Khanate
 			}
 		}
-		else = { destroy_country = yes }
+		else_if = {
+			limit = { NOR = { is_country_type = default is_ai = yes } }
+			destroy_country = yes
+		}
 
 		if = {
 			limit = { exists = event_target:great_khan }
@@ -1554,7 +1557,10 @@ country_event = {
 			limit = { exists = event_target:raider_khanate }
 			clear_global_event_target = raider_khanate
 		}
-		else = { destroy_country = yes }
+		else_if = {
+			limit = { NOR = { is_country_type = default is_ai = yes } }
+			destroy_country = yes
+		}
 		if = {
 			limit = { exists = event_target:marauder_precursor }
 			clear_global_event_target = marauder_precursor
@@ -2325,8 +2331,9 @@ system_event = {
 				# random_moon = { not valid anymore
 				root = {
 					random_system_planet = {
-						limit = {	# uses_district_set = habitat
+						limit = {
 							merg_is_habitat = yes
+							uses_district_set = habitat
 							is_colony = no
 							is_colonizable = yes
 						}

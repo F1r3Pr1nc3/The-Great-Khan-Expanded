@@ -508,7 +508,7 @@ get_marauder_raid_source = {
 			}
 		}
 		else_if = {
-			limit = { any_orbital_station = {} }
+			limit = { count_orbital_station = { count > 0 } }
 			random_orbital_station = { save_event_target_as = raid_source }
 		}
 	}

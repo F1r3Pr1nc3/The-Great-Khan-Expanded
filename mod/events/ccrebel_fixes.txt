@@ -9,7 +9,9 @@ country_event = {
 	id = rebellionfix.35
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = { num_ethics = 0 }
+	trigger = {
+		num_ethics = 0
+	}
 	immediate = {
 		if = {
 			limit = {
@@ -184,15 +186,14 @@ country_event = {
 		country_event = { id = rebellionfix.364 days = 3 }
 	}
 }
-
+# on_country_type_changed
 country_event = {
 	id = rebellionfix.36
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = { is_country_type = default }
 	immediate = {
-		# Vanilla Bug Fix (v3.11) for syncretic species by FirePrince https://forum.paradoxplaza.com/forum/threads/stellaris-massive-overlooked-issue-with-syncretic-evolution-origin.1622715/
-		if = {
+		if = { # Vanilla Bug Fix (v3.11) for syncretic species by FirePrince https://forum.paradoxplaza.com/forum/threads/stellaris-massive-overlooked-issue-with-syncretic-evolution-origin.1622715/
 			limit = { any_owned_species = { is_same_species = root.owner_species has_trait = trait_syncretic_proles } }
 			## Get majority rebel species
 			every_owned_species = {
@@ -280,11 +281,21 @@ country_event = {
 		}
 		if = {
 			limit = { num_ethics > 2 }
+			if = {
+				limit = { is_gestalt = yes }
+				clear_ethos = yes
+				shift_ethic = ethic_gestalt_consciousness
+			}
 			break = yes
 		}
 		else_if = {
 			limit = { num_ethics = 2 }
 			if = {
+				limit = { is_gestalt = yes }
+				clear_ethos = yes
+				shift_ethic = ethic_gestalt_consciousness
+			}
+			else_if = {
 				limit = { has_ethic = ethic_authoritarian has_ethic = ethic_pacifist }
 				random_list = {
 					50 = {
@@ -838,7 +849,7 @@ country_event = {
 			}
 		}
 		else_if = {
-			limit = { num_ethics = 1 }
+			limit = { num_ethics = 1 is_gestalt = no }
 			if = {
 				limit = { has_ethic = ethic_authoritarian }
 				country_remove_ethic = ethic_authoritarian
@@ -883,6 +894,11 @@ country_event = {
 		else_if = {
 			limit = { num_ethics = 0 }
 			if = {
+				limit = { is_hive_empire = yes }
+				shift_ethic = ethic_gestalt_consciousness
+				break = yes
+			}
+			else_if = {
 				limit = { NOT = { exists = from } count_owned_planet = { count > 0 } }
 				if = {
 					limit = { NOT = { exists = capital_scope } }
@@ -1085,9 +1101,8 @@ country_event = {
 					12 = {
 						modifier = { factor = 0 OR = { is_authoritarian = yes is_egalitarian = yes } }
 						modifier = { factor = 2
-							count_owned_pop = {
+							count_owned_pop = { count > 2
 								limit = { pop_has_ethic = ethic_authoritarian }
-								count > 2
 							}
 						}
 						country_add_ethic = ethic_authoritarian
@@ -1095,9 +1110,8 @@ country_event = {
 					12 = {
 						modifier = { factor = 0 OR = { is_authoritarian = yes is_egalitarian = yes } }
 						modifier = { factor = 2
-							count_owned_pop = {
+							count_owned_pop = { count > 2
 								limit = { pop_has_ethic = ethic_egalitarian }
-								count > 2
 							}
 						}
 						country_add_ethic = ethic_egalitarian
@@ -1105,9 +1119,8 @@ country_event = {
 					12 = {
 						modifier = { factor = 0 OR = { is_xenophile = yes is_xenophobe = yes } }
 						modifier = { factor = 2
-							count_owned_pop = {
+							count_owned_pop = { count > 2
 								limit = { pop_has_ethic = ethic_xenophile }
-								count > 2
 							}
 						}
 						country_add_ethic = ethic_xenophile
@@ -1115,9 +1128,8 @@ country_event = {
 					12 = {
 						modifier = { factor = 0 OR = { is_xenophile = yes is_xenophobe = yes } }
 						modifier = { factor = 2
-							count_owned_pop = {
+							count_owned_pop = { count > 2
 								limit = { pop_has_ethic = ethic_xenophobe }
-								count > 2
 							}
 						}
 						country_add_ethic = ethic_xenophobe
@@ -1125,9 +1137,8 @@ country_event = {
 					12 = {
 						modifier = { factor = 0 OR = { is_militarist = yes is_pacifist = yes } }
 						modifier = { factor = 2
-							count_owned_pop = {
+							count_owned_pop = { count > 2
 								limit = { pop_has_ethic = ethic_militarist }
-								count > 2
 							}
 						}
 						country_add_ethic = ethic_militarist
@@ -1135,9 +1146,8 @@ country_event = {
 					12 = {
 						modifier = { factor = 0 OR = { is_militarist = yes is_pacifist = yes } }
 						modifier = { factor = 2
-							count_owned_pop = {
+							count_owned_pop = { count > 2
 								limit = { pop_has_ethic = ethic_pacifist }
-								count > 2
 							}
 						}
 						country_add_ethic = ethic_pacifist
@@ -1145,9 +1155,8 @@ country_event = {
 					12 = {
 						modifier = { factor = 0 OR = { is_spiritualist = yes is_materialist = yes } }
 						modifier = { factor = 2
-							count_owned_pop = {
+							count_owned_pop = { count > 2
 								limit = { pop_has_ethic = ethic_spiritualist }
-								count > 2
 							}
 						}
 						country_add_ethic = ethic_spiritualist
@@ -1155,9 +1164,8 @@ country_event = {
 					12 = {
 						modifier = { factor = 0 OR = { is_spiritualist = yes is_materialist = yes } }
 						modifier = { factor = 2
-							count_owned_pop = {
+							count_owned_pop = { count > 2
 								limit = { pop_has_ethic = ethic_materialist }
-								count > 2
 							}
 						}
 						country_add_ethic = ethic_materialist
@@ -1367,9 +1375,8 @@ country_event = {
 			12 = {
 				modifier = { factor = 0 OR = { is_authoritarian = yes is_egalitarian = yes } }
 				modifier = { factor = 2
-					count_owned_pop = {
+					count_owned_pop = { count > 2
 						limit = { pop_has_ethic = ethic_authoritarian }
-						count > 2
 					}
 				}
 				country_add_ethic = ethic_authoritarian
@@ -1377,9 +1384,8 @@ country_event = {
 			12 = {
 				modifier = { factor = 0 OR = { is_authoritarian = yes is_egalitarian = yes } }
 				modifier = { factor = 2
-					count_owned_pop = {
+					count_owned_pop = { count > 2
 						limit = { pop_has_ethic = ethic_egalitarian }
-						count > 2
 					}
 				}
 				country_add_ethic = ethic_egalitarian
@@ -1387,9 +1393,8 @@ country_event = {
 			12 = {
 				modifier = { factor = 0 OR = { is_xenophile = yes is_xenophobe = yes } }
 				modifier = { factor = 2
-					count_owned_pop = {
+					count_owned_pop = { count > 2
 						limit = { pop_has_ethic = ethic_xenophile }
-						count > 2
 					}
 				}
 				country_add_ethic = ethic_xenophile
@@ -1397,9 +1402,8 @@ country_event = {
 			12 = {
 				modifier = { factor = 0 OR = { is_xenophile = yes is_xenophobe = yes } }
 				modifier = { factor = 2
-					count_owned_pop = {
+					count_owned_pop = { count > 2
 						limit = { pop_has_ethic = ethic_xenophobe }
-						count > 2
 					}
 				}
 				country_add_ethic = ethic_xenophobe
@@ -1407,9 +1411,8 @@ country_event = {
 			12 = {
 				modifier = { factor = 0 OR = { is_militarist = yes is_pacifist = yes } }
 				modifier = { factor = 2
-					count_owned_pop = {
+					count_owned_pop = { count > 2
 						limit = { pop_has_ethic = ethic_militarist }
-						count > 2
 					}
 				}
 				country_add_ethic = ethic_militarist
@@ -1417,9 +1420,8 @@ country_event = {
 			12 = {
 				modifier = { factor = 0 OR = { is_militarist = yes is_pacifist = yes } }
 				modifier = { factor = 2
-					count_owned_pop = {
+					count_owned_pop = { count > 2
 						limit = { pop_has_ethic = ethic_pacifist }
-						count > 2
 					}
 				}
 				country_add_ethic = ethic_pacifist
@@ -1427,9 +1429,8 @@ country_event = {
 			12 = {
 				modifier = { factor = 0 OR = { is_spiritualist = yes is_materialist = yes } }
 				modifier = { factor = 2
-					count_owned_pop = {
+					count_owned_pop = { count > 2
 						limit = { pop_has_ethic = ethic_spiritualist }
-						count > 2
 					}
 				}
 				country_add_ethic = ethic_spiritualist
@@ -1437,9 +1438,8 @@ country_event = {
 			12 = {
 				modifier = { factor = 0 OR = { is_spiritualist = yes is_materialist = yes } }
 				modifier = { factor = 2
-					count_owned_pop = {
+					count_owned_pop = { count > 2
 						limit = { pop_has_ethic = ethic_materialist }
-						count > 2
 					}
 				}
 				country_add_ethic = ethic_materialist
@@ -1480,7 +1480,6 @@ country_event = {
 		else = { change_government = random }
 		fire_on_action = { on_action = empire_init_create_ships }
 	}
-	after = {
-		# set_name = random # Because sometimes native didn't work?
+	after = {	# set_name = random # Because sometimes native didn't work?
 	}
 }

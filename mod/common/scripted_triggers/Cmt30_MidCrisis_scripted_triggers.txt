@@ -42,46 +42,32 @@ CmtTriggerHasPotentialKhanAwaking = {
 			OR = {
 				NOT = { has_country_flag = restored_marauders_flag }
 				# Fallback (Last Sleeping Marauder)
-				count_country = {
+				count_country = { count = 0
 					limit = {
 						is_country_type = dormant_marauders
 						NOT = { has_country_flag = restored_marauders_flag }
 					}
-					count = 0
 				}
 			}
 		}
-		AND = {
-			is_pirate_country = yes
-			has_country_flag = restored_marauders_flag
-		}
+		AND = { is_pirate_country = yes has_country_flag = restored_marauders_flag }
 		AND = {
 			has_origin = origin_khan_successor
 			is_at_war = no
-			OR = {
-				has_country_flag = new_khanate_flag
-				has_country_flag = diadochi
-			}
+			OR = { has_country_flag = new_khanate_flag has_country_flag = diadochi }
 			# NOT = { has_country_flag = restored_marauders_flag }
-			count_country = { limit = { is_country_type = dormant_marauders } count = 0 }
+			count_country = { count = 0 limit = { is_country_type = dormant_marauders } }
 		}
 	}
-	OR = {
-		# Human player hack
-		AND = {
-			is_ai = no
-			has_country_flag = new_khanate_flag
-		}
+	OR = {	# Human player hack
+		AND = { is_ai = no has_country_flag = new_khanate_flag }
 		AND = {
 			has_country_flag = marauder_1
 			any_system_within_border = {
 				has_star_flag = marauder_system
 				OR = {
 					has_star_flag = marauder_capital_1
-					any_neighbor_system = {
-						has_owner = no
-						has_star_flag = marauder_capital_1
-					}
+					any_neighbor_system = { has_owner = no has_star_flag = marauder_capital_1 }
 				}
 			}
 		}
@@ -91,10 +77,7 @@ CmtTriggerHasPotentialKhanAwaking = {
 				has_star_flag = marauder_system
 				OR = {
 					has_star_flag = marauder_capital_2
-					any_neighbor_system = {
-						has_owner = no
-						has_star_flag = marauder_capital_2
-					}
+					any_neighbor_system = { has_owner = no has_star_flag = marauder_capital_2 }
 				}
 			}
 		}
@@ -104,10 +87,7 @@ CmtTriggerHasPotentialKhanAwaking = {
 				has_star_flag = marauder_system
 				OR = {
 					has_star_flag = marauder_capital_3
-					any_neighbor_system = {
-						has_owner = no
-						has_star_flag = marauder_capital_3
-					}
+					any_neighbor_system = { has_owner = no has_star_flag = marauder_capital_3 }
 				}
 			}
 		}

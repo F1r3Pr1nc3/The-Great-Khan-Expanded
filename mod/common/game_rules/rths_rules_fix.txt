@@ -58,7 +58,7 @@ can_take_hostile_actions = {
 			root = {
 				any_owned_planet = {
 					exists = controller
-					controller = { is_same_value = prevprevprev }
+					controller = { is_same_empire = prevprevprev }
 				}
 			}
 		}

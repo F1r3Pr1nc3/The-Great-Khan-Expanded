@@ -208,6 +208,7 @@ country_event = {
 						}
 					}
 					count_federation = {
+						count = 0
 						limit = {
 							NOT = { is_same_value = prev }
 							relative_power = { who = prev value > equivalent category = fleet }
@@ -221,7 +222,6 @@ country_event = {
 								}
 							}
 						}
-						count = 0
 					}
 				}
 			}
@@ -237,6 +237,7 @@ country_event = {
 						}
 					}
 					count_federation = {
+						count = 0
 						limit = {
 							NOT = { is_same_value = prev }
 							relative_power = { who = prev value > equivalent category = fleet }
@@ -250,7 +251,6 @@ country_event = {
 								}
 							}
 						}
-						count = 0
 					}
 				}
 				random_member = {
@@ -309,8 +309,8 @@ country_event = {
 						event_target:CmtGlobalVar = { check_variable = { which = CmtVarHeavenNpcLeague value = 1 } }
 						check_variable = { which = CmtFlagNominatedLeader value < 2 }
 						count_country = {
-							limit = { has_country_flag = CmtFlagNominatedLeader has_been_declared_crisis = no }
 							count < 2
+							limit = { has_country_flag = CmtFlagNominatedLeader has_been_declared_crisis = no }
 						}
 					}
 				}
@@ -320,12 +320,12 @@ country_event = {
 						has_country_flag = CmtFlagNominatedLeader
 						has_been_declared_crisis = no
 						count_playable_country = {
+							count = 0
 							limit = {
 								has_country_flag = CmtFlagNominatedLeader
 								has_been_declared_crisis = no
 								relative_power = { who = prev value > equivalent }
 							}
-							count = 0
 						}
 					}
 					set_global_flag = war_in_heaven_seeking_league_leader
@@ -597,7 +597,7 @@ country_event = {
 			country_event = { id = khan.309 days = 1 } # Friendly to be sure
 		}
 		if = {
-			limit = { has_country_flag = declared_crisis }
+			limit = { is_ai = yes has_country_flag = declared_crisis }
 			remove_country_flag = declared_crisis
 		}
 		if = {
@@ -644,6 +644,7 @@ country_event = {
 				country_event = { id = khan.217 } # Try to form Galactic Community.
 				if = {
 					limit = {
+						is_ai = yes
 						count_playable_country = { # Minimum 3 countries
 							limit = { is_homicidal = no is_gestalt = no }
 							count > 2
@@ -656,7 +657,7 @@ country_event = {
 			}
 			else = {
 				if = {
-					limit = { is_galactic_community_member = no }
+					limit = { is_galactic_community_member = no is_ai = yes }
 					add_to_galactic_community_no_message = yes
 				}
 				# country_event = { id = custodian.499 }
@@ -692,7 +693,7 @@ country_event = {
 				is_subject_of_khan = yes
 				OR = {
 					is_ai = yes
-					count_subject = { limit = { is_ai = yes } count = 0 }
+					count_subject = { count = 0 limit = { is_ai = yes } }
 				}
 			}
 			root = { save_event_target_as = new_khanate }
@@ -1021,7 +1022,7 @@ country_event = {
 							OR = {
 								prev = {
 									is_ai = yes
-									count_federation_ally = { limit = { is_ai = no } count = 0 }
+									count_federation_ally = { count = 0 limit = { is_ai = no } }
 								}
 								has_federations_dlc = yes
 							}
@@ -1790,6 +1791,7 @@ country_event = {
 						check_variable = { which = khan_galaxy_pct value < 0.6 }
 						check_variable = { which = khan_fleet_power value < inc_fleet_power }
 						count_playable_country = {
+							count > 2
 							limit = {
 								NOR = {
 									is_subject = yes
@@ -1804,7 +1806,6 @@ country_event = {
 									}
 								}
 							}
-							count > 2
 						}
 					}
 				}
@@ -2555,19 +2556,35 @@ country_event = {
 	}
 }
 
+# TODO: Player could chose!? Mysteric Bug Reported: Somehow player lost systems to the new new_khanate fully unrelated??
 # Player Defeating the Khan and choosing to be Successor
+# Root = human player
+# From = raider_khanate
 country_event = {
 	id = khan.605
 	hide_window = yes
 	is_triggered_only = yes
-	immediate = {
-		# TODO: Player could chose!? Mysteric Bug Reported: Somehow player lost systems to the new new_khanate fully unrelated??
-		if = {
-			limit = { NOT = { exists = event_target:raider_khanate } }
-			from = { save_event_target_as = raider_khanate }
+	trigger = {
+		is_scope_valid = yes
+		is_scope_type = country
+		is_country_type = default
+		is_ai = no
+		exists = from
+		from = {
+			is_scope_valid = yes
+			is_scope_type = country
+			is_country_type = default
+			is_ai = yes
 		}
-		set_player = event_target:raider_khanate
 	}
+	immediate = {
+		from = {
+			set_player = root
+			add_resource = { energy = 10000 }
+			country_event = { id = khan.218 days = 8 } # galcom
+		}
+	}
+	# after = {  }
 }
 
 # # Get a new Khan? (before marauder future) now 510
@@ -3566,7 +3583,7 @@ country_event = {
 						event_target:victim_country = {
 							any_agreement = { agreement_preset = preset_war_satrapy }
 						}
-						count_playable_country = { limit = { is_same_empire = event_target:attacking_country } count = 0 }
+						count_playable_country = { count = 0 limit = { is_same_empire = event_target:attacking_country } }
 					}
 				}
 				event_target:raider_khanate = {

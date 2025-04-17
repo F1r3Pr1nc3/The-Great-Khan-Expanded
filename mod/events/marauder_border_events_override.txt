@@ -105,7 +105,7 @@ country_event = {
 						exists = leader # Somehow gets ignored sometimes (if juggernaut?)
 						OR = {
 							NOT = { is_ship_size = juggernaut }
-							count_owned_ship = { limit = { is_ship_class = shipclass_starbase } count = 0 }
+							count_owned_ship = { count = 0 limit = { is_ship_class = shipclass_starbase } }
 						}
 					}
 					leader = { set_owner = event_target:new_khanate }
@@ -190,7 +190,7 @@ country_event = {
 								merg_is_habitat = yes
 							}
 						}
-						count_system_colony = {
+						count_system_colony = { count = 0
 							limit = {
 								is_controlled_by = root
 								OR = {
@@ -201,7 +201,6 @@ country_event = {
 									}
 								}
 							}
-							count = 0
 						}
 					}
 					ordered_system_colony = {
@@ -221,8 +220,7 @@ country_event = {
 						order_by = trigger:num_sapient_pops
 						log = "Give system [Prev.GetName] back to [This.Owner.GetName]"
 						owner = { save_event_target_as = planet_owner }
-						prev = {
-							# commit_system_to = { EMPIRE = prevprev.planet_owner } # The target scope is solved there (so add 1 more prev)
+						prev = {	# commit_system_to = { EMPIRE = prevprev.planet_owner } # The target scope is solved there (so add 1 more prev)
 							commit_system_to = { EMPIRE = event_target:planet_owner }
 							add_claims = { who = root num_of_claims = 1 show_notification = no }
 						}
@@ -284,8 +282,7 @@ country_event = {
 			}
 		}
 
-		event_target:new_khanate = {
-			# Fire when country finishes being integrated
+		event_target:new_khanate = {	# Fire when country finishes being integrated
 			# From = subject
 			fire_on_action = { on_action = on_subject_integrated }
 			if = {
@@ -703,7 +700,7 @@ country_event = {
 					has_fleet_flag = horde_auxuliaries
 					NOT = { is_within_borders_of = root }
 				}
-				count_owned_ship = { limit = { is_ship_size = starbase_marauder } count = 0 }
+				count_owned_ship = { count = 0 limit = { is_ship_size = starbase_marauder } }
 			}
 			destroy_fleet = this
 		}
@@ -858,8 +855,7 @@ country_event = {
 			}
 		}
 		restore_country_backup_data = yes
-		every_subject = {
-			# limit = { is_default_or_fallen = yes }
+		every_subject = {	# limit = { is_default_or_fallen = yes }
 			# set_subject_of = { who = none }
 			# country_event = { id = marauder.670 days = 3 }		# Notify Satrap End
 			country_event = { id = marauder.671 days = 10 }			# Notify Garrison End
@@ -870,15 +866,22 @@ country_event = {
 		if = {
 			limit = { exists = event_target:raider_khanate }
 			if = { # If human player
-				limit = { is_ai = no exists = event_target:new_khanate is_same_empire = event_target:raider_khanate }
+				limit = {
+					is_ai = no
+					exists = event_target:new_khanate
+					is_same_empire = event_target:raider_khanate
+				}
 				event_target:new_khanate = { set_player = event_target:raider_khanate }
 			}
 		}
+		else_if = {
+			limit = { is_country_type = default }
+			country_event = { id = khan.605 days = 2 scopes = { from = event_target:new_khanate } }
+		}
 		if = {
 			limit = {
-				count_subject = {
+				count_subject = { count > 0
 					limit = { any_agreement = { agreement_preset = preset_satrapy } }
-					count > 0
 				}
 			}
 			every_subject = {
@@ -937,8 +940,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 
-	immediate = {
-		# log = "Begin Sector Assignment"
+	immediate = {	# log = "Begin Sector Assignment"
 		if = {
 			limit = {
 				exists = event_target:CmtGlobalVar
@@ -950,7 +952,7 @@ country_event = {
 						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathSplinter value != 1 } }
 					}
 					AND = {
-						count_subject = { count > 1 } # count_country = { limit = { is_subject_of_khan = yes } count > 1 }
+						count_subject = { count > 1 } # count_country = { count > 1 limit = { is_subject_of_khan = yes } }
 						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathDemocratic value != 1 } }
 					}
 				}
@@ -997,7 +999,7 @@ country_event = {
 				16 = { # Turns into Democratic Federation.
 					modifier = { factor = 0 # Can only happen if there are enough Satrapies.
 						OR = {
-							count_subject = { count < 2 } # count_country = { limit = { is_subject_of_khan = yes } count < 2 }
+							count_subject = { count < 2 } # count_country = { count < 2 limit = { is_subject_of_khan = yes } }
 							event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathDemocratic value = 1 } }
 						}
 					}
@@ -1026,7 +1028,7 @@ country_event = {
 				}
 				16 = { # Turns into Democratic Federation.
 					modifier = { factor = 0 # Can only happen if there are enough Satrapies.
-						count_subject = { count < 2 } # count_country = { limit = { is_subject_of_khan = yes } count < 2 }
+						count_subject = { count < 2 } # count_country = { count < 2 limit = { is_subject_of_khan = yes } }
 					}
 					country_event = { id = marauder.603 }
 				}
@@ -1130,7 +1132,7 @@ country_event = {
 									}
 									any_country_neighbor_to_system = { is_same_empire = event_target:planet_owner_2 } # prevprevprevprev
 									OR = {
-										count_neighbor_system = { limit = { has_owner = yes is_owned_by = prevprev } count = 0 }
+										count_neighbor_system = { count = 0 limit = { has_owner = yes is_owned_by = prevprev } }
 										AND = {
 											count_neighbor_system = { count = 1 limit = { has_owner = yes is_owned_by = prevprev } }
 											count_neighbor_system = { count >= 1 limit = { has_owner = yes is_owned_by = event_target:planet_owner_2 } } # prevprevprevprev
@@ -1173,7 +1175,7 @@ country_event = {
 									}
 									any_country_neighbor_to_system = { is_same_empire = event_target:planet_owner_2 } # prevprevprevprev
 									OR = {
-										count_neighbor_system = { limit = { has_owner = yes is_owned_by = prevprev } count = 0 }
+										count_neighbor_system = { count = 0 limit = { has_owner = yes is_owned_by = prevprev } }
 										AND = {
 											count_neighbor_system = { count = 1 limit = { has_owner = yes is_owned_by = prevprev } }
 											count_neighbor_system = { count >= 1 limit = { has_owner = yes is_owned_by = event_target:planet_owner_2 } } # prevprevprevprev
@@ -1199,7 +1201,7 @@ country_event = {
 									}
 									any_country_neighbor_to_system = { is_same_empire = event_target:planet_owner_2 } # prevprevprevprev
 									OR = {
-										count_neighbor_system = { limit = { has_owner = yes is_owned_by = prevprev } count = 0 }
+										count_neighbor_system = { count = 0 limit = { has_owner = yes is_owned_by = prevprev } }
 										AND = {
 											count_neighbor_system = { count = 1 limit = { has_owner = yes is_owned_by = prevprev } }
 											count_neighbor_system = { count >= 1 limit = { has_owner = yes is_owned_by = event_target:planet_owner_2 } } # prevprevprevprev
@@ -1221,7 +1223,7 @@ country_event = {
 									}
 									any_country_neighbor_to_system = { is_same_empire = event_target:planet_owner_2 } # prevprevprevprev
 									OR = {
-										count_neighbor_system = { limit = { has_owner = yes is_owned_by = prevprev } count = 0 }
+										count_neighbor_system = { count = 0 limit = { has_owner = yes is_owned_by = prevprev } }
 										AND = {
 											count_neighbor_system = { count = 1 limit = { has_owner = yes is_owned_by = prevprev } }
 											count_neighbor_system = { count >= 1 limit = { has_owner = yes is_owned_by = event_target:planet_owner_2 } } # prevprevprevprev

@@ -695,7 +695,8 @@ ship_design = {
 ship_design = {
 	name = "NAME_Marauder_Citadel"
 	ship_size = starbase_citadel
-	is_event_design = yes
+	# is_event_design = yes
+	country_type = awakened_marauders
 	section = {
 		template = "CITADEL_STARBASE_SECTION"
 		slot = "core"
@@ -719,14 +720,14 @@ ship_design = {
 			slot = "MEDIUM_GUN_05"
 			template = "MEDIUM_PLASMA_2"
 		}
-		component = {
-			slot = "MEDIUM_GUN_06"
-			template = "FLAK_BATTERY_1"
-		}
-		component = {
-			slot = "MEDIUM_GUN_07"
-			template = "FLAK_BATTERY_1"
-		}
+		# component = {
+		# 	slot = "MEDIUM_GUN_06"
+		# 	template = "FLAK_BATTERY_1"
+		# }
+		# component = {
+		# 	slot = "MEDIUM_GUN_07"
+		# 	template = "FLAK_BATTERY_1"
+		# }
 		component = {
 			slot = "MEDIUM_GUN_08"
 			template = "MEDIUM_MASS_DRIVER_3"
@@ -735,22 +736,22 @@ ship_design = {
 			slot = "MEDIUM_GUN_09"
 			template = "MEDIUM_MASS_DRIVER_3"
 		}
-		component = {
-			slot = "MEDIUM_GUN_010"
-			template = "MEDIUM_MASS_DRIVER_3"
-		}
-		component = {
-			slot = "MEDIUM_GUN_011"
-			template = "MEDIUM_MASS_DRIVER_3"
-		}
-		component = {
-			slot = "MEDIUM_GUN_012"
-			template = "FLAK_BATTERY_1"
-		}
-		component = {
-			slot = "MEDIUM_GUN_013"
-			template = "FLAK_BATTERY_1"
-		}
+		# component = {
+		# 	slot = "MEDIUM_GUN_010"
+		# 	template = "MEDIUM_MASS_DRIVER_3"
+		# }
+		# component = {
+		# 	slot = "MEDIUM_GUN_011"
+		# 	template = "MEDIUM_MASS_DRIVER_3"
+		# }
+		# component = {
+		# 	slot = "MEDIUM_GUN_012"
+		# 	template = "FLAK_BATTERY_1"
+		# }
+		# component = {
+		# 	slot = "MEDIUM_GUN_013"
+		# 	template = "FLAK_BATTERY_1"
+		# }
 		component = {
 			slot = "LARGE_UTILITY_1"
 			template = "LARGE_ARMOR_3"

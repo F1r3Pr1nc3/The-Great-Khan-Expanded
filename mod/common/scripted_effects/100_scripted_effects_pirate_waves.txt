@@ -7,19 +7,19 @@
 # 	Variables								#
 #############################################
 # Ship limit for pirate countries.
-@ships_count_very_easy = 250
-@ships_count_easy = 500
-@ships_count_medium = 1000
-@ships_count_hard = 2000
-@ships_count_very_hard = 3200
-@ships_count_insane = 5000
+@ships_count_very_easy = 200
+@ships_count_easy = 400
+@ships_count_medium = 800
+@ships_count_hard = 1600
+@ships_count_very_hard = 2560
+@ships_count_insane = 4000
 # Prev = owner
 create_dyn_pirate_fleet = {
 	optimize_memory
 	prev = {
 		if = {
 			limit = { NOT = { is_variable_set = pirates_f_tmp } }
-			set_variable = { which = pirates_f_tmp value = 1 }
+			set_variable = { which = pirates_f_tmp value = 0.8 }
 		}
 	}
 	# log = "create_dyn_pirate_fleet [prev.pirates_f_tmp]"
@@ -544,9 +544,9 @@ create_pirate_waves_fleet = {
 		round_variable_to_closest = { which = pirates_f_tmp value = 0.01 }
 	}
 	set_variable		= { which = pirates_fleet_factor value = prev.pirates_factor }
-	multiply_variable	= { which = pirates_fleet_factor value = 108 } # 75
-	change_variable		= { which = pirates_fleet_factor value = 72 }
-	multiply_variable	= { which = pirates_fleet_factor value = 0.5 }
+	multiply_variable	= { which = pirates_fleet_factor value = 76 }	# 108
+	change_variable		= { which = pirates_fleet_factor value = 50 }	# 72
+	multiply_variable	= { which = pirates_fleet_factor value = 0.35 }	# 0.5
 	round_variable = pirates_fleet_factor
 	# log = "pirates_fleet_factor [This.pirates_fleet_factor]"
 

@@ -1,0 +1,9 @@
+# A planets controller becomes a country not the same as the owner.
+# Root = Planet
+# From = Planet Owner
+# FromFrom = Planet Controller (the one occupying)
+on_planet_occupied = {
+	events = {
+		marauder.30 # Mercenary need new target
+	}
+}

@@ -95,7 +95,7 @@ country_event = {
 		custom_tooltip = CrisisManagerMenu.7000.7135.B.tooltip
 		trigger = {
 			has_global_flag = CmtFlagSleeperEdition
-			count_country = { limit = { CmtTriggerIsOrganicSleeper = yes } count = 0 }
+			count_country = { count = 0 limit = { CmtTriggerIsOrganicSleeper = yes } }
 		}
 		allow = { mid_game_years_passed >= 40 }
 		hidden_effect = {
@@ -126,7 +126,7 @@ country_event = {
 			}
 			# NOR = {
 			# 	has_global_flag = CmtFlagWarInHeavenTriggered
-			# 	count_country = { limit = { CmtTriggerIsAwakenableSleeper = yes } count < 2 }
+			# 	count_country = { count < 2 limit = { CmtTriggerIsAwakenableSleeper = yes } }
 			# }
 		}
 		hidden_effect = {
@@ -153,7 +153,7 @@ country_event = {
 					limit = { is_fallen_empire = yes CmtTriggerIsHeavenAFE = no is_at_war = no }
 				}
 			}
-			# count_country = { limit = { CmtTriggerIsOrganicSleeper = yes } count < 2 }
+			# count_country = { count < 2 limit = { CmtTriggerIsOrganicSleeper = yes } }
 		}
 		hidden_effect = {
 			if = {
@@ -177,7 +177,7 @@ country_event = {
 	# 	trigger = {
 	# 		has_global_flag = CmtFlagSleeperEdition
 	# 		has_global_flag = CmtFlagWarInHeavenTriggered
-	# 		NOT = { count_country = { limit = { CmtTriggerIsOrganicSleeper = yes } count < 2 } }
+	# 		NOT = { count_country = { count < 2 limit = { CmtTriggerIsOrganicSleeper = yes } } }
 	# 	}
 	# 	hidden_effect = { country_event = { id = CrisisManagerMenu.7000 } }
 	# }
@@ -322,7 +322,7 @@ country_event = {
 		trigger = {
 			has_global_flag = CmtFlagMidGameEdition
 			has_global_flag = l_cluster_opened
-			count_megastructure = { limit = { CmtTriggerIsClosedLgate = yes } count = 0 }
+			count_megastructure = { count = 0 limit = { CmtTriggerIsClosedLgate = yes } }
 		}
 		hidden_effect = {
 			if = {
@@ -364,7 +364,7 @@ country_event = {
 	#	trigger = {
 	#		has_synthetic_dawn = yes
 	#		has_global_flag = CmtFlagUprisingEdition
-	#		count_country = { limit = { CmtTriggerUprisingPotentialManually = yes } count = 0 }
+	#		count_country = { count = 0 limit = { CmtTriggerUprisingPotentialManually = yes } }
 	#	}
 	#	hidden_effect = { country_event = { id = CrisisManagerMenu.7000 } }
 	#}
@@ -436,7 +436,7 @@ country_event = {
 		custom_tooltip = BLANK_STRING
 		trigger = {
 			has_global_flag = CmtFlagSleeperEdition
-			count_country = { limit = { merg_is_fallen_empire = yes } count = 0 }
+			count_country = { count = 0 limit = { merg_is_fallen_empire = yes } }
 		}
 		hidden_effect = { country_event = { id = CrisisManagerMenu.7000 } }
 	}
@@ -1080,7 +1080,7 @@ country_event = {
 		}
 		trigger = { ## 1 or more
 			any_country = { merg_is_fallen_empire = yes }
-			# count_country = { limit = { merg_is_fallen_empire = yes } count > 0 } # CmtTriggerIsOrganicSleeper = yes
+			# count_country = { count > 0 limit = { merg_is_fallen_empire = yes } } # CmtTriggerIsOrganicSleeper = yes
 		}
 		hidden_effect = {
 			if = {
@@ -2251,7 +2251,7 @@ country_event = {
 #	option = {
 #		name = CrisisManagerMenu.7146b.name
 #		custom_tooltip = CrisisManagerMenu.7146b.tooltip
-#		trigger = { count_country = { limit = { has_country_flag = CmtFlagManualUprisingListed } count > 1 } }		## 2 or more
+#		trigger = { count_country = { count > 1 limit = { has_country_flag = CmtFlagManualUprisingListed } } }		## 2 or more
 #		hidden_effect = {
 #			if = {
 #				limit = { any_country = { CmtTriggerUprisingMachinePotentialCountry = yes } }
@@ -3421,7 +3421,7 @@ country_event = {
 			every_country = {
 				limit = {
 					merg_is_fallen_empire = yes
-					count_owned_ship = { limit = { is_ship_size = massive_ship_fallen_empire } count = 0 }
+					count_owned_ship = { count = 0 limit = { is_ship_size = massive_ship_fallen_empire } }
 				}
 				random = { chance = 25 capital_scope = { CmtEffectCreateSleeperTitan = yes } }
 			}
@@ -3434,7 +3434,7 @@ country_event = {
 			every_country = {
 				limit = {
 					merg_is_fallen_empire = yes
-					count_owned_ship = { limit = { is_ship_size = massive_ship_fallen_empire } count = 0 }
+					count_owned_ship = { count = 0 limit = { is_ship_size = massive_ship_fallen_empire } }
 				}
 				random = { chance = 40 capital_scope = { CmtEffectCreateSleeperTitan = yes } }
 			}
@@ -3447,7 +3447,7 @@ country_event = {
 			every_country = {
 				limit = {
 					merg_is_fallen_empire = yes
-					count_owned_ship = { limit = { is_ship_size = massive_ship_fallen_empire } count = 0 }
+					count_owned_ship = { count = 0 limit = { is_ship_size = massive_ship_fallen_empire } }
 				}
 				random = { chance = 67 capital_scope = { CmtEffectCreateSleeperTitan = yes } }
 			}
@@ -3514,12 +3514,12 @@ country_event = {
 				limit = { merg_is_fallen_empire = yes }
 				capital_scope = {
 					while = {
-						limit = { prev = { count_owned_ship = { limit = { is_ship_size = massive_ship_fallen_empire } count < 1 } } }
+						limit = { prev = { count_owned_ship = { count < 1 limit = { is_ship_size = massive_ship_fallen_empire } } } }
 						CmtEffectCreateSleeperTitan = yes
 					}
 				}
 				while = {
-					limit = { count_owned_ship = { limit = { is_ship_size = massive_ship_fallen_empire } count > 1 } }
+					limit = { count_owned_ship = { count > 1 limit = { is_ship_size = massive_ship_fallen_empire } } }
 					random_owned_ship = { limit = { is_ship_size = massive_ship_fallen_empire } delete_ship = this }
 				}
 			}
@@ -3533,12 +3533,12 @@ country_event = {
 				limit = { merg_is_fallen_empire = yes }
 				capital_scope = {
 					while = {
-						limit = { prev = { count_owned_ship = { limit = { is_ship_size = massive_ship_fallen_empire } count < 2 } } }
+						limit = { prev = { count_owned_ship = { count < 2 limit = { is_ship_size = massive_ship_fallen_empire } } } }
 						CmtEffectCreateSleeperTitan = yes
 					}
 				}
 				while = {
-					limit = { count_owned_ship = { limit = { is_ship_size = massive_ship_fallen_empire } count > 2 } }
+					limit = { count_owned_ship = { count > 2 limit = { is_ship_size = massive_ship_fallen_empire } } }
 					random_owned_ship = { limit = { is_ship_size = massive_ship_fallen_empire } delete_ship = this }
 				}
 			}
@@ -3552,12 +3552,12 @@ country_event = {
 				limit = { merg_is_fallen_empire = yes }
 				capital_scope = {
 					while = {
-						limit = { prev = { count_owned_ship = { limit = { is_ship_size = massive_ship_fallen_empire } count < 3 } } }
+						limit = { prev = { count_owned_ship = { count < 3 limit = { is_ship_size = massive_ship_fallen_empire } } } }
 						CmtEffectCreateSleeperTitan = yes
 					}
 				}
 				while = {
-					limit = { count_owned_ship = { limit = { is_ship_size = massive_ship_fallen_empire } count > 3 } }
+					limit = { count_owned_ship = { count > 3 limit = { is_ship_size = massive_ship_fallen_empire } } }
 					random_owned_ship = { limit = { is_ship_size = massive_ship_fallen_empire } delete_ship = this }
 				}
 			}
@@ -3571,12 +3571,12 @@ country_event = {
 				limit = { merg_is_fallen_empire = yes }
 				capital_scope = {
 					while = {
-						limit = { prev = { count_owned_ship = { limit = { is_ship_size = massive_ship_fallen_empire } count < 4 } } }
+						limit = { prev = { count_owned_ship = { count < 4 limit = { is_ship_size = massive_ship_fallen_empire } } } }
 						CmtEffectCreateSleeperTitan = yes
 					}
 				}
 				while = {
-					limit = { count_owned_ship = { limit = { is_ship_size = massive_ship_fallen_empire } count > 4 } }
+					limit = { count_owned_ship = { count > 4 limit = { is_ship_size = massive_ship_fallen_empire } } }
 					random_owned_ship = { limit = { is_ship_size = massive_ship_fallen_empire } delete_ship = this }
 				}
 			}
@@ -3590,12 +3590,12 @@ country_event = {
 				limit = { merg_is_fallen_empire = yes }
 				capital_scope = {
 					while = {
-						limit = { prev = { count_owned_ship = { limit = { is_ship_size = massive_ship_fallen_empire } count < 5 } } }
+						limit = { prev = { count_owned_ship = { count < 5 limit = { is_ship_size = massive_ship_fallen_empire } } } }
 						CmtEffectCreateSleeperTitan = yes
 					}
 				}
 				while = {
-					limit = { count_owned_ship = { limit = { is_ship_size = massive_ship_fallen_empire } count > 5 } }
+					limit = { count_owned_ship = { count > 5 limit = { is_ship_size = massive_ship_fallen_empire } } }
 					random_owned_ship = { limit = { is_ship_size = massive_ship_fallen_empire } delete_ship = this }
 				}
 			}
@@ -3614,7 +3614,7 @@ country_event = {
 				every_owned_fleet = {
 					limit = {
 						is_ship_class = shipclass_military
-						count_owned_ship = { limit = { NOT = { is_ship_size = massive_ship_fallen_empire } } count > 1 }
+						count_owned_ship = { count > 1 limit = { NOT = { is_ship_size = massive_ship_fallen_empire } } }
 					}
 					create_fallen_empire_titan = yes
 				}
@@ -3698,7 +3698,7 @@ country_event = {
 			every_country = {
 				limit = {
 					merg_is_fallen_empire = yes
-					count_owned_fleet = { limit = { is_ship_size = colossus } count = 0 }
+					count_owned_fleet = { count = 0 limit = { is_ship_size = colossus } }
 				}
 				random = { chance = 10 capital_scope = { CmtEffectCreateSleeperColossus = yes } }
 			}
@@ -3711,7 +3711,7 @@ country_event = {
 			every_country = {
 				limit = {
 					merg_is_fallen_empire = yes
-					count_owned_fleet = { limit = { is_ship_size = colossus } count = 0 }
+					count_owned_fleet = { count = 0 limit = { is_ship_size = colossus } }
 				}
 				random = { chance = 33 capital_scope = { CmtEffectCreateSleeperColossus = yes } }
 			}
@@ -3724,7 +3724,7 @@ country_event = {
 			every_country = {
 				limit = {
 					merg_is_fallen_empire = yes
-					count_owned_fleet = { limit = { is_ship_size = colossus } count = 0 }
+					count_owned_fleet = { count = 0 limit = { is_ship_size = colossus } }
 				}
 				random = { chance = 67 capital_scope = { CmtEffectCreateSleeperColossus = yes } }
 			}
@@ -3767,12 +3767,12 @@ country_event = {
 				limit = { merg_is_fallen_empire = yes }
 				capital_scope = {
 					while = {
-						limit = { prev = { count_owned_fleet = { limit = { is_ship_size = colossus } count < 1 } } }
+						limit = { prev = { count_owned_fleet = { count < 1 limit = { is_ship_size = colossus } } } }
 						CmtEffectCreateSleeperColossus = yes
 					}
 				}
 				while = {
-					limit = { count_owned_fleet = { limit = { is_ship_size = colossus } count > 1 } }
+					limit = { count_owned_fleet = { count > 1 limit = { is_ship_size = colossus } } }
 					random_owned_fleet = { limit = { is_ship_size = colossus } delete_fleet = this }
 				}
 			}
@@ -3786,12 +3786,12 @@ country_event = {
 				limit = { merg_is_fallen_empire = yes }
 				capital_scope = {
 					while = {
-						limit = { prev = { count_owned_fleet = { limit = { is_ship_size = colossus } count < 2 } } }
+						limit = { prev = { count_owned_fleet = { count < 2 limit = { is_ship_size = colossus } } } }
 						CmtEffectCreateSleeperColossus = yes
 					}
 				}
 				while = {
-					limit = { count_owned_fleet = { limit = { is_ship_size = colossus } count > 2 } }
+					limit = { count_owned_fleet = { count > 2 limit = { is_ship_size = colossus } } }
 					random_owned_fleet = { limit = { is_ship_size = colossus } delete_fleet = this }
 				}
 			}
@@ -3805,12 +3805,12 @@ country_event = {
 				limit = { merg_is_fallen_empire = yes }
 				capital_scope = {
 					while = {
-						limit = { prev = { count_owned_fleet = { limit = { is_ship_size = colossus } count < 3 } } }
+						limit = { prev = { count_owned_fleet = { count < 3 limit = { is_ship_size = colossus } } } }
 						CmtEffectCreateSleeperColossus = yes
 					}
 				}
 				while = {
-					limit = { count_owned_fleet = { limit = { is_ship_size = colossus } count > 3 } }
+					limit = { count_owned_fleet = { count > 3 limit = { is_ship_size = colossus } } }
 					random_owned_fleet = { limit = { is_ship_size = colossus } delete_fleet = this }
 				}
 			}
