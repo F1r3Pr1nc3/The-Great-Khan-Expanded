@@ -905,3 +905,35 @@ country_event = {
 	is_test_event = yes
 	trigger = { always = no }
 }
+country_event = {
+	id = tutorial.503
+	hide_window = yes
+	fire_only_once = yes
+	is_triggered_only = yes
+	is_test_event = yes
+	trigger = { always = no }
+}
+country_event = {
+	id = tutorial.2600
+	hide_window = yes
+	fire_only_once = yes
+	is_triggered_only = yes
+	is_test_event = yes
+	trigger = { always = no }
+}
+country_event = {
+	id = tutorial.2610
+	hide_window = yes
+	fire_only_once = yes
+	is_triggered_only = yes
+	is_test_event = yes
+	trigger = { always = no }
+}
+country_event = {
+	id = tutorial.2620
+	hide_window = yes
+	fire_only_once = yes
+	is_triggered_only = yes
+	is_test_event = yes
+	trigger = { always = no }
+}

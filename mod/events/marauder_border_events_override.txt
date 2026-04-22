@@ -217,7 +217,7 @@ country_event = {
 							owner = { is_default_or_fallen = yes }
 						}
 						position = 0
-						order_by = trigger:num_sapient_pops
+						order_by = trigger:sapient_pop_amount
 						log = "Give system [Prev.GetName] back to [This.Owner.GetName]"
 						owner = { save_event_target_as = planet_owner }
 						prev = { # commit_system_to = { EMPIRE = prevprev.planet_owner } # The target scope is solved there (so add 1 more prev)
@@ -405,10 +405,10 @@ country_event = {
 							}
 						}
 						if = {
-							limit = { count_owned_pop = { count <  17 limit = { is_same_species = prev.owner_species } } }
+							limit = { count_owned_pop_group = { count <  17 limit = { is_same_species = prev.owner_species } } }
 							while = { count = 17
-								limit = { count_owned_pop = { count <  17 limit = { is_same_species = prev.owner_species } } }
-								create_pop = { species = prev.owner_species ethos = { ethic = "ethic_militarist" ethic = "ethic_egalitarian" } }
+								limit = { count_owned_pop_group = { count <  17 limit = { is_same_species = prev.owner_species } } }
+								create_pop_group = { species = prev.owner_species ethos = { ethic = "ethic_militarist" ethic = "ethic_egalitarian" } }
 							}
 						}
 					}
@@ -470,7 +470,7 @@ country_event = {
 				while = { count = 8
 					limit = {
 						any_owned_leader = {
-							has_skill > 3
+							has_base_skill > 3
 							leader_age > 33
 							OR = {
 								AND = { num_negative_traits = 0 num_positive_traits > 3 }
@@ -483,7 +483,7 @@ country_event = {
 					}
 					random_owned_leader = {
 						limit = {
-							has_skill > 3
+							has_base_skill > 3
 							leader_age > 33
 							OR = {
 								AND = { num_negative_traits = 0 num_positive_traits > 3 }
@@ -539,7 +539,7 @@ country_event = {
 				limit = {
 					has_owner = yes
 					is_colony = yes
-					num_pops > 0
+					pop_amount > 0
 					has_ground_combat = no
 					is_occupied_flag = no
 					is_owned_by = event_target:integrated_empire
@@ -648,7 +648,7 @@ country_event = {
 					}
 					every_orbital_station = { dismantle = yes }
 					every_owned_leader = { kill_leader = { show_notification = no } }
-					every_owned_pop = { kill_pop = yes }
+					every_owned_pop_group = { kill_pop_group = { pop_group = this percentage = 1.0 } }
 					every_owned_fleet = { delete_fleet = this }
 					every_owned_army = { remove_army = yes }
 					destroy_country = yes
@@ -671,7 +671,7 @@ country_event = {
 						}
 						every_orbital_station = { dismantle = yes }
 						every_owned_leader = { kill_leader = { show_notification = no } }
-						every_owned_pop = { kill_pop = yes }
+						every_owned_pop_group = { kill_pop_group = { pop_group = this percentage = 1.0 } }
 						every_owned_fleet = { delete_fleet = this }
 						every_owned_army = { remove_army = yes }
 						destroy_country = yes
@@ -891,9 +891,9 @@ country_event = {
 		}
 		event_target:new_khanate = {
 			ordered_owned_planet = {
-				limit = { num_sapient_pops > 0 }
+				limit = { sapient_pop_amount > 0 }
 				position = 0
-				order_by = trigger:num_sapient_pops
+				order_by = trigger:sapient_pop_amount
 				set_capital = yes
 				starbase = {
 					if = {
@@ -1096,7 +1096,7 @@ country_event = {
 				add_intel = { amount = 100 who = prev }
 				add_opinion_modifier = { modifier = opinion_traitor_to_empire who = prev }
 				add_opinion_modifier = { modifier = opinion_flavors_down who = prev }
-				set_variable = { which = var_sapient_pop_amount value = trigger:num_sapient_pops }
+				set_variable = { which = var_sapient_pop_amount value = trigger:sapient_pop_amount }
 				save_event_target_as = planet_owner_2
 				## Prevent extreme balcanization
 				# Potential system
@@ -1375,7 +1375,7 @@ country_event = {
 								save_event_target_as = planet_owner
 								if = {
 									limit = { NOT = { is_variable_set = var_sapient_pop_amount } }
-									set_variable = { which = var_sapient_pop_amount value = trigger:num_sapient_pops }
+									set_variable = { which = var_sapient_pop_amount value = trigger:sapient_pop_amount }
 								}
 								capital_scope.solar_system = {
 									closest_system = {
@@ -1395,11 +1395,11 @@ country_event = {
 										# commit_system_to = { EMPIRE = prevprevprevprev.prev }
 										# prevprev = { commit_system_to = { EMPIRE = prevprevprevprev.prev.owner } }
 										if = { # Take the same from the other country (only if more pops)
-											limit = { event_target:planet_owner_2 = { check_variable_arithmetic = { which = var_sapient_pop_amount add = 100 value > event_target:planet_owner.var_sapient_pop_amount } } }
+											limit = { event_target:planet_owner_2 = { check_variable_arithmetic = { which = var_sapient_pop_amount add = 10000 value > event_target:planet_owner.var_sapient_pop_amount } } }
 											commit_system_to = { EMPIRE = event_target:planet_owner }
 										}
 										if = { # Take the same from the other country (only if more pops)
-											limit = { event_target:planet_owner = { check_variable_arithmetic = { which = var_sapient_pop_amount add = 100 value > event_target:planet_owner_2.var_sapient_pop_amount } } }
+											limit = { event_target:planet_owner = { check_variable_arithmetic = { which = var_sapient_pop_amount add = 10000 value > event_target:planet_owner_2.var_sapient_pop_amount } } }
 											prevprevprev = { commit_system_to = { EMPIRE = event_target:planet_owner_2 } }
 										}
 									}
@@ -1448,9 +1448,9 @@ country_event = { # Make most populous planet of most populous sector the capita
 	is_triggered_only = yes
 	immediate = {
 		ordered_owned_sector = {
-			order_by = trigger:num_pops
+			order_by = trigger:pop_amount
 			position = 0
-			ordered_owned_planet = { order_by = trigger:num_sapient_pops position = 0 set_capital = yes save_event_target_as = new_diadochi_capital }
+			ordered_owned_planet = { order_by = trigger:sapient_pop_amount position = 0 set_capital = yes save_event_target_as = new_diadochi_capital }
 		}
 	}
 }

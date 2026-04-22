@@ -846,22 +846,25 @@ country_event = {
 				# else_if = { limit = { has_modifier = "satrapy_of_horde" }
 				# 	remove_modifier = "satrapy_of_horde"
 				# }
-				from = {
-					if = {
-						limit = { root = { has_country_flag = rebelling_satrapy } }
-						add_opinion_modifier = { who = root modifier = opinion_traitor_to_empire }
-					}
-					add_opinion_modifier = { who = root modifier = opinion_war_in_heaven_enemy }
-					if = {
-						limit = { NOT = { is_hostile = root } }
-						set_faction_hostility = { target = root set_hostile = yes }
-					}
-					if = {
-						limit = { exists = event_target:marauders_garrison_1 }
-						event_target:marauders_garrison_1 = {
-							if = {
-								limit = { NOT = { is_hostile = root } }
-								set_faction_hostility = { target = root set_hostile = yes }
+				if = {
+					limit = { NOT = { is_subject_of_khan = yes } }
+					from = {
+						if = {
+							limit = { root = { has_country_flag = rebelling_satrapy } }
+							add_opinion_modifier = { who = root modifier = opinion_traitor_to_empire }
+						}
+						add_opinion_modifier = { who = root modifier = opinion_war_in_heaven_enemy }
+						if = {
+							limit = { NOT = { is_hostile = root } }
+							set_faction_hostility = { target = root set_hostile = yes }
+						}
+						if = {
+							limit = { exists = event_target:marauders_garrison_1 }
+							event_target:marauders_garrison_1 = {
+								if = {
+									limit = { NOT = { is_hostile = root } }
+									set_faction_hostility = { target = root set_hostile = yes }
+								}
 							}
 						}
 					}
@@ -1583,7 +1586,7 @@ country_event = {
 
 		every_country = {
 			limit = {
-				is_default_or_fallen = yes
+				merg_is_default_empire = yes
 				NOT = { is_same_empire = root }
 			}
 			# add_opinion_modifier = { who = root modifier = opinion_destroying_galaxy }
@@ -1747,7 +1750,7 @@ country_event = {
 		is_overlord = yes
 		CmtTriggerIsKhanCountry = yes
 		OR = {
-			AND = { exists = event_target:great_khan exists = event_target:great_khan.fleet }
+			AND = { exists = event_target:great_khan event_target:great_khan = { exists = fleet } }
 			any_owned_fleet = {
 				has_fleet_flag = khan_fleet
 				exists = leader
@@ -2209,7 +2212,7 @@ country_event = {
 					is_colony = yes
 					is_under_colonization = no
 					num_unemployed > 2
-					num_sapient_pops > 20
+					sapient_pop_amount > 2000
 					NOR = {
 						num_buildings = { type = building_stronghold value > 1 }
 						has_building = building_fortress
@@ -3252,8 +3255,8 @@ country_event = {
 				exists = event_target:great_khan
 				event_target:great_khan = { is_scope_valid = yes }
 				NAND = {
-					exists = event_target:great_khan.fleet
-					event_target:great_khan.fleet = { num_ships > 0 }
+					event_target:great_khan = { exists = fleet }
+					event_target:great_khan = { fleet = { num_ships > 0 } }
 				}
 			}
 			event_target:great_khan = { exile_leader_as = great_khan }

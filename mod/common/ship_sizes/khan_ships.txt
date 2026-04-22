@@ -34,6 +34,7 @@ npc_galleon_01 = {
 	is_space_station = no
 	# icon_frame = 6
 	icon = ship_size_military_16
+	map_counter_icon = ship_counter_128
 	combat_disengage_chance = -0.25
 	is_civilian = no
 	# auto_upgrade = yes
@@ -143,4 +144,5 @@ starbase_marauder = {
 	# }
 	icon_frame = -1
 	icon = ship_size_military_station
+	map_counter_icon = ship_counter_64
 }

@@ -53,7 +53,7 @@
 #	Reinforce 2	: {		-,		-,		-, -} =		26 - 180
 #
 @CmtConstKhanConstructorUpperLimit =	5		## -1
-@CmtConstKhanArmyUpperLimit =			40		## -1
+@CmtConstKhanArmyUpperLimit =			100		## -1
 @CmtConstKhanFleetPowerUpperLimit_Base = 100000		## 100 k
 
 @CmtConstKhanFleetPowerUpperLimit_V1 =	25000		##		25 k

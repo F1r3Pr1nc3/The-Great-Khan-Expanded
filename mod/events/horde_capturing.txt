@@ -44,12 +44,24 @@ country_event = {
 					}
 				}
 				# Check 1
-				switch = { trigger = num_sapient_pops
-					14 <		{ set_variable = { which = temp_size value = 3 } }
-					27 <		{ set_variable = { which = temp_size value = 4 } }
-					40 <		{ set_variable = { which = temp_size value = 5 } }
-					53 <		{ set_variable = { which = temp_size value = 6 } }
-					default =	{ set_variable = { which = temp_size value = 7 } }
+				if = {
+					limit = { sapient_pop_amount >= 5300 }
+					set_variable = { which = temp_size value = 7 }
+				}
+				else_if = {
+					limit = { sapient_pop_amount >= 4000 }
+					set_variable = { which = temp_size value = 6 }
+				}
+				else_if = {
+					limit = { sapient_pop_amount >= 2700 }
+					set_variable = { which = temp_size value = 5 }
+				}
+				else_if = {
+					limit = { sapient_pop_amount >= 1400 }
+					set_variable = { which = temp_size value = 4 }
+				}
+				else = {
+					set_variable = { which = temp_size value = 3 }
 				}
 				# Check 2
 				if = {
@@ -75,7 +87,7 @@ country_event = {
 					root = {
 						create_leader = {
 							class = commander
-							species = owner_species
+							species = owner_main_species
 							name = random
 							skill = 4
 							leader_age_min = 25
@@ -103,7 +115,7 @@ country_event = {
 					root = {
 						create_leader = {
 							class = commander
-							species = owner_species
+							species = owner_main_species
 							name = random
 							skill = 5
 							leader_age_min = 25
@@ -130,7 +142,7 @@ country_event = {
 					root = {
 						create_leader = {
 							class = commander
-							species = owner_species
+							species = owner_main_species
 							name = random
 							skill = 6
 							leader_age_min = 25
@@ -154,13 +166,28 @@ country_event = {
 					}
 				}
 				clear_variable = temp_size
-				switch = { trigger = num_sapient_pops
-					10 <		{ planet_event = { id = mod_horde_capturing.2 days = 1080 } }
-					20 <		{ planet_event = { id = mod_horde_capturing.2 days = 972 } }
-					30 <		{ planet_event = { id = mod_horde_capturing.2 days = 864 } }
-					40 <		{ planet_event = { id = mod_horde_capturing.2 days = 756 } }
-					50 <		{ planet_event = { id = mod_horde_capturing.2 days = 648 } }
-					default =	{ planet_event = { id = mod_horde_capturing.2 days = 540 } }
+				if = {
+					limit = { sapient_pop_amount >= 5000 }
+					planet_event = { id = mod_horde_capturing.2 days = 540 }
+				}
+				else_if = {
+					limit = { sapient_pop_amount >= 4000 }
+					planet_event = { id = mod_horde_capturing.2 days = 648 }
+				}
+				else_if = {
+					limit = { sapient_pop_amount >= 3000 }
+					planet_event = { id = mod_horde_capturing.2 days = 756 }
+				}
+				else_if = {
+					limit = { sapient_pop_amount >= 2000 }
+					planet_event = { id = mod_horde_capturing.2 days = 864 }
+				}
+				else_if = {
+					limit = { sapient_pop_amount >= 1000 }
+					planet_event = { id = mod_horde_capturing.2 days = 972 }
+				}
+				else = {
+					planet_event = { id = mod_horde_capturing.2 days = 1080 }
 				}
 			}
 		}

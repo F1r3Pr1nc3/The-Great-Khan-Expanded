@@ -33,7 +33,7 @@ CmtEffectTriggerMarauderManually = {
 			}
 			can_generate_trade_value = yes
 		}
-		random_owned_ship = {
+		random_controlled_ship = {
 			limit = { is_ship_size = marauder_void_dwelling }
 			destroy_ship = this
 		}

@@ -16,8 +16,8 @@ country_event = {
 		if = {
 			limit = {
 				from = {
-					pop_percentage = { percentage > 0.5
-						limit = { pop_has_ethic = ethic_authoritarian }
+					pop_amount_percentage = { percentage > 0.5
+						limit = { has_ethic = ethic_authoritarian }
 					}
 				}
 			}
@@ -26,8 +26,8 @@ country_event = {
 		else_if = {
 			limit = {
 				from = {
-					pop_percentage = { percentage > 0.25
-						limit = { pop_has_ethic = ethic_authoritarian }
+					pop_amount_percentage = { percentage > 0.25
+						limit = { has_ethic = ethic_authoritarian }
 					}
 				}
 				is_egalitarian = no
@@ -37,8 +37,8 @@ country_event = {
 		else_if = {
 			limit = {
 				from = {
-					pop_percentage = { percentage > 0.5
-						limit = { pop_has_ethic = ethic_egalitarian }
+					pop_amount_percentage = { percentage > 0.5
+						limit = { has_ethic = ethic_egalitarian }
 					}
 				}
 			}
@@ -47,8 +47,8 @@ country_event = {
 		else_if = {
 			limit = {
 				from = {
-					pop_percentage = { percentage > 0.25
-						limit = { pop_has_ethic = ethic_egalitarian }
+					pop_amount_percentage = { percentage > 0.25
+						limit = { has_ethic = ethic_egalitarian }
 					}
 				}
 				is_authoritarian = no
@@ -58,8 +58,8 @@ country_event = {
 		else_if = {
 			limit = {
 				from = {
-					pop_percentage = { percentage > 0.5
-						limit = { pop_has_ethic = ethic_pacifist }
+					pop_amount_percentage = { percentage > 0.5
+						limit = { has_ethic = ethic_pacifist }
 					}
 				}
 			}
@@ -68,8 +68,8 @@ country_event = {
 		else_if = {
 			limit = {
 				from = {
-					pop_percentage = { percentage > 0.25
-						limit = { pop_has_ethic = ethic_pacifist }
+					pop_amount_percentage = { percentage > 0.25
+						limit = { has_ethic = ethic_pacifist }
 					}
 				}
 				is_militarist = no
@@ -79,8 +79,8 @@ country_event = {
 		else_if = {
 			limit = {
 				from = {
-					pop_percentage = { percentage > 0.5
-						limit = { pop_has_ethic = ethic_militarist }
+					pop_amount_percentage = { percentage > 0.5
+						limit = { has_ethic = ethic_militarist }
 					}
 				}
 			}
@@ -89,8 +89,8 @@ country_event = {
 		else_if = {
 			limit = {
 				from = {
-					pop_percentage = { percentage > 0.25
-						limit = { pop_has_ethic = ethic_militarist }
+					pop_amount_percentage = { percentage > 0.25
+						limit = { has_ethic = ethic_militarist }
 					}
 				}
 				is_pacifist = no
@@ -100,8 +100,8 @@ country_event = {
 		else_if = {
 			limit = {
 				from = {
-					pop_percentage = { percentage > 0.5
-						limit = { pop_has_ethic = ethic_xenophile }
+					pop_amount_percentage = { percentage > 0.5
+						limit = { has_ethic = ethic_xenophile }
 					}
 				}
 			}
@@ -110,8 +110,8 @@ country_event = {
 		else_if = {
 			limit = {
 				from = {
-					pop_percentage = { percentage > 0.25
-						limit = { pop_has_ethic = ethic_xenophile }
+					pop_amount_percentage = { percentage > 0.25
+						limit = { has_ethic = ethic_xenophile }
 					}
 				}
 				is_xenophobe = no
@@ -121,8 +121,8 @@ country_event = {
 		else_if = {
 			limit = {
 				from = {
-					pop_percentage = { percentage > 0.5
-						limit = { pop_has_ethic = ethic_xenophobe }
+					pop_amount_percentage = { percentage > 0.5
+						limit = { has_ethic = ethic_xenophobe }
 					}
 				}
 			}
@@ -131,8 +131,8 @@ country_event = {
 		else_if = {
 			limit = {
 				from = {
-					pop_percentage = { percentage > 0.25
-						limit = { pop_has_ethic = ethic_xenophobe }
+					pop_amount_percentage = { percentage > 0.25
+						limit = { has_ethic = ethic_xenophobe }
 					}
 				}
 				is_xenophile = no
@@ -142,8 +142,8 @@ country_event = {
 		else_if = {
 			limit = {
 				from = {
-					pop_percentage = { percentage > 0.5
-						limit = { pop_has_ethic = ethic_spiritualist }
+					pop_amount_percentage = { percentage > 0.5
+						limit = { has_ethic = ethic_spiritualist }
 					}
 				}
 			}
@@ -152,8 +152,8 @@ country_event = {
 		else_if = {
 			limit = {
 				from = {
-					pop_percentage = { percentage > 0.25
-						limit = { pop_has_ethic = ethic_spiritualist }
+					pop_amount_percentage = { percentage > 0.25
+						limit = { has_ethic = ethic_spiritualist }
 					}
 				}
 				is_materialist = no
@@ -163,8 +163,8 @@ country_event = {
 		else_if = {
 			limit = {
 				from = {
-					pop_percentage = { percentage > 0.5
-						limit = { pop_has_ethic = ethic_materialist }
+					pop_amount_percentage = { percentage > 0.5
+						limit = { has_ethic = ethic_materialist }
 					}
 				}
 			}
@@ -173,8 +173,8 @@ country_event = {
 		else_if = {
 			limit = {
 				from = {
-					pop_percentage = { percentage > 0.25
-						limit = { pop_has_ethic = ethic_materialist }
+					pop_amount_percentage = { percentage > 0.25
+						limit = { has_ethic = ethic_materialist }
 					}
 				}
 				is_spiritualist = no
@@ -199,12 +199,12 @@ country_event = {
 			every_owned_species = {
 				limit = { is_same_species = root.owner_species has_trait = trait_syncretic_proles }
 				export_trigger_value_to_variable = {
-					trigger = count_species_pop
+					trigger = count_owned_pop_amount
 					variable = var_species_pops_percent
 					parameters = {
 						limit = {
 							is_exact_same_species = prevprev
-							pop_has_trait = trait_syncretic_proles
+							pop_group_has_trait = trait_syncretic_proles
 							is_owned_by = root
 						}
 					}
@@ -217,7 +217,7 @@ country_event = {
 				save_event_target_as = syncretic_species
 			}
 			export_trigger_value_to_variable = {
-				trigger = count_owned_pop
+				trigger = count_owned_pop_group
 				variable = syncretic_pops
 				parameters = {
 					limit = { is_exact_same_species = event_target:syncretic_species }
@@ -227,7 +227,7 @@ country_event = {
 				if = {
 					limit = { NOR = { has_trait = trait_syncretic_proles is_variable_set = var_species_pops_percent } }
 					export_trigger_value_to_variable = {
-						trigger = count_species_pop
+						trigger = count_owned_pop_amount
 						variable = var_species_pops_percent
 						parameters = {
 							limit = { NOT = { has_trait = trait_syncretic_proles } is_owned_by = root }
@@ -258,7 +258,7 @@ country_event = {
 			# Convert half of the syncretic pops to the main species back
 			multiply_variable = { which = syncretic_pops value = 0.5 }
 			while = { count = syncretic_pops # value:fifty_percent_species
-				random_owned_pop = {
+				random_owned_pop_group = {
 					limit = {
 						is_same_species = owner_species
 						NOR = { is_exact_same_species = event_target:syncretic_species has_trait = trait_syncretic_proles }
@@ -300,8 +300,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_authoritarian }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_authoritarian }
 							}
 						}
 						country_remove_ethic = ethic_authoritarian
@@ -309,8 +309,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_pacifist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_pacifist }
 							}
 						}
 						country_remove_ethic = ethic_pacifist
@@ -323,8 +323,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_authoritarian }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_authoritarian }
 							}
 						}
 						country_remove_ethic = ethic_authoritarian
@@ -332,8 +332,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_militarist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_militarist }
 							}
 						}
 						country_remove_ethic = ethic_militarist
@@ -346,8 +346,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_authoritarian }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_authoritarian }
 							}
 						}
 						country_remove_ethic = ethic_authoritarian
@@ -355,8 +355,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_spiritualist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_spiritualist }
 							}
 						}
 						country_remove_ethic = ethic_spiritualist
@@ -369,8 +369,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_authoritarian }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_authoritarian }
 							}
 						}
 						country_remove_ethic = ethic_authoritarian
@@ -378,8 +378,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_materialist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_materialist }
 							}
 						}
 						country_remove_ethic = ethic_materialist
@@ -392,8 +392,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_authoritarian }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_authoritarian }
 							}
 						}
 						country_remove_ethic = ethic_authoritarian
@@ -401,8 +401,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_xenophobe }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_xenophobe }
 							}
 						}
 						country_remove_ethic = ethic_xenophobe
@@ -415,8 +415,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_authoritarian }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_authoritarian }
 							}
 						}
 						country_remove_ethic = ethic_authoritarian
@@ -424,8 +424,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_xenophile }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_xenophile }
 							}
 						}
 						country_remove_ethic = ethic_xenophile
@@ -438,8 +438,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_egalitarian }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_egalitarian }
 							}
 						}
 						country_remove_ethic = ethic_egalitarian
@@ -447,8 +447,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_pacifist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_pacifist }
 							}
 						}
 						country_remove_ethic = ethic_pacifist
@@ -461,8 +461,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_egalitarian }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_egalitarian }
 							}
 						}
 						country_remove_ethic = ethic_egalitarian
@@ -470,8 +470,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_militarist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_militarist }
 							}
 						}
 						country_remove_ethic = ethic_militarist
@@ -484,8 +484,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_egalitarian }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_egalitarian }
 							}
 						}
 						country_remove_ethic = ethic_egalitarian
@@ -493,8 +493,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_spiritualist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_spiritualist }
 							}
 						}
 						country_remove_ethic = ethic_spiritualist
@@ -507,8 +507,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_egalitarian }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_egalitarian }
 							}
 						}
 						country_remove_ethic = ethic_egalitarian
@@ -516,8 +516,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_materialist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_materialist }
 							}
 						}
 						country_remove_ethic = ethic_materialist
@@ -530,8 +530,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_egalitarian }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_egalitarian }
 							}
 						}
 						country_remove_ethic = ethic_egalitarian
@@ -539,8 +539,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_xenophobe }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_xenophobe }
 							}
 						}
 						country_remove_ethic = ethic_xenophobe
@@ -553,8 +553,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_egalitarian }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_egalitarian }
 							}
 						}
 						country_remove_ethic = ethic_egalitarian
@@ -562,8 +562,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_xenophile }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_xenophile }
 							}
 						}
 						country_remove_ethic = ethic_xenophile
@@ -576,8 +576,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_pacifist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_pacifist }
 							}
 						}
 						country_remove_ethic = ethic_pacifist
@@ -585,8 +585,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_spiritualist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_spiritualist }
 							}
 						}
 						country_remove_ethic = ethic_spiritualist
@@ -599,8 +599,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_pacifist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_pacifist }
 							}
 						}
 						country_remove_ethic = ethic_pacifist
@@ -608,8 +608,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_materialist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_materialist }
 							}
 						}
 						country_remove_ethic = ethic_materialist
@@ -622,8 +622,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_pacifist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_pacifist }
 							}
 						}
 						country_remove_ethic = ethic_pacifist
@@ -631,8 +631,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_xenophobe }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_xenophobe }
 							}
 						}
 						country_remove_ethic = ethic_xenophobe
@@ -645,8 +645,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_pacifist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_pacifist }
 							}
 						}
 						country_remove_ethic = ethic_pacifist
@@ -654,8 +654,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_xenophile }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_xenophile }
 							}
 						}
 						country_remove_ethic = ethic_xenophile
@@ -668,8 +668,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_militarist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_militarist }
 							}
 						}
 						country_remove_ethic = ethic_militarist
@@ -677,8 +677,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_spiritualist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_spiritualist }
 							}
 						}
 						country_remove_ethic = ethic_spiritualist
@@ -691,8 +691,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_militarist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_militarist }
 							}
 						}
 						country_remove_ethic = ethic_militarist
@@ -700,8 +700,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_materialist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_materialist }
 							}
 						}
 						country_remove_ethic = ethic_materialist
@@ -714,8 +714,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_militarist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_militarist }
 							}
 						}
 						country_remove_ethic = ethic_militarist
@@ -723,8 +723,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_xenophobe }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_xenophobe }
 							}
 						}
 						country_remove_ethic = ethic_xenophobe
@@ -737,8 +737,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_militarist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_militarist }
 							}
 						}
 						country_remove_ethic = ethic_militarist
@@ -746,8 +746,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_xenophile }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_xenophile }
 							}
 						}
 						country_remove_ethic = ethic_xenophile
@@ -760,8 +760,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_spiritualist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_spiritualist }
 							}
 						}
 						country_remove_ethic = ethic_spiritualist
@@ -769,8 +769,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_xenophobe }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_xenophobe }
 							}
 						}
 						country_remove_ethic = ethic_xenophobe
@@ -783,8 +783,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_spiritualist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_spiritualist }
 							}
 						}
 						country_remove_ethic = ethic_spiritualist
@@ -792,8 +792,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_xenophile }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_xenophile }
 							}
 						}
 						country_remove_ethic = ethic_xenophile
@@ -806,8 +806,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_materialist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_materialist }
 							}
 						}
 						country_remove_ethic = ethic_materialist
@@ -815,8 +815,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_xenophobe }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_xenophobe }
 							}
 						}
 						country_remove_ethic = ethic_xenophobe
@@ -829,8 +829,8 @@ country_event = {
 				random_list = {
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_materialist }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_materialist }
 							}
 						}
 						country_remove_ethic = ethic_materialist
@@ -838,8 +838,8 @@ country_event = {
 					}
 					50 = {
 						modifier = { factor = 2
-							pop_percentage = { percentage > 0.35
-								limit = { pop_has_ethic = ethic_xenophile }
+							pop_amount_percentage = { percentage > 0.35
+								limit = { has_ethic = ethic_xenophile }
 							}
 						}
 						country_remove_ethic = ethic_xenophile
@@ -903,7 +903,7 @@ country_event = {
 				if = {
 					limit = { NOT = { exists = capital_scope } }
 					ordered_owned_planet = {
-						order_by = trigger:num_sapient_pops
+						order_by = trigger:sapient_pop_amount
 						position = 0
 						root = { country_event = { id = rebellionfix.35 scopes = { from = prev } } }
 					}
@@ -915,8 +915,8 @@ country_event = {
 			else = {
 				if = {
 					limit = {
-						pop_percentage = { percentage > 0.15
-							limit = { pop_has_ethic = ethic_authoritarian }
+						pop_amount_percentage = { percentage > 0.15
+							limit = { has_ethic = ethic_authoritarian }
 						}
 						NOT = { has_ethic = ethic_egalitarian }
 					}
@@ -924,8 +924,8 @@ country_event = {
 				}
 				else_if = {
 					limit = {
-						pop_percentage = { percentage > 0.15
-							limit = { pop_has_ethic = ethic_egalitarian }
+						pop_amount_percentage = { percentage > 0.15
+							limit = { has_ethic = ethic_egalitarian }
 						}
 						NOT = { has_ethic = ethic_authoritarian }
 					}
@@ -933,8 +933,8 @@ country_event = {
 				}
 				if = {
 					limit = {
-						pop_percentage = { percentage > 0.15
-							limit = { pop_has_ethic = ethic_pacifist }
+						pop_amount_percentage = { percentage > 0.15
+							limit = { has_ethic = ethic_pacifist }
 						}
 						NOT = { has_ethic = ethic_militarist }
 					}
@@ -942,8 +942,8 @@ country_event = {
 				}
 				else_if = {
 					limit = {
-						pop_percentage = { percentage > 0.15
-							limit = { pop_has_ethic = ethic_militarist }
+						pop_amount_percentage = { percentage > 0.15
+							limit = { has_ethic = ethic_militarist }
 						}
 						NOT = { has_ethic = ethic_pacifist }
 					}
@@ -951,8 +951,8 @@ country_event = {
 				}
 				if = {
 					limit = {
-						pop_percentage = { percentage > 0.15
-							limit = { pop_has_ethic = ethic_xenophile }
+						pop_amount_percentage = { percentage > 0.15
+							limit = { has_ethic = ethic_xenophile }
 						}
 						NOT = { has_ethic = ethic_xenophobe }
 					}
@@ -960,8 +960,8 @@ country_event = {
 				}
 				else_if = {
 					limit = {
-						pop_percentage = { percentage > 0.15
-							limit = { pop_has_ethic = ethic_xenophobe }
+						pop_amount_percentage = { percentage > 0.15
+							limit = { has_ethic = ethic_xenophobe }
 						}
 						NOT = { has_ethic = ethic_xenophile }
 					}
@@ -969,8 +969,8 @@ country_event = {
 				}
 				if = {
 					limit = {
-						pop_percentage = { percentage > 0.15
-							limit = { pop_has_ethic = ethic_spiritualist }
+						pop_amount_percentage = { percentage > 0.15
+							limit = { has_ethic = ethic_spiritualist }
 						}
 						NOT = { has_ethic = ethic_materialist }
 					}
@@ -978,8 +978,8 @@ country_event = {
 				}
 				else_if = {
 					limit = {
-						pop_percentage = { percentage > 0.15
-							limit = { pop_has_ethic = ethic_materialist }
+						pop_amount_percentage = { percentage > 0.15
+							limit = { has_ethic = ethic_materialist }
 						}
 						NOT = { has_ethic = ethic_spiritualist }
 					}
@@ -1001,7 +1001,7 @@ country_event = {
 			limit = { num_ethics = 2 is_fanatic = no }
 			if = {
 				limit = {
-					pop_percentage = { percentage > 0.15
+					pop_amount_percentage = { percentage > 0.15
 						limit = { has_any_ethic = yes }
 					}
 				}
@@ -1010,8 +1010,8 @@ country_event = {
 						modifier = { factor = 0
 							NAND = {
 								OR = { is_authoritarian = yes is_egalitarian = yes }
-								pop_percentage = { percentage > 0.15
-									limit = { pop_has_ethic = ethic_egalitarian }
+								pop_amount_percentage = { percentage > 0.15
+									limit = { has_ethic = ethic_egalitarian }
 								}
 							}
 						}
@@ -1021,8 +1021,8 @@ country_event = {
 						modifier = { factor = 0
 							NAND = {
 								OR = { is_pacifist = yes is_militarist = yes }
-								pop_percentage = { percentage > 0.15
-									limit = { pop_has_ethic = ethic_pacifist }
+								pop_amount_percentage = { percentage > 0.15
+									limit = { has_ethic = ethic_pacifist }
 								}
 							}
 						}
@@ -1032,8 +1032,8 @@ country_event = {
 						modifier = { factor = 0
 							NAND = {
 								OR = { is_xenophile = yes is_xenophobe = yes }
-								pop_percentage = { percentage > 0.15
-									limit = { pop_has_ethic = ethic_xenophile }
+								pop_amount_percentage = { percentage > 0.15
+									limit = { has_ethic = ethic_xenophile }
 								}
 							}
 						}
@@ -1043,8 +1043,8 @@ country_event = {
 						modifier = { factor = 0
 							NAND = {
 								OR = { is_authoritarian = yes is_egalitarian = yes }
-								pop_percentage = { percentage > 0.15
-									limit = { pop_has_ethic = ethic_authoritarian }
+								pop_amount_percentage = { percentage > 0.15
+									limit = { has_ethic = ethic_authoritarian }
 								}
 							}
 						}
@@ -1054,8 +1054,8 @@ country_event = {
 						modifier = { factor = 0
 							NAND = {
 								OR = { is_xenophile = yes is_xenophobe = yes }
-								pop_percentage = { percentage > 0.15
-									limit = { pop_has_ethic = ethic_xenophobe }
+								pop_amount_percentage = { percentage > 0.15
+									limit = { has_ethic = ethic_xenophobe }
 								}
 							}
 						}
@@ -1065,8 +1065,8 @@ country_event = {
 						modifier = { factor = 0
 							NAND = {
 								OR = { is_pacifist = yes is_militarist = yes }
-								pop_percentage = { percentage > 0.15
-									limit = { pop_has_ethic = ethic_militarist }
+								pop_amount_percentage = { percentage > 0.15
+									limit = { has_ethic = ethic_militarist }
 								}
 							}
 						}
@@ -1076,8 +1076,8 @@ country_event = {
 						modifier = { factor = 0
 							NAND = {
 								OR = { is_materialist = yes is_spiritualist = yes }
-								pop_percentage = { percentage > 0.15
-									limit = { pop_has_ethic = ethic_materialist }
+								pop_amount_percentage = { percentage > 0.15
+									limit = { has_ethic = ethic_materialist }
 								}
 							}
 						}
@@ -1087,8 +1087,8 @@ country_event = {
 						modifier = { factor = 0
 							NAND = {
 								OR = { is_materialist = yes is_spiritualist = yes }
-								pop_percentage = { percentage > 0.15
-									limit = { pop_has_ethic = ethic_spiritualist }
+								pop_amount_percentage = { percentage > 0.15
+									limit = { has_ethic = ethic_spiritualist }
 								}
 							}
 						}
@@ -1101,8 +1101,8 @@ country_event = {
 					12 = {
 						modifier = { factor = 0 OR = { is_authoritarian = yes is_egalitarian = yes } }
 						modifier = { factor = 2
-							count_owned_pop = { count > 2
-								limit = { pop_has_ethic = ethic_authoritarian }
+							count_owned_pop_group = { count > 2
+								limit = { has_ethic = ethic_authoritarian }
 							}
 						}
 						country_add_ethic = ethic_authoritarian
@@ -1110,8 +1110,8 @@ country_event = {
 					12 = {
 						modifier = { factor = 0 OR = { is_authoritarian = yes is_egalitarian = yes } }
 						modifier = { factor = 2
-							count_owned_pop = { count > 2
-								limit = { pop_has_ethic = ethic_egalitarian }
+							count_owned_pop_group = { count > 2
+								limit = { has_ethic = ethic_egalitarian }
 							}
 						}
 						country_add_ethic = ethic_egalitarian
@@ -1119,8 +1119,8 @@ country_event = {
 					12 = {
 						modifier = { factor = 0 OR = { is_xenophile = yes is_xenophobe = yes } }
 						modifier = { factor = 2
-							count_owned_pop = { count > 2
-								limit = { pop_has_ethic = ethic_xenophile }
+							count_owned_pop_group = { count > 2
+								limit = { has_ethic = ethic_xenophile }
 							}
 						}
 						country_add_ethic = ethic_xenophile
@@ -1128,8 +1128,8 @@ country_event = {
 					12 = {
 						modifier = { factor = 0 OR = { is_xenophile = yes is_xenophobe = yes } }
 						modifier = { factor = 2
-							count_owned_pop = { count > 2
-								limit = { pop_has_ethic = ethic_xenophobe }
+							count_owned_pop_group = { count > 2
+								limit = { has_ethic = ethic_xenophobe }
 							}
 						}
 						country_add_ethic = ethic_xenophobe
@@ -1137,8 +1137,8 @@ country_event = {
 					12 = {
 						modifier = { factor = 0 OR = { is_militarist = yes is_pacifist = yes } }
 						modifier = { factor = 2
-							count_owned_pop = { count > 2
-								limit = { pop_has_ethic = ethic_militarist }
+							count_owned_pop_group = { count > 2
+								limit = { has_ethic = ethic_militarist }
 							}
 						}
 						country_add_ethic = ethic_militarist
@@ -1146,8 +1146,8 @@ country_event = {
 					12 = {
 						modifier = { factor = 0 OR = { is_militarist = yes is_pacifist = yes } }
 						modifier = { factor = 2
-							count_owned_pop = { count > 2
-								limit = { pop_has_ethic = ethic_pacifist }
+							count_owned_pop_group = { count > 2
+								limit = { has_ethic = ethic_pacifist }
 							}
 						}
 						country_add_ethic = ethic_pacifist
@@ -1155,8 +1155,8 @@ country_event = {
 					12 = {
 						modifier = { factor = 0 OR = { is_spiritualist = yes is_materialist = yes } }
 						modifier = { factor = 2
-							count_owned_pop = { count > 2
-								limit = { pop_has_ethic = ethic_spiritualist }
+							count_owned_pop_group = { count > 2
+								limit = { has_ethic = ethic_spiritualist }
 							}
 						}
 						country_add_ethic = ethic_spiritualist
@@ -1164,8 +1164,8 @@ country_event = {
 					12 = {
 						modifier = { factor = 0 OR = { is_spiritualist = yes is_materialist = yes } }
 						modifier = { factor = 2
-							count_owned_pop = { count > 2
-								limit = { pop_has_ethic = ethic_materialist }
+							count_owned_pop_group = { count > 2
+								limit = { has_ethic = ethic_materialist }
 							}
 						}
 						country_add_ethic = ethic_materialist
@@ -1234,8 +1234,8 @@ country_event = {
 	immediate = {
 		if = {
 			limit = {
-				pop_percentage = { percentage > 0.2
-					limit = { pop_has_ethic = ethic_authoritarian }
+				pop_amount_percentage = { percentage > 0.2
+					limit = { has_ethic = ethic_authoritarian }
 				}
 				NOT = { has_ethic = ethic_egalitarian }
 			}
@@ -1243,8 +1243,8 @@ country_event = {
 		}
 		else_if = {
 			limit = {
-				pop_percentage = { percentage > 0.2
-					limit = { pop_has_ethic = ethic_egalitarian }
+				pop_amount_percentage = { percentage > 0.2
+					limit = { has_ethic = ethic_egalitarian }
 				}
 				NOT = { has_ethic = ethic_authoritarian }
 			}
@@ -1252,8 +1252,8 @@ country_event = {
 		}
 		if = {
 			limit = {
-				pop_percentage = { percentage > 0.2
-					limit = { pop_has_ethic = ethic_pacifist }
+				pop_amount_percentage = { percentage > 0.2
+					limit = { has_ethic = ethic_pacifist }
 				}
 				NOT = { has_ethic = ethic_militarist }
 			}
@@ -1261,8 +1261,8 @@ country_event = {
 		}
 		else_if = {
 			limit = {
-				pop_percentage = { percentage > 0.2
-					limit = { pop_has_ethic = ethic_militarist }
+				pop_amount_percentage = { percentage > 0.2
+					limit = { has_ethic = ethic_militarist }
 				}
 				NOT = { has_ethic = ethic_pacifist }
 			}
@@ -1270,8 +1270,8 @@ country_event = {
 		}
 		if = {
 			limit = {
-				pop_percentage = { percentage > 0.2
-					limit = { pop_has_ethic = ethic_xenophile }
+				pop_amount_percentage = { percentage > 0.2
+					limit = { has_ethic = ethic_xenophile }
 				}
 				NOT = { has_ethic = ethic_xenophobe }
 			}
@@ -1279,8 +1279,8 @@ country_event = {
 		}
 		else_if = {
 			limit = {
-				pop_percentage = { percentage > 0.2
-					limit = { pop_has_ethic = ethic_xenophobe }
+				pop_amount_percentage = { percentage > 0.2
+					limit = { has_ethic = ethic_xenophobe }
 				}
 				NOT = { has_ethic = ethic_xenophile }
 			}
@@ -1288,8 +1288,8 @@ country_event = {
 		}
 		if = {
 			limit = {
-				pop_percentage = { percentage > 0.2
-					limit = { pop_has_ethic = ethic_spiritualist }
+				pop_amount_percentage = { percentage > 0.2
+					limit = { has_ethic = ethic_spiritualist }
 				}
 				NOT = { has_ethic = ethic_materialist }
 			}
@@ -1297,8 +1297,8 @@ country_event = {
 		}
 		else_if = {
 			limit = {
-				pop_percentage = { percentage > 0.2
-					limit = { pop_has_ethic = ethic_materialist }
+				pop_amount_percentage = { percentage > 0.2
+					limit = { has_ethic = ethic_materialist }
 				}
 				NOT = { has_ethic = ethic_spiritualist }
 			}
@@ -1375,8 +1375,8 @@ country_event = {
 			12 = {
 				modifier = { factor = 0 OR = { is_authoritarian = yes is_egalitarian = yes } }
 				modifier = { factor = 2
-					count_owned_pop = { count > 2
-						limit = { pop_has_ethic = ethic_authoritarian }
+					count_owned_pop_group = { count > 2
+						limit = { has_ethic = ethic_authoritarian }
 					}
 				}
 				country_add_ethic = ethic_authoritarian
@@ -1384,8 +1384,8 @@ country_event = {
 			12 = {
 				modifier = { factor = 0 OR = { is_authoritarian = yes is_egalitarian = yes } }
 				modifier = { factor = 2
-					count_owned_pop = { count > 2
-						limit = { pop_has_ethic = ethic_egalitarian }
+					count_owned_pop_group = { count > 2
+						limit = { has_ethic = ethic_egalitarian }
 					}
 				}
 				country_add_ethic = ethic_egalitarian
@@ -1393,8 +1393,8 @@ country_event = {
 			12 = {
 				modifier = { factor = 0 OR = { is_xenophile = yes is_xenophobe = yes } }
 				modifier = { factor = 2
-					count_owned_pop = { count > 2
-						limit = { pop_has_ethic = ethic_xenophile }
+					count_owned_pop_group = { count > 2
+						limit = { has_ethic = ethic_xenophile }
 					}
 				}
 				country_add_ethic = ethic_xenophile
@@ -1402,8 +1402,8 @@ country_event = {
 			12 = {
 				modifier = { factor = 0 OR = { is_xenophile = yes is_xenophobe = yes } }
 				modifier = { factor = 2
-					count_owned_pop = { count > 2
-						limit = { pop_has_ethic = ethic_xenophobe }
+					count_owned_pop_group = { count > 2
+						limit = { has_ethic = ethic_xenophobe }
 					}
 				}
 				country_add_ethic = ethic_xenophobe
@@ -1411,8 +1411,8 @@ country_event = {
 			12 = {
 				modifier = { factor = 0 OR = { is_militarist = yes is_pacifist = yes } }
 				modifier = { factor = 2
-					count_owned_pop = { count > 2
-						limit = { pop_has_ethic = ethic_militarist }
+					count_owned_pop_group = { count > 2
+						limit = { has_ethic = ethic_militarist }
 					}
 				}
 				country_add_ethic = ethic_militarist
@@ -1420,8 +1420,8 @@ country_event = {
 			12 = {
 				modifier = { factor = 0 OR = { is_militarist = yes is_pacifist = yes } }
 				modifier = { factor = 2
-					count_owned_pop = { count > 2
-						limit = { pop_has_ethic = ethic_pacifist }
+					count_owned_pop_group = { count > 2
+						limit = { has_ethic = ethic_pacifist }
 					}
 				}
 				country_add_ethic = ethic_pacifist
@@ -1429,8 +1429,8 @@ country_event = {
 			12 = {
 				modifier = { factor = 0 OR = { is_spiritualist = yes is_materialist = yes } }
 				modifier = { factor = 2
-					count_owned_pop = { count > 2
-						limit = { pop_has_ethic = ethic_spiritualist }
+					count_owned_pop_group = { count > 2
+						limit = { has_ethic = ethic_spiritualist }
 					}
 				}
 				country_add_ethic = ethic_spiritualist
@@ -1438,8 +1438,8 @@ country_event = {
 			12 = {
 				modifier = { factor = 0 OR = { is_spiritualist = yes is_materialist = yes } }
 				modifier = { factor = 2
-					count_owned_pop = { count > 2
-						limit = { pop_has_ethic = ethic_materialist }
+					count_owned_pop_group = { count > 2
+						limit = { has_ethic = ethic_materialist }
 					}
 				}
 				country_add_ethic = ethic_materialist

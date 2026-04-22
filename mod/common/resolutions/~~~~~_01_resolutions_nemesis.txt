@@ -200,11 +200,11 @@ resolution_custodian_anti_piracy = {
 
 	modifier = {
 		description = resolution_custodian_anti_piracy_modifier_desc
-		local_trade_protection_add = 5
+		#local_trade_protection_add = 5 # removed in 4.x
 		damage_vs_country_type_pirate_mult = 0.2
 		damage_vs_country_type_dormant_marauders_mult = 0.2
 		# damage_vs_country_type_awakened_marauders_mult = 0.2
-		damage_vs_country_type_pirate_waves_country_mult = 0.2
+		#damage_vs_country_type_pirate_waves_country_mult = 0.2 # pirate_waves country type doesn't exist
 		country_energy_produces_mult = -0.03
 	}
 
@@ -223,7 +223,10 @@ resolution_custodian_anti_piracy = {
 
 	potential = {
 		has_nemesis = yes
-		is_galactic_custodian = yes
+		OR = {
+			is_galactic_custodian = yes
+			is_galactic_emperor = yes
+		}
 	}
 
 	ai_weight = {
@@ -436,7 +439,7 @@ resolution_emperor_united_front = {
 	}
 
 	potential = {
-		has_nemesis = yes
+		has_nemesis_or_control_fragment = yes
 		is_galactic_emperor = yes
 		any_country = { is_crisis_faction = yes }
 	}

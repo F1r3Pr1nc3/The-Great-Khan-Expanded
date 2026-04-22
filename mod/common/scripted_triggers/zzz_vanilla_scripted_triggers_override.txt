@@ -20,8 +20,10 @@ has_total_war_cb = {
 			OR = {
 				merg_is_awakened_fe = yes
 				has_valid_civic = civic_hive_devouring_swarm
-				# has_menace_perk = menp_behemoth_ever_hungry # since v4.0
+				has_menace_perk = menp_behemoth_ever_hungry
 				has_valid_civic = civic_machine_assimilator
+				has_valid_civic = civic_scorched_earth
+				has_valid_civic = civic_hive_scorched_earth
 				AND = {
 					has_valid_civic = civic_machine_terminator
 					from = { is_synthetic_empire = no }
@@ -65,6 +67,13 @@ has_total_war_cb = {
 					# }
 				}
 			}
+		}
+		# EotC Total War
+		has_country_flag = reached_eotc_situation_stage2
+		# Total War against EotC
+		AND = {
+			has_country_flag = can_declare_total_war_to_eotc
+			from = { has_covenant_with_end_of_the_cycle = yes }
 		}
 	}
 }

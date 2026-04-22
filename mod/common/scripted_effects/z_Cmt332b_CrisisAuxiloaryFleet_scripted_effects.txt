@@ -113,7 +113,7 @@ CmtEffectCreateFleet_KhanArmy = {
 					1 = { add_trait = leader_trait_dreaded }
 					1 = { add_trait = leader_trait_dreaded_2 }
 					1 = { add_trait = leader_trait_butcher }
-					1 = { add_trait = leader_trait_butcher_2 }
+					1 = { add_trait = leader_trait_butcher }
 				}
 			}
 		}

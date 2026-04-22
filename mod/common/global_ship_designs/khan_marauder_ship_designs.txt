@@ -648,22 +648,6 @@ ship_design = {
 			template = "LARGE_SHIELD_4"
 		}
 		component = {
-			slot = "LARGE_UTILITY_19"
-			template = "LARGE_ARMOR_4"
-		}
-		component = {
-			slot = "LARGE_UTILITY_20"
-			template = "LARGE_ARMOR_4"
-		}
-		component = {
-			slot = "LARGE_UTILITY_21"
-			template = "LARGE_ARMOR_4"
-		}
-		component = {
-			slot = "LARGE_UTILITY_22"
-			template = "LARGE_ARMOR_4"
-		}
-		component = {
 			slot = "AUX_UTILITY_1"
 			template = "SHIELD_BOOSTER"
 		}
@@ -822,38 +806,6 @@ ship_design = {
 		}
 		component = {
 			slot = "LARGE_UTILITY_18"
-			template = "LARGE_SHIELD_4"
-		}
-		component = {
-			slot = "LARGE_UTILITY_19"
-			template = "LARGE_ARMOR_4"
-		}
-		component = {
-			slot = "LARGE_UTILITY_20"
-			template = "LARGE_ARMOR_4"
-		}
-		component = {
-			slot = "LARGE_UTILITY_21"
-			template = "LARGE_ARMOR_4"
-		}
-		component = {
-			slot = "LARGE_UTILITY_22"
-			template = "LARGE_ARMOR_4"
-		}
-		component = {
-			slot = "LARGE_UTILITY_23"
-			template = "LARGE_SHIELD_4"
-		}
-		component = {
-			slot = "LARGE_UTILITY_24"
-			template = "LARGE_SHIELD_4"
-		}
-		component = {
-			slot = "LARGE_UTILITY_25"
-			template = "LARGE_SHIELD_4"
-		}
-		component = {
-			slot = "LARGE_UTILITY_26"
 			template = "LARGE_SHIELD_4"
 		}
 		component = {

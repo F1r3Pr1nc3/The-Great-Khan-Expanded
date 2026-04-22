@@ -14,6 +14,7 @@ country_event = {
 	immediate = {
 		set_global_flag = prethoryn_invasion_happened
 		set_global_flag = prethoryn_transmission
+		set_global_flag = galactic_crisis_happened
 		begin_event_chain = {
 			event_chain = "coming_storm_chain"
 			target = root
@@ -39,6 +40,9 @@ country_event = {
 	is_triggered_only = yes
 	# trigger = { always = no }
 	immediate = {
+		set_global_flag = ai_invasion_happened
+		set_global_flag = ai_ghost_signal
+		set_global_flag = galactic_crisis_happened
 		# The Arrival
 		every_country = {
 			limit = { is_default_or_fallen = yes }
@@ -111,7 +115,8 @@ country_event = {
 					NOR = {
 						is_hive_empire = yes
 						is_machine_empire = yes
-						owner_species = { has_trait = trait_psionic }
+						is_individual_machine = yes
+						owner_species = { is_psionic_species = yes }
 					}
 				}
 				country_event = { id = crisis.2085 days = 260 random = 20 }
@@ -121,11 +126,16 @@ country_event = {
 				country_event = { id = crisis.2086 days = 260 random = 20 }
 			}
 			if = {
-				limit = { owner_species = { has_trait = trait_psionic } }
+				limit = { owner_species = { is_psionic_species = yes } }
 				country_event = { id = crisis.2087 days = 260 random = 20 }
 			}
 			if = {
-				limit = { is_machine_empire = yes }
+				limit = {
+					OR = {
+						is_machine_empire = yes
+						is_individual_machine = yes
+					}
+				}
 				country_event = { id = crisis.2313 days = 260 random = 20 }
 			}
 		}
@@ -210,8 +220,8 @@ planet_event = {
 			}
 			## Planet belonged to liberator
 			# else = {
-			# 	if = { limit = { num_sapient_pops > 0 }
-			#	every_owned_pop = { kill_pop = yes }
+			# 	if = { limit = { sapient_pop_amount > 0 }
+			#	every_owned_pop_group = { kill_pop_group = { pop_group = this percentage = 1.0 } }
 			# 	destroy_colony = yes # set_owner = from
 			# }
 		}
@@ -367,7 +377,7 @@ country_event = {
 		}
 		random_country = {
 			limit = { is_country_type = portal_holder }
-			random_owned_ship = { set_ship_flag = unbidden_portal }
+			random_controlled_ship = { set_ship_flag = unbidden_portal }
 		}
 	}
 }
@@ -380,7 +390,7 @@ country_event = {
 	immediate = {
 		random_country = {
 			limit = { is_country_type = portal_holder }
-			random_owned_ship = {
+			random_controlled_ship = {
 				limit = { is_ship_size = dimensional_portal_ed }
 				set_ship_flag = unbidden_portal
 			}

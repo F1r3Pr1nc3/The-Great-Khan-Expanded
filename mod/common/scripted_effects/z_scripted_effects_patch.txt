@@ -124,15 +124,15 @@ create_marauder_merc_admiral = {
 				6 = {
 					modifier = { factor = 0
 						OR = {
-							has_trait = leader_trait_aggressive_2
-							has_trait = leader_trait_cautious_2
+							has_trait = leader_trait_aggressive
+							has_trait = leader_trait_cautious
 						}
 					}
-				add_trait = leader_trait_aggressive_2 }
+				add_trait = leader_trait_aggressive }
 				# 1 = { add_trait = leader_trait_skirmisher } council
 				3 = {
-					modifier = { factor = 0 has_trait = leader_trait_engineer_2 }
-					add_trait = leader_trait_engineer_2
+					modifier = { factor = 0 has_trait = leader_trait_engineer }
+					add_trait = leader_trait_engineer
 				}
 				1 = {
 					modifier = { factor = 0
@@ -170,8 +170,8 @@ create_marauder_merc_general = {
 		effect = {
 			random_list = {
 				1 = { add_trait = leader_trait_dreaded }
-				1 = { add_trait = leader_trait_dreaded_3 }
-				1 = { add_trait = leader_trait_butcher_2 }
+				1 = { add_trait = leader_trait_dreaded_2 }
+				1 = { add_trait = leader_trait_butcher }
 			}
 			set_owner = root
 		}
@@ -203,7 +203,7 @@ deduce_planetary_separatism_species = {
 			}
 			weights = { base = 100
 				complex_trigger_modifier = { # Add 10 for each unhappy pop of this species
-					trigger = count_owned_pop
+					trigger = count_owned_pop_group
 					trigger_scope = root.target
 					potential = { species_has_happiness_with_owner = root.owner }
 					parameters = {
@@ -216,7 +216,7 @@ deduce_planetary_separatism_species = {
 					mult = 10
 				}
 				complex_trigger_modifier = { # Multiply it by the percentage of pops on the planet
-					trigger = pop_percentage
+					trigger = pop_amount_percentage
 					trigger_scope = root.target
 					parameters = {
 						limit = { is_same_species = prevprev }

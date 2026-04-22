@@ -41,7 +41,7 @@ country_event = {
 				}
 				create_leader = {
 					class = commander
-					species = owner_species # event_target:mercenary_enclave_species
+					species = owner_main_species # event_target:mercenary_enclave_species
 					name = random
 					skill = 3
 					background_ethic = "ethic_militarist"
@@ -49,10 +49,11 @@ country_event = {
 					can_manually_change_location = no
 					hide_leader = yes
 					event_leader = yes
+					randomize_traits = no
 					custom_description = "custom_mercenary_admiral_desc"
 					traits = {
 						trait = leader_trait_mercenary_warrior
-						trait = leader_trait_aggressive_2
+						trait = leader_trait_aggressive
 					}
 				}
 			}
@@ -153,7 +154,7 @@ country_event = {
 				}
 				create_leader = {
 					class = commander
-					species = owner_species # event_target:mercenary_enclave_species
+					species = owner_main_species # event_target:mercenary_enclave_species
 					name = random
 					skill = 3
 					background_ethic = "ethic_militarist"
@@ -161,10 +162,11 @@ country_event = {
 					can_manually_change_location = no
 					hide_leader = yes
 					event_leader = yes
+					randomize_traits = no
 					custom_description = "custom_mercenary_admiral_desc"
 					traits = {
 						trait = leader_trait_mercenary_warrior
-						trait = leader_trait_aggressive_2
+						trait = leader_trait_aggressive
 					}
 				}
 			}
@@ -227,9 +229,9 @@ event = {
 		if = {
 			limit = {
 				exists = event_target:great_khan
-				exists = event_target:great_khan.fleet
+				event_target:great_khan = { exists = fleet }
 			}
-			event_target:great_khan.fleet = { save_event_target_as = khan_fleet }
+			event_target:great_khan = { fleet = { save_event_target_as = khan_fleet } }
 		} else = {
 			event_target:raider_khanate = {
 				random_owned_fleet = {
@@ -442,7 +444,7 @@ country_event = {
 				exists = solar_system
 				solar_system = {
 					any_fleet_in_system = {
-						is_ship_size = enclave_mercenary_station
+						is_mercenary_station = yes
 						is_owned_by = root
 					}
 				}
@@ -451,7 +453,7 @@ country_event = {
 	}
 	immediate = {
 		random_owned_fleet = {
-			limit = { is_ship_size = enclave_mercenary_station }
+			limit = { is_mercenary_station = yes }
 			save_event_target_as = mercenary_enclave_station
 		}
 		ordered_controlled_fleet = {
@@ -462,7 +464,7 @@ country_event = {
 					exists = solar_system
 					solar_system = {
 						any_fleet_in_system = {
-							is_ship_size = enclave_mercenary_station
+							is_mercenary_station = yes
 							is_owned_by = root
 						}
 					}
@@ -491,7 +493,7 @@ country_event = {
 			}
 			root = {
 				random_owned_fleet = {
-					limit = { is_ship_size = enclave_mercenary_station }
+					limit = { is_mercenary_station = yes }
 					prevprev = {
 						queue_actions = { move_to = prev }
 					}
@@ -509,7 +511,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		has_civic = civic_mercenary_enclave
+		is_mercenary = yes
 		any_owned_fleet = {
 			is_leased = yes
 			NOT = { exists = leader }
@@ -518,13 +520,14 @@ country_event = {
 	immediate = {
 		create_leader = {
 			class = commander
-			species = owner_species # event_target:mercenary_enclave_species
+			species = owner_main_species # event_target:mercenary_enclave_species
 			name = random
 			skill = 3
 			background_ethic = "ethic_militarist"
 			skip_background_generation = yes
 			can_manually_change_location = no
 			hide_leader = yes
+			randomize_traits = no
 			custom_description = "custom_mercenary_admiral_desc"
 			traits = {
 				trait = leader_trait_mercenary_warrior

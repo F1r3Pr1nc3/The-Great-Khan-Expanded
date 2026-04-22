@@ -53,15 +53,15 @@ CmtEffectCreateAdmiral_MarauderStandard = {
 					6 = {
 						modifier = { factor = 0
 							OR = {
-								has_trait = leader_trait_aggressive_2
-								has_trait = leader_trait_cautious_2
+								has_trait = leader_trait_aggressive
+								has_trait = leader_trait_cautious
 							}
 						}
-					add_trait = leader_trait_aggressive_2 }
+					add_trait = leader_trait_aggressive }
 					# 1 = { add_trait = leader_trait_skirmisher } council
 					3 = {
-						modifier = { factor = 0 has_trait = leader_trait_engineer_2 }
-						add_trait = leader_trait_engineer_2
+						modifier = { factor = 0 has_trait = leader_trait_engineer }
+						add_trait = leader_trait_engineer
 					}
 					1 = {
 						modifier = { factor = 0
@@ -102,7 +102,7 @@ CmtEffectCreateAdmiral_OwnerStandard = {
 	optimize_memory
 	create_leader = {
 		class = commander
-		species = owner_species
+		species = owner_main_species
 		name = random
 		skill = 3
 		leader_age_min = 25

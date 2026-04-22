@@ -362,7 +362,7 @@ create_marauder_successor_fleet = {
 		}
 		create_leader = {
 			class = commander
-			species = owner_species
+			species = owner_main_species
 			name = random
 			skill = 3
 			leader_age_min = 25
@@ -542,7 +542,7 @@ get_marauder_raid_source = {
 # 				has_owner = yes
 # 				is_owned_by = root
 # 				merg_is_habitat = no
-# 				OR = { is_sector_capital = yes num_sapient_pops > 5 }
+# 				OR = { is_sector_capital = yes sapient_pop_amount > 5 }
 # 			}
 # 		}
 # 		set_star_flag = $NUM$_diadochi_system
@@ -788,7 +788,7 @@ commit_system_to = {
 		parameters = {
 			limit = {
 				has_owner = yes
-				num_pops > 0
+				pop_amount > 0
 				has_ground_combat = no
 				is_occupied_flag = no
 				is_owned_by = event_target:former_owner
@@ -808,7 +808,7 @@ commit_system_to = {
 				exists = event_target:former_owner
 				any_system_colony = { # Just double check
 					has_owner = yes
-					num_pops > 0
+					pop_amount > 0
 					has_ground_combat = no
 					is_occupied_flag = no
 					is_owned_by = event_target:former_owner
@@ -822,7 +822,7 @@ commit_system_to = {
 			random_system_colony = {
 				limit = {
 					has_owner = yes
-					num_pops > 0
+					pop_amount > 0
 					has_ground_combat = no
 					is_occupied_flag = no
 					is_owned_by = event_target:former_owner
@@ -916,7 +916,7 @@ get_marauder_species = { # log = "GET MARAUDER SPECIES"
 						is_archetype = PRESAPIENT
 						is_species_class = PLANT
 						is_species_class = FUN
-						any_species_pop = { exists = owner is_owned_by = prevprev pop_has_ethic = ethic_pacifist }
+						any_species_pop_group = { exists = owner is_owned_by = prevprev has_ethic = ethic_pacifist }
 					}
 				}
 			}
@@ -925,14 +925,14 @@ get_marauder_species = { # log = "GET MARAUDER SPECIES"
 				# is_scope_type = species
 				OR = {
 					species_can_be_necrophaged = yes
-					AND = { exists = event_target:great_khan is_same_species = event_target:great_khan.species }
+					AND = { exists = event_target:great_khan is_same_species = event_target:great_khan }
 					AND = { exists = prev.owner_species is_same_species = prev.owner_species }
 				}
 				NOR = {
 					is_archetype = LITHOID
 					is_species_class = PLANT
 					is_species_class = FUN
-					any_species_pop = { exists = owner is_owned_by = prevprev OR = { pop_has_ethic = ethic_pacifist pop_has_ethic = ethic_xenophobe } }
+					any_species_pop_group = { exists = owner is_owned_by = prevprev OR = { has_ethic = ethic_pacifist has_ethic = ethic_xenophobe } }
 				}
 			}
 		}
@@ -942,7 +942,7 @@ get_marauder_species = { # log = "GET MARAUDER SPECIES"
 				# is_scope_type = species
 				OR = {
 					species_can_be_necrophaged = yes
-					AND = { exists = event_target:great_khan is_same_species = event_target:great_khan.species }
+					AND = { exists = event_target:great_khan is_same_species = event_target:great_khan }
 					AND = { exists = prev.owner_species is_same_species = prev.owner_species }
 				}
 				species_has_happiness_with_owner = prev
@@ -950,13 +950,13 @@ get_marauder_species = { # log = "GET MARAUDER SPECIES"
 					is_archetype = LITHOID
 					is_species_class = PLANT
 					is_species_class = FUN
-					any_species_pop = { exists = owner is_owned_by = prevprev OR = { pop_has_ethic = ethic_pacifist pop_has_ethic = ethic_xenophobe } }
+					any_species_pop_group = { exists = owner is_owned_by = prevprev OR = { has_ethic = ethic_pacifist has_ethic = ethic_xenophobe } }
 				}
 			}
 			weights = { base = 100
 				complex_trigger_modifier = { # v3.14 Add 5 for each happy pop of this species
-					trigger = count_species_pop
-					# trigger_scope = root
+					trigger = count_owned_pop_amount
+					trigger_scope = root
 					# potential = {
 					# 	species_has_happiness_with_owner = root
 					# }
@@ -973,14 +973,14 @@ get_marauder_species = { # log = "GET MARAUDER SPECIES"
 				}
 				modifier = { factor = 3
 					OR = {
-						AND = { exists = event_target:great_khan is_same_species = event_target:great_khan.species }
+						AND = { exists = event_target:great_khan is_same_species = event_target:great_khan }
 						is_same_species = root.owner_species
 					}
 				}
-				# modifier = { add = 2 prev = { count_owned_pop = { count > 10 limit = { is_same_species = prevprev } } } }
+				# modifier = { add = 2 prev = { count_owned_pop_group = { count > 10 limit = { is_same_species = prevprev } } } }
 				modifier = { factor = 1.5
 					prev = {
-						count_owned_pop = { count >  22
+						count_owned_pop_group = { count >  22
 							limit = { is_same_species = prevprev }
 						}
 					}
@@ -989,7 +989,7 @@ get_marauder_species = { # log = "GET MARAUDER SPECIES"
 				modifier = { factor = 3 prev = { any_owned_planet = { is_homeworld = yes is_same_value = prevprev.home_planet } } }
 				# Division by zero: total random weight is 0, in weights section
 				complex_trigger_modifier = { # Multiply it by the percentage of pops of the country
-					trigger = pop_percentage
+					trigger = pop_amount_percentage
 					trigger_scope = root
 					parameters = {
 						limit = { is_same_species = prevprev pop_has_happiness = yes }
@@ -1008,20 +1008,20 @@ get_marauder_species = { # log = "GET MARAUDER SPECIES"
 				exists = event_target:marauder_species
 				event_target:marauder_species = { is_scope_valid = yes }
 				event_target:marauder_species = { is_scope_type = species }
-				pop_percentage = { percentage > 0.2 limit = { is_same_species = prev.owner_species } }
-				pop_percentage = { percentage > 0.4 limit = { is_same_species = event_target:marauder_species } }
+				pop_amount_percentage = { percentage > 0.2 limit = { is_same_species = prev.owner_species } }
+				pop_amount_percentage = { percentage > 0.4 limit = { is_same_species = event_target:marauder_species } }
 			}
 			any_owned_species = {
 				OR = {
 					species_can_be_necrophaged = yes
-					AND = { exists = event_target:great_khan is_same_species = event_target:great_khan.species }
+					AND = { exists = event_target:great_khan is_same_species = event_target:great_khan }
 					AND = { exists = owner_species is_same_species = prev.owner_species }
 				}
 				NOR = {
 					is_archetype = LITHOID
 					is_species_class = PLANT
 					is_species_class = FUN
-					any_species_pop = { exists = owner is_owned_by = prevprev OR = { pop_has_ethic = ethic_pacifist pop_has_ethic = ethic_xenophobe } }
+					any_species_pop_group = { exists = owner is_owned_by = prevprev OR = { has_ethic = ethic_pacifist has_ethic = ethic_xenophobe } }
 				}
 			}
 		}
@@ -1029,7 +1029,7 @@ get_marauder_species = { # log = "GET MARAUDER SPECIES"
 			limit = {
 				OR = {
 					species_can_be_necrophaged = yes
-					AND = { exists = event_target:great_khan is_same_species = event_target:great_khan.species }
+					AND = { exists = event_target:great_khan is_same_species = event_target:great_khan }
 					AND = { exists = owner_species is_same_species = prev.owner_species }
 				}
 				species_has_happiness_with_owner = prev
@@ -1037,13 +1037,13 @@ get_marauder_species = { # log = "GET MARAUDER SPECIES"
 					is_archetype = LITHOID
 					is_species_class = PLANT
 					is_species_class = FUN
-					any_species_pop = { exists = owner is_owned_by = prevprev OR = { pop_has_ethic = ethic_pacifist pop_has_ethic = ethic_xenophobe } }
+					any_species_pop_group = { exists = owner is_owned_by = prevprev OR = { has_ethic = ethic_pacifist has_ethic = ethic_xenophobe } }
 				}
 			}
 			weights = { base = 100
 				complex_trigger_modifier = { # v3.14 Add 5 for each happy pop of this species
-					trigger = count_species_pop
-					# trigger_scope = root
+					trigger = count_owned_pop_amount
+					trigger_scope = root
 					# potential = {
 					# 	species_has_happiness_with_owner = root
 					# }
@@ -1060,13 +1060,13 @@ get_marauder_species = { # log = "GET MARAUDER SPECIES"
 				}
 				modifier = { factor = 2
 					OR = {
-						AND = { exists = event_target:great_khan is_same_species = event_target:great_khan.species }
+						AND = { exists = event_target:great_khan is_same_species = event_target:great_khan }
 						is_same_species = root.owner_species
 					}
 				}
 				# Division by zero: total random weight is 0, in weights section
 				complex_trigger_modifier = { # Multiply it by the percentage of pops of the country
-					trigger = pop_percentage
+					trigger = pop_amount_percentage
 					trigger_scope = root
 					parameters = {
 						limit = { is_same_species = prevprev pop_has_happiness = yes }
@@ -1087,11 +1087,11 @@ get_marauder_species = { # log = "GET MARAUDER SPECIES"
 					NAND = {
 						is_scope_valid = yes
 						is_scope_type = species
-						any_species_pop = {
+						any_species_pop_group = {
 							exists = owner
 							is_owned_by = prevprev
 							pop_has_happiness = yes
-							NOR = { pop_has_ethic = ethic_pacifist pop_has_ethic = ethic_xenophobe }
+							NOR = { has_ethic = ethic_pacifist has_ethic = ethic_xenophobe }
 						}
 					}
 				}
@@ -1101,21 +1101,21 @@ get_marauder_species = { # log = "GET MARAUDER SPECIES"
 	}
 	else_if = {
 		limit = {
-			pop_percentage = {
+			pop_amount_percentage = {
 				percentage > 0.65
 				limit = { is_same_species = event_target:marauder_species }
 			}
 			OR = {
 				AND = {
 					exists = event_target:great_khan
-					pop_percentage = {
+					pop_amount_percentage = {
 						percentage < 0.2
-						limit = { is_same_species = event_target:great_khan.species }
+						limit = { is_same_species = event_target:great_khan }
 					}
 				}
 				AND = {
-					NOT = { exists = event_target:great_khan.species }
-					pop_percentage = {
+					NOT = { event_target:great_khan = { exists = species } }
+					pop_amount_percentage = {
 						percentage < 0.25
 						limit = { is_same_species = owner_species }
 					}
@@ -1155,7 +1155,7 @@ create_privateer_fleet = { # Event targets created by create_privateer_country.
 
 		create_leader = {
 			class = commander
-			species = owner_species
+			species = owner_main_species
 			name = random
 			skill = 1
 		}
