@@ -4186,10 +4186,10 @@ country_event = {
 		else = {
 			set_country_type = awakened_marauders
 			set_graphical_culture = madd_01
-			# force_add_civic = civic_warrior_culture
+			force_add_civic = civic_warrior_culture
 			# force_add_civic = civic_slaver_guilds
 			force_add_civic = civic_barbaric_despoilers
-			force_add_civic = civic_fanatic_purifiers
+			# force_add_civic = civic_fanatic_purifiers		#Removed as it prevents any form of negotiation with Khan including alternate arrangements
 		}
 
 		if = {
