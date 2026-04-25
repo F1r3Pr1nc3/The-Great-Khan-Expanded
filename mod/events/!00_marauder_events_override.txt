@@ -6521,6 +6521,33 @@ country_event = {
 			country_event = { id = marauder.520 days = 270 }
 		}
 
+		### Khan District Overflow Pre-Check
+		khan_develop_overflow = yes
+
+		### Khan Planet Development
+		every_owned_planet = {
+			limit = {
+				is_colony = yes
+				NOR = {
+					is_planet_class = pc_habitat	#maybe add habitat development down the line
+					has_planet_flag = khan_developed_this_cycle
+				}
+				OR = {
+					free_district_slots > 0
+					free_building_slots > 0
+				}
+				OR = {
+					AND = {
+						free_amenities < 0
+						free_building_slots > 0
+					}
+					num_unemployed > 0
+				}
+			}
+			khan_develop_planet = yes
+			set_timed_planet_flag = { flag = khan_developed_this_cycle days = 90 }
+		}
+
 		if = {
 			limit = {
 				OR = {

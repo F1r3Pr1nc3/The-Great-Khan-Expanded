@@ -1,0 +1,617 @@
+#########################################
+#########################################
+#####                               #####
+#####   Khan Planet Development     #####
+#####                               #####
+#####   Scripted Effects            #####
+#####                               #####
+#########################################
+#########################################
+
+# Develops Khan-owned planets with districts, zones, buildings, and upgrades.
+# The Khan conquers planets but never develops them economically.
+# These effects add periodic development so successor states inherit functional worlds.
+#
+# Zone type keys (normal planets):
+#   City:      zone_foundry, zone_factory, zone_fortress, zone_trade, zone_research, zone_urban, etc.
+#   Mining:    zone_minerals
+#   Generator: zone_energy
+#   Farming:   zone_food
+
+###############################################
+### A. khan_develop_planet_initial
+###    Called once at capture time (planet scope)
+###    Immediate stabilization of a freshly conquered planet.
+###############################################
+
+khan_develop_planet_initial = {
+	# 1. Specialize existing unspecialized city district zones
+	#    add_zone without replace=yes fills empty slots only — safe if no city districts or no empty slots
+	if = {
+		limit = { has_district = district_city }
+		add_zone = { district = district_city zone = zone_foundry }
+		add_zone = { district = district_city zone = zone_fortress }
+	}
+
+	# 2. Add 1-2 resource districts if free slots available, then specialize their zones
+	if = {
+		limit = { free_district_slots > 0 }
+		add_district = district_mining
+		add_zone = { district = district_mining zone = zone_minerals }
+	}
+	if = {
+		limit = { free_district_slots > 0 }
+		add_district = district_generator
+		add_zone = { district = district_generator zone = zone_energy }
+	}
+}
+
+###############################################
+### B. khan_develop_planet
+###    Called each reinforcement cycle (planet scope)
+###    Adds ONE action per call. Priority ladder.
+###
+###    P1: Amenity emergency
+###    P2: City zone specialization
+###    P3: District placement
+###    P4: Building upgrades (safe — remove+add, no silent failure risk)
+###    P5: Resource support buildings (zone-targeted)
+###    P6: City zone building placement (zone-targeted)
+###############################################
+
+khan_develop_planet = {
+
+	### P1 — AMENITY EMERGENCY
+	if = {
+		limit = {
+			free_amenities < 0
+			free_building_slots > 0
+		}
+		add_building = building_luxury_residence
+	}
+
+	### P2 — ZONE SPECIALIZATION OF EXISTING CITY DISTRICTS
+	else_if = {
+		limit = {
+			OR = {
+				# Capital not upgraded: 1 city zone slot max, need 0 occupied
+				AND = {
+					NOT = { has_upgraded_capital = yes }
+					NOR = {
+						num_zones = { type = zone_foundry value >= 1 }
+						num_zones = { type = zone_factory value >= 1 }
+						num_zones = { type = zone_industrial value >= 1 }
+						num_zones = { type = zone_fortress value >= 1 }
+						num_zones = { type = zone_trade value >= 1 }
+						num_zones = { type = zone_research value >= 1 }
+						num_zones = { type = zone_research_physics value >= 1 }
+						num_zones = { type = zone_research_society value >= 1 }
+						num_zones = { type = zone_research_engineering value >= 1 }
+						num_zones = { type = zone_research_unity value >= 1 }
+						num_zones = { type = zone_unity value >= 1 }
+						num_zones = { type = zone_unity_spiritualist value >= 1 }
+						num_zones = { type = zone_urban value >= 1 }
+					}
+				}
+				# Capital upgraded: 2 city zone slots max, need < 2 occupied
+				AND = {
+					has_upgraded_capital = yes
+					NOT = {
+						calc_true_if = {
+							amount >= 2
+							num_zones = { type = zone_foundry value >= 1 }
+							num_zones = { type = zone_foundry value >= 2 }
+							num_zones = { type = zone_factory value >= 1 }
+							num_zones = { type = zone_factory value >= 2 }
+							num_zones = { type = zone_industrial value >= 1 }
+							num_zones = { type = zone_industrial value >= 2 }
+							num_zones = { type = zone_fortress value >= 1 }
+							num_zones = { type = zone_fortress value >= 2 }
+							num_zones = { type = zone_trade value >= 1 }
+							num_zones = { type = zone_trade value >= 2 }
+							num_zones = { type = zone_research value >= 1 }
+							num_zones = { type = zone_research value >= 2 }
+							num_zones = { type = zone_research_physics value >= 1 }
+							num_zones = { type = zone_research_physics value >= 2 }
+							num_zones = { type = zone_research_society value >= 1 }
+							num_zones = { type = zone_research_society value >= 2 }
+							num_zones = { type = zone_research_engineering value >= 1 }
+							num_zones = { type = zone_research_engineering value >= 2 }
+							num_zones = { type = zone_research_unity value >= 1 }
+							num_zones = { type = zone_research_unity value >= 2 }
+							num_zones = { type = zone_unity value >= 1 }
+							num_zones = { type = zone_unity value >= 2 }
+							num_zones = { type = zone_unity_spiritualist value >= 1 }
+							num_zones = { type = zone_unity_spiritualist value >= 2 }
+							num_zones = { type = zone_urban value >= 1 }
+							num_zones = { type = zone_urban value >= 2 }
+						}
+					}
+				}
+			}
+		}
+
+		if = {
+			limit = { NOT = { has_global_flag = great_khan_wins } }
+			# Pre-victory: weighted foundry/fortress, with factory/trade modifiers
+			random_list = {
+				50 = { # Foundry
+					add_zone = { district = district_city zone = zone_foundry }
+				}
+				35 = { # Fortress
+					add_zone = { district = district_city zone = zone_fortress }
+				}
+				10 = { # Factory — boosted if consumer goods deficit
+					modifier = {
+						factor = 3
+						owner = {
+							has_monthly_income = {
+								resource = consumer_goods
+								value < 0
+							}
+						}
+					}
+					add_zone = { district = district_city zone = zone_factory }
+				}
+				5 = { # Trade — boosted if trade deficit
+					modifier = {
+						factor = 3
+						owner = {
+							has_monthly_income = {
+								resource = energy
+								value < 10
+							}
+						}
+					}
+					add_zone = { district = district_city zone = zone_trade }
+				}
+			}
+		}
+		else = {
+			# Post-victory: broader mix including research
+			random_list = {
+				20 = { add_zone = { district = district_city zone = zone_foundry } }
+				20 = { add_zone = { district = district_city zone = zone_factory } }
+				20 = { add_zone = { district = district_city zone = zone_fortress } }
+				10 = { add_zone = { district = district_city zone = zone_trade } }
+				30 = { add_zone = { district = district_city zone = zone_research } }
+			}
+		}
+	}
+
+	### P3 — DISTRICT PLACEMENT (probabilistic)
+	else_if = {
+		limit = { free_district_slots > 0 }
+		random_list = {
+			5 = { # City (uncapped)
+				add_district = district_city
+			}
+			2 = { # Energy
+				if = {
+					limit = {
+						num_free_districts = { type = district_generator value >= 1 }
+					}
+					add_district = district_generator
+					# Specialize zone if not already specialized
+					if = {
+						limit = { NOT = { has_any_generator_zone = yes } }
+						add_zone = { district = district_generator zone = zone_energy }
+					}
+				}
+				else = {
+					owner = { change_variable = { which = khan_overflow_energy value = 1 } }
+				}
+			}
+			3 = { # Minerals
+				if = {
+					limit = {
+						num_free_districts = { type = district_mining value >= 1 }
+					}
+					add_district = district_mining
+					if = {
+						limit = { NOT = { has_any_mining_zone = yes } }
+						add_zone = { district = district_mining zone = zone_minerals }
+					}
+				}
+				else = {
+					owner = { change_variable = { which = khan_overflow_mining value = 1 } }
+				}
+			}
+			1 = { # Food
+				if = {
+					limit = {
+						num_free_districts = { type = district_farming value >= 1 }
+					}
+					add_district = district_farming
+					if = {
+						limit = { NOT = { has_any_agriculture_zone = yes } }
+						add_zone = { district = district_farming zone = zone_food }
+					}
+				}
+				else = {
+					owner = { change_variable = { which = khan_overflow_food value = 1 } }
+				}
+			}
+		}
+	}
+
+	### P4 — BUILDING UPGRADES
+	else_if = {
+
+		## P4a — CAPITAL UPGRADES (highest priority — gates has_upgraded_capital and second city zone)
+		if = {
+			limit = {
+				has_building = building_colony_shelter
+				num_pops >= 10
+			}
+			remove_building = building_colony_shelter
+			add_building = building_capital
+		}
+		else_if = {
+			limit = {
+				has_building = building_capital
+				NOT = { has_building = building_major_capital }
+				num_pops >= 25
+			}
+			remove_building = building_capital
+			add_building = building_major_capital
+		}
+		else_if = {
+			limit = {
+				has_building = building_major_capital
+				NOT = { has_building = building_system_capital }
+				num_pops >= 50
+			}
+			remove_building = building_major_capital
+			add_building = building_system_capital
+		}
+
+		## P4b — Tier 1 → Tier 2 upgrades
+		else_if = {
+			limit = { has_building = building_foundry_1 }
+			remove_building = building_foundry_1
+			add_building = building_foundry_2
+		}
+		else_if = {
+			limit = { has_building = building_factory_1 }
+			remove_building = building_factory_1
+			add_building = building_factory_2
+		}
+		else_if = {
+			limit = { has_building = building_stronghold }
+			remove_building = building_stronghold
+			add_building = building_fortress
+		}
+		else_if = {
+			limit = {
+				has_building = building_research_lab_1
+				NOT = { has_building = building_research_lab_2 }
+				NOT = { has_building = building_research_lab_3 }
+			}
+			remove_building = building_research_lab_1
+			add_building = building_research_lab_2
+		}
+		else_if = {
+			limit = { has_building = building_energy_grid }
+			remove_building = building_energy_grid
+			add_building = building_energy_nexus
+		}
+		else_if = {
+			limit = { has_building = building_mineral_purification_plant }
+			remove_building = building_mineral_purification_plant
+			add_building = building_mineral_purification_hub
+		}
+		else_if = {
+			limit = { has_building = building_food_processing_facility }
+			remove_building = building_food_processing_facility
+			add_building = building_food_processing_center
+		}
+		else_if = {
+			limit = { has_building = building_luxury_residence }
+			remove_building = building_luxury_residence
+			add_building = building_paradise_dome
+		}
+		else_if = {
+			limit = { has_building = building_commercial_zone }
+			remove_building = building_commercial_zone
+			add_building = building_commercial_megaplex
+		}
+		else_if = {
+			limit = { has_building = building_holo_theatres }
+			remove_building = building_holo_theatres
+			add_building = building_hyper_entertainment_forum
+		}
+		else_if = {
+			limit = { has_building = building_clinic }
+			remove_building = building_clinic
+			add_building = building_hospital
+		}
+		else_if = {
+			limit = { has_building = building_precinct_house }
+			remove_building = building_precinct_house
+			add_building = building_hall_judgment
+		}
+		# Unity chain (non-spiritualist)
+		else_if = {
+			limit = { has_building = building_autochthon_monument }
+			remove_building = building_autochthon_monument
+			add_building = building_heritage_site
+		}
+		# Unity chain (spiritualist — may exist on captured planets)
+		else_if = {
+			limit = { has_building = building_temple }
+			remove_building = building_temple
+			add_building = building_holotemple
+		}
+
+		## P4c — Tier 2 → Tier 3 upgrades (require upgraded capital)
+		else_if = {
+			limit = {
+				has_upgraded_capital = yes
+				has_building = building_foundry_2
+			}
+			remove_building = building_foundry_2
+			add_building = building_foundry_3
+		}
+		else_if = {
+			limit = {
+				has_upgraded_capital = yes
+				has_building = building_factory_2
+			}
+			remove_building = building_factory_2
+			add_building = building_factory_3
+		}
+		else_if = {
+			limit = {
+				has_upgraded_capital = yes
+				has_building = building_research_lab_2
+			}
+			remove_building = building_research_lab_2
+			add_building = building_research_lab_3
+		}
+		else_if = {
+			limit = {
+				has_upgraded_capital = yes
+				has_building = building_heritage_site
+			}
+			remove_building = building_heritage_site
+			add_building = building_hypercomms_forum
+		}
+		else_if = {
+			limit = {
+				has_upgraded_capital = yes
+				has_building = building_holotemple
+			}
+			remove_building = building_holotemple
+			add_building = building_sacred_nexus
+		}
+	}
+
+	### P5 — RESOURCE SUPPORT BUILDINGS (in resource district zones)
+	else_if = {
+		limit = {
+			free_building_slots > 0
+			OR = {
+				AND = {
+					has_any_normal_generator_zone = yes
+					NOT = { has_building = building_energy_grid }
+					NOT = { has_building = building_energy_nexus }
+				}
+				AND = {
+					has_any_normal_mining_zone = yes
+					NOT = { has_building = building_mineral_purification_plant }
+					NOT = { has_building = building_mineral_purification_hub }
+				}
+				AND = {
+					has_any_normal_agriculture_zone = yes
+					NOT = { has_building = building_food_processing_facility }
+					NOT = { has_building = building_food_processing_center }
+				}
+			}
+		}
+
+		# Energy grid — planet limit 1
+		if = {
+			limit = {
+				has_any_normal_generator_zone = yes
+				NOT = { has_building = building_energy_grid }
+				NOT = { has_building = building_energy_nexus }
+			}
+			add_building = { district = district_generator zone = zone_energy building = building_energy_grid }
+		}
+		# Mineral purification plant — planet limit 1
+		else_if = {
+			limit = {
+				has_any_normal_mining_zone = yes
+				NOT = { has_building = building_mineral_purification_plant }
+				NOT = { has_building = building_mineral_purification_hub }
+			}
+			add_building = { district = district_mining zone = zone_minerals building = building_mineral_purification_plant }
+		}
+		# Food processing facility — planet limit 1
+		else_if = {
+			limit = {
+				has_any_normal_agriculture_zone = yes
+				NOT = { has_building = building_food_processing_facility }
+				NOT = { has_building = building_food_processing_center }
+			}
+			add_building = { district = district_farming zone = zone_food building = building_food_processing_facility }
+		}
+	}
+
+	### P6 — ZONE BUILDING PLACEMENT (city zone buildings, zone-targeted)
+	else_if = {
+		limit = { free_building_slots > 0 }
+
+		# Foundry zone: foundry_1 → refinery → chemical_plant (3 slots)
+		if = {
+			limit = {
+				has_any_foundry_zone = yes
+				NOT = { has_building = building_crystal_plant }
+			}
+			add_building = { district = district_city zone = zone_foundry building = building_crystal_plant}
+		}
+		else_if = {
+			limit = {
+				has_any_foundry_zone = yes
+				NOT = { has_building = building_refinery }
+			}
+			add_building = { district = district_city zone = zone_foundry building = building_refinery }
+		}
+		else_if = {
+			limit = {
+				has_any_foundry_zone = yes
+				NOT = { has_building = building_chemical_plant }
+			}
+			add_building = { district = district_city zone = zone_foundry building = building_chemical_plant }
+		}
+
+		# Fortress zone: strongholds (up to 3 total including upgraded fortresses)
+		else_if = {
+			limit = {
+				has_any_fortress_zone = yes
+				NOT = {
+					calc_true_if = {
+						amount >= 3
+						num_buildings = { type = building_stronghold value >= 1 }
+						num_buildings = { type = building_stronghold value >= 2 }
+						num_buildings = { type = building_stronghold value >= 3 }
+						num_buildings = { type = building_fortress value >= 1 }
+						num_buildings = { type = building_fortress value >= 2 }
+						num_buildings = { type = building_fortress value >= 3 }
+					}
+				}
+			}
+			add_building = { district = district_city zone = zone_fortress building = building_stronghold }
+		}
+
+		# Factory zone: (3 slots)
+		else_if = {
+			limit = {
+				has_any_foundry_zone = yes
+				NOT = { has_building = building_crystal_plant }
+			}
+			add_building = { district = district_city zone = zone_factory building = building_crystal_plant }
+		}
+		else_if = {
+			limit = {
+				has_any_foundry_zone = yes
+				NOT = { has_building = building_refinery }
+			}
+			add_building = { district = district_city zone = zone_factory building = building_refinery }
+		}
+		else_if = {
+			limit = {
+				has_any_foundry_zone = yes
+				NOT = { has_building = building_chemical_plant }
+			}
+			add_building = { district = district_city zone = zone_factory building = building_chemical_plant }
+		}
+
+		# Trade zone: commercial_zone
+		else_if = {
+			limit = {
+				has_any_trade_zone = yes
+				NOT = { has_building = building_commercial_zone }
+				NOT = { has_building = building_commercial_megaplex }
+			}
+			add_building = { district = district_city zone = zone_trade building = building_commercial_zone }
+		}
+
+		# Research zone: research_lab_1
+		else_if = {
+			limit = {
+				has_any_research_zone = yes
+				NOT = { has_building = building_research_lab_1 }
+				NOT = { has_building = building_research_lab_2 }
+				NOT = { has_building = building_research_lab_3 }
+			}
+			add_building = { district = district_city zone = zone_research building = building_research_lab_1 }
+		}
+	}
+}
+
+###############################################
+### C. khan_develop_overflow
+###    Pre-check called BEFORE the main planet loop (country scope)
+###    Drains spillover from P3 district placement.
+###############################################
+
+khan_develop_overflow = {
+
+	# City district overflow
+	while = {
+		limit = { check_variable = { which = khan_overflow_city value > 0 } }
+		random_owned_planet = {
+			limit = {
+				is_colony = yes
+				NOT = { is_planet_class = pc_habitat }
+				num_unemployed > 0
+				free_district_slots > 0
+			}
+			add_district = district_city
+		}
+		change_variable = { which = khan_overflow_city value = -1 }
+	}
+
+	# Energy district overflow
+	while = {
+		limit = { check_variable = { which = khan_overflow_energy value > 0 } }
+		random_owned_planet = {
+			limit = {
+				is_colony = yes
+				NOT = { is_planet_class = pc_habitat }
+				num_unemployed > 0
+				free_district_slots > 0
+				num_free_districts = { type = district_generator value >= 1 }
+			}
+			add_district = district_generator
+			# Specialize zone if needed
+			if = {
+				limit = { NOT = { has_any_generator_zone = yes } }
+				add_zone = { district = district_generator zone = zone_energy }
+			}
+		}
+		change_variable = { which = khan_overflow_energy value = -1 }
+	}
+
+	# Mining district overflow
+	while = {
+		limit = { check_variable = { which = khan_overflow_mining value > 0 } }
+		random_owned_planet = {
+			limit = {
+				is_colony = yes
+				NOT = { is_planet_class = pc_habitat }
+				num_unemployed > 0
+				free_district_slots > 0
+				num_free_districts = { type = district_mining value >= 1 }
+			}
+			add_district = district_mining
+			if = {
+				limit = { NOT = { has_any_mining_zone = yes } }
+				add_zone = { district = district_mining zone = zone_minerals }
+			}
+		}
+		change_variable = { which = khan_overflow_mining value = -1 }
+	}
+
+	# Food district overflow
+	while = {
+		limit = { check_variable = { which = khan_overflow_food value > 0 } }
+		random_owned_planet = {
+			limit = {
+				is_colony = yes
+				NOT = { is_planet_class = pc_habitat }
+				num_unemployed > 0
+				free_district_slots > 0
+				num_free_districts = { type = district_farming value >= 1 }
+			}
+			add_district = district_farming
+			if = {
+				limit = { NOT = { has_any_agriculture_zone = yes } }
+				add_zone = { district = district_farming zone = zone_food }
+			}
+		}
+		change_variable = { which = khan_overflow_food value = -1 }
+	}
+}

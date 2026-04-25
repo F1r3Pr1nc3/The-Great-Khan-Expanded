@@ -204,6 +204,7 @@ planet_event = {
 	}
 	immediate = {
 		add_building = building_fortress
+		khan_develop_planet_initial = yes
 		set_variable = { which = temp_size value = 0 }
 		if = {
 			limit = { is_difficulty < 5 }
