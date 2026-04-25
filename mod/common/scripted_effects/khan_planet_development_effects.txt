@@ -89,7 +89,6 @@ khan_develop_planet = {
 						num_zones = { type = zone_research_engineering value >= 1 }
 						num_zones = { type = zone_research_unity value >= 1 }
 						num_zones = { type = zone_unity value >= 1 }
-						num_zones = { type = zone_unity_spiritualist value >= 1 }
 						num_zones = { type = zone_urban value >= 1 }
 					}
 				}
@@ -174,7 +173,8 @@ khan_develop_planet = {
 				20 = { add_zone = { district = district_city zone = zone_factory } }
 				20 = { add_zone = { district = district_city zone = zone_fortress } }
 				10 = { add_zone = { district = district_city zone = zone_trade } }
-				30 = { add_zone = { district = district_city zone = zone_research } }
+				25 = { add_zone = { district = district_city zone = zone_research } }	#this should be broken up into zones for the specific types and focused buildings placed & upgraded in later phases for optimal research output
+				5 = { add_zone = { district = district_city zone = zone_unity } }
 			}
 		}
 	}
@@ -336,12 +336,6 @@ khan_develop_planet = {
 			limit = { has_building = building_autochthon_monument }
 			remove_building = building_autochthon_monument
 			add_building = building_heritage_site
-		}
-		# Unity chain (spiritualist — may exist on captured planets)
-		else_if = {
-			limit = { has_building = building_temple }
-			remove_building = building_temple
-			add_building = building_holotemple
 		}
 
 		## P4c — Tier 2 → Tier 3 upgrades (require upgraded capital)
@@ -528,6 +522,17 @@ khan_develop_planet = {
 			}
 			add_building = { district = district_city zone = zone_research building = building_research_lab_1 }
 		}
+		
+		# Unity zone: zone_unity
+		else_if = {
+			limit = {
+				has_any_unity_zone = yes
+				owner = { is_spiritualist = no }
+				NOT = { has_building = 	building_bureaucratic_1 }
+			}
+			add_building = { district = district_city zone = zone_unity building = building_bureaucratic_1 }
+		}
+
 	}
 }
 
