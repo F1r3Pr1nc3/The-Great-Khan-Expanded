@@ -239,6 +239,40 @@ khan_develop_planet = {
 
 	### P4 — BUILDING UPGRADES
 	else_if = {
+		limit = {
+			OR = {
+				# P4a — Capital upgrades
+				AND = { has_building = building_colony_shelter num_pops >= 10 }
+				AND = { has_building = building_capital NOT = { has_building = building_major_capital } num_pops >= 25 }
+				AND = { has_building = building_major_capital NOT = { has_building = building_system_capital } num_pops >= 50 }
+				# P4b — Tier 1 → Tier 2
+				has_building = building_foundry_1
+				has_building = building_factory_1
+				has_building = building_stronghold
+				AND = { has_building = building_research_lab_1 NOT = { has_building = building_research_lab_2 } NOT = { has_building = building_research_lab_3 } }
+				has_building = building_physics_lab_1
+				has_building = building_biolab_1
+				has_building = building_engineering_facility_1
+				has_building = building_energy_grid
+				has_building = building_mineral_purification_plant
+				has_building = building_food_processing_facility
+				has_building = building_luxury_residence
+				has_building = building_commercial_zone
+				has_building = building_holo_theatres
+				has_building = building_clinic
+				has_building = building_precinct_house
+				has_building = building_autochthon_monument
+				# P4c — Tier 2 → Tier 3 (require upgraded capital)
+				AND = { has_upgraded_capital = yes has_building = building_foundry_2 }
+				AND = { has_upgraded_capital = yes has_building = building_factory_2 }
+				AND = { has_upgraded_capital = yes has_building = building_research_lab_2 }
+				AND = { has_upgraded_capital = yes has_building = building_physics_lab_2 }
+				AND = { has_upgraded_capital = yes has_building = building_biolab_2 }
+				AND = { has_upgraded_capital = yes has_building = building_engineering_facility_2 }
+				AND = { has_upgraded_capital = yes has_building = building_heritage_site }
+				AND = { has_upgraded_capital = yes has_building = building_holotemple }
+			}
+		}
 
 		## P4a — CAPITAL UPGRADES (highest priority — gates has_upgraded_capital and second city zone)
 		if = {
@@ -523,21 +557,21 @@ khan_develop_planet = {
 		# Factory zone: (3 slots)
 		else_if = {
 			limit = {
-				has_any_foundry_zone = yes
+				has_any_factory_zone = yes
 				NOT = { has_building = building_crystal_plant }
 			}
 			add_building = { district = district_city zone = zone_factory building = building_crystal_plant }
 		}
 		else_if = {
 			limit = {
-				has_any_foundry_zone = yes
+				has_any_factory_zone = yes
 				NOT = { has_building = building_refinery }
 			}
 			add_building = { district = district_city zone = zone_factory building = building_refinery }
 		}
 		else_if = {
 			limit = {
-				has_any_foundry_zone = yes
+				has_any_factory_zone = yes
 				NOT = { has_building = building_chemical_plant }
 			}
 			add_building = { district = district_city zone = zone_factory building = building_chemical_plant }
@@ -553,15 +587,48 @@ khan_develop_planet = {
 			add_building = { district = district_city zone = zone_trade building = building_commercial_zone }
 		}
 
-		# Generic research zone: research_lab_1
+		# Generic research zone: up to 3 research_labs (any tier)
 		else_if = {
 			limit = {
-				has_any_research_zone = yes
-				NOT = { has_building = building_research_lab_1 }
-				NOT = { has_building = building_research_lab_2 }
-				NOT = { has_building = building_research_lab_3 }
+				has_zone = { zone = zone_research }
+				NOT = {
+					calc_true_if = {
+						amount >= 3
+						num_buildings = { type = building_research_lab_1 value >= 1 }
+						num_buildings = { type = building_research_lab_1 value >= 2 }
+						num_buildings = { type = building_research_lab_1 value >= 3 }
+						num_buildings = { type = building_research_lab_2 value >= 1 }
+						num_buildings = { type = building_research_lab_2 value >= 2 }
+						num_buildings = { type = building_research_lab_2 value >= 3 }
+						num_buildings = { type = building_research_lab_3 value >= 1 }
+						num_buildings = { type = building_research_lab_3 value >= 2 }
+						num_buildings = { type = building_research_lab_3 value >= 3 }
+					}
+				}
 			}
 			add_building = { district = district_city zone = zone_research building = building_research_lab_1 }
+		}
+
+		# Archives zone: up to 3 research_labs (any tier)
+		else_if = {
+			limit = {
+				has_zone = { zone = zone_research_unity }
+				NOT = {
+					calc_true_if = {
+						amount >= 3
+						num_buildings = { type = building_research_lab_1 value >= 1 }
+						num_buildings = { type = building_research_lab_1 value >= 2 }
+						num_buildings = { type = building_research_lab_1 value >= 3 }
+						num_buildings = { type = building_research_lab_2 value >= 1 }
+						num_buildings = { type = building_research_lab_2 value >= 2 }
+						num_buildings = { type = building_research_lab_2 value >= 3 }
+						num_buildings = { type = building_research_lab_3 value >= 1 }
+						num_buildings = { type = building_research_lab_3 value >= 2 }
+						num_buildings = { type = building_research_lab_3 value >= 3 }
+					}
+				}
+			}
+			add_building = { district = district_city zone = zone_research_unity building = building_research_lab_1 }
 		}
 
 		# Physics research zone: optimal = 1 physics_lab + 2 research_labs (3 slots)
@@ -636,7 +703,7 @@ khan_develop_planet = {
 			limit = {
 				has_any_unity_zone = yes
 				owner = { is_spiritualist = no }
-				NOT = { has_building = 	building_bureaucratic_1 }
+				NOT = { has_building = building_bureaucratic_1 }
 			}
 			add_building = { district = district_city zone = zone_unity building = building_bureaucratic_1 }
 		}
