@@ -172,8 +172,10 @@ khan_develop_planet = {
 				20 = { add_zone = { district = district_city zone = zone_foundry } }
 				20 = { add_zone = { district = district_city zone = zone_factory } }
 				20 = { add_zone = { district = district_city zone = zone_fortress } }
-				10 = { add_zone = { district = district_city zone = zone_trade } }
-				25 = { add_zone = { district = district_city zone = zone_research } }	#this should be broken up into zones for the specific types and focused buildings placed & upgraded in later phases for optimal research output
+				5 = { add_zone = { district = district_city zone = zone_trade } }
+				10 = { add_zone = { district = district_city zone = zone_research_physics } }
+				5 = { add_zone = { district = district_city zone = zone_research_society } }
+				15 = { add_zone = { district = district_city zone = zone_research_engineering } }
 				5 = { add_zone = { district = district_city zone = zone_unity } }
 			}
 		}
@@ -292,6 +294,21 @@ khan_develop_planet = {
 			add_building = building_research_lab_2
 		}
 		else_if = {
+			limit = { has_building = building_physics_lab_1 }
+			remove_building = building_physics_lab_1
+			add_building = building_physics_lab_2
+		}
+		else_if = {
+			limit = { has_building = building_biolab_1 }
+			remove_building = building_biolab_1
+			add_building = building_biolab_2
+		}
+		else_if = {
+			limit = { has_building = building_engineering_facility_1 }
+			remove_building = building_engineering_facility_1
+			add_building = building_engineering_facility_2
+		}
+		else_if = {
 			limit = { has_building = building_energy_grid }
 			remove_building = building_energy_grid
 			add_building = building_energy_nexus
@@ -362,6 +379,30 @@ khan_develop_planet = {
 			}
 			remove_building = building_research_lab_2
 			add_building = building_research_lab_3
+		}
+		else_if = {
+			limit = {
+				has_upgraded_capital = yes
+				has_building = building_physics_lab_2
+			}
+			remove_building = building_physics_lab_2
+			add_building = building_physics_lab_3
+		}
+		else_if = {
+			limit = {
+				has_upgraded_capital = yes
+				has_building = building_biolab_2
+			}
+			remove_building = building_biolab_2
+			add_building = building_biolab_3
+		}
+		else_if = {
+			limit = {
+				has_upgraded_capital = yes
+				has_building = building_engineering_facility_2
+			}
+			remove_building = building_engineering_facility_2
+			add_building = building_engineering_facility_3
 		}
 		else_if = {
 			limit = {
@@ -512,7 +553,7 @@ khan_develop_planet = {
 			add_building = { district = district_city zone = zone_trade building = building_commercial_zone }
 		}
 
-		# Research zone: research_lab_1
+		# Generic research zone: research_lab_1
 		else_if = {
 			limit = {
 				has_any_research_zone = yes
@@ -522,7 +563,74 @@ khan_develop_planet = {
 			}
 			add_building = { district = district_city zone = zone_research building = building_research_lab_1 }
 		}
-		
+
+		# Physics research zone: optimal = 1 physics_lab + 2 research_labs (3 slots)
+		else_if = {
+			limit = {
+				has_any_research_physics_zone = yes
+				NOT = { has_building = building_physics_lab_1 }
+				NOT = { has_building = building_physics_lab_2 }
+				NOT = { has_building = building_physics_lab_3 }
+			}
+			add_building = { district = district_city zone = zone_research_physics building = building_physics_lab_1 }
+		}
+		# NOTE: limit remains true after zone is full — add_building fails silently, blocking subsequent else_ifs
+		else_if = {
+			limit = {
+				has_any_research_physics_zone = yes
+				OR = {
+					has_building = building_physics_lab_1
+					has_building = building_physics_lab_2
+					has_building = building_physics_lab_3
+				}
+			}
+			add_building = { district = district_city zone = zone_research_physics building = building_research_lab_1 }
+		}
+
+		# Society research zone: optimal = 1 biolab + 2 research_labs (3 slots)
+		else_if = {
+			limit = {
+				has_any_research_society_zone = yes
+				NOT = { has_building = building_biolab_1 }
+				NOT = { has_building = building_biolab_2 }
+				NOT = { has_building = building_biolab_3 }
+			}
+			add_building = { district = district_city zone = zone_research_society building = building_biolab_1 }
+		}
+		else_if = {
+			limit = {
+				has_any_research_society_zone = yes
+				OR = {
+					has_building = building_biolab_1
+					has_building = building_biolab_2
+					has_building = building_biolab_3
+				}
+			}
+			add_building = { district = district_city zone = zone_research_society building = building_research_lab_1 }
+		}
+
+		# Engineering research zone: optimal = 1 eng_facility + 2 research_labs (3 slots)
+		else_if = {
+			limit = {
+				has_any_research_engineering_zone = yes
+				NOT = { has_building = building_engineering_facility_1 }
+				NOT = { has_building = building_engineering_facility_2 }
+				NOT = { has_building = building_engineering_facility_3 }
+			}
+			add_building = { district = district_city zone = zone_research_engineering building = building_engineering_facility_1 }
+		}
+		else_if = {
+			limit = {
+				has_any_research_engineering_zone = yes
+				OR = {
+					has_building = building_engineering_facility_1
+					has_building = building_engineering_facility_2
+					has_building = building_engineering_facility_3
+				}
+			}
+			add_building = { district = district_city zone = zone_research_engineering building = building_research_lab_1 }
+		}
+
 		# Unity zone: zone_unity
 		else_if = {
 			limit = {
