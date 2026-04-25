@@ -1,0 +1,184 @@
+#########################################
+# Khan Planet Development — Scripted Triggers
+# Used by khan_develop_planet to check research zone building capacity.
+#########################################
+
+# True if planet has 2+ research-type zones (each adds 3 building slots)
+khan_has_multiple_research_zones = {
+	calc_true_if = {
+		amount >= 2
+		has_zone = { zone = zone_research }
+		has_zone = { zone = zone_research_unity }
+		has_zone = { zone = zone_research_physics }
+		has_zone = { zone = zone_research_society }
+		has_zone = { zone = zone_research_engineering }
+	}
+}
+
+# Counts all research-capable buildings (planet-wide) and checks >= 3
+# Includes: research_lab_1/2/3, physics_lab_1/2/3, biolab_1/2/3, engineering_facility_1/2/3
+khan_research_count_ge_3 = {
+	calc_true_if = {
+		amount >= 3
+		# Focused research buildings (planet_limit=1, at most 1 of any tier per type)
+		num_buildings = { type = building_physics_lab_1 value >= 1 }
+		num_buildings = { type = building_physics_lab_2 value >= 1 }
+		num_buildings = { type = building_physics_lab_3 value >= 1 }
+		num_buildings = { type = building_biolab_1 value >= 1 }
+		num_buildings = { type = building_biolab_2 value >= 1 }
+		num_buildings = { type = building_biolab_3 value >= 1 }
+		num_buildings = { type = building_engineering_facility_1 value >= 1 }
+		num_buildings = { type = building_engineering_facility_2 value >= 1 }
+		num_buildings = { type = building_engineering_facility_3 value >= 1 }
+		# Generic research labs (no planet_limit, up to 3 per tier needed for this check)
+		num_buildings = { type = building_research_lab_1 value >= 1 }
+		num_buildings = { type = building_research_lab_1 value >= 2 }
+		num_buildings = { type = building_research_lab_1 value >= 3 }
+		num_buildings = { type = building_research_lab_2 value >= 1 }
+		num_buildings = { type = building_research_lab_2 value >= 2 }
+		num_buildings = { type = building_research_lab_2 value >= 3 }
+		num_buildings = { type = building_research_lab_3 value >= 1 }
+		num_buildings = { type = building_research_lab_3 value >= 2 }
+		num_buildings = { type = building_research_lab_3 value >= 3 }
+	}
+}
+
+# Same count but checks >= 6 (for planets with 2+ research zones)
+khan_research_count_ge_6 = {
+	calc_true_if = {
+		amount >= 6
+		# Focused research buildings
+		num_buildings = { type = building_physics_lab_1 value >= 1 }
+		num_buildings = { type = building_physics_lab_2 value >= 1 }
+		num_buildings = { type = building_physics_lab_3 value >= 1 }
+		num_buildings = { type = building_biolab_1 value >= 1 }
+		num_buildings = { type = building_biolab_2 value >= 1 }
+		num_buildings = { type = building_biolab_3 value >= 1 }
+		num_buildings = { type = building_engineering_facility_1 value >= 1 }
+		num_buildings = { type = building_engineering_facility_2 value >= 1 }
+		num_buildings = { type = building_engineering_facility_3 value >= 1 }
+		# Generic research labs (up to 6 per tier needed for this check)
+		num_buildings = { type = building_research_lab_1 value >= 1 }
+		num_buildings = { type = building_research_lab_1 value >= 2 }
+		num_buildings = { type = building_research_lab_1 value >= 3 }
+		num_buildings = { type = building_research_lab_1 value >= 4 }
+		num_buildings = { type = building_research_lab_1 value >= 5 }
+		num_buildings = { type = building_research_lab_1 value >= 6 }
+		num_buildings = { type = building_research_lab_2 value >= 1 }
+		num_buildings = { type = building_research_lab_2 value >= 2 }
+		num_buildings = { type = building_research_lab_2 value >= 3 }
+		num_buildings = { type = building_research_lab_2 value >= 4 }
+		num_buildings = { type = building_research_lab_2 value >= 5 }
+		num_buildings = { type = building_research_lab_2 value >= 6 }
+		num_buildings = { type = building_research_lab_3 value >= 1 }
+		num_buildings = { type = building_research_lab_3 value >= 2 }
+		num_buildings = { type = building_research_lab_3 value >= 3 }
+		num_buildings = { type = building_research_lab_3 value >= 4 }
+		num_buildings = { type = building_research_lab_3 value >= 5 }
+		num_buildings = { type = building_research_lab_3 value >= 6 }
+	}
+}
+
+# True if planet has room for more research buildings in research zones
+# 1 zone = limit 3, 2+ zones = limit 6
+khan_research_slots_available = {
+	OR = {
+		AND = {
+			khan_has_multiple_research_zones = yes
+			NOT = { khan_research_count_ge_6 = yes }
+		}
+		AND = {
+			NOT = { khan_has_multiple_research_zones = yes }
+			NOT = { khan_research_count_ge_3 = yes }
+		}
+	}
+}
+
+# Archives zone (zone_research_unity) also accepts unity buildings.
+# These triggers include unity buildings in the count.
+khan_archives_count_ge_3 = {
+	calc_true_if = {
+		amount >= 3
+		# Research buildings (same as khan_research_count_ge_3)
+		num_buildings = { type = building_physics_lab_1 value >= 1 }
+		num_buildings = { type = building_physics_lab_2 value >= 1 }
+		num_buildings = { type = building_physics_lab_3 value >= 1 }
+		num_buildings = { type = building_biolab_1 value >= 1 }
+		num_buildings = { type = building_biolab_2 value >= 1 }
+		num_buildings = { type = building_biolab_3 value >= 1 }
+		num_buildings = { type = building_engineering_facility_1 value >= 1 }
+		num_buildings = { type = building_engineering_facility_2 value >= 1 }
+		num_buildings = { type = building_engineering_facility_3 value >= 1 }
+		num_buildings = { type = building_research_lab_1 value >= 1 }
+		num_buildings = { type = building_research_lab_1 value >= 2 }
+		num_buildings = { type = building_research_lab_1 value >= 3 }
+		num_buildings = { type = building_research_lab_2 value >= 1 }
+		num_buildings = { type = building_research_lab_2 value >= 2 }
+		num_buildings = { type = building_research_lab_2 value >= 3 }
+		num_buildings = { type = building_research_lab_3 value >= 1 }
+		num_buildings = { type = building_research_lab_3 value >= 2 }
+		num_buildings = { type = building_research_lab_3 value >= 3 }
+		# Unity buildings (building_sets: unity, fit in archives zone)
+		num_buildings = { type = building_bureaucratic_1 value >= 1 }
+		num_buildings = { type = building_bureaucratic_2 value >= 1 }
+		num_buildings = { type = building_bureaucratic_3 value >= 1 }
+		num_buildings = { type = building_temple value >= 1 }
+		num_buildings = { type = building_holotemple value >= 1 }
+		num_buildings = { type = building_sacred_nexus value >= 1 }
+	}
+}
+
+khan_archives_count_ge_6 = {
+	calc_true_if = {
+		amount >= 6
+		# Research buildings (same as khan_research_count_ge_6)
+		num_buildings = { type = building_physics_lab_1 value >= 1 }
+		num_buildings = { type = building_physics_lab_2 value >= 1 }
+		num_buildings = { type = building_physics_lab_3 value >= 1 }
+		num_buildings = { type = building_biolab_1 value >= 1 }
+		num_buildings = { type = building_biolab_2 value >= 1 }
+		num_buildings = { type = building_biolab_3 value >= 1 }
+		num_buildings = { type = building_engineering_facility_1 value >= 1 }
+		num_buildings = { type = building_engineering_facility_2 value >= 1 }
+		num_buildings = { type = building_engineering_facility_3 value >= 1 }
+		num_buildings = { type = building_research_lab_1 value >= 1 }
+		num_buildings = { type = building_research_lab_1 value >= 2 }
+		num_buildings = { type = building_research_lab_1 value >= 3 }
+		num_buildings = { type = building_research_lab_1 value >= 4 }
+		num_buildings = { type = building_research_lab_1 value >= 5 }
+		num_buildings = { type = building_research_lab_1 value >= 6 }
+		num_buildings = { type = building_research_lab_2 value >= 1 }
+		num_buildings = { type = building_research_lab_2 value >= 2 }
+		num_buildings = { type = building_research_lab_2 value >= 3 }
+		num_buildings = { type = building_research_lab_2 value >= 4 }
+		num_buildings = { type = building_research_lab_2 value >= 5 }
+		num_buildings = { type = building_research_lab_2 value >= 6 }
+		num_buildings = { type = building_research_lab_3 value >= 1 }
+		num_buildings = { type = building_research_lab_3 value >= 2 }
+		num_buildings = { type = building_research_lab_3 value >= 3 }
+		num_buildings = { type = building_research_lab_3 value >= 4 }
+		num_buildings = { type = building_research_lab_3 value >= 5 }
+		num_buildings = { type = building_research_lab_3 value >= 6 }
+		# Unity buildings
+		num_buildings = { type = building_bureaucratic_1 value >= 1 }
+		num_buildings = { type = building_bureaucratic_2 value >= 1 }
+		num_buildings = { type = building_bureaucratic_3 value >= 1 }
+		num_buildings = { type = building_temple value >= 1 }
+		num_buildings = { type = building_holotemple value >= 1 }
+		num_buildings = { type = building_sacred_nexus value >= 1 }
+	}
+}
+
+# True if planet has room for more buildings in archives zone
+khan_archives_slots_available = {
+	OR = {
+		AND = {
+			khan_has_multiple_research_zones = yes
+			NOT = { khan_archives_count_ge_6 = yes }
+		}
+		AND = {
+			NOT = { khan_has_multiple_research_zones = yes }
+			NOT = { khan_archives_count_ge_3 = yes }
+		}
+	}
+}

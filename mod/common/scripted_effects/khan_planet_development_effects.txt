@@ -270,7 +270,6 @@ khan_develop_planet = {
 				AND = { has_upgraded_capital = yes has_building = building_biolab_2 }
 				AND = { has_upgraded_capital = yes has_building = building_engineering_facility_2 }
 				AND = { has_upgraded_capital = yes has_building = building_heritage_site }
-				AND = { has_upgraded_capital = yes has_building = building_holotemple }
 			}
 		}
 
@@ -446,14 +445,6 @@ khan_develop_planet = {
 			remove_building = building_heritage_site
 			add_building = building_hypercomms_forum
 		}
-		else_if = {
-			limit = {
-				has_upgraded_capital = yes
-				has_building = building_holotemple
-			}
-			remove_building = building_holotemple
-			add_building = building_sacred_nexus
-		}
 	}
 
 	### P5 — RESOURCE SUPPORT BUILDINGS (in resource district zones)
@@ -587,46 +578,20 @@ khan_develop_planet = {
 			add_building = { district = district_city zone = zone_trade building = building_commercial_zone }
 		}
 
-		# Generic research zone: up to 3 research_labs (any tier)
+		# Generic research zone: research_lab_1 (3 slots, or 6 if 2+ research zones)
 		else_if = {
 			limit = {
 				has_zone = { zone = zone_research }
-				NOT = {
-					calc_true_if = {
-						amount >= 3
-						num_buildings = { type = building_research_lab_1 value >= 1 }
-						num_buildings = { type = building_research_lab_1 value >= 2 }
-						num_buildings = { type = building_research_lab_1 value >= 3 }
-						num_buildings = { type = building_research_lab_2 value >= 1 }
-						num_buildings = { type = building_research_lab_2 value >= 2 }
-						num_buildings = { type = building_research_lab_2 value >= 3 }
-						num_buildings = { type = building_research_lab_3 value >= 1 }
-						num_buildings = { type = building_research_lab_3 value >= 2 }
-						num_buildings = { type = building_research_lab_3 value >= 3 }
-					}
-				}
+				khan_research_slots_available = yes
 			}
 			add_building = { district = district_city zone = zone_research building = building_research_lab_1 }
 		}
 
-		# Archives zone: up to 3 research_labs (any tier)
+		# Archives zone: research_lab_1 (also accepts unity buildings — uses archives count)
 		else_if = {
 			limit = {
 				has_zone = { zone = zone_research_unity }
-				NOT = {
-					calc_true_if = {
-						amount >= 3
-						num_buildings = { type = building_research_lab_1 value >= 1 }
-						num_buildings = { type = building_research_lab_1 value >= 2 }
-						num_buildings = { type = building_research_lab_1 value >= 3 }
-						num_buildings = { type = building_research_lab_2 value >= 1 }
-						num_buildings = { type = building_research_lab_2 value >= 2 }
-						num_buildings = { type = building_research_lab_2 value >= 3 }
-						num_buildings = { type = building_research_lab_3 value >= 1 }
-						num_buildings = { type = building_research_lab_3 value >= 2 }
-						num_buildings = { type = building_research_lab_3 value >= 3 }
-					}
-				}
+				khan_archives_slots_available = yes
 			}
 			add_building = { district = district_city zone = zone_research_unity building = building_research_lab_1 }
 		}
@@ -635,16 +600,17 @@ khan_develop_planet = {
 		else_if = {
 			limit = {
 				has_any_research_physics_zone = yes
+				khan_research_slots_available = yes
 				NOT = { has_building = building_physics_lab_1 }
 				NOT = { has_building = building_physics_lab_2 }
 				NOT = { has_building = building_physics_lab_3 }
 			}
 			add_building = { district = district_city zone = zone_research_physics building = building_physics_lab_1 }
 		}
-		# NOTE: limit remains true after zone is full — add_building fails silently, blocking subsequent else_ifs
 		else_if = {
 			limit = {
 				has_any_research_physics_zone = yes
+				khan_research_slots_available = yes
 				OR = {
 					has_building = building_physics_lab_1
 					has_building = building_physics_lab_2
@@ -658,6 +624,7 @@ khan_develop_planet = {
 		else_if = {
 			limit = {
 				has_any_research_society_zone = yes
+				khan_research_slots_available = yes
 				NOT = { has_building = building_biolab_1 }
 				NOT = { has_building = building_biolab_2 }
 				NOT = { has_building = building_biolab_3 }
@@ -667,6 +634,7 @@ khan_develop_planet = {
 		else_if = {
 			limit = {
 				has_any_research_society_zone = yes
+				khan_research_slots_available = yes
 				OR = {
 					has_building = building_biolab_1
 					has_building = building_biolab_2
@@ -680,6 +648,7 @@ khan_develop_planet = {
 		else_if = {
 			limit = {
 				has_any_research_engineering_zone = yes
+				khan_research_slots_available = yes
 				NOT = { has_building = building_engineering_facility_1 }
 				NOT = { has_building = building_engineering_facility_2 }
 				NOT = { has_building = building_engineering_facility_3 }
@@ -689,6 +658,7 @@ khan_develop_planet = {
 		else_if = {
 			limit = {
 				has_any_research_engineering_zone = yes
+				khan_research_slots_available = yes
 				OR = {
 					has_building = building_engineering_facility_1
 					has_building = building_engineering_facility_2
