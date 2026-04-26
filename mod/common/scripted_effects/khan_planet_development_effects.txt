@@ -503,17 +503,19 @@ khan_develop_planet = {
 	else_if = {
 		limit = { free_building_slots > 0 }
 
-		# Foundry zone: foundry_1 → refinery → chemical_plant (3 slots)
+		# Foundry zone: foundry_1 → refinery → chemical_plant (3 slots per zone)
 		if = {
 			limit = {
 				has_any_foundry_zone = yes
+				khan_foundry_slots_available = yes
 				NOT = { has_building = building_crystal_plant }
 			}
-			add_building = { district = district_city zone = zone_foundry building = building_crystal_plant}
+			add_building = { district = district_city zone = zone_foundry building = building_crystal_plant }
 		}
 		else_if = {
 			limit = {
 				has_any_foundry_zone = yes
+				khan_foundry_slots_available = yes
 				NOT = { has_building = building_refinery }
 			}
 			add_building = { district = district_city zone = zone_foundry building = building_refinery }
@@ -521,34 +523,26 @@ khan_develop_planet = {
 		else_if = {
 			limit = {
 				has_any_foundry_zone = yes
+				khan_foundry_slots_available = yes
 				NOT = { has_building = building_chemical_plant }
 			}
 			add_building = { district = district_city zone = zone_foundry building = building_chemical_plant }
 		}
 
-		# Fortress zone: strongholds (up to 3 total including upgraded fortresses)
+		# Fortress zone: strongholds (3 slots per zone, includes stronghold/fortress/shield_generator)
 		else_if = {
 			limit = {
 				has_any_fortress_zone = yes
-				NOT = {
-					calc_true_if = {
-						amount >= 3
-						num_buildings = { type = building_stronghold value >= 1 }
-						num_buildings = { type = building_stronghold value >= 2 }
-						num_buildings = { type = building_stronghold value >= 3 }
-						num_buildings = { type = building_fortress value >= 1 }
-						num_buildings = { type = building_fortress value >= 2 }
-						num_buildings = { type = building_fortress value >= 3 }
-					}
-				}
+				khan_fortress_slots_available = yes
 			}
 			add_building = { district = district_city zone = zone_fortress building = building_stronghold }
 		}
 
-		# Factory zone: (3 slots)
+		# Factory zone: (3 slots per zone)
 		else_if = {
 			limit = {
 				has_any_factory_zone = yes
+				khan_factory_slots_available = yes
 				NOT = { has_building = building_crystal_plant }
 			}
 			add_building = { district = district_city zone = zone_factory building = building_crystal_plant }
@@ -556,6 +550,7 @@ khan_develop_planet = {
 		else_if = {
 			limit = {
 				has_any_factory_zone = yes
+				khan_factory_slots_available = yes
 				NOT = { has_building = building_refinery }
 			}
 			add_building = { district = district_city zone = zone_factory building = building_refinery }
@@ -563,17 +558,17 @@ khan_develop_planet = {
 		else_if = {
 			limit = {
 				has_any_factory_zone = yes
+				khan_factory_slots_available = yes
 				NOT = { has_building = building_chemical_plant }
 			}
 			add_building = { district = district_city zone = zone_factory building = building_chemical_plant }
 		}
 
-		# Trade zone: commercial_zone
+		# Trade zone: commercial_zone (3 slots per zone)
 		else_if = {
 			limit = {
 				has_any_trade_zone = yes
-				NOT = { has_building = building_commercial_zone }
-				NOT = { has_building = building_commercial_megaplex }
+				khan_trade_slots_available = yes
 			}
 			add_building = { district = district_city zone = zone_trade building = building_commercial_zone }
 		}
@@ -668,12 +663,12 @@ khan_develop_planet = {
 			add_building = { district = district_city zone = zone_research_engineering building = building_research_lab_1 }
 		}
 
-		# Unity zone: zone_unity
+		# Unity zone: zone_unity (3 slots per zone)
 		else_if = {
 			limit = {
 				has_any_unity_zone = yes
 				owner = { is_spiritualist = no }
-				NOT = { has_building = building_bureaucratic_1 }
+				khan_unity_slots_available = yes
 			}
 			add_building = { district = district_city zone = zone_unity building = building_bureaucratic_1 }
 		}

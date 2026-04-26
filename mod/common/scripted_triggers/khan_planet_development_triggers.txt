@@ -1,6 +1,9 @@
 #########################################
 # Khan Planet Development — Scripted Triggers
-# Used by khan_develop_planet to check research zone building capacity.
+# Used by khan_develop_planet to check zone building capacity.
+# Each zone has 3 building slots. A planet can have 1 or 2 zones of the same type.
+# These triggers count all buildings that could occupy a zone's slots (planet-wide)
+# and check against the 3-slot (1 zone) or 6-slot (2+ zones) capacity.
 #########################################
 
 # True if planet has 2+ research-type zones (each adds 3 building slots)
@@ -179,6 +182,292 @@ khan_archives_slots_available = {
 		AND = {
 			NOT = { khan_has_multiple_research_zones = yes }
 			NOT = { khan_archives_count_ge_3 = yes }
+		}
+	}
+}
+
+#########################################
+# FOUNDRY ZONE
+# included_building_sets: foundry, urban_automation, origin
+# Buildings: foundry_1/2/3 (no planet_limit), refinery/chemical_plant/crystal_plant (planet_limit=1)
+#########################################
+
+khan_foundry_count_ge_3 = {
+	calc_true_if = {
+		amount >= 3
+		# Foundry buildings (no planet_limit)
+		num_buildings = { type = building_foundry_1 value >= 1 }
+		num_buildings = { type = building_foundry_1 value >= 2 }
+		num_buildings = { type = building_foundry_1 value >= 3 }
+		num_buildings = { type = building_foundry_2 value >= 1 }
+		num_buildings = { type = building_foundry_2 value >= 2 }
+		num_buildings = { type = building_foundry_2 value >= 3 }
+		num_buildings = { type = building_foundry_3 value >= 1 }
+		num_buildings = { type = building_foundry_3 value >= 2 }
+		num_buildings = { type = building_foundry_3 value >= 3 }
+		# Strategic resource buildings (planet_limit=1 each, shared with factory zone)
+		num_buildings = { type = building_refinery value >= 1 }
+		num_buildings = { type = building_chemical_plant value >= 1 }
+		num_buildings = { type = building_crystal_plant value >= 1 }
+	}
+}
+
+khan_foundry_count_ge_6 = {
+	calc_true_if = {
+		amount >= 6
+		num_buildings = { type = building_foundry_1 value >= 1 }
+		num_buildings = { type = building_foundry_1 value >= 2 }
+		num_buildings = { type = building_foundry_1 value >= 3 }
+		num_buildings = { type = building_foundry_1 value >= 4 }
+		num_buildings = { type = building_foundry_1 value >= 5 }
+		num_buildings = { type = building_foundry_1 value >= 6 }
+		num_buildings = { type = building_foundry_2 value >= 1 }
+		num_buildings = { type = building_foundry_2 value >= 2 }
+		num_buildings = { type = building_foundry_2 value >= 3 }
+		num_buildings = { type = building_foundry_2 value >= 4 }
+		num_buildings = { type = building_foundry_2 value >= 5 }
+		num_buildings = { type = building_foundry_2 value >= 6 }
+		num_buildings = { type = building_foundry_3 value >= 1 }
+		num_buildings = { type = building_foundry_3 value >= 2 }
+		num_buildings = { type = building_foundry_3 value >= 3 }
+		num_buildings = { type = building_foundry_3 value >= 4 }
+		num_buildings = { type = building_foundry_3 value >= 5 }
+		num_buildings = { type = building_foundry_3 value >= 6 }
+		num_buildings = { type = building_refinery value >= 1 }
+		num_buildings = { type = building_chemical_plant value >= 1 }
+		num_buildings = { type = building_crystal_plant value >= 1 }
+	}
+}
+
+khan_foundry_slots_available = {
+	OR = {
+		AND = {
+			num_zones = { type = zone_foundry value >= 2 }
+			NOT = { khan_foundry_count_ge_6 = yes }
+		}
+		AND = {
+			NOT = { num_zones = { type = zone_foundry value >= 2 } }
+			NOT = { khan_foundry_count_ge_3 = yes }
+		}
+	}
+}
+
+#########################################
+# FACTORY ZONE
+# included_building_sets: factory, urban_automation, origin
+# Buildings: factory_1/2/3 (no planet_limit), refinery/chemical_plant/crystal_plant (planet_limit=1)
+#########################################
+
+khan_factory_count_ge_3 = {
+	calc_true_if = {
+		amount >= 3
+		num_buildings = { type = building_factory_1 value >= 1 }
+		num_buildings = { type = building_factory_1 value >= 2 }
+		num_buildings = { type = building_factory_1 value >= 3 }
+		num_buildings = { type = building_factory_2 value >= 1 }
+		num_buildings = { type = building_factory_2 value >= 2 }
+		num_buildings = { type = building_factory_2 value >= 3 }
+		num_buildings = { type = building_factory_3 value >= 1 }
+		num_buildings = { type = building_factory_3 value >= 2 }
+		num_buildings = { type = building_factory_3 value >= 3 }
+		# Strategic resource buildings (shared with foundry zone)
+		num_buildings = { type = building_refinery value >= 1 }
+		num_buildings = { type = building_chemical_plant value >= 1 }
+		num_buildings = { type = building_crystal_plant value >= 1 }
+	}
+}
+
+khan_factory_count_ge_6 = {
+	calc_true_if = {
+		amount >= 6
+		num_buildings = { type = building_factory_1 value >= 1 }
+		num_buildings = { type = building_factory_1 value >= 2 }
+		num_buildings = { type = building_factory_1 value >= 3 }
+		num_buildings = { type = building_factory_1 value >= 4 }
+		num_buildings = { type = building_factory_1 value >= 5 }
+		num_buildings = { type = building_factory_1 value >= 6 }
+		num_buildings = { type = building_factory_2 value >= 1 }
+		num_buildings = { type = building_factory_2 value >= 2 }
+		num_buildings = { type = building_factory_2 value >= 3 }
+		num_buildings = { type = building_factory_2 value >= 4 }
+		num_buildings = { type = building_factory_2 value >= 5 }
+		num_buildings = { type = building_factory_2 value >= 6 }
+		num_buildings = { type = building_factory_3 value >= 1 }
+		num_buildings = { type = building_factory_3 value >= 2 }
+		num_buildings = { type = building_factory_3 value >= 3 }
+		num_buildings = { type = building_factory_3 value >= 4 }
+		num_buildings = { type = building_factory_3 value >= 5 }
+		num_buildings = { type = building_factory_3 value >= 6 }
+		num_buildings = { type = building_refinery value >= 1 }
+		num_buildings = { type = building_chemical_plant value >= 1 }
+		num_buildings = { type = building_crystal_plant value >= 1 }
+	}
+}
+
+khan_factory_slots_available = {
+	OR = {
+		AND = {
+			num_zones = { type = zone_factory value >= 2 }
+			NOT = { khan_factory_count_ge_6 = yes }
+		}
+		AND = {
+			NOT = { num_zones = { type = zone_factory value >= 2 } }
+			NOT = { khan_factory_count_ge_3 = yes }
+		}
+	}
+}
+
+#########################################
+# FORTRESS ZONE
+# included_building_sets: fortress, urban_automation, origin
+# Buildings: stronghold/fortress (no planet_limit), planetary_shield_generator (planet_limit=1)
+#########################################
+
+khan_fortress_count_ge_3 = {
+	calc_true_if = {
+		amount >= 3
+		num_buildings = { type = building_stronghold value >= 1 }
+		num_buildings = { type = building_stronghold value >= 2 }
+		num_buildings = { type = building_stronghold value >= 3 }
+		num_buildings = { type = building_fortress value >= 1 }
+		num_buildings = { type = building_fortress value >= 2 }
+		num_buildings = { type = building_fortress value >= 3 }
+		num_buildings = { type = building_planetary_shield_generator value >= 1 }
+	}
+}
+
+khan_fortress_count_ge_6 = {
+	calc_true_if = {
+		amount >= 6
+		num_buildings = { type = building_stronghold value >= 1 }
+		num_buildings = { type = building_stronghold value >= 2 }
+		num_buildings = { type = building_stronghold value >= 3 }
+		num_buildings = { type = building_stronghold value >= 4 }
+		num_buildings = { type = building_stronghold value >= 5 }
+		num_buildings = { type = building_stronghold value >= 6 }
+		num_buildings = { type = building_fortress value >= 1 }
+		num_buildings = { type = building_fortress value >= 2 }
+		num_buildings = { type = building_fortress value >= 3 }
+		num_buildings = { type = building_fortress value >= 4 }
+		num_buildings = { type = building_fortress value >= 5 }
+		num_buildings = { type = building_fortress value >= 6 }
+		num_buildings = { type = building_planetary_shield_generator value >= 1 }
+	}
+}
+
+khan_fortress_slots_available = {
+	OR = {
+		AND = {
+			num_zones = { type = zone_fortress value >= 2 }
+			NOT = { khan_fortress_count_ge_6 = yes }
+		}
+		AND = {
+			NOT = { num_zones = { type = zone_fortress value >= 2 } }
+			NOT = { khan_fortress_count_ge_3 = yes }
+		}
+	}
+}
+
+#########################################
+# TRADE ZONE
+# included_building_sets: urban, trade, urban_automation, origin
+# Buildings: commercial_zone (no planet_limit), commercial_megaplex/galactic_stock_exchange (planet_limit=1)
+#########################################
+
+khan_trade_count_ge_3 = {
+	calc_true_if = {
+		amount >= 3
+		# Trade buildings
+		num_buildings = { type = building_commercial_zone value >= 1 }
+		num_buildings = { type = building_commercial_zone value >= 2 }
+		num_buildings = { type = building_commercial_zone value >= 3 }
+		num_buildings = { type = building_commercial_megaplex value >= 1 }
+		num_buildings = { type = building_galactic_stock_exchange value >= 1 }
+	}
+}
+
+khan_trade_count_ge_6 = {
+	calc_true_if = {
+		amount >= 6
+		num_buildings = { type = building_commercial_zone value >= 1 }
+		num_buildings = { type = building_commercial_zone value >= 2 }
+		num_buildings = { type = building_commercial_zone value >= 3 }
+		num_buildings = { type = building_commercial_zone value >= 4 }
+		num_buildings = { type = building_commercial_zone value >= 5 }
+		num_buildings = { type = building_commercial_zone value >= 6 }
+		num_buildings = { type = building_commercial_megaplex value >= 1 }
+		num_buildings = { type = building_galactic_stock_exchange value >= 1 }
+	}
+}
+
+khan_trade_slots_available = {
+	OR = {
+		AND = {
+			num_zones = { type = zone_trade value >= 2 }
+			NOT = { khan_trade_count_ge_6 = yes }
+		}
+		AND = {
+			NOT = { num_zones = { type = zone_trade value >= 2 } }
+			NOT = { khan_trade_count_ge_3 = yes }
+		}
+	}
+}
+
+#########################################
+# UNITY ZONE
+# included_building_sets: unity, urban_automation, origin
+# Buildings: bureaucratic_1/2/3, temple/holotemple/sacred_nexus
+#########################################
+
+khan_unity_count_ge_3 = {
+	calc_true_if = {
+		amount >= 3
+		# Non-spiritualist unity (bureaucratic_1 has no planet_limit)
+		num_buildings = { type = building_bureaucratic_1 value >= 1 }
+		num_buildings = { type = building_bureaucratic_1 value >= 2 }
+		num_buildings = { type = building_bureaucratic_1 value >= 3 }
+		num_buildings = { type = building_bureaucratic_2 value >= 1 }
+		num_buildings = { type = building_bureaucratic_3 value >= 1 }
+		# Spiritualist unity (temple has no planet_limit)
+		num_buildings = { type = building_temple value >= 1 }
+		num_buildings = { type = building_temple value >= 2 }
+		num_buildings = { type = building_temple value >= 3 }
+		num_buildings = { type = building_holotemple value >= 1 }
+		num_buildings = { type = building_sacred_nexus value >= 1 }
+	}
+}
+
+khan_unity_count_ge_6 = {
+	calc_true_if = {
+		amount >= 6
+		num_buildings = { type = building_bureaucratic_1 value >= 1 }
+		num_buildings = { type = building_bureaucratic_1 value >= 2 }
+		num_buildings = { type = building_bureaucratic_1 value >= 3 }
+		num_buildings = { type = building_bureaucratic_1 value >= 4 }
+		num_buildings = { type = building_bureaucratic_1 value >= 5 }
+		num_buildings = { type = building_bureaucratic_1 value >= 6 }
+		num_buildings = { type = building_bureaucratic_2 value >= 1 }
+		num_buildings = { type = building_bureaucratic_3 value >= 1 }
+		num_buildings = { type = building_temple value >= 1 }
+		num_buildings = { type = building_temple value >= 2 }
+		num_buildings = { type = building_temple value >= 3 }
+		num_buildings = { type = building_temple value >= 4 }
+		num_buildings = { type = building_temple value >= 5 }
+		num_buildings = { type = building_temple value >= 6 }
+		num_buildings = { type = building_holotemple value >= 1 }
+		num_buildings = { type = building_sacred_nexus value >= 1 }
+	}
+}
+
+khan_unity_slots_available = {
+	OR = {
+		AND = {
+			num_zones = { type = zone_unity value >= 2 }
+			NOT = { khan_unity_count_ge_6 = yes }
+		}
+		AND = {
+			NOT = { num_zones = { type = zone_unity value >= 2 } }
+			NOT = { khan_unity_count_ge_3 = yes }
 		}
 	}
 }
