@@ -25,6 +25,9 @@
 ###############################################
 
 khan_develop_planet_initial = {
+	# 0. Repair any buildings/districts damaged by bombardment during conquest
+	validate_and_repair_planet_buildings_and_districts = yes
+
 	# 1. Specialize first empty city zone slot → foundry
 	#    slot_city_01 is always available; only fires if no urban zones occupy it yet
 	if = {
