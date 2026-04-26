@@ -242,9 +242,9 @@ khan_develop_planet = {
 		limit = {
 			OR = {
 				# P4a — Capital upgrades
-				AND = { has_building = building_colony_shelter num_pops >= 10 }
-				AND = { has_building = building_capital NOT = { has_building = building_major_capital } num_pops >= 25 }
-				AND = { has_building = building_major_capital NOT = { has_building = building_system_capital } num_pops >= 50 }
+				AND = { has_building = building_colony_shelter sapient_pop_amount >= 1000 }
+				AND = { has_building = building_capital NOT = { has_building = building_major_capital } sapient_pop_amount >= 2500 }
+				AND = { has_building = building_major_capital NOT = { has_building = building_system_capital } sapient_pop_amount >= 5000 }
 				# P4b — Tier 1 → Tier 2
 				has_building = building_foundry_1
 				has_building = building_factory_1
@@ -259,7 +259,7 @@ khan_develop_planet = {
 				has_building = building_luxury_residence
 				has_building = building_commercial_zone
 				has_building = building_holo_theatres
-				has_building = building_clinic
+				has_building = building_medical_1
 				has_building = building_precinct_house
 				has_building = building_autochthon_monument
 				# P4c — Tier 2 → Tier 3 (require upgraded capital)
@@ -277,7 +277,7 @@ khan_develop_planet = {
 		if = {
 			limit = {
 				has_building = building_colony_shelter
-				num_pops >= 10
+				sapient_pop_amount >= 1000
 			}
 			remove_building = building_colony_shelter
 			add_building = building_capital
@@ -286,7 +286,7 @@ khan_develop_planet = {
 			limit = {
 				has_building = building_capital
 				NOT = { has_building = building_major_capital }
-				num_pops >= 25
+				sapient_pop_amount >= 2500
 			}
 			remove_building = building_capital
 			add_building = building_major_capital
@@ -295,7 +295,7 @@ khan_develop_planet = {
 			limit = {
 				has_building = building_major_capital
 				NOT = { has_building = building_system_capital }
-				num_pops >= 50
+				sapient_pop_amount >= 5000
 			}
 			remove_building = building_major_capital
 			add_building = building_system_capital
@@ -372,9 +372,9 @@ khan_develop_planet = {
 			add_building = building_hyper_entertainment_forum
 		}
 		else_if = {
-			limit = { has_building = building_clinic }
-			remove_building = building_clinic
-			add_building = building_hospital
+			limit = { has_building = building_medical_1 }
+			remove_building = building_medical_1
+			add_building = building_medical_2
 		}
 		else_if = {
 			limit = { has_building = building_precinct_house }
