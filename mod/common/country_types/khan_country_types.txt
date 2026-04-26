@@ -1,4 +1,5 @@
 awakened_marauders = {
+	pop_growth = yes
 	has_difficulty_bonuses = yes
 	attack_unarmed_orbital_stations = yes
 	# always_valid_target_aggressive = yes seems not working for min diplo country?
