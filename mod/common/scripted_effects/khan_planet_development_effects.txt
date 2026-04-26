@@ -25,22 +25,82 @@
 ###############################################
 
 khan_develop_planet_initial = {
-	# 1. Specialize existing unspecialized city district zones
-	#    add_zone without replace=yes fills empty slots only — safe if no city districts or no empty slots
+	# 1. Specialize first empty city zone slot → foundry
+	#    slot_city_01 is always available; only fires if no urban zones occupy it yet
 	if = {
-		limit = { has_district = district_city }
+		limit = {
+			has_district = district_city
+			NOR = {
+				num_zones = { type = zone_foundry value >= 1 }
+				num_zones = { type = zone_factory value >= 1 }
+				num_zones = { type = zone_industrial value >= 1 }
+				num_zones = { type = zone_fortress value >= 1 }
+				num_zones = { type = zone_trade value >= 1 }
+				num_zones = { type = zone_research value >= 1 }
+				num_zones = { type = zone_research_physics value >= 1 }
+				num_zones = { type = zone_research_society value >= 1 }
+				num_zones = { type = zone_research_engineering value >= 1 }
+				num_zones = { type = zone_research_unity value >= 1 }
+				num_zones = { type = zone_unity value >= 1 }
+				num_zones = { type = zone_urban value >= 1 }
+			}
+		}
 		add_zone = { district = district_city zone = zone_foundry }
+	}
+	# Specialize second city zone slot → fortress (requires upgraded capital = 2 urban slots)
+	if = {
+		limit = {
+			has_district = district_city
+			has_upgraded_capital = yes
+			NOT = {
+				calc_true_if = {
+					amount >= 2
+					num_zones = { type = zone_foundry value >= 1 }
+					num_zones = { type = zone_foundry value >= 2 }
+					num_zones = { type = zone_factory value >= 1 }
+					num_zones = { type = zone_factory value >= 2 }
+					num_zones = { type = zone_industrial value >= 1 }
+					num_zones = { type = zone_industrial value >= 2 }
+					num_zones = { type = zone_fortress value >= 1 }
+					num_zones = { type = zone_fortress value >= 2 }
+					num_zones = { type = zone_trade value >= 1 }
+					num_zones = { type = zone_trade value >= 2 }
+					num_zones = { type = zone_research value >= 1 }
+					num_zones = { type = zone_research value >= 2 }
+					num_zones = { type = zone_research_physics value >= 1 }
+					num_zones = { type = zone_research_physics value >= 2 }
+					num_zones = { type = zone_research_society value >= 1 }
+					num_zones = { type = zone_research_society value >= 2 }
+					num_zones = { type = zone_research_engineering value >= 1 }
+					num_zones = { type = zone_research_engineering value >= 2 }
+					num_zones = { type = zone_research_unity value >= 1 }
+					num_zones = { type = zone_research_unity value >= 2 }
+					num_zones = { type = zone_unity value >= 1 }
+					num_zones = { type = zone_unity value >= 2 }
+					num_zones = { type = zone_unity_spiritualist value >= 1 }
+					num_zones = { type = zone_unity_spiritualist value >= 2 }
+					num_zones = { type = zone_urban value >= 1 }
+					num_zones = { type = zone_urban value >= 2 }
+				}
+			}
+		}
 		add_zone = { district = district_city zone = zone_fortress }
 	}
 
 	# 2. Add 1-2 resource districts if free slots available, then specialize their zones
 	if = {
-		limit = { free_district_slots > 0 }
+		limit = {
+			free_district_slots > 0
+			num_free_districts = { type = district_mining value >= 1 }
+		}
 		add_district = district_mining
 		add_zone = { district = district_mining zone = zone_minerals }
 	}
 	if = {
-		limit = { free_district_slots > 0 }
+		limit = {
+			free_district_slots > 0
+			num_free_districts = { type = district_generator value >= 1 }
+		}
 		add_district = district_generator
 		add_zone = { district = district_generator zone = zone_energy }
 	}
