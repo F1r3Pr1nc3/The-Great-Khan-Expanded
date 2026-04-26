@@ -94,7 +94,10 @@ khan_develop_planet_initial = {
 			num_free_districts = { type = district_mining value >= 1 }
 		}
 		add_district = district_mining
-		add_zone = { district = district_mining zone = zone_minerals }
+		if = {
+			limit = { owner = { has_technology = tech_mineral_purification_1 } }
+			add_zone = { district = district_mining zone = zone_minerals }
+		}
 	}
 	if = {
 		limit = {
@@ -102,7 +105,10 @@ khan_develop_planet_initial = {
 			num_free_districts = { type = district_generator value >= 1 }
 		}
 		add_district = district_generator
-		add_zone = { district = district_generator zone = zone_energy }
+		if = {
+			limit = { owner = { has_technology = tech_power_hub_1 } }
+			add_zone = { district = district_generator zone = zone_energy }
+		}
 	}
 }
 
@@ -120,6 +126,22 @@ khan_develop_planet_initial = {
 ###############################################
 
 khan_develop_planet = {
+
+	# Grant basic zone-unlocking techs if missing (Khan may not start with these)
+	owner = {
+		if = {
+			limit = { NOT = { has_technology = tech_power_hub_1 } }
+			give_technology = { tech = tech_power_hub_1 }
+		}
+		if = {
+			limit = { NOT = { has_technology = tech_mineral_purification_1 } }
+			give_technology = { tech = tech_mineral_purification_1 }
+		}
+		if = {
+			limit = { NOT = { has_technology = tech_food_processing_1 } }
+			give_technology = { tech = tech_food_processing_1 }
+		}
+	}
 
 	### P1 — AMENITY EMERGENCY
 	if = {
@@ -254,9 +276,12 @@ khan_develop_planet = {
 						num_free_districts = { type = district_generator value >= 1 }
 					}
 					add_district = district_generator
-					# Specialize zone if not already specialized
+					# Specialize zone if not already specialized and tech unlocks slot
 					if = {
-						limit = { NOT = { has_any_generator_zone = yes } }
+						limit = {
+							NOT = { has_any_generator_zone = yes }
+							owner = { has_technology = tech_power_hub_1 }
+						}
 						add_zone = { district = district_generator zone = zone_energy }
 					}
 				}
@@ -271,7 +296,10 @@ khan_develop_planet = {
 					}
 					add_district = district_mining
 					if = {
-						limit = { NOT = { has_any_mining_zone = yes } }
+						limit = {
+							NOT = { has_any_mining_zone = yes }
+							owner = { has_technology = tech_mineral_purification_1 }
+						}
 						add_zone = { district = district_mining zone = zone_minerals }
 					}
 				}
@@ -286,7 +314,10 @@ khan_develop_planet = {
 					}
 					add_district = district_farming
 					if = {
-						limit = { NOT = { has_any_agriculture_zone = yes } }
+						limit = {
+							NOT = { has_any_agriculture_zone = yes }
+							owner = { has_technology = tech_food_processing_1 }
+						}
 						add_zone = { district = district_farming zone = zone_food }
 					}
 				}
@@ -771,9 +802,12 @@ khan_develop_overflow = {
 				num_free_districts = { type = district_generator value >= 1 }
 			}
 			add_district = district_generator
-			# Specialize zone if needed
+			# Specialize zone if needed and tech unlocks slot
 			if = {
-				limit = { NOT = { has_any_generator_zone = yes } }
+				limit = {
+					NOT = { has_any_generator_zone = yes }
+					owner = { has_technology = tech_power_hub_1 }
+				}
 				add_zone = { district = district_generator zone = zone_energy }
 			}
 		}
@@ -793,7 +827,10 @@ khan_develop_overflow = {
 			}
 			add_district = district_mining
 			if = {
-				limit = { NOT = { has_any_mining_zone = yes } }
+				limit = {
+					NOT = { has_any_mining_zone = yes }
+					owner = { has_technology = tech_mineral_purification_1 }
+				}
 				add_zone = { district = district_mining zone = zone_minerals }
 			}
 		}
@@ -813,7 +850,10 @@ khan_develop_overflow = {
 			}
 			add_district = district_farming
 			if = {
-				limit = { NOT = { has_any_agriculture_zone = yes } }
+				limit = {
+					NOT = { has_any_agriculture_zone = yes }
+					owner = { has_technology = tech_food_processing_1 }
+				}
 				add_zone = { district = district_farming zone = zone_food }
 			}
 		}
