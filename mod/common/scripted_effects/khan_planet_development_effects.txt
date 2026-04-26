@@ -90,17 +90,14 @@ khan_develop_planet_initial = {
 		add_zone = { district = district_city zone = zone_fortress }
 	}
 
-	# 2. Add 1-2 resource districts if free slots available, then specialize their zones
+	# 2. Add 1-2 resource districts if free slots available
+	#    Zone specialization is handled by the reinforcement cycle (P3)
 	if = {
 		limit = {
 			free_district_slots > 0
 			num_free_districts = { type = district_mining value >= 1 }
 		}
 		add_district = district_mining
-		if = {
-			limit = { owner = { has_technology = tech_mineral_purification_1 } }
-			add_zone = { district = district_mining zone = zone_minerals }
-		}
 	}
 	if = {
 		limit = {
@@ -108,10 +105,6 @@ khan_develop_planet_initial = {
 			num_free_districts = { type = district_generator value >= 1 }
 		}
 		add_district = district_generator
-		if = {
-			limit = { owner = { has_technology = tech_power_hub_1 } }
-			add_zone = { district = district_generator zone = zone_energy }
-		}
 	}
 }
 
