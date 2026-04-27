@@ -4186,10 +4186,10 @@ country_event = {
 		else = {
 			set_country_type = awakened_marauders
 			set_graphical_culture = madd_01
-			force_add_civic = civic_warrior_culture
+			# force_add_civic = civic_warrior_culture
 			# force_add_civic = civic_slaver_guilds
 			force_add_civic = civic_barbaric_despoilers
-			# force_add_civic = civic_fanatic_purifiers		#Removed as it prevents any form of negotiation with Khan including alternate arrangements
+			force_add_civic = civic_fanatic_purifiers
 		}
 
 		if = {
@@ -7106,7 +7106,16 @@ country_event = {
 			custom_tooltip = { fail_text = "ACTION_ACTOR_MUST_BE_INDEPENDENT" is_subject = no }
 			custom_tooltip = {
 				fail_text = "HI_DOMINEERING_GREETING_02" # FP_HOSTILE_GREETING_02
-				hidden_trigger = { is_variable_set = "planets_lost_to_marauder" }
+				hidden_trigger = {
+					OR = {
+						is_variable_set = "planets_lost_to_marauder"
+						AND = {
+							is_ai = no
+							fleet_power < 84000
+							num_owned_planets < 12
+						}
+					}
+				}
 			}
 		}
 		hidden_effect = {
@@ -7186,14 +7195,14 @@ country_event = {
 					}
 					# Added in v4.0 (due stuck bug, Khan didn't find enemies)
 					# Possible create a trade offer for systems to the next enemy in .551
-					any_neighbor_country = {
-						merg_is_default_empire = yes
-						NOR = {
-							is_same_empire = from
-							is_subject_of_khan = yes
-						}
-						is_hostile_to = root
-					}
+					#any_neighbor_country = {
+					#	merg_is_default_empire = yes
+					#	NOR = {
+					#		is_same_empire = from
+					#		is_subject_of_khan = yes
+					#	}
+					#	is_hostile_to = root
+					#}	#Commented out because I don't see why a tall sub-100k fleet player empire next to Khan shouldn't get option to surrender, the alternative is game over
 				}
 			}
 			NOT = { has_active_event = { marauder.551 } }
