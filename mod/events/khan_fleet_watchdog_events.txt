@@ -1,0 +1,161 @@
+# Khan Fleet Watchdog - Unstick Stalled Fleets
+# Implements detection and unsticking logic for frozen Khan fleets
+# Adapted from Aggressive Crisis Engine's pathfinding loop detection pattern
+
+namespace = khan_watchdog
+
+# =============================================================================
+# PATHFINDING LOOP DETECTOR
+# Hooks on_entering_system_fleet. Detects fleets revisiting the same system
+# within 40 days — indicates a pathfinding loop.
+# =============================================================================
+fleet_event = {
+	id = khan_watchdog.1
+	hide_window = yes
+	is_triggered_only = yes
+
+	# Scope: This = Fleet, From = System (via on_entering_system_fleet)
+	trigger = {
+		owner = { is_country_type = awakened_marauders }
+		is_mobile = yes
+		is_garrison = no
+		is_civilian = no
+		has_global_flag = marauder_crisis_ongoing
+	}
+
+	immediate = {
+		solar_system = {
+			if = {
+				limit = {
+					NOT = { has_star_flag = khan_fleet_visited@prev }
+				}
+				# First visit: set 40-day timed flag
+				set_timed_star_flag = {
+					flag = khan_fleet_visited@prev
+					days = 40
+				}
+			}
+			else_if = {
+				limit = {
+					prev = {
+						NOR = {
+							has_fleet_flag = khan_fleet
+							has_fleet_flag = satrapy_garrison
+							has_fleet_flag = satrapy_garrison_fleet
+						}
+					}
+				}
+				# Second visit within 40 days: fleet is looping — unstick it
+				prev = {
+					clear_orders = yes
+					clear_fleet_actions = this
+				}
+				remove_star_flag = khan_fleet_visited@prev
+				prev = {
+					fleet_event = { id = khan_watchdog.2 days = 3 random = 7 }
+				}
+			}
+		}
+	}
+}
+
+# =============================================================================
+# FORCE FLEET TO NEAREST HOSTILE TARGET
+# Called after unsticking a fleet. Uses queue_actions + find_closest_planet
+# to send fleet to nearest hostile colony, or rally point as fallback.
+# =============================================================================
+fleet_event = {
+	id = khan_watchdog.2
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		exists = owner
+		owner = { is_country_type = awakened_marauders }
+	}
+
+	immediate = {
+		queue_actions = {
+			find_closest_planet = {
+				trigger = {
+					id = "khan_watchdog.2.t1"
+					OR = {
+						is_colony = yes
+						is_under_colonization = yes
+					}
+					owner = { is_hostile = root.owner }
+					NOT = { is_controlled_by = root.owner }
+				}
+				found_planet = {
+					move_to = this
+					wait = 5
+					orbit_planet = this
+				}
+				failed = {
+					effect = {
+						id = "khan_watchdog.2.e1"
+						root = {
+							if = {
+								limit = { exists = event_target:marauder_rally_point }
+								auto_move_to_planet = { target = event_target:marauder_rally_point }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# =============================================================================
+# PERIODIC IDLE FLEET + TRANSPORT UNSTICK
+# Called from marauder.520 and khan.870 each reinforcement cycle.
+# Catches fleets that are idle (no orders) outside home territory.
+# Also clears follow-orders on idle transports to prevent follow-chain stalls.
+# =============================================================================
+country_event = {
+	id = khan_watchdog.10
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		is_country_type = awakened_marauders
+		has_global_flag = marauder_crisis_ongoing
+	}
+
+	immediate = {
+		# Unstick idle military fleets not at home
+		every_owned_fleet = {
+			limit = {
+				is_fleet_idle = yes
+				is_mobile = yes
+				is_garrison = no
+				is_civilian = no
+				NOR = {
+					has_fleet_flag = satrapy_garrison
+					has_fleet_flag = satrapy_garrison_fleet
+					solar_system = {
+						OR = {
+							has_star_flag = marauder_capital_1
+							has_star_flag = marauder_capital_2
+							has_star_flag = marauder_capital_3
+						}
+					}
+				}
+			}
+			clear_orders = yes
+			clear_fleet_actions = this
+			fleet_event = { id = khan_watchdog.2 days = 3 random = 7 }
+		}
+
+		# Unfollow idle transports to prevent follow-chain stalls
+		every_owned_fleet = {
+			limit = {
+				is_fleet_idle = yes
+				any_owned_ship = { is_ship_class = shipclass_transport }
+			}
+			clear_orders = yes
+			clear_fleet_actions = this
+		}
+	}
+}

@@ -6521,6 +6521,9 @@ country_event = {
 			country_event = { id = marauder.520 days = 270 }
 		}
 
+		### Khan Fleet Watchdog — Idle + Transport Unstick
+		country_event = { id = khan_watchdog.10 }
+
 		### Khan District Overflow Pre-Check
 		khan_develop_overflow = yes
 
