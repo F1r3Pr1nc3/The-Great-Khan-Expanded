@@ -5994,7 +5994,10 @@ country_event = {
 		}
 		else = {
 			if = {
-				limit = { exists = ruler exists = ruler.species }
+				limit = {
+					exists = ruler
+					exists = ruler.species
+				}
 				ruler.species = { save_event_target_as = marauder_species }
 			}
 			else = {
@@ -8188,10 +8191,10 @@ country_event = {
 				hidden_trigger = {
 					OR = {
 						is_variable_set = "planets_lost_to_marauder"
-						AND = {
-							is_ai = no
-							fleet_power < 84000
-							num_owned_planets < 12
+						NOR = {
+							is_ai = yes
+							fleet_power >= 84000
+							num_owned_planets >= 12
 						}
 					}
 				}
@@ -9771,28 +9774,26 @@ country_event = {
 		} # End Khan Extended
 		if = { # If Horde owns no planet.
 			limit = {
-				OR = {
-					num_owned_planets < 1
-					NOT = {
-						any_owned_planet = { # Fix (Vanilla) split system can lead to Inability to be surveyed: https://forum.paradoxplaza.com/forum/threads/stellaris-great-khan-event-renders-system-unserveyable.1548356/
-							OR = {
-								AND = {
-									exists = space_owner
-									space_owner = { is_same_value = root }
+				NAND = {
+					num_owned_planets >= 1
+					any_owned_planet = { # Fix (Vanilla) split system can lead to Inability to be surveyed: https://forum.paradoxplaza.com/forum/threads/stellaris-great-khan-event-renders-system-unserveyable.1548356/
+						OR = {
+							AND = {
+								exists = space_owner
+								space_owner = { is_same_value = root }
+							}
+							solar_system = {
+								OR = {
+									NOT = { exists = owner }
+									is_owned_by = root
 								}
-								solar_system = {
-									OR = {
-										NOT = { exists = owner }
-										is_owned_by = root
-									}
-									NOT = {
-										any_system_colony = {
-											has_owner = yes
-											NOR = {
-												is_planet = prevprev
-												is_colonizable = yes
-												is_owned_by = root
-											}
+								NOT = {
+									any_system_colony = {
+										has_owner = yes
+										NOR = {
+											is_planet = prevprev
+											is_colonizable = yes
+											is_owned_by = root
 										}
 									}
 								}

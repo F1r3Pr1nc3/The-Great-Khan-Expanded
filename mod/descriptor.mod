@@ -1,4 +1,4 @@
-version="4.3.5.2"
+version="4.3.7.0"
 tags={
 	"Events"
 	"Crisis"
@@ -8,6 +8,7 @@ tags={
 	"4.3"
 }
 dependencies={
+	"~~Stellaris [v4.3] General Fixes"
 	"[Salvaged+]Marauders & Menacing Remodeled"
 }
 name="The Great Khan Expanded [4.3.☠]"

@@ -18,12 +18,12 @@ CmtTriggerKhanAwakingMultipleCheck = {
 		NOR = {
 			check_variable = { which = CmtVarKhanMultiple value = 1 }
 			has_global_flag = CmtFlagNowInKhanInterval
-		}
-		OR = {
-			NOT = { has_global_flag = marauder_crisis_started }
 			AND = {
-				check_variable = { which = CmtVarKhanMultiple value = 3 }
-				CmtTriggerNowInKhanCrisis = no
+				has_global_flag = marauder_crisis_started
+				OR = {
+					check_variable = { which = CmtVarKhanMultiple value != 3 }
+					CmtTriggerNowInKhanCrisis = yes
+				}
 			}
 		}
 		any_country = { CmtTriggerHasPotentialKhanAwaking = yes }
