@@ -28,6 +28,11 @@ CmtEffectCreateFleet_KhanArmy = {
 			set_owner = prev
 			event_target:CmtGlobalVar = {
 				set_variable = { which = CmtVarWhileControlShip value = CmtVarArmyPower_Khan }
+				# ACOT compatibility: 10x army power when Ancient Cache of Technologies is active
+				if = {
+					limit = { any_country = { has_technology = tech_precursor_runic_citadel } }
+					multiply_variable = { which = CmtVarWhileControlShip value = 10 }
+				}
 			}
 			while = {
 				limit = {

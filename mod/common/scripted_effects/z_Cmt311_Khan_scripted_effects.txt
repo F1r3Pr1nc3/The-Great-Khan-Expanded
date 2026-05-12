@@ -199,6 +199,12 @@ CmtEffectKhanReinforceOnCapital = {
 				variable = varTmp_Army
 			}
 			prev = { # event_target:CmtGlobalVar
+				# ACOT compatibility: 10x army power when Ancient Cache of Technologies is active
+				# Detected via Phanon Corps' unique runic technology (tech_precursor_runic_citadel)
+				if = {
+					limit = { any_country = { has_technology = tech_precursor_runic_citadel } }
+					multiply_variable = { which = CmtVarArmyPower_Khan value = 10 }
+				}
 				multiply_variable = { which = CmtVarTemp_Army value = CmtVarArmyPower_Khan }
 				multiply_variable = { which = CmtVarTemp_Army value = CmtVarArmyNumber_Khan }
 				subtract_variable = { which = CmtVarTemp_Army value = root.varTmp_Army }

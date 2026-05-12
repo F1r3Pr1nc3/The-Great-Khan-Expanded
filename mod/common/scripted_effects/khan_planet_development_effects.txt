@@ -45,7 +45,7 @@ khan_develop_planet_initial = {
 				num_zones = { type = zone_urban value >= 1 }
 			}
 		}
-		add_zone = { district = district_city zone = zone_foundry }
+		add_zone = { district = district_city zone = zone_foundry zone_slot = 1 }
 	}
 	# Specialize second city zone slot → fortress (requires upgraded capital = 2 urban slots)
 	if = {
@@ -84,7 +84,7 @@ khan_develop_planet_initial = {
 				}
 			}
 		}
-		add_zone = { district = district_city zone = zone_fortress }
+		add_zone = { district = district_city zone = zone_fortress zone_slot = 2 }
 	}
 	# 2. Add 1-2 resource districts if free slots available
 	#    Zone specialization is handled by the reinforcement cycle (P3)
@@ -151,20 +151,25 @@ khan_develop_planet = {
 	else_if = {
 		limit = {
 			OR = {
-				# Capital not upgraded: 1 city zone slot max, need 0 occupied
-				has_upgraded_capital = yes
-				num_zones = { type = zone_foundry value >= 1 }
-				num_zones = { type = zone_factory value >= 1 }
-				num_zones = { type = zone_industrial value >= 1 }
-				num_zones = { type = zone_fortress value >= 1 }
-				num_zones = { type = zone_trade value >= 1 }
-				num_zones = { type = zone_research value >= 1 }
-				num_zones = { type = zone_research_physics value >= 1 }
-				num_zones = { type = zone_research_society value >= 1 }
-				num_zones = { type = zone_research_engineering value >= 1 }
-				num_zones = { type = zone_research_unity value >= 1 }
-				num_zones = { type = zone_unity value >= 1 }
-				num_zones = { type = zone_urban value >= 1 }
+				# Capital not upgraded: 1 city zone slot max, need 0 occupied in slot 1
+				AND = {
+					NOT = { has_upgraded_capital = yes }
+					NOR = {
+						num_zones = { type = zone_foundry value >= 1 }
+						num_zones = { type = zone_factory value >= 1 }
+						num_zones = { type = zone_industrial value >= 1 }
+						num_zones = { type = zone_fortress value >= 1 }
+						num_zones = { type = zone_trade value >= 1 }
+						num_zones = { type = zone_research value >= 1 }
+						num_zones = { type = zone_research_physics value >= 1 }
+						num_zones = { type = zone_research_society value >= 1 }
+						num_zones = { type = zone_research_engineering value >= 1 }
+						num_zones = { type = zone_research_unity value >= 1 }
+						num_zones = { type = zone_unity value >= 1 }
+						num_zones = { type = zone_unity_spiritualist value >= 1 }
+						num_zones = { type = zone_urban value >= 1 }
+					}
+				}
 				# Capital upgraded: 2 city zone slots max, need < 2 occupied
 				AND = {
 					has_upgraded_capital = yes
@@ -207,44 +212,106 @@ khan_develop_planet = {
 				NOT = { has_global_flag = great_khan_wins }
 			}
 			# Pre-victory: weighted foundry/fortress, with factory/trade modifiers
-			random_list = {
-				50 = { # Foundry
-					add_zone = { district = district_city zone = zone_foundry }
-				}
-				35 = { # Fortress
-					add_zone = { district = district_city zone = zone_fortress }
-				}
-				10 = { # Factory — boosted if consumer goods deficit
-					modifier = {
-						factor = 3
-						owner = {
-							has_monthly_income = { resource = consumer_goods value < 0 }
-						}
+			if = {
+				limit = {
+					NOR = {
+						num_zones = { type = zone_foundry value >= 1 }
+						num_zones = { type = zone_factory value >= 1 }
+						num_zones = { type = zone_industrial value >= 1 }
+						num_zones = { type = zone_fortress value >= 1 }
+						num_zones = { type = zone_trade value >= 1 }
+						num_zones = { type = zone_research value >= 1 }
+						num_zones = { type = zone_research_physics value >= 1 }
+						num_zones = { type = zone_research_society value >= 1 }
+						num_zones = { type = zone_research_engineering value >= 1 }
+						num_zones = { type = zone_research_unity value >= 1 }
+						num_zones = { type = zone_unity value >= 1 }
+						num_zones = { type = zone_unity_spiritualist value >= 1 }
+						num_zones = { type = zone_urban value >= 1 }
 					}
-					add_zone = { district = district_city zone = zone_factory }
 				}
-				5 = { # Trade — boosted if trade deficit
-					modifier = {
-						factor = 3
-						owner = {
-							has_monthly_income = { resource = energy value < 10 }
+				random_list = {
+					50 = { add_zone = { district = district_city zone = zone_foundry zone_slot = 1 } }
+					35 = { add_zone = { district = district_city zone = zone_fortress zone_slot = 1 } }
+					10 = {
+						modifier = {
+							factor = 3
+							owner = { has_monthly_income = { resource = consumer_goods value < 0 } }
 						}
+						add_zone = { district = district_city zone = zone_factory zone_slot = 1 }
 					}
-					add_zone = { district = district_city zone = zone_trade }
+					5 = {
+						modifier = {
+							factor = 3
+							owner = { has_monthly_income = { resource = energy value < 10 } }
+						}
+						add_zone = { district = district_city zone = zone_trade zone_slot = 1 }
+					}
+				}
+			}
+			else = {
+				random_list = {
+					50 = { add_zone = { district = district_city zone = zone_foundry zone_slot = 2 } }
+					35 = { add_zone = { district = district_city zone = zone_fortress zone_slot = 2 } }
+					10 = {
+						modifier = {
+							factor = 3
+							owner = { has_monthly_income = { resource = consumer_goods value < 0 } }
+						}
+						add_zone = { district = district_city zone = zone_factory zone_slot = 2 }
+					}
+					5 = {
+						modifier = {
+							factor = 3
+							owner = { has_monthly_income = { resource = energy value < 10 } }
+						}
+						add_zone = { district = district_city zone = zone_trade zone_slot = 2 }
+					}
 				}
 			}
 		}
 		else = {
 			# Post-victory: broader mix including research
-			random_list = {
-				20 = { add_zone = { district = district_city zone = zone_foundry } }
-				20 = { add_zone = { district = district_city zone = zone_factory } }
-				20 = { add_zone = { district = district_city zone = zone_fortress } }
-				5 = { add_zone = { district = district_city zone = zone_trade } }
-				10 = { add_zone = { district = district_city zone = zone_research_physics } }
-				5 = { add_zone = { district = district_city zone = zone_research_society } }
-				15 = { add_zone = { district = district_city zone = zone_research_engineering } }
-				5 = { add_zone = { district = district_city zone = zone_unity } }
+			if = {
+				limit = {
+					NOR = {
+						num_zones = { type = zone_foundry value >= 1 }
+						num_zones = { type = zone_factory value >= 1 }
+						num_zones = { type = zone_industrial value >= 1 }
+						num_zones = { type = zone_fortress value >= 1 }
+						num_zones = { type = zone_trade value >= 1 }
+						num_zones = { type = zone_research value >= 1 }
+						num_zones = { type = zone_research_physics value >= 1 }
+						num_zones = { type = zone_research_society value >= 1 }
+						num_zones = { type = zone_research_engineering value >= 1 }
+						num_zones = { type = zone_research_unity value >= 1 }
+						num_zones = { type = zone_unity value >= 1 }
+						num_zones = { type = zone_unity_spiritualist value >= 1 }
+						num_zones = { type = zone_urban value >= 1 }
+					}
+				}
+				random_list = {
+					20 = { add_zone = { district = district_city zone = zone_foundry zone_slot = 1 } }
+					20 = { add_zone = { district = district_city zone = zone_factory zone_slot = 1 } }
+					20 = { add_zone = { district = district_city zone = zone_fortress zone_slot = 1 } }
+					5 = { add_zone = { district = district_city zone = zone_trade zone_slot = 1 } }
+					10 = { add_zone = { district = district_city zone = zone_research_physics zone_slot = 1 } }
+					5 = { add_zone = { district = district_city zone = zone_research_society zone_slot = 1 } }
+					15 = { add_zone = { district = district_city zone = zone_research_engineering zone_slot = 1 } }
+					5 = { add_zone = { district = district_city zone = zone_unity zone_slot = 1 } }
+				}
+			}
+			else = {
+				random_list = {
+					20 = { add_zone = { district = district_city zone = zone_foundry zone_slot = 2 } }
+					20 = { add_zone = { district = district_city zone = zone_factory zone_slot = 2 } }
+					20 = { add_zone = { district = district_city zone = zone_fortress zone_slot = 2 } }
+					5 = { add_zone = { district = district_city zone = zone_trade zone_slot = 2 } }
+					10 = { add_zone = { district = district_city zone = zone_research_physics zone_slot = 2 } }
+					5 = { add_zone = { district = district_city zone = zone_research_society zone_slot = 2 } }
+					15 = { add_zone = { district = district_city zone = zone_research_engineering zone_slot = 2 } }
+					5 = { add_zone = { district = district_city zone = zone_unity zone_slot = 2 } }
+				}
 			}
 		}
 	}

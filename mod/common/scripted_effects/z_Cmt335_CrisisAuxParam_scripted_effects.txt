@@ -41,7 +41,7 @@ CmtFleetSetAuxParam_KhanCombat = {
 			limit = {
 				prevprev.solar_system.starbase = {
 					NOR = {
-						is_owned_by = prevprev
+						owner = { is_same_value = prev }
 						owner = {
 							OR = {
 								is_country_type = awakened_marauders
@@ -53,7 +53,7 @@ CmtFleetSetAuxParam_KhanCombat = {
 			}
 			log_error = "marauder_rally_point not owned by Khan!?"
 			# Can only make a Starbase a Home Base if we or an ally own it.
-			prevprev.solar_system.starbase = { set_owner = prevprev }
+			prevprev.solar_system.starbase = { set_owner = prev }
 		}
 		set_home_base = prevprev.solar_system.starbase # Maybe works only after fleet creation?
 	}
