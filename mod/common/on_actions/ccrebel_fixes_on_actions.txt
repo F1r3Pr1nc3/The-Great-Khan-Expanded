@@ -5,6 +5,16 @@ on_single_player_save_game_load = {
 	}
 }
 
+# Initial rebels manage to take control of the planet, happens before the new owner is set, after the war is created.
+# This = Rebel Country
+# From = Planet
+# FromFrom = War
+on_rebels_take_planet = {
+	events = {
+		shroud.6708 # (Vfix) Mindwarden Origin : abort Sanctum of the Lost situation
+	}
+}
+
 # Initial rebels manage to take control of the planet, happens after the new owner is set, after the war is created.
 # This = Rebel Country
 # From = Planet

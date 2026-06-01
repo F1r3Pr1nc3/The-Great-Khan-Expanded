@@ -54,7 +54,7 @@ fleet_event = {
 			auto_move_to_planet = {
 				target = event_target:raid_planet
 				clear_auto_move_on_arrival = no
-				arrival_effect = marauder_path_attack
+				# arrival_effect = marauder_path_attack
 			}
 		}
 	}
@@ -444,6 +444,7 @@ fleet_event = {
 			auto_move_to_planet = {
 				target = event_target:attacked_planet
 				clear_auto_move_on_arrival = no
+				# arrival_effect = marauder_path_attack
 			}
 			log = "Vfix: Take new raid target [This.System.GetName]"
 			break = yes
@@ -807,7 +808,7 @@ planet_event = {
 				fromfrom = { save_event_target_as = raid_victim }
 				# Free planet
 				if = {
-					limit = { num_armies < 1 }
+					limit = { num_armies = 0 }
 					set_controller = from
 					if = {
 						limit = {

@@ -173,7 +173,7 @@ preset_satrapy = {
 			{ key = specialist_type value = specialist_none }
 			{ key = subject_integration value = subject_can_not_be_integrated }
 			{ key = subject_diplomacy value = subject_can_do_diplomacy }
-			{ key = subject_expand value = subject_cannot_expand } # changed
+			{ key = subject_expand value = subject_can_expand } # changed subject_cannot_expand
 			{ key = joins_overlord_wars value = joins_overlord_wars_all }
 			{ key = joins_subject_wars value = joins_subject_wars_none }
 			{ key = naval_capacity value = naval_cap_satrapy }

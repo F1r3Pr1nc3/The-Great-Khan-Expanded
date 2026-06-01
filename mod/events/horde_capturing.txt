@@ -311,9 +311,9 @@ planet_event = {
 				}
 				subtract_variable = { which = temp_var_horde value = 1 }
 			}
+			root = { set_variable = { which = temp_size value = owner.temp_var_horde } }
+			clear_variable = temp_var_horde
 		}
-		set_variable = { which = temp_size value = owner.temp_var_horde }
-		owner = { clear_variable = temp_var_horde }
 		if = {
 			limit = { is_difficulty < 5 }
 			while = {

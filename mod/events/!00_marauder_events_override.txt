@@ -345,7 +345,7 @@ event = {
 	trigger = {
 		NOR = {
 			years_passed <= 80
-			num_marauder_empires_to_spawn <= 0
+			num_marauder_empires_to_spawn = 0
 			has_global_flag = marauder_infighting_ongoing
 			has_global_flag = marauder_crisis_ongoing
 		}
@@ -4050,8 +4050,8 @@ planet_event = {
 			limit = { sapient_pop_amount > 100 }
 			random_owned_pop_group = {
 				limit = {
-					is_robot_pop_group = no
 					is_sapient = yes
+					is_robot_pop_group = no
 				}
 				weights = {
 					base = 3
@@ -4151,8 +4151,8 @@ planet_event = {
 			limit = { sapient_pop_amount > 100 }
 			random_owned_pop_group = {
 				limit = {
-					is_robot_pop_group = no
 					is_sapient = yes
+					is_robot_pop_group = no
 				}
 				weights = {
 					base = 3
@@ -5313,9 +5313,11 @@ country_event = {
 					limit = { sapient_pop_amount > 400 }
 					random_owned_pop_group = {
 						limit = {
-							is_robot_pop_group = no
 							is_sapient = yes
-							NOT = { is_same_species = root.species }
+							NOR = {
+								is_robot_pop_group = yes
+								is_same_species = root
+							}
 						}
 						weights = {
 							base = 5
@@ -5388,7 +5390,7 @@ country_event = {
 					limit = {
 						NOR = {
 							is_robot_pop_group = yes
-							is_same_species = root.species
+							is_same_species = root
 							is_enslaved = yes
 						}
 					}
@@ -6432,8 +6434,9 @@ event = {
 		if = {
 			limit = {
 				exists = event_target:great_khan
-				event_target:great_khan = { is_scope_valid = yes exists = owner }
 				event_target:great_khan = {
+					is_scope_valid = yes
+					exists = owner
 					NAND = {
 						exists = fleet
 						fleet = { num_ships > 0 }
@@ -8477,6 +8480,7 @@ country_event = {
 					}
 				}
 				any_system_within_border = {
+					is_on_border = yes # Vfix opt
 					any_neighbor_system = { has_owner = yes is_owned_by = root }
 					any_neighbor_system = {
 						has_owner = yes
@@ -8639,22 +8643,7 @@ country_event = {
 
 	immediate = {
 		save_event_target_as = satrapy_empire
-		if = {
-			limit = { exists = capital_scope }
-			capital_scope = {
-				save_event_target_as = capital_planet
-				solar_system = { save_event_target_as = capital_system }
-			}
-		}
-		else = {
-			ordered_owned_planet = {
-				limit = { is_planet_eligible_for_treasure_planet = yes }
-				position = 0
-				order_by = trigger:pop_amount
-				save_event_target_as = capital_planet
-				solar_system = { save_event_target_as = capital_system }
-			}
-		}
+		get_capital_planet = yes # Vfix safety patch
 		event_target:raider_khanate = {
 			if = {
 				limit = { is_hostile = prev }
@@ -8667,8 +8656,8 @@ country_event = {
 		}
 		if = {
 			limit = {
-				exists = event_target:capital_system
-				event_target:capital_system = {
+				exists = event_target:capital_planet
+				event_target:capital_planet.solar_system = {
 					NOT = {
 						any_fleet_in_system = {
 							is_mobile = no
@@ -10473,8 +10462,6 @@ country_event = {
 			limit = { is_ai = no }
 			country_event = { id = marauder.620 }
 		}
-		# Vfix system survey, omit race condition, establish communications
-		country_event = { id = marauder_borders.2000 days = 5 }
 	}
 
 	after = {
@@ -10488,10 +10475,14 @@ country_event = {
 				}
 				event_target:third_diadochi = { set_player = event_target:raider_khanate }
 			}
+			# Vfix system survey, omit race condition, establish communications
+			country_event = { id = marauder_borders.2000 days = 5 scopes = { from = event_target:raider_khanate } }
 		}
 		else_if = {
 			limit = { merg_is_default_empire = yes }
 			country_event = { id = khan.605 days = 2 scopes = { from = event_target:third_diadochi } }
+			# Vfix system survey, omit race condition, establish communications
+			country_event = { id = marauder_borders.2000 days = 5 }
 		}
 	}
 }
@@ -11127,13 +11118,11 @@ country_event = {
 				}
 				multiply_variable = { which = marauder_distance_1 value = 0.5 }
 				floor_variable = marauder_distance_1
-			}
-			log = "Distance second [second_marauder_system.marauder_distance_1]"
-			event_target:second_marauder_system = {
 				root = {
 					set_variable = { which = temp_marauder_dist_1 value = prev.marauder_distance_1 }
 				}
 			}
+			log = "Distance second [second_marauder_system.marauder_distance_1]"
 			every_owned_starbase = {
 				limit = {
 					solar_system = { is_capital_system = no }
@@ -11304,9 +11293,7 @@ country_event = {
 					multiply_variable = { which = marauder_distance_2 value = 0.5 }
 					floor_variable = marauder_distance_2
 					log = "Distance third to \\[This.marauder_distance_1] to \\[This.marauder_distance_2]"
-				}
-				# Near same as second
-				event_target:third_marauder_system = {
+					# Near same as second
 					root = {
 						set_variable = { which = temp_marauder_dist_1 value = prev.marauder_distance_1 }
 						set_variable = { which = temp_marauder_dist_2 value = prev.marauder_distance_2 }
@@ -11660,6 +11647,16 @@ country_event = {
 					marauder_3 = { event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_3 } }
 				}
 			}
+			copy_techs_from = { target = root }
+			if = {
+				limit = { root = { num_owned_relics > 0 } }
+				steal_relic = { target = root relic = all }
+			}
+			owner_species = { save_event_target_as = marauder_species }
+			save_event_target_as = new_khanate
+			country_event = { id = khan.306 days = 1 }
+			# CmtEffectCreateFleet_KhanStandard = yes # create_marauder_successor_fleet = yes
+
 		}
 		every_owned_fleet = {
 			limit = { is_mobile = yes }
@@ -11752,17 +11749,6 @@ country_event = {
 					}
 				}
 			}
-		}
-		event_target:restored_marauders = {
-			copy_techs_from = { target = root }
-			if = {
-				limit = { root = { num_owned_relics > 0 } }
-				steal_relic = { target = root relic = all }
-			}
-			owner_species = { save_event_target_as = marauder_species }
-			country_event = { id = khan.306 }
-			# CmtEffectCreateFleet_KhanStandard = yes # create_marauder_successor_fleet = yes
-			save_event_target_as = new_khanate
 		}
 		# If Horde owns only planets on not owned system.
 		if = {
@@ -12871,12 +12857,12 @@ country_event = {
 				any_system = {
 					has_owner = yes
 					NOR = {
+						is_capital_system = yes
 						num_planets_in_system <= 1
 						is_pirate_system = yes
 						has_star_flag = hostile_system
 						has_star_flag = guardian
 						has_star_flag = enclave
-						is_capital_system = yes
 					}
 					# has_system_trade_value >= 80
 					distance = {

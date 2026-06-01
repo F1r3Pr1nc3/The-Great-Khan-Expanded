@@ -41,11 +41,12 @@ fleet_event = {
 					}
 				}
 				# Second visit within 40 days: fleet is looping — unstick it
-				prev = { clear_orders = yes clear_fleet_actions = this }
-				remove_star_flag = khan_fleet_visited@prev
 				prev = {
+					clear_orders = yes
+					clear_fleet_actions = this
 					fleet_event = { id = khan_watchdog.2 days = 3 random = 7 }
 				}
+				remove_star_flag = khan_fleet_visited@prev
 			}
 		}
 	}

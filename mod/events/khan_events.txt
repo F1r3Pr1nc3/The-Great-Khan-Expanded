@@ -67,6 +67,7 @@ event = {
 							}
 							prev = { # Is real neighbor
 								any_system_within_border = {
+									is_on_border = yes
 									any_country_neighbor_to_system = { is_same_value = prevprev }
 								}
 							}
@@ -195,7 +196,6 @@ system_event = {
 				starbase = {
 					NOR = {
 						has_starbase_size >= starbase_starfortress
-						has_starbase_size = starbase_citadel
 						has_starbase_size = starbase_marauder
 					}
 				}
@@ -216,8 +216,8 @@ starbase_event = {
 	is_triggered_only = yes
 
 	trigger = {
+		has_starbase_size > starbase_outpost
 		NOR = {
-			has_starbase_size = starbase_outpost
 			has_starbase_size = starbase_fe_outpost
 			has_starbase_size = starbase_marauder
 		}
@@ -914,6 +914,8 @@ country_event = {
 				limit = { has_country_flag = attacking_fleets_stopped }
 				country_event = { id = khan.307 days = 3 scopes = { from = root } } # Just reenable
 			}
+			add_trust = { amount = 90 who = root }
+			# set_faction_hostility = { target = root set_friendly = yes }
 		}
 		set_faction_hostility = { target = from set_friendly = yes }
 		add_trust = { amount = 90 who = from }
@@ -965,10 +967,6 @@ country_event = {
 					add_loyalty = 90
 				}
 			}
-		}
-		from = { # Superfluous?
-			add_trust = { amount = 90 who = root }
-			set_faction_hostility = { target = root set_friendly = yes }
 		}
 		if = {
 			limit = { has_country_flag = attacking_fleets_stopped }
@@ -1058,6 +1056,7 @@ country_event = {
 						}
 						prev = { # Is real neighbor
 							any_system_within_border = {
+								is_on_border = yes
 								any_country_neighbor_to_system = { is_same_value = prevprev }
 							}
 						}
@@ -1715,120 +1714,107 @@ country_event = {
 		is_subject_of_khan = no
 	}
 
-	immediate = { # # If has_federation give Horde malus partial back.
-		if = {
-			limit = { exists = capital_scope }
-			capital_scope = { save_event_target_as = capital_planet }
-		}
-		else = {
-			ordered_owned_planet = {
-				limit = { is_planet_eligible_for_treasure_planet = yes }
-				position = 0
-				order_by = trigger:pop_amount
-				save_event_target_as = capital_planet
-			}
-		}
-		if = {
-			limit = { exists = event_target:capital_planet }
-			event_target:capital_planet = {
-				set_variable = { which = "planets_lost_to_marauder" value = 1 } # temp. only
-				if = {
-					limit = { root = { has_federation = yes } }
-					change_variable = { which = "planets_lost_to_marauder" value = 1 }
-					if = {
-						limit = {
-							root = { is_federation_leader = yes }
-						}
-						change_variable = { which = "planets_lost_to_marauder" value = 1 }
-					}
-					root.federation = {
-						every_member = {
-							change_variable = { which = "planets_lost_to_marauder" value = prevprev.planets_lost_to_marauder }
-						}
-					}
-				}
+	immediate = {
+		# If has_federation give Horde malus partial back.
+		get_capital_planet = yes
+		event_target:capital_planet = {
+			set_variable = { which = "planets_lost_to_marauder" value = 1 } # temp. only
+			if = {
+				limit = { root = { has_federation = yes } }
+				change_variable = { which = "planets_lost_to_marauder" value = 1 }
 				if = {
 					limit = {
-						root = { num_defensive_pacts > 0 }
+						root = { is_federation_leader = yes }
 					}
-					every_playable_country = {
-						limit = { has_defensive_pact = root }
-						change_variable = { which = "planets_lost_to_marauder" value = 1 }
-						change_variable = { which = "planets_lost_to_marauder" value = prev.planets_lost_to_marauder }
+					change_variable = { which = "planets_lost_to_marauder" value = 1 }
+				}
+				root.federation = {
+					every_member = {
+						change_variable = { which = "planets_lost_to_marauder" value = prevprev.planets_lost_to_marauder }
 					}
 				}
 			}
 			if = {
 				limit = {
-					check_variable = { which = "planets_lost_to_marauder" value < 6 }
+					root = { num_defensive_pacts > 0 }
 				}
-				set_variable = { which = "planets_lost_to_marauder" value = 6 }
-			}
-			multiply_variable = { which = "planets_lost_to_marauder" value = 0.5 }
-			if = {
-				limit = { is_overlord = yes }
-				every_subject = {
-					limit = { is_default_or_fallen = yes }
-					set_subject_of = { who = none }
+				every_playable_country = {
+					limit = { has_defensive_pact = root }
 					change_variable = { which = "planets_lost_to_marauder" value = 1 }
-					if = {
-						limit = {
-							NOR = {
-								AND = {
-									is_ai = yes
-									fleet_power >= 24000
-									check_variable = { which = "planets_lost_to_marauder" value <= 22 }
-									num_owned_planets >= 3
-								}
-								has_active_event = { marauder.551 }
-							}
-						}
-						country_event = { id = marauder.551 } # Submit Dialog
-					}
+					change_variable = { which = "planets_lost_to_marauder" value = prev.planets_lost_to_marauder }
 				}
-				leave_alliance = { override_requirements = yes }
 			}
-			else_if = {
-				limit = { is_subject = yes }
-				overlord = { # Much less likely
-					change_variable = { which = "planets_lost_to_marauder" value = 2 }
-				}
-				leave_alliance = { override_requirements = yes }
+		}
+		if = {
+			limit = {
+				check_variable = { which = "planets_lost_to_marauder" value < 6 }
 			}
-			if = {
-				limit = { has_federation = yes }
-				leave_alliance = { override_requirements = yes }
-			}
-			if = {
-				limit = { is_galactic_community_member = yes }
-				remove_from_galactic_community = yes
-			}
-			if = {
-				limit = { is_at_war = yes }
-				random_war = {
+			set_variable = { which = "planets_lost_to_marauder" value = 6 }
+		}
+		multiply_variable = { which = "planets_lost_to_marauder" value = 0.5 }
+		if = {
+			limit = { is_overlord = yes }
+			every_subject = {
+				limit = { is_default_or_fallen = yes }
+				set_subject_of = { who = none }
+				change_variable = { which = "planets_lost_to_marauder" value = 1 }
+				if = {
 					limit = {
-						is_war_participant = { who = root }
-						is_war_participant = { who = event_target:raider_khanate }
-						NOT = { is_war_participant = { who = root side = event_target:raider_khanate } }
-					}
-					remove_war_participant = root
-					root = {
-						if = {
-							limit = { is_ai = no }
-							create_message = {
-								type = "WAR_ENDED"
-								localization = "WAR_END_STATUS_QUO" # MESSAGE_WAR_ENDED # WAR_END_STATUS_QUO
-								days = 30
-								target = capital_scope
+						NOR = {
+							AND = {
+								is_ai = yes
+								fleet_power >= 24000
+								check_variable = { which = "planets_lost_to_marauder" value <= 22 }
+								num_owned_planets >= 3
 							}
+							has_active_event = { marauder.551 }
+						}
+					}
+					country_event = { id = marauder.551 } # Submit Dialog
+				}
+			}
+			leave_alliance = { override_requirements = yes }
+		}
+		else_if = {
+			limit = { is_subject = yes }
+			overlord = { # Much less likely
+				change_variable = { which = "planets_lost_to_marauder" value = 2 }
+			}
+			leave_alliance = { override_requirements = yes }
+		}
+		if = {
+			limit = { has_federation = yes }
+			leave_alliance = { override_requirements = yes }
+		}
+		if = {
+			limit = { is_galactic_community_member = yes }
+			remove_from_galactic_community = yes
+		}
+		if = {
+			limit = { is_at_war = yes }
+			random_war = {
+				limit = {
+					is_war_participant = { who = root }
+					is_war_participant = { who = event_target:raider_khanate }
+					NOT = { is_war_participant = { who = root side = event_target:raider_khanate } }
+				}
+				remove_war_participant = root
+				root = {
+					if = {
+						limit = { is_ai = no }
+						create_message = {
+							type = "WAR_ENDED"
+							localization = "WAR_END_STATUS_QUO" # MESSAGE_WAR_ENDED # WAR_END_STATUS_QUO
+							days = 30
+							target = capital_scope
 						}
 					}
 				}
 			}
-			if = {
-				limit = { is_variable_set = planets_lost_to_marauder }
-				clear_variable = planets_lost_to_marauder
-			}
+		}
+		if = {
+			limit = { is_variable_set = planets_lost_to_marauder }
+			clear_variable = planets_lost_to_marauder
 		}
 		# Can't rebel for a year after submitting.
 		set_timed_country_flag = { flag = rebellion_cooldown years = 1 }
@@ -2061,7 +2047,6 @@ country_event = {
 			}
 			owner_species = { save_event_target_as = marauder_species }
 		}
-		log = "Handover raider_khanate \\[From.GetName] to Diadochi \\[This.GetName]."
 		if = {
 			limit = {
 				OR = {
@@ -2071,10 +2056,13 @@ country_event = {
 			}
 			break = yes
 		}
-		from = {
-			save_event_target_as = raider_khanate
-			set_faction_hostility = { target = root set_friendly = yes }
+		if = {
+			limit = {
+				NOT = { exists = event_target:raider_khanate }
+			}
+			from = { save_event_target_as = raider_khanate }
 		}
+		log = "Handover raider_khanate \\[event_target:raider_khanate.GetName] to Diadochi \\[This.GetName]."
 		# Return colonies that have only the starbase conquered.
 		every_system_within_border = {
 			limit = {
@@ -2128,7 +2116,7 @@ country_event = {
 				}
 			}
 		}
-		from = {
+		event_target:raider_khanate = {
 			if = {
 				limit = {
 					NOR = {
@@ -2418,10 +2406,8 @@ country_event = {
 			}
 			force_add_civic = civic_shared_burden
 		}
-		if = {
-			limit = { exists = capital_scope }
-			capital_scope = { save_event_target_as = new_diadochi_capital }
-		}
+		get_capital_planet = yes
+		event_target:capital_planet = { save_event_target_as = new_diadochi_capital }
 		# Find better capital
 		ordered_owned_planet = {
 			limit = {

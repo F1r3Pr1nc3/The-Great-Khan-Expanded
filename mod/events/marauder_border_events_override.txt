@@ -481,7 +481,7 @@ country_event = {
 							limit = {
 								count_owned_pop_amount = {
 									count < 1700
-									limit = { is_same_species = prev.owner_species }
+									limit = { is_same_species = prevprev }
 								}
 							}
 							while = {
@@ -489,7 +489,7 @@ country_event = {
 								limit = {
 									count_owned_pop_amount = {
 										count < 1700
-										limit = { is_same_species = prev.owner_species }
+										limit = { is_same_species = prevprev }
 									}
 								}
 								create_pop_group = {
@@ -751,7 +751,7 @@ country_event = {
 				}
 				if = {
 					limit = {
-						num_owned_planets < 1
+						num_owned_planets = 0
 						count_owned_starbase = { count = 0 }
 					}
 					set_country_type = dormant_marauders
@@ -799,7 +799,7 @@ country_event = {
 				}
 				if = {
 					limit = {
-						num_owned_planets < 1
+						num_owned_planets = 0
 						count_owned_starbase = { count = 0 }
 					}
 					set_country_type = dormant_marauders
@@ -829,7 +829,7 @@ country_event = {
 				event_target:integrated_empire = {
 					if = {
 						limit = {
-							num_owned_planets < 1
+							num_owned_planets = 0
 							count_owned_starbase = { count = 0 }
 						}
 						set_country_type = dormant_marauders
@@ -1132,7 +1132,7 @@ country_event = {
 				}
 				remove_opinion_modifier = { who = root modifier = opinion_new_contact }
 			}
-			country_event = { id = khan.610 days = -1 } # Handover some old stuff
+			country_event = { id = khan.610 scopes = { from = from } } # Handover some old stuff
 			## END DIADOCHI_COUNTRY_SETUP
 			every_playable_country = {
 				limit = {
@@ -1169,6 +1169,7 @@ country_event = {
 							exists = space_owner
 							exists = starbase
 							starbase = { is_owned_by = prevprev }
+							is_on_border = yes
 							# any_neighbor_system = { is_owned_by = prevprevprev }
 							# any_country_neighbor_to_system = { is_same_value = prevprevprev }
 							NOR = {
@@ -1186,6 +1187,7 @@ country_event = {
 									exists = space_owner
 									exists = starbase
 									starbase = { is_owned_by = prevprev }
+									is_on_border = yes
 									NOR = {
 										is_capital_system = yes
 										space_owner = { is_same_value = prevprevprev }
@@ -1215,6 +1217,7 @@ country_event = {
 						limit = {
 							has_owner = yes
 							is_owned_by = prev
+							is_on_border = yes
 							exists = space_owner
 							exists = starbase
 							starbase = { is_owned_by = prevprev }
@@ -1232,6 +1235,7 @@ country_event = {
 								any_system_within_border = {
 									has_owner = yes
 									is_owned_by = prev
+									is_on_border = yes
 									exists = space_owner
 									exists = starbase
 									starbase = { is_owned_by = prevprev }
@@ -1264,6 +1268,7 @@ country_event = {
 								any_system_within_border = {
 									has_owner = yes
 									is_owned_by = prev
+									is_on_border = yes
 									exists = space_owner
 									exists = starbase
 									starbase = { is_owned_by = prevprev }
@@ -1292,6 +1297,7 @@ country_event = {
 								limit = {
 									has_owner = yes
 									is_owned_by = prev
+									is_on_border = yes
 									exists = space_owner
 									exists = starbase
 									starbase = { is_owned_by = prevprev }
@@ -1565,7 +1571,7 @@ country_event = {
 				}
 			}
 		}
-		country_event = { id = khan.610 } # Init more stuff? SET_DIADOCHI_LEADERS_AND_FLEET (First Diadochi)
+		country_event = { id = khan.610 scopes = { from = from } } # Handover some old stuff: SET_DIADOCHI_LEADERS_AND_FLEET (First Diadochi)
 		set_update_modifiers_batch = end
 	}
 

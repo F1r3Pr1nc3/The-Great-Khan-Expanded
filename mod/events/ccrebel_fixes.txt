@@ -263,7 +263,7 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		merg_is_default_empire = yes
+		is_country_type = default
 	}
 
 	immediate = {
@@ -271,15 +271,12 @@ country_event = {
 		remove_country_flag = cc_rebel_civic_sorted
 		if = { # Vanilla Bug Fix (v3.11) for syncretic species by FirePrince https://forum.paradoxplaza.com/forum/threads/stellaris-massive-overlooked-issue-with-syncretic-evolution-origin.1622715/
 			limit = {
-				any_owned_species = {
-					is_same_species = root.owner_species
-					has_trait = trait_syncretic_proles
-				}
+				any_owned_species = { is_same_species = root has_trait = trait_syncretic_proles }
 			}
 			## Get majority rebel species
 			every_owned_species = {
 				limit = {
-					is_same_species = root.owner_species
+					is_same_species = root
 					has_trait = trait_syncretic_proles
 				}
 				export_trigger_value_to_variable = {
@@ -381,7 +378,7 @@ country_event = {
 			clear_variable = syncretic_pops
 			every_owned_species = {
 				limit = {
-					is_same_species = root.owner_species
+					is_same_species = root
 					is_variable_set = var_species_pops_percent
 				}
 				clear_variable = var_species_pops_percent
@@ -1617,15 +1614,15 @@ country_event = {
 		}
 		if = {
 			limit = {
-				NOR = {
-					AND = {
-						num_ethics = 2
-						is_fanatic = yes
-						has_any_ethic = yes
-					}
+				# has_any_ethic = yes
+				OR = {
 					AND = {
 						num_ethics = 3
 						is_fanatic = no
+					}
+					AND = {
+						num_ethics = 2
+						is_fanatic = yes
 					}
 				}
 			}
@@ -1754,15 +1751,15 @@ country_event = {
 		}
 		if = {
 			limit = {
-				NOR = {
-					AND = {
-						num_ethics = 2
-						is_fanatic = yes
-						has_any_ethic = yes
-					}
+				# has_any_ethic = yes
+				OR = {
 					AND = {
 						num_ethics = 3
 						is_fanatic = no
+					}
+					AND = {
+						num_ethics = 2
+						is_fanatic = yes
 					}
 				}
 			}
@@ -1781,16 +1778,16 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		NOR = {
-			has_country_flag = cc_rebel_ethic_sorted
-			AND = {
-				num_ethics = 2
-				is_fanatic = yes
-				has_any_ethic = yes
-			}
+		NOT = { has_country_flag = cc_rebel_ethic_sorted }
+		# has_any_ethic = yes
+		OR = {
 			AND = {
 				num_ethics = 3
 				is_fanatic = no
+			}
+			AND = {
+				num_ethics = 2
+				is_fanatic = yes
 			}
 		}
 	}
@@ -1984,8 +1981,9 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		merg_is_default_empire = yes
+		is_country_type = default
 		NOR = {
+
 			has_country_flag = cc_rebel_civic_sorted
 			is_multiplayer = yes # Avoid strange behavior (like OOS/CTD)
 			has_unused_civic_points = 0
@@ -2003,6 +2001,7 @@ country_event = {
 				}
 			}
 			country_event = { id = action.229 scopes = { from = from } days = 1 } # set_origin_effect
+			country_event = { id = action.231 scopes = { from = from } days = 2 } # advanced_authority_refresh
 		}
 		# set_government_cooldown = no
 		if = {
@@ -2077,5 +2076,41 @@ country_event = {
 
 	immediate = {
 		fromfrom = { remove_war_participant = root }
+	}
+}
+
+namespace = shroud
+# VFIX NEW: fix wrong scope (on_rebels_take_planet)
+# Initial rebels manage to take control of the planet, happens before the new owner is set, after the war is created.
+# This = Rebel Country
+# From = Planet
+# FromFrom = War
+country_event = {
+	id = shroud.6708
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		from = {
+			has_owner = yes
+			has_planet_flag = has_sanctum_of_the_lost@owner
+			owner = {
+				has_origin = origin_mindwardens
+				has_special_project = SANCTUM_OF_THE_LOST
+			}
+		}
+	}
+
+	immediate = {
+		# We need copy of planet_event = { id = shroud.6707 } as the next tick can already change the owner
+		from = {
+			owner = {
+				abort_special_project = { type = SANCTUM_OF_THE_LOST }
+			}
+			every_deposit = {
+				limit = { is_deposit_type = d_ruined_sanctum_of_the_lost }
+				clear_blocker = yes
+			}
+		}
 	}
 }

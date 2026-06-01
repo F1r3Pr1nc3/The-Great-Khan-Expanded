@@ -30,20 +30,18 @@ khan_develop_planet_initial = {
 	if = {
 		limit = {
 			has_district = district_city
-			NOR = {
-				num_zones = { type = zone_foundry value >= 1 }
-				num_zones = { type = zone_factory value >= 1 }
-				num_zones = { type = zone_industrial value >= 1 }
-				num_zones = { type = zone_fortress value >= 1 }
-				num_zones = { type = zone_trade value >= 1 }
-				num_zones = { type = zone_research value >= 1 }
-				num_zones = { type = zone_research_physics value >= 1 }
-				num_zones = { type = zone_research_society value >= 1 }
-				num_zones = { type = zone_research_engineering value >= 1 }
-				num_zones = { type = zone_research_unity value >= 1 }
-				num_zones = { type = zone_unity value >= 1 }
-				num_zones = { type = zone_urban value >= 1 }
-			}
+			num_zones = { type = zone_foundry value = 0 }
+			num_zones = { type = zone_factory value = 0 }
+			num_zones = { type = zone_industrial value = 0 }
+			num_zones = { type = zone_fortress value = 0 }
+			num_zones = { type = zone_trade value = 0 }
+			num_zones = { type = zone_research value = 0 }
+			num_zones = { type = zone_research_physics value = 0 }
+			num_zones = { type = zone_research_society value = 0 }
+			num_zones = { type = zone_research_engineering value = 0 }
+			num_zones = { type = zone_research_unity value = 0 }
+			num_zones = { type = zone_unity value = 0 }
+			num_zones = { type = zone_urban value = 0 }
 		}
 		add_zone = { district = district_city zone = zone_foundry zone_slot = 1 }
 	}
@@ -153,22 +151,20 @@ khan_develop_planet = {
 			OR = {
 				# Capital not upgraded: 1 city zone slot max, need 0 occupied in slot 1
 				AND = {
-					NOT = { has_upgraded_capital = yes }
-					NOR = {
-						num_zones = { type = zone_foundry value >= 1 }
-						num_zones = { type = zone_factory value >= 1 }
-						num_zones = { type = zone_industrial value >= 1 }
-						num_zones = { type = zone_fortress value >= 1 }
-						num_zones = { type = zone_trade value >= 1 }
-						num_zones = { type = zone_research value >= 1 }
-						num_zones = { type = zone_research_physics value >= 1 }
-						num_zones = { type = zone_research_society value >= 1 }
-						num_zones = { type = zone_research_engineering value >= 1 }
-						num_zones = { type = zone_research_unity value >= 1 }
-						num_zones = { type = zone_unity value >= 1 }
-						num_zones = { type = zone_unity_spiritualist value >= 1 }
-						num_zones = { type = zone_urban value >= 1 }
-					}
+					has_upgraded_capital = no
+					num_zones = { type = zone_foundry value = 0 }
+					num_zones = { type = zone_factory value = 0 }
+					num_zones = { type = zone_industrial value = 0 }
+					num_zones = { type = zone_fortress value = 0 }
+					num_zones = { type = zone_trade value = 0 }
+					num_zones = { type = zone_research value = 0 }
+					num_zones = { type = zone_research_physics value = 0 }
+					num_zones = { type = zone_research_society value = 0 }
+					num_zones = { type = zone_research_engineering value = 0 }
+					num_zones = { type = zone_research_unity value = 0 }
+					num_zones = { type = zone_unity value = 0 }
+					num_zones = { type = zone_unity_spiritualist value = 0 }
+					num_zones = { type = zone_urban value = 0 }
 				}
 				# Capital upgraded: 2 city zone slots max, need < 2 occupied
 				AND = {
@@ -214,21 +210,19 @@ khan_develop_planet = {
 			# Pre-victory: weighted foundry/fortress, with factory/trade modifiers
 			if = {
 				limit = {
-					NOR = {
-						num_zones = { type = zone_foundry value >= 1 }
-						num_zones = { type = zone_factory value >= 1 }
-						num_zones = { type = zone_industrial value >= 1 }
-						num_zones = { type = zone_fortress value >= 1 }
-						num_zones = { type = zone_trade value >= 1 }
-						num_zones = { type = zone_research value >= 1 }
-						num_zones = { type = zone_research_physics value >= 1 }
-						num_zones = { type = zone_research_society value >= 1 }
-						num_zones = { type = zone_research_engineering value >= 1 }
-						num_zones = { type = zone_research_unity value >= 1 }
-						num_zones = { type = zone_unity value >= 1 }
-						num_zones = { type = zone_unity_spiritualist value >= 1 }
-						num_zones = { type = zone_urban value >= 1 }
-					}
+					num_zones = { type = zone_foundry value = 0 }
+					num_zones = { type = zone_factory value = 0 }
+					num_zones = { type = zone_industrial value = 0 }
+					num_zones = { type = zone_fortress value = 0 }
+					num_zones = { type = zone_trade value = 0 }
+					num_zones = { type = zone_research value = 0 }
+					num_zones = { type = zone_research_physics value = 0 }
+					num_zones = { type = zone_research_society value = 0 }
+					num_zones = { type = zone_research_engineering value = 0 }
+					num_zones = { type = zone_research_unity value = 0 }
+					num_zones = { type = zone_unity value = 0 }
+					num_zones = { type = zone_unity_spiritualist value = 0 }
+					num_zones = { type = zone_urban value = 0 }
 				}
 				random_list = {
 					50 = { add_zone = { district = district_city zone = zone_foundry zone_slot = 1 } }
@@ -274,21 +268,19 @@ khan_develop_planet = {
 			# Post-victory: broader mix including research
 			if = {
 				limit = {
-					NOR = {
-						num_zones = { type = zone_foundry value >= 1 }
-						num_zones = { type = zone_factory value >= 1 }
-						num_zones = { type = zone_industrial value >= 1 }
-						num_zones = { type = zone_fortress value >= 1 }
-						num_zones = { type = zone_trade value >= 1 }
-						num_zones = { type = zone_research value >= 1 }
-						num_zones = { type = zone_research_physics value >= 1 }
-						num_zones = { type = zone_research_society value >= 1 }
-						num_zones = { type = zone_research_engineering value >= 1 }
-						num_zones = { type = zone_research_unity value >= 1 }
-						num_zones = { type = zone_unity value >= 1 }
-						num_zones = { type = zone_unity_spiritualist value >= 1 }
-						num_zones = { type = zone_urban value >= 1 }
-					}
+					num_zones = { type = zone_foundry value = 0 }
+					num_zones = { type = zone_factory value = 0 }
+					num_zones = { type = zone_industrial value = 0 }
+					num_zones = { type = zone_fortress value = 0 }
+					num_zones = { type = zone_trade value = 0 }
+					num_zones = { type = zone_research value = 0 }
+					num_zones = { type = zone_research_physics value = 0 }
+					num_zones = { type = zone_research_society value = 0 }
+					num_zones = { type = zone_research_engineering value = 0 }
+					num_zones = { type = zone_research_unity value = 0 }
+					num_zones = { type = zone_unity value = 0 }
+					num_zones = { type = zone_unity_spiritualist value = 0 }
+					num_zones = { type = zone_urban value = 0 }
 				}
 				random_list = {
 					20 = { add_zone = { district = district_city zone = zone_foundry zone_slot = 1 } }
@@ -916,7 +908,7 @@ khan_develop_overflow = {
 					merg_is_habitat = yes
 					num_unemployed = 0
 					free_district_slots <= 0
-					num_free_districts = { type = district_generator value < 1 }
+					num_free_districts = { type = district_generator value = 0 }
 				}
 			}
 			add_district = district_generator
@@ -943,7 +935,7 @@ khan_develop_overflow = {
 					merg_is_habitat = yes
 					num_unemployed = 0
 					free_district_slots <= 0
-					num_free_districts = { type = district_mining value < 1 }
+					num_free_districts = { type = district_mining value = 0 }
 				}
 			}
 			add_district = district_mining
@@ -969,7 +961,7 @@ khan_develop_overflow = {
 					merg_is_habitat = yes
 					num_unemployed = 0
 					free_district_slots <= 0
-					num_free_districts = { type = district_farming value < 1 }
+					num_free_districts = { type = district_farming value = 0 }
 				}
 			}
 			add_district = district_farming

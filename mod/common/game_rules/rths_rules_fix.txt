@@ -68,11 +68,9 @@ can_take_hostile_actions = {
 	}
 	else_if = {
 		limit = {
-			root = {
-				any_agreement = { agreement_preset = preset_satrapy }
-			}
 			is_country_type = faction
 			root = {
+				any_agreement = { agreement_preset = preset_satrapy }
 				any_owned_planet = {
 					exists = controller
 					controller = { is_same_empire = prevprevprev }

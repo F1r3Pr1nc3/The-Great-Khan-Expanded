@@ -2007,9 +2007,9 @@ country_event = {
 				if = {
 					limit = {
 						NOT = { exists = event_target:former_marauder_capital }
-						exists = capital_scope
 					}
-					capital_scope.solar_system = { save_event_target_as = former_marauder_capital }
+					get_capital_planet = yes
+					event_target:capital_planet.solar_system = { save_event_target_as = former_marauder_capital }
 				}
 				event_target:former_marauder_capital = {
 					switch = { trigger = has_star_flag
@@ -3870,7 +3870,7 @@ country_event = {
 		if = {
 			limit = {
 				NOR = {
-					num_marauder_empires_to_spawn <= 0
+					num_marauder_empires_to_spawn = 0
 					exists = event_target:marauder_country_1
 				}
 			}
@@ -4124,14 +4124,15 @@ country_event = {
 	title = CrisisManagerMenu.7411.name
 	desc = CrisisManagerMenu.7411.desc
 	picture = GFX_evt_fallen_empire
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
 
 	trigger = {
-		exists = capital_scope
+		num_owned_planets > 0 # exists = capital_scope
 	}
 
 	immediate = {
+		get_capital_planet = yes
 		CmtEffectManualTargetSleepers = yes
 	}
 

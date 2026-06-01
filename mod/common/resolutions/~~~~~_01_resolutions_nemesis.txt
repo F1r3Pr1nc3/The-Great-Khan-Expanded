@@ -178,7 +178,7 @@ resolution_custodian_anti_piracy = {
 		damage_vs_country_type_pirate_mult = 0.2
 		damage_vs_country_type_dormant_marauders_mult = 0.2
 		# damage_vs_country_type_awakened_marauders_mult = 0.2
-		# damage_vs_country_type_pirate_waves_country_mult = 0.2 # pirate_waves country type doesn't exist
+		damage_vs_country_type_pirate_waves_country_mult = 0.2 # Compat "Realistic Pirates"
 		country_energy_produces_mult = -0.03
 	}
 

@@ -1889,7 +1889,7 @@ country_event = {
 				modifier = {
 					factor = 0
 					OR = {
-						num_fallen_empires_setting < 1
+						num_fallen_empires_setting = 0
 						mid_game_years_passed < 50 # Since v3.8.4
 						has_leviathans = no
 						AND = {
@@ -2451,7 +2451,7 @@ country_event = {
 					limit = { has_starbase_size = starbase_starport }
 					if = {
 						limit = {
-							count_starbase_modules = { count < 1 }
+							count_starbase_modules = { count = 0 }
 						}
 						set_starbase_module = { slot = 1 module = anchorage }
 						if = {
@@ -2475,7 +2475,7 @@ country_event = {
 					limit = { has_starbase_size = starbase_starhold }
 					if = {
 						limit = {
-							count_starbase_modules = { count < 1 }
+							count_starbase_modules = { count = 0 }
 						}
 						set_starbase_module = { slot = 1 module = anchorage }
 						set_starbase_module = { slot = 2 module = anchorage }
@@ -2527,7 +2527,7 @@ country_event = {
 				else = {
 					if = {
 						limit = {
-							count_starbase_modules = { count < 1 }
+							count_starbase_modules = { count = 0 }
 						}
 						set_starbase_module = { slot = 1 module = anchorage }
 						set_starbase_module = { slot = 2 module = anchorage }
@@ -3961,8 +3961,8 @@ country_event = {
 					has_country_flag = CmtFlagKhanNoDieCountry
 				}
 				exists = event_target:great_khan
-				event_target:great_khan = { is_scope_valid = yes }
 				event_target:great_khan = {
+					is_scope_valid = yes
 					NAND = {
 						exists = fleet
 						fleet = { num_ships > 0 }

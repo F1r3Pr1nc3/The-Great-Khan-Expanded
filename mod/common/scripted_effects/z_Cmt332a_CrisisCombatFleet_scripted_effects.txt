@@ -188,7 +188,7 @@ CmtEffectCreateFleet_KhanStandard = {
 ### Mercenaries
 # Prev = planet
 CmtEffectCreateFleet_KhanArmadaVoidborn = {
-	optimize_memory
+	# optimize_memory
 	CmtEffectCreateAdmiral_MarauderStandard = yes
 
 	create_fleet = {

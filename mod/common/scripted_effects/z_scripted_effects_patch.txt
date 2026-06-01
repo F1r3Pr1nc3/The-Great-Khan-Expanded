@@ -6,7 +6,6 @@ make_moderately_hostile = {
 
 	every_country = {
 		limit = {
-			# NOT = { is_country_type = default }
 			OR = {
 				# is_fallen_empire = yes # merg_is_fallen_empire = yes
 				# is_non_hostile_to_wraith = yes
