@@ -107,7 +107,7 @@ CmtEffectCreateFleet_KhanArmy = {
 			random_list = {
 				2 = {  }
 				3 = { set_fleet_stance = evasive } # AI does not handle this well too.
-				5 = { set_fleet_stance = aggressive }
+				3 = { set_fleet_stance = aggressive }
 			}
 		}
 	}

@@ -86,12 +86,27 @@ CmtEffectCreateAdmiral_MarauderStandard = {
 
 CmtEffectCreateAdmiral_MarauderEncourager = {
 	optimize_memory
-	create_leader = {
-		class = commander
-		species = event_target:satrapy_species
-		name = random
-		leader_age_min = 34
-		leader_age_max = 45
+	if = {
+		limit = {
+			exists = event_target:satrapy_empire
+			event_target:satrapy_empire = { any_pool_leader = {  } }
+		}
+		event_target:satrapy_empire = {
+			random_pool_leader = {
+				limit = { leader_class = commander }
+				set_owner = prevprev
+				save_event_target_as = satrapy_commander
+			}
+		}
+	}
+	else = {
+		create_leader = {
+			class = commander
+			species = event_target:satrapy_species
+			name = random
+			leader_age_min = 34
+			leader_age_max = 45
+		}
 	}
 }
 

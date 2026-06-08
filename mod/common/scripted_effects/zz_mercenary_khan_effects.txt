@@ -1164,7 +1164,7 @@ get_marauder_species = {
 					}
 				}
 			}
-			event_target:marauder_country_1.owner_species = { save_event_target_as = marauder_species }
+			event_target:marauder_country_1.founder_species = { save_event_target_as = marauder_species }
 		}
 		else_if = {
 			limit = {
@@ -1177,7 +1177,7 @@ get_marauder_species = {
 					}
 				}
 			}
-			event_target:marauder_country_2.owner_species = { save_event_target_as = marauder_species }
+			event_target:marauder_country_2.founder_species = { save_event_target_as = marauder_species }
 		}
 		else_if = {
 			limit = {
@@ -1190,7 +1190,7 @@ get_marauder_species = {
 					}
 				}
 			}
-			event_target:marauder_country_3.owner_species = { save_event_target_as = marauder_species }
+			event_target:marauder_country_3.founder_species = { save_event_target_as = marauder_species }
 		}
 	}
 	]
@@ -1220,8 +1220,7 @@ get_marauder_species = {
 				}
 			}
 			# any_owned_pop_species = { not used by vanilla
-			any_owned_species = { # is_scope_valid = yes
-				# is_scope_type = species
+			any_owned_species = {
 				OR = {
 					species_can_be_necrophaged = yes
 					AND = {
@@ -1229,8 +1228,7 @@ get_marauder_species = {
 						is_same_species = event_target:great_khan.species
 					}
 					AND = {
-						exists = prev.owner_species
-						is_same_species = prev.owner_species
+						is_same_species = prev
 					}
 				}
 				NOR = {
@@ -1250,16 +1248,18 @@ get_marauder_species = {
 		}
 		# random_owned_pop_species = { not used by vanilla
 		random_owned_species = {
-			limit = { # is_scope_valid = yes
-				# is_scope_type = species
+			limit = {
 				OR = {
 					species_can_be_necrophaged = yes
 					AND = {
 						exists = event_target:great_khan
-						is_same_species = event_target:great_khan.species
+						is_same_species = event_target:great_khan
 					}
 					AND = {
-						exists = prev.owner_species
+						exists = prev.founder_species
+						is_same_species = prev.founder_species
+					}
+					AND = {
 						is_same_species = prev.owner_species
 					}
 				}
@@ -1298,13 +1298,16 @@ get_marauder_species = {
 					mult = 5
 				}
 				modifier = {
-					factor = 3
+					factor = 6
 					OR = {
 						AND = {
 							exists = event_target:great_khan
-							is_same_species = event_target:great_khan.species
+							is_same_species = event_target:great_khan
 						}
-						is_same_species = root.owner_species
+						AND = {
+							exists = root.founder_species
+							is_same_species = root.founder_species
+						}
 					}
 				}
 				# modifier = { add = 2 prev = { count_owned_pop_amount = { count > 1000 limit = { is_same_species = prevprev } } } }
@@ -1327,7 +1330,7 @@ get_marauder_species = {
 					}
 				}
 				modifier = {
-					factor = 3
+					factor = 4
 					prev = {
 						any_owned_planet = { is_homeworld = yes is_same_value = prevprev.home_planet }
 					}
@@ -1356,7 +1359,7 @@ get_marauder_species = {
 				event_target:marauder_species = { is_scope_valid = yes is_scope_type = species }
 				pop_amount_percentage = {
 					percentage > 0.2
-					limit = { is_same_species = prev.owner_species }
+					limit = { is_same_species = prev }
 				}
 				pop_amount_percentage = {
 					percentage > 0.4
@@ -1372,7 +1375,7 @@ get_marauder_species = {
 					}
 					AND = {
 						exists = owner_species
-						is_same_species = prev.owner_species
+						is_same_species = prev
 					}
 				}
 				NOR = {
@@ -1400,7 +1403,7 @@ get_marauder_species = {
 					}
 					AND = {
 						exists = owner_species
-						is_same_species = prev.owner_species
+						is_same_species = prev
 					}
 				}
 				species_has_happiness_with_owner = prev
@@ -1444,7 +1447,7 @@ get_marauder_species = {
 							exists = event_target:great_khan
 							is_same_species = event_target:great_khan.species
 						}
-						is_same_species = root.owner_species
+						is_same_species = root
 					}
 				}
 				# Division by zero: total random weight is 0, in weights section
@@ -1484,7 +1487,7 @@ get_marauder_species = {
 				}
 			}
 		}
-		owner_species = { save_event_target_as = marauder_species }
+		founder_species = { save_event_target_as = marauder_species }
 	}
 	else_if = {
 		limit = {
@@ -1683,10 +1686,12 @@ create_marauder_rally_points = {
 				if = {
 					limit = {
 						any_system_within_border = {
+							is_on_border = yes
 							any_neighbor_system = { has_owner = no has_star_flag = marauder_capital_1 }
 						}
 					}
 					random_system_within_border = {
+						limit = { is_on_border = yes }
 						random_neighbor_system = {
 							limit = {
 								has_owner = no
@@ -1756,10 +1761,12 @@ create_marauder_rally_points = {
 				if = {
 					limit = {
 						any_system_within_border = {
+							is_on_border = yes
 							any_neighbor_system = { has_owner = no has_star_flag = marauder_capital_2 }
 						}
 					}
 					random_system_within_border = {
+						limit = { is_on_border = yes }
 						random_neighbor_system = {
 							limit = {
 								has_owner = no
@@ -1829,10 +1836,12 @@ create_marauder_rally_points = {
 				if = {
 					limit = {
 						any_system_within_border = {
+							is_on_border = yes
 							any_neighbor_system = { has_owner = no has_star_flag = marauder_capital_3 }
 						}
 					}
 					random_system_within_border = {
+						limit = { is_on_border = yes }
 						random_neighbor_system = {
 							limit = {
 								has_owner = no

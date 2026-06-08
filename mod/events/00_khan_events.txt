@@ -1735,19 +1735,22 @@ country_event = {
 			limit = { has_country_flag = khan_dead_event_fine }
 			remove_country_flag = khan_dead_event_fine
 		}
-		## Give Khan new Life for longer War?
+		## Reduce Khan Life
 		if = {
 			limit = {
-				OR = {
-					check_variable = { which = CmtVarKhanRemainingLive value < 1 }
-					check_variable = { which = CmtVarKhanRemainingLive value > 3 }
-				}
+				check_variable = { which = CmtVarKhanRemainingLive value > 1 }
 			}
-			set_variable = { which = CmtVarKhanRemainingLive value = 1 } ## Not CmtGlobalVar
+			set_variable = { which = CmtVarKhanRemainingLive value = 1 }
 		}
 		## Give Khan Lifespan for longer War (check_variablevenerable)
 		event_target:CmtGlobalVar = {
 			if = {
+				limit = {
+					check_variable = { which = CmtVarKhanLifespan value < 3 }
+				}
+				# do nothing
+			}
+			else_if = {
 				limit = {
 					check_variable = { which = CmtVarKhanLifespan value < 4 }
 				}
@@ -1771,10 +1774,8 @@ country_event = {
 					country_event = { id = marauder.514 days = @CmtConstKhanLifespan_4c random = @CmtConstKhanLifespan_4d }
 				}
 			}
-			else_if = {
-				limit = {
-					check_variable = { which = CmtVarKhanLifespan value < 6 }
-				}
+			else = {
+				# limit = { check_variable = { which = CmtVarKhanLifespan value < 6 } }
 				set_variable = { which = CmtVarKhanLifespan value = 4 }
 				set_timed_global_flag = { flag = khan_no_die days = @CmtConstKhanLifespan_4a }
 				prev = {
@@ -2129,10 +2130,8 @@ country_event = {
 				set_global_flag = great_khan_wins
 				country_event = {
 					id = khan.296
-					days = 1440 # @CmtConstKhanLifespan_2d # 8 years
-					random = @CmtConstKhanLifespan_5f
-					# days = @CmtConstKhanLifespan_5d # Original 25 years???
-					# random = @CmtConstKhanLifespan_2d
+					days = @CmtConstKhanLifespan_2e # @CmtConstKhanLifespan_5d
+					random = @CmtConstKhanLifespan_2f # @CmtConstKhanLifespan_2d
 				}
 			}
 		}
@@ -3540,7 +3539,7 @@ country_event = {
 					random_list = {
 						2 = {  }
 						3 = { set_fleet_stance = evasive } # AI does not handle this well too.
-						5 = { set_fleet_stance = aggressive }
+						3 = { set_fleet_stance = aggressive }
 					}
 				}
 			}

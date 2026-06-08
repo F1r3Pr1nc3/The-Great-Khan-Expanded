@@ -4051,7 +4051,7 @@ planet_event = {
 			random_owned_pop_group = {
 				limit = {
 					is_sapient = yes
-					is_robot_pop_group = no
+					# is_robot_pop_group = no
 				}
 				weights = {
 					base = 3
@@ -4152,7 +4152,7 @@ planet_event = {
 			random_owned_pop_group = {
 				limit = {
 					is_sapient = yes
-					is_robot_pop_group = no
+					# is_robot_pop_group = no
 				}
 				weights = {
 					base = 3
@@ -5306,16 +5306,16 @@ country_event = {
 				set_timed_planet_flag = { flag = ignore_ai_building_limitations days = 1 }
 				### Create Defense Armies (for some job reasons common armies get deleted)
 				set_variable = { which = CmtVarTemp value = trigger:pop_amount }
-				multiply_variable = { which = CmtVarTemp value = 0.25 } # ~25%
+				multiply_variable = { which = CmtVarTemp value = 0.0025 } # ~25%
 				ceiling_variable = CmtVarTemp
 				while = {
 					count = CmtVarTemp # 6
-					limit = { sapient_pop_amount > 400 }
+					limit = { pop_amount > 400 }
 					random_owned_pop_group = {
 						limit = {
 							is_sapient = yes
 							NOR = {
-								is_robot_pop_group = yes
+								# is_robot_pop_group = yes
 								is_same_species = root
 							}
 						}
@@ -5354,7 +5354,7 @@ country_event = {
 					}
 				}
 				if = {
-					limit = { sapient_pop_amount > 2000 } # additional
+					limit = { pop_amount > 2000 } # additional
 					prev = {
 						change_variable = { which = "planets_lost_to_marauder" value = 1 }
 					}
@@ -5370,18 +5370,18 @@ country_event = {
 				set_controller = root
 				set_variable = { which = CmtVarTemp value = 3 }
 				if = {
-					limit = { free_housing < 200 }
+					limit = { free_housing <= 200 }
 					change_variable = { which = CmtVarTemp value = 3 }
 				}
 				else_if = {
 					limit = {
 						free_housing < 600
-						free_housing > 100
+						free_housing > 200
 					}
 					change_variable = { which = CmtVarTemp value = 7 }
 				}
 				else_if = {
-					limit = { free_housing > 500 }
+					limit = { free_housing >= 600 }
 					change_variable = { which = CmtVarTemp value = 11 }
 				}
 				set_variable = { which = CmtVarTemp4 value = CmtVarTemp }
@@ -5389,7 +5389,7 @@ country_event = {
 				every_owned_pop_group = {
 					limit = {
 						NOR = {
-							is_robot_pop_group = yes
+							# is_robot_pop_group = yes
 							is_same_species = root
 							is_enslaved = yes
 						}
@@ -5398,7 +5398,13 @@ country_event = {
 				}
 				if = {
 					limit = {
-						habitability = { who = root.owner_species value >= 0.5 }
+						habitability = { who = root.founder_species value > 0.55 }
+					}
+					root.founder_species = { save_event_target_as = marauder_species }
+				}
+				else_if = {
+					limit = {
+						habitability = { who = root.owner_species value > 0.55 }
 					}
 					root.owner_species = { save_event_target_as = marauder_species }
 				}
@@ -5407,7 +5413,7 @@ country_event = {
 						random_owned_species = {
 							limit = {
 								prevprev = {
-									habitability = { who = prev value >= 0.6 }
+									habitability = { who = prev value > 0.6 }
 								}
 								species_can_be_necrophaged = yes
 							}
@@ -5420,15 +5426,15 @@ country_event = {
 					limit = {
 						exists = event_target:marauder_country_1
 						habitability = {
-							who = event_target:marauder_country_1.owner_species
-							value >= 0.4
+							who = event_target:marauder_country_1.founder_species
+							value > 0.5
 						}
 					}
 					while = {
 						limit = {
 							check_variable = { which = CmtVarTemp4 value > 0.5 }
 						}
-						create_pop_group = { species = event_target:marauder_country_1.owner_species }
+						create_pop_group = { species = event_target:marauder_country_1.founder_species }
 						change_variable = { which = CmtVarTemp4 value = -1 }
 						change_variable = { which = CmtVarTemp value = -1 }
 					}
@@ -5439,15 +5445,15 @@ country_event = {
 					limit = {
 						exists = event_target:marauder_country_2
 						habitability = {
-							who = event_target:marauder_country_2.owner_species
-							value >= 0.4
+							who = event_target:marauder_country_2.founder_species
+							value > 0.5
 						}
 					}
 					while = {
 						limit = {
 							check_variable = { which = CmtVarTemp4 value > 0.5 }
 						}
-						create_pop_group = { species = event_target:marauder_country_2.owner_species }
+						create_pop_group = { species = event_target:marauder_country_2.founder_species }
 						change_variable = { which = CmtVarTemp4 value = -1 }
 						change_variable = { which = CmtVarTemp value = -1 }
 					}
@@ -5458,15 +5464,15 @@ country_event = {
 					limit = {
 						exists = event_target:marauder_country_3
 						habitability = {
-							who = event_target:marauder_country_3.owner_species
-							value >= 0.4
+							who = event_target:marauder_country_3.founder_species
+							value > 0.5
 						}
 					}
 					while = {
 						limit = {
 							check_variable = { which = CmtVarTemp4 value > 0.5 }
 						}
-						create_pop_group = { species = event_target:marauder_country_3.owner_species }
+						create_pop_group = { species = event_target:marauder_country_3.founder_species }
 						change_variable = { which = CmtVarTemp4 value = -1 }
 						change_variable = { which = CmtVarTemp value = -1 }
 					}
@@ -5477,7 +5483,7 @@ country_event = {
 						root = { # Because backscoping of scripted_trigger
 							event_target:marauder_species = {
 								prevprev = {
-									habitability = { who = prev value >= 0.5 }
+									habitability = { who = prev value > 0.5 }
 								}
 								species_can_be_necrophaged = yes
 							}
@@ -5536,7 +5542,7 @@ country_event = {
 						create_army = {
 							name = random
 							owner = root
-							species = event_target:marauder_country_1.owner_species
+							species = event_target:marauder_country_1.founder_species
 							type = "marauder_defense_army"
 						}
 						change_variable = { which = CmtVarTemp value = -1 }
@@ -5549,7 +5555,7 @@ country_event = {
 						create_army = {
 							name = random
 							owner = root
-							species = event_target:marauder_country_2.owner_species
+							species = event_target:marauder_country_2.founder_species
 							type = "marauder_defense_army"
 						}
 						change_variable = { which = CmtVarTemp value = -1 }
@@ -5562,7 +5568,7 @@ country_event = {
 						create_army = {
 							name = random
 							owner = root
-							species = event_target:marauder_country_3.owner_species
+							species = event_target:marauder_country_3.founder_species
 							type = "marauder_defense_army"
 						}
 						change_variable = { which = CmtVarTemp value = -1 }
@@ -5576,7 +5582,7 @@ country_event = {
 					create_army = {
 						name = random
 						owner = root
-						species = root.species
+						species = root.founder_species
 						type = "marauder_defense_army"
 					}
 					change_variable = { which = CmtVarTemp value = -1 }
@@ -6814,17 +6820,17 @@ country_event = {
 						AND = {
 							num_marauder_empires_to_spawn > 0
 							exists = event_target:marauder_country_1
-							is_same_species = event_target:marauder_country_1.owner_species
+							is_same_species = event_target:marauder_country_1.founder_species
 						}
 						AND = {
 							num_marauder_empires_to_spawn > 1
 							exists = event_target:marauder_country_2
-							is_same_species = event_target:marauder_country_2.owner_species
+							is_same_species = event_target:marauder_country_2.founder_species
 						}
 						AND = {
 							num_marauder_empires_to_spawn > 2
 							exists = event_target:marauder_country_3
-							is_same_species = event_target:marauder_country_3.owner_species
+							is_same_species = event_target:marauder_country_3.founder_species
 						}
 					}
 				}
@@ -7210,7 +7216,7 @@ country_event = {
 											limit = {
 												NOT = { has_fleet_order = aggressive_stance_fleet_order }
 											}
-											random = { chance = 30 set_fleet_stance = aggressive }
+											random = { chance = 25 set_fleet_stance = aggressive }
 										}
 									}
 								}
@@ -11656,7 +11662,6 @@ country_event = {
 			save_event_target_as = new_khanate
 			country_event = { id = khan.306 days = 1 }
 			# CmtEffectCreateFleet_KhanStandard = yes # create_marauder_successor_fleet = yes
-
 		}
 		every_owned_fleet = {
 			limit = { is_mobile = yes }

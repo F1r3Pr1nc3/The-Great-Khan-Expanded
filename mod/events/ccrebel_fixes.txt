@@ -1983,7 +1983,6 @@ country_event = {
 	trigger = {
 		is_country_type = default
 		NOR = {
-
 			has_country_flag = cc_rebel_civic_sorted
 			is_multiplayer = yes # Avoid strange behavior (like OOS/CTD)
 			has_unused_civic_points = 0
